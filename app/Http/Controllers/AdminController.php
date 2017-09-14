@@ -1503,17 +1503,17 @@ class AdminController extends Controller
               $profile_error_messages = '';
               foreach ($validation_messages as $validation_message) {
                   $profile_error_messages.="<h4 class='alert alert-error'>" . $validation_message . "</h4>";
-              }
+                }
                 return $profile_error_messages;
-          } else {
+            } else {
                 $saved_message = FlashMessage::messages('admin.city_edit_success');
                 $id = Input::get('id');
                 $data = Input::all();
                 $save = City::updateCity($data, $id);
                 if ($save) {
                     return FlashMessage::displayAlert($saved_message, 'success');
-                }
-            }
+                  }
+          }
     }
 
     public function editTypeJob($id)
@@ -2145,7 +2145,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
                   BidRequestedService::find($biddatavalue->id)->update($data);
             
                   $bidData['vendor_bid_price']=$input['vendor_price'][$i];
-              }
+                }
                 if (isset($input['customer_price'][$i]) && ($input['customer_price'][$i]!="")) {
                     $data = ['customer_price' => $input['customer_price'][$i] ];
                     BidRequestedService::find($biddatavalue->id)->update($data);
@@ -2242,7 +2242,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
               // //Vendor to admin notification
               // $notification = NotificationController::doNotification($BidRequest->vendor_id,$BidRequest->vendor_id, "OSR has been accepted. New Work Order ".$order_id ." has been assigned to you!", 1,$email_data,$notification_url);
               // Email::send($userDAta->email, 'GSS Work Order Notification', 'pages.emails.customer_registered', $email_data);
-          }
+            }
 
             // accepted bid request status
             $data = ['status' => 2 ];

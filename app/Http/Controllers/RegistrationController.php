@@ -54,7 +54,7 @@ class RegistrationController extends Controller
               return redirect('user-register')
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
-          } else {
+            } else {
                 $user               = new Registration;
                 $user->first_name   = Input::get('first_name');
                 $user->last_name    = Input::get('last_name');
@@ -86,8 +86,8 @@ class RegistrationController extends Controller
                     });
                     Session::flash('message', 'Your account has been created successfully.');
                     return redirect('user-register');
-                }
-            }
+                  }
+          }
     }
 
     
