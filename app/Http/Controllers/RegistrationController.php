@@ -87,7 +87,7 @@ class RegistrationController extends Controller
                     Session::flash('message', 'Your account has been created successfully.');
                     return redirect('user-register');
                 }
-              }
+            }
     }
 
     

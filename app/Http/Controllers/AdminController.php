@@ -1513,7 +1513,7 @@ class AdminController extends Controller
                 if ($save) {
                     return FlashMessage::displayAlert($saved_message, 'success');
                 }
-              }
+            }
     }
 
     public function editTypeJob($id)
