@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RoleFunction extends BaseTenantModel
 {
 
 
 
-    use SoftDeletingTrait;
+    use SoftDeletes;
 
     protected $table = 'role_functions';
 

@@ -1,10 +1,10 @@
 <?php
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SpecialPrice extends BaseTenantModel
 {
 
-    use SoftDeletingTrait;
+    use SoftDeletes;
     protected $table = 'special_prices';
     protected $fillable = ['id', 'customer_id', 'service_id', 'special_price', 'status', 'created_at', 'updated_at','type_id'];
     // Defining Function to get User Profile Status. ---- Start

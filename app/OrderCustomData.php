@@ -1,6 +1,7 @@
 <?php
+use Illuminate\Database\Eloquent\Model;
 
-class OrderCustomData extends Eloquent
+class OrderCustomData extends Model
 {
 
     protected $table = 'order_custom_data';
