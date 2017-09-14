@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     /*
       |--------------------------------------------------------------------------
       | Application Debug Mode
@@ -44,4 +44,4 @@ return array(
       |
      */
     'fallback_locale' => 'en',
-);
+];

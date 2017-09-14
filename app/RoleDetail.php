@@ -9,7 +9,7 @@ class RoleDetail extends BaseTenantModel
 
     protected $table = 'user_role_details';
 
-    protected $fillable = array('id','role_id','role_function_id', 'add', 'edit', 'delete','view', 'status');
+    protected $fillable = ['id','role_id','role_function_id', 'add', 'edit', 'delete','view', 'status'];
 
     // Defining Function to get User Profile Status. ---- Start
 

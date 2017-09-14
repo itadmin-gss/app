@@ -16,7 +16,7 @@ class ExampleRepository implements RepositoryInterface
    * @return  integer
    *  Total number of rows
    */
-    public function getTotalNumberOfRows(array $filters = array())
+    public function getTotalNumberOfRows(array $filters = [])
     {
         return 6;
     }
@@ -42,16 +42,16 @@ class ExampleRepository implements RepositoryInterface
    *  An array of array, each array will have the data of a row.
    *  Example: array(array("column1" => "1-1", "column2" => "1-2"), array("column1" => "2-1", "column2" => "2-2"))
    */
-    public function getRows($limit, $offset, $orderBy = null, $sord = null, array $filters = array())
+    public function getRows($limit, $offset, $orderBy = null, $sord = null, array $filters = [])
     {
-        return array(
-                  array("id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"),
-                  array("id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"),
-                  array("id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"),
-                                    array("id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"),
-                  array("id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"100", "note"=>"test"),
-                  array("id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"),
+        return [
+                  ["id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"],
+                  ["id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"],
+                  ["id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"],
+                                    ["id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"],
+                  ["id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"100", "note"=>"test"],
+                  ["id" => "1-1", "product" => "1-2", "amount" => "1-2", "product" => "1-2","total"=>"#", "note"=>"test"],
                 
-                                     );
+                                     ];
     }
 }

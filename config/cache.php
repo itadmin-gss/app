@@ -2,7 +2,7 @@
 
 
 
-return array(
+return [
 
 
 
@@ -136,15 +136,15 @@ return array(
 
 
 
-    'memcached' => array(
+    'memcached' => [
 
 
 
-        array('host' => 'localhost', 'port' => 11211, 'weight' => 100),
+        ['host' => 'localhost', 'port' => 11211, 'weight' => 100],
 
 
 
-    ),
+    ],
 
 
 
@@ -174,4 +174,4 @@ return array(
 
 
 
-);
+];

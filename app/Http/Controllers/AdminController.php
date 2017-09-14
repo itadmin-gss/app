@@ -29,7 +29,7 @@ class AdminController extends \BaseController
         $orders_completed = Order::where('status', '=', 1)->take(5)->get();
         $recent_orders = Order::take(5)->get();
         $recent_assets = Asset::take(5)->get();
-        $orderCounterDashboard=array();
+        $orderCounterDashboard=[];
 
 
         $work_orders_count = DB::table('orders')
@@ -40,17 +40,17 @@ class AdminController extends \BaseController
         foreach ($work_orders_count as $datacounter) {
             $orderCounterDashboard[$datacounter->status]=$datacounter->numbers;
         }
-        $request_ids = array();
-        $request_service_ids = array();
-        $assigned_request_ids = array();
-        $numberofrequestids=array();
+        $request_ids = [];
+        $request_service_ids = [];
+        $assigned_request_ids = [];
+        $numberofrequestids=[];
         foreach ($requests as $mdata) {
-              $request_service_ids = array();
+              $request_service_ids = [];
               $request_ids[] = $mdata->id;
             foreach ($mdata->requestedService as $rqdata) {
                 $request_service_ids[] = $rqdata->id;
             }
-              $assigned_request_ids = array();
+              $assigned_request_ids = [];
               $assign_requests = AssignRequest::where('request_id', '=', $mdata->id)
               ->where('status', "!=", 2)
               ->select('request_id')->get();
@@ -67,7 +67,7 @@ class AdminController extends \BaseController
 
 
         return View::make('pages.admin.dashboard')->with(
-            array('requests' => $requests,
+            ['requests' => $requests,
             'requestsNew' => $requestsNew,
             'orders_process' => $orders_process,
             'orders_completed' => $orders_completed,
@@ -75,7 +75,7 @@ class AdminController extends \BaseController
             'recent_assets' => $recent_assets,
             'orderCounterDashboard'=> $orderCounterDashboard,
             'numberofrequestids' => $numberofrequestids
-            )
+            ]
         );
     }
 
@@ -103,8 +103,8 @@ class AdminController extends \BaseController
      */
     public function addUser()
     {
-        $roles = UserRole::where('status', '=', 1)->get(array('id', 'role_name'));
-        $user_roles = array();
+        $roles = UserRole::where('status', '=', 1)->get(['id', 'role_name']);
+        $user_roles = [];
         foreach ($roles as $role) {
             $user_roles[$role->id] = $role->role_name;
         }
@@ -129,12 +129,12 @@ class AdminController extends \BaseController
 
     public function processAddVendor()
     {
-        $rules = array(
+        $rules = [
         'first_name' => 'required|min:2|max:80|alpha',
         'last_name' => 'required|min:2|max:80|alpha',
         'email' => 'required|email|unique:users|between:3,64',
         'password' => 'required|between:4,20'
-        );
+        ];
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
@@ -176,7 +176,7 @@ class AdminController extends \BaseController
 
 
         $db_table = $user->getTable();
-        return View::make('pages.admin.list_vendors')->with(array('vendors' => $vendors, 'db_table' => $db_table));
+        return View::make('pages.admin.list_vendors')->with(['vendors' => $vendors, 'db_table' => $db_table]);
     }
     
 
@@ -200,7 +200,7 @@ class AdminController extends \BaseController
         $db_table = $user->getTable();
 
         $requests = AssignRequest::where('status', "=", 1)->groupBy('request_id')->orderBy('id', 'desc')->get();
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $customerfirstname="";
@@ -249,7 +249,7 @@ class AdminController extends \BaseController
 
 
         $orders = Order::orderBy('id', 'desc')->get();
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
         foreach ($orders as $order) {
              $customerfname='';
@@ -305,7 +305,7 @@ class AdminController extends \BaseController
         $invoices = Invoice::listAll(3);
 
 
-        $list_invoice = array();
+        $list_invoice = [];
         $i = 0;
 
 
@@ -334,7 +334,7 @@ class AdminController extends \BaseController
         $requests = BidRequest::orderBy('id', 'desc')->get();
 
 
-        $assign_bids = array();
+        $assign_bids = [];
         $i = 0;
         foreach ($requests as $request) {
                 $services = BidRequestedService::where('request_id', '=', $request->id)
@@ -390,16 +390,16 @@ class AdminController extends \BaseController
             $user = User::find($user_id);
             $role_id = $user->userRole->id;
             $roles = UserRole::all();
-            $user_roles = array();
+            $user_roles = [];
             foreach ($roles as $role) {
                 $user_roles[$role->id] = $role->role_name;
             }
             return View::make('pages.admin.edituser')
             ->with(
-                array('user' => $user,
+                ['user' => $user,
                 'user_roles' => $user_roles,
                 'role_id' => $role_id
-                )
+                ]
             );
         } else {
             $user = Input::all();
@@ -440,9 +440,9 @@ class AdminController extends \BaseController
             $check = AccessRightController::checkAccessRight($role_function_id->id, 'edit');
             if ($check) {
                 if ($activityId == 'active') {
-                    DB::update('update users set status = 0 where id = ?', array($user_id));
+                    DB::update('update users set status = 0 where id = ?', [$user_id]);
                 } else {
-                    DB::update('update users set status = 1 where id = ?', array($user_id));
+                    DB::update('update users set status = 1 where id = ?', [$user_id]);
                 }
             } else {
                 return Response::json('Access Denied!');
@@ -459,7 +459,7 @@ class AdminController extends \BaseController
     public function listUser()
     {
         $users = User::getAdminUser();
-        $user_roles = UserRole::get(array('id', 'role_name'));
+        $user_roles = UserRole::get(['id', 'role_name']);
         $user_table = new User;
         $db_table = $user_table->getTable();
 
@@ -468,10 +468,10 @@ class AdminController extends \BaseController
         }
 
         return View::make('pages.admin.listuser')
-        ->with(array(
+        ->with([
         'users' => $users,
         'userRoles' => $roles,
-        'db_table' => $db_table));
+        'db_table' => $db_table]);
     }
 
     /**
@@ -488,12 +488,12 @@ class AdminController extends \BaseController
         $user_role_id = Input::get('role_id');
         $password = Input::get('password');
 
-        $rules = array(
+        $rules = [
         'first_name' => 'required|between:3,55',
         'last_name' => 'required|between:3,55',
         'email' => 'required|email|unique:users|between:3,64',
         'password' => 'required|between:4,20'
-        );
+        ];
 
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
@@ -565,17 +565,17 @@ class AdminController extends \BaseController
         // }
 
         return View::make('pages.admin.listcity')
-        ->with(array(
+        ->with([
         'cities' => $cities,
       // 'userRoles' => $roles,
-        'db_table' => $db_table));
+        'db_table' => $db_table]);
     }
 
       // func to add new city by shm
     public function addCity()
     {
-        $states = State::where('status', '=', 1)->get(array('id', 'name'));
-        $city_state = array();
+        $states = State::where('status', '=', 1)->get(['id', 'name']);
+        $city_state = [];
         foreach ($states as $state) {
             $city_state[$state->id] = $state->name;
         }
@@ -590,10 +590,10 @@ class AdminController extends \BaseController
         $name = Input::get('name');
         $state_id = Input::get('state_id');
 
-        $rules = array(
+        $rules = [
         'name' => 'required|between:3,55',
         'state_id' => 'required',
-        );
+        ];
 
       // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
@@ -629,9 +629,9 @@ class AdminController extends \BaseController
         $submitted = Input::get('submitted');
         if ($submitted) {
             $message = FlashMessage::messages('admin.access_level_success');
-            $rules = array(
+            $rules = [
             'role_name' => 'required',
-              );
+              ];
 
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails()) {
@@ -680,9 +680,9 @@ class AdminController extends \BaseController
         $db_table = $role_obj->getTable();
 
         return View::make('pages.admin.list_access_level')
-        ->with(array(
+        ->with([
         'userRoles' => $userRoles,
-        'db_table' => $db_table));
+        'db_table' => $db_table]);
     }
 
     /*
@@ -698,17 +698,17 @@ class AdminController extends \BaseController
         $request_maintenance = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')
         ->where('status', '!=', 5)->get();
 
-        $request_ids = array();
-        $request_service_ids = array();
-        $assigned_request_ids = array();
-        $numberofrequestids=array();
+        $request_ids = [];
+        $request_service_ids = [];
+        $assigned_request_ids = [];
+        $numberofrequestids=[];
         foreach ($request_maintenance as $mdata) {
-            $request_service_ids = array();
+            $request_service_ids = [];
             $request_ids[] = $mdata->id;
             foreach ($mdata->requestedService as $rqdata) {
                 $request_service_ids[] = $rqdata->id;
             }
-            $assigned_request_ids = array();
+            $assigned_request_ids = [];
             $assign_requests = AssignRequest::where('request_id', '=', $mdata->id)
             ->where('status', "!=", 2)
             ->select('request_id')->get();
@@ -728,11 +728,11 @@ class AdminController extends \BaseController
         $db_table = $request_maintenance_obj->getTable();
 
         return View::make('pages.admin.listmaintenancerequest')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
         'numberofrequestids' => $numberofrequestids,
         'db_table' => $db_table
-        ));
+        ]);
     }
 
 
@@ -755,10 +755,10 @@ class AdminController extends \BaseController
         $db_table = $request_maintenance_obj->getTable();
 
         return View::make('pages.admin.listmaintenancebid')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
         'db_table' => $db_table
-        ));
+        ]);
     }
 
 
@@ -780,16 +780,16 @@ class AdminController extends \BaseController
 
         $request_maintenance = MaintenanceRequest::orderBy('id', 'desc')->get();
 
-        $request_ids = array();
-        $request_service_ids = array();
-        $assigned_request_ids = array();
+        $request_ids = [];
+        $request_service_ids = [];
+        $assigned_request_ids = [];
         foreach ($request_maintenance as $mdata) {
-            $request_service_ids = array();
+            $request_service_ids = [];
             $request_ids[] = $mdata->id;
             foreach ($mdata->requestedService as $rqdata) {
                 $request_service_ids[] = $rqdata->id;
             }
-            $assigned_request_ids = array();
+            $assigned_request_ids = [];
             $assign_requests = AssignRequest::where('request_id', '=', $mdata->id)
             ->where('status', "!=", 2)
             ->select('request_id')
@@ -808,11 +808,11 @@ class AdminController extends \BaseController
         $db_table = $request_maintenance_obj->getTable();
 
         return View::make('pages.admin.listassignedmaintenancerequest')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
         'numberofrequestids' => $numberofrequestids,
         'db_table' => $db_table
-        ));
+        ]);
     }
 
 
@@ -836,9 +836,9 @@ class AdminController extends \BaseController
       //                       ->update(array('status'=>'2')); //Reviewed by Admin
 
         return View::make('pages.admin.viewmaintenancerequest')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
-        ));
+        ]);
     }
 
 
@@ -868,9 +868,9 @@ class AdminController extends \BaseController
              $layoutBid="viewbiddingrequestwhenvendorcompletedbid";
         }
         return View::make('pages.admin.'.$layoutBid)
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
-        ));
+        ]);
     }
 
 
@@ -880,7 +880,7 @@ class AdminController extends \BaseController
     public function cancelMaintenanceRequest($maintenance_request_id = "")
     {
         MaintenanceRequest::where('id', '=', $maintenance_request_id)
-                            ->update(array('status'=>'4')); //Cancelled by Admin
+                            ->update(['status'=>'4']); //Cancelled by Admin
                             return Redirect::back()
                             ->with('message', FlashMessage::displayAlert("Request has been cancelled", 'success'));
     }
@@ -892,7 +892,7 @@ class AdminController extends \BaseController
     public function cancelBiddingRequest($maintenance_request_id = "")
     {
         MaintenanceBid::where('id', '=', $maintenance_request_id)
-                            ->update(array('status'=>'5')); //Cancelled by Admin
+                            ->update(['status'=>'5']); //Cancelled by Admin
                             return Redirect::back()
                             ->with('message', FlashMessage::displayAlert("Request has been cancelled", 'success'));
     }
@@ -903,7 +903,7 @@ class AdminController extends \BaseController
     public function deleteMaintenanceRequest($maintenance_request_id = "")
     {
         MaintenanceRequest::where('id', '=', $maintenance_request_id)
-                            ->update(array('status'=>'5')); //deleted by Admin
+                            ->update(['status'=>'5']); //deleted by Admin
                             return Redirect::back()
                             ->with('message', FlashMessage::displayAlert("Request has been deleted", 'success'));
     }
@@ -920,9 +920,9 @@ class AdminController extends \BaseController
         $asset = Asset::find($asset_id);
 
         return View::make('pages.admin.assetview')
-        ->with(array(
+        ->with([
         'asset' => $asset,
-        ));
+        ]);
     }
 
     /*
@@ -936,7 +936,7 @@ class AdminController extends \BaseController
     {
         $request_maintenance = MaintenanceRequest::find($maintenance_request_id);
 
-        $already_assigned_users = array();
+        $already_assigned_users = [];
         foreach ($request_maintenance->assignRequest as $assigned_users) {
             if ($assigned_users->status == 2) {
                 $already_assigned_users[] = $assigned_users->vendor_id;
@@ -948,27 +948,27 @@ class AdminController extends \BaseController
         ->select('requested_service_id', 'vendor_id', 'status')->get();
 
 
-        $assignedservice = array();
+        $assignedservice = [];
         foreach ($assign_requests as $data) {
             $assignedservice[] = $data->requested_service_id;
         }
       // For declined request
         $assign_requests_service = AssignRequest::where('request_id', '=', $maintenance_request_id)
         ->where('status', '=', 2)
-        ->orwhereIn('requested_service_id', array(3, 4))
-        ->orwhereIn('request_id', array($maintenance_request_id))
+        ->orwhereIn('requested_service_id', [3, 4])
+        ->orwhereIn('request_id', [$maintenance_request_id])
         ->select('requested_service_id', 'vendor_id', 'status')
         ->get();
 
 
-        $assigned_service_request = array();
+        $assigned_service_request = [];
         foreach ($assign_requests_service as $data) {
             $assigned_service_request[] = $data->requested_service_id;
         }
 
         $RequestedService =  RequestedService::where('request_id', '=', $maintenance_request_id)->get();
 
-        $RequestedServiceIDS=array();
+        $RequestedServiceIDS=[];
         foreach ($RequestedService as $value) {
             $RequestedServiceIDS[]=$value['service_id'];
         }
@@ -979,10 +979,10 @@ class AdminController extends \BaseController
      // $vendors = $userobj->getUserByTypeId(3, $lat, $lon, 600, $RequestedServiceIDS);
 
         $vendors = User::getVendors();
-        $techDatalatitude =array();
+        $techDatalatitude =[];
 
         foreach ($vendors as $value) {
-            $vendorServicesIds=array();
+            $vendorServicesIds=[];
 
             foreach ($value->vendorService as $dataVendor) {
                 $vendorServicesIds[]=$dataVendor->service_id;
@@ -999,14 +999,14 @@ class AdminController extends \BaseController
         }
 
         return View::make('pages.admin.showmaintenanceservices')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
         'vendors' => $vendors,
         'assigned_services' => $assignedservice,
         'assigned_service_request' => $assigned_service_request,
         'already_assigned_users' => array_unique($already_assigned_users),
         'techDatalatitude' =>$techDatalatitude
-        ));
+        ]);
     }
 
 
@@ -1014,15 +1014,15 @@ class AdminController extends \BaseController
     {
 
         if ($flagworkorder!="") {
-            $dataPricing=array('customer_bid_price'=>$customer_bid_price,
+            $dataPricing=['customer_bid_price'=>$customer_bid_price,
             'vendor_bid_price'=>$vendor_bid_price,
             'due_date'=>$due_date
-              );
+              ];
             $save = RequestedBid::find($requestedServiceBidId)->update($dataPricing);
         }
         $request_maintenance = MaintenanceBid::find($maintenance_request_id);
 
-        $already_assigned_users = array();
+        $already_assigned_users = [];
         foreach ($request_maintenance->assignRequest as $assigned_users) {
             if ($assigned_users->status == 2) {
                 $already_assigned_users[] = $assigned_users->vendor_id;
@@ -1034,7 +1034,7 @@ class AdminController extends \BaseController
         ->select('requested_service_id', 'vendor_id', 'status')->get();
 
 
-        $assignedservice = array();
+        $assignedservice = [];
         foreach ($assign_requests as $data) {
             $assignedservice[] = $data->requested_service_id;
         }
@@ -1045,20 +1045,20 @@ class AdminController extends \BaseController
 
         $assign_requests_service = AssignRequestBid::where('request_id', '=', $maintenance_request_id)
         ->where('status', '=', 2)
-        ->orwhereIn('requested_service_id', array(3, 4))
-        ->orwhereIn('request_id', array($maintenance_request_id))
+        ->orwhereIn('requested_service_id', [3, 4])
+        ->orwhereIn('request_id', [$maintenance_request_id])
         ->select('requested_service_id', 'vendor_id', 'status')
         ->get();
 
 
-        $assigned_service_request = array();
+        $assigned_service_request = [];
         foreach ($assign_requests_service as $data) {
             $assigned_service_request[] = $data->requested_service_id;
         }
 
         $RequestedService =  RequestedBid::where('request_id', '=', $maintenance_request_id)->get();
 
-        $RequestedServiceIDS=array();
+        $RequestedServiceIDS=[];
         foreach ($RequestedService as $value) {
             $RequestedServiceIDS[]=$value['service_id'];
         }
@@ -1073,10 +1073,10 @@ class AdminController extends \BaseController
 
 
         $vendors = User::getVendors();
-        $techDatalatitude =array();
+        $techDatalatitude =[];
 
         foreach ($vendors as $value) {
-            $vendorServicesIds=array();
+            $vendorServicesIds=[];
 
             foreach ($value->vendorService as $dataVendor) {
                 $vendorServicesIds[]=$dataVendor->service_id;
@@ -1101,7 +1101,7 @@ class AdminController extends \BaseController
 
 
         return View::make('pages.admin.showbidservices')
-        ->with(array(
+        ->with([
         'flagworkorder'=>$flagworkorder,
         'request_maintenance' => $request_maintenance,
         'vendors' => $vendors,
@@ -1109,16 +1109,16 @@ class AdminController extends \BaseController
         'assigned_service_request' => $assigned_service_request,
         'already_assigned_users' => array_unique($already_assigned_users),
         'techDatalatitude' =>$techDatalatitude
-        ));
+        ]);
     }
 
     public function listWorkOrder()
     {
           $work_orders = Order::listAllWorkOrder();
-          $list_orders = array();
+          $list_orders = [];
           $i = 0;
           $additional_count = 1;
-          $addl_itemz = array();
+          $addl_itemz = [];
 
         foreach ($work_orders as $order) {
             $order_details = ($order->orderDetail);
@@ -1234,10 +1234,10 @@ class AdminController extends \BaseController
     public function listExportedWorkOrder()
     {
           $work_orders = Order::where('status', '=', 6)->orderBy('id', 'desc')->get();
-          $list_orders = array();
+          $list_orders = [];
           $i = 0;
           $additional_count = 1;
-          $addl_itemz = array();
+          $addl_itemz = [];
 
         foreach ($work_orders as $order) {
             $order_details = ($order->orderDetail);
@@ -1365,7 +1365,7 @@ class AdminController extends \BaseController
     {
           $orders = Order::listCompletedOrders();
 
-          $list_orders = array();
+          $list_orders = [];
           $i = 0;
 
         foreach ($orders as $order) {
@@ -1401,7 +1401,7 @@ class AdminController extends \BaseController
           $vendor_services = VendorService::getAllVendorServicesId($id);
           $clientType=CustomerType::get();
 
-          $VendorServiceArray=array();
+          $VendorServiceArray=[];
         foreach ($vendor_services as $value) {
             $VendorServiceArray[]=$value->service_id;
         }
@@ -1450,10 +1450,10 @@ class AdminController extends \BaseController
 // func to save city by shm
     public function saveCity()
     {
-          $rules = array(
+          $rules = [
         'name' => 'required|min:2|max:100',
         'state_id' => 'required',
-        );
+        ];
           $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
             $validation_messages = $validator->messages()->all();
@@ -1516,12 +1516,12 @@ class AdminController extends \BaseController
       //   return Hash::check($value, Auth::user()->$parameters[0]);
       // });
 
-        $messages = array(
+        $messages = [
         'hashmatch' => 'Your current password must match your account password.'
-        );
+        ];
 
         if (Input::get('change_password')) {
-            $rules = array(
+            $rules = [
             'email' => 'required|email|unique:users,email,'.$id,
             'first_name' => 'required|min:2|max:80|alpha',
             'last_name' => 'required|min:2|max:80|alpha',
@@ -1533,9 +1533,9 @@ class AdminController extends \BaseController
             'current_password' => 'hashmatch:password',
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
-              );
+              ];
         } else {
-            $rules = array(
+            $rules = [
             'email' => 'required|email|unique:users,email,'.$id,
             'first_name' => 'required|min:2|max:80|alpha',
             'last_name' => 'required|min:2|max:80|alpha',
@@ -1544,7 +1544,7 @@ class AdminController extends \BaseController
             'zipcode' => 'required',
             'state_id' => 'required',
             'city_id' => 'required',
-            );
+            ];
         }
         $street = '';
         $streetNumber = '';
@@ -1618,7 +1618,7 @@ class AdminController extends \BaseController
         ->orderBy('id', 'desc')->get();
 
 
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)
@@ -1658,7 +1658,7 @@ class AdminController extends \BaseController
         ->orderBy('id', 'desc')->get();
 
 
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)
@@ -1696,7 +1696,7 @@ class AdminController extends \BaseController
         ->orderBy('id', 'desc')->get();
 
 
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)
@@ -1737,7 +1737,7 @@ class AdminController extends \BaseController
         $orders = Order::where('status', '=', '1')
         ->get();
 
-        $order_ids=array();
+        $order_ids=[];
         foreach ($orders as $order) :
             $orderDetail= $order->orderDetail;
         
@@ -1795,7 +1795,7 @@ class AdminController extends \BaseController
         $orders = Order::where('status', '=', '1')
         ->get();
 
-        $order_ids=array();
+        $order_ids=[];
         foreach ($orders as $order) :
             $order_ids[$order->id."--".$order->MaintenanceRequest->Asset->id]=  $order->id."-".$order->MaintenanceRequest->Asset->property_address;
         endforeach;
@@ -1951,14 +1951,14 @@ class AdminController extends \BaseController
         $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
                  'first_name' => $userDAta->first_name,
                  'last_name' => $userDAta->last_name,
                  'username' => $userDAta->username,
                  'email' => $userDAta->email,
                  'id' =>  $rec_id,
                  'user_email_template'=>$emailbody
-                 );
+                 ];
 
                $customervendor="Admin";
                $notification_url="admin-bid-requests";
@@ -1996,10 +1996,10 @@ class AdminController extends \BaseController
 
 
         return View::make('pages.admin.viewadminbidrequest')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
         'assign_requests'=>$assign_requests
-        ));
+        ]);
     }
 
     /*
@@ -2010,10 +2010,10 @@ class AdminController extends \BaseController
     {
         $input = Input::all();
         // declined bid request status
-        $data = array(
+        $data = [
         'status' => 3,
         'decline_notes'=>$input['decline_notes']
-        );
+        ];
         $save = BidRequest::find($input['request_id'])->update($data);
 
 
@@ -2021,14 +2021,14 @@ class AdminController extends \BaseController
 
 
         $userDAta=User::find($input['vendor_id']);
-        $email_data = array(
+        $email_data = [
         'first_name' => $userDAta->first_name,
         'last_name' => $userDAta->last_name,
         'username' => $userDAta->username,
         'email' => $userDAta->email,
         'id' =>  $input['vendor_id'],
         'user_email_template'=>'OSR '.$input["request_id"].' has been declined'
-        );
+        ];
 
         $customervendor="Vendor";
         $notification_url="vendor-bid-requests/3";
@@ -2057,13 +2057,13 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
           $BidRequest = BidRequest::find($input['request_id']);
 
-          $MaintenanceBidDATA=array(
+          $MaintenanceBidDATA=[
         'customer_id'=>$BidRequest->customer_id,
         'asset_id'=>$BidRequest->asset_id,
         'job_type'=>$BidRequest->job_type,
         'status'=>6
 
-        );
+        ];
           $MaintenanceBid=MaintenanceBid::create($MaintenanceBidDATA);
           $MaintenanceBidID = DB::getPdo()->lastInsertId(); // get last id of service
 
@@ -2071,7 +2071,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
           ->get();
 
 
-          $bidData=array();
+          $bidData=[];
           $i=0;
         foreach ($BidRequestedService as $biddatavalue) {
             $bidData['request_id']= $MaintenanceBidID;
@@ -2098,13 +2098,13 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
            
 
             if (isset($input['vendor_price'][$i]) && ($input['vendor_price'][$i]!="")) {
-                $data = array('biding_prince' => $input['vendor_price'][$i] );
+                $data = ['biding_prince' => $input['vendor_price'][$i] ];
                 BidRequestedService::find($biddatavalue->id)->update($data);
             
                 $bidData['vendor_bid_price']=$input['vendor_price'][$i];
             }
             if (isset($input['customer_price'][$i]) && ($input['customer_price'][$i]!="")) {
-                $data = array('customer_price' => $input['customer_price'][$i] );
+                $data = ['customer_price' => $input['customer_price'][$i] ];
                 BidRequestedService::find($biddatavalue->id)->update($data);
             }
 
@@ -2165,14 +2165,14 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
             $userDAta=User::find($MaintenanceBid->user->id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $MaintenanceBid->user->id,
             'user_email_template'=>$emailbody
-            );
+            ];
 
             $customervendor="Customer";
             $notification_url="list-customer-requested-bids";
@@ -2202,7 +2202,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         }
 
             // accepted bid request status
-        $data = array('status' => 2 );
+        $data = ['status' => 2 ];
         $save = BidRequest::find($input['request_id'])->update($data);
 
 
@@ -2226,17 +2226,17 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             $requests =MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')
             ->where('status', '!=', 4)->get();
         }
-        $request_ids = array();
-        $request_service_ids = array();
-        $assigned_request_ids = array();
-        $numberofrequestids=array();
+        $request_ids = [];
+        $request_service_ids = [];
+        $assigned_request_ids = [];
+        $numberofrequestids=[];
         foreach ($requests as $mdata) {
-            $request_service_ids = array();
+            $request_service_ids = [];
             $request_ids[] = $mdata->id;
             foreach ($mdata->requestedService as $rqdata) {
                  $request_service_ids[] = $rqdata->id;
             }
-            $assigned_request_ids = array();
+            $assigned_request_ids = [];
             $assign_requests = AssignRequest::where('request_id', '=', $mdata->id)
             ->where('status', "!=", 2)
             ->select('request_id')->get();
@@ -2253,11 +2253,11 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
         return View::make('pages.admin.ajax-dashoboard-grid-requests')->with(
-            array('requests' => $requests,
+            ['requests' => $requests,
             'statusshow'=>$input['statusshow'],
 
             'numberofrequestids' => $numberofrequestids
-            )
+            ]
         );
     }
 
@@ -2272,7 +2272,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         ->get();
 
 
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -2471,13 +2471,13 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
              ->get();
         }
 
-         $list_orders = array();
+         $list_orders = [];
          $i = 0;
          $additional_count = 1;
-         $addl_itemz = array();
-         $addl_itemz_rate = array();
-          $addl_itemz_customerPrice = array();
-         $addl_itemz_service_type = array();
+         $addl_itemz = [];
+         $addl_itemz_rate = [];
+          $addl_itemz_customerPrice = [];
+         $addl_itemz_service_type = [];
 
             //echo " <pre>";
         foreach ($work_orders as $order) {
@@ -2737,10 +2737,10 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
         return View::make('pages.admin.list-service-categories')
-        ->with(array(
+        ->with([
         'serviceCategories' => $serviceCategories,
 
-        ));
+        ]);
     }
       /**
      * Gets the service category to the add service category page page
@@ -2748,8 +2748,8 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
      */
     public function addServiceCategory()
     {
-        $roles = UserRole::where('status', '=', 1)->get(array('id', 'role_name'));
-        $user_roles = array();
+        $roles = UserRole::where('status', '=', 1)->get(['id', 'role_name']);
+        $user_roles = [];
         foreach ($roles as $role) {
             $user_roles[$role->id] = $role->role_name;
         }
@@ -2781,9 +2781,9 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
         $title = Input::get('title');
 
-        $rules = array(
+        $rules = [
         'title' => 'required|between:3,55'
-        );
+        ];
 
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
@@ -2822,9 +2822,9 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         $title = Input::get('title');
         $id = Input::get('id');
 
-        $rules = array(
+        $rules = [
         'title' => 'required|between:3,55'
-        );
+        ];
 
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
@@ -2845,7 +2845,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
           // $serviceCategory->save();
 
             CustomerType::where('id', '=', $id)
-            ->update(array('title'=> $title));
+            ->update(['title'=> $title]);
 
 
 
@@ -2864,9 +2864,9 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
         $title = Input::get('title');
 
-        $rules = array(
+        $rules = [
         'title' => 'required|between:3,55'
-        );
+        ];
 
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
@@ -2903,9 +2903,9 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
         $title = Input::get('title');
 
-        $rules = array(
+        $rules = [
         'title' => 'required|between:3,55'
-        );
+        ];
 
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
@@ -2947,11 +2947,11 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
         return View::make('pages.admin.list-job-types')
-        ->with(array(
+        ->with([
         'serviceCategories' => $serviceCategories,
         'db_table' => $db_table
 
-        ));
+        ]);
     }
 
     function listCustomerType()
@@ -2961,10 +2961,10 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
         return View::make('pages.admin.customer-types')
-        ->with(array(
+        ->with([
         'serviceCategories' => $serviceCategories,
 
-        ));
+        ]);
     }
 
 
@@ -2978,10 +2978,10 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             unset($data['submitted']);
           //echo '<pre>'; print_r($data); exit;
 
-            $rules = array(
+            $rules = [
                         // 'service_code' => 'required',
             'title' => 'required'
-              );
+              ];
 
                $validator = Validator::make(Input::all(), $rules); // put all rules to validator
            // if validation is failed redirect to add customer asset with errors
@@ -2994,56 +2994,56 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
                 $serviceID=DB::getPdo()->lastInsertId();
                 if ($save) {
                     if (isset($data['number_of_men'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'number_of_men',
+                         $ServicesFieldsDetailData=['fieldname'=>'number_of_men',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['number_of_men_type'],
                          'field_values'=>$data['number_of_men_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
 
                     if (isset($data['verified_vacancy'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'verified_vacancy',
+                         $ServicesFieldsDetailData=['fieldname'=>'verified_vacancy',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['verified_vacancy_type'],
                          'field_values'=>$data['verified_vacancy_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['cash_for_keys'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'cash_for_keys',
+                         $ServicesFieldsDetailData=['fieldname'=>'cash_for_keys',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['cash_for_keys_type'],
                          'field_values'=>$data['cash_for_keys_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['cash_for_keys_trash_out'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'cash_for_keys_trash_out',
+                         $ServicesFieldsDetailData=['fieldname'=>'cash_for_keys_trash_out',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['cash_for_keys_trash_out_type'],
                          'field_values'=>$data['cash_for_keys_trash_out_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
                     if (isset($data['trash_size'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'trash_size',
+                         $ServicesFieldsDetailData=['fieldname'=>'trash_size',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['trash_size_type'],
                          'field_values'=>$data['trash_size_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['storage_shed'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'storage_shed',
+                         $ServicesFieldsDetailData=['fieldname'=>'storage_shed',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['storage_shed_type'],
                          'field_values'=>$data['storage_shed_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
@@ -3051,105 +3051,105 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
                     if (isset($data['set_prinkler_system_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'set_prinkler_system_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'set_prinkler_system_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['set_prinkler_system_type_type'],
                          'field_values'=>$data['set_prinkler_system_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
 
                     if (isset($data['install_temporary_system_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'install_temporary_system_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'install_temporary_system_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['install_temporary_system_type_type'],
                          'field_values'=>$data['install_temporary_system_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
 
                     if (isset($data['carpet_service_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'carpet_service_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'carpet_service_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['carpet_service_type_type'],
                          'field_values'=>$data['carpet_service_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['pool_service_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'pool_service_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'pool_service_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['pool_service_type_type'],
                          'field_values'=>$data['pool_service_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
 
 
                     if (isset($data['boarding_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'boarding_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'boarding_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['boarding_type_type'],
                          'field_values'=>$data['boarding_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['spruce_up_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'spruce_up_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'spruce_up_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['spruce_up_type_type'],
                          'field_values'=>$data['spruce_up_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
                     if (isset($data['lot_size'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'lot_size_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'lot_size_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['lot_size_type'],
                          'field_values'=>$data['lot_size_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['constable_information_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'constable_information_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'constable_information_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['constable_information_type_type'],
                          'field_values'=>$data['constable_information_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['remove_carpe_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'remove_carpe_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'remove_carpe_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['remove_carpe_type_type'],
                          'field_values'=>$data['remove_carpe_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['remove_blinds_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'remove_blinds_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'remove_blinds_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['remove_blinds_type_type'],
                          'field_values'=>$data['remove_blinds_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
 
                     if (isset($data['remove_appliances_type'])) {
-                         $ServicesFieldsDetailData=array('fieldname'=>'remove_appliances_type',
+                         $ServicesFieldsDetailData=['fieldname'=>'remove_appliances_type',
                          'service_id'=> $serviceID,
                          'field_type'=>$data['remove_appliances_type_type'],
                          'field_values'=>$data['remove_appliances_type_values']
-                           );
+                           ];
                          ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
@@ -3169,11 +3169,11 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             $ServiceCategory=ServiceCategory::get();
             $CustomerType=CustomerType::get();
             $JobType=JobType::get();
-            $typeArray  =  array(  "select"  => "select",
+            $typeArray  =  [  "select"  => "select",
             "text"    => "text",
             "checkbox"  => "checkbox",
             "radio"   => "radio"
-            );
+            ];
 
             return View::make('pages.admin.do-request')
             ->with('typeArray', $typeArray)
@@ -3190,8 +3190,8 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         $services = Service::getBidServices();
         $serv = new Service;
         $db_table = $serv->getTable();
-        return View::make('pages.admin.list-bid-servies')->with(array('services' => $services,
-        'db_table' => $db_table ));
+        return View::make('pages.admin.list-bid-servies')->with(['services' => $services,
+        'db_table' => $db_table ]);
     }
 
     public static function quantityOfApprovedOrders()

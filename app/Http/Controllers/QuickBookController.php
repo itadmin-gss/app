@@ -136,37 +136,37 @@ class QuickBookController extends \BaseController
 
         // Map QuickBooks actions to handler functions
 
-        $map = array(
+        $map = [
 
-            QUICKBOOKS_ADD_CUSTOMER => array( array( $this, 'addCustomerRequest' ), array( $this, 'addCustomerResponse' ) ),
+            QUICKBOOKS_ADD_CUSTOMER => [ [ $this, 'addCustomerRequest' ], [ $this, 'addCustomerResponse' ] ],
 
-            );
+            ];
 
         
 
         // Catch all errors that QuickBooks throws with this function
 
-        $errmap = array(
+        $errmap = [
 
-            '*' => array( $this, '_catchallErrors' ),
+            '*' => [ $this, '_catchallErrors' ],
 
-            );
+            ];
 
         
 
         // Call this method whenever the Web Connector connects
 
-        $hooks = array(
+        $hooks = [
 
             //QuickBooks_WebConnector_Handlers::HOOK_LOGINSUCCESS => array( array( $this, '_loginSuccess' ) ), 	// Run this function whenever a successful login occurs
 
-            );
+            ];
 
         
 
         // An array of callback options
 
-        $callback_options = array();
+        $callback_options = [];
 
         
 
@@ -184,29 +184,29 @@ class QuickBookController extends \BaseController
 
         
 
-        $soap_options = array(      // See http://www.php.net/soap
+        $soap_options = [      // See http://www.php.net/soap
 
-            );
+            ];
 
         
 
-        $handler_options = array(
+        $handler_options = [
 
             'deny_concurrent_logins' => false,
 
             'deny_reallyfast_logins' => false,
 
-            );      // See the comments in the QuickBooks/Server/Handlers.php file
+            ];      // See the comments in the QuickBooks/Server/Handlers.php file
 
         
 
-        $driver_options = array(        // See the comments in the QuickBooks/Driver/<YOUR DRIVER HERE>.php file ( i.e. 'Mysql.php', etc. )
+        $driver_options = [        // See the comments in the QuickBooks/Driver/<YOUR DRIVER HERE>.php file ( i.e. 'Mysql.php', etc. )
 
             'max_log_history' => 32000, // Limit the number of quickbooks_log entries to 1024
 
             'max_queue_history' => 1024,    // Limit the number of *successfully processed* quickbooks_queue entries to 64
 
-            );
+            ];
 
         
 

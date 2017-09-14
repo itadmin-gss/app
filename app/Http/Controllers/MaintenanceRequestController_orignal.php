@@ -16,7 +16,7 @@ class MaintenanceRequestController extends \BaseController
           $jobType=JobType::get();
 
             $services = Service::getAllServices(); // get all services provided by admin
-        $dataService=array();
+        $dataService=[];
         foreach ($services as $value) {
             $serviceDataByCategory= Service::getAllServicesBySeviceCategoryId($value->service_cat_id);
        
@@ -39,7 +39,7 @@ class MaintenanceRequestController extends \BaseController
           
         $jobType=JobType::get();
         $services = Service::getAllServices(); // get all services provided by admin
-        $dataService=array();
+        $dataService=[];
         foreach ($services as $value) {
             $serviceDataByCategory= Service::getAllServicesBySeviceCategoryId($value->service_cat_id, $value->job_type_id);
        
@@ -81,7 +81,7 @@ class MaintenanceRequestController extends \BaseController
 
         // Get all maintenance request of current customer logged in
         $requests = MaintenanceRequest::listMaintenanceRequestByCustomerId(Auth::user()->id);
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $assign_requests[$i]['request_id'] = $request->id; // get reqested id from current table
@@ -140,7 +140,7 @@ class MaintenanceRequestController extends \BaseController
         // Get all maintenance request of current customer logged in
         $requests = MaintenanceBid::listMaintenanceRequestByCustomerId(Auth::user()->id);
      
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $assign_requests[$i]['request_id'] = $request->id; // get reqested id from current table
@@ -243,7 +243,7 @@ class MaintenanceRequestController extends \BaseController
         $request['status'] = 1; // while generating request status would be active
         $request['emergency_request'] =$data['emergency_request'];
         $request['job_type'] =$data['job_type'];
-        $requested_selected_services=array(); // array for getting the ids of requested servcies it will be used for auto assigning the emergency request
+        $requested_selected_services=[]; // array for getting the ids of requested servcies it will be used for auto assigning the emergency request
         
         // Add maintainence request to main table
         $add_request = $MaintenanceRequestClass::addMaintenanceRequest($request);
@@ -404,7 +404,7 @@ class MaintenanceRequestController extends \BaseController
                 }
 
                 //Recurring request information
-                $recurringData=array();
+                $recurringData=[];
                 if (isset($data['recurring_' . $service_id])) {
                     $request_detail['recurring'] = $data['recurring_' . $service_id];
 
@@ -473,11 +473,11 @@ class MaintenanceRequestController extends \BaseController
             $assetData=Asset::where('id', '=', $data['asset_number'])->get();
 
 
-               $dataEmergencyRequest=array(
+               $dataEmergencyRequest=[
                         'customer_id'=>$request['customer_id'],
                         'request_id'=> $request_id,
                         'status'    => '1' //Emergency request triggers
-                      );
+                      ];
                   EmergencyRequest::create($dataEmergencyRequest);
                   $emergency_request_id = DB::getPdo()->lastInsertId();
                   $nearest_users   = User::getNearestUsers(3, $assetData[0]->latitude, $assetData[0]->longitude, 50);
@@ -546,7 +546,7 @@ class MaintenanceRequestController extends \BaseController
 
                 if (isset($data['bid_flag']) && $data['bid_flag']==1) {
                     $notification_url="list-bidding-request";
-                    $notification = NotificationController::doNotification($rec_id, $rec_id, "Bid Request ". $request_id ." has been created", 1, array(), $notification_url);
+                    $notification = NotificationController::doNotification($rec_id, $rec_id, "Bid Request ". $request_id ." has been created", 1, [], $notification_url);
           
                     $assetData=Asset::find($data['asset_number']);
 
@@ -561,28 +561,28 @@ Status: New Bid Request
 ";
 
 
-                    $email_data = array(
+                    $email_data = [
                     'first_name' => $userDAta->first_name,
                     'last_name' => $userDAta->last_name,
                     'username' => $userDAta->username,
                     'email' => $userDAta->email,
                     'id' =>  $rec_id,
                     'user_email_template'=>$bidEMailContent
-                    );
+                    ];
 
                     Email::send($userDAta->email, $subject, 'emails.customer_registered', $email_data);
                 } else {
-                     $notification = NotificationController::doNotification($rec_id, $rec_id, "Request ". $request_id ." has been created", 1, array(), $notification_url);
+                     $notification = NotificationController::doNotification($rec_id, $rec_id, "Request ". $request_id ." has been created", 1, [], $notification_url);
               
 
-                       $email_data = array(
+                       $email_data = [
                        'first_name' => $userDAta->first_name,
                        'last_name' => $userDAta->last_name,
                        'username' => $userDAta->username,
                        'email' => $userDAta->email,
                        'id' =>  $rec_id,
                        'user_email_template'=>"Request ". $request_id ." has been created"
-                       );
+                       ];
 
                     Email::send($userDAta->email, 'GSS New Request Notification', 'emails.customer_registered', $email_data);
                 }
@@ -778,7 +778,7 @@ Status: New Bid Request
                 }
 
                 //Recurring request information
-                $recurringData=array();
+                $recurringData=[];
                 if (isset($data['recurring_' . $service_id])) {
                     $request_detail['recurring'] = $data['recurring_' . $service_id];
 
@@ -885,7 +885,7 @@ Status: New Bid Request
       
             if (isset($requested_service_recurring->recurring) && $requested_service_recurring->recurring==1) {
                 Recurring::where('request_service_id', '=', $requested_service_recurring->id)
-                                ->update(array('vendor_id'=>$assignment_data['vendor']));
+                                ->update(['vendor_id'=>$assignment_data['vendor']]);
             }
         }
 
@@ -900,7 +900,7 @@ Status: New Bid Request
             ->where('vendor_id', '=', $assignment_data['vendor'])
             ->where('status', '!=', 2)
             ->get();
-            $order_details = array();
+            $order_details = [];
             foreach ($assigned_requests as $request) {
                  //Creating the work order
                 $data['status'] = 1;
@@ -924,7 +924,7 @@ Status: New Bid Request
 
 
                 $OrderDetailID = DB::getPdo()->lastInsertId();
-                $image_detail=array();
+                $image_detail=[];
                 $destinationPath = Config::get('app.order_images_before');   //2
                 $upload_path = Config::get('app.upload_path')."request";
           
@@ -958,14 +958,14 @@ Status: New Bid Request
 
                 $emailUrl="vendor-list-orders?url=".$order_id;
                 $userDAta=User::find($assignment_data['vendor']);
-                $email_data = array(
+                $email_data = [
                 'first_name' => $userDAta->first_name,
                 'last_name' => $userDAta->last_name,
                 'username' => $userDAta->username,
                 'email' => $userDAta->email,
                 'id' =>  $assignment_data['vendor'],
                 'user_email_template'=>$order_id ."  has been assigned to you! To view work order, <a href='http://".URL::to($emailUrl)."'>please click here</a>!"
-                );
+                ];
 
                 $customervendor="Vendor";
                 $notification_url="vendor-list-orders";
@@ -1022,14 +1022,14 @@ Status: New Bid Request
             $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
 
           //Remainder add
-            $RemainderData=array(
+            $RemainderData=[
             'date' => $assignment_data['remindme'],
             'model'=>'BidRequest',
             'status'=>0,
             'remainder_text'=>$emailbody,
             'user_id'=>Auth::user()->id,
             'request_id'=>$assignment_data['request_id']
-            );
+            ];
             Remainder::create($RemainderData);
 //End Remainder
         }
@@ -1081,7 +1081,7 @@ Status: New Bid Request
             $BidRequest=MaintenanceBid::find($assignment_data['request_id']);
 
 
-            $dataArray=array(
+            $dataArray=[
           
             'customer_id'=>$BidRequest->customer_id,
             'substitutor_id'=>$BidRequest->substitutor_id,
@@ -1093,7 +1093,7 @@ Status: New Bid Request
             'decline_notes'=>$BidRequest->decline_notes,
             'created_at'=>$BidRequest->created_at,
             'updated_at'=>$BidRequest->updated_at
-            );
+            ];
             MaintenanceRequest::addMaintenanceRequest($dataArray);
             $MaintenanceRequestID = DB::getPdo()->lastInsertId(); // get last id of service
 
@@ -1103,7 +1103,7 @@ Status: New Bid Request
             ->get();
 
 
-            $bidData=array();
+            $bidData=[];
             $i=0;
             foreach ($BidRequestedService as $biddatavalue) {
                 $bidData['request_id']= $MaintenanceRequestID;
@@ -1207,7 +1207,7 @@ Status: New Bid Request
             }
 
             // Created Work Order
-            $data = array('status' => 4 );
+            $data = ['status' => 4 ];
             $save = MaintenanceBid::find($assignment_data['request_id'])->update($data);
 
 
@@ -1224,14 +1224,14 @@ Status: New Bid Request
             $MaintenanceBid=MaintenanceBid::find($assignment_data['request_id']);
 
             $userDAta=User::find($MaintenanceBid->user->id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $MaintenanceBid->user->id,
             'user_email_template'=>$emailbody
-                            );
+                            ];
 
             $customervendor="Customer";
             $notification_url="customer-list-work-orders";
@@ -1252,14 +1252,14 @@ Status: New Bid Request
             $MaintenanceBid=MaintenanceBid::find($assignment_data['request_id']);
 
             $userDAta=User::find($assignment_data['vendor']);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $MaintenanceBid->user->id,
             'user_email_template'=>$emailbody
-                            );
+                            ];
 
             $customervendor="Vendor";
             $notification_url="vendor-list-orders";
@@ -1278,7 +1278,7 @@ Status: New Bid Request
             $message = "Your request is now Awaiting Venbdor bid";
           //ASssign to Vendor
             MaintenanceBid::where('id', '=', $assignment_data['request_id'])
-            ->update(array('status'=>2));
+            ->update(['status'=>2]);
          //Notification to Vendor
             $statusMessage="Bid has been assigned";
             $emailbody='Bid '.$assignment_data['request_id'] .' has been Assigned ';
@@ -1319,14 +1319,14 @@ Service Type:".$serviceType;
 
 
             $userDAta=User::find($assignment_data['vendor']);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $userDAta->id,
             'user_email_template'=>$bidEMailContent
-                        );
+                        ];
 
             $customervendor="Vendor";
             $notification_url="vendor-assigned-bids";
@@ -1351,7 +1351,7 @@ Service Type:".$serviceType;
     {
         $assignment_data = Input::all();
         // Status has been changed to Approved Bid
-        $data = array('status' => 8 );
+        $data = ['status' => 8 ];
         $save = MaintenanceBid::find($assignment_data['request_id'])->update($data);
 
 
@@ -1393,14 +1393,14 @@ Service Type:".$serviceType;
                 $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$bidEMailContent
-               );
+               ];
 
             $customervendor="Admin";
             $notification_url="list-bidding-request";
@@ -1413,7 +1413,7 @@ Service Type:".$serviceType;
               //Update status for not sending remainder emails
             Remainder::where('user_id', '=', Auth::user()->id)
             ->where('request_id', '=', $assignment_data['request_id'])
-            ->update(array('status'=>1));
+            ->update(['status'=>1]);
 
          Session::flash('message', "Bid has been approved");
            FlashMessage::displayAlert("Bid has been approved", 'success');
@@ -1428,7 +1428,7 @@ Service Type:".$serviceType;
           $BidRequest=MaintenanceBid::find($assignment_data['request_id']);
 
         $order_id="";
-          $dataArray=array(
+          $dataArray=[
           
             'customer_id'=>$BidRequest->customer_id,
             'substitutor_id'=>$BidRequest->substitutor_id,
@@ -1440,7 +1440,7 @@ Service Type:".$serviceType;
             'decline_notes'=>$BidRequest->decline_notes,
             'created_at'=>$BidRequest->created_at,
             'updated_at'=>$BidRequest->updated_at
-            );
+            ];
           MaintenanceRequest::addMaintenanceRequest($dataArray);
         $MaintenanceRequestID = DB::getPdo()->lastInsertId(); // get last id of service
 
@@ -1450,7 +1450,7 @@ Service Type:".$serviceType;
           ->get();
 
 
-          $bidData=array();
+          $bidData=[];
           $i=0;
         foreach ($BidRequestedService as $biddatavalue) {
             $bidData['request_id']= $MaintenanceRequestID;
@@ -1582,7 +1582,7 @@ Service Type:".$serviceType;
         }
 
             // Created Work Order
-        $data = array('status' => 4 );
+        $data = ['status' => 4 ];
         $save = MaintenanceBid::find($assignment_data['request_id'])->update($data);
 
 
@@ -1605,14 +1605,14 @@ Service Type:".$serviceType;
                 $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-               );
+               ];
 
             $customervendor="Admin";
             $notification_url="list-work-order-admin";
@@ -1623,7 +1623,7 @@ Service Type:".$serviceType;
  //Update status for not sending remainder emails
             Remainder::where('user_id', '=', Auth::user()->id)
             ->where('request_id', '=', $assignment_data['request_id'])
-            ->update(array('status'=>1));
+            ->update(['status'=>1]);
         }
 
                  Session::flash('message', "Bid Approved, Work Order Generated");
@@ -1636,7 +1636,7 @@ Service Type:".$serviceType;
         $assignment_data = Input::all();
 
         // Decline Bid Request
-        $data = array('status' => 7,'declinebidnotes'=>$assignment_data['declinebidnotes'] );
+        $data = ['status' => 7,'declinebidnotes'=>$assignment_data['declinebidnotes'] ];
         $save = MaintenanceBid::find($assignment_data['request_id'])->update($data);
 
   
@@ -1655,14 +1655,14 @@ Service Type:".$serviceType;
                 $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-               );
+               ];
 
             $customervendor="Admin";
             $notification_url="list-bidding-request";
@@ -1680,7 +1680,7 @@ Service Type:".$serviceType;
   //Update status for not sending remainder emails
             Remainder::where('user_id', '=', Auth::user()->id)
             ->where('request_id', '=', $assignment_data['request_id'])
-            ->update(array('status'=>1));
+            ->update(['status'=>1]);
         }
     }
 
@@ -1692,14 +1692,14 @@ Service Type:".$serviceType;
            $assignment_data = Input::all();
 
               MaintenanceRequest::where('id', '=', $assignment_data['request_id'])
-                                 ->update(array('admin_notes'=>$assignment_data['admin_notes']));
+                                 ->update(['admin_notes'=>$assignment_data['admin_notes']]);
     }
     function adminNotesBid()
     {
         $assignment_data = Input::all();
 
           MaintenanceBid::where('id', '=', $assignment_data['request_id'])
-                               ->update(array('admin_notes'=>$assignment_data['admin_notes']));
+                               ->update(['admin_notes'=>$assignment_data['admin_notes']]);
     }
 
 
@@ -1708,7 +1708,7 @@ Service Type:".$serviceType;
         $assignment_data = Input::all();
 
         BidRequest::where('id', '=', $assignment_data['request_id'])
-                         ->update(array('admin_notes'=>$assignment_data['admin_notes']));
+                         ->update(['admin_notes'=>$assignment_data['admin_notes']]);
     }
 
     function customerNotesOsr()
@@ -1716,7 +1716,7 @@ Service Type:".$serviceType;
         $assignment_data = Input::all();
 
         BidRequest::where('id', '=', $assignment_data['request_id'])
-                         ->update(array('customer_notes'=>$assignment_data['admin_notes']));
+                         ->update(['customer_notes'=>$assignment_data['admin_notes']]);
     }
 
     /*
@@ -1727,14 +1727,14 @@ Service Type:".$serviceType;
         $assignment_data = Input::all();
         print_r($assignment_data);
           MaintenanceBid::where('id', '=', $assignment_data['request_id'])
-                               ->update(array('vendor_notes'=>$assignment_data['vendor_notes']));
+                               ->update(['vendor_notes'=>$assignment_data['vendor_notes']]);
     }
     function publicNotes()
     {
          $assignment_data = Input::all();
 
             RequestedService::where('id', '=', $assignment_data['service_id'])
-                               ->update(array('public_notes'=>$assignment_data['public_notes']));
+                               ->update(['public_notes'=>$assignment_data['public_notes']]);
     }
 
     function publicNotesBid()
@@ -1742,7 +1742,7 @@ Service Type:".$serviceType;
            $assignment_data = Input::all();
 
               RequestedBid::where('id', '=', $assignment_data['service_id'])
-                                 ->update(array('public_notes'=>$assignment_data['public_notes']));
+                                 ->update(['public_notes'=>$assignment_data['public_notes']]);
     }
 
     function customerNotesBid()
@@ -1750,13 +1750,13 @@ Service Type:".$serviceType;
            $assignment_data = Input::all();
 
               RequestedBid::where('id', '=', $assignment_data['service_id'])
-                                 ->update(array('customer_notes_bid'=>$assignment_data['customer_notes_bid']));
+                                 ->update(['customer_notes_bid'=>$assignment_data['customer_notes_bid']]);
     }
     function changeDueDate()
     {
               $assignment_data = Input::all();
 
               RequestedService::where('id', '=', $assignment_data['requestedID'])
-                                 ->update(array('due_date'=>$assignment_data['duedatechange']));
+                                 ->update(['due_date'=>$assignment_data['duedatechange']]);
     }
 }

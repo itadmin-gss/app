@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class BaseTenantModel extends Model
 {
 
-    public function __construct(array $attributes = array())
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 

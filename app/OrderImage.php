@@ -9,7 +9,7 @@ class OrderImage extends BaseTenantModel
 
     protected $table = 'order_images';
 
-    protected $fillable = array('id', 'order_id', 'order_details_id', 'type','address','created_at', 'updated_at');
+    protected $fillable = ['id', 'order_id', 'order_details_id', 'type','address','created_at', 'updated_at'];
 
     
 

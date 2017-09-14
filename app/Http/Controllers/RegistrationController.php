@@ -28,7 +28,7 @@ class RegistrationController extends BaseController
     {
 
         
-          $rules = array(
+          $rules = [
             'first_name'            => 'required|min:2|max:80|alpha',
             'last_name'             => 'required|min:2|max:80|alpha',
             'email'                 => 'required|email|between:3,64|unique:user',
@@ -36,7 +36,7 @@ class RegistrationController extends BaseController
             'password'              => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'type_id'               => 'required'
-        );
+        ];
         $validator = Validator::make(Input::all(), $rules);
 
 
@@ -59,14 +59,14 @@ class RegistrationController extends BaseController
             if ($user->save()) {
                 $id = $user->id;
              
-                $email_data = array(
+                $email_data = [
                 'first_name'    => Input::get('first_name'),
                 'last_name'     => Input::get('last_name'),
                 'username'      => Input::get('username'),
                 'email'         => Input::get('email'),
                 'id'            => $id,
                     
-                );
+                ];
                 
                 Mail::send('emails.customer_registered', $email_data, function ($message) {
                  

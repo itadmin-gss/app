@@ -24,7 +24,7 @@ class BaseController extends Controller
             $role_detail = RoleDetail::where('role_id', '=', $role_id)
             ->get();
 
-                        $access_roles=array();
+                        $access_roles=[];
 
 
             foreach ($role_detail as $role) {

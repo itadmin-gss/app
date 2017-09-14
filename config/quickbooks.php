@@ -17,10 +17,10 @@ ini_set('display_errors', 1);
 //
 // 	NOTE: This has *no relationship* with QuickBooks usernames, Windows usernames, etc. 
 // 		It is *only* used for the Web Connector and SOAP server! 
-return array(
+return [
     'quickbooks_user' => 'quickbooks',
     'quickbooks_pass' => '123456',
     'quickbooks_tz' => 'America/New_York',
     'quickbooks_loglevel' => QUICKBOOKS_LOG_DEVELOP,
     'quickbooks_memorylimit' => '512M'
-    );
+    ];

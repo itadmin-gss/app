@@ -4,7 +4,7 @@ class Order extends BaseTenantModel
 {
 
     protected $table = 'orders';
-    protected $fillable = array('id', 'request_id', 'vendor_id', 'total_amount', 'status','status_class','status_text', 'created_at', 'updated_at','customer_id','completion_date','approved_date','close_property_status','bid_flag');
+    protected $fillable = ['id', 'request_id', 'vendor_id', 'total_amount', 'status','status_class','status_text', 'created_at', 'updated_at','customer_id','completion_date','approved_date','close_property_status','bid_flag'];
     
 
     public function vendor()
@@ -84,7 +84,7 @@ class Order extends BaseTenantModel
             ->get();
         }
         //For all workorder those are recently completed
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
         foreach ($orders as $order) {
             $order_details = ($order->orderDetail);

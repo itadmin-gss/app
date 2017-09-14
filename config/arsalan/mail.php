@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
 	|--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return array(
 	*/
 
     //'from' => array('address' => null, 'name' => null),
-        'from' => array('imran@invortex' => null, 'name' => 'GSS'),
+        'from' => ['imran@invortex' => null, 'name' => 'GSS'],
     /*
 	|--------------------------------------------------------------------------
 	| E-Mail Encryption Protocol
@@ -123,4 +123,4 @@ return array(
 
     'pretend' => false,
 
-);
+];

@@ -57,7 +57,7 @@ class CommonController extends \BaseController
 
                             ->where('id', $id)
 
-                            ->update(array('status' => $status));
+                            ->update(['status' => $status]);
                 }
 
 
@@ -65,11 +65,11 @@ class CommonController extends \BaseController
                 if ($status==1) {
                     $user=DB::table($db_table)->where('id', $id)->first();
 
-                    $email_data = array(
+                    $email_data = [
 
                     'user_email_template'=>EmailNotification::$user_email_approved_template." <a href='".URL::to('/')."'> Please click here to complete your profile.</a>"
 
-                    );
+                    ];
 
          
 
@@ -93,7 +93,7 @@ class CommonController extends \BaseController
 
                             ->where('id', $id)
 
-                            ->update(array('status' => $status));
+                            ->update(['status' => $status]);
                 }
 
                 return 1;
@@ -111,7 +111,7 @@ class CommonController extends \BaseController
 
                             ->where('id', $id)
 
-                            ->update(array('status' => $status));
+                            ->update(['status' => $status]);
                 }
 
                 return 1;
@@ -130,7 +130,7 @@ class CommonController extends \BaseController
 
                             ->where('id', $id)
 
-                            ->update(array('status' => $status));
+                            ->update(['status' => $status]);
                 }
 
 
@@ -138,11 +138,11 @@ class CommonController extends \BaseController
                 if ($status==1) {
                     $user=DB::table($db_table)->where('id', $id)->first();
 
-                    $email_data = array(
+                    $email_data = [
 
                     'user_email_template'=>EmailNotification::$user_email_approved_template." <a href='".URL::to('/')."'> Please click here to complete your profile.</a>"
 
-                    );
+                    ];
 
          
 
@@ -167,7 +167,7 @@ class CommonController extends \BaseController
 
                             ->where('id', $id)
 
-                            ->update(array('status' => $status));
+                            ->update(['status' => $status]);
                 }
 
                 return 1;
@@ -180,7 +180,7 @@ class CommonController extends \BaseController
 
                     ->where('id', $id)
 
-                    ->update(array('status' => $status));
+                    ->update(['status' => $status]);
             }
 
                 return 1;

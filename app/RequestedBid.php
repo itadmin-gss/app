@@ -6,7 +6,7 @@ class RequestedBid extends BaseTenantModel
 
 
     protected $table = 'requested_bids';
-    protected $fillable = array('id', 'request_id', 'service_id', 'status', 'created_at', 'updated_at', 'required_date', 'required_time', 'service_men', 'service_note','public_notes', 'verified_vacancy', 'cash_for_keys', 'cash_for_keys_trash_out', 'trash_size', 'storage_shed', 'lot_size','set_prinkler_system_type','install_temporary_system_type',   'carpet_service_type',  'pool_service_type',  'boarding_type','spruce_up_type','constable_information_type',
+    protected $fillable = ['id', 'request_id', 'service_id', 'status', 'created_at', 'updated_at', 'required_date', 'required_time', 'service_men', 'service_note','public_notes', 'verified_vacancy', 'cash_for_keys', 'cash_for_keys_trash_out', 'trash_size', 'storage_shed', 'lot_size','set_prinkler_system_type','install_temporary_system_type',   'carpet_service_type',  'pool_service_type',  'boarding_type','spruce_up_type','constable_information_type',
     'remove_carpe_type',
     'remove_blinds_type',
     'remove_appliances_type',
@@ -17,7 +17,7 @@ class RequestedBid extends BaseTenantModel
     'duration',
     'bidding_prince','quantity',
     'customer_bid_price',
-    'vendor_bid_price','emergency','bypassornot','vendor_note_for_bid');
+    'vendor_bid_price','emergency','bypassornot','vendor_note_for_bid'];
 
     public function service()
     {

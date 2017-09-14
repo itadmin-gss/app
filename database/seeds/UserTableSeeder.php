@@ -7,7 +7,7 @@ class UserTableSeeder extends Seeder
     {
         DB::table('users')->delete();
  
-        DB::table('users')->insert(array(
+        DB::table('users')->insert([
             'id' => 1,
             'first_name' => 'Admin',
             'last_name' => 'admin',
@@ -20,10 +20,10 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('123123'),
             'latitude' => '39.149959',
             'longitude' => '-103.1807294',
-        ));
+        ]);
 
 
-        DB::table('users')->insert(array(
+        DB::table('users')->insert([
             'id' => 2,
             'first_name' => 'Customer',
             'last_name' => 'customer',
@@ -36,10 +36,10 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('123123'),
             'latitude' => '39.149959',
             'longitude' => '-103.1807294',
-        ));
+        ]);
 
 
-        DB::table('users')->insert(array(
+        DB::table('users')->insert([
             'id' => '3',
             'first_name' => 'Vendor',
             'last_name' => 'Vendor',
@@ -52,6 +52,6 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('123123'),
             'latitude' => '39.149959',
             'longitude' => '-103.1807294',
-        ));
+        ]);
     }
 }

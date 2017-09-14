@@ -76,23 +76,23 @@ class CustomerController extends \BaseController
             //Set rules for validation
             if (Input::get('create_by_admin') == 'yes') {
                 $username = Input::get('username');
-                $rules = array(
+                $rules = [
                     'username' => 'required|unique:users',
                     'phone' => 'required|numeric',
                     'address_1' => 'required|min:8|max:100',
                     'zipcode' => 'required',
                     'state_id' => 'required',
                     'city_id' => 'required',
-                    );
+                    ];
             } else {
                 $username = Auth::user()->username;
-                $rules = array(
+                $rules = [
                     'phone' => 'required|numeric',
                     'address_1' => 'required|min:8|max:100',
                     'zipcode' => 'required',
                     'state_id' => 'required',
                     'city_id' => 'required',
-                    );
+                    ];
             }
             $validator = Validator::make(Input::all(), $rules); // put all rules to validator
             // if validation is failed redirect to page with errorsa
@@ -119,8 +119,8 @@ class CustomerController extends \BaseController
 
                 //User Notification Email for profile completeness
                                 
-                $email_data = array(
-                'user_email_template'=>EmailNotification::$user_email_completeness_template);
+                $email_data = [
+                'user_email_template'=>EmailNotification::$user_email_completeness_template];
                 Email::send(Auth::user()->email, 'Your profile has been completed', 'emails.user_email_template', $email_data);
  //End Nofication Email Code
                                 
@@ -149,12 +149,12 @@ class CustomerController extends \BaseController
         if ($method == 'POST') {
             //Get all submitted data from form
             $data = Input::all();
-            $rules = array(
+            $rules = [
                 'first_name' => 'required|min:2|max:80|alpha',
                 'last_name' => 'required|min:2|max:80|alpha',
                 'email' => 'required|email|unique:users|between:3,64',
                 'password' => 'required|between:4,20'
-                );
+                ];
 
             $validator = Validator::make($data, $rules);
 
@@ -214,9 +214,9 @@ class CustomerController extends \BaseController
 
 
         return View::make('pages.admin.list_customer')
-        ->with(array('customers' => $customers,
+        ->with(['customers' => $customers,
             'db_table' => $db_table
-            ));
+            ]);
         // return View::make('pages.admin.list_customer');
     }
     
@@ -226,12 +226,12 @@ class CustomerController extends \BaseController
             $user = Auth::user();
             $userController = new UserController;
             $redirect = $userController->whereRedirect($user->id);
-            $userdata = array('status' => 1 );
+            $userdata = ['status' => 1 ];
             $save = User::find($id)->update($userdata);
             return $redirect;
         } else {
             // show the form
-            $userdata = array('status' => 1 );
+            $userdata = ['status' => 1 ];
             $save = User::find($id)->update($userdata);
             return View::make('home')->with('active', $id);
         }
@@ -244,11 +244,11 @@ class CustomerController extends \BaseController
 
         if ($method == 'POST') {
             $data = Input::all();
-            $rules = array(
+            $rules = [
                 'first_name' => 'required|min:2|max:80|alpha',
                 'last_name' => 'required|min:2|max:80|alpha',
                 'email' => 'required|email'
-                );
+                ];
             $validator = Validator::make($data, $rules);
             if ($validator->fails()) {
                 // Return all error with seperation
@@ -283,7 +283,7 @@ List all workorders
                             // $query2->where('customer_type', '=',  Session::get('clientType'));
                          });
                     })->get();
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -356,7 +356,7 @@ List all workorders
         $user_id = Auth::user()->id;
         $orders = Order::where('customer_id', '=', $user_id)->where('status', '=', '2')->orderBy('id', 'desc')->get();
         //For all workorder those are recently completed
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
         foreach ($orders as $order) {
             $order_details = ($order->orderDetail);
@@ -384,7 +384,7 @@ List all workorders
     {
         $user_id = Auth::user()->id;
         $orders = Order::where('customer_id', '=', $user_id)->where('status', '=', '3')->orderBy('id', 'desc')->get();
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
         foreach ($orders as $order) {
             $order_details = ($order->orderDetail);
@@ -409,7 +409,7 @@ List all workorders
     {
         $user_id = Auth::user()->id;
         $orders = Order::where('customer_id', '=', $user_id)->where('status', '=', '1')->orderBy('id', 'desc')->get();
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
         foreach ($orders as $order) {
             $order_details = ($order->orderDetail);
@@ -449,7 +449,7 @@ List all workorders
             ->get();
 
     
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)
@@ -474,7 +474,7 @@ List all workorders
 
             $assign_requests[$i]['request_date'] =date('m/d/Y h:i:s A', strtotime($request->created_at)) ;
             $assign_requests[$i]['due_date'] = $request->created_at;
-            $request_id_array=array();
+            $request_id_array=[];
             foreach ($services as $service) {
                 $request_id_array[]=$service->service->id;
                 $assign_requests[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
@@ -516,7 +516,7 @@ List all workorders
         $requests = BidRequest::where('customer_id', '=', $user_id)->where('status', "=", 2)->orderBy('id', 'desc')->get();
 
         
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
@@ -545,7 +545,7 @@ List all workorders
         $requests = BidRequest::where('customer_id', '=', $user_id)->where('status', "=", 3)->orderBy('id', 'desc')->get();
 
         
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
@@ -585,10 +585,10 @@ List all workorders
         
 
         return View::make('pages.customer.viewcustomermaintenancerequest')
-        ->with(array(
+        ->with([
             'request_maintenance' => $request_maintenance,
             'assign_requests'=>$assign_requests
-            ));
+            ]);
     }
 
 
@@ -604,7 +604,7 @@ List all workorders
         ->get();
             
 
-        $bidData=array();
+        $bidData=[];
         foreach ($BidRequestedService as $biddatavalue) {
             $bidData['request_id']=$biddatavalue->maintenance_request_id;
             $bidData['service_id']=$biddatavalue->service_id;
@@ -657,7 +657,7 @@ List all workorders
         }
 
        // accepted bid request status
-        $data = array('status' => 2 );
+        $data = ['status' => 2 ];
         $save = BidRequest::find($input['request_id'])->update($data);
 
     
@@ -672,7 +672,7 @@ List all workorders
     {
         $input = Input::all();
         // declined bid request status
-        $data = array('status' => 3 );
+        $data = ['status' => 3 ];
         $save = BidRequest::find($input['request_id'])->update($data);
 
         

@@ -125,7 +125,7 @@ class AssetController extends \BaseController
         //Set rules for validation of assets
         if (Input::get('outbuilding_shed')==0 || Input::get('outbuilding_shed')=="") {
             //outbuilding_shed notes flag
-            $rules =  array(
+            $rules =  [
                 'asset_number' => 'required|unique:assets',
                 'property_address' => 'required',
                 'city_id' => 'required',
@@ -149,7 +149,7 @@ class AssetController extends \BaseController
                 'utility_note' => '',
                 'swimming_pool',
                 'occupancy_status'=>'required'
-                );
+                ];
         } else {
             $rules = Asset::requiredFields();
         }
@@ -206,7 +206,7 @@ class AssetController extends \BaseController
     public static function deleteAsset($id)
     {
 
-        $delete = Asset::where('id', '=', $id)->update(array('status'=>0));
+        $delete = Asset::where('id', '=', $id)->update(['status'=>0]);
         return Redirect::back();
     }
     public static function deleteSelectedAsset($id)
@@ -239,7 +239,7 @@ class AssetController extends \BaseController
         if ($submitted) {
             if (Input::get('outbuilding_shed')==0 || Input::get('outbuilding_shed')=="") {
                 //outbuilding_shed notes flag
-                $rules =  array(
+                $rules =  [
                 'asset_number' => 'required|unique:assets',
                 'property_address' => 'required',
                 'city_id' => 'required',
@@ -263,9 +263,9 @@ class AssetController extends \BaseController
                 'utility_note' => '',
                 'swimming_pool',
                 'occupancy_status'=>'required'
-                   );
+                   ];
             } else {
-                $rules = array(
+                $rules = [
                 'asset_number' =>  'required',
                 'property_address' => 'required',
                 'city_id' => 'required',
@@ -289,7 +289,7 @@ class AssetController extends \BaseController
                 'utility_note' => '',
                 'swimming_pool',
                 'occupancy_status'=>'required'
-                 );
+                 ];
             }
             $rules['customer_id'] = 'required';
             $validator = Validator::make(Input::all(), $rules);
@@ -350,8 +350,8 @@ class AssetController extends \BaseController
     {
         $assets = Asset::get();
         return View::make('pages.admin.list_assets')
-        ->with(array(
-        'assets_data' => $assets));
+        ->with([
+        'assets_data' => $assets]);
     }
 
     public function listAdminAssetsSummary()
@@ -359,8 +359,8 @@ class AssetController extends \BaseController
         $assets = Asset::orderBy('id', 'desc')->get();
 
         return View::make('pages.admin.list-assets-summary')
-        ->with(array(
-        'assets_data' => $assets));
+        ->with([
+        'assets_data' => $assets]);
     }
     public function propertyReport()
     {
@@ -370,7 +370,7 @@ class AssetController extends \BaseController
            $work_orders = Order::get();
 
 
-           $list_orders = array();
+           $list_orders = [];
            $i = 0;
 
 
@@ -385,12 +385,12 @@ class AssetController extends \BaseController
 
 
            return View::make('pages.admin.property-report')
-           ->with(array(
+           ->with([
         'assets_data' => $assets,
         'list_orders'=>$work_orders,
         'serviceCategories'=>$serviceCategories,
         'services'=>$service
-            ));
+            ]);
     }
 
 
@@ -403,7 +403,7 @@ class AssetController extends \BaseController
            $work_orders = Recurring::get();
 
 
-           $list_orders = array();
+           $list_orders = [];
            $i = 0;
 
 
@@ -418,12 +418,12 @@ class AssetController extends \BaseController
 
 
            return View::make('pages.admin.recurring-report')
-           ->with(array(
+           ->with([
         'assets_data' => $assets,
         'list_orders'=>$work_orders,
         'serviceCategories'=>$serviceCategories,
         'services'=>$service
-            ));
+            ]);
     }
     public function reporting()
     {
@@ -458,7 +458,7 @@ class AssetController extends \BaseController
             $work_orders = Order::get();
         }
 
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -587,13 +587,13 @@ class AssetController extends \BaseController
 
 
         return View::make('pages.admin.reporting')
-        ->with(array(
+        ->with([
         'assets_data' => $assets,
         'orders'=>$list_orders,
         'serviceCategories'=>$serviceCategories,
         'services'=>$service,
         'data'=>$data
-        ));
+        ]);
     }
 
 
@@ -630,7 +630,7 @@ class AssetController extends \BaseController
             $work_orders = Order::get();
         }
 
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -750,13 +750,13 @@ class AssetController extends \BaseController
 
 
         return View::make('pages.admin.whiteboard-reporting')
-        ->with(array(
+        ->with([
         'assets_data' => $assets,
         'orders'=>$list_orders,
         'serviceCategories'=>$serviceCategories,
         'services'=>$service,
         'data'=>$data
-        ));
+        ]);
     }
 
     public function editAdminAsset($asset_id)
@@ -810,13 +810,13 @@ class AssetController extends \BaseController
             //Get all customers
             $customers = User::getAllCustomers();
             return View::make('pages.admin.edit_assets')
-            ->with(array(
+            ->with([
             'asset_data' => $asset,
             'states' => $states,
             'cities' => $cities,
             'customers' => $customers,
             'customerType' => $customerType,
-            ));
+            ]);
         }
     }
 

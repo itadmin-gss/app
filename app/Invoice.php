@@ -4,7 +4,7 @@ class Invoice extends BaseTenantModel
 {
 
     protected $table = 'invoices';
-    protected $fillable = array('order_id', 'total_amount', 'request_id', 'user_id' , 'user_type_id' , 'status');
+    protected $fillable = ['order_id', 'total_amount', 'request_id', 'user_id' , 'user_type_id' , 'status'];
 
 
     public function vendor()

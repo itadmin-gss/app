@@ -19,7 +19,7 @@ class OrderImages extends Migration
                 $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
                 $table->integer('service_id')->unsigned()->nullable();
                 $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-                $table->enum('type', array('before', 'after'));
+                $table->enum('type', ['before', 'after']);
                 $table->text('address')->nullable();
                 $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
                 $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

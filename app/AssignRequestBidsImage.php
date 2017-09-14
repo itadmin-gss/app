@@ -19,7 +19,7 @@ class AssignRequestBidsImage extends BaseTenantModel
 
     protected $table = 'assign_request_bids_images';
 
-    protected $fillable = array('id', 'requested_id', 'image_name', 'status', 'image_type');
+    protected $fillable = ['id', 'requested_id', 'image_name', 'status', 'image_type'];
 
 
 

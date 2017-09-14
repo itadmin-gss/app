@@ -1,6 +1,6 @@
 <?php
 ini_set('memory_limit', '-1');
-return array(
+return [
 
     /*
 	|--------------------------------------------------------------------------
@@ -44,15 +44,15 @@ return array(
 	|
 	*/
 
-    'connections' => array(
+    'connections' => [
 
-        'sqlite' => array(
+        'sqlite' => [
             'driver'   => 'sqlite',
             'database' => __DIR__.'/../database/production.sqlite',
             'prefix'   => '',
-        ),
+        ],
 
-        'mysql' => array(
+        'mysql' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
                 'database'  => 'gssreo',
@@ -62,9 +62,9 @@ return array(
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
-        ),
+        ],
 
-        'mysql2' => array(
+        'mysql2' => [
             'driver'    => 'mysql',
             'host'      => 'localhost',
                 'database'  => 'gssreo_app',
@@ -74,9 +74,9 @@ return array(
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
-        ),
+        ],
 
-        'pgsql' => array(
+        'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => 'localhost',
             'database' => 'forge',
@@ -85,18 +85,18 @@ return array(
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',
-        ),
+        ],
 
-        'sqlsrv' => array(
+        'sqlsrv' => [
             'driver'   => 'sqlsrv',
             'host'     => 'localhost',
             'database' => 'database',
             'username' => 'root',
             'password' => '',
             'prefix'   => '',
-        ),
+        ],
 
-    ),
+    ],
 
     /*
 	|--------------------------------------------------------------------------
@@ -122,16 +122,16 @@ return array(
 	|
 	*/
 
-    'redis' => array(
+    'redis' => [
 
         'cluster' => false,
 
-        'default' => array(
+        'default' => [
             'host'     => 'localhost',
             'port'     => 6379,
             'database' => 0,
-        ),
+        ],
 
-    ),
+    ],
 
-);
+];

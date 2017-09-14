@@ -6,7 +6,7 @@ class AssetTableSeeder extends Seeder
     public function run()
     {
         DB::table('assets')->delete();
-        DB::table('assets')->insert(array(
+        DB::table('assets')->insert([
             'asset_number' => 10001,
             'customer_id' => 2,
             'property_address' => 'Street#20 App B-10 Brooklyn',
@@ -31,9 +31,9 @@ class AssetTableSeeder extends Seeder
             'swimming_pool' => 'pool',
             'latitude' => '39.149959',
             'longitude' => '-103.1807294',
-        ));
+        ]);
 
-        DB::table('assets')->insert(array(
+        DB::table('assets')->insert([
             'asset_number' => 14534,
             'customer_id' => 2,
             'property_address' => 'Street#20 App B-10 Brooklyn',
@@ -58,6 +58,6 @@ class AssetTableSeeder extends Seeder
             'swimming_pool' => 'pool',
             'latitude' => '39.149959',
             'longitude' => '-103.1807294',
-        ));
+        ]);
     }
 }

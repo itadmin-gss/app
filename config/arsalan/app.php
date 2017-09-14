@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
 	|--------------------------------------------------------------------------
@@ -16,4 +16,4 @@ return array(
     'debug' => true,
     'url' => 'http://localhost/gss-dev/php',
     'admin_email' => 'arsalan@invortex.com'
-);
+];

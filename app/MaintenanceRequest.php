@@ -6,7 +6,7 @@ class MaintenanceRequest extends BaseTenantModel
 
 
     protected $table = 'maintenance_requests';
-    protected $fillable = array('id', 'customer_id', 'substitutor_id' ,'job_type','asset_id', 'status','emergency_request', 'admin_notes' ,'declined_notes','created_at', 'updated_at');
+    protected $fillable = ['id', 'customer_id', 'substitutor_id' ,'job_type','asset_id', 'status','emergency_request', 'admin_notes' ,'declined_notes','created_at', 'updated_at'];
 
     public function jobType()
     {
@@ -67,9 +67,9 @@ class MaintenanceRequest extends BaseTenantModel
     {
 
         if ($take == 0) {
-            $requests = self::whereRaw('customer_id = ?', array($customer_id))->orderBy('id', 'desc')->get();
+            $requests = self::whereRaw('customer_id = ?', [$customer_id])->orderBy('id', 'desc')->get();
         } else {
-            $requests = self::whereRaw('customer_id = ? and status = 1', array($customer_id))
+            $requests = self::whereRaw('customer_id = ? and status = 1', [$customer_id])
                         ->skip(0)
                         ->take($take)->orderBy('id', 'desc')->get();
         }
@@ -82,13 +82,13 @@ class MaintenanceRequest extends BaseTenantModel
 
 
         if ($take == 0) {
-            $requests = self::whereRaw('customer_id = ? and status = 1', array($customer_id))->orderBy('id', 'desc')
+            $requests = self::whereRaw('customer_id = ? and status = 1', [$customer_id])->orderBy('id', 'desc')
 
             ->whereHas('Asset', function ($query) {
             // $query->where('customer_type', '=',  Session::get('clientType'));
             })->get();
         } else {
-            $requests = self::whereRaw('customer_id = ? and status = 1', array($customer_id))
+            $requests = self::whereRaw('customer_id = ? and status = 1', [$customer_id])
                             ->skip(0)
                             ->take($take)->orderBy('id', 'desc')
                             ->whereHas('Asset', function ($query) {

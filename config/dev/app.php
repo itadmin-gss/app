@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     /*
       |--------------------------------------------------------------------------
       | Application Debug Mode
@@ -17,4 +17,4 @@ return array(
     'request_images' => 'public/assets/uploads/request',
     'upload_path' => 'public/assets/uploads/',
     'admin_email' => 'azeem.devronix@gmail.com'
-);
+];

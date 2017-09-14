@@ -21,22 +21,22 @@ class AccessRightController extends \BaseController
         $role_functions = RoleFunction::listRoleFunctions();
         $specific_role_functions = RoleFunction::all();
         $access_functions = AccessFunction::all();
-        $newroleFunction = array();
+        $newroleFunction = [];
 
         foreach ($role_functions as $roles) {
             $results = RoleDetail::where('role_function_id', '=', $roles->id)
             ->where('role_id', '=', 1) // getting admin rights by default, which cant be changed.
-            ->get(array('add','edit','delete', 'view'))->toArray();
+            ->get(['add','edit','delete', 'view'])->toArray();
             
             $results = array_shift($results);
             $data[$roles->access_function_id][$roles->role_function] = $results;
         }
 
         return View::make('pages.admin.access_rights')
-            ->with(array(
+            ->with([
                     'role_id' => 1,
                     'userRoles' => $access_roles,
-                    'roleFunctions' => $data));
+                    'roleFunctions' => $data]);
     }
     
    /**
@@ -52,23 +52,23 @@ class AccessRightController extends \BaseController
             $role_functions = RoleFunction::listRoleFunctions();
             $specific_role_functions = RoleFunction::all();
             $access_functions = AccessFunction::all();
-            $newroleFunction = array();
+            $newroleFunction = [];
 
 
             foreach ($role_functions as $roles) {
                 $results = RoleDetail::where('role_function_id', '=', $roles->id)
                 ->where('role_id', '=', $role_id)
-                ->get(array('add','edit','delete', 'view'))->toArray();
+                ->get(['add','edit','delete', 'view'])->toArray();
                 
                 $results = array_shift($results);
                 $data[$roles->access_function_id][$roles->role_function] = $results;
             }
 
             $data = View::make('pages.admin.ajaxHtml.role_functions')
-                    ->with(array(
+                    ->with([
                     'role_id' => $role_id,
                     'userRoles' => $access_roles,
-                    'roleFunctions' => $data))->render();
+                    'roleFunctions' => $data])->render();
             return Response::json($data);
         }
     }
@@ -93,7 +93,7 @@ class AccessRightController extends \BaseController
                 $role_funcion = snake_case($str);
 
                 $r = RoleDetail::where('role_function_id', '=', $user_role->role_function_id)
-                ->where('role_id', '=', $user_role->role_id)->first(array('id'));
+                ->where('role_id', '=', $user_role->role_id)->first(['id']);
 
                 $rr = RoleDetail::find($r->id);
 
@@ -123,7 +123,7 @@ class AccessRightController extends \BaseController
             $usertype=UserType::getUserTypeByID($user->type_id);
             
             $role_detail = RoleDetail::where('role_id', '=', $user_role_id)
-            ->where('role_function_id', '=', $perm)->first(array($action));
+            ->where('role_function_id', '=', $perm)->first([$action]);
             if (($usertype=='admin' || $usertype=='user') && $role_detail->$action == 1) {
                 return true;
             } else {

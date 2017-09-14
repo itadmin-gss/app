@@ -37,10 +37,10 @@ class AccessLevelController extends \BaseController
             //$user->delete();
             return View::make('pages.admin.edit-access-level')
                    ->with(
-                       array(
+                       [
                             'user_role' => $user_role,
                             'role_id' => $role_id
-                            )
+                            ]
                    );
         } else {
             $user_role = Input::all();

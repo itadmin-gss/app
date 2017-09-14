@@ -4,7 +4,7 @@ class OrderDetail extends BaseTenantModel
 {
 
     protected $table = 'order_details';
-    protected $fillable = array('id', 'order_id', 'service_id', 'order_date', 'status', 'created_at', 'updated_at','requested_service_id');
+    protected $fillable = ['id', 'order_id', 'service_id', 'order_date', 'status', 'created_at', 'updated_at','requested_service_id'];
 
     public function order()
     {

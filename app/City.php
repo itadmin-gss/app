@@ -54,7 +54,7 @@ class City extends BaseTenantModel
     public static function getCitiesByStateId($id)
     {
 
-        $cities = self::whereRaw('state_id = ?', array($id))->orderBy('name', 'asc')->get(array('id','name'));
+        $cities = self::whereRaw('state_id = ?', [$id])->orderBy('name', 'asc')->get(['id','name']);
 
         return $cities;
     }

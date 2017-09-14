@@ -5,7 +5,7 @@ class ServiceFieldDetail extends BaseTenantModel
     
     protected $table = 'service_field_details';
 
-    protected $fillable = array('id', 'fieldname', 'service_id', 'field_type', 'field_values');
+    protected $fillable = ['id', 'fieldname', 'service_id', 'field_type', 'field_values'];
 
     public static function add($data)
     {

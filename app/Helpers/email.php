@@ -9,7 +9,7 @@
 class Email
 {
 
-    public static function send($to_email = array(), $subject, $template, $email_data = array())
+    public static function send($to_email = [], $subject, $template, $email_data = [])
     {
 
         $from_email = Config::get('app.admin_email');

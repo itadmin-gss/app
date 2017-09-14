@@ -47,7 +47,7 @@ class RecurringController extends \BaseController
         $vendorid=Input::get('vendorid');
 
          $vname=Recurring::where("id", $recurring_id)
-        ->update(array("vendor_id"=>$vendorid));
+        ->update(["vendor_id"=>$vendorid]);
 
 
          echo "Vender name has been updated for the recurring request.";

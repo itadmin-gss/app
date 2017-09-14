@@ -6,7 +6,7 @@ class SpecialPrice extends BaseTenantModel
 
     use SoftDeletingTrait;
     protected $table = 'special_prices';
-    protected $fillable = array('id', 'customer_id', 'service_id', 'special_price', 'status', 'created_at', 'updated_at','type_id');
+    protected $fillable = ['id', 'customer_id', 'service_id', 'special_price', 'status', 'created_at', 'updated_at','type_id'];
     // Defining Function to get User Profile Status. ---- Start
 
     public function service()

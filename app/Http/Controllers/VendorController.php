@@ -24,7 +24,7 @@ class VendorController extends \BaseController
         $user_id = Auth::user()->id;
         $new_work_order = Order::where('vendor_id', '=', $user_id)->where('status', '=', 0)->take(5)->orderBy('id', 'desc')->get();
         $requests = AssignRequest::where('vendor_id', '=', $user_id)->take(5)->where('status', '!=', 2)->groupBy('request_id')->orderBy('id', 'desc')->get();
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
 
         foreach ($requests as $request) {
@@ -116,7 +116,7 @@ class VendorController extends \BaseController
         $requests = BidRequest::where('vendor_id', '=', $user_id)->take(5)->where('status', "=", 1)->orderBy('id', 'desc')->get();
 
 
-        $assign_requests_bids = array();
+        $assign_requests_bids = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
@@ -127,7 +127,7 @@ class VendorController extends \BaseController
             $assign_requests_bids[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->created_at));
             $assign_requests_bids[$i]['due_date'] = $request->created_at;
             $assign_requests_bids[$i]['property_address'] = $request->asset->property_address;
-            $request_id_array=array();
+            $request_id_array=[];
             foreach ($services as $service) {
                 $request_id_array[]=$service->service->id;
 
@@ -157,7 +157,7 @@ class VendorController extends \BaseController
         ->orderBy('id', 'desc')
         ->get();
 
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -231,23 +231,23 @@ class VendorController extends \BaseController
             }
             if (Input::get('create_by_admin') == 'yes') {
                 $username = Input::get('username');
-                $rules = array(
+                $rules = [
                     'username' => 'required|unique:users',
                     'phone' => 'required|numeric',
                     'address_1' => 'required|min:8|max:100',
                     'zipcode' => 'required',
                     'state_id' => 'required',
                     'city_id' => 'required',
-                    );
+                    ];
             } else {
                 $username = Auth::user()->username;
-                $rules = array(
+                $rules = [
                     'phone' => 'required|numeric',
                     'address_1' => 'required|min:8|max:100',
                     'zipcode' => 'required',
                     'state_id' => 'required',
                     'city_id' => 'required',
-                    );
+                    ];
             }
 
             $validator = Validator::make(Input::all(), $rules);
@@ -275,8 +275,8 @@ class VendorController extends \BaseController
 
                  //User Notification Email for profile completeness
               
-                $email_data = array(
-                'user_email_template'=>EmailNotification::$user_email_completeness_template);
+                $email_data = [
+                'user_email_template'=>EmailNotification::$user_email_completeness_template];
                 Email::send(Auth::user()->email, 'Your profile has been completed', 'emails.user_email_template', $email_data);
                  //End Nofication Email Code
 
@@ -312,7 +312,7 @@ class VendorController extends \BaseController
 
         $user_id = Auth::user()->id;
         $requests = AssignRequest::where('vendor_id', '=', $user_id)->where('status', "=", 1)->groupBy('request_id')->orderBy('id', 'desc')->get();
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = AssignRequest::where('vendor_id', '=', $user_id)->where('request_id', '=', $request->maintenanceRequest->id)->where('status', '!=', 2)->orderBy('id', 'desc')->get();
@@ -352,7 +352,7 @@ class VendorController extends \BaseController
 
         $user_id = Auth::user()->id;
         $requests = AssignRequestBid::where('vendor_id', '=', $user_id)->where('status', "=", 1)->groupBy('request_id')->orderBy('id', 'desc')->get();
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = AssignRequestBid::where('vendor_id', '=', $user_id)->where('request_id', '=', $request->maintenanceRequest->id)->where('status', '!=', 2)->orderBy('id', 'desc')->get();
@@ -403,7 +403,7 @@ class VendorController extends \BaseController
     {
         $user_id = Auth::user()->id;
         $orders = Order::where('vendor_id', '=', $user_id)->orderBy('id', 'desc')->get();
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
         foreach ($orders as $order) {
             $order_details = ($order->orderDetail);
@@ -510,7 +510,7 @@ class VendorController extends \BaseController
     {
         $user_id = Auth::user()->id;
         $orders = Order::where('vendor_id', '=', $user_id)->where('status', '=', '2')->orderBy('id', 'desc')->get();
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
         foreach ($orders as $order) {
             $order_details = $order->orderDetail;
@@ -552,10 +552,10 @@ class VendorController extends \BaseController
 
 
         return View::make('pages.vendors.viewvendormaintenancerequest')
-        ->with(array(
+        ->with([
             'request_maintenance' => $request_maintenance,
             'assign_requests'=>$assign_requests
-            ));
+            ]);
     }
 
 
@@ -576,10 +576,10 @@ class VendorController extends \BaseController
 
 
         return View::make('pages.vendors.viewvendorbiddingrequest')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
         'assign_requests'=>$assign_requests
-        ));
+        ]);
     }
 
 
@@ -603,10 +603,10 @@ class VendorController extends \BaseController
 
 
         return View::make('pages.vendors.viewosr')
-        ->with(array(
+        ->with([
         'request_maintenance' => $request_maintenance,
         'assign_requests'=>$assign_requests
-        ));
+        ]);
     }
 
 
@@ -618,9 +618,9 @@ class VendorController extends \BaseController
 
         //BUt is will be for all requests not particular
         if ($data['declined_notes']!="") {
-            $declined_notesdata = array(
+            $declined_notesdata = [
             'decline_notes'       => $data['declined_notes']
-            );
+            ];
 
             $save = MaintenanceRequest::where('id', '=', $data['request_id'])
             ->update($declined_notesdata);
@@ -631,7 +631,7 @@ class VendorController extends \BaseController
         $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
                     //admin to admin notification
-            $notification = NotificationController::doNotification($rec_id, $rec_id, "Request ".$data['request_id']." has been declined by vendor", 1, array(), $notification_url);
+            $notification = NotificationController::doNotification($rec_id, $rec_id, "Request ".$data['request_id']." has been declined by vendor", 1, [], $notification_url);
         }
 
 
@@ -654,7 +654,7 @@ class VendorController extends \BaseController
             $data['customer_id'] = MaintenanceRequest::find($input['request_id'])->asset->customer_id;
             $order_id = Order::addOrder($data);
 
-            $order_details = array();
+            $order_details = [];
             //Getting  services  ids
             $assigned_requests = AssignRequest::where('request_id', '=', $data['request_id'])
             ->where('vendor_id', '=', $data['vendor_id'])
@@ -684,7 +684,7 @@ class VendorController extends \BaseController
             $data['customer_id'] = MaintenanceRequest::find($input['request_id'])->asset->customer_id;
             $order_id = Order::addOrder($data);
 
-            $order_details = array();
+            $order_details = [];
             $order_details['requested_service_id'] = $input['service_id'];
             $order_details['order_id'] = $order_id;
             $order_details['status'] = 1;
@@ -716,7 +716,7 @@ class VendorController extends \BaseController
         ->where('status', '=', '1')
         ->get();
 
-        $order_ids=array();
+        $order_ids=[];
         foreach ($orders as $order) :
             $order_ids[$order->id."--".$order->MaintenanceRequest->Asset->id]=  $order->id."-".$order->MaintenanceRequest->Asset->property_address;
             if ($order_id==$order->id) {
@@ -881,14 +881,14 @@ class VendorController extends \BaseController
             $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-                 );
+                 ];
 
             $customervendor="Admin";
             $notification_url="admin-bid-requests";
@@ -923,7 +923,7 @@ class VendorController extends \BaseController
         $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status', "=", $status)->orderBy('id', 'desc')->get();
 
 
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
@@ -948,7 +948,7 @@ class VendorController extends \BaseController
             $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->created_at));
             $assign_requests[$i]['due_date'] = $request->created_at;
             $assign_requests[$i]['property_address'] = $request->asset->property_address;
-            $request_id_array=array();
+            $request_id_array=[];
             foreach ($services as $service) {
                 $assign_requests[$i]['price'].=$service->biding_prince."<br/>";
 
@@ -986,7 +986,7 @@ class VendorController extends \BaseController
         $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status', "=", 2)->orderBy('id', 'desc')->get();
 
 
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
@@ -1026,7 +1026,7 @@ class VendorController extends \BaseController
         $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status', "=", 3)->orderBy('id', 'desc')->get();
 
 
-        $assign_requests = array();
+        $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
             $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
@@ -1056,10 +1056,10 @@ class VendorController extends \BaseController
          $data = Input::all();
 
      
-         $declined_notesdata = array(
+         $declined_notesdata = [
             'biding_prince'       => $data['vendorPrice'],
            
-            );
+            ];
 
               $save = BidRequestedService::where('id', '=', $data['assignid'])
               ->update($declined_notesdata);
@@ -1071,10 +1071,10 @@ class VendorController extends \BaseController
               $BidRequestedService=BidRequestedService::find($data['assignid']);
 
 
-              $StatusDATA = array(
+              $StatusDATA = [
             'status'       => 1,
            
-            );
+            ];
 
               $save = BidRequest::where('id', '=', $BidRequestedService->request_id)
               ->update($StatusDATA);
@@ -1104,14 +1104,14 @@ class VendorController extends \BaseController
 
 
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-                   );
+                   ];
 
             $customervendor="Admin";
             $notification_url="admin-bid-requests";

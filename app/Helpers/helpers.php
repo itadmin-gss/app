@@ -16,8 +16,8 @@ class FlashMessage
     {
         $val = explode('.', $val);
 
-        $array = array(
-            'admin' => array(
+        $array = [
+            'admin' => [
                 'access_level_success' => 'Success! Access Level Created!',
                 'access_level_error' => 'Error! Could Not Created!',
                 'access_level_deleted' => 'Success! Access Level has been deleted.',
@@ -38,34 +38,34 @@ class FlashMessage
                 'request_service_add' => 'Your request has been assigned successfully!',
                 'city_created' => 'Success! City has been inserted successfully.',
                 'city_edit_success' => 'Update City Successfully',
-            ),
-            'admin_asset' => array(
+            ],
+            'admin_asset' => [
                 'asset_updated' => 'Success! Asset has been updated successfully.'
-            ),
-            'admin_service' => array(
+            ],
+            'admin_service' => [
                 'service_added' => 'Success! Service has been added successfully.',
                 'service_updated' => 'Success! Service has been updated successfully.',
                 'service_error' => 'Error! Service could not be updated.',
-            ),
-            'admin_access' => array(
+            ],
+            'admin_access' => [
             'access_denied' => 'Access Denied! You dont have permissions.',
-            ),
-            'customer' => array(
+            ],
+            'customer' => [
                 'customer_success' => 'Customer Created',
                 'customer_error' => 'Could Not Create Cutomer',
                 'request_service_add' => 'Thank you for submitting your service request! The status will be updated within 24 hours. You may check the status of your request anytime by logging back into your dashboard.',
                  'request_service_bid_request' => 'Thank you for submitting your bid request!',
                 'request_bid_add' => 'Thank you for submitting your OSR! The status will be updated within 24 hours.',
                 'add_new_asset_success' => 'New Asset has been added successfully.'
-            ),
-            'vendor' => array(
+            ],
+            'vendor' => [
                 'profile_edit_success' => 'Update Profile Successfully',
                 'profile_edit_error' => 'Could Not Update Profile',
-            ),
-            'user' => array(
+            ],
+            'user' => [
                 'user_login_error' => 'Invalid Username or Password',
-            ),
-        );
+            ],
+        ];
 
         return $array[$val[0]][$val[1]];
     }

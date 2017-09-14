@@ -9,7 +9,7 @@ class Image extends BaseTenantModel
      * @var string
      */
     protected $table = 'images';
-    protected $fillable = array('id', 'requested_id', 'image_name', 'type');
+    protected $fillable = ['id', 'requested_id', 'image_name', 'type'];
 
     /**
      * The attributes excluded from the model's JSON form.

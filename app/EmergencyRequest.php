@@ -9,7 +9,7 @@ class EmergencyRequest extends BaseTenantModel
      * @var string
      */
     protected $table = 'emergency_requests';
-    protected $fillable = array('id', 'request_id', 'customer_id', 'status');
+    protected $fillable = ['id', 'request_id', 'customer_id', 'status'];
 
     public function emergencyRequestDetail()
     {

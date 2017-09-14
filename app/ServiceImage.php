@@ -19,7 +19,7 @@ class ServiceImage extends BaseTenantModel
 
     protected $table = 'service_images';
 
-    protected $fillable = array('id', 'requested_id', 'image_name', 'status', 'image_type');
+    protected $fillable = ['id', 'requested_id', 'image_name', 'status', 'image_type'];
 
 
 

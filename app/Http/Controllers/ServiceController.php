@@ -35,9 +35,9 @@ class ServiceController extends \BaseController
             $record = OrderCustomData::createCustomData($data);
         } else {
             if (Auth::user()->type_id == 3) {
-                $record =  OrderCustomData::where("order_id", '=', $id)->update(array('quantity' => $quantity,'vendors_price'=>$vendor_price));
+                $record =  OrderCustomData::where("order_id", '=', $id)->update(['quantity' => $quantity,'vendors_price'=>$vendor_price]);
             } else {
-                $record =  OrderCustomData::where("order_id", '=', $id)->update(array('customers_notes' => $customers_notes ,'admin_quantity' => $admin_quantity,  'quantity' => $quantity, 'vendors_notes' => $vendors_notes ,'notes_for_vendors'=>$notes_for_vendors, 'customer_price' =>$customer_price,'vendors_price'=>$vendor_price));
+                $record =  OrderCustomData::where("order_id", '=', $id)->update(['customers_notes' => $customers_notes ,'admin_quantity' => $admin_quantity,  'quantity' => $quantity, 'vendors_notes' => $vendors_notes ,'notes_for_vendors'=>$notes_for_vendors, 'customer_price' =>$customer_price,'vendors_price'=>$vendor_price]);
             }
         }
         // echo $record;
@@ -57,7 +57,7 @@ class ServiceController extends \BaseController
         $rate = Input::get('rate');
         $customer_price = Input::get('customer_price');
         print_r(Input::all());
-        $record =  AdditionalServiceItem::where("id", '=', $id)->update(array('description' => $description ,'admin_quantity'=>$adminQuantity, 'quantity' => $quantity, 'rate' => $rate , 'customer_price' =>$customer_price));
+        $record =  AdditionalServiceItem::where("id", '=', $id)->update(['description' => $description ,'admin_quantity'=>$adminQuantity, 'quantity' => $quantity, 'rate' => $rate , 'customer_price' =>$customer_price]);
 
         echo $record;
     }
@@ -72,14 +72,14 @@ class ServiceController extends \BaseController
             $recepient_id = User::getOnlyAdminUsersId();
            
          
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $data['vendor_id'],
             'user_email_template'=>"Additonal Service ".$id."  has been created! To view it in Work Order, <a href='".URL::to($emailUrl)."'>please click here</a>!"
-            );
+            ];
 
             // $customervendor="Vendor";
             $notification_url="list-work-order-admin";
@@ -105,7 +105,7 @@ class ServiceController extends \BaseController
             $desc = $services->desc;
             $vendor_price = $services->vendor_price;
             $customer_price = $services->customer_price;
-            $serviceItems = array($desc, $vendor_price, $customer_price);
+            $serviceItems = [$desc, $vendor_price, $customer_price];
             return $serviceItems;
         } else {
             return "";
@@ -114,11 +114,11 @@ class ServiceController extends \BaseController
     public function assignVendorService()
     {
 
-        $rules = array(
+        $rules = [
 
             'services' => 'required',
 
-        );
+        ];
 
         $validator = Validator::make(Input::all(), $rules);
 
@@ -227,7 +227,7 @@ class ServiceController extends \BaseController
 
 
 
-             $rules = array(
+             $rules = [
 
                         'service_code' => 'required',
 
@@ -237,7 +237,7 @@ class ServiceController extends \BaseController
 
                         'vendor_price' => 'required'
 
-                    );
+                    ];
 
 
 
@@ -256,7 +256,7 @@ class ServiceController extends \BaseController
 
                 if ($save) {
                     if (isset($data['number_of_men'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'number_of_men',
+                        $ServicesFieldsDetailData=['fieldname'=>'number_of_men',
 
                                                     'service_id'=> $serviceID,
 
@@ -264,7 +264,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['number_of_men_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -274,7 +274,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['verified_vacancy'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'verified_vacancy',
+                        $ServicesFieldsDetailData=['fieldname'=>'verified_vacancy',
 
                                                     'service_id'=> $serviceID,
 
@@ -282,7 +282,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['verified_vacancy_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -290,7 +290,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['cash_for_keys'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'cash_for_keys',
+                        $ServicesFieldsDetailData=['fieldname'=>'cash_for_keys',
 
                                                     'service_id'=> $serviceID,
 
@@ -298,7 +298,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['cash_for_keys_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -306,7 +306,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['cash_for_keys_trash_out'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'cash_for_keys_trash_out',
+                        $ServicesFieldsDetailData=['fieldname'=>'cash_for_keys_trash_out',
 
                                                     'service_id'=> $serviceID,
 
@@ -314,13 +314,13 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['cash_for_keys_trash_out_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['trash_size'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'trash_size',
+                        $ServicesFieldsDetailData=['fieldname'=>'trash_size',
 
                                                     'service_id'=> $serviceID,
 
@@ -328,7 +328,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['trash_size_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -336,7 +336,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['storage_shed'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'storage_shed',
+                        $ServicesFieldsDetailData=['fieldname'=>'storage_shed',
 
                                                     'service_id'=> $serviceID,
 
@@ -344,7 +344,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['storage_shed_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -358,7 +358,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['set_prinkler_system_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'set_prinkler_system_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'set_prinkler_system_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -366,7 +366,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['set_prinkler_system_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -376,7 +376,7 @@ class ServiceController extends \BaseController
     
 
                     if (isset($data['install_temporary_system_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'install_temporary_system_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'install_temporary_system_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -384,7 +384,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['install_temporary_system_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -394,7 +394,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['carpet_service_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'carpet_service_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'carpet_service_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -402,7 +402,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['carpet_service_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -410,7 +410,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['pool_service_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'pool_service_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'pool_service_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -418,7 +418,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['pool_service_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -430,7 +430,7 @@ class ServiceController extends \BaseController
    
 
                     if (isset($data['boarding_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'boarding_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'boarding_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -438,7 +438,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['boarding_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -446,7 +446,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['spruce_up_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'spruce_up_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'spruce_up_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -454,13 +454,13 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['spruce_up_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
 
                     if (isset($data['lot_size'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'lot_size_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'lot_size_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -468,7 +468,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['lot_size_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -476,7 +476,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['constable_information_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'constable_information_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'constable_information_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -484,7 +484,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['constable_information_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -492,7 +492,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['remove_carpe_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'remove_carpe_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'remove_carpe_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -500,7 +500,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['remove_carpe_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -508,7 +508,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['remove_blinds_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'remove_blinds_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'remove_blinds_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -516,7 +516,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['remove_blinds_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -526,7 +526,7 @@ class ServiceController extends \BaseController
 
 
                     if (isset($data['remove_appliances_type'])) {
-                        $ServicesFieldsDetailData=array('fieldname'=>'remove_appliances_type',
+                        $ServicesFieldsDetailData=['fieldname'=>'remove_appliances_type',
 
                                                     'service_id'=> $serviceID,
 
@@ -534,7 +534,7 @@ class ServiceController extends \BaseController
 
                                                     'field_values'=>$data['remove_appliances_type_values']
 
-                                                    );
+                                                    ];
 
                         ServiceFieldDetail::add($ServicesFieldsDetailData);
                     }
@@ -567,7 +567,7 @@ class ServiceController extends \BaseController
 
             $JobType=JobType::get();
 
-            $typeArray  =  array(  "select"    => "select",
+            $typeArray  =  [  "select"    => "select",
 
                                 "text"      => "text",
 
@@ -575,7 +575,7 @@ class ServiceController extends \BaseController
 
                                 "radio"     => "radio"
 
-                            );
+                            ];
 
 
 
@@ -605,7 +605,7 @@ class ServiceController extends \BaseController
 
 
 
-             $rules = array(
+             $rules = [
 
                         'service_code' => 'required',
 
@@ -615,7 +615,7 @@ class ServiceController extends \BaseController
 
                         'vendor_price' => 'required'
 
-                    );
+                    ];
 
 
 
@@ -630,7 +630,7 @@ class ServiceController extends \BaseController
             } else {
                 $vendor_edit =  Input::get("vendor_edit");
             
-                Service::where('id', '=', $service_id)->update(array('vendor_edit'=>$vendor_edit));
+                Service::where('id', '=', $service_id)->update(['vendor_edit'=>$vendor_edit]);
             
 
                 $save = Service::updateAdminService($data, $service_id);
@@ -644,13 +644,13 @@ class ServiceController extends \BaseController
 
                     if (count($serviceTypes)!=0) {
                         if (isset($data['number_of_men'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                     'field_type'=>$data['number_of_men_type'],
 
                                                     'field_values'=>$data['number_of_men_values']
 
-                                                    );
+                                                    ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -662,13 +662,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['verified_vacancy'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['verified_vacancy_type'],
 
                                                 'field_values'=>$data['verified_vacancy_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -680,13 +680,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['cash_for_keys'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['cash_for_keys_type'],
 
                                                 'field_values'=>$data['cash_for_keys_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -698,13 +698,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['cash_for_keys_trash_out'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['cash_for_keys_trash_out_type'],
 
                                                 'field_values'=>$data['cash_for_keys_trash_out_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -716,13 +716,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['trash_size'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['trash_size_type'],
 
                                                 'field_values'=>$data['trash_size_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -732,13 +732,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['number_of_men'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['number_of_men_type'],
 
                                                 'field_values'=>$data['number_of_men_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -748,13 +748,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['storage_shed'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['storage_shed_type'],
 
                                                 'field_values'=>$data['storage_shed_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -770,13 +770,13 @@ class ServiceController extends \BaseController
 
                             //echo '<pre>';print_r($data); print_r($serviceTypes); exit; in db column name fieldname value was lot_size_type which changed to lot_size for fix
 
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['lot_size_type'],
 
                                                 'field_values'=>$data['lot_size_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -790,13 +790,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['set_prinkler_system_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                     'field_type'=>$data['set_prinkler_system_type_type'],
 
                                                     'field_values'=>$data['set_prinkler_system_type_values']
 
-                                                    );
+                                                    ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -806,13 +806,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['install_temporary_system_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                     'field_type'=>$data['install_temporary_system_type_type'],
 
                                                     'field_values'=>$data['install_temporary_system_type_values']
 
-                                                    );
+                                                    ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -822,13 +822,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['carpet_service_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                     'field_type'=>$data['carpet_service_type_type'],
 
                                                     'field_values'=>$data['carpet_service_type_values']
 
-                                                    );
+                                                    ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -838,13 +838,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['pool_service_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                     'field_type'=>$data['pool_service_type_type'],
 
                                                     'field_values'=>$data['pool_service_type_values']
 
-                                                    );
+                                                    ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -854,13 +854,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['boarding_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                     'field_type'=>$data['boarding_type_type'],
 
                                                     'field_values'=>$data['boarding_type_values']
 
-                                                    );
+                                                    ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -870,13 +870,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['spruce_up_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                     'field_type'=>$data['spruce_up_type_type'],
 
                                                     'field_values'=>$data['spruce_up_type_values']
 
-                                                    );
+                                                    ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -886,13 +886,13 @@ class ServiceController extends \BaseController
                         }
 
                         if (isset($data['constable_information_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['constable_information_type_type'],
 
                                                 'field_values'=>$data['constable_information_type_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -904,13 +904,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['remove_carpe_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['remove_carpe_type_type'],
 
                                                 'field_values'=>$data['remove_carpe_type_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -922,13 +922,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['remove_blinds_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['remove_blinds_type_type'],
 
                                                 'field_values'=>$data['remove_blinds_type_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -940,13 +940,13 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['remove_appliances_type'])) {
-                            $ServicesFieldsDetailData=array(
+                            $ServicesFieldsDetailData=[
 
                                                 'field_type'=>$data['remove_appliances_type_type'],
 
                                                 'field_values'=>$data['remove_appliances_type_values']
 
-                                                );
+                                                ];
 
                             ServiceFieldDetail::where('service_id', '=', $service_id)
 
@@ -956,7 +956,7 @@ class ServiceController extends \BaseController
                         }
                     } else {
                         if (isset($data['number_of_men'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'number_of_men',
+                            $ServicesFieldsDetailData=['fieldname'=>'number_of_men',
 
                                              'service_id'=> $service_id,
 
@@ -964,7 +964,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['number_of_men_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -978,7 +978,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['cash_for_keys_trash_out'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'cash_for_keys_trash_out',
+                            $ServicesFieldsDetailData=['fieldname'=>'cash_for_keys_trash_out',
 
                                              'service_id'=> $service_id,
 
@@ -986,13 +986,13 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['cash_for_keys_trash_out_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
 
                         if (isset($data['trash_size'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'trash_size',
+                            $ServicesFieldsDetailData=['fieldname'=>'trash_size',
 
                                              'service_id'=> $service_id,
 
@@ -1000,7 +1000,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['trash_size_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1008,7 +1008,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['storage_shed'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'storage_shed',
+                            $ServicesFieldsDetailData=['fieldname'=>'storage_shed',
 
                                              'service_id'=> $service_id,
 
@@ -1016,7 +1016,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['storage_shed_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1026,7 +1026,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['set_prinkler_system_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'set_prinkler_system_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'set_prinkler_system_type',
 
                                              'service_id'=> $service_id,
 
@@ -1034,7 +1034,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['set_prinkler_system_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1044,7 +1044,7 @@ class ServiceController extends \BaseController
     
 
                         if (isset($data['install_temporary_system_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'install_temporary_system_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'install_temporary_system_type',
 
                                              'service_id'=> $service_id,
 
@@ -1052,7 +1052,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['install_temporary_system_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1062,7 +1062,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['carpet_service_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'carpet_service_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'carpet_service_type',
 
                                              'service_id'=> $service_id,
 
@@ -1070,7 +1070,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['carpet_service_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1078,7 +1078,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['pool_service_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'pool_service_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'pool_service_type',
 
                                              'service_id'=> $service_id,
 
@@ -1086,7 +1086,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['pool_service_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1098,7 +1098,7 @@ class ServiceController extends \BaseController
    
 
                         if (isset($data['boarding_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'boarding_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'boarding_type',
 
                                              'service_id'=> $service_id,
 
@@ -1106,7 +1106,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['boarding_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1114,7 +1114,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['spruce_up_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'spruce_up_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'spruce_up_type',
 
                                              'service_id'=> $service_id,
 
@@ -1122,7 +1122,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['spruce_up_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1132,7 +1132,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['lot_size'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'lot_size',
+                            $ServicesFieldsDetailData=['fieldname'=>'lot_size',
 
                                              'service_id'=> $service_id,
 
@@ -1140,13 +1140,13 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['lot_size_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
 
                         if (isset($data['constable_information_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'constable_information_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'constable_information_type',
 
                                              'service_id'=> $service_id,
 
@@ -1154,7 +1154,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['constable_information_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1162,7 +1162,7 @@ class ServiceController extends \BaseController
                     
 
                         if (isset($data['remove_carpe_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'remove_carpe_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'remove_carpe_type',
 
                                              'service_id'=> $service_id,
 
@@ -1170,7 +1170,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['remove_carpe_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1178,7 +1178,7 @@ class ServiceController extends \BaseController
 
 
                         if (isset($data['remove_blinds_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'remove_blinds_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'remove_blinds_type',
 
                                              'service_id'=> $service_id,
 
@@ -1186,7 +1186,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['remove_blinds_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1194,7 +1194,7 @@ class ServiceController extends \BaseController
                     
 
                         if (isset($data['remove_appliances_type'])) {
-                            $ServicesFieldsDetailData=array('fieldname'=>'remove_appliances_type',
+                            $ServicesFieldsDetailData=['fieldname'=>'remove_appliances_type',
 
                                              'service_id'=> $service_id,
 
@@ -1202,7 +1202,7 @@ class ServiceController extends \BaseController
 
                                              'field_values'=>$data['remove_appliances_type_values']
 
-                                             );
+                                             ];
 
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
@@ -1226,9 +1226,9 @@ class ServiceController extends \BaseController
                 }
             }
         } else {
-            $serviceTypeArray=array();
+            $serviceTypeArray=[];
 
-            $serviceValueArray=array();
+            $serviceValueArray=[];
 
 
 
@@ -1332,7 +1332,7 @@ class ServiceController extends \BaseController
 
 
 
-             $typeArray  =  array(
+             $typeArray  =  [
 
                                 "select"    => "select",
 
@@ -1342,7 +1342,7 @@ class ServiceController extends \BaseController
 
                                 "radio"     => "radio"
 
-                                );
+                                ];
 
             $service = Service::getServiceById($service_id);
 
@@ -1364,7 +1364,7 @@ class ServiceController extends \BaseController
 
             ->with('serviceValueArray', $serviceValueArray)
 
-            ->with(array('service' => $service))
+            ->with(['service' => $service])
 
             ->with('ServiceCategory', $ServiceCategory)
 
@@ -1385,8 +1385,8 @@ class ServiceController extends \BaseController
 
         $db_table = $serv->getTable();
 
-        return View::make('pages.admin.list_services')->with(array('services' => $services,
+        return View::make('pages.admin.list_services')->with(['services' => $services,
 
-        'db_table' => $db_table ));
+        'db_table' => $db_table ]);
     }
 }

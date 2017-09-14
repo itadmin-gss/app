@@ -20,7 +20,7 @@ class CronJobController extends \BaseController
 					*/
                     $emergencyData=  MaintenanceRequest::where('emergency_request', '=', 1)->get();
                     
-                    $requestIDARray=array();
+                    $requestIDARray=[];
 
         foreach ($emergencyData as $value) {
             foreach ($value->assignRequest as $assignRequestss) {
@@ -47,7 +47,7 @@ class CronJobController extends \BaseController
 				5.      Add rule: If work order not accepted within 168 hrs, work order goes back to gss user to schedule	*/
                 $emergencyData=  MaintenanceRequest::where('emergency_request', '!=', 1)->get();
 
-                $requestIDARray=array();
+                $requestIDARray=[];
 
         foreach ($emergencyData as $value) {
             foreach ($value->assignRequest as $assignRequestss) {
@@ -87,13 +87,13 @@ class CronJobController extends \BaseController
                     continue;
                 }
 
-                $MaintenanceRequestData=array(
+                $MaintenanceRequestData=[
                     'customer_id'=>$RequestedService->maintenanceRequest->customer_id,
                     'job_type'=>$RequestedService->maintenanceRequest->jobType->id,
                     'asset_id'=>$RequestedService->maintenanceRequest->asset_id,
                     'emergency_request'=>$RequestedService->maintenanceRequest->emergency_request,
                     'status'=>1
-                    );
+                    ];
                     //inserting the new request
                 MaintenanceRequest::create($MaintenanceRequestData);
                 $lastMaintenanceRequestId=DB::getPdo()->lastInsertId();
@@ -101,7 +101,7 @@ class CronJobController extends \BaseController
 
                             ///Inserting New Requested Service
 
-                $request_detail=array();
+                $request_detail=[];
                 $request_detail['request_id'] = $lastMaintenanceRequestId; // assign request id to $requested detail
                         $request_detail['service_id'] = $RequestedService->service_id; // assign service_id to $requested detail
                         $request_detail['status'] = 1;
@@ -149,7 +149,7 @@ class CronJobController extends \BaseController
                 }
 
                         Recurring::find($value->id)
-                        ->update(array('start_date'=>$nextDate));
+                        ->update(['start_date'=>$nextDate]);
 
 
 
@@ -164,7 +164,7 @@ class CronJobController extends \BaseController
                     ->where('vendor_id', '=', $value->vendor_id)
                     ->where('status', '!=', 2)
                     ->get();
-                    $order_details = array();
+                    $order_details = [];
                     foreach ($assigned_requests as $request) {
         //Creating the work order
                         $data['status'] = 0;
@@ -185,14 +185,14 @@ class CronJobController extends \BaseController
                         OrderDetail::addOrderDetails($order_details);
                         $emailUrl="vendor-list-orders?url=".$order_id;
                         $userDAta=User::find($value->vendor_id);
-                        $email_data = array(
+                        $email_data = [
                             'first_name' => $userDAta->first_name,
                             'last_name' => $userDAta->last_name,
                             'username' => $userDAta->username,
                             'email' => $userDAta->email,
                             'id' =>  $value->vendor_id,
                             'user_email_template'=>$order_id ."  has been assigned to you! To view work order, <a href='http://".URL::to($emailUrl)."'>please click here</a>!"
-                            );
+                            ];
 
                         $workOrderId = $order_id;
                         $vendorUsername = $userDAta->username;
@@ -222,7 +222,7 @@ class CronJobController extends \BaseController
 //Ending 
 
                         Recurring::find($value->id)
-                        ->update(array('start_date'=>$nextDate));
+                        ->update(['start_date'=>$nextDate]);
             }
 
             $cronjob['recurring_id']=$value->id;
@@ -236,14 +236,14 @@ class CronJobController extends \BaseController
 
         foreach ($Remainder as $value) {
             if (date('m/d/y', strtotime($value->date))==date('m/d/y')) {
-                $email_data = array(
+                $email_data = [
                     'first_name' => $value->user->first_name,
                     'last_name' => $value->user->last_name,
                     'username' => $value->user->username,
                     'email' => $value->user->email,
                     'id' =>  $value->user->id,
                     'user_email_template'=>$value->remainder_text
-                    );
+                    ];
 
 
                 //Email::send($value->user->email, 'Friendly Remainder', 'emails.customer_registered', $email_data);

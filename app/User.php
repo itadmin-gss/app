@@ -27,8 +27,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface
      *
      * @var array
      */
-    protected $hidden = array('password', 'remember_token');
-    protected $fillable = array('id', 'first_name', 'last_name', 'company', 'email', 'username', 'password', 'phone', 'address_1', 'address_2', 'city_id', 'state_id', 'zipcode', 'profile_image', 'type_id', 'user_role_id', 'profile_status', 'status', 'remember_token', 'created_at', 'updated_at', 'profile_picture', 'latitude', 'longitude','customer_type_id','available_zipcodes','office_notes' );
+    protected $hidden = ['password', 'remember_token'];
+    protected $fillable = ['id', 'first_name', 'last_name', 'company', 'email', 'username', 'password', 'phone', 'address_1', 'address_2', 'city_id', 'state_id', 'zipcode', 'profile_image', 'type_id', 'user_role_id', 'profile_status', 'status', 'remember_token', 'created_at', 'updated_at', 'profile_picture', 'latitude', 'longitude','customer_type_id','available_zipcodes','office_notes' ];
 
      
     public function customerType()
@@ -146,7 +146,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     public static function getAllCustomers()
     {
         $user_type_id = UserType::where('title', '=', 'customer')->first();
-        $cust = array();
+        $cust = [];
         $customers = self::where('type_id', '=', $user_type_id->id)->get();
         foreach ($customers as $cus) {
             $cust[$cus->id] = $cus->first_name . ' ' . $cus->last_name;
@@ -177,8 +177,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     public static function getAdminUsersId()
     {
-        $users = self::whereIn('type_id', array(1, 4))->get();
-        $user_ids = array();
+        $users = self::whereIn('type_id', [1, 4])->get();
+        $user_ids = [];
         foreach ($users as $user) {
             $user_ids[] = $user->id;
             $user_ids['email_'.$user->id] = $user->email;
@@ -187,8 +187,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     }
     public static function getOnlyAdminUsersId()
     {
-           $users = self::whereIn('type_id', array(1))->get();
-           $user_ids = array();
+           $users = self::whereIn('type_id', [1])->get();
+           $user_ids = [];
         foreach ($users as $user) {
             $user_ids['id'] = $user->id;
             $user_ids['email'] = $user->email;
@@ -199,7 +199,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     public static function getAllUsersEmailByIds($ids)
     {
-        $user_email = array();
+        $user_email = [];
         foreach ($ids as $id) {
             $user_emails[] = self::getEmail($id);
         }
@@ -227,7 +227,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
       3.	All vendors previously assigned this same request with cross sign will be available so
      */
 
-    public function getUserByTypeId($type_id = 1, $lat = 0, $lon = 0, $nearest_dist = 50, $RequestedServiceIDS = array())
+    public function getUserByTypeId($type_id = 1, $lat = 0, $lon = 0, $nearest_dist = 50, $RequestedServiceIDS = [])
     {
 
        /*
@@ -247,12 +247,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         ->orderBy("distance")
         ->setBindings([$lat, $lon, $lat])
         ->get();
-        $nearest_user_ids = array();
+        $nearest_user_ids = [];
 
         foreach ($users_nearest as $nearest) {
             $VendorServices =   VendorService::where('vendor_id', '=', $nearest->id)->get();
 
-            $VendorServicesIDS=array();
+            $VendorServicesIDS=[];
             foreach ($VendorServices as $value) {
                 $VendorServicesIDS[]=$value['service_id'];
             }
@@ -269,7 +269,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
        * 2.   All the vendors previously worked for this Asset
        */
         $vendors_previously_worked_for_this_assset = MaintenanceRequest::getMaintenanceRequestByAssetId(1);
-        $vendors = array();
+        $vendors = [];
 
 
         foreach ($vendors_previously_worked_for_this_assset as $assign_request_data) {
@@ -350,7 +350,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         /* Array of database columns which should be read and sent back to DataTables. Use a space where
         * you want to insert a non-database field (for example a counter or static image)
         */
-        $aColumns = array('id', 'first_name', 'last_name', 'company', 'email', 'username', 'password', 'phone', 'address_1', 'address_2', 'zipcode', 'profile_image', 'type_id', 'user_role_id', 'customer_type_id', 'profile_status', 'status', 'remember_token', 'created_at', 'updated_at', 'city_id', 'state_id', 'profile_picture', 'latitude', 'longitude', 'deleted_at', 'available_zipcodes', 'office_notes');
+        $aColumns = ['id', 'first_name', 'last_name', 'company', 'email', 'username', 'password', 'phone', 'address_1', 'address_2', 'zipcode', 'profile_image', 'type_id', 'user_role_id', 'customer_type_id', 'profile_status', 'status', 'remember_token', 'created_at', 'updated_at', 'city_id', 'state_id', 'profile_picture', 'latitude', 'longitude', 'deleted_at', 'available_zipcodes', 'office_notes'];
         /* Indexed column (used for fast and accurate table cardinality) */
         $sIndexColumn = "id";
 
@@ -513,15 +513,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         */if (empty($_GET['sEcho'])) {
             $_GET['sEcho'] = 1;
 } else {
-    $output = array(
+    $output = [
     "sEcho" => intval($_GET['sEcho']),
     "iTotalRecords" => $iTotal,
     "iTotalDisplayRecords" => $iFilteredTotal,
-    "aaData" => array()
-    );
+    "aaData" => []
+    ];
 }
 while ($aRow = mysql_fetch_array($rResult)) {
-    $row = array();
+    $row = [];
     for ($i=0; $i<count($aColumns); $i++) {
         if ($aColumns[$i] == "version") {
             /* Special output formatting for 'version' column */

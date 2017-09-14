@@ -10,7 +10,7 @@ class Recurring extends BaseTenantModel
      */
     protected $table = 'recurrings';
 
-    protected $fillable = array('id', 'request_service_id', 'start_date', 'end_date', 'duration', 'vendor_id','status', 'assignment_type');
+    protected $fillable = ['id', 'request_service_id', 'start_date', 'end_date', 'duration', 'vendor_id','status', 'assignment_type'];
 
     
     public function user()

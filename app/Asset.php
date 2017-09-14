@@ -9,7 +9,7 @@ class Asset extends BaseTenantModel
      * @var string
      */
     protected $table = 'assets';
-    protected $fillable = array('id', 'asset_number', 'customer_type','customer_id', 'address', 'city_id', 'state_id', 'zip', 'loan_number','lender', 'property_type', 'lender', 'property_status', 'electric_status', 'water_status', 'gas_status', 'electric_note', 'gas_note', 'water_note', 'status', 'created_at', 'updated_at', 'property_address', 'lock_box', 'access_code', 'brokage', 'agent', 'customer_email_address', 'carbon_copy_email', 'outbuilding_shed', 'outbuilding_shed_note', 'special_direction_note', 'utility_note', 'swimming_pool' ,'occupancy_status','occupancy_status_note','UNIT', 'property_dead_status','property_dead_date','property_dead_user', 'latitude','longitude');
+    protected $fillable = ['id', 'asset_number', 'customer_type','customer_id', 'address', 'city_id', 'state_id', 'zip', 'loan_number','lender', 'property_type', 'lender', 'property_status', 'electric_status', 'water_status', 'gas_status', 'electric_note', 'gas_note', 'water_note', 'status', 'created_at', 'updated_at', 'property_address', 'lock_box', 'access_code', 'brokage', 'agent', 'customer_email_address', 'carbon_copy_email', 'outbuilding_shed', 'outbuilding_shed_note', 'special_direction_note', 'utility_note', 'swimming_pool' ,'occupancy_status','occupancy_status_note','UNIT', 'property_dead_status','property_dead_date','property_dead_user', 'latitude','longitude'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -116,14 +116,14 @@ class Asset extends BaseTenantModel
                 $userDAta=User::find($rec_id);
         
             
-                $email_data = array(
+                $email_data = [
                 'first_name' => $userDAta['first_name'],
                 'last_name' => $userDAta['last_name'],
                 'username' => $userDAta['username'],
                 'email' => $userDAta['email'],
                 'id' =>  $rec_id,
                 'user_email_template'=>$emailbody
-                       );
+                       ];
            
                 $customervendor="Admin";
                 $notification_url="edit-asset/".$id;
@@ -154,13 +154,13 @@ class Asset extends BaseTenantModel
 
     public static function viewAssetsByStatus($status)
     {
-        $assets = self::whereRaw('status = ?', array($status))->get();
+        $assets = self::whereRaw('status = ?', [$status])->get();
         return $assets;
     }
 
     public static function getAssetsByCustomerId($id)
     {
-        $assets = self::whereRaw("customer_id = ? and property_status != 'closed'", array($id))
+        $assets = self::whereRaw("customer_id = ? and property_status != 'closed'", [$id])
         // ->where('customer_type', '=', Session::get('clientType'))
         ->orderBy('id', 'desc')->get();
         return $assets;
@@ -175,7 +175,7 @@ class Asset extends BaseTenantModel
     public static function requiredFields($flag = 0)
     {
    
-        $fields = array(
+        $fields = [
             'asset_number' =>   $flag == 0 ? 'required|unique:assets': 'required',
             'property_address' => 'required',
             'city_id' => 'required',
@@ -199,7 +199,7 @@ class Asset extends BaseTenantModel
             'utility_note' => '',
             'swimming_pool',
             'occupancy_status'=>'required'
-        );
+        ];
 
         return $fields;
     }

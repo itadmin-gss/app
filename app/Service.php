@@ -4,10 +4,10 @@ class Service extends BaseTenantModel
 {
 
     protected $table = 'services';
-    protected $fillable = array('id', 'title', 'customer_price', 'vendor_price', 'service_code', 'req_date',
+    protected $fillable = ['id', 'title', 'customer_price', 'vendor_price', 'service_code', 'req_date',
      'number_of_men','verified_vacancy','cash_for_keys','cash_for_keys_trash_out','trash_size','storage_shed','lot_size','recurring','emergency','desc','status'
     ,'set_prinkler_system_type','install_temporary_system_type',    'carpet_service_type',  'pool_service_type',    'boarding_type','spruce_up_type','constable_information_type',
-    'remove_carpe_type','remove_blinds_type','remove_appliances_type','service_cat_id','customer_type_id','job_type_id' ,'due_date','due_date_val','bid_flag','service_type','vendor_edit');
+    'remove_carpe_type','remove_blinds_type','remove_appliances_type','service_cat_id','customer_type_id','job_type_id' ,'due_date','due_date_val','bid_flag','service_type','vendor_edit'];
     // Defining Function to get User Profile Status. ---- Start
     public static function getAllServices($service_type = 0)
     {
@@ -107,7 +107,7 @@ class Service extends BaseTenantModel
     public static function updateAdminService($data, $id)
     {
         
-        $nulldata=array('service_code' =>'' ,
+        $nulldata=['service_code' =>'' ,
             'title' => '',
             'customer_price' =>  '',
             'vendor_price' => '',
@@ -134,7 +134,7 @@ class Service extends BaseTenantModel
             'remove_appliances_type'=>'',
             'service_type'=>''
 
-            );
+            ];
         self::find($id)->update($nulldata);
         
         $save = self::find($id)->update($data);

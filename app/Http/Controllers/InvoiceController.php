@@ -13,7 +13,7 @@ class InvoiceController extends BaseController
         if ($submitted) {
         } else {
             $order = Invoice::where('id', '=', $order_id)->get();
-            $order_details =array();
+            $order_details =[];
             
             return View::make('common.edit_invoice')
             ->with('order', $order[0])
@@ -30,7 +30,7 @@ class InvoiceController extends BaseController
         $invoices = Invoice::listAll($userTypeId);
 
 
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -72,7 +72,7 @@ class InvoiceController extends BaseController
         $invoices = Invoice::listAll($userTypeId, Auth::user()->id);
 
 
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -114,7 +114,7 @@ class InvoiceController extends BaseController
         $invoices = Invoice::listAll($userTypeId, Auth::user()->id);
 
 
-        $list_orders = array();
+        $list_orders = [];
         $i = 0;
 
 
@@ -152,7 +152,7 @@ class InvoiceController extends BaseController
         $invoice_id= Input::get('invoice_id');
         $invoice_price= Input::get('invoice_price');
      
-        $flag= Invoice::where('id', '=', $invoice_id)->update(array('total_amount' =>$invoice_price)); //Assigned to Technician Status
+        $flag= Invoice::where('id', '=', $invoice_id)->update(['total_amount' =>$invoice_price]); //Assigned to Technician Status
         echo "You has updated the price for vendor";
     }
 }

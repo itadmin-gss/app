@@ -48,7 +48,7 @@ class AjaxController extends \BaseController
     }
     public function approvedGridExport()
     {
-        $work_orders = Order::where("status", "=", 4)->update(array('status'=>6,'status_class'=>'blue','status_text'=>'Exported'));
+        $work_orders = Order::where("status", "=", 4)->update(['status'=>6,'status_class'=>'blue','status_text'=>'Exported']);
         return "Exported Successfully!";
     }
     //Get all cities by state
@@ -107,8 +107,8 @@ class AjaxController extends \BaseController
             $service_data = Service::find($id);
 
        
-            $serviceTypeArray=array();
-            $serviceValueArray=array();
+            $serviceTypeArray=[];
+            $serviceValueArray=[];
             $serviceTypes                     =   ServiceFieldDetail::getServiceFieldById($last_service_id);
             $serviceTypeArray['number_of_men']='';
             $serviceTypeArray['verified_vacancy']='';
@@ -292,8 +292,8 @@ class AjaxController extends \BaseController
             $service_data = Service::find($last_service_id);
 
 
-            $serviceTypeArray=array();
-            $serviceValueArray=array();
+            $serviceTypeArray=[];
+            $serviceValueArray=[];
             $serviceTypes=   ServiceFieldDetail::getServiceFieldById($last_service_id);
             $serviceTypeArray['number_of_men']='';
             $serviceTypeArray['verified_vacancy']='';
@@ -356,11 +356,11 @@ class AjaxController extends \BaseController
         $Input=Input::all();
        
         $services =  Service::getAllServicesBySeviceJobTypeId($Input['job_type'], $Input['client_type']);
-        $dataService=array();
+        $dataService=[];
 
         $options="";
       
-        $servicesData=array();
+        $servicesData=[];
         $i=0;
         foreach ($services as $value) {
             if (isset($value->serviceCategory->title)) {
@@ -508,18 +508,18 @@ class AjaxController extends \BaseController
           $statusMessage="";
           $Input=Input::all();
           $requestDataBid=RequestedBid::find($Input['id']);
-          $data=  array();
+          $data=  [];
 
         if (isset($Input['customer_bid_price'])&& $Input['customer_bid_price']!="") {
-            $data= array(
+            $data= [
             'customer_bid_price' =>  $Input['customer_bid_price'],
     
             'bypassornot'=> $Input['bypassornot']
-                );
+                ];
 
             //Status 6  is for when Awaiting Customer Approval
                    MaintenanceBid::where('id', '=', $requestDataBid->request_id)
-                   ->update(array('status'=>6));
+                   ->update(['status'=>6]);
                    $statusMessage="Awaiting Customer Approval";
         }
 
@@ -571,14 +571,14 @@ Service Type:".$serviceType;
 
 
             $userDAta=User::find($MaintenanceBid->user->id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $MaintenanceBid->user->id,
             'user_email_template'=>$bidEMailContent
-                               );
+                               ];
 
             $customervendor="Customer";
             $notification_url="list-customer-requested-bids";
@@ -609,14 +609,14 @@ Service Type:".$serviceType;
                 $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-                   );
+                   ];
 
             $customervendor="Admin";
             $notification_url="list-bidding-request";
@@ -627,14 +627,14 @@ Service Type:".$serviceType;
         }
         if ($Input['datepickerremainder']!="") {
                 //Remainder add
-                $RemainderData=array(
+                $RemainderData=[
                   'date' => $Input['datepickerremainder'],
                   'model'=>'BidRequest',
                   'status'=>0,
                   'remainder_text'=>$emailRmainder,
                   'user_id'=>$MaintenanceBid->user->id,
                   'request_id'=>$Input['id']
-                 );
+                 ];
                 Remainder::create($RemainderData);
                 //End Remainder
         }
@@ -646,18 +646,18 @@ Service Type:".$serviceType;
           $statusMessage="";
           $Input=Input::all();
           $requestDataBid=RequestedBid::find($Input['id']);
-          $data=  array();
+          $data=  [];
 
         if (isset($Input['vendor_bid_price'])&& $Input['vendor_bid_price']!="") {
-            $data= array(
+            $data= [
             'vendor_bid_price' =>  $Input['vendor_bid_price'],
     
             'vendor_note_for_bid'=> $Input['vendor_note_for_bid']
-                );
+                ];
 
             //Status 3  is for when Completed Vendor Bid
                    MaintenanceBid::where('id', '=', $requestDataBid->request_id)
-                   ->update(array('status'=>3));
+                   ->update(['status'=>3]);
                    $statusMessage="Completed Vendor Bid";
         }
 
@@ -712,14 +712,14 @@ Service Type:".$serviceType;
                 $recepient_id = User::getAdminUsersId();
         foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-               );
+               ];
 
             $customervendor="Admin";
             $notification_url="list-bidding-request";
@@ -731,6 +731,6 @@ Service Type:".$serviceType;
 
          //Update status for not sending remainder emails
             Remainder::where('request_id', '=', $requestDataBid->request_id)
-            ->update(array('status'=>1));
+            ->update(['status'=>1]);
     }
 }

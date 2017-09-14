@@ -10,7 +10,7 @@ class Notification extends BaseTenantModel
      */
     protected $table = 'notifications';
 
-    protected $fillable = array('id', 'sender_id', 'recepient_id', 'message', 'notification_type_id', 'notification_url','is_read', 'created_date');
+    protected $fillable = ['id', 'sender_id', 'recepient_id', 'message', 'notification_type_id', 'notification_url','is_read', 'created_date'];
     public function sender()
     {
         return $this->belongsTo('User', 'sender_id');

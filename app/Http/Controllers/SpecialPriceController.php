@@ -10,11 +10,11 @@ class SpecialPriceController extends \BaseController
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
         $submitted=Input::get('submitted');
         if ($submitted) {
-            $rules = array(
+            $rules = [
                         'service_id' => 'required',
                         'customer_id' => 'required',
                         'special_price' => 'required|numeric',
-                        'status' => 'required');
+                        'status' => 'required'];
 
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails()) {
@@ -41,19 +41,19 @@ class SpecialPriceController extends \BaseController
             }
         } else {
             $services=Service::getAllServices();
-            $all_services=array();
+            $all_services=[];
             foreach ($services as $service) {
                 $all_services[$service->id]=$service->title;
             }
             $user_type=UserType::where('title', '=', 'customer')->first();
             $customers=User::where('type_id', '=', $user_type->id)->get();
-            $all_customers=array();
+            $all_customers=[];
 
             foreach ($customers as $customer) {
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name.' '.$customer->company;
             }
 
-            return View::make('pages.admin.addspecialprice')->with(array('services' => $all_services,'customers' => $all_customers ));
+            return View::make('pages.admin.addspecialprice')->with(['services' => $all_services,'customers' => $all_customers ]);
         }
     }
 
@@ -64,11 +64,11 @@ class SpecialPriceController extends \BaseController
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
         $submitted=Input::get('submitted');
         if ($submitted) {
-            $rules = array(
+            $rules = [
                         'service_id' => 'required',
                         'customer_id' => 'required',
                         'special_price' => 'required|numeric',
-                        'status' => 'required');
+                        'status' => 'required'];
 
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails()) {
@@ -91,19 +91,19 @@ class SpecialPriceController extends \BaseController
             }
         } else {
             $services=Service::getAllServices();
-            $all_services=array();
+            $all_services=[];
             foreach ($services as $service) {
                 $all_services[$service->id]=$service->title;
             }
             $user_type=UserType::where('title', '=', 'vendors')->first();
             $customers=User::where('type_id', '=', $user_type->id)->get();
-            $all_customers=array();
+            $all_customers=[];
 
             foreach ($customers as $customer) {
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name.' '.$customer->company;
             }
 
-            return View::make('pages.admin.vendoraddspecialprice')->with(array('services' => $all_services,'customers' => $all_customers ));
+            return View::make('pages.admin.vendoraddspecialprice')->with(['services' => $all_services,'customers' => $all_customers ]);
         }
     }
 
@@ -114,10 +114,10 @@ class SpecialPriceController extends \BaseController
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
         $submitted=Input::get('submitted');
         if ($submitted) {
-            $rules = array(
+            $rules = [
                         'service_id' => 'required',
                         'special_price' => 'required|numeric',
-                        'status' => 'required');
+                        'status' => 'required'];
 
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails()) {
@@ -136,19 +136,19 @@ class SpecialPriceController extends \BaseController
         } else {
             $services=Service::getAllServices();
             $special_price_data=SpecialPrice::getSpecialPriceByID($special_price_id);
-            $all_services=array();
+            $all_services=[];
             foreach ($services as $service) {
                 $all_services[$service->id]=$service->title;
             }
             $user_type=UserType::where('title', '=', 'customer')->first();
             $customers=User::where('type_id', '=', $user_type->id)->get();
-            $all_customers=array();
+            $all_customers=[];
 
             foreach ($customers as $customer) {
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name;
             }
 
-            return View::make('pages.admin.editspecialprice')->with(array('services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ));
+            return View::make('pages.admin.editspecialprice')->with(['services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ]);
         }
     }
 
@@ -162,10 +162,10 @@ class SpecialPriceController extends \BaseController
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
         $submitted=Input::get('submitted');
         if ($submitted) {
-            $rules = array(
+            $rules = [
                         'service_id' => 'required',
                         'special_price' => 'required|numeric',
-                        'status' => 'required');
+                        'status' => 'required'];
 
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails()) {
@@ -189,19 +189,19 @@ class SpecialPriceController extends \BaseController
         } else {
             $services=Service::getAllServices();
             $special_price_data=SpecialPrice::getSpecialPriceByID($special_price_id);
-            $all_services=array();
+            $all_services=[];
             foreach ($services as $service) {
                 $all_services[$service->id]=$service->title;
             }
             $user_type=UserType::where('title', '=', 'customer')->first();
             $customers=User::where('type_id', '=', $user_type->id)->get();
-            $all_customers=array();
+            $all_customers=[];
 
             foreach ($customers as $customer) {
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name;
             }
 
-            return View::make('pages.admin.edit-vendor-special-price')->with(array('services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ));
+            return View::make('pages.admin.edit-vendor-special-price')->with(['services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ]);
         }
     }
 
@@ -210,7 +210,7 @@ class SpecialPriceController extends \BaseController
     public static function listSpecialPrice()
     {
         $all_special_prices = SpecialPrice::getAllSpecialPrices();
-                $special_price_data=array();
+                $special_price_data=[];
 //                $i=0;
 //                foreach($all_special_prices as $data)
 //                {
@@ -224,13 +224,13 @@ class SpecialPriceController extends \BaseController
 //                }
         $special_price = new SpecialPrice;
         $db_table = $special_price->getTable();
-        return View::make('pages.admin.list_special_price')->with(array('special_prices' => $all_special_prices,'db_table' => $db_table ));
+        return View::make('pages.admin.list_special_price')->with(['special_prices' => $all_special_prices,'db_table' => $db_table ]);
     }
 
     public static function vendorListSpecialPrice()
     {
         $all_special_prices = SpecialPrice::getAllVendorSpecialPrices();
-            $special_price_data=array();
+            $special_price_data=[];
 //                $i=0;
 //                foreach($all_special_prices as $data)
 //                {
@@ -244,6 +244,6 @@ class SpecialPriceController extends \BaseController
 //                }
         $special_price = new SpecialPrice;
         $db_table = $special_price->getTable();
-        return View::make('pages.admin.vendor_special_price')->with(array('special_prices' => $all_special_prices,'db_table' => $db_table ));
+        return View::make('pages.admin.vendor_special_price')->with(['special_prices' => $all_special_prices,'db_table' => $db_table ]);
     }
 }

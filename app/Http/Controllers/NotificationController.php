@@ -3,7 +3,7 @@
 class NotificationController extends \BaseController
 {
 
-    public static function sendNotification($recepient_id = array(), $message = null, $notification_type_id = 0, $email_data = array())
+    public static function sendNotification($recepient_id = [], $message = null, $notification_type_id = 0, $email_data = [])
     {
 
         $notification_types = DB::table('notification_types')->where('id', $notification_type_id)->first();
@@ -32,7 +32,7 @@ class NotificationController extends \BaseController
     }
 
 
-    public static function doNotification($recepient_id = 1, $sender_id = 1, $message = null, $notification_type_id = 0, $email_data = array(), $notification_url = "")
+    public static function doNotification($recepient_id = 1, $sender_id = 1, $message = null, $notification_type_id = 0, $email_data = [], $notification_url = "")
     {
 
         $notification_types = DB::table('notification_types')->where('id', $notification_type_id)->first();
@@ -142,13 +142,13 @@ class NotificationController extends \BaseController
     {
          $data = Input::all();
          Notification::where('id', '=', $data['notification_id'])
-                        ->update(array('is_read'=>0));
+                        ->update(['is_read'=>0]);
     }
     public function ChangeAllNotificationStatus()
     {
        
                Notification::where('id', '>=', 1)
-                        ->update(array('is_read'=>0));
+                        ->update(['is_read'=>0]);
          return Redirect::back();
     }
     

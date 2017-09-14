@@ -6,7 +6,7 @@ if (! isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
     exit();
 }
 
-return array(
+return [
 
 
     /*
@@ -99,7 +99,7 @@ return array(
       | this array to grant expanded functionality to your applications.
       |
      */
-    'providers' => array(
+    'providers' => [
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
@@ -127,7 +127,7 @@ return array(
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Workbench\WorkbenchServiceProvider',
         'Jcf\Geocode\GeocodeServiceProvider'
-    ),
+    ],
     /*
       |--------------------------------------------------------------------------
       | Service Provider Manifest
@@ -149,7 +149,7 @@ return array(
       | the aliases are "lazy" loaded so they don't hinder performance.
       |
      */
-    'aliases' => array(
+    'aliases' => [
         'App' => 'Illuminate\Support\Facades\App',
         'Artisan' => 'Illuminate\Support\Facades\Artisan',
         'Auth' => 'Illuminate\Support\Facades\Auth',
@@ -191,6 +191,6 @@ return array(
         'Geocode' => 'Jcf\Geocode\Facades\Geocode',
         'GridRender' => 'Mgallegos\LaravelJqgrid\Facades\GridRender',
         'GridEncoder' => 'Mgallegos\LaravelJqgrid\Facades\GridEncoder',
-    ),
+    ],
 
-);
+];

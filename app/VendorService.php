@@ -7,7 +7,7 @@ class VendorService extends BaseTenantModel
     
     protected $table = 'vendor_services';
       
-    protected $fillable = array('id', 'vendor_id', 'service_id', 'status', 'created_at' , 'updated_at');
+    protected $fillable = ['id', 'vendor_id', 'service_id', 'status', 'created_at' , 'updated_at'];
         
     public function user()
     {

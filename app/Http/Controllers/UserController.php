@@ -60,7 +60,7 @@ class UserController extends \BaseController
     public function createUser()
     {
 
-        $rules = array(
+        $rules = [
             'first_name' => 'required|min:2|max:80|alpha',
             'last_name' => 'required|min:2|max:80|alpha',
             'email' => 'required|email|unique:users|between:3,64',
@@ -68,7 +68,7 @@ class UserController extends \BaseController
             'password' => 'required|between:4,20|confirmed',
             'password_confirmation' => 'same:password',
             'type_id' => 'required'
-        );
+        ];
         $validator = Validator::make(Input::all(), $rules);
 
 
@@ -92,14 +92,14 @@ class UserController extends \BaseController
             if ($created_user_id) {
                 $id = $created_user_id;
 
-                $email_data = array(
+                $email_data = [
                     'first_name' => Input::get('first_name'),
                     'last_name' => Input::get('last_name'),
                     'username' => Input::get('username'),
                     'email' => Input::get('email'),
                     'id' => $id,
                     'user_email_template'=>EmailNotification::$user_email_template
-                );
+                ];
 
                  $customervendor="";
                  $notification_url="";
@@ -133,12 +133,12 @@ class UserController extends \BaseController
             $user = Auth::user();
             $userController = new UserController;
             $redirect = $userController->whereRedirect($user->id);
-            $userdata = array('status' => 1 );
+            $userdata = ['status' => 1 ];
             $save = User::find($id)->update($userdata);
             return $redirect;
         } else {
             // show the form
-            $userdata = array('status' => 1 );
+            $userdata = ['status' => 1 ];
             $save = User::find($id)->update($userdata);
             return View::make('home')->with('active', $id);
         }
@@ -154,10 +154,10 @@ class UserController extends \BaseController
 
 
 
-        $rules = array(
+        $rules = [
             'username' => 'required',
             'password' => 'required|between:4,20'
-        );
+        ];
 
 
 
@@ -180,11 +180,11 @@ class UserController extends \BaseController
             if (isset($status)) {
                 if ($status->status == 1) {
                     //$field = "username";
-                    $userdata = array(
+                    $userdata = [
                     $field => trim($username),
                     'password' => trim($password),
                     'status' => 1
-                        );
+                        ];
 
                     if (Input::get('remember_me')) {
                         $auth_attempt = Auth::attempt($userdata, true);
@@ -199,16 +199,16 @@ class UserController extends \BaseController
                     } else {
                         $login_error_message = FlashMessage::messages('user.user_login_error');
                         return Redirect::back()
-                                ->withErrors(array('password' => 'Invalid Login. Please correct your user name or password'));
+                                ->withErrors(['password' => 'Invalid Login. Please correct your user name or password']);
                     }
                 } else {
                     return Redirect::back()
-                                    ->withErrors(array('password' => 'Your account is De-Activated kindly contact to admin to activate your account'));
+                                    ->withErrors(['password' => 'Your account is De-Activated kindly contact to admin to activate your account']);
                 }
             } else {
                 $login_error_message = FlashMessage::messages('user.user_login_error');
                 return Redirect::back()
-                                ->withErrors(array('password' => 'Invalid Login. Please correct your user name or password'));
+                                ->withErrors(['password' => 'Invalid Login. Please correct your user name or password']);
             }
         }
     }
@@ -237,7 +237,7 @@ class UserController extends \BaseController
         $user_type = UserType::getUserTypeByID($user_data->type_id);
         $clientType=CustomerType::get();
          $vendor_services = VendorService::getAllVendorServices();
-           $VendorServiceArray=array();
+           $VendorServiceArray=[];
         foreach ($vendor_services as $value) {
             $VendorServiceArray[]=$value->service_id;
         }
@@ -296,12 +296,12 @@ class UserController extends \BaseController
                 return Hash::check($value, Auth::user()->$parameters[0]);
             });
 
-            $messages = array(
+            $messages = [
                 'hashmatch' => 'Your current password must match your account password.'
-            );
+            ];
 
             if (Input::get('change_password')) {
-                $rules = array(
+                $rules = [
                     'first_name' => 'required|min:2|max:80|alpha',
                     'last_name' => 'required|min:2|max:80|alpha',
                     'phone' => 'required|numeric',
@@ -312,9 +312,9 @@ class UserController extends \BaseController
                     'current_password' => 'hashmatch:password',
                     'password' => 'required|between:4,20|confirmed',
                     'password_confirmation' => 'same:password',
-                );
+                ];
             } else {
-                $rules = array(
+                $rules = [
                     'first_name' => 'required|min:2|max:80|alpha',
                     'last_name' => 'required|min:2|max:80|alpha',
                     'phone' => 'required|numeric',
@@ -322,7 +322,7 @@ class UserController extends \BaseController
                     'zipcode' => 'required',
                     'state_id' => 'required',
                     'city_id' => 'required',
-                );
+                ];
             }
             if (Input::get('check_user_name') == 'yes') {
                 $rules['username'] = 'required|unique:users';
@@ -420,7 +420,7 @@ class UserController extends \BaseController
                 $redirect = '/';
                 Auth::logout();
                 return Redirect::to($redirect)
-                                ->withErrors(array('password' => 'Your are not approved by admin yet.'));
+                                ->withErrors(['password' => 'Your are not approved by admin yet.']);
             }
         } else if ($user_type == 'admin' || $user_type == 'user') {
             if ($user_status == 1) {
@@ -430,7 +430,7 @@ class UserController extends \BaseController
                 $redirect = '/';
                 Auth::logout();
                 return Redirect::to($redirect)
-                                ->withErrors(array('password' => 'Your are not approved by admin yet.'));
+                                ->withErrors(['password' => 'Your are not approved by admin yet.']);
             }
         } else if ($user_type == 'customer') {
             if ($profile_status < 1 && $user_status > 0) {
@@ -450,7 +450,7 @@ class UserController extends \BaseController
                 $redirect = '/';
                 Auth::logout();
                 return Redirect::to($redirect)
-                                ->withErrors(array('password' => 'Your are not approved by admin yet.'));
+                                ->withErrors(['password' => 'Your are not approved by admin yet.']);
             } else if ($user_status == 0) {
                 $redirect = '/';
                 Auth::logout();

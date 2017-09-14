@@ -22,7 +22,7 @@ class Recurrings extends Migration
                 $table->integer('duration', false, true)->nullable();
                 $table->integer('vendor_id')->unsigned()->nullable();
                 $table->foreign('vendor_id')->references('id')->on('users')->onDelete('cascade');
-                $table->enum('assignment_type', array('single', 'multiple'));
+                $table->enum('assignment_type', ['single', 'multiple']);
                 $table->boolean('status')->nullable();
                 $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
                 $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

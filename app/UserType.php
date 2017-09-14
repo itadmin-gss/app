@@ -38,7 +38,7 @@ class UserType extends BaseTenantModel
     public static function getUserTypeIdByTitle($title)
     {
 
-        $type_id = self::whereRaw('title = ?', array($title))->get(array('id'))->first();
+        $type_id = self::whereRaw('title = ?', [$title])->get(['id'])->first();
 
 
 

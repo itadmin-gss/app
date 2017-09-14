@@ -9,7 +9,7 @@ class Remainder extends BaseTenantModel
      * @var string
      */
     protected $table = 'remainders';
-    protected $fillable = array('id', 'date', 'model','type', 'remainder_text', 'user_id','request_id');
+    protected $fillable = ['id', 'date', 'model','type', 'remainder_text', 'user_id','request_id'];
 
     public function user()
     {

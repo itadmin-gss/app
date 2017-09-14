@@ -6,7 +6,7 @@ class MaintenanceBid extends BaseTenantModel
 
 
     protected $table = 'maintenance_bids';
-    protected $fillable = array('id', 'customer_id', 'substitutor_id' ,'asset_id', 'status','emergency_request', 'admin_notes' ,'declined_notes','job_type','created_at', 'updated_at','declinebidnotes');
+    protected $fillable = ['id', 'customer_id', 'substitutor_id' ,'asset_id', 'status','emergency_request', 'admin_notes' ,'declined_notes','job_type','created_at', 'updated_at','declinebidnotes'];
 
     public function jobType()
     {
@@ -61,9 +61,9 @@ class MaintenanceBid extends BaseTenantModel
     {
 
         if ($take == 0) {
-            $requests = self::whereRaw('customer_id = ?', array($customer_id))->orderBy('id', 'desc')->get();
+            $requests = self::whereRaw('customer_id = ?', [$customer_id])->orderBy('id', 'desc')->get();
         } else {
-            $requests = self::whereRaw('customer_id = ? and status = 1', array($customer_id))
+            $requests = self::whereRaw('customer_id = ? and status = 1', [$customer_id])
                         ->skip(0)
                         ->take($take)->orderBy('id', 'desc')->get();
         }
@@ -73,9 +73,9 @@ class MaintenanceBid extends BaseTenantModel
     {
 
         if ($take == 0) {
-            $requests = self::whereRaw('customer_id = ? and status in (1,6,4,7,8)', array($customer_id))->orderBy('id', 'desc')->get();
+            $requests = self::whereRaw('customer_id = ? and status in (1,6,4,7,8)', [$customer_id])->orderBy('id', 'desc')->get();
         } else {
-            $requests = self::whereRaw('customer_id = ? and status in (1,6,4,7,8)', array($customer_id))
+            $requests = self::whereRaw('customer_id = ? and status in (1,6,4,7,8)', [$customer_id])
                             ->skip(0)
                             ->take($take)->orderBy('id', 'desc')->get();
         }

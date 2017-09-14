@@ -19,7 +19,7 @@ class BidServiceImage extends BaseTenantModel
 
     protected $table = 'bid_service_images';
 
-    protected $fillable = array('id', 'requested_id', 'image_name', 'status', 'image_type');
+    protected $fillable = ['id', 'requested_id', 'image_name', 'status', 'image_type'];
 
 
 

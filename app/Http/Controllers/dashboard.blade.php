@@ -28,7 +28,7 @@
   $i=1;
   foreach ($requests as $rm) {
 
-           $request_service_ids=array();
+           $request_service_ids=[];
              foreach ($rm->assignRequest as $rqdata) {
                 $request_service_ids[] = $rqdata->status;
             }

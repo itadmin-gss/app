@@ -13,7 +13,7 @@ class BidRequest extends BaseTenantModel
 
     protected $table = 'bid_requests';
 
-    protected $fillable = array('id', 'vendor_id', 'asset_id', 'status', 'created_at', 'updated_at','order_id','customer_id','decline_notes','customer_notes','admin_notes','job_type');
+    protected $fillable = ['id', 'vendor_id', 'asset_id', 'status', 'created_at', 'updated_at','order_id','customer_id','decline_notes','customer_notes','admin_notes','job_type'];
 
 
 
@@ -93,9 +93,9 @@ class BidRequest extends BaseTenantModel
 
 
         if ($take == 0) {
-            $requests = self::whereRaw('customer_id = ? and status = 1', array($customer_id))->get();
+            $requests = self::whereRaw('customer_id = ? and status = 1', [$customer_id])->get();
         } else {
-            $requests = self::whereRaw('customer_id = ? and status = 1', array($customer_id))
+            $requests = self::whereRaw('customer_id = ? and status = 1', [$customer_id])
 
                             ->skip(0)
 

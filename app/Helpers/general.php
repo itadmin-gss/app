@@ -41,7 +41,7 @@ class General
 
     public static function array_sort_by_column(&$arr, $col, $dir = SORT_ASC)
     {
-        $sort_col = array();
+        $sort_col = [];
         foreach ($arr as $key => $row) {
             $sort_col[$key] = $row[$col];
         }

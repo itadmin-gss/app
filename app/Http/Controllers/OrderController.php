@@ -39,7 +39,7 @@ class OrderController extends \BaseController
 
         if ($orderFLAG->status==0 && Auth::user()->type_id==3) {
             Order::where('id', $order_id)
-            ->update(array('status' => 1,'status_text' => "In-Process",'status_class'=>"warning"));
+            ->update(['status' => 1,'status_text' => "In-Process",'status_class'=>"warning"]);
         }
         //Show dashboard of customer
         $submitted = Input::get('submitted');
@@ -101,7 +101,7 @@ class OrderController extends \BaseController
         $orderimages = OrderImage::where('order_id', '=', $order_id)->get();
       
       
-        $ImagesArray=array();
+        $ImagesArray=[];
         $ImagesArray['before']=0;
         $ImagesArray['after']=0;
         $ImagesArray['during']=0;
@@ -128,7 +128,7 @@ class OrderController extends \BaseController
         if ($orderFLAG->status==0 && Auth::user()->type_id==3) {
             $view_message = "Thank You. Your Work Order is now In-Process. ";
             Order::where('id', $order_id)
-            ->update(array('status' => 1,'status_text' => "In-Process",'status_class'=>"warning"));
+            ->update(['status' => 1,'status_text' => "In-Process",'status_class'=>"warning"]);
         }
         //Show dashboard of customer
         $order = Order::getOrderByID($order_id);
@@ -472,7 +472,7 @@ class OrderController extends \BaseController
     {
 
         $data =  Input::all();
-        $result = array();
+        $result = [];
         foreach ($data as $key => $value) {
             foreach ($value as $key => $val) {
                 $result[] = AdditionalServiceItemImage::where('id', '=', $val)->get();
@@ -534,7 +534,7 @@ class OrderController extends \BaseController
     public function downloadSeletedImages()
     {
         $data =  Input::all();
-        $result = array();
+        $result = [];
         foreach ($data as $key => $value) {
             foreach ($value as $key => $val) {
                 $result[] = OrderImage::where('id', '=', $val)->get();
@@ -1069,7 +1069,7 @@ $(".example6").fancybox({
     public function saveVendorNote()
     {
         $data = Input::all();
-        $vendor_note=array('vendor_note'=>$data['vendor_note']);
+        $vendor_note=['vendor_note'=>$data['vendor_note']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
         $save=$requested_service->vendor_note=$data['vendor_note'];
@@ -1082,7 +1082,7 @@ $(".example6").fancybox({
     {
         $id = Input::get('additional_id');
         $additional_vendors_notes = Input::get('additional_vendors_notes');
-        $save = AdditionalServiceItem::where('id', '=', $id)->update(array('additional_vendors_notes' => $additional_vendors_notes));
+        $save = AdditionalServiceItem::where('id', '=', $id)->update(['additional_vendors_notes' => $additional_vendors_notes]);
                 
         if ($save) {
             return $additional_vendors_notes;
@@ -1091,7 +1091,7 @@ $(".example6").fancybox({
     public function saveBillingNote()
     {
          $data = Input::all();
-        $billing_note=array('billing_note'=>$data['billing_note']);
+        $billing_note=['billing_note'=>$data['billing_note']];
         $orders=Order::find($data['order_id']);
         $save=$orders->billing_note=$data['billing_note'];
         $orders->save();
@@ -1102,7 +1102,7 @@ $(".example6").fancybox({
     public function saveAdminNote()
     {
         $data = Input::all();
-        $vendor_note=array('vendor_note'=>$data['vendor_note']);
+        $vendor_note=['vendor_note'=>$data['vendor_note']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
         $save=$requested_service->admin_note=$data['vendor_note'];
@@ -1115,7 +1115,7 @@ $(".example6").fancybox({
     public function saveAdminQuantity()
     {
         $data = Input::all();
-        $vendor_note=array('vendor_qty'=>$data['vendor_qty']);
+        $vendor_note=['vendor_qty'=>$data['vendor_qty']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
         $save=$requested_service->quantity=$data['vendor_qty'];
@@ -1127,7 +1127,7 @@ $(".example6").fancybox({
     public function saveCustomerNote()
     {
         $data = Input::all();
-        $vendor_note=array('vendor_note'=>$data['vendor_note']);
+        $vendor_note=['vendor_note'=>$data['vendor_note']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
         $save=$requested_service->customer_note=$data['vendor_note'];
@@ -1453,18 +1453,18 @@ $(".example6").fancybox({
           $data = Order::where("id", "=", $order_id)->pluck("approved_date");
         if (empty($data)) {
               $current_data = date("m/d/Y");
-               $orderdata = array(
+               $orderdata = [
             'status'       =>   Input::get('orderstatusid') ,
             'status_class' =>   Input::get('orderstatus_class') ,
             'status_text'  =>   Input::get('orderstatus_text'),
              'approved_date' => $current_data
-            );
+            ];
         } else {
-            $orderdata = array(
+            $orderdata = [
             'status'       =>   Input::get('orderstatusid') ,
             'status_class' =>   Input::get('orderstatus_class') ,
             'status_text'  =>   Input::get('orderstatus_text')
-            );
+            ];
         }
         $save = Order::where('id', '=', $order_id)
         ->update($orderdata);
@@ -1493,14 +1493,14 @@ Status: ".$orders[0]->status_text." <br/>
 Service Type: ".$serviceType;
       //2.    Notification to Admin for New Request
             $userDAta=User::find($orders[0]->customer->id);
-            $email_data = array(
+            $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
             'username' => $userDAta->username,
             'email' => $userDAta->email,
             'id' =>  $order_id,
             'user_email_template'=>$EmailDATA
-               );
+               ];
 
                Email::send($userDAta->email, 'Subject - '.$order_id .' marked In Process', 'emails.customer_registered', $email_data);
         }
@@ -1553,23 +1553,23 @@ Service Type: ".$serviceType;
             }
 
 
-            Invoice::create(array(
+            Invoice::create([
             'order_id'=>$order_id,
             'total_amount'=>$vendor_price,
             'request_id'  =>$orders[0]->request_id,
             'user_id'  => $orders[0]->vendor->id,
             'user_type_id'  => $orders[0]->vendor->type_id,
             'status'=>1
-                    ));
+                    ]);
 
 
-            Invoice::create(array(
+            Invoice::create([
                                 'order_id'=>$order_id,
                                 'total_amount'=>   $customer_price,
                                 'request_id'  =>$orders[0]->request_id,
                                 'user_id'  => $orders[0]->customer->id,
                                 'user_type_id'  => $orders[0]->customer->type_id,
-                                'status'=>1));
+                                'status'=>1]);
             $emailUrl="edit-order/".$order_id;
             $EmailDATA =   $order_id. " has been marked Approved. To view work order details <a href='".URL::to($emailUrl)."'> click here:</a>
 <br/>Order ID: ".$order_id." <br/>
@@ -1579,14 +1579,14 @@ Service Type: ".$serviceType." <br/>
 Completion Date: ".$orders[0]->completion_date;
       //2.    Notification to Admin for New Request
                $userDAta=User::find($orders[0]->customer->id);
-               $email_data = array(
+               $email_data = [
                'first_name' => $userDAta->first_name,
                'last_name' => $userDAta->last_name,
                'username' => $userDAta->username,
                'email' => $userDAta->email,
                'id' =>  $order_id,
                'user_email_template'=>$EmailDATA
-               );
+               ];
 
                Email::send($userDAta->email, 'Subject - '.$order_id .' marked Completed', 'emails.customer_registered', $email_data);
         }
@@ -1598,26 +1598,26 @@ Completion Date: ".$orders[0]->completion_date;
               
                 $recepient_id = User::getAdminUsersId();
             foreach ($recepient_id as $rec_id) {
-                $notification = NotificationController::doNotification($rec_id, Auth::user()->id, $message, 2, array(), "list-work-order-admin");
+                $notification = NotificationController::doNotification($rec_id, Auth::user()->id, $message, 2, [], "list-work-order-admin");
             }
 
                 //Send to customer
                 $recepient_id = $orders[0]->customer->id;
                
-                 NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, array(), "customer-list-work-orders");
+                 NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "customer-list-work-orders");
         } elseif (Auth::user()->type_id==2) {
               //Send to vendor
               $message =  "Customer has changed the status of order to ".Input::get('orderstatus_text')." of order number ". $order_id;
               $recepient_id = $orders[0]->vendor->id;
                
-               NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, array(), "vendor-list-orders");
+               NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "vendor-list-orders");
               //End comments
         } else {
           //Send to vendor
             $message =  "Admin has changed the status of order to ".Input::get('orderstatus_text')." of order number ". $order_id;
             $recepient_id = $orders[0]->vendor->id;
                
-            NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, array(), "vendor-list-orders");
+            NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "vendor-list-orders");
           //End comments
         }
 
@@ -1639,14 +1639,14 @@ Completion Date: ".$orders[0]->completion_date;
         $data = Order::where("id", "=", $order_id)->pluck("vendor_submitted");
         if (empty($data)) {
               $current_data = date("m/d/Y");
-               $orderdata = array(
+               $orderdata = [
             'vendor_submitted' => $current_data,
             'completion_date'       =>    $completion_date
-            );
+            ];
         } else {
-            $orderdata = array(
+            $orderdata = [
             'completion_date'  => $completion_date
-            );
+            ];
         }
        
 
@@ -1657,9 +1657,9 @@ Completion Date: ".$orders[0]->completion_date;
     }
     function closePropertyStatus()
     {
-           $orderdata = array(
+           $orderdata = [
             'close_property_status'       =>   Input::get('status_id')
-            );
+            ];
 
         $save = Order::where('id', '=', Input::get('order_id'))
         ->update($orderdata);
@@ -1719,7 +1719,7 @@ Completion Date: ".$orders[0]->completion_date;
         $assets = Order::orderBy('id', 'desc')->get();
 
         return View::make('pages.admin.status-report')
-        ->with(array(
-        'assets_data' => $assets));
+        ->with([
+        'assets_data' => $assets]);
     }
 }

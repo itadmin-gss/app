@@ -9,7 +9,7 @@ class UserRole extends BaseTenantModel
 
     protected $table = 'user_roles';
 
-    protected $fillable = array('id', 'role_name', 'description', 'status');
+    protected $fillable = ['id', 'role_name', 'description', 'status'];
 
 
 
