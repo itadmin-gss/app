@@ -9,7 +9,7 @@
  */
 use JeroenDesloovere\Geolocation\Geolocation;
 
-class VendorController extends \BaseController
+class VendorController extends Controller
 {
 
     /**

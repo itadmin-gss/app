@@ -7,7 +7,7 @@
  * @version $Id: 1.0
  */
 
-class CronJobController extends \BaseController
+class CronJobController extends Controller
 {
 
     public function index()

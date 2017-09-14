@@ -1,6 +1,6 @@
 <?php
 
-class NotificationController extends \BaseController
+class NotificationController extends Controller
 {
 
     public static function sendNotification($recepient_id = [], $message = null, $notification_type_id = 0, $email_data = [])

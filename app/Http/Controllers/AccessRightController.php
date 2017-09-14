@@ -7,7 +7,7 @@
  * @version $Id: 1.0
  */
 
-class AccessRightController extends \BaseController
+class AccessRightController extends Controller
 {
 
    /**

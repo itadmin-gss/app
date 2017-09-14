@@ -16,7 +16,7 @@
 
  */
 
-class CommonController extends \BaseController
+class CommonController extends Controller
 {
 
 

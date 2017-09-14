@@ -1,6 +1,6 @@
 <?php
 
-class WorkOrderController extends \BaseController
+class WorkOrderController extends Controller
 {
 
     /**

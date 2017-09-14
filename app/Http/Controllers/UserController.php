@@ -10,7 +10,7 @@
 use Cryt\Forms\RegistrationForm;
 use JeroenDesloovere\Geolocation\Geolocation;
 
-class UserController extends \BaseController
+class UserController extends Controller
 {
 
     /**

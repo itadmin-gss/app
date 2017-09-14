@@ -7,7 +7,7 @@
  * @copyright Copyright 2014 Invortex Technology Development Team
  * @version $Id: 1.0
  */
-class RecurringController extends \BaseController
+class RecurringController extends Controller
 {
 
     public static function showrecurring()

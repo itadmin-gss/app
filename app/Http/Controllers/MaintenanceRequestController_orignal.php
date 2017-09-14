@@ -1,6 +1,6 @@
 <?php
 
-class MaintenanceRequestController extends \BaseController
+class MaintenanceRequestController extends Controller
 {
 
     /**

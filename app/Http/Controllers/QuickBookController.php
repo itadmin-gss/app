@@ -16,7 +16,7 @@
 
  */
 
-class QuickBookController extends \BaseController
+class QuickBookController extends Controller
 {
 
 

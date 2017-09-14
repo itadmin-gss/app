@@ -1,6 +1,6 @@
 <?php
 
-class ServiceController extends \BaseController
+class ServiceController extends Controller
 {
 
 

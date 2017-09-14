@@ -1,6 +1,6 @@
 <?php
 
-class AjaxController extends \BaseController
+class AjaxController extends Controller
 {
 
     public function loadWorkorder($order_id)

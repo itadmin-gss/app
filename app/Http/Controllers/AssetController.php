@@ -2,7 +2,7 @@
 
 use JeroenDesloovere\Geolocation\Geolocation;
 
-class AssetController extends \BaseController
+class AssetController extends Controller
 {
 
 //protected $layout = 'layouts.default';

@@ -1,6 +1,6 @@
 <?php
 
-class SpecialPriceController extends \BaseController
+class SpecialPriceController extends Controller
 {
 
     public static function addSpecialPrice()
