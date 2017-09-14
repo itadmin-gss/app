@@ -1,7 +1,7 @@
 @extends('layouts.vendordefaultpink')
 @section('content')
 <div id="content" class="span11">
-<a class="btn btn-info" href="{{URL::to('add-bid-request')}}" style="float:right" >
+<a class="btn btn-info" href="{!!URL::to('add-bid-request')!!}" style="float:right" >
  Add OSR
 </a>
 OSR: <select id="bidRequestonchangeVendor">
@@ -53,17 +53,17 @@ OSR: <select id="bidRequestonchangeVendor">
                         @foreach ($assign_requests as $assign_request)
                         <tr>
                            
-                            <td class="center">{{ $assign_request['request_id'] }}</td>
+                            <td class="center">{!! $assign_request['request_id'] !!}</td>
                             
                             
-                            <td class="center">{{ $assign_request['property_address'] }}</td>
-                            <td class="center">{{ $assign_request['city'] }}</td>
-                            <td class="center">{{ $assign_request['state'] }}</td>
-                            <td class="center">{{ $assign_request['zip'] }}</td>
-                            <td class="center">{{ $assign_request['service_name'] }}</td>
-                            <td class="center">{{ $assign_request['request_date'] }}</td>
-                         <td class="center">{{ $assign_request['price'] }}</td>
-                        <td class="center popover-examples"><a class="btn btn-success" href="{{URL::to('view-vendor-bid-request')}}/{{  $assign_request['request_id'] }}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
+                            <td class="center">{!! $assign_request['property_address'] !!}</td>
+                            <td class="center">{!! $assign_request['city'] !!}</td>
+                            <td class="center">{!! $assign_request['state'] !!}</td>
+                            <td class="center">{!! $assign_request['zip'] !!}</td>
+                            <td class="center">{!! $assign_request['service_name'] !!}</td>
+                            <td class="center">{!! $assign_request['request_date'] !!}</td>
+                         <td class="center">{!! $assign_request['price'] !!}</td>
+                        <td class="center popover-examples"><a class="btn btn-success" href="{!!URL::to('view-vendor-bid-request')!!}/{!!  $assign_request['request_id'] !!}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
                            
                          
                         </tr>

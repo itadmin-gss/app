@@ -34,13 +34,13 @@
                         {{--*/ $loop = 1 /*--}}
                         @foreach ($orders as $order)
                         <tr>
-                            <td>{{ $loop }}</td>
-                            <td class="center">{{ $order['order_id'] }}</td>
-                            <td class="center">{{ $order['customer_name'] }}</td>
-                            <td class="center">{{ $order['service_name'] }}</td>
-                            <td class="center">{{ $order['asset_number'] }}</td>
-                            <td class="center">{{ $order['order_date'] }}</td>
-                            <td class="center">{{ $order['vendor_name'] }}</td>
+                            <td>{!! $loop !!}</td>
+                            <td class="center">{!! $order['order_id'] !!}</td>
+                            <td class="center">{!! $order['customer_name'] !!}</td>
+                            <td class="center">{!! $order['service_name'] !!}</td>
+                            <td class="center">{!! $order['asset_number'] !!}</td>
+                            <td class="center">{!! $order['order_date'] !!}</td>
+                            <td class="center">{!! $order['vendor_name'] !!}</td>
                             <td class="center"><a class="btn btn-success" href="#"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}

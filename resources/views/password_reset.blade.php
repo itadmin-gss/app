@@ -12,13 +12,13 @@
                     <h2>Reset Password</h2>
 
 
-                    {{ Form::open(array('url' => 'password/reset', 'class' => 'form-horizontal', 'method' => 'post')) }}
-                    {{Form::hidden('token', $token)}}
+                    {!! Form::open(array('url' => 'password/reset', 'class' => 'form-horizontal', 'method' => 'post')) !!}
+                    {!!Form::hidden('token', $token)!!}
                     <fieldset>
                         <div class="input-prepend" title="Email">
                             <span class="add-on"><i class="halflings-icon user"></i></span>
 
-                            {{ Form::text('email', '', array('placeholder'=>'Enter your email.', 'class' => 'nput-large span10')) }}
+                            {!! Form::text('email', '', array('placeholder'=>'Enter your email.', 'class' => 'nput-large span10')) !!}
 
                         </div>
 
@@ -27,14 +27,14 @@
                         <div class="input-prepend" title="Password">
                             <span class="add-on"><i class="halflings-icon user"></i></span>
 
-                            {{ Form::password('password', array('placeholder'=>'Password', 'class' => 'nput-large span10')) }}
+                            {!! Form::password('password', array('placeholder'=>'Password', 'class' => 'nput-large span10')) !!}
 
                         </div>
                         <div class="clearfix"></div>
                         <div class="input-prepend" title="Password Confirmation">
                             <span class="add-on"><i class="halflings-icon user"></i></span>
 
-                            {{ Form::password('password_confirmation', array('placeholder'=>'Password Confirmation', 'class' => 'nput-large span10')) }}
+                            {!! Form::password('password_confirmation', array('placeholder'=>'Password Confirmation', 'class' => 'nput-large span10')) !!}
 
                         </div>
 
@@ -44,13 +44,13 @@
                         </div>
 
                     </fieldset>
-                    {{Form::close()}}
+                    {!!Form::close()!!}
 
 
                     @if (Session::has('error'))
-                    <div class="alert alert-error">{{ Session::get('error') }}</div>
+                    <div class="alert alert-error">{!! Session::get('error') !!}</div>
                     @elseif (Session::has('status'))
-                    <div class="alert alert-success">{{ Session::get('status') }}</div>
+                    <div class="alert alert-success">{!! Session::get('status') !!}</div>
                     @endif
 
 

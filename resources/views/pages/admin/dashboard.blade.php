@@ -55,28 +55,28 @@
               <div class="row-fluid adminTab">
               
                 <!-- <div class="box span2 main-title" style="background-color:#ED7D31;cursor:pointer;" onclick="ajaxDashoboardGridRequests('2','unassigned')">
-                <h1>Unassigned “{{$unassigned}}”</h1>
+                <h1>Unassigned “{!!$unassigned!!}”</h1>
                 </div> -->
                  
                     <!--  <div class="box span2 main-title" style="margin-left:10px !important;background-color:#4472C4;cursor:pointer;" onclick="ajaxDashoboardGridOrders('0','new_work_order')">
                 <h1>New Work Order 
-                “<?php if(isset($orderCounterDashboard['0'])) {?> {{$orderCounterDashboard['0']}}  <?php }else { ?> {{"0"}} <?php } ?>”</h1>
+                “<?php if(isset($orderCounterDashboard['0'])) {?> {!!$orderCounterDashboard['0']!!}  <?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
                 </div>  -->
                 <div class="box span2 main-title" style="margin-left:10px !important;background-color:#FFC000; cursor:pointer;" onclick="ajaxDashoboardGridOrders('1','inprocess')">
-                <h1>In-Process <?php if(isset($orderCounterDashboard['1'])) {?>“{{$orderCounterDashboard['1']}}”<?php }else { ?> {{"0"}} <?php } ?>”</h1>
+                <h1>In-Process <?php if(isset($orderCounterDashboard['1'])) {?>“{!!$orderCounterDashboard['1']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
                 </div>
 
                   
 
                 <div class="box span2 main-title" style="margin-left:10px !important;background-color:red; cursor:pointer;" onclick="ajaxDashoboardGridOrders('3','underreview')">
-                <h1>Under Review <?php if(isset($orderCounterDashboard['3'])) {?>“{{$orderCounterDashboard['3']}}”<?php }else { ?> {{"0"}} <?php } ?>”</h1>
+                <h1>Under Review <?php if(isset($orderCounterDashboard['3'])) {?>“{!!$orderCounterDashboard['3']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
                  </div>
                 <div class="box span2 main-title" style="margin-left:10px !important;background-color:#000000; cursor:pointer;" onclick="ajaxDashoboardGridOrders('2','complete')">
-                <h1>Complete “<?php if(isset($orderCounterDashboard['2'])) {?>“{{$orderCounterDashboard['2']}}”<?php }else { ?> {{"0"}} <?php } ?>”</h1>
+                <h1>Complete “<?php if(isset($orderCounterDashboard['2'])) {?>“{!!$orderCounterDashboard['2']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
                  </div>
 
                   <div class="box span2 main-title" style="margin-left:10px !important;background-color:#A5A5A5; cursor:pointer;" onclick="ajaxDashoboardGridOrders('4','approved')">
-                  <h1>Approved “<?php if(isset($orderCounterDashboard['4'])) {?>“{{$orderCounterDashboard['4']}}”<?php }else { ?> {{"0"}} <?php } ?>”</h1>
+                  <h1>Approved “<?php if(isset($orderCounterDashboard['4'])) {?>“{!!$orderCounterDashboard['4']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
                   </div>
                  
                  
@@ -91,7 +91,7 @@
                 
         <div class="span">
                  @if(Session::has('message'))
-            {{Session::get('message')}}
+            {!!Session::get('message')!!}
          @endif
                      
 
@@ -163,29 +163,29 @@
         <tr>
                 
            
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $rm->id }}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;}} </td>
+            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;!!} </td>
            
-                      <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title)) {{  $rm->asset->customerType->title }} @endif</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {{ $rm->user2->last_name }} @endif</td>
+                      <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title)) {!!  $rm->asset->customerType->title !!} @endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->last_name !!} @endif</td>
             
-             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user->first_name)) {{ $rm->user->first_name }} @endif   @if(isset($rm->user->last_name)) {{ $rm->user->last_name }}@endif</td>
+             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user->first_name)) {!! $rm->user->first_name !!} @endif   @if(isset($rm->user->last_name)) {!! $rm->user->last_name !!}@endif</td>
     
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->user->email)) {{ $rm->user->email }} @endif  </td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->user->email)) {!! $rm->user->email !!} @endif  </td>
          
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->property_address }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
   
 
 
                     <?php if(isset($rm->asset->city->name)){?>
-                                                 <td @if($rm->emergency_request==1) style="background-color:red;" @endif>  {{ $rm->asset->city->name }}</td>
+                                                 <td @if($rm->emergency_request==1) style="background-color:red;" @endif>  {!! $rm->asset->city->name !!}</td>
                                                <?php } else {?>
                                                 <td></td>
 
                                                 <?php } ?>
                                           
                                   <?php if(isset( $rm->asset->state->name)){?>
-                                                  <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $rm->asset->state->name }}</td>
+                                                  <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->asset->state->name !!}</td>
                                              <?php   } else {?>
                                                 <td></td>
 
@@ -195,7 +195,7 @@
 
 
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->zip }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->zip !!}</td>
             
            <?php
 $servicedate="";
@@ -227,12 +227,12 @@ $due_date="";
             ?>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
             @if(isset($rm->jobType->id))
-                {{$rm->jobType->title}}
+                {!!$rm->jobType->title!!}
   
             @endif                  
             </td>
-  <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $servicedate }} </td>
-   <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $due_date }} </td>
+  <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
+   <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $due_date !!} </td>
  
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
             @if($rm->status==1)
@@ -248,10 +248,10 @@ $due_date="";
            </td>
     
             <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-            <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{{ $rm->id }}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>
-            <a class="btn btn-danger" href="cancel-maintenance-request/{{ $rm->id }}" title="Cancel" onclick="return confirm('Are you sure you want to cancel?')"> <i class="halflings-icon trash halflings-icon"></i> </a>
+            <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>
+            <a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to cancel?')"> <i class="halflings-icon trash halflings-icon"></i> </a>
                
-<!--             <a class="btn btn-danger" href="delete-maintenance-request/{{ $rm->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon remove halflings-icon"></i> </a> -->
+<!--             <a class="btn btn-danger" href="delete-maintenance-request/{!! $rm->id !!}" title="Delete" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon remove halflings-icon"></i> </a> -->
             </td>
           </tr>
           {{--*/ $loop++ /*--}}
@@ -261,11 +261,11 @@ $due_date="";
             <tr>
                 
            
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $rm->id }}</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {{ $rm->user2->last_name }} @endif</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{ $rm->user->first_name }} {{ $rm->user->last_name }}</td>
+            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->last_name !!} @endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->user->first_name !!} {!! $rm->user->last_name !!}</td>
 
-          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{ $rm->user->email }}</td>
+          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->user->email !!}</td>
         
   <?php
 
@@ -313,12 +313,12 @@ $due_date="";
 
             ?>
 
-            <td  @if($rm->emergency_request==1) style="background-color:red;" @endif>{{$assignedUsers}}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->property_address }}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->city->name }}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->state->name }}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->zip }}</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;}} </td>
+            <td  @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!$assignedUsers!!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->city->name !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->state->name !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->zip !!}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;!!} </td>
            <?php
 $servicedate="";
   foreach ($rm->requestedService as  $value) {
@@ -340,11 +340,11 @@ $servicedate="";
             ?>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
             @if(isset($rm->jobType->id))
-                {{$rm->jobType->title}}
+                {!!$rm->jobType->title!!}
   
             @endif                  
             </td>
-          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $servicedate }} </td>
+          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
              @if($rm->status==4)
             <span class="label label-important">Cancelled</span>
@@ -353,7 +353,7 @@ $servicedate="";
             @endif
            </td>
          
-            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif><a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{{ $rm->id }}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a><a class="btn btn-danger" href="cancel-maintenance-request/{{ $rm->id }}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif><a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a><a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
           </tr>
           {{--*/ $loop++ /*--}}
 
@@ -401,14 +401,14 @@ $servicedate="";
                                       {{--*/ $loop = 1 /*--}}
                                         @foreach ($orders_process as $order)
                                        <tr>
-                                            <td>{{ $loop }}</td>
-                                            <td>{{ $order->id }}</td>
+                                            <td>{!! $loop !!}</td>
+                                            <td>{!! $order->id !!}</td>
                                             <td class="middle">
-                                               @if(isset($order->customer->first_name)) {{ $order->customer->first_name }} @endif   @if(isset($order->customer->last_name)){{ $order->customer->last_name }}  @endif
+                                               @if(isset($order->customer->first_name)) {!! $order->customer->first_name !!} @endif   @if(isset($order->customer->last_name)){!! $order->customer->last_name !!}  @endif
                                             </td>
-                                            <td >@if(isset($order->maintenanceRequest->asset->asset_number)){{ $order->maintenanceRequest->asset->asset_number }} @endif</td>
-                                            <td>   @if(isset($order->vendor->first_name)){{ $order->vendor->first_name }} @endif    @if(isset($order->vendor->first_name)) {{ $order->vendor->last_name }} @endif</td> 
-                                            <td>{{ date("d F Y",strtotime($order->created_at)) }}</td> 
+                                            <td >@if(isset($order->maintenanceRequest->asset->asset_number)){!! $order->maintenanceRequest->asset->asset_number !!} @endif</td>
+                                            <td>   @if(isset($order->vendor->first_name)){!! $order->vendor->first_name !!} @endif    @if(isset($order->vendor->first_name)) {!! $order->vendor->last_name !!} @endif</td> 
+                                            <td>{!! date("d F Y",strtotime($order->created_at)) !!}</td> 
                                         </tr>
                                         {{--*/ $loop++ /*--}}
                                         @endforeach                       
@@ -446,16 +446,16 @@ $servicedate="";
                                         @foreach ($orders_completed as $order)
                                         <tr>
 
-                                            <td>{{ $loop }}</td>
-                                            <td>{{ $order->id }}</td>
+                                            <td>{!! $loop !!}</td>
+                                            <td>{!! $order->id !!}</td>
                                             <td class="middle">
-                                                @if(isset($order->customer->first_name)) {{ $order->customer->first_name }} @endif   @if(isset($order->customer->last_name)){{ $order->customer->last_name }}  @endif
+                                                @if(isset($order->customer->first_name)) {!! $order->customer->first_name !!} @endif   @if(isset($order->customer->last_name)){!! $order->customer->last_name !!}  @endif
                                             </td>
                                          
-                                             <td >@if(isset($order->maintenanceRequest->asset->asset_number)){{ $order->maintenanceRequest->asset->asset_number }} @endif</td>
+                                             <td >@if(isset($order->maintenanceRequest->asset->asset_number)){!! $order->maintenanceRequest->asset->asset_number !!} @endif</td>
                                           
-                                            <td>@if(isset($order->vendor->first_name)){{ $order->vendor->first_name }} @endif @if(isset($order->vendor->last_name)){{ $order->vendor->last_name }} @endif</td>  
-                                            <td>{{ date("d F Y",strtotime($order->created_at)) }}</td> 
+                                            <td>@if(isset($order->vendor->first_name)){!! $order->vendor->first_name !!} @endif @if(isset($order->vendor->last_name)){!! $order->vendor->last_name !!} @endif</td>  
+                                            <td>{!! date("d F Y",strtotime($order->created_at)) !!}</td> 
                                         </tr>
                                         {{--*/ $loop++ /*--}}
                                         @endforeach 
@@ -494,13 +494,13 @@ $servicedate="";
                                         @foreach ($recent_orders as $order)
                                         <tr>
                                         
-                                            <td>{{ $loop }}</td>
+                                            <td>{!! $loop !!}</td>
                                          
-                                             <td >@if(isset($order->maintenanceRequest->asset->asset_number)){{ $order->maintenanceRequest->asset->asset_number }} @endif</td>
+                                             <td >@if(isset($order->maintenanceRequest->asset->asset_number)){!! $order->maintenanceRequest->asset->asset_number !!} @endif</td>
                                           
-                                            <td>@if(isset($order->customer->first_name)){{ $order->customer->first_name }} @endif @if(isset($order->customer->last_name)){{ $order->customer->last_name }}@endif</td>
+                                            <td>@if(isset($order->customer->first_name)){!! $order->customer->first_name !!} @endif @if(isset($order->customer->last_name)){!! $order->customer->last_name !!}@endif</td>
                                             <td>
-                                             <span class="label label-@if($order->status==1){{'warning'}}@else{{$order->status_class}}@endif">@if($order->status==1) In-Progress @else {{$order->status_text}} @endif</span>
+                                             <span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif">@if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif</span>
                                                    
                                             </td> 
                                         </tr>
@@ -536,9 +536,9 @@ $servicedate="";
                                             @foreach ($recent_assets as $recent_asset)
                                               <tr>
                                                
-                                                <td>@if(isset($recent_asset->asset_number)){{$recent_asset->id}}@endif</td>
-                                                <td class="middle">@if(isset($recent_asset->asset_number)){{$recent_asset->asset_number}} @endif</td>
-                                                <td>@if(isset($recent_asset->loan_number)){{$recent_asset->loan_number}} @endif</td>
+                                                <td>@if(isset($recent_asset->asset_number)){!!$recent_asset->id!!}@endif</td>
+                                                <td class="middle">@if(isset($recent_asset->asset_number)){!!$recent_asset->asset_number!!} @endif</td>
+                                                <td>@if(isset($recent_asset->loan_number)){!!$recent_asset->loan_number!!} @endif</td>
                                                 <td>
                                                     @if($recent_asset->status == 1)
                                                        <span class="label label-success">Active</span>

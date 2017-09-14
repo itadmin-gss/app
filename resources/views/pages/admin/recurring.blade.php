@@ -36,7 +36,7 @@
 
               @if(Session::has('message'))
 
-                            {{Session::get('message')}}
+                            {!!Session::get('message')!!}
 
                         @endif</h4>
 
@@ -120,9 +120,9 @@
 
             ?>
             @endif
-            <tr id="tr-{{$recurring->id}}">
+            <tr id="tr-{!!$recurring->id!!}">
 
-              <td class="center">{{$recurring->id}}</td>
+              <td class="center">{!!$recurring->id!!}</td>
 
 
 
@@ -130,7 +130,7 @@
 
                  
 
-              <td>{{$recurring->requestedService->maintenanceRequest->asset->customerType->title}}</td>
+              <td>{!!$recurring->requestedService->maintenanceRequest->asset->customerType->title!!}</td>
 
               @else
 
@@ -142,7 +142,7 @@
 
               
 
-              <td>{{ $recurring->user->first_name}} {{ $recurring->user->last_name}}</td>
+              <td>{!! $recurring->user->first_name!!} {!! $recurring->user->last_name!!}</td>
 
               @else
 
@@ -158,7 +158,7 @@
 
               
 
-              <td>{{ $recurring->user->email}}</td>
+              <td>{!! $recurring->user->email!!}</td>
 
               @else
 
@@ -174,7 +174,7 @@
 
                 
 
-              <td>{{ $recurring->user->phone }}</td>
+              <td>{!! $recurring->user->phone !!}</td>
 
               @else
 
@@ -188,7 +188,7 @@
 
                  
 
-              <td>{{$recurring->requestedService->service->title}}</td>
+              <td>{!!$recurring->requestedService->service->title!!}</td>
 
               @else
 
@@ -202,7 +202,7 @@
 
                  
 
-              <td>{{$recurring->requestedService->maintenanceRequest->asset->property_address}}</td>
+              <td>{!!$recurring->requestedService->maintenanceRequest->asset->property_address!!}</td>
 
               @else
 
@@ -210,18 +210,18 @@
 
             @endif
             @if(isset($recurring->requestedService->maintenanceRequest->asset->city->name))
-             <td>{{$recurring->requestedService->maintenanceRequest->asset->city->name}}</td>
+             <td>{!!$recurring->requestedService->maintenanceRequest->asset->city->name!!}</td>
              @else
              <td>Not-Set</td>
              @endif
              @if(isset($recurring->requestedService->maintenanceRequest->asset->state->name))
-              <td>{{$recurring->requestedService->maintenanceRequest->asset->state->name}}</td>
+              <td>{!!$recurring->requestedService->maintenanceRequest->asset->state->name!!}</td>
               @else
               <td>Not-Set</td>
               @endif
            
            @if(isset($recurring->requestedService->maintenanceRequest->asset->zip))
-              <td>{{$recurring->requestedService->maintenanceRequest->asset->zip}}</td>
+              <td>{!!$recurring->requestedService->maintenanceRequest->asset->zip!!}</td>
               @else
               <td>Not-Set</td>
               @endif
@@ -232,7 +232,7 @@
 
                  
 
-              <td>{{$recurring->requestedService->maintenanceRequest->asset->property_status}}</td>
+              <td>{!!$recurring->requestedService->maintenanceRequest->asset->property_status!!}</td>
 
               @else
 
@@ -240,7 +240,7 @@
 
             @endif
 
-              <td class="center">{{ $recurring->duration}} days</td>
+              <td class="center">{!! $recurring->duration!!} days</td>
 
 
 
@@ -258,17 +258,17 @@
 
               ?>
 
-              {{ date('m/d/Y ',strtotime($nextDate))}}</td>
+              {!! date('m/d/Y ',strtotime($nextDate))!!}</td>
 
-              <td class="center">{{ date('m/d/Y ',strtotime($recurring->start_date ))}}</td>
+              <td class="center">{!! date('m/d/Y ',strtotime($recurring->start_date ))!!}</td>
 
 
 
-               <td class="center"><a class="btn btn-info" href="edit-recurring/{{ $recurring->id }}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> 
+               <td class="center"><a class="btn btn-info" href="edit-recurring/{!! $recurring->id !!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> 
 
               <!-- <a class="btn btn-danger" href="#"> <i class="halflings-icon trash halflings-icon"></i> </a> -->
 
-                <a class="btn btn-danger" href="delete-recurring/{{ $recurring->id }}" title="Delete" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+                <a class="btn btn-danger" href="delete-recurring/{!! $recurring->id !!}" title="Delete" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
               
              @endforeach
 

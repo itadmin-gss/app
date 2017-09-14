@@ -3,7 +3,7 @@
 <div id="content" class="span11">
    @if(Session::has('message'))
 <div class="messageAlert">
-    {{Session::get('message')}}
+    {!!Session::get('message')!!}
  </div>
     @endif
     <div class="row-fluid">		
@@ -44,19 +44,19 @@
                         @foreach ($assign_requests as $assign_request)
                         <tr>
                            
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['request_id'] }}</td>
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['property_address'] }}</td>
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['city'] }}</td>
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['state'] }}</td>
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['zip'] }}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_id'] !!}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['property_address'] !!}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['city'] !!}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['state'] !!}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['zip'] !!}</td>
 
 
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['service_name'] }}</td>
-                            <!-- <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['customer_name'] }}</td>
-                             <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['asset_number'] }}</td>-->
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['service_name'] !!}</td>
+                            <!-- <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['customer_name'] !!}</td>
+                             <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['asset_number'] !!}</td>-->
 
                              
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['request_date'] }}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_date'] !!}</td>
                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif> 
                           
 
@@ -97,7 +97,7 @@
 
 
             </td>
-                            <td class="center popover-examples" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif><a class="btn btn-success" @if($assign_request['status'] ==4) disabled='disabled' @else  href="view-vendor-bidding-request/{{  $assign_request['request_id'] }}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
+                            <td class="center popover-examples" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif><a class="btn btn-success" @if($assign_request['status'] ==4) disabled='disabled' @else  href="view-vendor-bidding-request/{!!  $assign_request['request_id'] !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach  

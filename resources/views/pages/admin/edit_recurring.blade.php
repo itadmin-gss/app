@@ -12,13 +12,13 @@
 <select id="uniquevendorid">
 @foreach($vendors as $vdata)
 
-<option value="{{$vdata->id}}"  @if($recurrings->vendor_id==$vdata->id) selected="selected" @endif> 
+<option value="{!!$vdata->id!!}"  @if($recurrings->vendor_id==$vdata->id) selected="selected" @endif> 
 
-{{$vdata->first_name}} {{$vdata->last_name}}
+{!!$vdata->first_name!!} {!!$vdata->last_name!!}
 </option>
 @endforeach
 </select>
-  <input type="hidden" value="{{$recurrings->id}}" id="uniquerecurringid">
+  <input type="hidden" value="{!!$recurrings->id!!}" id="uniquerecurringid">
  
 <button class="label-success" onclick="changevendorname()">Submit</button>
 </div>

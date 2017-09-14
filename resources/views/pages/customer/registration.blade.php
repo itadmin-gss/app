@@ -32,7 +32,7 @@
 
                     <button type="button" class="close" data-dismiss="alert">×</button>
 
-                    <strong>{{ $error }}</strong>
+                    <strong>{!! $error !!}</strong>
 
                 </div>
 
@@ -46,7 +46,7 @@
 
 
 
-                {{ Form::open(array('action' => 'UserController@createUser', 'class'=>'form-horizontal')) }}
+                {!! Form::open(array('action' => 'UserController@createUser', 'class'=>'form-horizontal')) !!}
 
                 <fieldset>
 
@@ -58,13 +58,13 @@
 
 
 
-                                {{Form::label('first_name', 'First name:*', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('first_name', 'First name:*', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
 
 
                                 <div class="controls">
 
-                                    {{ Form::text('first_name', '', array('class'=>'span10 typeahead','id'=>'first_name'))}}
+                                    {!! Form::text('first_name', '', array('class'=>'span10 typeahead','id'=>'first_name'))!!}
 
                                 </div>
 
@@ -76,13 +76,13 @@
 
                             <div class="control-group">
 
-                                {{Form::label('last_name', 'Last name:*', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('last_name', 'Last name:*', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
 
 
                                 <div class="controls">
 
-                                    {{ Form::text('last_name', '', array('class'=>'span10 typeahead','id'=>'last_name'))}}
+                                    {!! Form::text('last_name', '', array('class'=>'span10 typeahead','id'=>'last_name'))!!}
 
 
 
@@ -96,11 +96,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('company', 'Company:', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('company', 'Company:', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                 <div class="controls">
 
-                                    {{ Form::text('company', '', array('class'=>'span10 typeahead','id'=>'company'))}}
+                                    {!! Form::text('company', '', array('class'=>'span10 typeahead','id'=>'company'))!!}
 
                                 </div>
 
@@ -110,11 +110,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('email', 'Email: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('email', 'Email: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                 <div class="controls">
 
-                                    {{Form::email('email', '', array('class'=>'span10 typeahead', 'id'=>'email'))}}
+                                    {!!Form::email('email', '', array('class'=>'span10 typeahead', 'id'=>'email'))!!}
 
                                 </div>
 
@@ -122,11 +122,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('username', 'Username: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('username', 'Username: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                 <div class="controls">
 
-                                    {{ Form::text('username', '', array('class'=>'span10 typeahead','id'=>'username', 'data-rel'=>'tooltip', 'data-original-title'=>'Username must be at least 8 Characters'))}}
+                                    {!! Form::text('username', '', array('class'=>'span10 typeahead','id'=>'username', 'data-rel'=>'tooltip', 'data-original-title'=>'Username must be at least 8 Characters'))!!}
 
                                 </div>
 
@@ -138,11 +138,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('password', 'Password: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('password', 'Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                 <div class="controls">
 
-                                    {{ Form::password('password', '', array('class'=>'span10 typeahead','id'=>'password'))}} <a title='Suggestion' rel='popover' data-placement='right'>Password Hint</a>
+                                    {!! Form::password('password', '', array('class'=>'span10 typeahead','id'=>'password'))!!} <a title='Suggestion' rel='popover' data-placement='right'>Password Hint</a>
 
                                 </div>
 
@@ -154,11 +154,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('password_confirmation', 'Confirm password: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('password_confirmation', 'Confirm password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                 <div class="controls">
 
-                                    {{ Form::password('password_confirmation', '', array('class'=>'span10 typeahead','id'=>'password_confirmation'))}}
+                                    {!! Form::password('password_confirmation', '', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
 
                                 </div>
 
@@ -168,7 +168,7 @@
 
 
 
-                                {{Form::label('type_id', 'User Type: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                {!!Form::label('type_id', 'User Type: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                 <div class="controls">
 
@@ -176,7 +176,7 @@
 
 
 
-                                        {{ Form::radio('type_id', $vendor, false,  array('id'=>'vendor'))}}
+                                        {!! Form::radio('type_id', $vendor, false,  array('id'=>'vendor'))!!}
 
                                         Vendor
 
@@ -190,7 +190,7 @@
 
                                     <label class="radio">
 
-                                        {{ Form::radio('type_id', $customer, false, array('id'=>'customer'))}}
+                                        {!! Form::radio('type_id', $customer, false, array('id'=>'customer'))!!}
 
                                         Customer
 
@@ -226,7 +226,7 @@
 
                     <div class="form-actions text-right clearfix">
 
-                        {{Form::submit('Create Account', array('class'=>'btn btn-info'));}}
+                        {!!Form::submit('Create Account', array('class'=>'btn btn-info'));!!}
 
                         <button type="button" class="btn btn-inverse">Cancel</button>
 
@@ -234,7 +234,7 @@
 
                 </fieldset>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
 
 
 

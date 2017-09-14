@@ -14,12 +14,12 @@
                 @foreach ($errors->all() as $error)
                 <div class="alert alert-error">
                     <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $error }}</strong>
+                    <strong>{!! $error !!}</strong>
                 </div>
                 @endforeach
                 @endif
                 
-                {{ Form::open(array('url' => 'vendor-service-complete', 'class'=>'form-horizontal')) }}
+                {!! Form::open(array('url' => 'vendor-service-complete', 'class'=>'form-horizontal')) !!}
                     <fieldset>
                         <div  class="row-fluid vendor-ser">
                             <div class="control-group">
@@ -36,7 +36,7 @@
 
                                              ?>
                                         @endforeach
-                                         {{ Form::select('services[]', $vendor_services_options ,array() , array('style'=>'width:500px', 'class'=>'span15 typeahead','id'=>'vendor_services', 'data-rel'=>'chosen','multiple'=>'true'))}}
+                                         {!! Form::select('services[]', $vendor_services_options ,array() , array('style'=>'width:500px', 'class'=>'span15 typeahead','id'=>'vendor_services', 'data-rel'=>'chosen','multiple'=>'true'))!!}
 
                                    
                                 </div>

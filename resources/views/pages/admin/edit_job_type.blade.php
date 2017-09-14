@@ -21,21 +21,21 @@
                 </div>
                 @if($errors->has())
                 @foreach ($errors->all() as $error)
-                <div class="alert alert-error">{{ $error }}</div>
+                <div class="alert alert-error">{!! $error !!}</div>
                 @endforeach
                 @endif
                 <div class="row-fluid">
                     <div class="span12">
-                        {{ Form::open(array('url' => 'save-job-type', 'id'=>'savejobtype' , 'class'=>'form-horizontal')) }}
+                        {!! Form::open(array('url' => 'save-job-type', 'id'=>'savejobtype' , 'class'=>'form-horizontal')) !!}
                         <fieldset>
                             <div class="row-fluid">
                                 <div class="span6">
 
                                     <div class="control-group">
-                                        {{Form::label('title', 'Job Title', array('class' => 'control-label'))}}
+                                        {!!Form::label('title', 'Job Title', array('class' => 'control-label'))!!}
                                         <div class="controls">
-                                            {{ Form::text('title',  isset($user_data['title']) ? $user_data['title'] : '' , array('class'=>'span10 typeahead','id'=>'title'))}}
-                                            {{Form::hidden('id', $user_data['id'], array('id' => 'user_id'))}}
+                                            {!! Form::text('title',  isset($user_data['title']) ? $user_data['title'] : '' , array('class'=>'span10 typeahead','id'=>'title'))!!}
+                                            {!!Form::hidden('id', $user_data['id'], array('id' => 'user_id'))!!}
                                         </div>
                                     </div>
 
@@ -43,12 +43,12 @@
 
 
                             <div class="form-actions text-right clearfix">
-                                {{ Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'jobTypeSubmit'))}}
-                                {{ Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>''
-                ,'onClick' => 'location.href="'.URL::to('admin').'"'))}}
+                                {!! Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'jobTypeSubmit'))!!}
+                                {!! Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>''
+                ,'onClick' => 'location.href="'.URL::to('admin').'"'))!!}
                             </div>
                         </fieldset>
-                        {{ Form::close() }}
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

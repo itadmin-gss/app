@@ -22,7 +22,7 @@
 
                  @if (Session::has('message'))
 
-                <div class="alert alert-success">{{ Session::get('message') }}</div>
+                <div class="alert alert-success">{!! Session::get('message') !!}</div>
 
                 @endif
 
@@ -32,7 +32,7 @@
 
                 @foreach ($errors->all() as $error)
 
-                <div class="alert alert-error">{{ $error }}</div>
+                <div class="alert alert-error">{!! $error !!}</div>
 
                 @endforeach
 
@@ -40,7 +40,7 @@
 
 
 
-                {{ Form::open(array('url' => 'vendor-profile-add', 'files'=>true,  'class'=>'form-horizontal')) }}
+                {!! Form::open(array('url' => 'vendor-profile-add', 'files'=>true,  'class'=>'form-horizontal')) !!}
 
                 <fieldset>
 
@@ -52,21 +52,21 @@
 
                             <div class="control-group">
 
-                                {{Form::label('username', 'Username', array('class' => 'control-label'))}}
+                                {!!Form::label('username', 'Username', array('class' => 'control-label'))!!}
 
                                 <div class="controls">
 
                                     @if($user_detail['username'])
 
-                                    {{ Form::text('username',  isset($user_detail['username']) ? $user_detail['username'] : '' , array('class'=>'span10 typeahead','id'=>'username', 'readonly'=>'true'))}}
+                                    {!! Form::text('username',  isset($user_detail['username']) ? $user_detail['username'] : '' , array('class'=>'span10 typeahead','id'=>'username', 'readonly'=>'true'))!!}
 
-                                    {{ Form::hidden('create_by_admin', 'no')}}
+                                    {!! Form::hidden('create_by_admin', 'no')!!}
 
                                     @else
 
-                                    {{ Form::text('username',  isset($user_detail['username']) ? $user_detail['username'] : '' , array('class'=>'span10 typeahead','id'=>'username'))}}
+                                    {!! Form::text('username',  isset($user_detail['username']) ? $user_detail['username'] : '' , array('class'=>'span10 typeahead','id'=>'username'))!!}
 
-                                    {{ Form::hidden('create_by_admin', 'yes')}}
+                                    {!! Form::hidden('create_by_admin', 'yes')!!}
 
                                     @endif
 
@@ -80,11 +80,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('email', 'Email', array('class' => 'control-label'))}}
+                                {!!Form::label('email', 'Email', array('class' => 'control-label'))!!}
 
                                 <div class="controls">
 
-                                    {{ Form::email('email',  isset($user_detail['email']) ? $user_detail['email'] : '' , array('class'=>'span10 typeahead','id'=>'email', 'readonly'=>'true'))}}
+                                    {!! Form::email('email',  isset($user_detail['email']) ? $user_detail['email'] : '' , array('class'=>'span10 typeahead','id'=>'email', 'readonly'=>'true'))!!}
 
                                 </div>
 
@@ -94,11 +94,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('company', 'Company', array('class' => 'control-label'))}}
+                                {!!Form::label('company', 'Company', array('class' => 'control-label'))!!}
 
                                 <div class="controls">
 
-                                    {{ Form::text('company',  isset($user_detail['company']) ? $user_detail['company'] : '' ,  array('class'=>'span10 typeahead','id'=>'company'))}}
+                                    {!! Form::text('company',  isset($user_detail['company']) ? $user_detail['company'] : '' ,  array('class'=>'span10 typeahead','id'=>'company'))!!}
 
                                 </div>
 
@@ -108,11 +108,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('phone', 'Phone', array('class' => 'control-label'))}}
+                                {!!Form::label('phone', 'Phone', array('class' => 'control-label'))!!}
 
                                 <div class="controls">
 
-                                    {{ Form::text('phone', isset($user_detail['phone']) ? $user_detail['phone'] : '' , array('class'=>'span10 typeahead','id'=>'phone'))}}
+                                    {!! Form::text('phone', isset($user_detail['phone']) ? $user_detail['phone'] : '' , array('class'=>'span10 typeahead','id'=>'phone'))!!}
 
                                 </div>
 
@@ -124,11 +124,11 @@
 
 
 
-                                 {{Form::label('address_1', 'Address 1', array('class' => 'control-label'))}}
+                                 {!!Form::label('address_1', 'Address 1', array('class' => 'control-label'))!!}
 
                                 <div class="controls">
 
-                                       {{ Form::text('address_1', isset($user_detail['address_1']) ? $user_detail['address_1'] : ''  , array('class'=>'span10 typeahead','id'=>'address_1'))}}
+                                       {!! Form::text('address_1', isset($user_detail['address_1']) ? $user_detail['address_1'] : ''  , array('class'=>'span10 typeahead','id'=>'address_1'))!!}
 
 
 
@@ -140,11 +140,11 @@
 
                             <div class="control-group">
 
-                                {{Form::label('address_2', 'Address 2', array('class' => 'control-label'))}}
+                                {!!Form::label('address_2', 'Address 2', array('class' => 'control-label'))!!}
 
                                 <div class="controls">
 
-                                      {{ Form::text('address_2', isset($user_detail['address_2']) ? $user_detail['address_2'] : '' , array('class'=>'span10 typeahead','id'=>'address_2'))}}
+                                      {!! Form::text('address_2', isset($user_detail['address_2']) ? $user_detail['address_2'] : '' , array('class'=>'span10 typeahead','id'=>'address_2'))!!}
 
                                 </div>
 
@@ -168,7 +168,7 @@
 
                                               @if($user_detail['profile_picture'])
 
-                                              {{ HTML::image(Config::get('app.upload_path').$user_detail['profile_picture']) }}
+                                              {!! HTML::image(Config::get('app.upload_path').$user_detail['profile_picture']) !!}
 
                                               @endif
 
@@ -178,7 +178,7 @@
 
                                             <span class="btn btn-default btn-file">
 
-                                                {{Form::file('profile_picture', array('value'=>$user_detail['profile_picture'],'class'=>'input-file uniform_on', 'id'=>'fileInput'))}}
+                                                {!!Form::file('profile_picture', array('value'=>$user_detail['profile_picture'],'class'=>'input-file uniform_on', 'id'=>'fileInput'))!!}
 
                                             </span>
 
@@ -224,13 +224,13 @@
 
                                     ?>
 
-                                    {{Form::label('state_id', 'State', array('class' => 'control-label '))}}
+                                    {!!Form::label('state_id', 'State', array('class' => 'control-label '))!!}
 
 
 
                                     <div class="controls">
 
-                                        {{ Form::select('state_id', $states_data , isset($user_detail['state_id']) ? $user_detail['state_id'] : '0', array('class'=>'span8 typeahead','id'=>'state_id', 'data-rel'=>'chosen'))}}
+                                        {!! Form::select('state_id', $states_data , isset($user_detail['state_id']) ? $user_detail['state_id'] : '0', array('class'=>'span8 typeahead','id'=>'state_id', 'data-rel'=>'chosen'))!!}
 
                                     </div>
 
@@ -256,13 +256,13 @@
 
 
 
-                                    {{Form::label('city_id', 'City', array('class' => 'control-label first-label'))}}
+                                    {!!Form::label('city_id', 'City', array('class' => 'control-label first-label'))!!}
 
 
 
                                     <div class="controls">
 
-                                        {{ Form::select('city_id', $city_data , isset($user_detail['city_id']) ? $user_detail['city_id'] : '0' , array('class'=>'span8 typeahead','id'=>'city_id', 'data-rel'=>'chosen' ))}}
+                                        {!! Form::select('city_id', $city_data , isset($user_detail['city_id']) ? $user_detail['city_id'] : '0' , array('class'=>'span8 typeahead','id'=>'city_id', 'data-rel'=>'chosen' ))!!}
 
                                     </div>
 
@@ -272,13 +272,13 @@
 
                         <div class="control-group span3">
 
-                            {{Form::label('zipcode', 'Zip ', array('class' => 'control-label '))}}
+                            {!!Form::label('zipcode', 'Zip ', array('class' => 'control-label '))!!}
 
 
 
                             <div class="controls">
 
-                                 {{ Form::text('zipcode', isset($user_detail['zipcode']) ? $user_detail['zipcode'] : '' , array('class'=>'span7 typeahead','id'=>'zipcode'))}}
+                                 {!! Form::text('zipcode', isset($user_detail['zipcode']) ? $user_detail['zipcode'] : '' , array('class'=>'span7 typeahead','id'=>'zipcode'))!!}
 
                                 </div>
 
@@ -304,7 +304,7 @@
 
                 </fieldset>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
 
 
 

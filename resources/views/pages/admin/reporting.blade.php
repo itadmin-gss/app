@@ -14,12 +14,12 @@
   <button type="button" class="close">x</button>
     <h1>Search Report</h1>
 
-    {{ Form::open(array('url' => 'reporting', 'class' => 'form-horizontal', 'method' => 'post')) }}
+    {!! Form::open(array('url' => 'reporting', 'class' => 'form-horizontal', 'method' => 'post')) !!}
     <fieldset>
         <div class="row-fluid">
             <div class="span6 offset3 centered">
                 <div class="control-group">
-                    {{ Form::label('typeahead', 'Properties: ', array('class' => 'control-label')) }}
+                    {!! Form::label('typeahead', 'Properties: ', array('class' => 'control-label')) !!}
                     <div class="controls">
                         <div class="input-append">
 
@@ -38,8 +38,8 @@
                             }
 
                             ?>
-                            {{ Form::select('properties', $assetData,  $properties,
-                            array('data-rel' => 'chosen')); }}
+                            {!! Form::select('properties', $assetData,  $properties,
+                            array('data-rel' => 'chosen')); !!}
                         </div>
                     </div>
                 </div>
@@ -54,21 +54,21 @@
 
 
                     ?>
-                    {{ Form::label('typeahead', 'Service Type: *', array('class' => 'control-label')) }}
+                    {!! Form::label('typeahead', 'Service Type: *', array('class' => 'control-label')) !!}
                     <div class="controls">
                         <div class="input-append">
                         @if(!empty($data))
-                         {{ Form::select('service_type', $serviceDataArray, $data['service_type'],
-                         array('data-rel' => 'chosen')); }}
+                         {!! Form::select('service_type', $serviceDataArray, $data['service_type'],
+                         array('data-rel' => 'chosen')); !!}
                          @else
-                           {{ Form::select('service_type', $serviceDataArray, '01',
-                         array('data-rel' => 'chosen')); }}
+                           {!! Form::select('service_type', $serviceDataArray, '01',
+                         array('data-rel' => 'chosen')); !!}
                          @endif
                      </div>
                  </div>
              </div>
              <div class="control-group">
-                {{ Form::label('typeahead', 'Order Status: *', array('class' => 'control-label')) }}
+                {!! Form::label('typeahead', 'Order Status: *', array('class' => 'control-label')) !!}
                 <div class="controls">
                     <div class="input-append">
                         <?php
@@ -87,29 +87,29 @@
                             }
                            
                         ?>
-                        {{ Form::select('order_staus', $orderStatus, $order_status_post,
-                        array('data-rel' => 'chosen')); }}
+                        {!! Form::select('order_staus', $orderStatus, $order_status_post,
+                        array('data-rel' => 'chosen')); !!}
                     </div>
                 </div>
             </div>
             
             <div class="control-group">
-                {{ Form::label('typeahead', 'Date From: ', array('class' => 'control-label')) }}
+                {!! Form::label('typeahead', 'Date From: ', array('class' => 'control-label')) !!}
                 <div class="controls">
                     <div class="input-append">
-                      {{ Form::text('date_from', '', array('class' => 'datepicker  input-xlarge focused',
-                      'id' => 'date_from')) }}
+                      {!! Form::text('date_from', '', array('class' => 'datepicker  input-xlarge focused',
+                      'id' => 'date_from')) !!}
 
                   </div>
               </div>
           </div>
 
           <div class="control-group">
-            {{ Form::label('typeahead', 'Date To: ', array('class' => 'control-label')) }}
+            {!! Form::label('typeahead', 'Date To: ', array('class' => 'control-label')) !!}
             <div class="controls">
                 <div class="input-append">
-                  {{ Form::text('date_to', '', array('class' => 'datepicker  input-xlarge focused',
-                  'id' => 'date_to')) }}
+                  {!! Form::text('date_to', '', array('class' => 'datepicker  input-xlarge focused',
+                  'id' => 'date_to')) !!}
 
               </div>
           </div>
@@ -120,14 +120,14 @@
 <div class="">
 
     <div class="pull-right">
-    <a class="btn btn-info " href="{{URL::to('reporting')}}">Reset </a>
-       {{ Form::submit('Generate', array('class' => 'btn btn-large btn-success')) }}
+    <a class="btn btn-info " href="{!!URL::to('reporting')!!}">Reset </a>
+       {!! Form::submit('Generate', array('class' => 'btn btn-large btn-success')) !!}
 
 
    </div>
 </div>
 </fieldset>
-{{Form::close()}}
+{!!Form::close()!!}
 </div>
 
 <div class="row-fluid">
@@ -147,7 +147,7 @@
         <div class="box-content datatablegrid admtable">
             <div class="admtableInr">
                 @if(Session::has('message'))
-                {{Session::get('message')}}
+                {!!Session::get('message')!!}
                 @endif
 
                       <table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -197,16 +197,16 @@
 
                       <tr>
 
-                        <td>{{ $order['order_id']}}</td>
-                        <td class="center">{{ $order['customer_name'] }}</td>
-                         <td class="center">{{ $order['property_address'] }}</td>
-                            <td class="center">{{ $order['unit'] }}</td>
-                        <td class="center">{{ $order['city'] }}</td>
+                        <td>{!! $order['order_id']!!}</td>
+                        <td class="center">{!! $order['customer_name'] !!}</td>
+                         <td class="center">{!! $order['property_address'] !!}</td>
+                            <td class="center">{!! $order['unit'] !!}</td>
+                        <td class="center">{!! $order['city'] !!}</td>
 
-                        <td class="center">{{ $order['state'] }}</td>
+                        <td class="center">{!! $order['state'] !!}</td>
 
-                        <td class="center">{{ $order['zipcode'] }}</td>
-                        <td class="center">{{ $order['service_name'] }}</td>
+                        <td class="center">{!! $order['zipcode'] !!}</td>
+                        <td class="center">{!! $order['service_name'] !!}</td>
 
 
                           @if($order['request_status']==4)
@@ -217,7 +217,7 @@
 
                         @else
 
-                        <td class="center"> <span class="label label-{{ $order['status_class'] }}">{{ $order['status_text'] }}</span> </td>
+                        <td class="center"> <span class="label label-{!! $order['status_class'] !!}">{!! $order['status_text'] !!}</span> </td>
 
 
 
@@ -226,10 +226,10 @@
 
 
                       
-                        <td class="center">{{ $order['vendor_name'] }}</td>
-                          <td class="center">{{ $order['due_date'] }}</td>
+                        <td class="center">{!! $order['vendor_name'] !!}</td>
+                          <td class="center">{!! $order['due_date'] !!}</td>
 
-                        <td class="center">{{ $order['completion_date'] }}</td>
+                        <td class="center">{!! $order['completion_date'] !!}</td>
 
                       
                       

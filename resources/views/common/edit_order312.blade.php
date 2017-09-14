@@ -34,30 +34,30 @@ if(Auth::user()->type_id==1||Auth::user()->type_id==3)
 <span>Property Closed</span>
 <br/>
 @if(isset($order->maintenanceRequest->asset->close->first_name))
-<span>User:{{$order->maintenanceRequest->asset->close->first_name}} {{$order->maintenanceRequest->asset->close->last_name}}</span>
+<span>User:{!!$order->maintenanceRequest->asset->close->first_name!!} {!!$order->maintenanceRequest->asset->close->last_name!!}</span>
 @endif
 <br/>
-<span>Date Time:{{$order->maintenanceRequest->asset->property_dead_date}}</span>
+<span>Date Time:{!!$order->maintenanceRequest->asset->property_dead_date!!}</span>
 </div>
 <div>
-<input name="close_property_status" onclick="closeWorkOrderOrContinue('{{$order->id}}','0')" type="checkbox" value="0" @if($order->close_property_status==0) checked @endif/>  Continue with Workorder
-<input name="close_property_status" onclick="closeWorkOrderOrContinue('{{$order->id}}','1')" type="checkbox" value="1"  @if($order->close_property_status==1) checked @endif/>  Stop Workorder
+<input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','0')" type="checkbox" value="0" @if($order->close_property_status==0) checked @endif/>  Continue with Workorder
+<input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','1')" type="checkbox" value="1"  @if($order->close_property_status==1) checked @endif/>  Stop Workorder
 </div>
 <!-- <div class ="disableProperty"><span>Property Closed</span></div> -->
 <?php }elseif ($order->maintenanceRequest->asset->property_dead_status==1 && $order->close_property_status==1) {
 ?>
 <div style="z-index: 100000;position: relative;">
-<input name="close_property_status" onclick="closeWorkOrderOrContinue('{{$order->id}}','0')" type="checkbox" value="0" @if($order->close_property_status==0) checked @endif/>  Continue with Workorder
-<input name="close_property_status" onclick="closeWorkOrderOrContinue('{{$order->id}}','1')" type="checkbox" value="1"  @if($order->close_property_status==1) checked @endif/>  Stop Workorder
+<input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','0')" type="checkbox" value="0" @if($order->close_property_status==0) checked @endif/>  Continue with Workorder
+<input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','1')" type="checkbox" value="1"  @if($order->close_property_status==1) checked @endif/>  Stop Workorder
 </div>
 <div class ="disableProperty">
 <span>Property Closed</span>
 <br/>
 @if(isset($order->maintenanceRequest->asset->close->first_name))
-<span>User:{{$order->maintenanceRequest->asset->close->first_name}} {{$order->maintenanceRequest->asset->close->last_name}}</span>
+<span>User:{!!$order->maintenanceRequest->asset->close->first_name!!} {!!$order->maintenanceRequest->asset->close->last_name!!}</span>
 @endif
 <br/>
-<span>Date Time:{{$order->maintenanceRequest->asset->property_dead_date}}</span>
+<span>Date Time:{!!$order->maintenanceRequest->asset->property_dead_date!!}</span>
 <span></span>
 </div>
 <?php
@@ -68,10 +68,10 @@ if(Auth::user()->type_id==1||Auth::user()->type_id==3)
 <span>Property Closed</span>
 <br/>
 @if(isset($order->maintenanceRequest->asset->close->first_name))
-<span>User:{{$order->maintenanceRequest->asset->close->first_name}} {{$order->maintenanceRequest->asset->close->last_name}}</span>
+<span>User:{!!$order->maintenanceRequest->asset->close->first_name!!} {!!$order->maintenanceRequest->asset->close->last_name!!}</span>
 @endif
 <br/>
-<span>Date Time:{{$order->maintenanceRequest->asset->property_dead_date}}</span>
+<span>Date Time:{!!$order->maintenanceRequest->asset->property_dead_date!!}</span>
 </div>
 <?php }?>
 
@@ -81,7 +81,7 @@ if(Auth::user()->type_id==1||Auth::user()->type_id==3)
 if(Auth::user()->type_id==3)
 {
 ?>
-<a class="btn btn-info" style="background: #FF90A3;" href="{{URL::to('add-bid-request')}}/{{$order->id}}" style="float:right" >
+<a class="btn btn-info" style="background: #FF90A3;" href="{!!URL::to('add-bid-request')!!}/{!!$order->id!!}" style="float:right" >
  Add OSR
 </a>
 <?php
@@ -90,21 +90,21 @@ if(Auth::user()->type_id==3)
  ?>
 
     <h1 class="text-center">Work Order</h1>
-  {{ Form::hidden('order_image_id', "",array("id"=>"order_image_id"))}} 
+  {!! Form::hidden('order_image_id', "",array("id"=>"order_image_id"))!!} 
     <div class="row-fluid">
         <div class="box span12">
             <table class="table table-bordered customeTable"> 
                 <tbody>
                     <tr>
-                        <td class="center span3"><h2><span>Property #:</span>{{$order->maintenanceRequest->asset->asset_number}}</h2></td>
-                        <td class="center span3"><h2><span>Order #:</span>{{$order->id}}</h2></td>
+                        <td class="center span3"><h2><span>Property #:</span>{!!$order->maintenanceRequest->asset->asset_number!!}</h2></td>
+                        <td class="center span3"><h2><span>Order #:</span>{!!$order->id!!}</h2></td>
                         <td class="center span3"><h2><span>Recurring:</span> No</h2></td>
-                        <td class="center span3"><h2><span>Status:</span> @if($order->status==1) In-Process @else {{$order->status_text}} @endif</h2></td>
+                        <td class="center span3"><h2><span>Status:</span> @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</h2></td>
                         <td class="center span3">
 
                         <h2>
                         @foreach($order_details as $order_detail)
-                            <span style="font-size: 13px !important;font-weight: normal;">@if($order_detail->requestedService->service->title) {{$order_detail->requestedService->service->title}}  @endif <?php if(isset($order_detail->requestedService->due_date)&&$order_detail->requestedService->due_date!="") { echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));} else { echo 'Due Date: Not Assigned'; } ?></span><span id="changeButton" style="display:none;"><input type="text" class="datepicker" name="duedatechange" id="duedatechange" /><button onclick="SaveDueDate('{{$order_detail->requestedService->id}}')">Save</button></span><?php if(Auth::user()->type_id==1||Auth::user()->type_id==4) { ?><button class="btn" onclick="changeDueDate('{{$order->id}}')">Update</button><?php }?>
+                            <span style="font-size: 13px !important;font-weight: normal;">@if($order_detail->requestedService->service->title) {!!$order_detail->requestedService->service->title!!}  @endif <?php if(isset($order_detail->requestedService->due_date)&&$order_detail->requestedService->due_date!="") { echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));} else { echo 'Due Date: Not Assigned'; } ?></span><span id="changeButton" style="display:none;"><input type="text" class="datepicker" name="duedatechange" id="duedatechange" /><button onclick="SaveDueDate('{!!$order_detail->requestedService->id!!}')">Save</button></span><?php if(Auth::user()->type_id==1||Auth::user()->type_id==4) { ?><button class="btn" onclick="changeDueDate('{!!$order->id!!}')">Update</button><?php }?>
                         
                               @endforeach
 
@@ -130,13 +130,13 @@ if(Auth::user()->type_id==3)
                 <table class="table"> 
                     <tbody>
                         <tr>
-                            <td class="center span3"><h2>Customer First Name: <span >{{$order->maintenanceRequest->user->first_name}}</span></h2></td>
-                            <td class="center span3"><h2>Customer Last Name: <span >{{$order->maintenanceRequest->user->last_name}}</span></h2></td>
+                            <td class="center span3"><h2>Customer First Name: <span >{!!$order->maintenanceRequest->user->first_name!!}</span></h2></td>
+                            <td class="center span3"><h2>Customer Last Name: <span >{!!$order->maintenanceRequest->user->last_name!!}</span></h2></td>
                         </tr>
                          @if(Auth::user()->type_id!=3)
                          <tr>
-                            <td class="center span3"><h2>Company: <span >{{$order->maintenanceRequest->user->company}}</span></h2></td>
-                            <td class="center span3"><h2>Email: <span >{{$order->maintenanceRequest->user->email}}</span></h2></td>
+                            <td class="center span3"><h2>Company: <span >{!!$order->maintenanceRequest->user->company!!}</span></h2></td>
+                            <td class="center span3"><h2>Email: <span >{!!$order->maintenanceRequest->user->email!!}</span></h2></td>
                         </tr>
                         @endif
                     </tbody>
@@ -156,18 +156,18 @@ if(Auth::user()->type_id==3)
                 <table class="table"> 
                     <tbody>
                         <tr>
-                            <td class="center span3"><h2>Property Address: <span >{{$order->maintenanceRequest->asset->property_address}}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h2></td>
-                              <td class="center span3"><h2>City: <span >{{$order->maintenanceRequest->asset->city->name}} </span></h2></td>
+                            <td class="center span3"><h2>Property Address: <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h2></td>
+                              <td class="center span3"><h2>City: <span >{!!$order->maintenanceRequest->asset->city->name!!} </span></h2></td>
                          
                          </tr>
                         <tr>
-                              <td class="center span3"><h2>State: <span >{{$order->maintenanceRequest->asset->state->name}}</span></h2></td>
-                             <td class="center span3"><h2>Zip: <span > {{$order->maintenanceRequest->asset->zip}}</span> </h2></td>
+                              <td class="center span3"><h2>State: <span >{!!$order->maintenanceRequest->asset->state->name!!}</span></h2></td>
+                             <td class="center span3"><h2>Zip: <span > {!!$order->maintenanceRequest->asset->zip!!}</span> </h2></td>
                           
                         </tr>
                         <tr>
-                            <td class="center span3"><h2>Lockbox: <span >{{$order->maintenanceRequest->asset->lock_box}}</span></h2></td>
-                       <td class="center span3"><h2>Gate / Access Code: <span >{{$order->maintenanceRequest->asset->access_code}}</span></h2></td>
+                            <td class="center span3"><h2>Lockbox: <span >{!!$order->maintenanceRequest->asset->lock_box!!}</span></h2></td>
+                       <td class="center span3"><h2>Gate / Access Code: <span >{!!$order->maintenanceRequest->asset->access_code!!}</span></h2></td>
                        </tr>
                        
                     </tbody>
@@ -193,7 +193,7 @@ $RecurringFlag=0;
     <div class="row-fluid">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon edit"></i><span class="break"></span>{{$order_detail->requestedService->service->title}}</h2>
+                <h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$order_detail->requestedService->service->title!!}</h2>
                 <div class="box-icon">
                 <?php
                 if($order_detail->requestedService->recurring==1)
@@ -216,7 +216,7 @@ $RecurringFlag=0;
                   $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
             ?>
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
       
             <?php
 
@@ -225,7 +225,7 @@ $RecurringFlag=0;
                  $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
 
              ?>
-                Price : ${{$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
 
                 <?php 
                 }
@@ -248,7 +248,7 @@ $totalPrice+=$vendor_priceFIND;
                   $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
             ?>
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
       
             <?php
 
@@ -256,7 +256,7 @@ $totalPrice+=$vendor_priceFIND;
             }else{
                  $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
              ?>
-                Price : ${{$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!}
 
                 <?php 
                 }
@@ -280,12 +280,12 @@ $totalPrice+=$vendor_priceFIND;
             {
                 $totalPriceCustomer+=$SpecialPriceCustomer[0]->special_price;
  ?>
-Customer Price:${{$SpecialPriceCustomer[0]->special_price}}
+Customer Price:${!!$SpecialPriceCustomer[0]->special_price!!}
  <?php
             }else {
                   $totalPriceCustomer+=$order_detail->requestedService->service->customer_price;
                     ?>
-Customer Price:${{$order_detail->requestedService->service->customer_price}}
+Customer Price:${!!$order_detail->requestedService->service->customer_price!!}
 <?php
 }
 
@@ -297,12 +297,12 @@ Customer Price:${{$order_detail->requestedService->service->customer_price}}
             {
                 $totalPriceVendor+=$SpecialPriceVendor[0]->special_price;
                 ?>
-                 Vendor Price:${{$SpecialPriceVendor[0]->special_price}}
+                 Vendor Price:${!!$SpecialPriceVendor[0]->special_price!!}
                  <?php
             }
             else{
 ?>
- Vendor Price:${{$order_detail->requestedService->service->vendor_price}}
+ Vendor Price:${!!$order_detail->requestedService->service->vendor_price!!}
  <?php
  $totalPriceVendor+=$order_detail->requestedService->service->vendor_price;
 }
@@ -328,7 +328,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price}}
                   $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
             ?>
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
       
             <?php
 
@@ -336,7 +336,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price}}
             }else{
                  $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
              ?>
-                Price : ${{$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
 
                 <?php 
                 }
@@ -360,7 +360,7 @@ $totalPrice+=$vendor_priceFIND;
                   $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
             ?>
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
       
             <?php
 
@@ -368,7 +368,7 @@ $totalPrice+=$vendor_priceFIND;
             }else{
                  $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
              ?>
-                Price : ${{$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!}
 
                 <?php 
                 }
@@ -395,7 +395,7 @@ $totalPriceCustomer+=$SpecialPriceCustomer[0]->special_price*$order_detail->requ
 
                 ?>
 
-Customer Price:${{$SpecialPriceCustomer[0]->special_price*$order_detail->requestedService->quantity}} 
+Customer Price:${!!$SpecialPriceCustomer[0]->special_price*$order_detail->requestedService->quantity!!} 
  
                 <?php
             }else{
@@ -403,7 +403,7 @@ Customer Price:${{$SpecialPriceCustomer[0]->special_price*$order_detail->request
 $totalPriceCustomer+=$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity;;
 
                     ?>
-Customer Price:${{$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity}} 
+Customer Price:${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!} 
  
     <?php
     }
@@ -419,7 +419,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price*$orde
 
 
                 ?>
-         Vendor Price:${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+         Vendor Price:${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
 
         <?php
             }else {
@@ -427,7 +427,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
     ?>
 
-    Vendor Price:${{$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity}}
+    Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
     <?php } ?>
  <?php
 
@@ -443,10 +443,10 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
             </div>
             
             <div class="box-content">
-                <div id="vendor-note-empty-error-{{$order_detail->id}}" class="hide">
+                <div id="vendor-note-empty-error-{!!$order_detail->id!!}" class="hide">
                     <h4 class="alert alert-error">Vendor Note Can not be Empty</h4>
                 </div>
-                <div id="vendor-note-empty-success-{{$order_detail->id}}" class="hide">
+                <div id="vendor-note-empty-success-{!!$order_detail->id!!}" class="hide">
                     <h4 class="alert alert-success">Saved Successful</h4>
                 </div>
                 <table class="table"> 
@@ -454,13 +454,13 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                                     <?php
                  if( Auth::user()->type_id == 1 || Auth::user()->type_id == 4) {
                     ?>               <tr>
-                        <td colspan="2" class="center"><h2>Customer Note:</h2>{{$order_detail->requestedService->customer_note}}   </td>
+                        <td colspan="2" class="center"><h2>Customer Note:</h2>{!!$order_detail->requestedService->customer_note!!}   </td>
                     </tr> 
                       <tr>
-                        <td colspan="2" class="center"><h2>Note for Vendor:</h2>{{$order_detail->requestedService->public_notes}}   </td>
+                        <td colspan="2" class="center"><h2>Note for Vendor:</h2>{!!$order_detail->requestedService->public_notes!!}   </td>
                     </tr> 
                     <tr>  
-                       <td colspan="2" class="center"><h2>Vendor Note:</h2>{{$order_detail->requestedService->vendor_note}}   </td>
+                       <td colspan="2" class="center"><h2>Vendor Note:</h2>{!!$order_detail->requestedService->vendor_note!!}   </td>
                    </tr>
                    <?php }elseif( Auth::user()->type_id == 3 ) {
                          ?>
@@ -469,7 +469,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                       <tr>
                         <td colspan="2" class="center"><h2>Note for Vendor:</h2>
                             @if($order_detail->requestedService->public_notes)
-                            <span>{{$order_detail->requestedService->public_notes}}</span >
+                            <span>{!!$order_detail->requestedService->public_notes!!}</span >
                             @else
                             <span>Sorry! Vendor has not added any public note</span >
                             @endif
@@ -484,19 +484,19 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                     <tr>
                         <td class="center" colspan="2">
                             <span class="pull-left">
-                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_{{$order_detail->id}}" class="btn btn-large btn-success">Upload Before Images</button>
-                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{{$order_detail->id}}" onclick="popModal({{$order->id}}, {{$order_detail->id}}, 'before')" class="btn">View Before Images</button>
+                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_{!!$order_detail->id!!}" class="btn btn-large btn-success">Upload Before Images</button>
+                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{!!$order_detail->id!!}" onclick="popModal({!!$order->id!!}, {!!$order_detail->id!!}, 'before')" class="btn">View Before Images</button>
                             </span>
 
 
                              <span class="pull-during">
-                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_{{$order_detail->id}}" class="btn btn-large btn-success">Upload During Images</button>
-                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_view_image_{{$order_detail->id}}" onclick="popModal({{$order->id}}, {{$order_detail->id}}, 'during')" class="btn">View During Images</button>
+                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_{!!$order_detail->id!!}" class="btn btn-large btn-success">Upload During Images</button>
+                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_view_image_{!!$order_detail->id!!}" onclick="popModal({!!$order->id!!}, {!!$order_detail->id!!}, 'during')" class="btn">View During Images</button>
                             </span>
 
                             <span class="pull-right">
-                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{{$order_detail->id}}" onclick="popModal({{$order->id}}, {{$order_detail->id}}, 'after')" class="btn">View After Images</button>
-                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" data-target="#after_{{$order_detail->id}}" class="btn btn-large btn-success">Upload After Images</button>
+                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{!!$order_detail->id!!}" onclick="popModal({!!$order->id!!}, {!!$order_detail->id!!}, 'after')" class="btn">View After Images</button>
+                            <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" data-target="#after_{!!$order_detail->id!!}" class="btn btn-large btn-success">Upload After Images</button>
                             </span>
                         </td>
                     </tr>
@@ -511,15 +511,15 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                     <tr>
                         <td colspan="2" class="center"><h2>Vendor Note:</h2>
                             @if($order_detail->requestedService->vendor_note)
-                            <span id="show-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{$order_detail->requestedService->vendor_note}}<br><button class="btn btn-primary" id="edit-vendor-note-button-{{$order->id}}-{{$order_detail->id}}" onclick="editVendorNoteButton({{$order->id}},{{$order_detail->id}})"> Edit Note </button> </span >
-                            <span class="hide" id="textarea-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{Form::textarea('vendor_note', $order_detail->requestedService->vendor_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))}}</span></td>
+                            <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!$order_detail->requestedService->vendor_note!!}<br><button class="btn btn-primary" id="edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})"> Edit Note </button> </span >
+                            <span class="hide" id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('vendor_note', $order_detail->requestedService->vendor_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
                             @else
-                            <span id="show-vendor-note-{{$order->id}}-{{$order_detail->id}}"></span >
-                            <span id="textarea-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{Form::textarea('vendor_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))}}</span></td>
+                            <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}"></span >
+                            <span id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('vendor_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
                             @endif
                     </tr>
                      <tr>
-                        <td class="center" colspan="2"><button class="btn btn-large btn-warning pull-right"  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif onclick="saveVendorNote({{$order->id}}, {{$order_detail->id}})">Save {{$order_detail->requestedService->service->title}}</button></td>
+                        <td class="center" colspan="2"><button class="btn btn-large btn-warning pull-right"  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif onclick="saveVendorNote({!!$order->id!!}, {!!$order_detail->id!!})">Save {!!$order_detail->requestedService->service->title!!}</button></td>
 
                     </tr>
                     <?php } else if( Auth::user()->type_id == 2 ) {
@@ -528,15 +528,15 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                      <tr>
                         <td colspan="2" class="center"><h2>Customers Note:</h2>
                             @if($order_detail->requestedService->customer_note)
-                            <span id="show-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{$order_detail->requestedService->custumer_note}}<br><button class="btn btn-primary" id="edit-vendor-note-button-{{$order->id}}-{{$order_detail->id}}" onclick="editVendorNoteButton({{$order->id}},{{$order_detail->id}})"> Edit Note </button> </span >
-                            <span class="hide" id="textarea-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{Form::textarea('custumer_note', $order_detail->requestedService->customer_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))}}</span></td>
+                            <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!$order_detail->requestedService->custumer_note!!}<br><button class="btn btn-primary" id="edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})"> Edit Note </button> </span >
+                            <span class="hide" id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('custumer_note', $order_detail->requestedService->customer_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
                             @else
-                            <span id="show-vendor-note-{{$order->id}}-{{$order_detail->id}}"></span >
-                            <span id="textarea-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{Form::textarea('custumer_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))}}</span></td>
+                            <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}"></span >
+                            <span id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('custumer_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
                             @endif
                     </tr>
                      <tr>
-                        <td class="center" colspan="2"><button class="btn btn-large btn-warning pull-right"  onclick="saveCustomerNote({{$order->id}}, {{$order_detail->id}})">Save {{$order_detail->requestedService->service->title}}</button></td>
+                        <td class="center" colspan="2"><button class="btn btn-large btn-warning pull-right"  onclick="saveCustomerNote({!!$order->id!!}, {!!$order_detail->id!!})">Save {!!$order_detail->requestedService->service->title!!}</button></td>
 
                     </tr>
                 
@@ -546,15 +546,15 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                      <tr>
                         <td colspan="2" class="center"><h2>Admin Note:</h2>
                             @if($order_detail->requestedService->admin_note)
-                            <span id="show-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{$order_detail->requestedService->admin_note}}<br><button class="btn btn-primary" id="edit-vendor-note-button-{{$order->id}}-{{$order_detail->id}}" onclick="editVendorNoteButton({{$order->id}},{{$order_detail->id}})"> Edit Note </button> </span >
-                            <span class="hide" id="textarea-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{Form::textarea('admin_note', $order_detail->requestedService->admin_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))}}</span></td>
+                            <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!$order_detail->requestedService->admin_note!!}<br><button class="btn btn-primary" id="edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})"> Edit Note </button> </span >
+                            <span class="hide" id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('admin_note', $order_detail->requestedService->admin_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
                             @else
-                            <span id="show-vendor-note-{{$order->id}}-{{$order_detail->id}}"></span >
-                            <span id="textarea-vendor-note-{{$order->id}}-{{$order_detail->id}}">{{Form::textarea('admin_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))}}</span></td>
+                            <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}"></span >
+                            <span id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('admin_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
                             @endif
                     </tr>
                      <tr>
-                        <td class="center" colspan="2"><button class="btn btn-large btn-warning pull-right" onclick="saveAdminNote({{$order->id}}, {{$order_detail->id}})">Save {{$order_detail->requestedService->service->title}}</button></td>
+                        <td class="center" colspan="2"><button class="btn btn-large btn-warning pull-right" onclick="saveAdminNote({!!$order->id!!}, {!!$order_detail->id!!})">Save {!!$order_detail->requestedService->service->title!!}</button></td>
 
                     </tr>
                     <?php } ?>
@@ -563,7 +563,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                           <tr><td>Service Details</td><td></td></tr>
                 @if($order_detail->requestedService->required_date!="")
                 <tr><td>Required Date</td>
-                <td>{{ date('m/d/Y', strtotime($order_detail->requestedService->required_date)) }}
+                <td>{!! date('m/d/Y', strtotime($order_detail->requestedService->required_date)) !!}
               
                 </td>
                 </tr>
@@ -572,7 +572,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                    @if( $order_detail->requestedService->due_date!="")
                 <tr><td>Due Date</td>
                 <td>
-              {{ date('m/d/Y', strtotime($order_detail->requestedService->due_date)) }}
+              {!! date('m/d/Y', strtotime($order_detail->requestedService->due_date)) !!}
                 </td>
                 </tr>
                 @endif
@@ -580,7 +580,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                   @if($order_detail->requestedService->quantity!="")
                 <tr><td>Quantity</td>
               <td>
-                    <span id="show-vendor-qty">{{ $order_detail->requestedService->quantity }}</span>
+                    <span id="show-vendor-qty">{!! $order_detail->requestedService->quantity !!}</span>
                     </td>
                 </tr>
                 @endif
@@ -589,14 +589,14 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                     @if($order_detail->requestedService->service_men!="")
                 <tr><td>Service men</td>
-                <td>{{$order_detail->requestedService->service_men }}
+                <td>{!!$order_detail->requestedService->service_men !!}
               
                 </td>
                 </tr>
                 @endif
                     @if($order_detail->requestedService->service_note!="")
                 <tr><td>Service note</td>
-                <td>{{$order_detail->requestedService->service_note }}
+                <td>{!!$order_detail->requestedService->service_note !!}
               
                 </td>
                 </tr>
@@ -604,14 +604,14 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                     @if($order_detail->requestedService->verified_vacancy!="")
                 <tr><td>Verified vacancy</td>
-                <td>{{$order_detail->requestedService->verified_vacancy }}
+                <td>{!!$order_detail->requestedService->verified_vacancy !!}
               
                 </td>
                 </tr>
                 @endif
                   @if($order_detail->requestedService->cash_for_keys!="")
                 <tr><td>Cash for keys</td>
-                <td>{{$order_detail->requestedService->cash_for_keys }}
+                <td>{!!$order_detail->requestedService->cash_for_keys !!}
               
                 </td>
                 </tr>
@@ -619,7 +619,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->cash_for_keys_trash_out!="")
                 <tr><td>Cash for keys Trash Out</td>
-                <td>{{$order_detail->requestedService->cash_for_keys_trash_out }}
+                <td>{!!$order_detail->requestedService->cash_for_keys_trash_out !!}
               
                 </td>
                 </tr>
@@ -627,7 +627,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->trash_size!="")
                 <tr><td>trash size</td>
-                <td>{{$order_detail->requestedService->trash_size }}
+                <td>{!!$order_detail->requestedService->trash_size !!}
               
                 </td>
                 </tr>
@@ -636,7 +636,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->storage_shed!="")
                 <tr><td>storage shed</td>
-                <td>{{$order_detail->requestedService->storage_shed }}
+                <td>{!!$order_detail->requestedService->storage_shed !!}
               
                 </td>
                 </tr>
@@ -645,7 +645,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->lot_size!="")
                 <tr><td>lot size</td>
-                <td>{{$order_detail->requestedService->lot_size }}
+                <td>{!!$order_detail->requestedService->lot_size !!}
               
                 </td>
                 </tr>
@@ -653,7 +653,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->set_prinkler_system_type!="")
                 <tr><td>set prinkler system type</td>
-                <td>{{$order_detail->requestedService->set_prinkler_system_type }}
+                <td>{!!$order_detail->requestedService->set_prinkler_system_type !!}
               
                 </td>
                 </tr>
@@ -662,7 +662,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->install_temporary_system_type!="")
                 <tr><td>install temporary system type</td>
-                <td>{{$order_detail->requestedService->install_temporary_system_type }}
+                <td>{!!$order_detail->requestedService->install_temporary_system_type !!}
               
                 </td>
                 </tr>
@@ -672,7 +672,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->pool_service_type!="")
                 <tr><td>pool service type</td>
-                <td>{{$order_detail->requestedService->pool_service_type }}
+                <td>{!!$order_detail->requestedService->pool_service_type !!}
               
                 </td>
                 </tr>
@@ -681,7 +681,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                    @if($order_detail->requestedService->carpet_service_type!="")
                 <tr><td>carpet service type</td>
-                <td>{{$order_detail->requestedService->carpet_service_type }}
+                <td>{!!$order_detail->requestedService->carpet_service_type !!}
               
                 </td>
                 </tr>
@@ -689,7 +689,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                  @if($order_detail->requestedService->boarding_type!="")
                 <tr><td>boarding type</td>
-                <td>{{$order_detail->requestedService->boarding_type }}
+                <td>{!!$order_detail->requestedService->boarding_type !!}
               
                 </td>
                 </tr>
@@ -699,7 +699,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                  @if($order_detail->requestedService->spruce_up_type!="")
                 <tr><td>spruce up type</td>
-                <td>{{$order_detail->requestedService->spruce_up_type }}
+                <td>{!!$order_detail->requestedService->spruce_up_type !!}
               
                 </td>
                 </tr>
@@ -709,7 +709,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                  @if($order_detail->requestedService->constable_information_type!="")
                 <tr><td>constable information type</td>
-                <td>{{$order_detail->requestedService->constable_information_type }}
+                <td>{!!$order_detail->requestedService->constable_information_type !!}
               
                 </td>
                 </tr>
@@ -718,7 +718,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                   @if($order_detail->requestedService->remove_carpe_type!="")
                 <tr><td>remove carpe type</td>
-                <td>{{$order_detail->requestedService->remove_carpe_type }}
+                <td>{!!$order_detail->requestedService->remove_carpe_type !!}
               
                 </td>
                 </tr>
@@ -727,7 +727,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                  @if($order_detail->requestedService->remove_blinds_type!="")
                 <tr><td>remove blinds type</td>
-                <td>{{$order_detail->requestedService->remove_blinds_type }}
+                <td>{!!$order_detail->requestedService->remove_blinds_type !!}
               
                 </td>
                 </tr>
@@ -735,7 +735,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
                 
                     @if($order_detail->requestedService->remove_appliances_type!="")
                 <tr><td>remove appliances type</td>
-                <td>{{$order_detail->requestedService->remove_appliances_type }}
+                <td>{!!$order_detail->requestedService->remove_appliances_type !!}
               
                 </td>
                 </tr>
@@ -753,14 +753,14 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
     
     <!--/   Modal-Section Start   -->
     <!--/   Modal-Section Add Before Images Start   -->
-    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="before_{{$order_detail->id}}">
+    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="before_{!!$order_detail->id!!}">
         <div class="row-fluid dragImage">
-                {{ Form::open(array('url' => 'add-before-images', 'class'=>'dropzone', 'id'=>'form-before-'.$order_detail->id)) }}
-                {{ Form::hidden('order_id', $order->id,array("id"=>"order_id_for_change"))}}
-                {{ Form::hidden('order_details_id', $order_detail->id)}}
-                {{ Form::hidden('type', 'before')}}
+                {!! Form::open(array('url' => 'add-before-images', 'class'=>'dropzone', 'id'=>'form-before-'.$order_detail->id)) !!}
+                {!! Form::hidden('order_id', $order->id,array("id"=>"order_id_for_change"))!!}
+                {!! Form::hidden('order_details_id', $order_detail->id)!!}
+                {!! Form::hidden('type', 'before')!!}
                 <button class="btn btn-large btn-success" data-dismiss="modal">Save & Close</button> 
-                {{ Form::close() }} 
+                {!! Form::close() !!} 
         </div>
 <!--        <div class="row-fluid">
                 
@@ -771,15 +771,15 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
 <!--/   Modal-Section Start   -->
     <!--/   Modal-Section Add Before Images Start   -->
-    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="during_{{$order_detail->id}}">
+    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="during_{!!$order_detail->id!!}">
         <div class="row-fluid dragImage">
-                {{ Form::open(array('url' => 'add-during-images', 'class'=>'dropzone', 'id'=>'form-during-'.$order_detail->id)) }}
-                {{ Form::hidden('order_id', $order->id,array("id"=>"order_id_for_change"))}}
+                {!! Form::open(array('url' => 'add-during-images', 'class'=>'dropzone', 'id'=>'form-during-'.$order_detail->id)) !!}
+                {!! Form::hidden('order_id', $order->id,array("id"=>"order_id_for_change"))!!}
 
-                {{ Form::hidden('order_details_id', $order_detail->id)}}
-                {{ Form::hidden('type', 'during')}}
+                {!! Form::hidden('order_details_id', $order_detail->id)!!}
+                {!! Form::hidden('type', 'during')!!}
                 <button class="btn btn-large btn-success" data-dismiss="modal">Save & Close</button> 
-                {{ Form::close() }} 
+                {!! Form::close() !!} 
         </div>
 <!--        <div class="row-fluid">
                 
@@ -797,23 +797,23 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
 
     <!--/   Modal-Section Add After Images Start   -->
-    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="after_{{$order_detail->id}}">
+    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="after_{!!$order_detail->id!!}">
         <div class="row-fluid dragImage">
-                {{ Form::open(array('url' => 'add-after-images', 'class'=>'dropzone', 'id'=>'form-after-'.$order_detail->id)) }}
-                {{ Form::hidden('order_id', $order->id)}}
-                {{ Form::hidden('order_details_id', $order_detail->id)}}
-                {{ Form::hidden('type', 'after')}}
+                {!! Form::open(array('url' => 'add-after-images', 'class'=>'dropzone', 'id'=>'form-after-'.$order_detail->id)) !!}
+                {!! Form::hidden('order_id', $order->id)!!}
+                {!! Form::hidden('order_details_id', $order_detail->id)!!}
+                {!! Form::hidden('type', 'after')!!}
                 <button class="btn btn-large btn-success" data-dismiss="modal">Save & Close</button> 
-                {{ Form::close() }} 
+                {!! Form::close() !!} 
         </div>
     </div>
     <!--/   Modal-Section Add After Images End   -->
     
     
     <!--/   Modal-Section Show Before Images Start   -->
-    <div style="padding: 10px;max-height: 500px;overflow: auto;" role="dialog" class="modal hide fade modelForm"  id="before_view_image_{{$order_detail->id}}">
+    <div style="padding: 10px;max-height: 500px;overflow: auto;" role="dialog" class="modal hide fade modelForm"  id="before_view_image_{!!$order_detail->id!!}">
         <div class="well text-center"><h1>View Before Image</h1></div>
-        <div class="row-fluid" id="before_view_modal_image_{{$order_detail->id}}">
+        <div class="row-fluid" id="before_view_modal_image_{!!$order_detail->id!!}">
         </div>
         <div class="row-fluid">
                 <button data-dismiss="modal" style="margin:40px 0 25px 0;" class="btn btn-large btn-success">Close</button> 
@@ -824,9 +824,9 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
 
      <!--/   Modal-Section Show During Images Start   -->
-    <div style="padding: 10px;max-height: 500px;overflow: auto;" role="dialog" class="modal hide fade modelForm"  id="during_view_image_{{$order_detail->id}}">
+    <div style="padding: 10px;max-height: 500px;overflow: auto;" role="dialog" class="modal hide fade modelForm"  id="during_view_image_{!!$order_detail->id!!}">
         <div class="well text-center"><h1>View During Image</h1></div>
-        <div class="row-fluid" id="during_view_modal_image_{{$order_detail->id}}">
+        <div class="row-fluid" id="during_view_modal_image_{!!$order_detail->id!!}">
         </div>
         <div class="row-fluid">
                 <button data-dismiss="modal" style="margin: 40px 0 25px 0;" class="btn btn-large btn-success">Close</button> 
@@ -836,9 +836,9 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
     
     
     <!--/   Modal-Section Show After Images Start   -->
-    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="after_view_image_{{$order_detail->id}}">
+    <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="after_view_image_{!!$order_detail->id!!}">
         <div class="well text-center"><h1>View After Image</h1></div>
-        <div class="row-fluid" id="after_view_modal_image_{{$order_detail->id}}">
+        <div class="row-fluid" id="after_view_modal_image_{!!$order_detail->id!!}">
         </div>
         <div class="row-fluid">
                 <button data-dismiss="modal" style="margin: 40px 0 25px 0;" class="btn btn-large btn-success">Close</button> 
@@ -852,12 +852,12 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
        <?php 
 
         if(Auth::user()->type_id==3 || Auth::user()->type_id==2) {?>
-         <div style="float:right;"><h2>Total Price: ${{$totalPrice}} </h2>
+         <div style="float:right;"><h2>Total Price: ${!!$totalPrice!!} </h2>
     </div>  
 
         <?php }else { ?>
                 
-  <div style="float:right;"><h2>Total Customer Price: ${{$totalPriceCustomer}} Total Vendor Price: ${{$totalPriceVendor}} </h2>
+  <div style="float:right;"><h2>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!} </h2>
     </div>  
 
     <?php } ?>
@@ -887,7 +887,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
     function initialize() {
 
 
-     var myLatlng = new google.maps.LatLng({{$order->maintenanceRequest->asset->latitude}},{{$order->maintenanceRequest->asset->longitude}});
+     var myLatlng = new google.maps.LatLng({!!$order->maintenanceRequest->asset->latitude!!},{!!$order->maintenanceRequest->asset->longitude!!});
 
      var mapOptions = {
       zoom: 17,
@@ -939,32 +939,32 @@ function log(str){
                                      
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Property Address:</label>
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->property_address}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->property_address!!}</label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">City: </label>
-                                        <label class="control-label" for="typeahead"> {{$order->maintenanceRequest->asset->city->name}}</label>
+                                        <label class="control-label" for="typeahead"> {!!$order->maintenanceRequest->asset->city->name!!}</label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">State:</label>
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->state->name}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->state->name!!}</label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Zip :</label>
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->zip}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->zip!!}</label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Lockbox </label>
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->lock_box}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->lock_box!!}</label>
                                       </div>
                                      
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Gate / Access Code: </label>
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->access_code}} </label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->access_code!!} </label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Occupancy Status: </label>
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->occupancy_status}} </label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->occupancy_status!!} </label>
                                       </div>
                                       
                                     </div>
@@ -998,7 +998,7 @@ function log(str){
                                       <div class="controls">
                                         <label class="control-label" for="textarea2">Note:</label>
                                         @if($order->maintenanceRequest->asset->outbuilding_shed_note != '')
-                                        <label class="control-label label-auto" for="textarea2">{{$order->maintenanceRequest->asset->outbuilding_shed_note}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$order->maintenanceRequest->asset->outbuilding_shed_note!!}</label>
                                         @else
                                         <label class="control-label label-auto" for="textarea2">There is no note regarding Outbuilding Shed</label>
                                         @endif
@@ -1008,7 +1008,7 @@ function log(str){
                                       <div class="controls">
                                         <label class="control-label" for="textarea2">Directions or Special Notes:</label>
                                         @if($order->maintenanceRequest->asset->special_direction_note != '')
-                                        <label class="control-label label-auto" for="textarea2">{{$order->maintenanceRequest->asset->special_direction_note}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$order->maintenanceRequest->asset->special_direction_note!!}</label>
                                         @else
                                         <label class="control-label label-auto" for="textarea2">There is no Special Direction</label>
                                         @endif
@@ -1052,7 +1052,7 @@ function log(str){
                                      <div class="control-group hidden-phone">
                                       <div class="controls">
                                         <label class="control-label" for="textarea2">Utility Note:</label>
-                                        <label class="control-label label-auto" for="textarea2">{{$order->maintenanceRequest->asset->utility_note}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$order->maintenanceRequest->asset->utility_note!!}</label>
                                       </div>
                                     </div>
                                     <div class="control-group multiRadio">
@@ -1070,7 +1070,7 @@ function log(str){
                                         @elseif($order->maintenanceRequest->asset->swimming_pool=="pond")
                                          Pond
                                          @else
-                                         {{$order->maintenanceRequest->asset->swimming_pool}}
+                                         {!!$order->maintenanceRequest->asset->swimming_pool!!}
                                         @endif
                                           
                                       </div>
@@ -1107,14 +1107,14 @@ function log(str){
             <div class="box-content">
             
             <div >
-               Completion date {{Form::text('completion_date', $order->completion_date, array('class'=> 'input-small span2 datepicker', 'id'=> 'completion_date' ))}}   
+               Completion date {!!Form::text('completion_date', $order->completion_date, array('class'=> 'input-small span2 datepicker', 'id'=> 'completion_date' ))!!}   
                  <button id="completion_date_div" style="display:none" class="btn btn-small" onclick="completionDate()" >Save</button>
                  <span style="float:right;display:none;" id="edit-qty">
-                    <span id="show-vendor-qty-{{$order->id}}-{{$order_detail->id}}">{{ $order_detail->requestedService->quantity }}
-                        <button class="btn btn-primary" id="edit-vendor-qty-button-{{$order->id}}-{{$order_detail->id}}" onclick="editVendorQuantityButton({{$order->id}},{{$order_detail->id}})"> &nbsp;Edit Quantity </button>
+                    <span id="show-vendor-qty-{!!$order->id!!}-{!!$order_detail->id!!}">{!! $order_detail->requestedService->quantity !!}
+                        <button class="btn btn-primary" id="edit-vendor-qty-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorQuantityButton({!!$order->id!!},{!!$order_detail->id!!})"> &nbsp;Edit Quantity </button>
                     </span>
-                    <span class="hide" id="input-vendor-qty-{{$order->id}}-{{$order_detail->id}}">{{Form::text('quantity', $order_detail->requestedService->quantity ,array('style'=>'width:30%', 'class'=>'span','id'=>'vendor-qty-'.$order->id.'-'.$order_detail->id))}}
-                    <button class="btn btn-large btn-warning pull-right" onclick="saveAdminQuantity({{$order->id}}, {{$order_detail->id}})">Save Quantity</button>
+                    <span class="hide" id="input-vendor-qty-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::text('quantity', $order_detail->requestedService->quantity ,array('style'=>'width:30%', 'class'=>'span','id'=>'vendor-qty-'.$order->id.'-'.$order_detail->id))!!}
+                    <button class="btn btn-large btn-warning pull-right" onclick="saveAdminQuantity({!!$order->id!!}, {!!$order_detail->id!!})">Save Quantity</button>
                     </span>
                 </span>
                 <br/>
@@ -1125,7 +1125,7 @@ function log(str){
     
                 <p id="errorMessage" style="display:none; margin-top:10px;"></p>
                 <div class="btn-group"  id="btn-group-unique" >      >
-                    <button class="btn btn-large orderstatus">@if($order->status==1) In-Process @else {{$order->status_text}} @endif</button>
+                    <button class="btn btn-large orderstatus">@if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</button>
                     <button class="btn btn-large dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                     <ul class="dropdown-menu mystatusclass"  @if(Auth::user()->type_id==3 && $order->status==4) style="display:none;" @endif  >
                         <li><a href="#">In-Process</a></li>
@@ -1150,12 +1150,12 @@ function log(str){
                 {
                     ?>
           
-  {{ Form::hidden('recurring_id', $RecurringFlag,array("id"=>"recurring_id"))}}
+  {!! Form::hidden('recurring_id', $RecurringFlag,array("id"=>"recurring_id"))!!}
                 <?php
                 }
                 ?>
                  <div class="mystatusclass"  id="btn-group-unique-mobile">
-                  Current Status  <button class="btn btn-large label-{{ $order->status_class }}" style="color:#ffffff;" >@if($order->status==1) In-Process @else {{$order->status_text}} @endif</button>
+                  Current Status  <button class="btn btn-large label-{!! $order->status_class !!}" style="color:#ffffff;" >@if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</button>
                   
                     <ul class=""  @if(Auth::user()->type_id==3 && $order->status==4) style="display:none;" @endif  >
                         <li class="btn label-warning"><a href="#" style="color:#ffffff;">In-Process</a></li>
@@ -1174,7 +1174,7 @@ function log(str){
                 </div>
                 <div style="display:none;" id="under_review_notes_section">
 
-                {{Form::textarea('under_review_notes', '' ,array('class'=>'span','id'=>'under_review_notes'))}}
+                {!!Form::textarea('under_review_notes', '' ,array('class'=>'span','id'=>'under_review_notes'))!!}
                 <a class="btn btn-info" href="#" onclick="under_review_notes('<?php echo $order->vendor_id;?>')" > Save</a>
 
                 </div>

@@ -14,7 +14,7 @@
 
                 @if (Session::has('message'))
 
-                {{ Session::get('message') }}
+                {!! Session::get('message') !!}
 
                 @endif
 
@@ -22,13 +22,13 @@
 
                 @foreach ($errors->all() as $error)
 
-                <div class="alert alert-error">{{ $error }}</div>
+                <div class="alert alert-error">{!! $error !!}</div>
 
                 @endforeach
 
                 @endif
 
-                {{ Form::open(array('url' => 'create-bid-service-request', 'class'=>'form-horizontal request-services-vendor')) }}
+                {!! Form::open(array('url' => 'create-bid-service-request', 'class'=>'form-horizontal request-services-vendor')) !!}
 
 
 
@@ -42,7 +42,7 @@
 
                            <div class="control-group">
 
-                                {{Form::label('work_order', 'Select Work Order: *', array('class'=>'control-label'))}}
+                                {!!Form::label('work_order', 'Select Work Order: *', array('class'=>'control-label'))!!}
 
 
 
@@ -50,7 +50,7 @@
 
                                 <div class="controls">
                               
-                                 {{ Form::select('work_order',  $order_ids , $order_id, array('class'=>'span8 typeahead','id'=>'work_order', 'data-rel'=>'chosen'))}}
+                                 {!! Form::select('work_order',  $order_ids , $order_id, array('class'=>'span8 typeahead','id'=>'work_order', 'data-rel'=>'chosen'))!!}
                              
 
                                </div>
@@ -58,7 +58,7 @@
                             </div>
 <!-- 
                                          <div class="control-group">
-                                {{Form::label('job_type', 'Job Type:', array('class'=>'control-label', 'id'=> 'asdasd'))}}
+                                {!!Form::label('job_type', 'Job Type:', array('class'=>'control-label', 'id'=> 'asdasd'))!!}
                                <select name="job_type" id="job_type" >
                                 <option value="">Select Job Type</option>
 
@@ -66,7 +66,7 @@
                                 
                                 foreach ($jobType as $key => $value) {
                                   ?>
-                                  <option value="{{$value->id}}">{{$value->title}}</option>
+                                  <option value="{!!$value->id!!}">{!!$value->title!!}</option>
 
                                   <?php
                                 }
@@ -78,7 +78,7 @@
 
                             <div class="control-group">
 
-                                {{Form::label('vendor_service_ids', 'Services:', array('class'=>'control-label', 'id'=> 'ssdfsdf selectError1'))}}
+                                {!!Form::label('vendor_service_ids', 'Services:', array('class'=>'control-label', 'id'=> 'ssdfsdf selectError1'))!!}
 
                                 <?php
   $services_data=array();
@@ -92,7 +92,7 @@
 
                                 <div class="controls">
 
-                                    {{Form::select('vendor_service_ids',$services_data, null, array('multiple'=>'true', 'id'=>'vendor_service_ids', 'data-rel'=>'chosen') )}}
+                                    {!!Form::select('vendor_service_ids',$services_data, null, array('multiple'=>'true', 'id'=>'vendor_service_ids', 'data-rel'=>'chosen') )!!}
 
 <!--                                <select id="selectError1" multiple data-rel="chosen">
 
@@ -159,7 +159,7 @@
 
                         <div class="form-actions text-center">
 
-                            {{Form::submit('Request', array('name'=>'request', 'class'=>'btn btn-large btn-success'))}}
+                            {!!Form::submit('Request', array('name'=>'request', 'class'=>'btn btn-large btn-success'))!!}
 
                             <button type="button" class="btn btn-large btn-inverse">Cancel</button>
 
@@ -169,7 +169,7 @@
 
                 </fieldset>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
 
             </div>
 

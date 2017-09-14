@@ -56,13 +56,13 @@
 
                     }
                                 ?>
-                                  <td class="center">{{ $notificatioData->id}}</td>
-                                   <td class="center">@if(isset($notificatioData->sender->first_name)) {{ $notificatioData->sender->first_name}} @endif @if(isset($notificatioData->sender->last_name)) {{ $notificatioData->sender->last_name}}@endif </td>
-                                   <td class="center"> @if(isset($notificatioData->recepient->first_name)) {{ $notificatioData->recepient->first_name}}@endif @if(isset($notificatioData->recepient->last_name)) {{ $notificatioData->recepient->last_name}} @endif</td>
-                                    <td class="center">{{ $notificatioData->message}}</td>
-                                    <td class="center">{{$time}}</td>
+                                  <td class="center">{!! $notificatioData->id!!}</td>
+                                   <td class="center">@if(isset($notificatioData->sender->first_name)) {!! $notificatioData->sender->first_name!!} @endif @if(isset($notificatioData->sender->last_name)) {!! $notificatioData->sender->last_name!!}@endif </td>
+                                   <td class="center"> @if(isset($notificatioData->recepient->first_name)) {!! $notificatioData->recepient->first_name!!}@endif @if(isset($notificatioData->recepient->last_name)) {!! $notificatioData->recepient->last_name!!} @endif</td>
+                                    <td class="center">{!! $notificatioData->message!!}</td>
+                                    <td class="center">{!!$time!!}</td>
                                   <td class="center">
-                                  <a class="btn btn-success" onClick="ChangeNotificationStatus('{{ $notificatioData->id}}','{{$notificatioData->notification_url}}','{{$notificatioData->message}}')"  title="View Notification"> 
+                                  <a class="btn btn-success" onClick="ChangeNotificationStatus('{!! $notificatioData->id!!}','{!!$notificatioData->notification_url!!}','{!!$notificatioData->message!!}')"  title="View Notification"> 
                                   <i class="halflings-icon zoom-in halflings-icon"></i> 
                                   </a> 
                                   </td>

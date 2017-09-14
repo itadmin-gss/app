@@ -35,13 +35,13 @@
                         {{--*/ $loop = 1 /*--}}
                         @foreach ($orders as $order)
                         <tr>
-                            <td>{{ $loop }}</td>
-                            <td class="center">{{ $order['order_id'] }}</td>
-                            <td class="center">{{ $order['customer_name'] }}</td>
-                            <td class="center">{{ $order['service_name'] }}</td>
-                            <td class="center">{{ $order['asset_number'] }}</td>
-                            <td class="center">{{ $order['order_date'] }}</td>
-                            <td class="center">{{ $order['vendor_name'] }}</td>
+                            <td>{!! $loop !!}</td>
+                            <td class="center">{!! $order['order_id'] !!}</td>
+                            <td class="center">{!! $order['customer_name'] !!}</td>
+                            <td class="center">{!! $order['service_name'] !!}</td>
+                            <td class="center">{!! $order['asset_number'] !!}</td>
+                            <td class="center">{!! $order['order_date'] !!}</td>
+                            <td class="center">{!! $order['vendor_name'] !!}</td>
                             <td class="center">
                                 @if($order['status']==2)
                                 <span class="label label-success">Completed</span>
@@ -52,7 +52,7 @@
                                
                                 @endif
                             </td>
-                            <td class="center"><a class="btn btn-success" href="view-order/{{$order['order_id']}}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{{$order['order_id']}}"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                            <td class="center"><a class="btn btn-success" href="view-order/{!!$order['order_id']!!}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{!!$order['order_id']!!}"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach

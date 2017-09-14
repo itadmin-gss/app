@@ -2,7 +2,7 @@
 @section('content')
 <div id="content" class="span11">
   <div class="clearfix">
-    <a class="btn btn-info accBtn" href="{{URL::to('add-city')}}"> Add City </a>
+    <a class="btn btn-info accBtn" href="{!!URL::to('add-city')!!}"> Add City </a>
   </div>
 <p id="message" style="display:none">Saved...</p>
   <div class="row-fluid">
@@ -16,7 +16,7 @@
                               <div class="admtableInr">
 
         @if(Session::has('message'))
-              {{Session::get('message')}}
+              {!!Session::get('message')!!}
         @endif
         <div id="access-error" class="hide">
             <h4 class="alert alert-error">Warning! Access Denied</h4>
@@ -52,21 +52,21 @@
 
           {{--*/ $loop = 1 /*--}}
           @foreach ($cities as $city)
-          <tr id="tr-{{$city->id}}">
-            <td>{{ $loop }}</td>
-            <td class="center">{{ $city->name }}</td>
+          <tr id="tr-{!!$city->id!!}">
+            <td>{!! $loop !!}</td>
+            <td class="center">{!! $city->name !!}</td>
             <?php $state = State::getStateByID($city->state_id);?>
-            <td class="center">{{ $state }}</td>
+            <td class="center">{!! $state !!}</td>
            <td class="center">
                <div class="activate">
                    @if($city->status == 1)
-                   <span onclick="changeStatus(this,'city',0, {{$city->id}},'{{$db_table}}' )" class="label label-success">Active</span>
+                   <span onclick="changeStatus(this,'city',0, {!!$city->id!!},'{!!$db_table!!}' )" class="label label-success">Active</span>
                    @else
-                   <span onclick="changeStatus(this,'city',1, {{$city->id}},'{{$db_table}}' )" class="label label-important">In-Active</span>
+                   <span onclick="changeStatus(this,'city',1, {!!$city->id!!},'{!!$db_table!!}' )" class="label label-important">In-Active</span>
                    @endif
                </div>
            </td>
-            <td class="center popover-examples"><a class="btn btn-info" href="edit-city/{{ $city->id }}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <a class="btn btn-danger"  onclick="modalButtonOnClick({{$city->id}},'{{$db_table}}','city')" data-confirm="Are you sure you want to delete?" title="Delete"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+            <td class="center popover-examples"><a class="btn btn-info" href="edit-city/{!! $city->id !!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <a class="btn btn-danger"  onclick="modalButtonOnClick({!!$city->id!!},'{!!$db_table!!}','city')" data-confirm="Are you sure you want to delete?" title="Delete"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
           </tr>
           {{--*/ $loop++ /*--}}
           @endforeach
@@ -81,7 +81,7 @@
   </div>
   <!--/row-->
   <script>
-	var db_table = "{{ $db_table }}";
+	var db_table = "{!! $db_table !!}";
  </script>
 </div>
 

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 <div id="content" class="span11">
-{{ $username="";}}
+{!! $username="";!!}
 Sort By <select id="Invoiceonchange">
     <option value="2" @if($status==2) selected="selected" <?php $username="Customer";?>  @endif>Customer</option>
     <option value="3" @if($status==3) selected="selected" <?php $username="Vendor";?> @endif>Vendor</option>
@@ -9,7 +9,7 @@ Sort By <select id="Invoiceonchange">
     <div class="row-fluid">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon th-list"></i><span class="break"></span>{{$username}} Invoices</h2>
+                <h2><i class="halflings-icon th-list"></i><span class="break"></span>{!!$username!!} Invoices</h2>
 <!--                <div class="box-icon">
                     <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -47,19 +47,19 @@ Sort By <select id="Invoiceonchange">
                         @foreach ($orders as $order)
                         <tr>
                        
-                            <td class="center">{{ $order['order_id'] }}</td>
-                            <td class="center">{{ $order['ClientType'] }}</td>
+                            <td class="center">{!! $order['order_id'] !!}</td>
+                            <td class="center">{!! $order['ClientType'] !!}</td>
                             
-                            <td class="center">{{ $order['customer_name'] }}</td>
-                            <td class="center">{{ $order['service_name'] }}</td>
-                            <td class="center">{{ $order['propery_address'] }}</td>
-                            <td class="center">{{ $order['order_date'] }}</td>
-                            <td class="center">{{ $order['completion_date'] }}</td>
+                            <td class="center">{!! $order['customer_name'] !!}</td>
+                            <td class="center">{!! $order['service_name'] !!}</td>
+                            <td class="center">{!! $order['propery_address'] !!}</td>
+                            <td class="center">{!! $order['order_date'] !!}</td>
+                            <td class="center">{!! $order['completion_date'] !!}</td>
                             
-                            <td class="center">{{ $order['vendor_name'] }}</td>
-                            <td class="center">{{ $order['price'] }}</td>
+                            <td class="center">{!! $order['vendor_name'] !!}</td>
+                            <td class="center">{!! $order['price'] !!}</td>
                             <td class="center"> <span class="label label-gray">@if($order['status']==1) Approved @else Deactive @endif </span> </td>
-                            <td class="center"><a class="btn btn-success" href="{{URL::to('view-order')}}/{{$order['order_id']}}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="{{URL::to('edit-invoice')}}/{{$order['id']}}" title="Edit Invoice"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                            <td class="center"><a class="btn btn-success" href="{!!URL::to('view-order')!!}/{!!$order['order_id']!!}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="{!!URL::to('edit-invoice')!!}/{!!$order['id']!!}" title="Edit Invoice"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach

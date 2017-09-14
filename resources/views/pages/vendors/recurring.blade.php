@@ -17,7 +17,7 @@
           <div id="delete-success" class="hide">
               <h4 class="alert alert-success">Success! Delete Successful
               @if(Session::has('message'))
-                            {{Session::get('message')}}
+                            {!!Session::get('message')!!}
                         @endif</h4>
           </div>
           <div id="delete-error" class="hide">
@@ -57,11 +57,11 @@
               continue;
             }
             ?>
-            <tr id="tr-{{$recurring->id}}">
-              <td class="center">{{$recurring->id}}</td>
+            <tr id="tr-{!!$recurring->id!!}">
+              <td class="center">{!!$recurring->id!!}</td>
               @if(isset($recurring->user->first_name))
               
-              <td>{{ $recurring->user->first_name}} {{ $recurring->user->last_name}}</td>
+              <td>{!! $recurring->user->first_name!!} {!! $recurring->user->last_name!!}</td>
               @else
                 <td> </td>
               
@@ -69,7 +69,7 @@
 
               @if(isset($recurring->user->email))
               
-              <td>{{ $recurring->user->email}}</td>
+              <td>{!! $recurring->user->email!!}</td>
               @else
   
               
@@ -77,21 +77,21 @@
 
               @if(isset($recurring->user->phone))
                 
-              <td>{{ $recurring->user->phone }}</td>
+              <td>{!! $recurring->user->phone !!}</td>
               @else
                 <td> </td>
               
               @endif  
               @if(isset($recurring->requestedService->service->title))
                  
-              <td>{{$recurring->requestedService->service->title}}</td>
+              <td>{!!$recurring->requestedService->service->title!!}</td>
               @else
                 <td> </td>
             @endif
 
              @if(isset($recurring->requestedService->maintenanceRequest->asset->property_address))
                  
-              <td>{{$recurring->requestedService->maintenanceRequest->asset->property_address}}</td>
+              <td>{!!$recurring->requestedService->maintenanceRequest->asset->property_address!!}</td>
               @else
                 <td><p>its not working</p></td>
             @endif
@@ -99,26 +99,26 @@
 
                 @if(isset($recurring->requestedService->maintenanceRequest->asset->property_status))
                  
-              <td>{{$recurring->requestedService->maintenanceRequest->asset->property_status}}</td>
+              <td>{!!$recurring->requestedService->maintenanceRequest->asset->property_status!!}</td>
               @else
                 <td><p>its not working</p></td>
             @endif
           @if(isset($recurring->requestedService->maintenanceRequest->asset->state->name))
-            <td>{{$recurring->requestedService->maintenanceRequest->asset->state->name}}</td>
+            <td>{!!$recurring->requestedService->maintenanceRequest->asset->state->name!!}</td>
              @else
              <td> </td>
              @endif
               @if(isset($recurring->requestedService->maintenanceRequest->asset->city->name))
-            <td>{{$recurring->requestedService->maintenanceRequest->asset->city->name}}</td>
+            <td>{!!$recurring->requestedService->maintenanceRequest->asset->city->name!!}</td>
              @else
              <td> </td>
              @endif
              @if(isset($recurring->requestedService->maintenanceRequest->asset->zip))
-            <td>{{$recurring->requestedService->maintenanceRequest->asset->zip}}</td>
+            <td>{!!$recurring->requestedService->maintenanceRequest->asset->zip!!}</td>
              @else
              <td> </td>
              @endif
-              <td class="center">{{ $recurring->duration}} days</td>
+              <td class="center">{!! $recurring->duration!!} days</td>
 
               <td class="center">
 
@@ -127,8 +127,8 @@
               date_add($date,date_interval_create_from_date_string("$recurring->duration days"));
               $nextDate= date_format($date,"Y-m-d");
               ?>
-              {{ date('m/d/Y ',strtotime($nextDate))}}</td>
-              <td class="center">{{ date('m/d/Y ',strtotime($recurring->start_date ))}}</td>
+              {!! date('m/d/Y ',strtotime($nextDate))!!}</td>
+              <td class="center">{!! date('m/d/Y ',strtotime($recurring->start_date ))!!}</td>
 
                  @endforeach
           </tbody>

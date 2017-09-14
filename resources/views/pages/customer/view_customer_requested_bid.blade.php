@@ -3,7 +3,7 @@
 <div id="content" class="span11">
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="{{ URL::asset('public/assets/js/cycle.js') }}"> </script>
+<script type="text/javascript" src="{!! URL::asset('public/assets/js/cycle.js') !!}"> </script>
 <h2 class="bidRqst btn-warning" style="display: block;">Service Bid</h2>
 
 
@@ -11,8 +11,8 @@
             <table class="table table-bordered customeTable"> 
                 <tbody>
                     <tr>
-                        <td class="center span3"><h2><span>Property #:</span>{{$request_detail->asset->asset_number}}</h2></td>
-                        <td class="center span3"><h2><span>Order #:</span>{{$request_detail->id}}</h2></td>
+                        <td class="center span3"><h2><span>Property #:</span>{!!$request_detail->asset->asset_number!!}</h2></td>
+                        <td class="center span3"><h2><span>Order #:</span>{!!$request_detail->id!!}</h2></td>
                         <td class="center span3"><h2><span>Recurring:</span> No</h2></td>
                         <td class="center span3"><h2><span>Status:</span> @if($request_detail->status==1)
 
@@ -47,8 +47,8 @@
 
                         <h2>
                             @foreach ($request_detail->requestedService as $services)
-                       Service: <span style="font-size: 13px !important;font-weight: normal;"> {{$services->service->title}}</span>
-                         Due Date:<span style="font-size: 13px !important;font-weight: normal;"> @if($services->due_date=="") Not assigned @else{{$services->due_date}} @endif</span>
+                       Service: <span style="font-size: 13px !important;font-weight: normal;"> {!!$services->service->title!!}</span>
+                         Due Date:<span style="font-size: 13px !important;font-weight: normal;"> @if($services->due_date=="") Not assigned @else{!!$services->due_date!!} @endif</span>
                          @endforeach
                               
 
@@ -61,7 +61,7 @@
             </table>   
 
 <?php if($request_detail->status==7){?>
-<div class="declinebidstatus">Declined Note:<span>{{$request_detail->declinebidnotes}}</span></div>
+<div class="declinebidstatus">Declined Note:<span>{!!$request_detail->declinebidnotes!!}</span></div>
 <?php }?>
 
 <?php if($request_detail->asset->property_dead_status==1){?>
@@ -88,7 +88,7 @@ foreach ($request_detail->assignRequest as $value) {
                         <h2>Customer Details</h2>
                 </div>
                         @if(Session::has('message'))
-                            {{Session::get('message')}}
+                            {!!Session::get('message')!!}
                         @endif
       <div class="box-content">
         <table class="table"> 
@@ -97,18 +97,18 @@ foreach ($request_detail->assignRequest as $value) {
                                 <tr>
                                                   
                                     <td class="center span3"><h2>Customer Name:</h2></td>
-                                    <td class="center span3"><h2>@if(isset($request_detail->user->first_name)) {{ $request_detail->user->first_name}} @endif  @if(isset($request_detail->user->last_name)){{$request_detail->user->last_name }} @endif</h2></td>
+                                    <td class="center span3"><h2>@if(isset($request_detail->user->first_name)) {!! $request_detail->user->first_name!!} @endif  @if(isset($request_detail->user->last_name)){!!$request_detail->user->last_name !!} @endif</h2></td>
                                <td class="center span3"><h2>Email:</h2></td>
 
-                  <td class="center span3"><h2>@if(isset( $request_detail->user->email)){{ $request_detail->user->email}} @endif</h2></td>
+                  <td class="center span3"><h2>@if(isset( $request_detail->user->email)){!! $request_detail->user->email!!} @endif</h2></td>
                    
                     </tr>
                     <tr>
                     <td class="center span3"><h2>Customer Company:</h2></td>
-                    <td class="center span3"><h2>@if(isset($request_detail->user->company)) {{ $request_detail->user->company}} @endif </h2></td>
+                    <td class="center span3"><h2>@if(isset($request_detail->user->company)) {!! $request_detail->user->company!!} @endif </h2></td>
                  
                     <td class="center span3"><h2>Customer Phone:</h2></td>
-                    <td class="center span3"><h2>@if(isset($request_detail->user->phone)) {{ $request_detail->user->phone}} @endif </h2></td>
+                    <td class="center span3"><h2>@if(isset($request_detail->user->phone)) {!! $request_detail->user->phone!!} @endif </h2></td>
                  
                     </tr>
                             
@@ -116,7 +116,7 @@ foreach ($request_detail->assignRequest as $value) {
                             <!--    <tr>
                
                   <td class="center span3"><h2>Admin Notes:</h2></td>
-                                    <td class="center span3"> {{Form::textarea('admin_notes', isset( $request_detail->admin_notes) ? $request_detail->admin_notes : '' , array('class'=>'span12 typeahead', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_detail->id.'")'))}} </td>
+                                    <td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_detail->admin_notes) ? $request_detail->admin_notes : '' , array('class'=>'span12 typeahead', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_detail->id.'")'))!!} </td>
                                
                                 </tr> -->
                 <tr></tr>
@@ -148,9 +148,9 @@ foreach ($request_detail->assignRequest as $value) {
 
                         <tr>
 
-                            <td class="center span3"><h2>Property Address: <span >{{$request_detail->asset->property_address}}</span> </h2></td>
+                            <td class="center span3"><h2>Property Address: <span >{!!$request_detail->asset->property_address!!}</span> </h2></td>
 
-                            <td class="center span3"><h2>City: <span >{{$request_detail->asset->city->name }} </span></h2></td>
+                            <td class="center span3"><h2>City: <span >{!!$request_detail->asset->city->name !!} </span></h2></td>
 
                            
 
@@ -158,9 +158,9 @@ foreach ($request_detail->assignRequest as $value) {
 
                         <tr>
 
-                             <td class="center span3"><h2>State: <span >{{$request_detail->asset->state->name}}</span></h2></td>
+                             <td class="center span3"><h2>State: <span >{!!$request_detail->asset->state->name!!}</span></h2></td>
 
-                             <td class="center span3"><h2>Zip: <span > {{$request_detail->asset->zip}}</span> </h2></td>
+                             <td class="center span3"><h2>Zip: <span > {!!$request_detail->asset->zip!!}</span> </h2></td>
 
                             
 
@@ -170,9 +170,9 @@ foreach ($request_detail->assignRequest as $value) {
 
 
 
-                       <td class="center span3"><h2>Lockbox: <span >{{$request_detail->asset->lock_box}}</span></h2></td>
+                       <td class="center span3"><h2>Lockbox: <span >{!!$request_detail->asset->lock_box!!}</span></h2></td>
 
-                       <td class="center span3"><h2>Gate / Access Code: <span >{{$request_detail->asset->access_code}}</span></h2></td>
+                       <td class="center span3"><h2>Gate / Access Code: <span >{!!$request_detail->asset->access_code!!}</span></h2></td>
 
                         </tr>
 
@@ -199,7 +199,7 @@ foreach ($request_detail->assignRequest as $value) {
     <div class="row-fluid">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon edit"></i><span class="break"></span>{{$services->service->title}}</h2>
+                <h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h2>
               
 
 
@@ -222,7 +222,7 @@ foreach ($request_detail->assignRequest as $value) {
 
 
     ?>
-                Price :  ${{$servicePrice}}
+                Price :  ${!!$servicePrice!!}
                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
               
                 </div>
@@ -230,7 +230,7 @@ foreach ($request_detail->assignRequest as $value) {
             <div class="box-content">
             <div class="customerBidDetails">
                 <table>
-                 <tr><td> {{$services->service->desc}}</td></tr>
+                 <tr><td> {!!$services->service->desc!!}</td></tr>
                   
                     <tr>
                     <div class="row-fluid browse-sec">
@@ -248,7 +248,7 @@ foreach ($request_detail->assignRequest as $value) {
                         <ul>
                           {{--*/ $loop = 1 /*--}}
                                @foreach($services->serviceImages as $images)
-                          <li><a href="{{URL::to('/')}}/{{Config::get('app.request_images').'/'.$images->image_name}}" class="dwnldBtn bluBtn" target="_blank">Download</a>{{ HTML::image(Config::get('app.request_images').'/'.$images->image_name) }}
+                          <li><a href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" class="dwnldBtn bluBtn" target="_blank">Download</a>{!! HTML::image(Config::get('app.request_images').'/'.$images->image_name) !!}
                           </li>
                          
                           @endforeach
@@ -268,19 +268,19 @@ foreach ($request_detail->assignRequest as $value) {
                 <p id="errorCalender" class="alert alert-error" style="display:none;"></p>
                      <legend><a class="btn btn-info" href="#" onclick="printDiv('printpdf')" > Convert to PDF  </a></legend>
                     <div> 
-                     Bid Price : <input type="text" value="{{$servicePrice}}" disabled="disabled" >
+                     Bid Price : <input type="text" value="{!!$servicePrice!!}" disabled="disabled" >
                     </div>
                     <div>  @if($services->service_note != '')
                   <h2>Note For Customer :</h2>
-                  <textarea disabled="disabled">{{$services->customer_notes_bid}}</textarea>
+                  <textarea disabled="disabled">{!!$services->customer_notes_bid!!}</textarea>
                  
                     @endif
                     </div>
                     
                     <div>
-                     <button class="btn btn-large btn-danger"  onclick="declineBidRequestNotes('{{$request_detail->id}}')" >Decline</button>
+                     <button class="btn btn-large btn-danger"  onclick="declineBidRequestNotes('{!!$request_detail->id!!}')" >Decline</button>
                      <input type="text" class="input-small span5 datepicker " placeholder="Due date" id="date_completion_appears" name="completion_date" @if($request_detail->status==7) disabled @endif style="display:none;">  
-                     <button class="btn btn-large btn-success" onclick="approveBidRequest('{{$request_detail->id}}','{{$vendor_id}}')" id="approvebutton" @if($request_detail->status==7) disabled @endif >Approve</button>
+                     <button class="btn btn-large btn-success" onclick="approveBidRequest('{!!$request_detail->id!!}','{!!$vendor_id!!}')" id="approvebutton" @if($request_detail->status==7) disabled @endif >Approve</button>
                     </div>
                 </fieldset>
                 </div>
@@ -290,7 +290,7 @@ foreach ($request_detail->assignRequest as $value) {
 
     </div><!--/row-->
     @endforeach
-   <div style="float:right;"> <h2>Total Price : ${{$totalPrice}}</h2></div>
+   <div style="float:right;"> <h2>Total Price : ${!!$totalPrice!!}</h2></div>
 
 </div>
  <div class="modal  hide fade modelForm larg-model"  id="declinebidNotes">
@@ -317,40 +317,40 @@ foreach ($request_detail->assignRequest as $value) {
                                         <div class="span6">
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Property Number:</label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->asset_number}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->asset_number!!}</label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Property Address:</label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->property_address}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->property_address!!}</label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">City: </label>
-                                                <label class="control-label" for="typeahead"> {{$request_detail->asset->city->name}}</label>
+                                                <label class="control-label" for="typeahead"> {!!$request_detail->asset->city->name!!}</label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">State:</label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->state->name}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->state->name!!}</label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Zip :</label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->zip}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->zip!!}</label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Lockbox </label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->lock_box}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->lock_box!!}</label>
                                             </div>
 
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Get / Access Code: </label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->access_code}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->access_code!!}</label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Property Status: </label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->property_status}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->property_status!!}</label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Customer Email Adress: </label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->customer_email_address}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->customer_email_address!!}</label>
                                             </div>
                                         </div>
                                         <!--/span-6-->
@@ -358,17 +358,17 @@ foreach ($request_detail->assignRequest as $value) {
                                         <div class="span6">
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Loan Number:</label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->loan_number}} </label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->loan_number!!} </label>
                                             </div>
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="selectError3">Property Type:</label>
-                                                <label class="control-label" for="selectError3">{{$request_detail->asset->property_type}}</label>
+                                                <label class="control-label" for="selectError3">{!!$request_detail->asset->property_type!!}</label>
                                             </div>
 
 
                                             <div class="control-group row-sep">
                                                 <label class="control-label" for="typeahead">Agent : </label>
-                                                <label class="control-label" for="typeahead">{{$request_detail->asset->agent}}</label>
+                                                <label class="control-label" for="typeahead">{!!$request_detail->asset->agent!!}</label>
                                             </div>
 
 
@@ -385,12 +385,12 @@ foreach ($request_detail->assignRequest as $value) {
                                         <br>
                                         <div class="control-group">
                                             <label class="control-label">Outbuilding / Shed *</label>
-                                            <label class="control-label">{{isset($request_detail->asset->outbuilding_shed) && $request_detail->asset->outbuilding_shed == 1 ? 'Yes': 'No'}}</label>
+                                            <label class="control-label">{!!isset($request_detail->asset->outbuilding_shed) && $request_detail->asset->outbuilding_shed == 1 ? 'Yes': 'No'!!}</label>
                                             <div style="clear:both"></div>
                                             <div class="control-group hidden-phone">
                                                 <div class="controls">
                                                     <label class="control-label" for="textarea2">Note:</label>
-                                                    <label class="control-label label-auto" for="textarea2">{{$request_detail->asset->outbuilding_shed_note}}</label>
+                                                    <label class="control-label label-auto" for="textarea2">{!!$request_detail->asset->outbuilding_shed_note!!}</label>
                                                 </div>
                                             </div>
                                             <div class="control-group hidden-phone">
@@ -403,21 +403,21 @@ foreach ($request_detail->assignRequest as $value) {
                                         <h4>Utility - On inside Property?</h4>
                                         <div class="control-group">
                                             <label class="control-label">Electric :</label>
-                                            <label class="control-label">{{isset($request_detail->asset->electric_status) && $request_detail->asset->electric_status == 1 ? 'Yes': 'No'}}</label>
+                                            <label class="control-label">{!!isset($request_detail->asset->electric_status) && $request_detail->asset->electric_status == 1 ? 'Yes': 'No'!!}</label>
                                             <div style="clear:both"></div>
 
                                             <div class="control-group">
                                                 <label class="control-label">Water *</label>
-                                                <label class="control-label">{{isset($request_detail->asset->water_status) && $request_detail->asset->water_status == 1 ? 'Yes': 'No'}}</label>
+                                                <label class="control-label">{!!isset($request_detail->asset->water_status) && $request_detail->asset->water_status == 1 ? 'Yes': 'No'!!}</label>
                                             </div>
 
                                                 <div class="control-group">
                                                     <label class="control-label">Gas *</label>
-                                                    <label class="control-label">{{isset($request_detail->asset->gas_status) && $request_detail->asset->gas_status == 1 ? 'Yes': 'No'}}</label>
+                                                    <label class="control-label">{!!isset($request_detail->asset->gas_status) && $request_detail->asset->gas_status == 1 ? 'Yes': 'No'!!}</label>
                                                 </div>
                                                     <div class="control-group multiRadio">
                                                         <label class="control-label">Swimming *</label>
-                                                        <label class="control-label">{{$request_detail->asset->swimming_pool}}</label>
+                                                        <label class="control-label">{!!$request_detail->asset->swimming_pool!!}</label>
 
                                                     </div>
 
@@ -505,8 +505,8 @@ foreach ($request_detail->assignRequest as $value) {
                         <th>Estimate No.</th>
                     </tr>
                     <tr>
-                        <td>{{ date('m/d/Y', strtotime($request_detail->created_at)) }}</td>
-                        <td>{{$request_detail->id}}</td>
+                        <td>{!! date('m/d/Y', strtotime($request_detail->created_at)) !!}</td>
+                        <td>{!!$request_detail->id!!}</td>
                     </tr>
                 </tbody>
             </table>
@@ -514,8 +514,8 @@ foreach ($request_detail->assignRequest as $value) {
     </div>
 
     <div class="cstmrName">
-        <p><input id="" type="text" placeholder="@if(isset($request_detail->user->first_name)) {{$request_detail->user->first_name}} @endif @if(isset($request_detail->user->last_name)) {{$request_detail->user->last_name}} @endif"></p>
-        <p>@if(isset($request_detail->user->address_1)) {{$request_detail->user->address_1}} @endif </p>
+        <p><input id="" type="text" placeholder="@if(isset($request_detail->user->first_name)) {!!$request_detail->user->first_name!!} @endif @if(isset($request_detail->user->last_name)) {!!$request_detail->user->last_name!!} @endif"></p>
+        <p>@if(isset($request_detail->user->address_1)) {!!$request_detail->user->address_1!!} @endif </p>
     </div>
 
     <div class="projectTble">
@@ -525,7 +525,7 @@ foreach ($request_detail->assignRequest as $value) {
                     <th>Project</th>
                 </tr>
                 <tr>
-                    <td>{{$request_detail->asset->property_address}} </th>
+                    <td>{!!$request_detail->asset->property_address!!} </th>
                 </tr>
             </tbody>
         </table>
@@ -544,10 +544,10 @@ foreach ($request_detail->assignRequest as $value) {
                   <?php
                 $pricing+=$servicePrice;?>
                 <tr>
-                    <td>{{$services->service->title}}</td>
-                    <td>{{$services->service->desc}}</td>
+                    <td>{!!$services->service->title!!}</td>
+                    <td>{!!$services->service->desc!!}</td>
                     <td>&nbsp;</td>
-                    <td>${{$servicePrice}}</td>
+                    <td>${!!$servicePrice!!}</td>
                 </tr>
                  @endforeach
                 
@@ -555,7 +555,7 @@ foreach ($request_detail->assignRequest as $value) {
                 <tr>
                     <td colspan="2" class="noBrdr">We look forward to doing business with you.</td>
                     <td>Total</td>
-                    <td>${{$pricing}}</td>
+                    <td>${!!$pricing!!}</td>
                 </tr>
             </tbody>
         </table>

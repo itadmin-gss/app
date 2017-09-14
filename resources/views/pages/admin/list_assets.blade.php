@@ -6,7 +6,7 @@
 
   <div class="clearfix">
 
-    <a class="btn btn-info accBtn" href="{{URL::to('add-asset')}}"> Add Property </a>
+    <a class="btn btn-info accBtn" href="{!!URL::to('add-asset')!!}"> Add Property </a>
 
   </div>
 
@@ -36,7 +36,7 @@
 
           @if(Session::has('message'))
 
-          {{Session::get('message')}}
+          {!!Session::get('message')!!}
 
           @endif
 
@@ -74,36 +74,36 @@
 
             <tr>
 
-               @if(isset($asset->customerType->title))    <td>{{$asset->customerType->title}}</td> @else   <td> </td> @endif
-              <td>{{$asset->asset_number}}</td>
-              <td>{{$asset->loan_number}}</td>
-              <td>{{$asset->property_address}}</td>
-              <td>{{$asset->property_status}}</td>
-              @if(isset($asset->city->name))   <td class="center">{{$asset->city->name}}</td> @else   <td> </td> @endif
-              @if(isset($asset->state->name))   <td class="center">{{$asset->state->name}}</td> @else   <td> </td> @endif
-              <td class="center">{{$asset->zip}}</td>
-              @if(isset($asset->user->first_name))  <td>{{$asset->user->first_name}} {{$asset->user->last_name}} </td>  @else   <td> </td> @endif
+               @if(isset($asset->customerType->title))    <td>{!!$asset->customerType->title!!}</td> @else   <td> </td> @endif
+              <td>{!!$asset->asset_number!!}</td>
+              <td>{!!$asset->loan_number!!}</td>
+              <td>{!!$asset->property_address!!}</td>
+              <td>{!!$asset->property_status!!}</td>
+              @if(isset($asset->city->name))   <td class="center">{!!$asset->city->name!!}</td> @else   <td> </td> @endif
+              @if(isset($asset->state->name))   <td class="center">{!!$asset->state->name!!}</td> @else   <td> </td> @endif
+              <td class="center">{!!$asset->zip!!}</td>
+              @if(isset($asset->user->first_name))  <td>{!!$asset->user->first_name!!} {!!$asset->user->last_name!!} </td>  @else   <td> </td> @endif
 
              <td class="center">
 
-                <a class="btn btn-success view_asset_information"  id="{{$asset->id}}" title="View">
+                <a class="btn btn-success view_asset_information"  id="{!!$asset->id!!}" title="View">
 
                   <i class="halflings-icon zoom-in halflings-icon"></i>
 
                 </a>
 
-                <a class="btn btn-info" href="edit-asset/{{$asset->id}}" title="Edit">
+                <a class="btn btn-info" href="edit-asset/{!!$asset->id!!}" title="Edit">
 
                   <i class="halflings-icon edit halflings-icon"></i>
 
                 </a>
 
-                                <a class="btn btn-warning" onclick="" href="delete-customer-asset/{{$asset->id}}" title="Close">
+                                <a class="btn btn-warning" onclick="" href="delete-customer-asset/{!!$asset->id!!}" title="Close">
 
                                                                     <i class="halflings-icon refresh halflings-icon"></i>
 
                                                                   </a>
-                                <a class="btn btn-danger" onclick='deleteSelectedAsset({{$asset->id}})' href="#" title="Delete">
+                                <a class="btn btn-danger" onclick='deleteSelectedAsset({!!$asset->id!!})' href="#" title="Delete">
 
                                                                     <i class="halflings-icon trash halflings-icon"></i>
 

@@ -2,7 +2,7 @@
 @section('content')
 <div id="content" class="span11">
   <div class="clearfix">
-    <a class="btn btn-info accBtn" href="{{URL::to('add-customer-type')}}"> Add Client Type </a>
+    <a class="btn btn-info accBtn" href="{!!URL::to('add-customer-type')!!}"> Add Client Type </a>
   </div>
 <p id="message" style="display:none">Saved...</p>
   <div class="row-fluid">
@@ -16,7 +16,7 @@
                               <div class="admtableInr">
 
         @if(Session::has('message'))
-              {{Session::get('message')}}
+              {!!Session::get('message')!!}
         @endif
         <div id="access-error" class="hide">
             <h4 class="alert alert-error">Warning! Access Denied</h4>
@@ -53,9 +53,9 @@
           {{--*/ $loop = 1 /*--}}
           @foreach ($serviceCategories as $serCat)
           <tr>
-            <td>{{ $loop }}</td>
-            <td class="center">{{ $serCat->title }}</td>
-             <td class="center"><a class="btn btn-info" href="edit-client-type/{{ $serCat->id }}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <!--<a class="btn btn-danger" href="#"> <i class="halflings-icon trash halflings-icon"></i> </a>--></td>
+            <td>{!! $loop !!}</td>
+            <td class="center">{!! $serCat->title !!}</td>
+             <td class="center"><a class="btn btn-info" href="edit-client-type/{!! $serCat->id !!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <!--<a class="btn btn-danger" href="#"> <i class="halflings-icon trash halflings-icon"></i> </a>--></td>
              
              </tr>
           {{--*/ $loop++ /*--}}

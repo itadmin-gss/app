@@ -89,35 +89,35 @@
 
                       <tr>
 
-                        <td>{{ $order['order_id']}}</td>
+                        <td>{!! $order['order_id']!!}</td>
 
-                        <td class="center">{{  date('m/d/Y',strtotime($order['order_date']))  }}</td>
+                        <td class="center">{!!  date('m/d/Y',strtotime($order['order_date']))  !!}</td>
 
-                        <td class="center">{{ $order['submit_by'] }}</td>
-                         <td class="center">{{ $order['clientType'] }}</td>
+                        <td class="center">{!! $order['submit_by'] !!}</td>
+                         <td class="center">{!! $order['clientType'] !!}</td>
 
-                        <td class="center">{{ $order['customer_name'] }}</td>
+                        <td class="center">{!! $order['customer_name'] !!}</td>
 
-                        <td class="center">{{ $order['property_address'] }}</td>
+                        <td class="center">{!! $order['property_address'] !!}</td>
 
-                        <td class="center">{{ $order['city'] }}</td>
+                        <td class="center">{!! $order['city'] !!}</td>
 
-                        <td class="center">{{ $order['state'] }}</td>
+                        <td class="center">{!! $order['state'] !!}</td>
 
-                        <td class="center">{{ $order['zipcode'] }}</td>
+                        <td class="center">{!! $order['zipcode'] !!}</td>
 
-                        <td class="center">{{ $order['vendor_name'] }}</td>
+                        <td class="center">{!! $order['vendor_name'] !!}</td>
 
-                        <td class="center"> {{ $order['job_type'] }}</td>
-
-
+                        <td class="center"> {!! $order['job_type'] !!}</td>
 
 
 
 
-                        <td class="center">{{ $order['service_name'] }}</td>
 
-                        <td class="center">{{ $order['due_date']}}</td>
+
+                        <td class="center">{!! $order['service_name'] !!}</td>
+
+                        <td class="center">{!! $order['due_date']!!}</td>
 
 
 
@@ -131,7 +131,7 @@
 
                         @else
 
-                        <td class="center"> <span class="label label-{{ $order['status_class'] }}">{{ $order['status_text'] }}</span> </td>
+                        <td class="center"> <span class="label label-{!! $order['status_class'] !!}">{!! $order['status_text'] !!}</span> </td>
 
 
 
@@ -147,7 +147,7 @@
 
                         @else
 
-                        <td class="center"><a class="btn btn-success" href="view-order/{{$order['order_id']}}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{{$order['order_id']}}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                        <td class="center"><a class="btn btn-success" href="view-order/{!!$order['order_id']!!}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{!!$order['order_id']!!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
 
 
 

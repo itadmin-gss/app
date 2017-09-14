@@ -2,7 +2,7 @@
 @section('content')
 <div id="content" class="span11">
   <div class="clearfix">
-    <a class="btn btn-info accBtn" href="{{URL::to('show-add-vendor')}}"> Add Vendor </a>
+    <a class="btn btn-info accBtn" href="{!!URL::to('show-add-vendor')!!}"> Add Vendor </a>
   </div>
   <div class="row-fluid">
     <div class="box span12">
@@ -19,7 +19,7 @@
              <div id="access-success">
               <h4 class="alert alert-success">
               
-                 {{Session::get('message')}}
+                 {!!Session::get('message')!!}
               
               </h4>
              </div>
@@ -54,23 +54,23 @@
           <tbody>
            {{--*/ $loop = 1 /*--}}
           	@foreach ($vendors as $vendor)
-            <tr id="tr-{{$vendor->id}}">
-              <td>{{ $loop }}</td>
-              <td>{{ $vendor->first_name }}</td>
-              <td class="center">{{ $vendor->last_name }}</td>
-              <td class="center">{{ $vendor->company}}</td>
-              <td class="center">{{ $vendor->email }}</td>
-              <td class="center">{{ $vendor->phone }}</td>
+            <tr id="tr-{!!$vendor->id!!}">
+              <td>{!! $loop !!}</td>
+              <td>{!! $vendor->first_name !!}</td>
+              <td class="center">{!! $vendor->last_name !!}</td>
+              <td class="center">{!! $vendor->company!!}</td>
+              <td class="center">{!! $vendor->email !!}</td>
+              <td class="center">{!! $vendor->phone !!}</td>
               @if(!isset($vendor->city->name))
               <td class="center"></td>
               @else
-                 <td class="center">{{ $vendor->city->name }}</td>
+                 <td class="center">{!! $vendor->city->name !!}</td>
               @endif
 
                @if(!isset($vendor->state->name))
               <td class="center"></td>
               @else
-                 <td class="center">{{ $vendor->state->name }}</td>
+                 <td class="center">{!! $vendor->state->name !!}</td>
               @endif
               <td class="center">
                 <div class="ovrScroll">
@@ -81,22 +81,22 @@
                   
 
                   }?>
-                {{ $vendorService }}
+                {!! $vendorService !!}
                 </div>
               </td>
               <td class="center" >
               <div class="activate">
                     @if($vendor->status == 1)
-                    <span onclick="changeStatus(this,'vendor',0, {{$vendor->id}},'{{$db_table}}' )" class="label label-success">Active</span>
+                    <span onclick="changeStatus(this,'vendor',0, {!!$vendor->id!!},'{!!$db_table!!}' )" class="label label-success">Active</span>
                     @else
-                    <span onclick="changeStatus(this,'vendor',1, {{$vendor->id}},'{{$db_table}}' )" class="label label-important">In-Active</span>
+                    <span onclick="changeStatus(this,'vendor',1, {!!$vendor->id!!},'{!!$db_table!!}' )" class="label label-important">In-Active</span>
                     @endif
                </div>
               </td>
               <td class="center popover-examples">
-              <a class="btn btn-info" href="edit-profile-admin/{{ $vendor->id }}" title="Edit Vendor information"> <i class="halflings-icon edit halflings-icon"></i> </a> 
-              <a class="btn btn-danger"  onclick="modalButtonOnClick({{$vendor->id}},'{{$db_table}}','vendor')" data-confirm="Are you sure you want to delete?" title="Delete Vendor "> <i class="halflings-icon trash halflings-icon"></i> </a>
-              <a class="btn "  href="{{URL::to('login-as')}}/{{$vendor->id}}" title="Login as Vendor"> Login</a>
+              <a class="btn btn-info" href="edit-profile-admin/{!! $vendor->id !!}" title="Edit Vendor information"> <i class="halflings-icon edit halflings-icon"></i> </a> 
+              <a class="btn btn-danger"  onclick="modalButtonOnClick({!!$vendor->id!!},'{!!$db_table!!}','vendor')" data-confirm="Are you sure you want to delete?" title="Delete Vendor "> <i class="halflings-icon trash halflings-icon"></i> </a>
+              <a class="btn "  href="{!!URL::to('login-as')!!}/{!!$vendor->id!!}" title="Login as Vendor"> Login</a>
                 </td>             
             </tr>
             {{--*/ $loop++ /*--}}
@@ -107,7 +107,7 @@
     </div>
     <!--/span-->
     <script>
-	var db_table = "{{ $db_table }}";
+	var db_table = "{!! $db_table !!}";
  	</script>
   </div>
   <!--/row-->

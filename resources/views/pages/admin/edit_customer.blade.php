@@ -18,7 +18,7 @@
 
             @if (Session::has('message'))
 
-                {{ Session::get('message') }}
+                {!! Session::get('message') !!}
 
                 @endif
 
@@ -26,7 +26,7 @@
 
                 @foreach ($errors->all() as $error)
 
-                {{ $error }}
+                {!! $error !!}
 
                 @endforeach
 
@@ -36,7 +36,7 @@
 
             <div class="box-content custome-form">
 
-                {{ Form::open(array('url' => $url, 'class' => 'form-horizontal', 'method' => 'post')) }}
+                {!! Form::open(array('url' => $url, 'class' => 'form-horizontal', 'method' => 'post')) !!}
 
                 <fieldset>
 
@@ -46,13 +46,13 @@
 
                             <div class="control-group">
 
-                                {{ Form::label('typeahead', 'First Name: *', array('class' => 'control-label')) }}
+                                {!! Form::label('typeahead', 'First Name: *', array('class' => 'control-label')) !!}
 
                                 <div class="controls">
 
                                     <div class="input-append">
 
-                                        {{ Form::text('first_name', $customer->first_name, array('class' => 'input-xlarge focused','id' => 'focusedInput')) }}
+                                        {!! Form::text('first_name', $customer->first_name, array('class' => 'input-xlarge focused','id' => 'focusedInput')) !!}
 
                                     </div>
 
@@ -62,13 +62,13 @@
 
                             <div class="control-group">
 
-                                {{ Form::label('typeahead', 'Last Name: *', array('class' => 'control-label')) }}
+                                {!! Form::label('typeahead', 'Last Name: *', array('class' => 'control-label')) !!}
 
                                 <div class="controls">
 
                                     <div class="input-append">
 
-                                        {{ Form::text('last_name', $customer->last_name, array('class' => 'input-xlarge focused','id' => 'focusedInput')) }}
+                                        {!! Form::text('last_name', $customer->last_name, array('class' => 'input-xlarge focused','id' => 'focusedInput')) !!}
 
                                     </div>
 
@@ -77,9 +77,9 @@
                             </div>
 
 
-                                   <div class="control-group"> {{ Form::label('typeahead', 'Company Name: *', array('class' => 'control-label')) }}
+                                   <div class="control-group"> {!! Form::label('typeahead', 'Company Name: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append">   {{ Form::text('company', $customer->company, array('class' => 'input-xlarge focused','id' => 'focusedInput')) }}
+                  <div class="input-append">   {!! Form::text('company', $customer->company, array('class' => 'input-xlarge focused','id' => 'focusedInput')) !!}
 </div>
                 </div>
               </div>
@@ -87,15 +87,15 @@
 
                             <div class="control-group">
 
-                                {{ Form::label('typeahead', 'Email Address: *', array('class' => 'control-label')) }}
+                                {!! Form::label('typeahead', 'Email Address: *', array('class' => 'control-label')) !!}
 
                                 <div class="controls">
 
                                     <div class="input-append">
 
-                                        {{ Form::text('email', $customer->email, array('id' => 'focusedInput',
+                                        {!! Form::text('email', $customer->email, array('id' => 'focusedInput',
 
-                                         'class' => 'input-xlarge focused', 'readonly'=>'true')) }}
+                                         'class' => 'input-xlarge focused', 'readonly'=>'true')) !!}
 
                                     </div>
 
@@ -115,9 +115,9 @@
 
                         <div class="pull-right">
 
-                            {{ Form::hidden('update_customer', '1') }}
+                            {!! Form::hidden('update_customer', '1') !!}
 
-                            {{ Form::hidden('customer_id', $customer->id) }}
+                            {!! Form::hidden('customer_id', $customer->id) !!}
 
                             <button type="submit" class="btn btn-large btn-success">Update Account</button>
 

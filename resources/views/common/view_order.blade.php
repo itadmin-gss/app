@@ -10,13 +10,13 @@
     
      @else
    <h4 class="alert alert-success">
-        {{$message}}
+        {!!$message!!}
     </h4>
      @endif
      @else
      <p></p>
           @endif
- <!-- <a class="btn pinkBgcolor btn-info " href="{{URL::to('add-osr-request')}}"  style="float: right;position: relative;z-index: 999;float:left;"> OSR  </a>
+ <!-- <a class="btn pinkBgcolor btn-info " href="{!!URL::to('add-osr-request')!!}"  style="float: right;position: relative;z-index: 999;float:left;"> OSR  </a>
  -->
  <a class="btn btn-info" href="#" onclick="printDiv('content')" style="float: right;position: relative;z-index: 999;float:right"> Print  </a>
 
@@ -42,9 +42,9 @@
 
                     <tr>
 
-                        <td class="center span3"><h2><span>Property #:</span>{{$order->maintenanceRequest->asset->asset_number}}</h2></td>
+                        <td class="center span3"><h2><span>Property #:</span>{!!$order->maintenanceRequest->asset->asset_number!!}</h2></td>
 
-                        <td class="center span3"><h2><span>Order #:</span>{{$order->id}}</h2></td>
+                        <td class="center span3"><h2><span>Order #:</span>{!!$order->id!!}</h2></td>
 
                         <td class="center span3"><h2><span>Recurring:</span> No</h2></td>
 
@@ -52,7 +52,7 @@
 
                             <h2><span>Status:</span>
 
-                               @if($order->status==1) In-Progress @else {{$order->status_text}} @endif
+                               @if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif
 
                             </h2></td>
 
@@ -62,7 +62,7 @@
 
                         	  @foreach($order_details as $order_detail)
 
-                        	<span style="font-size: 13px !important;font-weight: normal;">{{$order_detail->requestedService->service->title}}   <?php if($order_detail->requestedService->due_date!="") { echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));} else { echo 'Due Date: Not Assigned'; } ?></span>
+                        	<span style="font-size: 13px !important;font-weight: normal;">{!!$order_detail->requestedService->service->title!!}   <?php if($order_detail->requestedService->due_date!="") { echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));} else { echo 'Due Date: Not Assigned'; } ?></span>
 
                         <br/>------------------<br/>
 
@@ -112,9 +112,9 @@
 
                         <tr>
 
-                           <td class="center span3"><h2>Customer First Name: <span >@if(isset($order->maintenanceRequest->asset->user->first_name)){{$order->maintenanceRequest->asset->user->first_name}}@else Not-Set @endif</span></h2></td>
+                           <td class="center span3"><h2>Customer First Name: <span >@if(isset($order->maintenanceRequest->asset->user->first_name)){!!$order->maintenanceRequest->asset->user->first_name!!}@else Not-Set @endif</span></h2></td>
 
-                            <td class="center span3"><h2>Customer Last Name: <span >@if(isset($order->maintenanceRequest->asset->user->last_name)){{$order->maintenanceRequest->asset->user->last_name}}@else Not-Set @endif</span></h2></td>
+                            <td class="center span3"><h2>Customer Last Name: <span >@if(isset($order->maintenanceRequest->asset->user->last_name)){!!$order->maintenanceRequest->asset->user->last_name!!}@else Not-Set @endif</span></h2></td>
 
 
                         </tr>
@@ -153,9 +153,9 @@
 
                         <tr>
 
-                            <td class="center span3"><h2>Property Address: <span >{{$order->maintenanceRequest->asset->property_address}}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h2></td>
+                            <td class="center span3"><h2>Property Address: <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h2></td>
 
-                            <td class="center span3"><h2>City: <span >{{$order->maintenanceRequest->asset->city->name}} </span></h2></td>
+                            <td class="center span3"><h2>City: <span >{!!$order->maintenanceRequest->asset->city->name!!} </span></h2></td>
 
                            
 
@@ -163,9 +163,9 @@
 
                         <tr>
 
-                             <td class="center span3"><h2>State: <span >{{$order->maintenanceRequest->asset->state->name}}</span></h2></td>
+                             <td class="center span3"><h2>State: <span >{!!$order->maintenanceRequest->asset->state->name!!}</span></h2></td>
 
-                             <td class="center span3"><h2>Zip: <span > {{$order->maintenanceRequest->asset->zip}}</span> </h2></td>
+                             <td class="center span3"><h2>Zip: <span > {!!$order->maintenanceRequest->asset->zip!!}</span> </h2></td>
 
                             
 
@@ -175,9 +175,9 @@
 
 
 
-                       <td class="center span3"><h2>Lockbox: <span >{{$order->maintenanceRequest->asset->lock_box}}</span></h2></td>
+                       <td class="center span3"><h2>Lockbox: <span >{!!$order->maintenanceRequest->asset->lock_box!!}</span></h2></td>
 
-                       <td class="center span3"><h2>Gate / Access Code: <span >{{$order->maintenanceRequest->asset->access_code}}</span></h2></td>
+                       <td class="center span3"><h2>Gate / Access Code: <span >{!!$order->maintenanceRequest->asset->access_code!!}</span></h2></td>
 
                         </tr>
 
@@ -221,7 +221,7 @@ $totalRequestedServices=0;
 
             <div class="box-header" data-original-title>
 
-                <h2><i class="halflings-icon edit"></i><span class="break"></span>{{$order_detail->requestedService->service->title}}</h2>
+                <h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$order_detail->requestedService->service->title!!}</h2>
 
 
 
@@ -267,7 +267,7 @@ $totalRequestedServices=0;
 
 
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
 
       
 
@@ -287,7 +287,7 @@ $totalRequestedServices=0;
 
              ?>
 
-                Price : ${{$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
 
 
 
@@ -335,7 +335,7 @@ $totalPrice+=$vendor_priceFIND;
 
 
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
 
       
 
@@ -351,7 +351,7 @@ $totalPrice+=$vendor_priceFIND;
 
              ?>
 
-                Price : ${{$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!}
 
 
 
@@ -409,7 +409,7 @@ $totalPrice+=$vendor_priceFIND;
 
  ?>
 
-Customer Price:${{$SpecialPriceCustomer[0]->special_price}}
+Customer Price:${!!$SpecialPriceCustomer[0]->special_price!!}
 
  <?php
 
@@ -421,7 +421,7 @@ Customer Price:${{$SpecialPriceCustomer[0]->special_price}}
 
                     ?>
 
-Customer Price:${{$order_detail->requestedService->service->customer_price}}
+Customer Price:${!!$order_detail->requestedService->service->customer_price!!}
 
 <?php
 
@@ -447,7 +447,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price}}
 
                 ?>
 
-                 Vendor Price:${{$SpecialPriceVendor[0]->special_price}}
+                 Vendor Price:${!!$SpecialPriceVendor[0]->special_price!!}
 
                  <?php
 
@@ -457,7 +457,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price}}
 
 ?>
 
- Vendor Price:${{$order_detail->requestedService->service->vendor_price}}
+ Vendor Price:${!!$order_detail->requestedService->service->vendor_price!!}
 
  <?php
 
@@ -509,7 +509,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price}}
 
 
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
 
       
 
@@ -527,7 +527,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price}}
 
              ?>
 
-                Price : ${{$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
 
 
 
@@ -575,7 +575,7 @@ $totalPrice+=$vendor_priceFIND;
 
 
 
-            Price : ${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
 
       
 
@@ -595,7 +595,7 @@ $totalPrice+=$vendor_priceFIND;
 
              ?>
 
-                Price : ${{$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity}}
+                Price : ${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!}
 
 
 
@@ -649,7 +649,7 @@ $totalPriceCustomer+=$SpecialPriceCustomer[0]->special_price*$order_detail->requ
 
 
 
-Customer Price:${{$SpecialPriceCustomer[0]->special_price*$order_detail->requestedService->quantity}} 
+Customer Price:${!!$SpecialPriceCustomer[0]->special_price*$order_detail->requestedService->quantity!!} 
 
  
 
@@ -665,7 +665,7 @@ $totalPriceCustomer+=$order_detail->requestedService->service->customer_price*$o
 
                     ?>
 
-Customer Price:${{$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity}} 
+Customer Price:${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!} 
 
  
 
@@ -697,7 +697,7 @@ Customer Price:${{$order_detail->requestedService->service->customer_price*$orde
 
                 ?>
 
-         Vendor Price:${{$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity}}
+         Vendor Price:${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
 
 
 
@@ -713,7 +713,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
 
 
-    Vendor Price:${{$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity}}
+    Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
 
     <?php } ?>
 
@@ -749,15 +749,15 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
             <div class="box-content">
 
-             {{$order_detail->requestedService->service->desc}}
+             {!!$order_detail->requestedService->service->desc!!}
 
-                <div id="vendor-note-empty-error-{{$order_detail->id}}" class="hide">
+                <div id="vendor-note-empty-error-{!!$order_detail->id!!}" class="hide">
 
                     <h4 class="alert alert-error">Vendor Note Can not be Empty</h4>
 
                 </div>
 
-                <div id="vendor-note-empty-success-{{$order_detail->id}}" class="hide">
+                <div id="vendor-note-empty-success-{!!$order_detail->id!!}" class="hide">
 
                     <h4 class="alert alert-success">Saved Successful</h4>
 
@@ -771,19 +771,19 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                     ?>               <tr>
 
-                        <td colspan="2" class="center"><h2>Customer Note:</h2>{{$order_detail->requestedService->customer_note}}   </td>
+                        <td colspan="2" class="center"><h2>Customer Note:</h2>{!!$order_detail->requestedService->customer_note!!}   </td>
 
                     </tr> 
 
                       <tr>
 
-                        <td colspan="2" class="center"><h2>Note for Vendor:</h2>{{$order_detail->requestedService->public_notes}}   </td>
+                        <td colspan="2" class="center"><h2>Note for Vendor:</h2>{!!$order_detail->requestedService->public_notes!!}   </td>
 
                     </tr> 
 
                     <tr>  
 
-                       <td colspan="2" class="center"><h2>Vendor Note:</h2>{{$order_detail->requestedService->vendor_note}}   </td>
+                       <td colspan="2" class="center"><h2>Vendor Note:</h2>{!!$order_detail->requestedService->vendor_note!!}   </td>
 
                    </tr>
 
@@ -801,7 +801,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                             @if($order_detail->requestedService->public_notes)
 
-                            <span>{{$order_detail->requestedService->public_notes}}</span >
+                            <span>{!!$order_detail->requestedService->public_notes!!}</span >
 
                             @else
 
@@ -819,7 +819,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
    <tr>
 
-                        <td colspan="2" class="center"><h2>Customer Note:</h2>{{$order_detail->requestedService->customer_note}}   {{$order_detail->id}}</td>
+                        <td colspan="2" class="center"><h2>Customer Note:</h2>{!!$order_detail->requestedService->customer_note!!}   {!!$order_detail->id!!}</td>
 
                     </tr>
 
@@ -837,13 +837,13 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                             <span class="pull-left">
 
-                            <button data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{{$order_detail->id}}" onclick="popViewModal({{$order->id}}, {{$order_detail->id}}, 'before')" class="btn btn-large btn-success">View Before Images</button>
+                            <button data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{!!$order_detail->id!!}" onclick="popViewModal({!!$order->id!!}, {!!$order_detail->id!!}, 'before')" class="btn btn-large btn-success">View Before Images</button>
 
                             </span>
 
                             <span class="pull-right">
 
-                            <button data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{{$order_detail->id}}" onclick="popViewModal({{$order->id}}, {{$order_detail->id}}, 'after')" class="btn btn-large btn-success">View After Images</button>
+                            <button data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{!!$order_detail->id!!}" onclick="popViewModal({!!$order->id!!}, {!!$order_detail->id!!}, 'after')" class="btn btn-large btn-success">View After Images</button>
 
                             </span>
 
@@ -867,7 +867,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                             @if($order_detail->requestedService->vendor_note)
 
-                            <span>{{$order_detail->requestedService->vendor_note}}</span >
+                            <span>{!!$order_detail->requestedService->vendor_note!!}</span >
 
                             @else
 
@@ -883,7 +883,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                             @if($order_detail->requestedService->public_notes)
 
-                            <span>{{$order_detail->requestedService->public_notes}}</span >
+                            <span>{!!$order_detail->requestedService->public_notes!!}</span >
 
                             @else
 
@@ -905,7 +905,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>Required Date</td>
 
-                <td>{{ date('m/d/Y', strtotime($order_detail->requestedService->required_date)) }}
+                <td>{!! date('m/d/Y', strtotime($order_detail->requestedService->required_date)) !!}
 
               
 
@@ -923,7 +923,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <td>
 
-              {{ date('m/d/Y', strtotime($order_detail->requestedService->due_date)) }}
+              {!! date('m/d/Y', strtotime($order_detail->requestedService->due_date)) !!}
 
                 </td>
 
@@ -937,7 +937,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>Quantity</td>
 
-                <td>{{ $order_detail->requestedService->quantity }}
+                <td>{!! $order_detail->requestedService->quantity !!}
 
               
 
@@ -957,7 +957,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>Service men</td>
 
-                <td>{{$order_detail->requestedService->service_men }}
+                <td>{!!$order_detail->requestedService->service_men !!}
 
               
 
@@ -971,7 +971,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>Service note</td>
 
-                <td>{{$order_detail->requestedService->service_note }}
+                <td>{!!$order_detail->requestedService->service_note !!}
 
               
 
@@ -987,7 +987,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>Verified vacancy</td>
 
-                <td>{{$order_detail->requestedService->verified_vacancy }}
+                <td>{!!$order_detail->requestedService->verified_vacancy !!}
 
               
 
@@ -1001,7 +1001,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>Cash for keys</td>
 
-                <td>{{$order_detail->requestedService->cash_for_keys }}
+                <td>{!!$order_detail->requestedService->cash_for_keys !!}
 
               
 
@@ -1017,7 +1017,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>Cash for keys Trash Out</td>
 
-                <td>{{$order_detail->requestedService->cash_for_keys_trash_out }}
+                <td>{!!$order_detail->requestedService->cash_for_keys_trash_out !!}
 
               
 
@@ -1033,7 +1033,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>trash size</td>
 
-                <td>{{$order_detail->requestedService->trash_size }}
+                <td>{!!$order_detail->requestedService->trash_size !!}
 
               
 
@@ -1051,7 +1051,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>storage shed</td>
 
-                <td>{{$order_detail->requestedService->storage_shed }}
+                <td>{!!$order_detail->requestedService->storage_shed !!}
 
               
 
@@ -1069,7 +1069,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>lot size</td>
 
-                <td>{{$order_detail->requestedService->lot_size }}
+                <td>{!!$order_detail->requestedService->lot_size !!}
 
               
 
@@ -1085,7 +1085,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>set prinkler system type</td>
 
-                <td>{{$order_detail->requestedService->set_prinkler_system_type }}
+                <td>{!!$order_detail->requestedService->set_prinkler_system_type !!}
 
               
 
@@ -1103,7 +1103,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>install temporary system type</td>
 
-                <td>{{$order_detail->requestedService->install_temporary_system_type }}
+                <td>{!!$order_detail->requestedService->install_temporary_system_type !!}
 
               
 
@@ -1123,7 +1123,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>pool service type</td>
 
-                <td>{{$order_detail->requestedService->pool_service_type }}
+                <td>{!!$order_detail->requestedService->pool_service_type !!}
 
               
 
@@ -1141,7 +1141,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>carpet service type</td>
 
-                <td>{{$order_detail->requestedService->carpet_service_type }}
+                <td>{!!$order_detail->requestedService->carpet_service_type !!}
 
               
 
@@ -1157,7 +1157,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>boarding type</td>
 
-                <td>{{$order_detail->requestedService->boarding_type }}
+                <td>{!!$order_detail->requestedService->boarding_type !!}
 
               
 
@@ -1177,7 +1177,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>spruce up type</td>
 
-                <td>{{$order_detail->requestedService->spruce_up_type }}
+                <td>{!!$order_detail->requestedService->spruce_up_type !!}
 
               
 
@@ -1197,7 +1197,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>constable information type</td>
 
-                <td>{{$order_detail->requestedService->constable_information_type }}
+                <td>{!!$order_detail->requestedService->constable_information_type !!}
 
               
 
@@ -1215,7 +1215,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>remove carpe type</td>
 
-                <td>{{$order_detail->requestedService->remove_carpe_type }}
+                <td>{!!$order_detail->requestedService->remove_carpe_type !!}
 
               
 
@@ -1233,7 +1233,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>remove blinds type</td>
 
-                <td>{{$order_detail->requestedService->remove_blinds_type }}
+                <td>{!!$order_detail->requestedService->remove_blinds_type !!}
 
               
 
@@ -1249,7 +1249,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <tr><td>remove appliances type</td>
 
-                <td>{{$order_detail->requestedService->remove_appliances_type }}
+                <td>{!!$order_detail->requestedService->remove_appliances_type !!}
 
               
 
@@ -1297,11 +1297,11 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
     <!--/   Modal-Section Show Before Images Start   -->
 
-    <div style="padding: 10px;" class="modal hide fade modelForm viewImageModal"  id="before_view_image_{{$order_detail->id}}">
+    <div style="padding: 10px;" class="modal hide fade modelForm viewImageModal"  id="before_view_image_{!!$order_detail->id!!}">
 
         <div class="well text-center"><h1>View Before Image</h1></div>
 
-        <div class="row-fluid" id="before_view_modal_image_{{$order_detail->id}}">  
+        <div class="row-fluid" id="before_view_modal_image_{!!$order_detail->id!!}">  
 
         </div>
 
@@ -1321,11 +1321,11 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
     <!--/   Modal-Section Show After Images Start   -->
 
-    <div style="padding: 10px;" class="modal hide fade modelForm viewImageModal"  id="after_view_image_{{$order_detail->id}}">
+    <div style="padding: 10px;" class="modal hide fade modelForm viewImageModal"  id="after_view_image_{!!$order_detail->id!!}">
 
         <div class="well text-center"><h1>View After Image</h1></div>
 
-        <div class="row-fluid" id="after_view_modal_image_{{$order_detail->id}}">
+        <div class="row-fluid" id="after_view_modal_image_{!!$order_detail->id!!}">
 
         </div>
 
@@ -1349,7 +1349,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
 
 
-         <div style="float:right;"><h2>Total Price: ${{$totalPrice}} </h2>
+         <div style="float:right;"><h2>Total Price: ${!!$totalPrice!!} </h2>
 
     </div>  
 
@@ -1359,7 +1359,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 
 
-  <div style="float:right;"><h2>Total Customer Price: ${{$totalPriceCustomer}} Total Vendor Price: ${{$totalPriceVendor}}  Total Bid Price :${{ $totalBidPrice }}</h2>
+  <div style="float:right;"><h2>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!}  Total Bid Price :${!! $totalBidPrice !!}</h2>
 
     </div>  
 
@@ -1407,7 +1407,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                                         <label class="control-label" for="typeahead">Property Address:</label>
 
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->property_address}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->property_address!!}</label>
 
                                       </div>
 
@@ -1415,7 +1415,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                                         <label class="control-label" for="typeahead">City: </label>
 
-                                        <label class="control-label" for="typeahead"> {{$order->maintenanceRequest->asset->city->name}}</label>
+                                        <label class="control-label" for="typeahead"> {!!$order->maintenanceRequest->asset->city->name!!}</label>
 
                                       </div>
 
@@ -1423,7 +1423,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                                         <label class="control-label" for="typeahead">State:</label>
 
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->state->name}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->state->name!!}</label>
 
                                       </div>
 
@@ -1431,7 +1431,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                                         <label class="control-label" for="typeahead">Zip :</label>
 
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->zip}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->zip!!}</label>
 
                                       </div>
 
@@ -1439,7 +1439,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                                         <label class="control-label" for="typeahead">Lockbox </label>
 
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->lock_box}}</label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->lock_box!!}</label>
 
                                       </div>
 
@@ -1449,7 +1449,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                                         <label class="control-label" for="typeahead">Get / Access Code: </label>
 
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->access_code}} </label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->access_code!!} </label>
 
                                       </div>
 
@@ -1457,7 +1457,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                                         <label class="control-label" for="typeahead">Occupancy Status: </label>
 
-                                        <label class="control-label" for="typeahead">{{$order->maintenanceRequest->asset->occupancy_status}} </label>
+                                        <label class="control-label" for="typeahead">{!!$order->maintenanceRequest->asset->occupancy_status!!} </label>
 
                                       </div>
 
@@ -1517,7 +1517,7 @@ function initialize() {
 
      
 
-   var myLatlng = new google.maps.LatLng({{$order->maintenanceRequest->asset->latitude}},{{$order->maintenanceRequest->asset->longitude}});
+   var myLatlng = new google.maps.LatLng({!!$order->maintenanceRequest->asset->latitude!!},{!!$order->maintenanceRequest->asset->longitude!!});
 
    
 
@@ -1605,7 +1605,7 @@ function log(str){
 
                                         @if($order->maintenanceRequest->asset->outbuilding_shed_note != '')
 
-                                        <label class="control-label label-auto" for="textarea2">{{$order->maintenanceRequest->asset->outbuilding_shed_note}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$order->maintenanceRequest->asset->outbuilding_shed_note!!}</label>
 
                                         @else
 
@@ -1625,7 +1625,7 @@ function log(str){
 
                                         @if($order->maintenanceRequest->asset->outbuilding_shed_note != '')
 
-                                        <label class="control-label label-auto" for="textarea2">{{$order->maintenanceRequest->asset->special_direction}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$order->maintenanceRequest->asset->special_direction!!}</label>
 
                                         @else
 
@@ -1823,7 +1823,7 @@ function log(str){
 
 
 
-        <td class="right"><span class="label label-@if($order->status==1){{'warning'}}@else{{$order->status_class}}@endif"><h2> @if($order->status==1) In-Progress @else {{$order->status_text}} @endif
+        <td class="right"><span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif"><h2> @if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif
 
         </h2></span></td>
 
@@ -1833,7 +1833,7 @@ function log(str){
 
                <div style="margin-top: 20px;">
 
-               Completion date {{Form::text('completion_date', $order->completion_date, array('class'=> 'input-small span2 datepicker', 'id'=> 'completion_date' ,'disabled'=>'disabled'))}}   
+               Completion date {!!Form::text('completion_date', $order->completion_date, array('class'=> 'input-small span2 datepicker', 'id'=> 'completion_date' ,'disabled'=>'disabled'))!!}   
 
                </div>   
 

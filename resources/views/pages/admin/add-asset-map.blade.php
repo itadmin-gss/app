@@ -23,9 +23,9 @@ function initialize() {
 
   
 
- // $("#state_id option:contains('{{$state}}')").each(function () {
+ // $("#state_id option:contains('{!!$state!!}')").each(function () {
 
- //                        if($(this).html()=='{{$state}}'){
+ //                        if($(this).html()=='{!!$state!!}'){
  //                            $(this).attr('selected', 'selected');
  //                        }
  //                    });
@@ -48,9 +48,9 @@ function initialize() {
  //                $("#city_id").html(options);
 
  //                $('#city_id').trigger('liszt:updated');
- //                 $("#city_id option:contains('{{$city}}')").each(function () {
+ //                 $("#city_id option:contains('{!!$city!!}')").each(function () {
 
- //                        if($(this).html()=='{{$city}}'){
+ //                        if($(this).html()=='{!!$city!!}'){
  //                            $(this).attr('selected', 'selected');
  //                        }
  //                    });
@@ -62,7 +62,7 @@ function initialize() {
 
 
 
-    var myLatlng = new google.maps.LatLng({{$latitude}},{{$longitude}});
+    var myLatlng = new google.maps.LatLng({!!$latitude!!},{!!$longitude!!});
 
     var mapOptions = {
           zoom: 17,

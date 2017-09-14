@@ -2,7 +2,7 @@
 @section('content')
 <div id="content" class="span11">
   <div class="clearfix">
-    <a class="btn btn-info accBtn" href="{{URL::to('add-job-type')}}"> Add Job Type </a>
+    <a class="btn btn-info accBtn" href="{!!URL::to('add-job-type')!!}"> Add Job Type </a>
   </div>
 <p id="message" style="display:none">Saved...</p>
   <div class="row-fluid">
@@ -16,7 +16,7 @@
                               <div class="admtableInr">
 
         @if(Session::has('message'))
-              {{Session::get('message')}}
+              {!!Session::get('message')!!}
         @endif
         <div id="access-error" class="hide">
             <h4 class="alert alert-error">Warning! Access Denied</h4>
@@ -53,11 +53,11 @@
           {{--*/ $loop = 1 /*--}}
           @foreach ($serviceCategories as $serCat)
           <tr>
-            <td>{{ $loop }}</td>
-            <td class="center">{{ $serCat->title }}</td>
+            <td>{!! $loop !!}</td>
+            <td class="center">{!! $serCat->title !!}</td>
              <td class="center popover-examples">
-                            <a class="btn btn-info" href="{{URL::to('edit-job-type')}}/{{ $serCat->id }}" title="Edit job type"> <i class="halflings-icon edit halflings-icon"></i> </a> 
-                            <a class="btn btn-danger" href="{{URL::to('delete-job-type')}}/{{ $serCat->id }}"  onclick="return confirm('Are you sure you want to delete?')" title="Delete job type"> <i class="halflings-icon trash halflings-icon"></i> </a>
+                            <a class="btn btn-info" href="{!!URL::to('edit-job-type')!!}/{!! $serCat->id !!}" title="Edit job type"> <i class="halflings-icon edit halflings-icon"></i> </a> 
+                            <a class="btn btn-danger" href="{!!URL::to('delete-job-type')!!}/{!! $serCat->id !!}"  onclick="return confirm('Are you sure you want to delete?')" title="Delete job type"> <i class="halflings-icon trash halflings-icon"></i> </a>
            </td>
              </tr>
           {{--*/ $loop++ /*--}}

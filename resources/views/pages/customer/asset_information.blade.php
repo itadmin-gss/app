@@ -27,10 +27,10 @@
                                     <div class="span6">
 
                                         <div class="control-group row-sep">
-<input type="hidden" id="client_type_unic" value="{{$asset_information->customer_type}}">
+<input type="hidden" id="client_type_unic" value="{!!$asset_information->customer_type!!}">
                                             <label class="control-label" for="typeahead">Property Number: </label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->asset_number}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->asset_number!!}</label>
 
                                         </div>
 
@@ -38,7 +38,7 @@
 
                                             <label class="control-label" for="typeahead">Property Address:</label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->property_address}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->property_address!!}</label>
 
                                         </div>
 
@@ -46,7 +46,7 @@
 
                                             <label class="control-label" for="typeahead">City: </label>
 
-                                            <label class="control-label" for="typeahead"> {{$asset_information->city->name}}</label>
+                                            <label class="control-label" for="typeahead"> {!!$asset_information->city->name!!}</label>
 
                                         </div>
 
@@ -54,7 +54,7 @@
 
                                             <label class="control-label" for="typeahead">State:</label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->state->name}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->state->name!!}</label>
 
                                         </div>
 
@@ -62,7 +62,7 @@
 
                                             <label class="control-label" for="typeahead">Zip :</label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->zip}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->zip!!}</label>
 
                                         </div>
 
@@ -70,7 +70,7 @@
 
                                             <label class="control-label" for="typeahead">Lockbox </label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->lock_box}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->lock_box!!}</label>
 
                                         </div>
 
@@ -78,7 +78,7 @@
 
                                             <label class="control-label" for="typeahead">Customer: </label>
 
-                                            <label class="control-label" for="typeahead"> {{$asset_information->user->first_name}} {{$asset_information->user->last_name}} </label>
+                                            <label class="control-label" for="typeahead"> {!!$asset_information->user->first_name!!} {!!$asset_information->user->last_name!!} </label>
 
                                         </div>
 
@@ -86,7 +86,7 @@
 
                                             <label class="control-label" for="typeahead">Get / Access Code: </label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->access_code}} </label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->access_code!!} </label>
 
                                         </div>
 
@@ -94,7 +94,7 @@
 
                                             <label class="control-label" for="typeahead">Property Status: </label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->property_status}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->property_status!!}</label>
 
                                         </div>
 
@@ -102,7 +102,7 @@
 
                                             <label class="control-label" for="typeahead">Customer Email Adress: </label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->customer_email}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->customer_email!!}</label>
 
                                         </div>
 
@@ -116,7 +116,7 @@
 
                                             <label class="control-label" for="typeahead">Loan Number:</label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->loan_number}} </label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->loan_number!!} </label>
 
                                         </div>
 
@@ -124,7 +124,7 @@
 
                                             <label class="control-label" for="selectError3">Property Type:</label>
 
-                                            <label class="control-label" for="selectError3">{{$asset_information->property_type}}</label>
+                                            <label class="control-label" for="selectError3">{!!$asset_information->property_type!!}</label>
 
                                         </div>
 
@@ -148,7 +148,7 @@
 
                                             <label class="control-label" for="typeahead">Lender : </label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->agent}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->agent!!}</label>
 
                                         </div>
 
@@ -194,7 +194,7 @@ function initialize() {
 
      
 
-    var myLatlng = new google.maps.LatLng({{$latitude}},{{$longitude}});
+    var myLatlng = new google.maps.LatLng({!!$latitude!!},{!!$longitude!!});
 
    
 
@@ -262,7 +262,7 @@ function log(str){
 
                                             <label class="control-label" for="typeahead">Send Carbon Copy Email To :</label>
 
-                                            <label class="control-label" for="typeahead">{{$asset_information->carbon_copy_email}}</label>
+                                            <label class="control-label" for="typeahead">{!!$asset_information->carbon_copy_email!!}</label>
 
                                         </div>-->
 
@@ -282,7 +282,7 @@ function log(str){
 
                                         <label class="control-label">Outbuilding / Shed *</label>
 
-                                        <label class="control-label">{{isset($asset_information->outbuilding_shed) && $asset_information->outbuilding_shed == 1 ? 'Yes': 'No'}}</label>
+                                        <label class="control-label">{!!isset($asset_information->outbuilding_shed) && $asset_information->outbuilding_shed == 1 ? 'Yes': 'No'!!}</label>
 
                                         <div style="clear:both"></div>
 
@@ -292,7 +292,7 @@ function log(str){
 
                                                 <label class="control-label" for="textarea2">Note:</label>
 
-                                                <label class="control-label label-auto" for="textarea2">{{$asset_information->outbuilding_shed_note}}</label>
+                                                <label class="control-label label-auto" for="textarea2">{!!$asset_information->outbuilding_shed_note!!}</label>
 
                                             </div>
 
@@ -304,7 +304,7 @@ function log(str){
 
                                                 <label class="control-label" for="textarea2">Directions or Special Notes:</label>
 
-                                                <label class="control-label label-auto" for="textarea2">{{$asset_information->special_direction_note}}</label>
+                                                <label class="control-label label-auto" for="textarea2">{!!$asset_information->special_direction_note!!}</label>
 
                                             </div>
 
@@ -318,7 +318,7 @@ function log(str){
 
                                         <label class="control-label">Electric :</label>
 
-                                        <label class="control-label">{{isset($asset_information->electric_status) && $asset_information->electric_status == 1 ? 'Yes': 'No'}}</label>
+                                        <label class="control-label">{!!isset($asset_information->electric_status) && $asset_information->electric_status == 1 ? 'Yes': 'No'!!}</label>
 
                                         <div style="clear:both"></div>
 
@@ -328,7 +328,7 @@ function log(str){
 
                                             <label class="control-label">Water :</label>
 
-                                            <label class="control-label">{{isset($asset_information->water_status) && $asset_information->water_status == 1 ? 'Yes': 'No'}}</label>
+                                            <label class="control-label">{!!isset($asset_information->water_status) && $asset_information->water_status == 1 ? 'Yes': 'No'!!}</label>
 
                                             <div style="clear:both"></div>
 
@@ -338,7 +338,7 @@ function log(str){
 
 
 
-                                                <label class="control-label">{{isset($asset_information->gas_status) && $asset_information->gas_status == 1 ? 'Yes': 'No'}}</label>
+                                                <label class="control-label">{!!isset($asset_information->gas_status) && $asset_information->gas_status == 1 ? 'Yes': 'No'!!}</label>
 
                                                 <div style="clear:both"></div>
 
@@ -346,7 +346,7 @@ function log(str){
 
                                                     <label class="control-label">Swimming:</label>
 
-                                                    <label class="control-label">{{$asset_information->swimming_pool}}</label>
+                                                    <label class="control-label">{!!$asset_information->swimming_pool!!}</label>
 
                                                 </div>
 

@@ -19,21 +19,21 @@
                         <h4 class="alert alert-error">Can not Updated Profile</h4>
                     </div> -->
                     @if(Session::has('swapped'))
-                    <h4 class="alert alert-success">{{ Session::get('swapped') }}</h4>
+                    <h4 class="alert alert-success">{!! Session::get('swapped') !!}</h4>
                     @endif
                     
                 </div>
                 
-                {{ Form::open(array('url' => 'swap-db-admin', 'id'=>'swapDBForm' , 'class'=>'form-horizontal')) }}
+                {!! Form::open(array('url' => 'swap-db-admin', 'id'=>'swapDBForm' , 'class'=>'form-horizontal')) !!}
                     <fieldset>
                         <div class="row-fluid">
                             <div class="span6 offset3 centered">
 
                                 <div class="control-group">
-                                    {{ Form::label('db', 'Database *', array('class' => 'control-label')) }}
+                                    {!! Form::label('db', 'Database *', array('class' => 'control-label')) !!}
                                     <div class="controls">
                                         <div class="input-append">
-                                            {{ Form::select('db', array('old' => 'OLD', 'new' => 'NEW'), null, [ 'class' => '', 'onchange' => 'setDB(this.value)' ]) }}
+                                            {!! Form::select('db', array('old' => 'OLD', 'new' => 'NEW'), null, [ 'class' => '', 'onchange' => 'setDB(this.value)' ]) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-actions">
                             <div class="pull-right">
-                                {{ Form::submit('Swap', array('class'=>'btn btn-large btn-success text-left','id'=>'swapdbBtn'))}}
+                                {!! Form::submit('Swap', array('class'=>'btn btn-large btn-success text-left','id'=>'swapdbBtn'))!!}
                             </div>
                         </div>   
                     </fieldset>

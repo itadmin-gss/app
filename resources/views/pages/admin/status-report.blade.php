@@ -32,7 +32,7 @@
             <div class="box-content datatablegrid admtable">
             <div class="admtableInr">
                 @if(Session::has('message'))
-                {{Session::get('message')}}
+                {!!Session::get('message')!!}
                 @endif
 
                 <table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -59,14 +59,14 @@
                         @foreach ($assets_data as $asset)
                     
                         <tr>
-                            <td>{{$asset->maintenanceRequest->asset->customerType->title}}</td>
+                            <td>{!!$asset->maintenanceRequest->asset->customerType->title!!}</td>
 
-                            <td>@if(isset($asset->customer->first_name)) {{$asset->customer->first_name}} @endif @if(isset($asset->customer->last_name)) {{$asset->customer->last_name}} @endif</td>
-                            <td>{{$asset->maintenanceRequest->asset->property_address}} </td>
-                            <td>{{$asset->maintenanceRequest->asset->UNIT}} </td>
-                            <td>{{$asset->maintenanceRequest->asset->city->name}} </td>
-                            <td>{{$asset->maintenanceRequest->asset->state->name}} </td>
-                            <td>{{$asset->maintenanceRequest->asset->zip}} </td>
+                            <td>@if(isset($asset->customer->first_name)) {!!$asset->customer->first_name!!} @endif @if(isset($asset->customer->last_name)) {!!$asset->customer->last_name!!} @endif</td>
+                            <td>{!!$asset->maintenanceRequest->asset->property_address!!} </td>
+                            <td>{!!$asset->maintenanceRequest->asset->UNIT!!} </td>
+                            <td>{!!$asset->maintenanceRequest->asset->city->name!!} </td>
+                            <td>{!!$asset->maintenanceRequest->asset->state->name!!} </td>
+                            <td>{!!$asset->maintenanceRequest->asset->zip!!} </td>
                             <?php
                             $servicedate="";
                             foreach ($asset->maintenanceRequest->requestedService as  $value) {
@@ -85,11 +85,11 @@
                             }
 
                         }?>
-                        <td>{{ $servicedate}}</td>
-                        <td>{{ $asset->id}}</td>
-                        <td class="center"> <span class="label label-{{$asset->status_class}} "> {{$asset->status_text}} </span> </td>
-                       <td>{{ $asset->completion_date}}</td>
-                       <td>@if(isset($asset->vendor->first_name)) {{$asset->vendor->first_name." ".$asset->vendor->last_name;}} @endif</td>
+                        <td>{!! $servicedate!!}</td>
+                        <td>{!! $asset->id!!}</td>
+                        <td class="center"> <span class="label label-{!!$asset->status_class!!} "> {!!$asset->status_text!!} </span> </td>
+                       <td>{!! $asset->completion_date!!}</td>
+                       <td>@if(isset($asset->vendor->first_name)) {!!$asset->vendor->first_name." ".$asset->vendor->last_name;!!} @endif</td>
 
                            
               

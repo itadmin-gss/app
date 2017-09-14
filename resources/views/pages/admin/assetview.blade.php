@@ -15,43 +15,43 @@
                                     <div class="span6">
                                       <!-- <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Property Number:</label>
-                                        <label class="control-label" for="typeahead">{{$asset->asset_number}}</label>
+                                        <label class="control-label" for="typeahead">{!!$asset->asset_number!!}</label>
                                       </div> -->
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Property Address:</label>
-                                        <label class="control-label" for="typeahead">{{$asset->property_address}} </label>
+                                        <label class="control-label" for="typeahead">{!!$asset->property_address!!} </label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">City: </label>
-                                        <label class="control-label" for="typeahead"> {{$asset->city->name}}</label>
+                                        <label class="control-label" for="typeahead"> {!!$asset->city->name!!}</label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">State:</label>
-                                        <label class="control-label" for="typeahead">{{$asset->state->name}}</label>
+                                        <label class="control-label" for="typeahead">{!!$asset->state->name!!}</label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Zip :</label>
-                                        <label class="control-label" for="typeahead">{{$asset->zip}}</label>
+                                        <label class="control-label" for="typeahead">{!!$asset->zip!!}</label>
                                       </div>
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Lockbox </label>
-                                        <label class="control-label" for="typeahead">{{$asset->lock_box}} </label>
+                                        <label class="control-label" for="typeahead">{!!$asset->lock_box!!} </label>
                                       </div>
                                  <!--      <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Customer: </label>
-                                        <label class="control-label" for="typeahead">{{$asset->user->first_name." ".$asset->user->last_name}} </label>
+                                        <label class="control-label" for="typeahead">{!!$asset->user->first_name." ".$asset->user->last_name!!} </label>
                                       </div> -->
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Get / Access Code: </label>
-                                        <label class="control-label" for="typeahead">{{$asset->access_code}} </label>
+                                        <label class="control-label" for="typeahead">{!!$asset->access_code!!} </label>
                                       </div>
                                      <!--  <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Property Status: </label>
-                                        <label class="control-label" for="typeahead">{{ $asset->property_status}}</label>
+                                        <label class="control-label" for="typeahead">{!! $asset->property_status!!}</label>
                                       </div> -->
                                       <!-- <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Customer Email Adress: </label>
-                                        <label class="control-label" for="typeahead">{{$asset->user->email}} </label>
+                                        <label class="control-label" for="typeahead">{!!$asset->user->email!!} </label>
                                       </div> -->
                                     </div>
                                     <!--/span-6-->
@@ -59,7 +59,7 @@
                                     <div class="span6">
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Occupancy Status:</label>
-                                        <label class="control-label" for="typeahead">{{$asset->occupancy_status}} </label>
+                                        <label class="control-label" for="typeahead">{!!$asset->occupancy_status!!} </label>
                                       </div>
                                       
                                       
@@ -84,7 +84,7 @@
 
 function initialize() {
      
-   var myLatlng = new google.maps.LatLng({{$asset->latitude}},{{$asset->longitude}});
+   var myLatlng = new google.maps.LatLng({!!$asset->latitude!!},{!!$asset->longitude!!});
    
     var mapOptions = {
           zoom: 17,
@@ -121,53 +121,53 @@ function log(str){
                                   <br>
                                   <div class="control-group">
                                     <label class="control-label">Outbuilding / Shed *</label>
-                                    <label class="control-label">{{$asset->outbuilding_shed==1? 'Yes' : 'No';}}</label>
+                                    <label class="control-label">{!!$asset->outbuilding_shed==1? 'Yes' : 'No';!!}</label>
                                     <div style="clear:both"></div>
                                     <div class="control-group hidden-phone">
                                       <div class="controls">
                                         <label class="control-label" for="textarea2">Note:</label>
-                                        <label class="control-label label-auto" for="textarea2">{{$asset->outbuilding_shed_note}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$asset->outbuilding_shed_note!!}</label>
                                       </div>
                                     </div>
                                     <div class="control-group hidden-phone">
                                       <div class="controls">
                                         <label class="control-label" for="textarea2">Directions or Special Notes:</label>
-                                        <label class="control-label label-auto" for="textarea2">{{$asset->special_direction_note}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$asset->special_direction_note!!}</label>
                                       </div>
                                     </div>
                                   </div>
                                   <h4>Utility - On inside Property?</h4>
                                   <div class="control-group">
                                   <label class="control-label">Electric :</label>
-                                  <label class="control-label">{{$asset->electric_status==1? 'Yes' : 'No';}}</label>
+                                  <label class="control-label">{!!$asset->electric_status==1? 'Yes' : 'No';!!}</label>
                                   <div style="clear:both"></div>
                                   <div class="control-group hidden-phone">
                                     <div class="controls">
                                       <label class="control-label" for="textarea2">Note:</label>
-                                      <label class="control-label label-auto" for="textarea2">{{$asset->utility_note}}</label>
+                                      <label class="control-label label-auto" for="textarea2">{!!$asset->utility_note!!}</label>
                                     </div>
                                   </div>
                                   <div class="control-group">
                                   <label class="control-label">Water *</label>
-                                   <label class="control-label">{{$asset->water_status==1? 'Yes' : 'No';}}</label>
+                                   <label class="control-label">{!!$asset->water_status==1? 'Yes' : 'No';!!}</label>
                                   <div class="control-group hidden-phone">
                                     <div class="controls">
                                       <label class="control-label" for="textarea2">Notes:</label>
-                                      <label class="control-label label-auto" for="textarea2">{{$asset->special_direction_note}}</label>
+                                      <label class="control-label label-auto" for="textarea2">{!!$asset->special_direction_note!!}</label>
                                     </div>
                                   </div>
                                   <div class="control-group">
                                     <label class="control-label">Gas *</label>
-                                   <label class="control-label">{{$asset->gas_status==1? 'Yes' : 'No';}}</label>
+                                   <label class="control-label">{!!$asset->gas_status==1? 'Yes' : 'No';!!}</label>
                                     <div class="control-group hidden-phone">
                                       <div class="controls">
                                         <label class="control-label" for="textarea2">Notes:</label>
-                                        <label class="control-label label-auto" for="textarea2">{{$asset->special_direction_note}}</label>
+                                        <label class="control-label label-auto" for="textarea2">{!!$asset->special_direction_note!!}</label>
                                       </div>
                                     </div>
                                     <div class="control-group multiRadio">
                                       <label class="control-label">Swimming *</label>
-                                    <label class="control-label">{{$asset->swimming_pool}}</label>
+                                    <label class="control-label">{!!$asset->swimming_pool!!}</label>
                                     
                                   </div>
                                          

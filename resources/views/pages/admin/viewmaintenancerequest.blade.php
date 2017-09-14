@@ -13,45 +13,45 @@
 						<h2>Service Request Details</h2>
 					</div>
       					@if(Session::has('message'))
-                            {{Session::get('message')}}
+                            {!!Session::get('message')!!}
                         @endif
       <div class="box-content">
         <table class="table"> 
 							  <tbody>
 								<tr>
 									<td class="center span3"><h2>Request ID:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->id }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->id !!}</h2></td>
 									<td class="center span3"><h2>Request Date:</h2></td>
-									<td class="center span3"><h2>{{ date('m/d/Y', strtotime($request_maintenance->created_at)) }}</h2></td>
+									<td class="center span3"><h2>{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</h2></td>
 								</tr>
 								<tr>
 									<td class="center span3"><h2>Asset #:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->asset_number }}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({{ $request_maintenance->asset->id }})">View Property</button></h2> </td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->asset_number !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button></h2> </td>
                                 
 									<td class="center span3"><h2>Customer Name:</h2></td>
-									<td class="center span3"><h2>@if(isset($request_maintenance->user->first_name)) {{ $request_maintenance->user->first_name}} @endif  @if(isset($request_maintenance->user->last_name)){{$request_maintenance->user->last_name }} @endif</h2></td>
+									<td class="center span3"><h2>@if(isset($request_maintenance->user->first_name)) {!! $request_maintenance->user->first_name!!} @endif  @if(isset($request_maintenance->user->last_name)){!!$request_maintenance->user->last_name !!} @endif</h2></td>
 								   </tr>
 								<tr>
 
                   <td class="center span3"><h2>Property Address:</h2></td>
-                  <td class="center span3"><h2>{{ $request_maintenance->asset->property_address }}</h2></td>
+                  <td class="center span3"><h2>{!! $request_maintenance->asset->property_address !!}</h2></td>
                   
 									<td class="center span3"><h2>State:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->state->name }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->state->name !!}</h2></td>
 								</tr>
 								<tr>
 									<td class="center span3"><h2>Zip:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->zip }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->zip !!}</h2></td>
 									<td class="center span3"><h2>Email:</h2></td>
 
-									<td class="center span3"><h2>@if(isset( $request_maintenance->user->email)){{ $request_maintenance->user->email}} @endif</h2></td>
+									<td class="center span3"><h2>@if(isset( $request_maintenance->user->email)){!! $request_maintenance->user->email!!} @endif</h2></td>
 								                                    </tr>
 								<tr>
                 <td class="center span3"><h2>City:</h2></td>
-                  <td class="center span3"><h2>{{ $request_maintenance->asset->city->name }}</h2></td>
+                  <td class="center span3"><h2>{!! $request_maintenance->asset->city->name !!}</h2></td>
                   
                   	<td class="center span3"><h2>Admin Notes:</h2></td>
-									<td class="center span3"> {{Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'span12 typeahead', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))}} </td>
+									<td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'span12 typeahead', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))!!} </td>
                                
 								</tr>
 
@@ -64,7 +64,7 @@
     <!--/span--> 
    
     <span><h1 class="text-center">Service Request Details</h1></span>
-			<button data-toggle="modal" data-target="#assign" class="btn btn-large btn-success" onclick="showMaintenanceServices('{{ $request_maintenance->id }}')">Assign Vendor</button>
+			<button data-toggle="modal" data-target="#assign" class="btn btn-large btn-success" onclick="showMaintenanceServices('{!! $request_maintenance->id !!}')">Assign Vendor</button>
 <?php
 $totalPriceCustomer=0;
 $totalPriceVendor=0;
@@ -76,7 +76,7 @@ $totalPriceVendor=0;
                 <div class="row-fluid">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon edit"></i><span class="break"></span>{{$services->service->title}}</h2>
+						<h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h2>
 						<div class="box-icon">
 						 <?php
   $priceData=SpecialPrice::getSpecialCustomerPrice($request_maintenance->user->id,$services->service->id);
@@ -147,20 +147,20 @@ $totalPriceVendor=0;
              }     
 
     ?>
-               Customer Price :  ${{$servicePrice}} ::::: Vendor Price: ${{$vendorPrice}}
+               Customer Price :  ${!!$servicePrice!!} ::::: Vendor Price: ${!!$vendorPrice!!}
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 
 						<table> 
-                <tr><td> {{$services->service->desc}}</td></tr>
+                <tr><td> {!!$services->service->desc!!}</td></tr>
 								<tr>
-									<td class="center"><h2>Customer Note:</h2>{{$services->service_note}}</td>
+									<td class="center"><h2>Customer Note:</h2>{!!$services->service_note!!}</td>
 								</tr>
                  <tr>
                  <td class="center span3"><h2>Note for Vendor:</h2>
-                 {{Form::textarea('public_notes',isset($services->public_notes) ? $services->public_notes : '' , array('class'=>'span12 typeahead', 'id'=>'public_notes','onChange'=>'publicNotes(this,"'.$services->id.'")'))}} 
+                 {!!Form::textarea('public_notes',isset($services->public_notes) ? $services->public_notes : '' , array('class'=>'span12 typeahead', 'id'=>'public_notes','onChange'=>'publicNotes(this,"'.$services->id.'")'))!!} 
                  </td>
 
                 </tr>
@@ -180,14 +180,14 @@ $totalPriceVendor=0;
                              if( $docType[1]=='jpeg'|| $docType[1]=='jpg'|| $docType[1]=='png'|| $docType[1]=='gif')
                              {
                             ?>
-                            <li>{{ HTML::image(Config::get('app.request_images').'/'.$images->image_name) }}</li>
+                            <li>{!! HTML::image(Config::get('app.request_images').'/'.$images->image_name) !!}</li>
                           
 
                              <?php 
                           }  else {
                         	?>
                     
-                        <li> <a  href="{{URL::to('/')}}/{{Config::get('app.request_images').'/'.$images->image_name}}" target="_blank" > Download File</a></li>
+                        <li> <a  href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" target="_blank" > Download File</a></li>
                         	<?php
                         	}
                             ?>
@@ -202,7 +202,7 @@ $totalPriceVendor=0;
                   <tr><td>Service Details</td><td></td></tr>
                 @if($services->required_date!="")
                 <tr><td>Required Date</td>
-                <td>{{ date('m/d/Y', strtotime($services->required_date)) }}
+                <td>{!! date('m/d/Y', strtotime($services->required_date)) !!}
               
                 </td>
                 </tr>
@@ -211,14 +211,14 @@ $totalPriceVendor=0;
                    @if( $services->due_date!="")
                 <tr><td>Due Date</td>
                 <td>
-              {{ date('m/d/Y', strtotime($services->due_date)) }}
+              {!! date('m/d/Y', strtotime($services->due_date)) !!}
                 </td>
                 </tr>
                 @endif
 
                   @if($services->quantity!="")
                 <tr><td>Quantity</td>
-                <td>{{ $services->quantity }}
+                <td>{!! $services->quantity !!}
               
                 </td>
                 </tr>
@@ -228,14 +228,14 @@ $totalPriceVendor=0;
 
                     @if($services->service_men!="")
                 <tr><td>Service men</td>
-                <td>{{$services->service_men }}
+                <td>{!!$services->service_men !!}
               
                 </td>
                 </tr>
                 @endif
                     @if($services->service_note!="")
                 <tr><td>Service note</td>
-                <td>{{$services->service_note }}
+                <td>{!!$services->service_note !!}
               
                 </td>
                 </tr>
@@ -243,14 +243,14 @@ $totalPriceVendor=0;
 
                     @if($services->verified_vacancy!="")
                 <tr><td>Verified vacancy</td>
-                <td>{{$services->verified_vacancy }}
+                <td>{!!$services->verified_vacancy !!}
               
                 </td>
                 </tr>
                 @endif
                   @if($services->cash_for_keys!="")
                 <tr><td>Cash for keys</td>
-                <td>{{$services->cash_for_keys }}
+                <td>{!!$services->cash_for_keys !!}
               
                 </td>
                 </tr>
@@ -258,7 +258,7 @@ $totalPriceVendor=0;
 
                    @if($services->cash_for_keys_trash_out!="")
                 <tr><td>Cash for keys Trash Out</td>
-                <td>{{$services->cash_for_keys_trash_out }}
+                <td>{!!$services->cash_for_keys_trash_out !!}
               
                 </td>
                 </tr>
@@ -266,7 +266,7 @@ $totalPriceVendor=0;
 
                    @if($services->trash_size!="")
                 <tr><td>trash size</td>
-                <td>{{$services->trash_size }}
+                <td>{!!$services->trash_size !!}
               
                 </td>
                 </tr>
@@ -275,7 +275,7 @@ $totalPriceVendor=0;
 
                    @if($services->storage_shed!="")
                 <tr><td>storage shed</td>
-                <td>{{$services->storage_shed }}
+                <td>{!!$services->storage_shed !!}
               
                 </td>
                 </tr>
@@ -284,7 +284,7 @@ $totalPriceVendor=0;
 
                    @if($services->lot_size!="")
                 <tr><td>lot size</td>
-                <td>{{$services->lot_size }}
+                <td>{!!$services->lot_size !!}
               
                 </td>
                 </tr>
@@ -292,7 +292,7 @@ $totalPriceVendor=0;
 
                    @if($services->set_prinkler_system_type!="")
                 <tr><td>set prinkler system type</td>
-                <td>{{$services->set_prinkler_system_type }}
+                <td>{!!$services->set_prinkler_system_type !!}
               
                 </td>
                 </tr>
@@ -301,7 +301,7 @@ $totalPriceVendor=0;
 
                    @if($services->install_temporary_system_type!="")
                 <tr><td>install temporary system type</td>
-                <td>{{$services->install_temporary_system_type }}
+                <td>{!!$services->install_temporary_system_type !!}
               
                 </td>
                 </tr>
@@ -311,7 +311,7 @@ $totalPriceVendor=0;
 
                    @if($services->pool_service_type!="")
                 <tr><td>pool service type</td>
-                <td>{{$services->pool_service_type }}
+                <td>{!!$services->pool_service_type !!}
               
                 </td>
                 </tr>
@@ -320,7 +320,7 @@ $totalPriceVendor=0;
 
                    @if($services->carpet_service_type!="")
                 <tr><td>carpet service type</td>
-                <td>{{$services->carpet_service_type }}
+                <td>{!!$services->carpet_service_type !!}
               
                 </td>
                 </tr>
@@ -328,7 +328,7 @@ $totalPriceVendor=0;
 
                  @if($services->boarding_type!="")
                 <tr><td>boarding type</td>
-                <td>{{$services->boarding_type }}
+                <td>{!!$services->boarding_type !!}
               
                 </td>
                 </tr>
@@ -338,7 +338,7 @@ $totalPriceVendor=0;
 
                  @if($services->spruce_up_type!="")
                 <tr><td>spruce up type</td>
-                <td>{{$services->spruce_up_type }}
+                <td>{!!$services->spruce_up_type !!}
               
                 </td>
                 </tr>
@@ -348,7 +348,7 @@ $totalPriceVendor=0;
 
                  @if($services->constable_information_type!="")
                 <tr><td>constable information type</td>
-                <td>{{$services->constable_information_type }}
+                <td>{!!$services->constable_information_type !!}
               
                 </td>
                 </tr>
@@ -357,7 +357,7 @@ $totalPriceVendor=0;
 
                   @if($services->remove_carpe_type!="")
                 <tr><td>remove carpe type</td>
-                <td>{{$services->remove_carpe_type }}
+                <td>{!!$services->remove_carpe_type !!}
               
                 </td>
                 </tr>
@@ -366,7 +366,7 @@ $totalPriceVendor=0;
 
                  @if($services->remove_blinds_type!="")
                 <tr><td>remove blinds type</td>
-                <td>{{$services->remove_blinds_type }}
+                <td>{!!$services->remove_blinds_type !!}
               
                 </td>
                 </tr>
@@ -374,7 +374,7 @@ $totalPriceVendor=0;
                 
                     @if($services->remove_appliances_type!="")
                 <tr><td>remove appliances type</td>
-                <td>{{$services->remove_appliances_type }}
+                <td>{!!$services->remove_appliances_type !!}
               
                 </td>
                 </tr>
@@ -393,7 +393,7 @@ $totalPriceVendor=0;
 			
 			
 			
-  <div style="float:right;"><h2>Total Customer Price: ${{$totalPriceCustomer}} Total Vendor Price: ${{$totalPriceVendor}} </h2>
+  <div style="float:right;"><h2>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!} </h2>
     </div>  
     
   </div>

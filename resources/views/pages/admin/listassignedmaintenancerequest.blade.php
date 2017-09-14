@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 <div id="content" class="span11">
-<a class="btn btn-info" href="{{URL::to('admin-add-new-service-request')}}" style="float:right" >
+<a class="btn btn-info" href="{!!URL::to('admin-add-new-service-request')!!}" style="float:right" >
  Add Service Request
 </a>
 <p id="message" style="display:none">Saved...</p>
@@ -12,7 +12,7 @@
         <div class="box-icon"> <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a> </div>
       </div>
       					@if(Session::has('message'))
-                            {{Session::get('message')}}
+                            {!!Session::get('message')!!}
                         @endif
       <div class="box-content">
         <table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -45,14 +45,14 @@
          
         <tr>
                 
-            <td   @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $loop }}</td>
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $rm->id }}</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{ $rm->user->first_name }}</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{ $rm->user->email }}</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{ $rm->asset->asset_number }}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->property_address }}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->city->name }}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->state->name }}</td>
+            <td   @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $loop !!}</td>
+            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->user->first_name !!}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->user->email !!}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->asset->asset_number !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->city->name !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->state->name !!}</td>
 
            <?php
 
@@ -100,7 +100,7 @@ $servicedate="";
 
             ?>
 
-            <td  @if($rm->emergency_request==1) style="background-color:red;" @endif>{{$assignedUsers}}</td>
+            <td  @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!$assignedUsers!!}</td>
             
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
             @if($rm->status==4)
@@ -112,7 +112,7 @@ $servicedate="";
            
            </td>
          
-            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif><a class="btn btn-success" @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{{ $rm->id }} @endif"> <i class="halflings-icon zoom-in halflings-icon"></i> </a><a class="btn btn-danger" href="cancel-maintenance-request/{{ $rm->id }}"> <i class="halflings-icon minus halflings-icon"></i> </a></td>
+            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif><a class="btn btn-success" @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!} @endif"> <i class="halflings-icon zoom-in halflings-icon"></i> </a><a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}"> <i class="halflings-icon minus halflings-icon"></i> </a></td>
           </tr>
           {{--*/ $loop++ /*--}}
           @endif
@@ -127,7 +127,7 @@ $servicedate="";
   </div>
   <!--/row--> 
   <script>
-	var db_table = "{{ $db_table }}";
+	var db_table = "{!! $db_table !!}";
  </script>
 </div>
 @parent

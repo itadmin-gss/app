@@ -23,10 +23,10 @@
 
 <body class="login">
   <div class="error_page">
-    {{HTML::image('public/assets/img/404_face_sad.gif', '')}}
+    {!!HTML::image('public/assets/img/404_face_sad.gif', '')!!}
     <h1>We're sorry...</h1>
     <p>The page or journal you are looking for cannot be found.</p>
-    <p><a href="{{URL::to('/')}}">Return to the homepage</a></p>
+    <p><a href="{!!URL::to('/')!!}">Return to the homepage</a></p>
   </div>
 </body>
 </html><!-- WP Super Cache is installed but broken. The path to wp-cache-phase1.php in wp-content/advanced-cache.php must be fixed! -->

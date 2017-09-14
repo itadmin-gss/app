@@ -45,21 +45,21 @@
                         @foreach ($orders as $order)
                         <tr>
                           
-                     <td class="center">{{ $order['order_id'] }}</td>
-                             <td class="center">{{ $order['propery_address'] }}</td>
-                             <td class="center">{{ $order['city'] }}</td>
-                            <td class="center">{{ $order['state'] }}</td>
-                            <td class="center">{{ $order['zip'] }}</td>
+                     <td class="center">{!! $order['order_id'] !!}</td>
+                             <td class="center">{!! $order['propery_address'] !!}</td>
+                             <td class="center">{!! $order['city'] !!}</td>
+                            <td class="center">{!! $order['state'] !!}</td>
+                            <td class="center">{!! $order['zip'] !!}</td>
 
-                            <td class="center">{{ $order['service_name'] }}</td>
+                            <td class="center">{!! $order['service_name'] !!}</td>
                            
                            
-                            <td class="center">{{ $order['order_date'] }}</td>
-                            <td class="center">{{ $order['vendor_name'] }}</td>
-                            <td class="center">{{ $order['price'] }}</td>
+                            <td class="center">{!! $order['order_date'] !!}</td>
+                            <td class="center">{!! $order['vendor_name'] !!}</td>
+                            <td class="center">{!! $order['price'] !!}</td>
                            
                             <td class="center"> <span class="label label-gray">@if($order['status']==1) Approved @else Deactive @endif </span> </td>
-                            <td class="center"><a class="btn btn-success" href="{{URL::to('view-order')}}/{{$order['order_id']}}" title="View Order"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" title="Edit Order" href="{{URL::to('edit-order')}}/{{$order['order_id']}}"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                            <td class="center"><a class="btn btn-success" href="{!!URL::to('view-order')!!}/{!!$order['order_id']!!}" title="View Order"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" title="Edit Order" href="{!!URL::to('edit-order')!!}/{!!$order['order_id']!!}"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach

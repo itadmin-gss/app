@@ -44,7 +44,7 @@
 
                 @foreach ($errors->all() as $error)
 
-                <div class="alert alert-error">{{ $error }}</div>
+                <div class="alert alert-error">{!! $error !!}</div>
 
                 @endforeach
 
@@ -54,7 +54,7 @@
 
                     <div class="span12">
 
-                        {{ Form::open(array('url' => 'save-profile', 'files'=>true, 'id'=>'profileEditForm' , 'class'=>'form-horizontal')) }}
+                        {!! Form::open(array('url' => 'save-profile', 'files'=>true, 'id'=>'profileEditForm' , 'class'=>'form-horizontal')) !!}
 
                         <fieldset>
 
@@ -66,23 +66,23 @@
 
                                     <div class="control-group">
 
-                                        {{Form::label('username', 'Username', array('class' => 'control-label'))}}
+                                        {!!Form::label('username', 'Username', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
                                             @if($user_data['username'] == '' || !isset($user_data['username']))
 
-                                            {{ Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username'))}}
+                                            {!! Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username'))!!}
 
-                                            {{Form::hidden('check_user_name', 'yes')}}
+                                            {!!Form::hidden('check_user_name', 'yes')!!}
 
 
 
                                             @else
 
-                                            {{ Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username',  'readonly'=>'true'))}}
+                                            {!! Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username',  'readonly'=>'true'))!!}
 
-                                            {{Form::hidden('check_user_name', 'no')}}
+                                            {!!Form::hidden('check_user_name', 'no')!!}
 
 
 
@@ -98,11 +98,11 @@
 
                                     <div class="control-group">
 
-                                        {{Form::label('email', 'Email', array('class' => 'control-label'))}}
+                                        {!!Form::label('email', 'Email', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
-                                            {{ Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email', 'readonly'=>'true'))}}
+                                            {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email', 'readonly'=>'true'))!!}
 
                                         </div>
 
@@ -110,13 +110,13 @@
 
                                     <div class="control-group">
 
-                                        {{Form::label('first_name', 'First Name', array('class' => 'control-label'))}}
+                                        {!!Form::label('first_name', 'First Name', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
-                                            {{ Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'span10 typeahead','id'=>'firstName','readonly'=>'true'))}}
+                                            {!! Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'span10 typeahead','id'=>'firstName','readonly'=>'true'))!!}
 
-                                            {{ Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editFirstName'))}}
+                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editFirstName'))!!}
 
                                         </div>
 
@@ -124,20 +124,20 @@
 
                                     <div class="control-group">
 
-                                        {{Form::label('last_name', 'Last Name', array('class' => 'control-label'))}}
+                                        {!!Form::label('last_name', 'Last Name', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
-                                            {{ Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'span10 typeahead','id'=>'lastName','readonly'=>'true'))}}
+                                            {!! Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'span10 typeahead','id'=>'lastName','readonly'=>'true'))!!}
 
-                                            {{ Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editLastName'))}}
+                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editLastName'))!!}
 
                                         </div>
 
                                     </div>
                                                        @if($user_data['type_id']==2)
                                <!--      <div class="control-group">
-                                        {{Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))}}
+                                        {!!Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))!!}
                                         <div class="controls">
                                            <select name="customer_type_id" id="customer_type_id">
                                                <?php
@@ -145,7 +145,7 @@
                                                foreach($CustomerType as $scat)
                                                {
                                                   ?>
-                                                  <option value="{{$scat->id}}" @if($user_data['customer_type_id']==$scat->id) selected="selected" @endif>{{$scat->title}}</option>
+                                                  <option value="{!!$scat->id!!}" @if($user_data['customer_type_id']==$scat->id) selected="selected" @endif>{!!$scat->title!!}</option>
                                                   <?php
                                               }
 
@@ -160,13 +160,13 @@
 
                                     <div class="control-group">
 
-                                        {{Form::label('company', 'Company', array('class' => 'control-label'))}}
+                                        {!!Form::label('company', 'Company', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
-                                            {{ Form::text('company',  isset($user_data['company']) ? $user_data['company'] : '' ,  array('class'=>'span10 typeahead','id'=>'company','readonly'=>'true'))}}
+                                            {!! Form::text('company',  isset($user_data['company']) ? $user_data['company'] : '' ,  array('class'=>'span10 typeahead','id'=>'company','readonly'=>'true'))!!}
 
-                                            {{ Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editCompany'))}}
+                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editCompany'))!!}
 
                                         </div>
 
@@ -176,13 +176,13 @@
 
                                     <div class="control-group">
 
-                                        {{Form::label('phone', 'Phone', array('class' => 'control-label'))}}
+                                        {!!Form::label('phone', 'Phone', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
-                                            {{ Form::text('phone', isset($user_data['phone']) ? $user_data['phone'] : '' , array('class'=>'span10 typeahead','id'=>'phone','readonly'=>'true'))}}
+                                            {!! Form::text('phone', isset($user_data['phone']) ? $user_data['phone'] : '' , array('class'=>'span10 typeahead','id'=>'phone','readonly'=>'true'))!!}
 
-                                            {{ Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editPhone'))}}
+                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editPhone'))!!}
 
                                         </div>
 
@@ -194,13 +194,13 @@
 
 
 
-                                        {{Form::label('address_1', 'Address 1', array('class' => 'control-label'))}}
+                                        {!!Form::label('address_1', 'Address 1', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
-                                            {{ Form::text('address_1', isset($user_data['address_1']) ? $user_data['address_1'] : ''  , array('class'=>'span10 typeahead','id'=>'address1','readonly'=>'true'))}}
+                                            {!! Form::text('address_1', isset($user_data['address_1']) ? $user_data['address_1'] : ''  , array('class'=>'span10 typeahead','id'=>'address1','readonly'=>'true'))!!}
 
-                                            {{ Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress1'))}}
+                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress1'))!!}
 
                                         </div>
 
@@ -210,13 +210,13 @@
 
                                     <div class="control-group">
 
-                                        {{Form::label('address_2', 'Address 2', array('class' => 'control-label'))}}
+                                        {!!Form::label('address_2', 'Address 2', array('class' => 'control-label'))!!}
 
                                         <div class="controls">
 
-                                            {{ Form::text('address_2', isset($user_data['address_2']) ? $user_data['address_2'] : '' , array('class'=>'span10 typeahead','id'=>'address2','readonly'=>'true'))}}
+                                            {!! Form::text('address_2', isset($user_data['address_2']) ? $user_data['address_2'] : '' , array('class'=>'span10 typeahead','id'=>'address2','readonly'=>'true'))!!}
 
-                                            {{ Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress2'))}}
+                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress2'))!!}
 
                                         </div>
 
@@ -244,7 +244,7 @@
 
                                                 @if($user_data['profile_picture'])
 
-                                                {{ HTML::image(Config::get('app.upload_path').$user_data['profile_picture']) }}
+                                                {!! HTML::image(Config::get('app.upload_path').$user_data['profile_picture']) !!}
 
                                                 @endif
 
@@ -254,7 +254,7 @@
 
                                                 <span class="btn btn-default btn-file">
 
-                                                    {{Form::file('profile_picture', array('value'=>$user_data['profile_picture'],'class'=>'input-file uniform_on', 'id'=>'fileInput'))}}
+                                                    {!!Form::file('profile_picture', array('value'=>$user_data['profile_picture'],'class'=>'input-file uniform_on', 'id'=>'fileInput'))!!}
 
                                                 </span>
 
@@ -296,13 +296,13 @@
 
 
 
-                                    {{Form::label('state_id', 'State', array('class' => 'control-label '))}}
+                                    {!!Form::label('state_id', 'State', array('class' => 'control-label '))!!}
 
 
 
                                     <div class="controls">
 
-                                        {{ Form::select('state_id', $states_data , isset($user_data['state_id']) ? $user_data['state_id'] : '0', array('class'=>'span8 typeahead','id'=>'state_id', 'data-rel'=>'chosen'))}}
+                                        {!! Form::select('state_id', $states_data , isset($user_data['state_id']) ? $user_data['state_id'] : '0', array('class'=>'span8 typeahead','id'=>'state_id', 'data-rel'=>'chosen'))!!}
 
                                     </div>
 
@@ -328,11 +328,11 @@
 
 
 
-                                    {{Form::label('city_id', 'City', array('class' => 'control-label first-label'))}}
+                                    {!!Form::label('city_id', 'City', array('class' => 'control-label first-label'))!!}
 
                                     <div class="controls">
 
-                                        {{ Form::select('city_id', $city_data , isset($user_data['city_id']) ? $user_data['city_id'] : '0' , array('style'=>'width:200px;' ,'class'=>'span7 typeahead','id'=>'city_id', 'data-rel'=>'chosen'))}}
+                                        {!! Form::select('city_id', $city_data , isset($user_data['city_id']) ? $user_data['city_id'] : '0' , array('style'=>'width:200px;' ,'class'=>'span7 typeahead','id'=>'city_id', 'data-rel'=>'chosen'))!!}
 
 
 
@@ -344,15 +344,15 @@
 
                                 <div class="control-group span3">
 
-                                    {{Form::label('zipcode', 'Zip ', array('class' => 'control-label '))}}
+                                    {!!Form::label('zipcode', 'Zip ', array('class' => 'control-label '))!!}
 
 
 
                                     <div class="controls">
 
-                                        {{ Form::text('zipcode', isset($user_data['zipcode']) ? $user_data['zipcode'] : '' , array('class'=>'span7 typeahead','id'=>'zipcode','readonly'=>'true'))}}
+                                        {!! Form::text('zipcode', isset($user_data['zipcode']) ? $user_data['zipcode'] : '' , array('class'=>'span7 typeahead','id'=>'zipcode','readonly'=>'true'))!!}
 
-                                        {{ Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editZipcode'))}}
+                                        {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editZipcode'))!!}
 
                                     </div>
 
@@ -374,7 +374,7 @@
 
                                                     <div class="checker" id="uniform-inlineCheckbox1"><span>
                                                        
-                                                           {{Form::checkbox('change_password','1',false,array('id'=>'changePassword'))}} 
+                                                           {!!Form::checkbox('change_password','1',false,array('id'=>'changePassword'))!!} 
                                                        
 
                                                         </span></div>
@@ -404,11 +404,11 @@
 
                                 <div class="control-group">
 
-                                    {{Form::label('current_password', 'Current Password: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                    {!!Form::label('current_password', 'Current Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                     <div class="controls">
 
-                                        {{ Form::password('current_password', '', array('class'=>'span10 typeahead','id'=>'password'))}}
+                                        {!! Form::password('current_password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}
 
                                     </div>
 
@@ -416,11 +416,11 @@
 
                                 <div class="control-group">
 
-                                    {{Form::label('password', 'New Password: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                    {!!Form::label('password', 'New Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                     <div class="controls">
 
-                                        {{ Form::password('password', '', array('class'=>'span10 typeahead','id'=>'password'))}}
+                                        {!! Form::password('password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}
 
                                     </div>
 
@@ -428,11 +428,11 @@
 
                                 <div class="control-group">
 
-                                    {{Form::label('password_confirmation', 'Confirm New password: *', array('class'=>'control-label', 'for'=>'typeahead'))}}
+                                    {!!Form::label('password_confirmation', 'Confirm New password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
 
                                     <div class="controls">
 
-                                        {{ Form::password('password_confirmation', '', array('class'=>'span10 typeahead','id'=>'password_confirmation'))}}
+                                        {!! Form::password('password_confirmation', '', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
 
                                     </div>
 
@@ -448,7 +448,7 @@
                           
          
      <select class="span8 typeahead " id="vendor_services" data-rel="chosen" multiple="true" name="vendor_services[]" >
-     {{ $servicesDATAoption}}
+     {!! $servicesDATAoption!!}
      </select>
 
                                 </div>
@@ -459,7 +459,7 @@
                                <div class="controls control-group" style="margin-left:0px;">
                                         Service Zipcodes(Comma seprated)
                                         <div class="control-group">
-                                            {{ Form::textarea('available_zipcodes', isset($user_data['available_zipcodes']) ? $user_data['available_zipcodes'] : '' , array('class'=>'span10 typeahead','id'=>'available_zipcodes'))}}
+                                            {!! Form::textarea('available_zipcodes', isset($user_data['available_zipcodes']) ? $user_data['available_zipcodes'] : '' , array('class'=>'span10 typeahead','id'=>'available_zipcodes'))!!}
                                          
                                         </div>
                               </div>   
@@ -468,15 +468,15 @@
 
                             <div class="form-actions text-right clearfix">
 
-                                {{ Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'profileSaveButton'))}}
+                                {!! Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'profileSaveButton'))!!}
 
-                                {{ Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>'profileCancelButton'))}}
+                                {!! Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>'profileCancelButton'))!!}
 
                             </div>
 
                         </fieldset>
 
-                        {{ Form::close() }}
+                        {!! Form::close() !!}
 
                     </div>
 

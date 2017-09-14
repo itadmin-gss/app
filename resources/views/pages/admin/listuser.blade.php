@@ -2,7 +2,7 @@
 @section('content')
 <div id="content" class="span11">
   <div class="clearfix">
-    <a class="btn btn-info accBtn" href="{{URL::to('add-user')}}"> Add user </a>
+    <a class="btn btn-info accBtn" href="{!!URL::to('add-user')!!}"> Add user </a>
   </div>
 <p id="message" style="display:none">Saved...</p>
   <div class="row-fluid">
@@ -16,7 +16,7 @@
                               <div class="admtableInr">
 
         @if(Session::has('message'))
-              {{Session::get('message')}}
+              {!!Session::get('message')!!}
         @endif
         <div id="access-error" class="hide">
             <h4 class="alert alert-error">Warning! Access Denied</h4>
@@ -55,27 +55,27 @@
 
           {{--*/ $loop = 1 /*--}}
           @foreach ($users as $user)
-          <tr id="tr-{{$user->id}}">
-            <td>{{ $loop }}</td>
-            <td class="center">{{ $user->first_name }}</td>
-            <td class="center">{{ $user->last_name }}</td>
-            <td class="center">{{ $user->username }}</td>
-            <td class="center">{{ $user->email }}</td>
-            <td class="center">{{ Form::select('role_name', $userRoles,
-            $user->user_role_id, array('class' => 'form-control role_name', 'onchange'=>'updateAccessLevel('.$user->id.',this)')) }}
+          <tr id="tr-{!!$user->id!!}">
+            <td>{!! $loop !!}</td>
+            <td class="center">{!! $user->first_name !!}</td>
+            <td class="center">{!! $user->last_name !!}</td>
+            <td class="center">{!! $user->username !!}</td>
+            <td class="center">{!! $user->email !!}</td>
+            <td class="center">{!! Form::select('role_name', $userRoles,
+            $user->user_role_id, array('class' => 'form-control role_name', 'onchange'=>'updateAccessLevel('.$user->id.',this)')) !!}
             <span id="loader" style="display:none; float:left;width:20%;">
-       {{HTML::image('public/assets/img/loader.gif', '',
-       array('height' => '25', 'width' => '25'))}}</span></td>
+       {!!HTML::image('public/assets/img/loader.gif', '',
+       array('height' => '25', 'width' => '25'))!!}</span></td>
            <td class="center">
                <div class="activate">
                    @if($user->status == 1)
-                   <span onclick="changeStatus(this,'user',0, {{$user->id}},'{{$db_table}}' )" class="label label-success">Active</span>
+                   <span onclick="changeStatus(this,'user',0, {!!$user->id!!},'{!!$db_table!!}' )" class="label label-success">Active</span>
                    @else
-                   <span onclick="changeStatus(this,'user',1, {{$user->id}},'{{$db_table}}' )" class="label label-important">In-Active</span>
+                   <span onclick="changeStatus(this,'user',1, {!!$user->id!!},'{!!$db_table!!}' )" class="label label-important">In-Active</span>
                    @endif
                </div>
            </td>
-            <td class="center popover-examples"><a class="btn btn-info" href="edit-profile-admin/{{ $user->id }}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <a class="btn btn-danger"  onclick="modalButtonOnClick({{$user->id}},'{{$db_table}}','user')" data-confirm="Are you sure you want to delete?" title="Delete"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+            <td class="center popover-examples"><a class="btn btn-info" href="edit-profile-admin/{!! $user->id !!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <a class="btn btn-danger"  onclick="modalButtonOnClick({!!$user->id!!},'{!!$db_table!!}','user')" data-confirm="Are you sure you want to delete?" title="Delete"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
           </tr>
           {{--*/ $loop++ /*--}}
           @endforeach
@@ -90,7 +90,7 @@
   </div>
   <!--/row-->
   <script>
-	var db_table = "{{ $db_table }}";
+	var db_table = "{!! $db_table !!}";
  </script>
 </div>
 

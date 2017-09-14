@@ -28,25 +28,25 @@
                             <div class="box-content main-button quickTab">
  @if($clientTypeSession=="")
                             @foreach($CustomerType as $cDATA)
-                                <a href="{{URL::to('customer-client-type')}}/{{ $cDATA->id}}" class="span3">
+                                <a href="{!!URL::to('customer-client-type')!!}/{!! $cDATA->id!!}" class="span3">
                                     <span class="quick-button">
                                       <i class="fa-icon-briefcase"></i>
-                                      <p>{{ $cDATA->title}}</p>
+                                      <p>{!! $cDATA->title!!}</p>
                                     </span>
                                 </a>
                             @endforeach
 
 @else
 
-                                <a href="{{URL::to('view-assets-list')}}" class="quick-button span4">
+                                <a href="{!!URL::to('view-assets-list')!!}" class="quick-button span4">
                                     <i class="fa-icon-briefcase"></i>
                                     <p>View My Properties</p>
                                 </a>
-                                <a href="{{URL::to('add-new-service-request')}}" class="quick-button span4 reqstBtn">
+                                <a href="{!!URL::to('add-new-service-request')!!}" class="quick-button span4 reqstBtn">
                                     <i class="fa-icon-cog"></i>
                                     <p>Request A Service</p>
                                 </a>
-                                <a href="{{URL::to('customer-list-work-orders')}}" class="quick-button span4">
+                                <a href="{!!URL::to('customer-list-work-orders')!!}" class="quick-button span4">
                                     <i class="fa-icon-tasks"></i>
                                     <p>View Work Orders</p>
                                 </a>
@@ -83,11 +83,11 @@
                                       <tbody>
                                           @foreach($maintenanceRequest as $request)
                                         <tr>
-                                            <td>{{$request->id}}</td>
-                                            <td>@if(isset($request->user->first_name)) {{$request->user->first_name}}@endif @if(isset($request->user->last_name)) {{$request->user->last_name}} @endif </td>
-                                            <td>{{$request->asset->asset_number}}</td>
+                                            <td>{!!$request->id!!}</td>
+                                            <td>@if(isset($request->user->first_name)) {!!$request->user->first_name!!}@endif @if(isset($request->user->last_name)) {!!$request->user->last_name!!} @endif </td>
+                                            <td>{!!$request->asset->asset_number!!}</td>
                                             <td>
-                                             {{$request->asset->city->name}}
+                                             {!!$request->asset->city->name!!}
                                             </td>
                                             <td class="center" @if($request->emergency_request==1) style="background-color:red;" @endif>
                                               @if($request->status==1)
@@ -131,9 +131,9 @@
                                       <tbody>
                                       @foreach($completeorder as $orders)
                                         <tr>
-                                            <td>{{ $orders['request_id']}}</td>
-                                            <td class="middle">{{ $orders['asset_number']}}</td>
-                                            <td>{{$orders['service_name']}}</td>
+                                            <td>{!! $orders['request_id']!!}</td>
+                                            <td class="middle">{!! $orders['asset_number']!!}</td>
+                                            <td>{!!$orders['service_name']!!}</td>
                                           
                                                            </tr>
                                         @endforeach
@@ -169,11 +169,11 @@
                                       <tbody>
                                       @foreach($list_complete_orders as $orders)
                                         <tr>
-                                            <td>{{ $orders['request_id']}}</td>
-                                            <td class="middle">{{ $orders['asset_number']}}</td>
-                                            <td>{{$orders['service_name']}}</td>
+                                            <td>{!! $orders['request_id']!!}</td>
+                                            <td class="middle">{!! $orders['asset_number']!!}</td>
+                                            <td>{!!$orders['service_name']!!}</td>
                                            
-                                            <td class="center"> <span class="label label-{{ $orders['status_class'] }}">{{ $orders['status_text'] }}</span> </td>
+                                            <td class="center"> <span class="label label-{!! $orders['status_class'] !!}">{!! $orders['status_text'] !!}</span> </td>
                                                            </tr>
                                         @endforeach
                                       </tbody>
@@ -202,10 +202,10 @@
                                       <tbody>
                                       @foreach($assets as $assetData)
                                         <tr>
-                                            <td>{{$assetData->asset_number}}</td>
-                                            <td class="middle">{{$assetData->property_address}}</td>
-                                            <td>{{$assetData->loan_number}}</td>
-                                            <td class="center"> {{ isset($assetData->status) && $assetData->status == 1 ? '<span class="label label-success">Active</span>' : '<span class="label">Inactive</span>' }}
+                                            <td>{!!$assetData->asset_number!!}</td>
+                                            <td class="middle">{!!$assetData->property_address!!}</td>
+                                            <td>{!!$assetData->loan_number!!}</td>
+                                            <td class="center"> {!! isset($assetData->status) && $assetData->status == 1 ? '<span class="label label-success">Active</span>' : '<span class="label">Inactive</span>' !!}
 
                                         </tr>
                                         @endforeach

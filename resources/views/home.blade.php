@@ -6,7 +6,7 @@
 
         <div class="row-fluid"> 
 
-		<div class="txtCenter"><img class="inLogo" width="250px" src="{{URL::to('/')}}/public/assets/images/GSS-Logo.jpg"></div>
+		<div class="txtCenter"><img class="inLogo" width="250px" src="{!!URL::to('/')!!}/public/assets/images/GSS-Logo.jpg"></div>
 
             <div class="row-fluid">
 
@@ -22,7 +22,7 @@
 
                     <h2>Login to your account</h2>
 
-                    {{ Form::open(array('url' => 'login', 'class' => 'form-horizontal', 'method' => 'post')) }}
+                    {!! Form::open(array('url' => 'login', 'class' => 'form-horizontal', 'method' => 'post')) !!}
 
                     <fieldset>
 
@@ -34,7 +34,7 @@
 
 
 
-                            {{ Form::text('username', '', array('placeholder'=>'Username', 'class' => 'nput-large span10')) }}
+                            {!! Form::text('username', '', array('placeholder'=>'Username', 'class' => 'nput-large span10')) !!}
 
 
 
@@ -48,13 +48,13 @@
 
                             <span class="add-on"><i class="halflings-icon lock"></i></span>
 
-                            {{ Form::password('password', array('placeholder'=>'Password', 'class' => 'nput-large span10')) }}
+                            {!! Form::password('password', array('placeholder'=>'Password', 'class' => 'nput-large span10')) !!}
 
                      
 
                             @if(isset($active))
 
-                            {{ Form::hidden('active', $active) }}
+                            {!! Form::hidden('active', $active) !!}
 
                             @endif
 
@@ -96,9 +96,9 @@
 
                         <div class="alert alert-error alert-danger form-element">
 
-                            {{ $errors->first('password') }}
+                            {!! $errors->first('password') !!}
 
-                            {{ $errors->first('username') }}
+                            {!! $errors->first('username') !!}
 
                         </div>
 

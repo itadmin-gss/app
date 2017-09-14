@@ -5,7 +5,7 @@
     </head>
     <body>
 
-        <div> {{$user_email_template}} </div>
+        <div> {!!$user_email_template!!} </div>
        
     </body>
 </html>

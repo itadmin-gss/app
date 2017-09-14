@@ -6,8 +6,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="{{URL::to('/')}}" style="overflow: hidden;">
-					<img class="inLogo" src="{{URL::to('/')}}/public/assets/images/GSS-Logo.png" style="width: 110px;">
+				<a class="brand" href="{!!URL::to('/')!!}" style="overflow: hidden;">
+					<img class="inLogo" src="{!!URL::to('/')!!}/public/assets/images/GSS-Logo.png" style="width: 110px;">
 				</a>
 
 				<!-- start: Header Menu -->
@@ -21,14 +21,14 @@
 					<li class="dropdown hidden-phone">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								@if($unreadnotifications>0)
-								<span class="unreadnumbers">{{$unreadnotifications}} </span> 
+								<span class="unreadnumbers">{!!$unreadnotifications!!} </span> 
 								@endif
 								<i class="halflings-icon white warning-sign"></i>
 								
 							</a>
 							<ul class="dropdown-menu notifications">
 								<li>
-									<span class="dropdown-menu-title">You have {{$unreadnotifications}} unread notifications</span>
+									<span class="dropdown-menu-title">You have {!!$unreadnotifications!!} unread notifications</span>
 								</li>	
 								@foreach($get_notifications as $notificatioData)
 								<?php
@@ -59,15 +59,15 @@
 				    	$orangeBack.="style='background:orange'";
 				    }
 								?>
-                            	<li @if($notificatioData->is_read==1) class="notficationUnread" @endif {{$pinkBack}} {{$orangeBack}}>
-                                    <a href="#" onClick="ChangeNotificationStatus('{{ $notificatioData->id}}','{{$notificatioData->notification_url}}','{{$notificatioData->message}}')">
-							+ <i class="halflings-icon white user"></i> <span class="message">{{ $notificatioData->message}}</span>  <br/> <span class="time">{{$time}}</span> 
+                            	<li @if($notificatioData->is_read==1) class="notficationUnread" @endif {!!$pinkBack!!} {!!$orangeBack!!}>
+                                    <a href="#" onClick="ChangeNotificationStatus('{!! $notificatioData->id!!}','{!!$notificatioData->notification_url!!}','{!!$notificatioData->message!!}')">
+							+ <i class="halflings-icon white user"></i> <span class="message">{!! $notificatioData->message!!}</span>  <br/> <span class="time">{!!$time!!}</span> 
                                     </a>
                                 </li>
                                 @endforeach
                                 <li>
-                            		<a class="dropdown-menu-sub-footer" href="{{URL::to('list-work-notification-url')}}">View all notifications</a>
-                            		       <a class="dropdown-menu-sub-footer" href="{{URL::to('clear-notification')}}">Clear Notification</a>
+                            		<a class="dropdown-menu-sub-footer" href="{!!URL::to('list-work-notification-url')!!}">View all notifications</a>
+                            		       <a class="dropdown-menu-sub-footer" href="{!!URL::to('clear-notification')!!}">Clear Notification</a>
                             		
 								</li>	
 							</ul>
@@ -77,13 +77,13 @@
 						<li class="dropdown">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 
-								<i class="halflings-icon white user"></i> {{ Auth::user()->first_name }} {{Auth::user()->last_name}}
+								<i class="halflings-icon white user"></i> {!! Auth::user()->first_name !!} {!!Auth::user()->last_name!!}
 
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="{{URL::to('edit-profile')}}"><i class="halflings-icon white user"></i> Profile</a></li>
-								<li><a href="{{URL::to('logout')}}"><i class="halflings-icon white off"></i> Logout</a></li>
+								<li><a href="{!!URL::to('edit-profile')!!}"><i class="halflings-icon white user"></i> Profile</a></li>
+								<li><a href="{!!URL::to('logout')!!}"><i class="halflings-icon white off"></i> Logout</a></li>
 							</ul>
 						</li>
 						@if(Auth::user()->type_id==2)

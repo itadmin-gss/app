@@ -29,20 +29,20 @@
                         <img src="http://t2.gstatic.com/images?q=tbn:ANd9GcQ7E5G4jUpfyFFtv5f-dSIT7ySOEOjiJB4_wOJTqtcYz7EqZGR8fA" class="icon" />
                     </div>
                     <h2>Login to your account</h2>
-                    {{ Form::open(array('url' => 'login', 'class' => 'form-horizontal', 'method' => 'post')) }}
+                    {!! Form::open(array('url' => 'login', 'class' => 'form-horizontal', 'method' => 'post')) !!}
                     <fieldset>
 
                         <div class="input-prepend" title="Username">
                             <span class="add-on"><i class="halflings-icon user"></i></span>
 
-                            {{ Form::text('username', '', array('placeholder'=>'Username', 'class' => 'nput-large span10')) }}
+                            {!! Form::text('username', '', array('placeholder'=>'Username', 'class' => 'nput-large span10')) !!}
 
                         </div>
                         <div class="clearfix"></div>
 
                         <div class="input-prepend" title="Password">
                             <span class="add-on"><i class="halflings-icon lock"></i></span>
-                            {{ Form::password('password', array('placeholder'=>'Password', 'class' => 'nput-large span10')) }}
+                            {!! Form::password('password', array('placeholder'=>'Password', 'class' => 'nput-large span10')) !!}
 
                         </div>
                         <div class="clearfix"></div>
@@ -62,8 +62,8 @@
 
                         @if(!$errors->isEmpty())
                         <div class="alert alert-error alert-danger form-element">
-                            {{ $errors->first('password') }}
-                            {{ $errors->first('username') }}
+                            {!! $errors->first('password') !!}
+                            {!! $errors->first('username') !!}
                         </div>
                         @endif
 

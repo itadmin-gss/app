@@ -2,7 +2,7 @@
 @section('content')
 <div id="content" class="span11">
     <div class="clearfix">
-        <a class="btn btn-info accBtn" href="{{URL::to('vendor-add-special-prices')}}">Add Special Price </a>
+        <a class="btn btn-info accBtn" href="{!!URL::to('vendor-add-special-prices')!!}">Add Special Price </a>
     </div>
     <div class="row-fluid">
         <div class="box span12">
@@ -11,7 +11,7 @@
                 <div class="box-icon"> <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a> </div>
             </div>
             @if(Session::has('message'))
-            {{Session::get('message')}}
+            {!!Session::get('message')!!}
             @endif
             <div class="box-content admtable">
                 <div class="admtableInr">
@@ -46,7 +46,7 @@
                     <tbody>
                         {{--*/ $loop = 1 /*--}}
                         @foreach ($special_prices as $special_price)
-                        <tr id="tr-{{$special_price->id}}">
+                        <tr id="tr-{!!$special_price->id!!}">
                         <?php
 
                          $customerfirstname="";
@@ -62,23 +62,23 @@
             }
 
 ?>
-                            <td>{{ $loop }}</td>
-                            <td>{{ $special_price->service->service_code }}</td>
-                            <td class="center">{{ $special_price->service->title }}</td>
-                            <td class="center">{{ $customerfirstname.'  '. $customerlastname}}</td>
-                            <td class="center">{{ $special_price->special_price }}</td>
-                            <td class="center">{{ $special_price->service->vendor_price }}</td>
-                            <td class="center">{{ date('m/d/Y h:i:s A',strtotime($special_price->created_at ))}}</td>
+                            <td>{!! $loop !!}</td>
+                            <td>{!! $special_price->service->service_code !!}</td>
+                            <td class="center">{!! $special_price->service->title !!}</td>
+                            <td class="center">{!! $customerfirstname.'  '. $customerlastname!!}</td>
+                            <td class="center">{!! $special_price->special_price !!}</td>
+                            <td class="center">{!! $special_price->service->vendor_price !!}</td>
+                            <td class="center">{!! date('m/d/Y h:i:s A',strtotime($special_price->created_at ))!!}</td>
                             <td class="center">
                                 <div class="activate">
                                     @if($special_price->status == 1)
-                                    <span onclick="changeStatus(this,'special_price',0, {{$special_price->id}},'{{$db_table}}' )" class="label label-success">Active</span>
+                                    <span onclick="changeStatus(this,'special_price',0, {!!$special_price->id!!},'{!!$db_table!!}' )" class="label label-success">Active</span>
                                     @else
-                                    <span onclick="changeStatus(this,'special_price',1, {{$special_price->id}},'{{$db_table}}' )" class="label label-important">In-Active</span>
+                                    <span onclick="changeStatus(this,'special_price',1, {!!$special_price->id!!},'{!!$db_table!!}' )" class="label label-important">In-Active</span>
                                     @endif
                                 </div>
                             </td>
-                            <td class="center"><a class="btn btn-info" href="edit-vendor-special-price/{{ $special_price->id }}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <a class="btn btn-danger"  onclick="modalButtonOnClick({{$special_price->id}},'{{$db_table}}','special_price')" data-confirm="Are you sure you want to delete?" title="Delete"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+                            <td class="center"><a class="btn btn-info" href="edit-vendor-special-price/{!! $special_price->id !!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <a class="btn btn-danger"  onclick="modalButtonOnClick({!!$special_price->id!!},'{!!$db_table!!}','special_price')" data-confirm="Are you sure you want to delete?" title="Delete"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach
@@ -89,7 +89,7 @@
         </div>
         <!--/span--> 
         <script>
-            var db_table = "{{ $db_table }}";
+            var db_table = "{!! $db_table !!}";
         </script>
     </div>
     <!--/row--> 

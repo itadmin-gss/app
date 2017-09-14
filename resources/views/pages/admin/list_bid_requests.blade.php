@@ -7,7 +7,7 @@
             <option value="2" @if($status==2) selected="selected" @endif>Approved</option>
             <option value="3" @if($status==3) selected="selected" @endif>Declined</option>
         </select>
-        <a class="btn btn-info accBtn" href="{{URL::to('admin-add-bid-request')}}"> Add OSR  </a>
+        <a class="btn btn-info accBtn" href="{!!URL::to('admin-add-bid-request')!!}"> Add OSR  </a>
     </div>
     <div class="row-fluid">		
         <div class="box span12">
@@ -43,12 +43,12 @@
                         @foreach ($assign_requests as $assign_request)
                         <tr>
                            
-                            <td class="center">{{ $assign_request['request_id'] }}</td>
-                            <td class="center">{{ $assign_request['service_name'] }}</td>
-                            <td class="center">{{ $assign_request['customer_name'] }}</td>
-                            <td class="center">{{ $assign_request['asset_number'] }}</td>
-                            <td class="center">{{ $assign_request['request_date'] }}</td>
-                            <td class="center popover-examples"><a class="btn btn-success" href="{{URL::to('view-admin-bid-request')}}/{{  $assign_request['request_id'] }}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
+                            <td class="center">{!! $assign_request['request_id'] !!}</td>
+                            <td class="center">{!! $assign_request['service_name'] !!}</td>
+                            <td class="center">{!! $assign_request['customer_name'] !!}</td>
+                            <td class="center">{!! $assign_request['asset_number'] !!}</td>
+                            <td class="center">{!! $assign_request['request_date'] !!}</td>
+                            <td class="center popover-examples"><a class="btn btn-success" href="{!!URL::to('view-admin-bid-request')!!}/{!!  $assign_request['request_id'] !!}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach  

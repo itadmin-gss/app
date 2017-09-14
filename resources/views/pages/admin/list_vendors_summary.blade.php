@@ -50,15 +50,15 @@
                         {{--*/ $loop = 1 /*--}}
                         @foreach ($assign_requests as $assign_request)
                         <tr>
-                            <td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $loop }}</td>
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['vendor_name'] }}</td>
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['request_id'] }}</td>
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['service_name'] }}</td>
-                            <!-- <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['customer_name'] }}</td>
-                             --><td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['asset_number'] }}</td>
-                             <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['property_address'] }}</td>
+                            <td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $loop !!}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['vendor_name'] !!}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_id'] !!}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['service_name'] !!}</td>
+                            <!-- <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['customer_name'] !!}</td>
+                             --><td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['asset_number'] !!}</td>
+                             <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['property_address'] !!}</td>
                              
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{{ $assign_request['request_date'] }}</td>
+                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_date'] !!}</td>
                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>  @if($assign_request['status']==1)
             <span class="label label-warning">Requested</span>
             @elseif($assign_request['status']==2)
@@ -67,7 +67,7 @@
             <span class="label label-warning">Reviewed By Vendor</span>
             @endif
             </td>
-                            <td class="center popover-examples" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif><a class="btn btn-success" href="view-maintenance-request/{{  $assign_request['request_id'] }}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
+                            <td class="center popover-examples" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif><a class="btn btn-success" href="view-maintenance-request/{!!  $assign_request['request_id'] !!}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach  
@@ -112,20 +112,20 @@
                         {{--*/ $loop = 1 /*--}}
                         @foreach ($orders as $order)
                         <tr>
-                            <td>{{ $loop }}</td>
-                            <td class="center">{{ $order['vendor_name'] }}</td>
-                            <td class="center">{{ $order['order_id'] }}</td>
-                            <td class="center">{{ $order['customer_name'] }}</td>
-                            <td class="center">{{ $order['service_name'] }}</td>
-                            <td class="center">{{ $order['asset_number'] }}</td>
-                                <td class="center">{{ $order['property_address'] }}</td>
-                            <td class="center">{{ $order['order_date'] }}</td>
-                            <td class="center">{{ $order['vendor_name'] }}</td>
-                                <td class="center">{{ $order['city'] }}</td>
-                            <td class="center">{{ $order['state'] }}</td>
-                            <td class="center">{{ $order['zipcode'] }}</td>
-                             <td class="center"> <span class="label label-{{ $order['status_class'] }}">{{ $order['status_text'] }}</span> </td>
-                            <td class="center"><a class="btn btn-success" href="view-order/{{$order['order_id']}}" title="View Order"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{{$order['order_id']}}" title="Edit Order"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                            <td>{!! $loop !!}</td>
+                            <td class="center">{!! $order['vendor_name'] !!}</td>
+                            <td class="center">{!! $order['order_id'] !!}</td>
+                            <td class="center">{!! $order['customer_name'] !!}</td>
+                            <td class="center">{!! $order['service_name'] !!}</td>
+                            <td class="center">{!! $order['asset_number'] !!}</td>
+                                <td class="center">{!! $order['property_address'] !!}</td>
+                            <td class="center">{!! $order['order_date'] !!}</td>
+                            <td class="center">{!! $order['vendor_name'] !!}</td>
+                                <td class="center">{!! $order['city'] !!}</td>
+                            <td class="center">{!! $order['state'] !!}</td>
+                            <td class="center">{!! $order['zipcode'] !!}</td>
+                             <td class="center"> <span class="label label-{!! $order['status_class'] !!}">{!! $order['status_text'] !!}</span> </td>
+                            <td class="center"><a class="btn btn-success" href="view-order/{!!$order['order_id']!!}" title="View Order"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{!!$order['order_id']!!}" title="Edit Order"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach  
@@ -169,17 +169,17 @@
                         {{--*/ $loop = 1 /*--}}
                         @foreach ($invoices as $order)
                         <tr>
-                            <td>{{ $loop }}</td>
-                            <td class="center">{{ $order['vendor_name'] }}</td>
-                            <td class="center">{{ $order['order_id'] }}</td>
-                            <td class="center">{{ $order['customer_name'] }}</td>
-                            <td class="center">{{ $order['service_name'] }}</td>
-                            <td class="center">{{ $order['asset_number'] }}</td>
-                            <td class="center">{{ $order['order_date'] }}</td>
+                            <td>{!! $loop !!}</td>
+                            <td class="center">{!! $order['vendor_name'] !!}</td>
+                            <td class="center">{!! $order['order_id'] !!}</td>
+                            <td class="center">{!! $order['customer_name'] !!}</td>
+                            <td class="center">{!! $order['service_name'] !!}</td>
+                            <td class="center">{!! $order['asset_number'] !!}</td>
+                            <td class="center">{!! $order['order_date'] !!}</td>
                             
-                            <td class="center">{{ $order['price'] }}</td>
+                            <td class="center">{!! $order['price'] !!}</td>
                             <td class="center"> <span class="label label-gray">@if($order['status']==1) Approved @else Deactive @endif </span> </td>
-                            <td class="center"><a class="btn btn-success" href="{{URL::to('view-order')}}/{{$order['order_id']}}" title="View Order"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" title="Edit Order" href="{{URL::to('edit-order')}}/{{$order['order_id']}}"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                            <td class="center"><a class="btn btn-success" href="{!!URL::to('view-order')!!}/{!!$order['order_id']!!}" title="View Order"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" title="Edit Order" href="{!!URL::to('edit-order')!!}/{!!$order['order_id']!!}"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach
@@ -217,14 +217,14 @@
                         {{--*/ $loop = 1 /*--}}
                         @foreach ($assign_bids as $assign_request)
                         <tr>
-                            <td>{{ $loop }}</td>
-                             <td class="center">{{ $assign_request['customer_name'] }}</td>
-                            <td class="center">{{ $assign_request['request_id'] }}</td>
-                            <td class="center">{{ $assign_request['service_name'] }}</td>
+                            <td>{!! $loop !!}</td>
+                             <td class="center">{!! $assign_request['customer_name'] !!}</td>
+                            <td class="center">{!! $assign_request['request_id'] !!}</td>
+                            <td class="center">{!! $assign_request['service_name'] !!}</td>
                            
-                            <td class="center">{{ $assign_request['asset_number'] }}</td>
-                            <td class="center">{{ $assign_request['request_date'] }}</td>
-                            <td class="center popover-examples"><a class="btn btn-success" href="{{URL::to('view-admin-bid-request')}}/{{  $assign_request['request_id'] }}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
+                            <td class="center">{!! $assign_request['asset_number'] !!}</td>
+                            <td class="center">{!! $assign_request['request_date'] !!}</td>
+                            <td class="center popover-examples"><a class="btn btn-success" href="{!!URL::to('view-admin-bid-request')!!}/{!!  $assign_request['request_id'] !!}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
                         </tr>
                         {{--*/ $loop++ /*--}}
                         @endforeach  
@@ -238,7 +238,7 @@
     </div>
     <!--/span-->
     <script>
-	var db_table = "{{ $db_table }}";
+	var db_table = "{!! $db_table !!}";
  	</script>
   </div>
   <!--/row-->

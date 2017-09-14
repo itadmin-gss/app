@@ -2,7 +2,7 @@
 @section('content')
 <div id="content" class="span11">
     <div class="clearfix">
-        <a class="btn btn-info accBtn" href="{{URL::to('add-new-customer')}}"> Add Customer </a>
+        <a class="btn btn-info accBtn" href="{!!URL::to('add-new-customer')!!}"> Add Customer </a>
     </div>
     <p id="message" style="display:none">Saved...</p>
     <div class="row-fluid">
@@ -12,7 +12,7 @@
                 <div class="box-icon"> <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a> </div>
             </div>
             @if(Session::has('message'))
-            {{Session::get('message')}}
+            {!!Session::get('message')!!}
             @endif
              <div class="box-content admtable listCstm">
                 <div class="admtableInr">
@@ -42,8 +42,8 @@
 
                 foreach ($orders as $order) { ?>
                 <tr>
-                <td>{{$order->total}}({{$order->order_id}})</td>
-                <td>{{date('d/m/Y',strtotime($order->date))}}</td>
+                <td>{!!$order->total!!}({!!$order->order_id!!})</td>
+                <td>{!!date('d/m/Y',strtotime($order->date))!!}</td>
                 </tr>
                 <?php
                     }

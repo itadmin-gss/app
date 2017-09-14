@@ -21,37 +21,37 @@
                     
                 </div>
                 
-                {{ Form::open(array('url' => 'admin-create-vendor', 'id'=>'addVendorForm' , 'class'=>'form-horizontal')) }}
+                {!! Form::open(array('url' => 'admin-create-vendor', 'id'=>'addVendorForm' , 'class'=>'form-horizontal')) !!}
                     <fieldset>
                         <div class="row-fluid">
                             <div class="span6 offset3 centered">
                                 
                                 <div class="control-group">
-                                    {{Form::label('firstName', 'First Name *:', array('class' => 'control-label'))}}
+                                    {!!Form::label('firstName', 'First Name *:', array('class' => 'control-label'))!!}
                                     <div class="controls">
-                                        {{ Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'span10 typeahead','id'=>'firstName'))}}
+                                        {!! Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'span10 typeahead','id'=>'firstName'))!!}
                                     </div>
                                 </div>
                                 
                                 <div class="control-group">
-                                    {{Form::label('lastName', 'Last Name *:', array('class' => 'control-label'))}}
+                                    {!!Form::label('lastName', 'Last Name *:', array('class' => 'control-label'))!!}
                                     <div class="controls">
-                                        {{ Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'span10 typeahead','id'=>'lastName'))}}
+                                        {!! Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'span10 typeahead','id'=>'lastName'))!!}
                                     </div>
                                 </div>
                                 
                                 <div class="control-group">
-                                    {{Form::label('email', 'Email *:', array('class' => 'control-label'))}}
+                                    {!!Form::label('email', 'Email *:', array('class' => 'control-label'))!!}
                                     <div class="controls">
-                                        {{ Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email'))}}
+                                        {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email'))!!}
                                     </div>
                                 </div>
 
                                    <div class="control-group">
-                                {{ Form::label('typeahead', 'Password *', array('class' => 'control-label')) }}
+                                {!! Form::label('typeahead', 'Password *', array('class' => 'control-label')) !!}
                                 <div class="controls">
                                     <div class="input-append">
-                                        {{ Form::text('password', '', array('id' => 'password','class' => 'input-xlarge focused')) }}
+                                        {!! Form::text('password', '', array('id' => 'password','class' => 'input-xlarge focused')) !!}
                                     </div>
                                 </div>
                             </div>
@@ -60,8 +60,8 @@
                         </div>
                         <div class="form-actions">
                             <div class="pull-right">
-                                {{ Form::submit('Create', array('class'=>'btn btn-large btn-success text-left','id'=>'createVendorSaveButton'))}}
-                                {{ Form::button('Cancel', array('class'=>'btn btn-large btn-info text-right','id'=>'createVendorCancelButton'))}}
+                                {!! Form::submit('Create', array('class'=>'btn btn-large btn-success text-left','id'=>'createVendorSaveButton'))!!}
+                                {!! Form::button('Cancel', array('class'=>'btn btn-large btn-info text-right','id'=>'createVendorCancelButton'))!!}
                             </div>
                         </div>   
                     </fieldset>

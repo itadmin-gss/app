@@ -19,10 +19,10 @@
                         {{--*/ $checkAdmin = false /*--}}
                         @endif
 
-                        {{ Form::radio('roles', $userRole->role_name, $checkAdmin,
-            	array('class' => 'switch-input access-roles', 'role-id' => $userRole->id))}}
-                        {{ $userRole->role_name }}
-                        {{ Form::hidden('role-function',$userRole->id) }}
+                        {!! Form::radio('roles', $userRole->role_name, $checkAdmin,
+            	array('class' => 'switch-input access-roles', 'role-id' => $userRole->id))!!}
+                        {!! $userRole->role_name !!}
+                        {!! Form::hidden('role-function',$userRole->id) !!}
                     </div>
                     {{--*/ $loop++ /*--}}
                     @endforeach
@@ -38,11 +38,11 @@
             </div>
             <div class="alert alert-success" id="success-message">Success! Access Rights have been updated.</div>
             <span id="loader" style="display:none;align:center;">
-                {{HTML::image('public/assets/img/loader.gif', '',
-       array('height' => 200, 'width' => '200'))}}</span>
+                {!!HTML::image('public/assets/img/loader.gif', '',
+       array('height' => 200, 'width' => '200'))!!}</span>
             <div class="box-content text-center">
-                {{ Form::open(array('url' => 'update-access-rights', 'class'=>'form-horizontal',
-       'id' => 'access-rights-form')) }}
+                {!! Form::open(array('url' => 'update-access-rights', 'class'=>'form-horizontal',
+       'id' => 'access-rights-form')) !!}
                 <div class="row-fluid box">
                     <div class="row-fluid box">
 
@@ -65,27 +65,27 @@
                     </div>
                     @foreach ($roleFunctions[1] as $key=>$roleFunction)
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
 
                         <div class="span2">
-                            {{ Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -111,27 +111,27 @@
                     </div>
                     @foreach ($roleFunctions[2] as $key=>$roleFunction)
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
 
                         <div class="span2">
-                            {{ Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -157,26 +157,26 @@
                     </div>
                     @foreach ($roleFunctions[3] as $key=>$roleFunction)
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -201,26 +201,26 @@
                     </div>
                     @foreach ($roleFunctions[4] as $key=>$roleFunction)
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1' , $roleFunction['edit'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1' , $roleFunction['delete'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
-                            {{ Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1' , $roleFunction['view'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -247,31 +247,31 @@
                     @foreach ($roleFunctions[5] as $key=>$roleFunction)
 
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
 
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
 
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
-              array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
+              array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -298,31 +298,31 @@
                     @foreach ($roleFunctions[6] as $key=>$roleFunction)
 
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
 
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
 
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
-              array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
+              array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -349,31 +349,31 @@
                     @foreach ($roleFunctions[7] as $key=>$roleFunction)
 
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
 
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
 
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
-              array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
+              array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -399,31 +399,31 @@
                     @foreach ($roleFunctions[8] as $key=>$roleFunction)
 
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
 
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
 
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
-              array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
+              array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -449,31 +449,31 @@
                     @foreach ($roleFunctions[9] as $key=>$roleFunction)
 
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
 
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                	array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                	array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
 
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
-              array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
+              array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
@@ -503,36 +503,36 @@
                     @foreach ($roleFunctions[11] as $key=>$roleFunction)
 
                     <div class="row-fluid box">
-                        <div class="span3 text-left"> {{ $key }} </div>
+                        <div class="span3 text-left"> {!! $key !!} </div>
                         <div class="span2">
                             <?php
                             $str = snake_case($key);
                             $str = str_replace(" ", "", $str);
                             ?>
 
-                            {{ Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
-                    array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_add', '1' , $roleFunction['add'] ,
+                    array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
 
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
-              array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_edit', '1', $roleFunction['edit'] ,
+              array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_delete', '1', $roleFunction['delete'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                         <div class="span2">
 
-                            {{ Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
-                array('class' => 'switch-input', 'disabled' => 'disabled')) }}
+                            {!! Form::checkbox($str.'_view', '1', $roleFunction['view'] ,
+                array('class' => 'switch-input', 'disabled' => 'disabled')) !!}
                         </div>
                     </div>
                     @endforeach
                 </div>
-                {{Form::hidden('role_id', $role_id, array('id' => 'role_id'))}}
+                {!!Form::hidden('role_id', $role_id, array('id' => 'role_id'))!!}
             </div> <!-- box content -->
         </div>
     </div>
@@ -542,9 +542,9 @@
 
 <div class="row-fluid">
     <div class="box span12 text-right">
-        {{Form::button('Save', array('name'=>'save_continue',
-    'class'=>'btn btn-large btn-success', 'data-target' => "#assign", 'id' => 'save-access-rights'))}}
-        {{Form::close()}}
+        {!!Form::button('Save', array('name'=>'save_continue',
+    'class'=>'btn btn-large btn-success', 'data-target' => "#assign", 'id' => 'save-access-rights'))!!}
+        {!!Form::close()!!}
     </div>
     <!--/span-->
 </div>

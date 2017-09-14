@@ -9,10 +9,10 @@
 				<div class="box span12 text-center">
 					
 					<div class="span6 box text-center">   
-						<button class="btn btn-large btn-success"    {{ $request_maintenance->status!=1? '':'' }} onclick="accept_request('{{ $request_maintenance->id }}','{{ Auth::user()->id; }}')">Accept</button>
+						<button class="btn btn-large btn-success"    {!! $request_maintenance->status!=1? '':'' !!} onclick="accept_request('{!! $request_maintenance->id !!}','{!! Auth::user()->id; !!}')">Accept</button>
 					</div>
 					<div class="span6 box text-center">   
-						<button class="btn btn-large btn-danger"    {{ $request_maintenance->status!=1? '':'' }} onclick="decline_request('{{ $request_maintenance->id }}','{{ Auth::user()->id; }}')">Decline</button>
+						<button class="btn btn-large btn-danger"    {!! $request_maintenance->status!=1? '':'' !!} onclick="decline_request('{!! $request_maintenance->id !!}','{!! Auth::user()->id; !!}')">Decline</button>
 					</div>
 				</div><!--/span-->
 			</div><!--/row-->	
@@ -23,39 +23,39 @@
 						<h2>Service Request Details</h2>
 					</div>
       					@if(Session::has('message'))
-                            {{Session::get('message')}}
+                            {!!Session::get('message')!!}
                         @endif
       <div class="box-content">
         <table class="table"> 
 							  <tbody>
 								<tr>
 									<td class="center span3"><h2>Request ID:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->id }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->id !!}</h2></td>
 									<td class="center span3"><h2>Request Date:</h2></td>
-									<td class="center span3"><h2>{{ date('m/d/Y', strtotime($request_maintenance->created_at)) }}</h2></td>
+									<td class="center span3"><h2>{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</h2></td>
 								</tr>
 								<tr>
 									<td class="center span3"><h2>Property Address:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->property_address }}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({{ $request_maintenance->asset->id }})">View Property</button></h2> </td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->property_address !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button></h2> </td>
 						<td class="center span3"><h2>City:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->city->name }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->city->name !!}</h2></td>
 									
 								</tr>
 								<tr>
 									<td class="center span3"><h2>State:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->state->name }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->state->name !!}</h2></td>
 								<td class="center span3"><h2>Zip:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->zip }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->zip !!}</h2></td>
 		
 								</tr>
 
 							<tr>
 							<td class="center span3"><h2>Gate/Access Code:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->access_code }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->access_code !!}</h2></td>
 		
 							
 									<td class="center span3"><h2>Lock Box Code:</h2></td>
-									<td class="center span3"><h2>{{ $request_maintenance->asset->lock_box }}</h2></td>
+									<td class="center span3"><h2>{!! $request_maintenance->asset->lock_box !!}</h2></td>
 		
 					
 							</tr>
@@ -74,7 +74,7 @@
 				<div class="box span12">
 
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon edit"></i><span class="break"></span>{{$assigned->requestedService->service->title}}</h2>
+						<h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$assigned->requestedService->service->title!!}</h2>
 						
 						<?php if($assigned->requestedService->due_date==""){ ?>
 						
@@ -83,7 +83,7 @@
 						else 
 						{
 						?>
-						<h2> 	Due Date :{{$assigned->requestedService->due_date}}</h2>
+						<h2> 	Due Date :{!!$assigned->requestedService->due_date!!}</h2>
 						<?php
 						 } ?>
 						 </div>
@@ -106,25 +106,25 @@
              }  
 ?>
 						<?php //$totalPrice+=$assigned->requestedService->service->vendor_price;?>
-						  Price :  ${{$vendorPrice}}
+						  Price :  ${!!$vendorPrice!!}
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							
 						</div>
 					</div>
 					<div class="box-content">
 						<table> 
-						    <tr><td> {{$assigned->requestedService->service->desc}}</td></tr>
+						    <tr><td> {!!$assigned->requestedService->service->desc!!}</td></tr>
 								<!-- <tr>
-									<td class="center"><h2>Customer Note:</h2>{{$assigned->requestedService->service_note}}</td>
+									<td class="center"><h2>Customer Note:</h2>{!!$assigned->requestedService->service_note!!}</td>
 								</tr> -->
 
 								
 								<tr>
 									<div class="row-fluid browse-sec">
                                                    
-<button class="btn btn-large btn-success" onclick="accept_single_request('{{ $request_maintenance->id }}','{{ Auth::user()->id; }}','{{$assigned->requestedService->id}}')">Accept</button>
+<button class="btn btn-large btn-success" onclick="accept_single_request('{!! $request_maintenance->id !!}','{!! Auth::user()->id; !!}','{!!$assigned->requestedService->id!!}')">Accept</button>
 				<tr>
-									<td class="center"><h2>Public Note:</h2>{{$assigned->requestedService->public_notes}}</td>
+									<td class="center"><h2>Public Note:</h2>{!!$assigned->requestedService->public_notes!!}</td>
 								</tr>
             
                                                                             
@@ -138,14 +138,14 @@
                              if( $docType[1]=='jpeg'|| $docType[1]=='jpg'|| $docType[1]=='png'|| $docType[1]=='gif')
                              {
                             ?>
-                            <li style="width: 30%;margin-bottom: 15"> <a  href="{{URL::to('/')}}/{{Config::get('app.request_images').'/'.$images->image_name}}" target="_blank" > {{ HTML::image(Config::get('app.request_images').'/'.$images->image_name) }} </a></li>
+                            <li style="width: 30%;margin-bottom: 15"> <a  href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" target="_blank" > {!! HTML::image(Config::get('app.request_images').'/'.$images->image_name) !!} </a></li>
                           
 
                              <?php 
                           }  else {
                         	?>
                     
-                        <li> <a  href="{{URL::to('/')}}/{{Config::get('app.request_images').'/'.$images->image_name}}" target="_blank" > Download File {{$images->image_name}}</a></li>
+                        <li> <a  href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" target="_blank" > Download File {!!$images->image_name!!}</a></li>
                         	<?php
                         	}
                             ?> @endforeach
@@ -165,7 +165,7 @@
 			
 		
 			
-		  <div style="float:right;"><h2>Total Price : ${{$totalPrice}}</h2></div>
+		  <div style="float:right;"><h2>Total Price : ${!!$totalPrice!!}</h2></div>
     
     
     
@@ -196,11 +196,11 @@
 			</div>
 			<div class="modal-body">
 			 Please enter notes for your reason of decline
-				{{Form::textarea('decline_note', $request_maintenance->decline_notes,array('class'=>'span','id'=>'declinenote'))}}
+				{!!Form::textarea('decline_note', $request_maintenance->decline_notes,array('class'=>'span','id'=>'declinenote'))!!}
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary" onclick="decline_request('{{ $request_maintenance->id }}','{{ Auth::user()->id; }}')">Save changes</a>
+				<a href="#" class="btn btn-primary" onclick="decline_request('{!! $request_maintenance->id !!}','{!! Auth::user()->id; !!}')">Save changes</a>
 			</div>
 		</div>
   

@@ -75,11 +75,11 @@
 
            
 
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $rm->id }}</td>
+            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->last_name)) {{ $rm->user2->last_name }} @endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->last_name)) {!! $rm->user2->last_name !!} @endif</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->user->first_name)) {{ $rm->user->first_name }} @endif @if(isset($rm->user->last_name)) {{ $rm->user->last_name }} @endif </td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->user->first_name)) {!! $rm->user->first_name !!} @endif @if(isset($rm->user->last_name)) {!! $rm->user->last_name !!} @endif </td>
 
             <td @if($rm->emergency_request==1) style="background-color:red;" @endif></td>
 
@@ -87,7 +87,7 @@
 
 
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->property_address }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
 
   
 
@@ -97,7 +97,7 @@
 
                     <?php if(isset($rm->asset->city->name)){?>
 
-                                                 <td @if($rm->emergency_request==1) style="background-color:red;" @endif>  {{ $rm->asset->city->name }}</td>
+                                                 <td @if($rm->emergency_request==1) style="background-color:red;" @endif>  {!! $rm->asset->city->name !!}</td>
 
                                                <?php } else {?>
 
@@ -111,7 +111,7 @@
 
                                   <?php if(isset( $rm->asset->state->name)){?>
 
-                                                  <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $rm->asset->state->name }}</td>
+                                                  <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->asset->state->name !!}</td>
 
                                              <?php   } else {?>
 
@@ -131,11 +131,11 @@
 
 
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->zip }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->zip !!}</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;}} </td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;!!} </td>
  <td>@if(isset($rm->jobType->id))
-                {{$rm->jobType->title}}
+                {!!$rm->jobType->title!!}
   
             @endif </td>
            <?php
@@ -177,7 +177,7 @@ $servicedate="";
             ?>
            
 
-  <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $servicedate }} </td>
+  <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
 
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
 
@@ -207,11 +207,11 @@ $servicedate="";
 
             <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif>
 
-            <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{{ $rm->id }}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>
+            <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>
 
-            <a class="btn btn-danger" href="cancel-maintenance-request/{{ $rm->id }}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon trash halflings-icon"></i> </a>
+            <a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon trash halflings-icon"></i> </a>
 
-            <a class="btn btn-danger" href="delete-maintenance-request/{{ $rm->id }}" title="Delete" onclick="return confirm('Are you sure you want to Cancel?')"> <i class="halflings-icon remove halflings-icon"></i> </a>
+            <a class="btn btn-danger" href="delete-maintenance-request/{!! $rm->id !!}" title="Delete" onclick="return confirm('Are you sure you want to Cancel?')"> <i class="halflings-icon remove halflings-icon"></i> </a>
 
             </td>
 
@@ -231,15 +231,15 @@ $servicedate="";
 
            
 
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $rm->id }}</td>
+            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {{ $rm->user2->last_name }} @endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->last_name !!} @endif</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{ $rm->user->first_name }} {{ $rm->user->last_name }}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->user->first_name !!} {!! $rm->user->last_name !!}</td>
 
 
 
-          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{ $rm->user->email }}</td>
+          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->user->email !!}</td>
 
   <?php
 
@@ -333,19 +333,19 @@ $servicedate="";
 
 
 
-            <td  @if($rm->emergency_request==1) style="background-color:red;" @endif>{{$assignedUsers}}</td>
+            <td  @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!$assignedUsers!!}</td>
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->property_address }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->city->name }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->city->name !!}</td>
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->state->name }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->state->name !!}</td>
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{{  $rm->asset->zip }}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->zip !!}</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;}} </td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;!!} </td>
              <td>@if(isset($rm->jobType->id))
-                {{$rm->jobType->title}}
+                {!!$rm->jobType->title!!}
   
             @endif </td>
            <?php
@@ -386,10 +386,10 @@ $servicedate="";
 
             ?>
 
-          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {{ $servicedate }} </td>
+          <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
 
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-            <td class="center">{{ $order['billing_note'] }}</td>
+            <td class="center">{!! $order['billing_note'] !!}</td>
              @if($rm->status==4)
 
             <span class="label label-important">Cancelled</span>
@@ -404,7 +404,7 @@ $servicedate="";
 
          
 
-            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif><a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{{ $rm->id }}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a><a class="btn btn-danger" href="cancel-maintenance-request/{{ $rm->id }}" title="Cancel" onclick="return confirm('Are you sure you want to Cancel?')"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif><a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a><a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to Cancel?')"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
 
           </tr>
 

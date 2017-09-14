@@ -24,7 +24,7 @@
             <div class="box-content datatablegrid admtable">
             <div class="admtableInr">
                 @if(Session::has('message'))
-                {{Session::get('message')}}
+                {!!Session::get('message')!!}
                 @endif
 
                 <table class="table table-striped table-bordered bootstrap-datatable datatable">
@@ -80,8 +80,8 @@
                         ?>
 
                         <tr>
-                          <td>{{$asset->property_address}}</td>
-                          <td>{{$asset->property_status}}</td>
+                          <td>{!!$asset->property_address!!}</td>
+                          <td>{!!$asset->property_status!!}</td>
                        
 
                      
@@ -96,15 +96,15 @@
                         ?>
 
                         <td> 
-              Recurring ID:  {{$rm->id}} <br/>
-              Recurring Duration:  {{$rm->duration}} days<br/>
-              Recurring Service:  {{$rm->requestedService->service->title}}<br/>
-              Vendor Name:  @if(isset($rm->user->first_name)) {{$rm->user->first_name}} @else @endif  @if(isset($rm->user->last_name)) {{$rm->user->last_name}} @else Not assigned @endif <br/><br/>
-              Completion Date:  @if(isset($rm->requestedService->orderDetail->order->completion_date)) {{$rm->requestedService->orderDetail->order->completion_date}} @else Not Completed @endif<br/>
-              Order ID:  @if(isset($rm->requestedService->orderDetail->order->id)) {{$rm->requestedService->orderDetail->order->id}} @else No Order @endif<br/>
+              Recurring ID:  {!!$rm->id!!} <br/>
+              Recurring Duration:  {!!$rm->duration!!} days<br/>
+              Recurring Service:  {!!$rm->requestedService->service->title!!}<br/>
+              Vendor Name:  @if(isset($rm->user->first_name)) {!!$rm->user->first_name!!} @else @endif  @if(isset($rm->user->last_name)) {!!$rm->user->last_name!!} @else Not assigned @endif <br/><br/>
+              Completion Date:  @if(isset($rm->requestedService->orderDetail->order->completion_date)) {!!$rm->requestedService->orderDetail->order->completion_date!!} @else Not Completed @endif<br/>
+              Order ID:  @if(isset($rm->requestedService->orderDetail->order->id)) {!!$rm->requestedService->orderDetail->order->id!!} @else No Order @endif<br/>
 
               
-              Next Due Date:{{$rm->start_date}} </td>
+              Next Due Date:{!!$rm->start_date!!} </td>
                            <?php
                        
                          }
@@ -160,7 +160,7 @@
             <div class="box-content datatablegrid2 admtable">
             <div class="admtableInr">
                 @if(Session::has('message'))
-                {{Session::get('message')}}
+                {!!Session::get('message')!!}
                 @endif
 
                 <table class="table table-striped table-bordered bootstrap-datatable datatable2">
@@ -186,11 +186,11 @@
                        
                         <tr>
 
-                            <td>{{$asset->asset_number}}</td>
-                            <td>{{$asset->property_address}}</td>
-                            <td>{{$assetOrder->id}}</td>
-                            <td> @if(isset($assetOrder->customer->first_name))  {{$assetOrder->customer->first_name}} @endif   @if(isset($assetOrder->customer->last_name))  {{$assetOrder->customer->last_name}} @endif  </td>
-                           <td> @if(isset($assetOrder->vendor->first_name))  {{$assetOrder->vendor->first_name}} @endif @if(isset($assetOrder->vendor->last_name))  {{$assetOrder->vendor->last_name}} @endif</td>
+                            <td>{!!$asset->asset_number!!}</td>
+                            <td>{!!$asset->property_address!!}</td>
+                            <td>{!!$assetOrder->id!!}</td>
+                            <td> @if(isset($assetOrder->customer->first_name))  {!!$assetOrder->customer->first_name!!} @endif   @if(isset($assetOrder->customer->last_name))  {!!$assetOrder->customer->last_name!!} @endif  </td>
+                           <td> @if(isset($assetOrder->vendor->first_name))  {!!$assetOrder->vendor->first_name!!} @endif @if(isset($assetOrder->vendor->last_name))  {!!$assetOrder->vendor->last_name!!} @endif</td>
                           
                             <?php
                             $servicedate="";
@@ -211,15 +211,15 @@
 
                         }
                         ?>
-                        <td>{{ $servicedate}}</td>
+                        <td>{!! $servicedate!!}</td>
                         <td class="center">
-                            <a class="btn btn-success "  href="view-order/{{$assetOrder->id}}" id="{{$asset->id}}">
+                            <a class="btn btn-success "  href="view-order/{!!$assetOrder->id!!}" id="{!!$asset->id!!}">
                                 <i class="halflings-icon zoom-in halflings-icon"></i>
                             </a>
-                            <a class="btn btn-info" href="edit-order/{{$assetOrder->id}}">
+                            <a class="btn btn-info" href="edit-order/{!!$assetOrder->id!!}">
                                 <i class="halflings-icon edit halflings-icon"></i>
                             </a>
-                                <!--<a class="btn btn-danger" onclick="" href="delete-customer-asset/{{$asset->id}}">
+                                <!--<a class="btn btn-danger" onclick="" href="delete-customer-asset/{!!$asset->id!!}">
                                                                     <i class="halflings-icon trash halflings-icon"></i>
                                                                 </a>-->
                                 </td>
@@ -244,7 +244,7 @@
             <div class="box-content datatablegrid3 admtable">
             <div class="admtableInr">
                 @if(Session::has('message'))
-                {{Session::get('message')}}
+                {!!Session::get('message')!!}
                 @endif
 
                 <table class="table table-striped table-bordered bootstrap-datatable datatable3">
@@ -268,14 +268,14 @@
                         @foreach ($asset->maintenanceRequest as $assetReq)
                         @foreach ($assetReq->invoiceRequest as $assetInv)
                         <tr>
-                            <td>{{$asset->asset_number}}</td>
-                            <td>{{$asset->property_address}}</td>
-                            <td>{{$assetInv->id}}</td>
-                            <td>{{$assetInv->order->id}}</td>
+                            <td>{!!$asset->asset_number!!}</td>
+                            <td>{!!$asset->property_address!!}</td>
+                            <td>{!!$assetInv->id!!}</td>
+                            <td>{!!$assetInv->order->id!!}</td>
                             @if($assetInv->user_type_id==2)
-                            <td>Customer -@if(isset($assetInv->customer->first_name))  {{$assetInv->customer->first_name}} @endif   @if(isset($assetInv->customer->last_name))  {{$assetInv->customer->last_name}} @endif   </td>
+                            <td>Customer -@if(isset($assetInv->customer->first_name))  {!!$assetInv->customer->first_name!!} @endif   @if(isset($assetInv->customer->last_name))  {!!$assetInv->customer->last_name!!} @endif   </td>
                             @else
-                            <td>Vendor - @if(isset($assetInv->vendor->first_name))  {{$assetInv->vendor->first_name}} @endif   @if(isset($assetInv->vendor->last_name))  {{$assetInv->vendor->last_name}} @endif   </td>
+                            <td>Vendor - @if(isset($assetInv->vendor->first_name))  {!!$assetInv->vendor->first_name!!} @endif   @if(isset($assetInv->vendor->last_name))  {!!$assetInv->vendor->last_name!!} @endif   </td>
                             
                             @endif
 
@@ -298,16 +298,16 @@
 
                         }
                         ?>
-                        <td>{{ $servicedate}}</td>
-                          <td>{{$assetInv->total_amount}}</td>
+                        <td>{!! $servicedate!!}</td>
+                          <td>{!!$assetInv->total_amount!!}</td>
                         <td class="center">
-                            <a class="btn btn-success " href="view-order/{{$assetInv->order->id}}"id="{{$asset->id}}">
+                            <a class="btn btn-success " href="view-order/{!!$assetInv->order->id!!}"id="{!!$asset->id!!}">
                                 <i class="halflings-icon zoom-in halflings-icon"></i>
                             </a>
-                            <a class="btn btn-info" href="edit-order/{{$assetInv->order->id}}">
+                            <a class="btn btn-info" href="edit-order/{!!$assetInv->order->id!!}">
                                 <i class="halflings-icon edit halflings-icon"></i>
                             </a>
-                                <!--<a class="btn btn-danger" onclick="" href="delete-customer-asset/{{$asset->id}}">
+                                <!--<a class="btn btn-danger" onclick="" href="delete-customer-asset/{!!$asset->id!!}">
                                                                     <i class="halflings-icon trash halflings-icon"></i>
                                                                 </a>-->
                                 </td>
@@ -336,7 +336,7 @@
             <div class="box-content datatablegrid4 admtable">
             <div class="admtableInr">
                 @if(Session::has('message'))
-                {{Session::get('message')}}
+                {!!Session::get('message')!!}
                 @endif
 
                 <table class="table table-striped table-bordered bootstrap-datatable datatable4">
@@ -355,8 +355,8 @@
                         @foreach ($assets_data as $asset)
                         @foreach ($asset->bidRequest as $assetReq)
                         <tr>
-                            <td>{{$asset->asset_number}}</td>
-                            <td>{{$asset->property_address}}</td>
+                            <td>{!!$asset->asset_number!!}</td>
+                            <td>{!!$asset->property_address!!}</td>
                        
                             </tr>
                             @endforeach
