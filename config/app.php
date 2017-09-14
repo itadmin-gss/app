@@ -1,26 +1,19 @@
 <?php
 
-if (! isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off') {
-    $redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    header("Location: $redirect_url");
-    exit();
-}
-
 return [
 
+	/*
+	|--------------------------------------------------------------------------
+	| Application Debug Mode
+	|--------------------------------------------------------------------------
+	|
+	| When your application is in debug mode, detailed error messages with
+	| stack traces will be shown on every error that occurs within your
+	| application. If disabled, a simple generic error page is shown.
+	|
+	*/
 
-    /*
-      |--------------------------------------------------------------------------
-      | Application Debug Mode
-      |--------------------------------------------------------------------------
-      |
-      | When your application is in debug mode, detailed error messages with
-      | stack traces will be shown on every error that occurs within your
-      | application. If disabled, a simple generic error page is shown.
-      |
-     */
-
-    'debug' => true,
+	'debug' => env('APP_DEBUG'),
 
     'log' => 'daily',
     /*
@@ -120,7 +113,7 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-        'Jcf\Geocode\GeocodeServiceProvider'
+        'Jcf\Geocode\GeocodeServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Foundation\Providers\FoundationServiceProvider',
         'Illuminate\Pipeline\PipelineServiceProvider',
