@@ -127,7 +127,6 @@ return [
         'Illuminate\Queue\QueueServiceProvider',
         'Illuminate\Redis\RedisServiceProvider',
         'Illuminate\Session\SessionServiceProvider',
-        Laravel\Tinker\TinkerServiceProvider::class,
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
