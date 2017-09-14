@@ -8,12 +8,13 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "laravel/framework": "5.0.*",
+        "laravel/framework": "5.1.*",
         "doctrine/dbal": "v2.4.2",
         "consolibyte/quickbooks": "dev-master",
         "jcf/geocode": "dev-master",
         "jeroendesloovere/geolocation-php-api": "dev-master",
-        "laravelcollective/html": "~5.0"
+        "laravelcollective/html": "5.1.*",
+        "php": ">=5.5.9"
     },
     "autoload": {
         "classmap": [
@@ -25,11 +26,11 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "php artisan clear-compiled",
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
             "php artisan optimize"
         ],
         "post-update-cmd": [
-            "php artisan clear-compiled",
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ],
         "post-create-project-cmd": [
