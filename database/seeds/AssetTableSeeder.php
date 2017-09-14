@@ -1,8 +1,10 @@
 <?php
 
-class AssetTableSeeder extends Seeder {
+class AssetTableSeeder extends Seeder
+{
 
-    public function run() {
+    public function run()
+    {
         DB::table('assets')->delete();
         DB::table('assets')->insert(array(
             'asset_number' => 10001,
@@ -58,5 +60,4 @@ class AssetTableSeeder extends Seeder {
             'longitude' => '-103.1807294',
         ));
     }
-
 }

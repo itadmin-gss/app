@@ -1,19 +1,18 @@
 <?php
 
 
-class Registration extends BaseTenantModel  {
+class Registration extends BaseTenantModel
+{
 
-	
+    
 
-  protected $table = 'user'; 
+    protected $table = 'user';
        
-  public static function userTypeId($id){
+    public static function userTypeId($id)
+    {
       
         $user_detail = self::find($id);
         $id = $user_detail['type_id'];
-        return $id; 
-  }
-        
- }
-
-
+        return $id;
+    }
+}

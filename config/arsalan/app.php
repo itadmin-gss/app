@@ -2,7 +2,7 @@
 
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
 	|--------------------------------------------------------------------------
@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
-	'url' => 'http://localhost/gss-dev/php',
-	'admin_email' => 'arsalan@invortex.com'
+    'debug' => true,
+    'url' => 'http://localhost/gss-dev/php',
+    'admin_email' => 'arsalan@invortex.com'
 );

@@ -1,6 +1,7 @@
 <?php
 
-class EmergencyRequestDetail extends BaseTenantModel {
+class EmergencyRequestDetail extends BaseTenantModel
+{
 
     /**
      * The database table used by the model.
@@ -9,6 +10,4 @@ class EmergencyRequestDetail extends BaseTenantModel {
      */
     protected $table = 'emergency_request_details';
     protected $fillable = array('id', 'emergency_request_id', 'request_id','vendor_id', 'distance','status');
-
-
 }

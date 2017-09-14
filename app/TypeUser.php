@@ -1,11 +1,9 @@
 <?php
 
 
-class TypeUser extends BaseTenantModel  {
+class TypeUser extends BaseTenantModel
+{
 
-	
-       protected $table = 'user_type'; 
-	   
-	   
-        
+    
+    protected $table = 'user_type';
 }

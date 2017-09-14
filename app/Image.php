@@ -1,6 +1,7 @@
 <?php
 
-class Image extends BaseTenantModel {
+class Image extends BaseTenantModel
+{
 
     /**
      * The database table used by the model.
@@ -15,8 +16,7 @@ class Image extends BaseTenantModel {
      *
      * @var array
      */
-    public static function addImage($data) {
-        
+    public static function addImage($data)
+    {
     }
-
 }

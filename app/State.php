@@ -6,7 +6,8 @@
 
 
 
-class State extends BaseTenantModel {
+class State extends BaseTenantModel
+{
 
 
 
@@ -66,14 +67,12 @@ class State extends BaseTenantModel {
 
 
 
-    public function city(){
+    public function city()
+    {
 
 
 
-       return $this->hasMany('City','state_id');
-
-
-
+        return $this->hasMany('City', 'state_id');
     }
 
 
@@ -82,7 +81,8 @@ class State extends BaseTenantModel {
 
 
 
-    public static function getAllStates(){        
+    public static function getAllStates()
+    {
 
 
 
@@ -91,28 +91,19 @@ class State extends BaseTenantModel {
 
 
         return $states;
-
-
-
     }
 
 
 
     // func to get state via id by shm
 
-    public static function getStateByID($id) {
+    public static function getStateByID($id)
+    {
 
         $state = self::find($id);
 
         // return  $state->name; // return state name
 
         return $state['name'];
-
     }
-
-
-
 }
-
-
-

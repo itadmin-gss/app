@@ -1,9 +1,10 @@
 <?php
 
-class RoleFunctionTableSeeder extends Seeder {
+class RoleFunctionTableSeeder extends Seeder
+{
 
-	public function run()
-        {
+    public function run()
+    {
             DB::table('role_functions')->delete();
             DB::statement('ALTER TABLE role_functions AUTO_INCREMENT = 1;');
             DB::table('role_functions')->insert(array('role_function'=>'User',
@@ -30,6 +31,5 @@ class RoleFunctionTableSeeder extends Seeder {
             'status'=>1,'access_function_id'=>9));
             DB::table('role_functions')->insert(array( 'role_function'=>'Special Price',
             'status'=>1,'access_function_id'=>10));
-        }
-
+    }
 }

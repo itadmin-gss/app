@@ -3,8 +3,8 @@
 class ServiceTableSeeder extends Seeder
 {
 
-	public function run()
-        {
+    public function run()
+    {
             DB::table('services')->delete();
 
             DB::table('services')->insert(array('title'=>'interior / Exterior Painting','price'=>'','status'=>'1'));
@@ -19,8 +19,5 @@ class ServiceTableSeeder extends Seeder
             DB::table('services')->insert(array('title'=>'Fences','price'=>'','status'=>'1'));
             DB::table('services')->insert(array('title'=>'Ceramic Tile','price'=>'','status'=>'1'));
             DB::table('services')->insert(array('title'=>'Roofing','price'=>'','status'=>'1'));
-            
-            
-        }
-
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Order extends BaseTenantModel {
+class Order extends BaseTenantModel
+{
 
     protected $table = 'orders';
     protected $fillable = array('id', 'request_id', 'vendor_id', 'total_amount', 'status','status_class','status_text', 'created_at', 'updated_at','customer_id','completion_date','approved_date','close_property_status','bid_flag');
@@ -24,7 +25,7 @@ class Order extends BaseTenantModel {
     {
         return $this->hasMany('request_id');
     }
-     public function scopeRequest()
+    public function scopeRequest()
     {
         return $this->belongsTo('MaintenanceRequest', 'request_id');
     }
@@ -65,26 +66,23 @@ class Order extends BaseTenantModel {
     }
 
     
-    public static function dashBoardOrders($user_id=null,$status=0)
+    public static function dashBoardOrders($user_id = null, $status = 0)
     {
-          if($status!=0)
-          {
-        $orders = self::where('customer_id', '=', $user_id)
+        if ($status!=0) {
+            $orders = self::where('customer_id', '=', $user_id)
 
-                            ->where('status','=',$status)
-                            ->skip(0)
-                            ->take(5)
-                            ->orderBy('id', 'desc')
-                            ->get();
-                        }
-                        else
-                        {
-                             $orders = self::where('customer_id', '=', $user_id)
-                            ->skip(0)
-                            ->take(5)
-                            ->orderBy('id', 'desc')
-                            ->get();
-                        }
+                        ->where('status', '=', $status)
+                        ->skip(0)
+                        ->take(5)
+                        ->orderBy('id', 'desc')
+                        ->get();
+        } else {
+            $orders = self::where('customer_id', '=', $user_id)
+            ->skip(0)
+            ->take(5)
+            ->orderBy('id', 'desc')
+            ->get();
+        }
         //For all workorder those are recently completed
         $list_orders = array();
         $i = 0;
@@ -93,31 +91,27 @@ class Order extends BaseTenantModel {
 
             
             $vendorfirstname="";
-            if(isset(       $order->vendor->first_name))
-            {
-               $vendorfirstname= $order->vendor->first_name;
-
+            if (isset($order->vendor->first_name)) {
+                $vendorfirstname= $order->vendor->first_name;
             }
 
             $vendorlastname="";
-            if(isset(       $order->vendor->last_name))
-            {
-               $vendorlastname= $order->vendor->last_name;
-
+            if (isset($order->vendor->last_name)) {
+                $vendorlastname= $order->vendor->last_name;
             }
 
             $list_orders[$i]['request_id'] = $order->request_id;
             $list_orders[$i]['vendor_name'] = $vendorfirstname . ' ' . $vendorlastname;
             $list_orders[$i]['asset_number']="";
-            if(isset($order->maintenanceRequest->asset->asset_number))
-            {
+            if (isset($order->maintenanceRequest->asset->asset_number)) {
                 $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
-
             }
 
             $list_orders[$i]['status'] = $order->status;
-            $list_orders[$i]['status_class'] = ($order->status==1)? "warning": $order->status_class; ;
-            $list_orders[$i]['status_text'] = ($order->status==1)? "In-Process":$order->status_text;;
+            $list_orders[$i]['status_class'] = ($order->status==1)? "warning": $order->status_class;
+            ;
+            $list_orders[$i]['status_text'] = ($order->status==1)? "In-Process":$order->status_text;
+            ;
 
 
             $list_orders[$i]['service_name'] = '';
@@ -128,5 +122,4 @@ class Order extends BaseTenantModel {
         }
          return $list_orders;
     }
-
 }

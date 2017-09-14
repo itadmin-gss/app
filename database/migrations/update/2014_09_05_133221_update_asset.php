@@ -3,18 +3,18 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateAsset extends Migration {
+class UpdateAsset extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		
-		Schema::table('assets', function($table)
-                {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        
+        Schema::table('assets', function ($table) {
                     $table->text('property_address')->nullable();
                     $table->string('lock_box', 60)->nullable();
                     $table->string('access_code', 60)->nullable();
@@ -29,17 +29,15 @@ class UpdateAsset extends Migration {
                     $table->string('swimming_pool', 60)->nullable();
                     $table->dropColumn('gas_note');
                     $table->dropColumn('water_note');
-                });
-	}
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-            
-        }
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+    }
 }

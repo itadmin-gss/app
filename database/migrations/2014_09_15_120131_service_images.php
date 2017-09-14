@@ -3,15 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ServiceImages extends Migration {
+class ServiceImages extends Migration
+{
 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
-        Schema::create('service_images', function($table) {
+    public function up()
+    {
+        Schema::create('service_images', function ($table) {
             $table->increments('id');
             $table->integer('requested_id')->unsigned()->nullable();
             $table->foreign('requested_id')->references('id')->on('requested_services')->onDelete('cascade');
@@ -27,8 +29,8 @@ class ServiceImages extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         //
     }
-
 }

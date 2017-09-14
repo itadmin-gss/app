@@ -16,7 +16,8 @@
 
  */
 
-class QuickBookController extends \BaseController {
+class QuickBookController extends \BaseController
+{
 
 
 
@@ -30,82 +31,75 @@ class QuickBookController extends \BaseController {
 
      */
 
-    public function index() {
+    public function index()
+    {
 
 
-	 	$this->qbwc();
-
-	 
-
+        $this->qbwc();
     }
 
-	
+    
 
-	public function config()
+    public function config()
+    {
+        die('shery');
+        $name = 'QuickBooks Demo';          // A name for your server (make it whatever you want)
 
-	{
-die('shery');
-		$name = 'QuickBooks Demo';			// A name for your server (make it whatever you want)
-
-		$descrip = 'QuickBooks Demo';		// A description of your server 
-
-
-
-		$appurl = 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/qbwc';		// This *must* be httpS:// (path to your QuickBooks SOAP server)
-
-		$appsupport = $appurl; 		// This *must* be httpS:// and the domain name must match the domain name above
+        $descrip = 'QuickBooks Demo';       // A description of your server
 
 
 
-		$username = Config::get('quickbooks.quickbooks_user');		// This is the username you stored in the 'quickbooks_user' table by using QuickBooks_Utilities::createUser()
+        $appurl = 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/qbwc';      // This *must* be httpS:// (path to your QuickBooks SOAP server)
+
+        $appsupport = $appurl;      // This *must* be httpS:// and the domain name must match the domain name above
 
 
 
-		$fileid = QuickBooks_WebConnector_QWC::fileID();		// Just make this up, but make sure it keeps that format
-
-		$ownerid = QuickBooks_WebConnector_QWC::ownerID();		// Just make this up, but make sure it keeps that format
+        $username = Config::get('quickbooks.quickbooks_user');      // This is the username you stored in the 'quickbooks_user' table by using QuickBooks_Utilities::createUser()
 
 
 
-		$qbtype = QUICKBOOKS_TYPE_QBFS;	// You can leave this as-is unless you're using QuickBooks POS
+        $fileid = QuickBooks_WebConnector_QWC::fileID();        // Just make this up, but make sure it keeps that format
+
+        $ownerid = QuickBooks_WebConnector_QWC::ownerID();      // Just make this up, but make sure it keeps that format
 
 
 
-		$readonly = false; // No, we want to write data to QuickBooks
+        $qbtype = QUICKBOOKS_TYPE_QBFS; // You can leave this as-is unless you're using QuickBooks POS
 
 
 
-		$run_every_n_seconds = 600; // Run every 600 seconds (10 minutes)
+        $readonly = false; // No, we want to write data to QuickBooks
 
 
 
-		// Generate the XML file
-
-		$QWC = new QuickBooks_WebConnector_QWC($name, $descrip, $appurl, $appsupport, $username, $fileid, $ownerid, $qbtype, $readonly, $run_every_n_seconds);
-
-		$xml = $QWC->generate();
+        $run_every_n_seconds = 600; // Run every 600 seconds (10 minutes)
 
 
 
-		// Send as a file download
+        // Generate the XML file
 
-		header('Content-type: text/xml');
+        $QWC = new QuickBooks_WebConnector_QWC($name, $descrip, $appurl, $appsupport, $username, $fileid, $ownerid, $qbtype, $readonly, $run_every_n_seconds);
 
-		//header('Content-Disposition: attachment; filename="my-quickbooks-wc-file.qwc"');
-
-		print($xml);
-
-		exit;
+        $xml = $QWC->generate();
 
 
- 
-	}
 
-	
+        // Send as a file download
 
-	public function qbwc()
+        header('Content-type: text/xml');
 
-	{
+        //header('Content-Disposition: attachment; filename="my-quickbooks-wc-file.qwc"');
+
+        print($xml);
+
+        exit;
+    }
+
+    
+
+    public function qbwc()
+    {
 // 		if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 //     echo 'no mysqli :(';
 // } else {
@@ -113,194 +107,184 @@ die('shery');
 // }
 // die;
 
-		$user = 'quickbooks';
-		$pass = 'password';
+        $user = 'quickbooks';
+        $pass = 'password';
 
-		
+        
 
-		$username = Config::get('database.connections.mysql.username');
+        $username = Config::get('database.connections.mysql.username');
 
-	  	$password = Config::get('database.connections.mysql.password');
+        $password = Config::get('database.connections.mysql.password');
 
-		// Memory limit
+        // Memory limit
 
-		ini_set('memory_limit', Config::get('quickbooks.quickbooks_memorylimit'));
+        ini_set('memory_limit', Config::get('quickbooks.quickbooks_memorylimit'));
 
-		
+        
 
-		// We need to make sure the correct timezone is set, or some PHP installations will complain
+        // We need to make sure the correct timezone is set, or some PHP installations will complain
 
-		if (function_exists('date_default_timezone_set'))
+        if (function_exists('date_default_timezone_set')) {
+            // * MAKE SURE YOU SET THIS TO THE CORRECT TIMEZONE! *
 
-		{
+            // List of valid timezones is here: http://us3.php.net/manual/en/timezones.php
 
-			// * MAKE SURE YOU SET THIS TO THE CORRECT TIMEZONE! *
+            date_default_timezone_set(Config::get('quickbooks.quickbooks_tz'));
+        }
 
-			// List of valid timezones is here: http://us3.php.net/manual/en/timezones.php
+                
 
-			date_default_timezone_set(Config::get('quickbooks.quickbooks_tz'));
+        // Map QuickBooks actions to handler functions
 
-		}
+        $map = array(
 
-				
+            QUICKBOOKS_ADD_CUSTOMER => array( array( $this, 'addCustomerRequest' ), array( $this, 'addCustomerResponse' ) ),
 
-		// Map QuickBooks actions to handler functions
+            );
 
-		$map = array(
+        
 
-			QUICKBOOKS_ADD_CUSTOMER => array( array( $this, 'addCustomerRequest' ), array( $this, 'addCustomerResponse' ) ),
+        // Catch all errors that QuickBooks throws with this function
 
-			);
+        $errmap = array(
 
-		
+            '*' => array( $this, '_catchallErrors' ),
 
-		// Catch all errors that QuickBooks throws with this function 
+            );
 
-		$errmap = array(
+        
 
-			'*' => array( $this, '_catchallErrors' ),
+        // Call this method whenever the Web Connector connects
 
-			);
+        $hooks = array(
 
-		
+            //QuickBooks_WebConnector_Handlers::HOOK_LOGINSUCCESS => array( array( $this, '_loginSuccess' ) ), 	// Run this function whenever a successful login occurs
 
-		// Call this method whenever the Web Connector connects
+            );
 
-		$hooks = array(
+        
 
-			//QuickBooks_WebConnector_Handlers::HOOK_LOGINSUCCESS => array( array( $this, '_loginSuccess' ) ), 	// Run this function whenever a successful login occurs
+        // An array of callback options
 
-			);
+        $callback_options = array();
 
-		
+        
 
-		// An array of callback options
+        // Logging level
 
-		$callback_options = array();
+        $log_level = Config::get('quickbooks.quickbooks_loglevel');
 
-		
+        
 
-		// Logging level
+        // What SOAP server you're using
 
-		$log_level = Config::get('quickbooks.quickbooks_loglevel');
+        //$soapserver = QUICKBOOKS_SOAPSERVER_PHP;			// The PHP SOAP extension, see: www.php.net/soap
 
-		
+        $soapserver = QUICKBOOKS_SOAPSERVER_BUILTIN;        // A pure-PHP SOAP server (no PHP ext/soap extension required, also makes debugging easier)
 
-		// What SOAP server you're using 
+        
 
-		//$soapserver = QUICKBOOKS_SOAPSERVER_PHP;			// The PHP SOAP extension, see: www.php.net/soap
+        $soap_options = array(      // See http://www.php.net/soap
 
-		$soapserver = QUICKBOOKS_SOAPSERVER_BUILTIN;		// A pure-PHP SOAP server (no PHP ext/soap extension required, also makes debugging easier)
+            );
 
-		
+        
 
-		$soap_options = array(		// See http://www.php.net/soap
+        $handler_options = array(
 
-			);
+            'deny_concurrent_logins' => false,
 
-		
+            'deny_reallyfast_logins' => false,
 
-		$handler_options = array(
+            );      // See the comments in the QuickBooks/Server/Handlers.php file
 
-			'deny_concurrent_logins' => false, 
+        
 
-			'deny_reallyfast_logins' => false, 
+        $driver_options = array(        // See the comments in the QuickBooks/Driver/<YOUR DRIVER HERE>.php file ( i.e. 'Mysql.php', etc. )
 
-			);		// See the comments in the QuickBooks/Server/Handlers.php file
+            'max_log_history' => 32000, // Limit the number of quickbooks_log entries to 1024
 
-		
+            'max_queue_history' => 1024,    // Limit the number of *successfully processed* quickbooks_queue entries to 64
 
-		$driver_options = array(		// See the comments in the QuickBooks/Driver/<YOUR DRIVER HERE>.php file ( i.e. 'Mysql.php', etc. )
+            );
 
-			'max_log_history' => 32000,	// Limit the number of quickbooks_log entries to 1024
+        
 
-			'max_queue_history' => 1024, 	// Limit the number of *successfully processed* quickbooks_queue entries to 64
+        // Build the database connection string
 
-			);
+        $db_user = Config::get('database.connections.mysql.username');
 
-		
+        $db_pass = Config::get('database.connections.mysql.password');
 
-		// Build the database connection string
+        $db_host = Config::get('database.connections.mysql.host');
 
-		$db_user = Config::get('database.connections.mysql.username');
+        $db_db = Config::get('database.connections.mysql.database');
 
-		$db_pass = Config::get('database.connections.mysql.password');
+        // Build the database connection string
 
-		$db_host = Config::get('database.connections.mysql.host');
+        $dsn = 'mysqli://' . $db_user . ':' . $db_pass  . '@' . $db_host . '/' . $db_db;
 
-		$db_db = Config::get('database.connections.mysql.database');
+        
+        $primary_key_of_your_customer = 4;
 
-		// Build the database connection string
+        $Queue = new QuickBooks_WebConnector_Queue($dsn);
+        $Queue->enqueue(QUICKBOOKS_ADD_CUSTOMER, $primary_key_of_your_customer);
 
-		$dsn = 'mysqli://' . $db_user . ':' . $db_pass  . '@' . $db_host . '/' . $db_db;
+        
 
-		
-   $primary_key_of_your_customer = 4;
+        // Check to make sure our database is set up
 
-	$Queue = new QuickBooks_WebConnector_Queue($dsn);
-	$Queue->enqueue(QUICKBOOKS_ADD_CUSTOMER, $primary_key_of_your_customer);
+        if (!QuickBooks_Utilities::initialized($dsn)) {
+            // Initialize creates the neccessary database schema for queueing up requests and logging
 
-		
+            QuickBooks_Utilities::initialize($dsn);
 
-		// Check to make sure our database is set up 
+            
 
-		if (!QuickBooks_Utilities::initialized($dsn))
+            // This creates a username and password which is used by the Web Connector to authenticate
 
-		{
+            QuickBooks_Utilities::createUser($dsn, $user, $pass);
+        }
 
-			// Initialize creates the neccessary database schema for queueing up requests and logging
+        
 
-			QuickBooks_Utilities::initialize($dsn);
+        // Set up our queue singleton
 
-			
+        QuickBooks_WebConnector_Queue_Singleton::initialize($dsn);
 
-			// This creates a username and password which is used by the Web Connector to authenticate
+        
 
-			QuickBooks_Utilities::createUser($dsn, $user, $pass);
+        // Create a new server and tell it to handle the requests
 
-		}
+        // __construct($dsn_or_conn, $map, $errmap = array(), $hooks = array(), $log_level = QUICKBOOKS_LOG_NORMAL, $soap = QUICKBOOKS_SOAPSERVER_PHP, $wsdl = QUICKBOOKS_WSDL, $soap_options = array(), $handler_options = array(), $driver_options = array(), $callback_options = array()
 
-		
+        $Server = new QuickBooks_WebConnector_Server($dsn, $map, $errmap, $hooks, $log_level, $soapserver, QUICKBOOKS_WSDL, $soap_options, $handler_options, $driver_options, $callback_options);
 
-		// Set up our queue singleton
+        $response = $Server->handle(true, true);
+    }
 
-		QuickBooks_WebConnector_Queue_Singleton::initialize($dsn);
+    
 
-		
+    /**
 
-		// Create a new server and tell it to handle the requests
+     * Issue a request to QuickBooks to add a customer
 
-		// __construct($dsn_or_conn, $map, $errmap = array(), $hooks = array(), $log_level = QUICKBOOKS_LOG_NORMAL, $soap = QUICKBOOKS_SOAPSERVER_PHP, $wsdl = QUICKBOOKS_WSDL, $soap_options = array(), $handler_options = array(), $driver_options = array(), $callback_options = array()
+     */
 
-		$Server = new QuickBooks_WebConnector_Server($dsn, $map, $errmap, $hooks, $log_level, $soapserver, QUICKBOOKS_WSDL, $soap_options, $handler_options, $driver_options, $callback_options);
+    public function addCustomerRequest($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
+    {
 
-		$response = $Server->handle(true, true);
+        $customer = User::find($ID);
 
-	}
+        // Do something here to load data using your model
 
-	
+        //$data = $this->yourmodel->getCustomerData($ID);
 
-	/**
+        
 
-	 * Issue a request to QuickBooks to add a customer
+        // Build the qbXML request from $data
 
-	 */
-
-	public function addCustomerRequest($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
-
-	{
-
-		$customer = User::find($ID);
-
-		// Do something here to load data using your model
-
-		//$data = $this->yourmodel->getCustomerData($ID);
-
-		
-
-		// Build the qbXML request from $data
-
-		$xml = '<?xml version="1.0" encoding="utf-8"?>
+        $xml = '<?xml version="1.0" encoding="utf-8"?>
 
 		<?qbxml version="2.0"?>
 
@@ -354,66 +338,54 @@ die('shery');
 
 		</QBXML>';
 
-	
+    
 
-		return $xml;
-
-	}
-
-
-
-	/**
-
-	 * Handle a response from QuickBooks indicating a new customer has been added
-
-	 */	
-
-	public function addCustomerResponse($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
-
-	{
-
-		// Do something here to record that the data was added to QuickBooks successfully 
-
-		
-
-		return true; 
-
-	}
-
-	
-
-	/**
-
-	 * Catch and handle errors from QuickBooks
-
-	 */		
-
-	public function catchallErrors($requestID, $user, $action, $ID, $extra, &$err, $xml, $errnum, $errmsg)
-
-	{
-
-		return false;
-
-	}
-
-	
-
-	/**
-
-	 * Whenever the Web Connector connects, do something (e.g. queue some stuff up if you want to)
-
-	 */
-
-	public function loginSuccess($requestID, $user, $hook, &$err, $hook_data, $callback_config)
-
-	{
-
-		return true;
-
-	}
-
-	
+        return $xml;
+    }
 
 
 
+    /**
+
+     * Handle a response from QuickBooks indicating a new customer has been added
+
+     */
+
+    public function addCustomerResponse($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
+    {
+
+        // Do something here to record that the data was added to QuickBooks successfully
+
+        
+
+        return true;
+    }
+
+    
+
+    /**
+
+     * Catch and handle errors from QuickBooks
+
+     */
+
+    public function catchallErrors($requestID, $user, $action, $ID, $extra, &$err, $xml, $errnum, $errmsg)
+    {
+
+        return false;
+    }
+
+    
+
+    /**
+
+     * Whenever the Web Connector connects, do something (e.g. queue some stuff up if you want to)
+
+     */
+
+    public function loginSuccess($requestID, $user, $hook, &$err, $hook_data, $callback_config)
+    {
+
+        return true;
+    }
 }

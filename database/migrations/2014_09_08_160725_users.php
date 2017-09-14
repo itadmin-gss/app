@@ -3,17 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Users extends Migration {
+class Users extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-            Schema::create('users', function($table)
-            {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+            Schema::create('users', function ($table) {
                 $table->increments('id');
                 $table->string('first_name', 20)->nullable();
                 $table->string('last_name', 20)->nullable();
@@ -29,25 +29,26 @@ class Users extends Migration {
                 $table->string('zipcode', 60)->nullable();
                 $table->string('profile_image', 200)->nullable();
                 $table->integer('type_id')->unsigned()->nullable();
-                $table->foreign('type_id')->references('id')->on('user_types')->onDelete('cascade');;
+                $table->foreign('type_id')->references('id')->on('user_types')->onDelete('cascade');
+                ;
                 $table->integer('user_role_id')->unsigned()->nullable();
-                $table->foreign('user_role_id')->references('id')->on('user_roles')->onDelete('cascade');;
+                $table->foreign('user_role_id')->references('id')->on('user_roles')->onDelete('cascade');
+                ;
                 $table->boolean('profile_status')->default(0)->nullable();
                 $table->boolean('status')->nullable();
                 $table->string('remember_token', 100)->nullable();
                 $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
                 $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             });
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
             Schema::drop('users');
-	}
-
+    }
 }

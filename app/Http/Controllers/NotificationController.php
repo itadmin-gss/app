@@ -1,8 +1,10 @@
 <?php
 
-class NotificationController extends \BaseController {
+class NotificationController extends \BaseController
+{
 
-    public static function sendNotification($recepient_id = array(), $message = null, $notification_type_id = 0, $email_data = array()) {
+    public static function sendNotification($recepient_id = array(), $message = null, $notification_type_id = 0, $email_data = array())
+    {
 
         $notification_types = DB::table('notification_types')->where('id', $notification_type_id)->first();
 
@@ -21,17 +23,17 @@ class NotificationController extends \BaseController {
         $notification = Notification::add($data);
         $to_email =  User::getAllUsersEmailByIds($recepient_id);
 
-        if(sizeof($to_email) > 0){
+        if (sizeof($to_email) > 0) {
             $subject = $activity_type;
             Email::send($to_email, $subject, $email_template, $email_data);
-
         }
 
         return $notification;
     }
 
 
-    public static function doNotification($recepient_id = 1,$sender_id=1, $message = null, $notification_type_id = 0, $email_data = array(),$notification_url="") {
+    public static function doNotification($recepient_id = 1, $sender_id = 1, $message = null, $notification_type_id = 0, $email_data = array(), $notification_url = "")
+    {
 
         $notification_types = DB::table('notification_types')->where('id', $notification_type_id)->first();
 
@@ -48,19 +50,14 @@ class NotificationController extends \BaseController {
         $data['is_read'] = 1; //Not read yet
 
         $notification = Notification::add($data);
-        if(!empty($email_data))
-        {
-        $user = User::find($recepient_id);
-        if (isset($user->email)) {
-            return $user->email;
-            $subject = $activity_type;
-        Email::send($user->email, $subject, $email_template, $email_data);
-        
-        }else{
-            
-        }
-        
-        
+        if (!empty($email_data)) {
+            $user = User::find($recepient_id);
+            if (isset($user->email)) {
+                return $user->email;
+                $subject = $activity_type;
+                Email::send($user->email, $subject, $email_template, $email_data);
+            } else {
+            }
         }
         
         return $notification;
@@ -72,7 +69,8 @@ class NotificationController extends \BaseController {
      *
      * @return Response
      */
-    public function index() {
+    public function index()
+    {
         //
     }
 
@@ -81,7 +79,8 @@ class NotificationController extends \BaseController {
      *
      * @return Response
      */
-    public function create() {
+    public function create()
+    {
         //
     }
 
@@ -90,7 +89,8 @@ class NotificationController extends \BaseController {
      *
      * @return Response
      */
-    public function store() {
+    public function store()
+    {
         //
     }
 
@@ -100,7 +100,8 @@ class NotificationController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -110,7 +111,8 @@ class NotificationController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         //
     }
 
@@ -120,7 +122,8 @@ class NotificationController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
+    public function update($id)
+    {
         //
     }
 
@@ -130,24 +133,23 @@ class NotificationController extends \BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
 
     public function ChangeNotificationStatus()
     {
          $data = Input::all();
-         Notification::where('id','=',$data['notification_id'])
+         Notification::where('id', '=', $data['notification_id'])
                         ->update(array('is_read'=>0));
-
     }
     public function ChangeAllNotificationStatus()
     {
        
-               Notification::where('id','>=',1)
+               Notification::where('id', '>=', 1)
                         ->update(array('is_read'=>0));
          return Redirect::back();
-
     }
     
     public function listNotifications()
@@ -156,8 +158,6 @@ class NotificationController extends \BaseController {
 
     
         return View::make('pages.notifications')// return to page
-                        ->with('get_notifications', $getNotifications );
-
+                        ->with('get_notifications', $getNotifications);
     }
-
 }

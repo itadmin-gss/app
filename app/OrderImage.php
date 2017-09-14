@@ -2,7 +2,8 @@
 
 
 
-class OrderImage extends BaseTenantModel {
+class OrderImage extends BaseTenantModel
+{
 
 
 
@@ -12,23 +13,24 @@ class OrderImage extends BaseTenantModel {
 
     
 
-    public function orderDetail() {
+    public function orderDetail()
+    {
 
         return $this->belongsTo('OrderDetail', 'order_details_id');
-
     }
 
     
 
-    public function order() {
+    public function order()
+    {
 
         return $this->belongsTo('Order', 'order_id');
-
     }
 
     
 
-    public static function createImage($data) {
+    public static function createImage($data)
+    {
 
         
 
@@ -41,7 +43,6 @@ class OrderImage extends BaseTenantModel {
         $image = self::create($data);
 
         return $image;
-
     }
 
     
@@ -51,8 +52,4 @@ class OrderImage extends BaseTenantModel {
 //        self::where('order_id', '=', $order_id)->where('order_detail_id', '=', $order_detail_id)->where('filename', '=', $filename)->delete();
 
 //    }
-
-
-
 }
-

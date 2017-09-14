@@ -1,6 +1,7 @@
 <?php
 
-class RegistrationController extends BaseController {
+class RegistrationController extends BaseController
+{
 
     /**
      * Display a listing of the resource.
@@ -8,14 +9,14 @@ class RegistrationController extends BaseController {
      * @return Response
      */
     // protected $layout = 'layouts.onecolumn';
-    public function index() {
+    public function index()
+    {
 
         
-        $customer=DB::table('user_type')->where('title','customer')->pluck('id');//storing id of customer id
-        $vendor=DB::table('user_type')->where('title','vendor')->pluck('id'); //storing id of vendor id
+        $customer=DB::table('user_type')->where('title', 'customer')->pluck('id');//storing id of customer id
+        $vendor=DB::table('user_type')->where('title', 'vendor')->pluck('id'); //storing id of vendor id
         
-        return View::make('pages.customer.registration')->with('customer', $customer)->with('vendor',$vendor);
-
+        return View::make('pages.customer.registration')->with('customer', $customer)->with('vendor', $vendor);
     }
 
     /**
@@ -23,7 +24,8 @@ class RegistrationController extends BaseController {
      *
      * @return Response
      */
-    public function create() {
+    public function create()
+    {
 
         
           $rules = array(
@@ -43,7 +45,6 @@ class RegistrationController extends BaseController {
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
         } else {
-
             $user               = new Registration;
             $user->first_name   = Input::get('first_name');
             $user->last_name    = Input::get('last_name');
@@ -54,60 +55,58 @@ class RegistrationController extends BaseController {
             $user->user_role_id = '0';
             $user->status       = '0';
 
-            $user->password     = Hash::make(Input::get('password')); 
-            if($user->save()){
-             $id = $user->id;
+            $user->password     = Hash::make(Input::get('password'));
+            if ($user->save()) {
+                $id = $user->id;
              
-            $email_data = array(
+                $email_data = array(
                 'first_name'    => Input::get('first_name'),
                 'last_name'     => Input::get('last_name'),
                 'username'      => Input::get('username'),
                 'email'         => Input::get('email'),
                 'id'            => $id,
                     
-            );    
+                );
                 
-             Mail::send('emails.customer_registered', $email_data, function($message){
+                Mail::send('emails.customer_registered', $email_data, function ($message) {
                  
-             $message->to(Input::get('email'), Input::get('first_name').' '.Input::get('last_name'))
+                    $message->to(Input::get('email'), Input::get('first_name').' '.Input::get('last_name'))
                      ->subject('Welcome to the GSS!')
-                     ->from('imran@invortex.com', 'GSS' );
-             });  
-             Session::flash('message', 'Your account has been created successfully.');
-             return Redirect::to('user-register');  
+                     ->from('imran@invortex.com', 'GSS');
+                });
+                Session::flash('message', 'Your account has been created successfully.');
+                return Redirect::to('user-register');
             }
-            
         }
     }
 
     
    
     
-    public function completeProfile($id){
+    public function completeProfile($id)
+    {
        
         $type_id = Registration::userTypeId($id);
         $type = Usertype::checkUserType($type_id);
         
   
-        if($type == 'Customer'){
-            
+        if ($type == 'Customer') {
         } elseif ($type == 'Vendor') {
-        
-       }
+        }
      
                        
                        return View::make('pages.profile_completation')
-			->with('user_detail', $user_detail);
+            ->with('user_detail', $user_detail);
 
-		// show the view and pass the nerd to it
-		
+        // show the view and pass the nerd to it
     }
     /**
      * Store a newly created resource in storage.
      *
      * @return Response
      */
-    public function store() {
+    public function store()
+    {
         //
     }
 
@@ -117,7 +116,8 @@ class RegistrationController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -127,7 +127,8 @@ class RegistrationController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         //
     }
 
@@ -137,7 +138,8 @@ class RegistrationController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
+    public function update($id)
+    {
         //
     }
 
@@ -147,8 +149,8 @@ class RegistrationController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
-
 }

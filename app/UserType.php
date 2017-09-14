@@ -2,7 +2,8 @@
 
 
 
-class UserType extends BaseTenantModel {
+class UserType extends BaseTenantModel
+{
 
 
 
@@ -12,12 +13,12 @@ class UserType extends BaseTenantModel {
 
     // Defining Function to get User Profile Status. ---- Start
 
-    public static function getUserTypeByID($id) {
+    public static function getUserTypeByID($id)
+    {
 
         $user_type = self::find($id);
 
         return  $user_type->title; //return user type
-
     }
 
 
@@ -26,25 +27,21 @@ class UserType extends BaseTenantModel {
 
 
 
-    public function user() {
+    public function user()
+    {
 
         return $this->belongsTo('Users');
-
     }
 
 
 
-    public static function getUserTypeIdByTitle($title) {
+    public static function getUserTypeIdByTitle($title)
+    {
 
         $type_id = self::whereRaw('title = ?', array($title))->get(array('id'))->first();
 
 
 
         return $type_id->id;
-
     }
-
-
-
 }
-

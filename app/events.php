@@ -11,7 +11,7 @@
   |
  */
 
-Event::listen('user.created', function()
-{
-    echo 'created'; exit;
+Event::listen('user.created', function () {
+    echo 'created';
+    exit;
 });

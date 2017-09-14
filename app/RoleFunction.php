@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class RoleFunction extends BaseTenantModel {
+class RoleFunction extends BaseTenantModel
+{
 
 
 
@@ -16,46 +17,42 @@ class RoleFunction extends BaseTenantModel {
 
 
 
-	public static function listRoleFunctions()
+    public static function listRoleFunctions()
+    {
 
-	{
+        $role_function = self::all();
 
-		$role_function = self::all();
+        return $role_function;
+    }
 
-		return $role_function;
+    
 
-	}
+    public static function getRoleFunction($id)
+    {
 
-	
+        $role_function = self::find($id);
 
-	public static function getRoleFunction($id)
+        return $role_function;
+    }
 
-	{
+    
 
-		$role_function = self::find($id);
-
-		return $role_function;
-
-	}
-
-	
-
-    public function roleDetails() {
+    public function roleDetails()
+    {
 
         return $this->hasMany('RoleDetail', 'role_function_id');
 
         //return user type
-
     }
 
-	
+    
 
-	public function accessFunction() {
+    public function accessFunction()
+    {
 
         return $this->belongsTo('AccessFunction', 'access_function_id');
 
         //return user type
-
     }
 
     
@@ -63,8 +60,4 @@ class RoleFunction extends BaseTenantModel {
 
 
     // Defining Function to get User Profile Status. ---- End
-
 }
-
-
-

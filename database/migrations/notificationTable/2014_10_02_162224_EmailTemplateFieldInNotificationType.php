@@ -3,16 +3,18 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EmailTemplateFieldInNotificationType extends Migration {
+class EmailTemplateFieldInNotificationType extends Migration
+{
 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         //
-        Schema::table('notification_types', function($table) {
+        Schema::table('notification_types', function ($table) {
             $table->string('email_template', 100)->nullable;
         });
     }
@@ -22,8 +24,8 @@ class EmailTemplateFieldInNotificationType extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         //
     }
-
 }

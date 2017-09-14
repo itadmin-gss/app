@@ -2,15 +2,18 @@
 
 ################################### Helper Function for Flash Messages #####################
 
-class FlashMessage {
+class FlashMessage
+{
 
-    public static function DisplayAlert($message, $type) {
+    public static function DisplayAlert($message, $type)
+    {
         return "<h4 class='alert alert-" . $type . "'>" . $message . "</h4>";
     }
 
 // End the DisplayAlert Function
 
-    public static function messages($val) {
+    public static function messages($val)
+    {
         $val = explode('.', $val);
 
         $array = array(
@@ -44,9 +47,9 @@ class FlashMessage {
                 'service_updated' => 'Success! Service has been updated successfully.',
                 'service_error' => 'Error! Service could not be updated.',
             ),
-			'admin_access' => array(
-			'access_denied' => 'Access Denied! You dont have permissions.',
-			),
+            'admin_access' => array(
+            'access_denied' => 'Access Denied! You dont have permissions.',
+            ),
             'customer' => array(
                 'customer_success' => 'Customer Created',
                 'customer_error' => 'Could Not Create Cutomer',
@@ -66,9 +69,6 @@ class FlashMessage {
 
         return $array[$val[0]][$val[1]];
     }
-
 }
 
 // End FlashMessage Class
-
-

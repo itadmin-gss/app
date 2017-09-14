@@ -16,7 +16,8 @@
 
  */
 
-class CommonController extends \BaseController {
+class CommonController extends \BaseController
+{
 
 
 
@@ -30,7 +31,8 @@ class CommonController extends \BaseController {
 
      */
 
-    public function updateStatus() {
+    public function updateStatus()
+    {
 
         $user=Auth::user();
 
@@ -44,279 +46,152 @@ class CommonController extends \BaseController {
 
         $id = Input::get('id');
 
-        if($type == 'vendor')
+        if ($type == 'vendor') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'Vendor')->first();
 
-        {
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-            $rolefunction=RoleFunction::where('role_function','=','Vendor')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->edit == 1)
-
-            {
-
-                
-
+            if ($roledetail->edit == 1) {
                 if (Request::ajax()) {
-
                     DB::table($db_table)
 
                             ->where('id', $id)
 
                             ->update(array('status' => $status));
-
                 }
 
 
 
-                   if($status==1)
+                if ($status==1) {
+                    $user=DB::table($db_table)->where('id', $id)->first();
 
-                {
-
-         $user=DB::table($db_table)->where('id', $id)->first(); 
-
-          $email_data = array(
+                    $email_data = array(
 
                     'user_email_template'=>EmailNotification::$user_email_approved_template." <a href='".URL::to('/')."'> Please click here to complete your profile.</a>"
 
-                );
+                    );
 
          
 
 
 
-           Email::send($user->email, 'Your Account Information', 'emails.user_email_template', $email_data);
-
-            }
+                    Email::send($user->email, 'Your Account Information', 'emails.user_email_template', $email_data);
+                }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
+        } elseif ($type == 'user') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'User')->first();
 
-            
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-        }
-
-        elseif($type == 'user')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','User')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->edit == 1)
-
-            {
-
+            if ($roledetail->edit == 1) {
                 if (Request::ajax()) {
-
                     DB::table($db_table)
 
                             ->where('id', $id)
 
                             ->update(array('status' => $status));
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
+        } elseif ($type == 'access_level') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'Access Level')->first();
 
-        }
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-        elseif($type == 'access_level')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','Access Level')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->edit == 1)
-
-            {
-
+            if ($roledetail->edit == 1) {
                 if (Request::ajax()) {
-
                     DB::table($db_table)
 
                             ->where('id', $id)
 
                             ->update(array('status' => $status));
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
+        } elseif ($type == 'access_right') {
+        } elseif ($type == 'customer') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'Customer')->first();
 
-        }
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-        elseif($type == 'access_right')
-
-        {
-
-        }
-
-        elseif($type == 'customer')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','Customer')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->edit == 1)
-
-            {
-
+            if ($roledetail->edit == 1) {
                 if (Request::ajax()) {
-
                     DB::table($db_table)
 
                             ->where('id', $id)
 
                             ->update(array('status' => $status));
-
                 }
 
 
 
-                if($status==1)
+                if ($status==1) {
+                    $user=DB::table($db_table)->where('id', $id)->first();
 
-                {
-
-         $user=DB::table($db_table)->where('id', $id)->first(); 
-
-          $email_data = array(
+                    $email_data = array(
 
                     'user_email_template'=>EmailNotification::$user_email_approved_template." <a href='".URL::to('/')."'> Please click here to complete your profile.</a>"
 
-                );
+                    );
 
          
 
 
 
-           Email::send($user->email, 'Your Account Information', 'emails.user_email_template', $email_data);
-
-            }
+                    Email::send($user->email, 'Your Account Information', 'emails.user_email_template', $email_data);
+                }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
+        } elseif ($type == 'asset') {
+        } elseif ($type == 'service') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'Service')->first();
 
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-
-
-
-        }
-
-        elseif($type == 'asset')
-
-        {
-
-        }
-
-        elseif($type == 'service')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','Service')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->edit == 1)
-
-            {
-
+            if ($roledetail->edit == 1) {
                 if (Request::ajax()) {
-
                     DB::table($db_table)
 
                             ->where('id', $id)
 
                             ->update(array('status' => $status));
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
+            }
+        } elseif ($type == 'special_price') {
+            if (Request::ajax()) {
+                DB::table($db_table)
 
+                    ->where('id', $id)
+
+                    ->update(array('status' => $status));
             }
 
-        }
-
-        elseif($type == 'special_price')
-
-        {
-
-                if (Request::ajax()) {
-
-                    DB::table($db_table)
-
-                            ->where('id', $id)
-
-                            ->update(array('status' => $status));
-
-                }
-
                 return 1;
-
+        } elseif ($type == 'workorder') {
         }
-
-        elseif($type == 'workorder')
-
-        { 
-
-        }
-
     }
 
 
 
-    public function deleteRecord() {
+    public function deleteRecord()
+    {
 
         $user=Auth::user();
 
@@ -328,207 +203,86 @@ class CommonController extends \BaseController {
 
         $id = Input::get('id');
 
-        if($type == 'vendor')
+        if ($type == 'vendor') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'Vendor')->first();
 
-        {
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-            $rolefunction=RoleFunction::where('role_function','=','Vendor')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->delete == 1)
-
-            {
-
+            if ($roledetail->delete == 1) {
                 if (Request::ajax()) {
-
                     User::find($id)->delete();
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
+        } elseif ($type == 'user') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'User')->first();
 
-            
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-        }
-
-        elseif($type == 'user')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','User')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->delete == 1)
-
-            {
-
+            if ($roledetail->delete == 1) {
                 if (Request::ajax()) {
-
                     User::find($id)->delete();
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
+        } elseif ($type == 'access_level') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'Access Level')->first();
 
-        }
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-        elseif($type == 'access_level')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','Access Level')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->delete == 1)
-
-            {
-
+            if ($roledetail->delete == 1) {
                 if (Request::ajax()) {
-
                     RoleFunction::find($id)->delete();
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
+        } elseif ($type == 'access_right') {
+        } elseif ($type == 'customer') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'Customer')->first();
 
-        }
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-        elseif($type == 'access_right')
-
-        {
-
-        }
-
-        elseif($type == 'customer')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','Customer')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->delete == 1)
-
-            {
-
+            if ($roledetail->delete == 1) {
                 if (Request::ajax()) {
-
                     User::find($id)->delete();
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
+            }
+        } elseif ($type == 'asset') {
+        } elseif ($type == 'service') {
+        } elseif ($type == 'special_price') {
+            if (Request::ajax()) {
+                SpecialPrice::find($id)->delete();
             }
 
-        }
-
-        elseif($type == 'asset')
-
-        {
-
-        }
-
-        elseif($type == 'service')
-
-        {
-
-        }
-
-        elseif($type == 'special_price')
-
-        {
-
-                if (Request::ajax()) {
-
-                    SpecialPrice::find($id)->delete();
-
-                }
-
                 return 1;
+        } elseif ($type == 'workorder') {
+        } elseif ($type == 'city') {
+            $rolefunction=RoleFunction::where('role_function', '=', 'City')->first();
 
-        }
+            $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
 
-        elseif($type == 'workorder')
-
-        { 
-
-        }
-
-        elseif($type == 'city')
-
-        {
-
-            $rolefunction=RoleFunction::where('role_function','=','City')->first();
-
-            $roledetail=RoleDetail::where('role_id','=',$user->user_role_id)->where('role_function_id','=',$rolefunction->id)->first();
-
-            if($roledetail->delete == 1)
-
-            {
-
+            if ($roledetail->delete == 1) {
                 if (Request::ajax()) {
-
                     City::find($id)->delete();
-
                 }
 
                 return 1;
-
-            }
-
-            else
-
-            {
-
+            } else {
                 return 0;
-
             }
-
         }
-
     }
-
 }
-

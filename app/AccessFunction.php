@@ -1,13 +1,15 @@
 <?php
 
-class AccessFunction extends BaseTenantModel {
+class AccessFunction extends BaseTenantModel
+{
 
     protected $table = 'access_functions';
 
     // Defining Function to get User Profile Status. ---- Start
 
-	
-    public function roleFunctions() {
+    
+    public function roleFunctions()
+    {
         return $this->hasMany('RoleFunction', 'access_function_id');
         //return user type
     }
@@ -15,4 +17,3 @@ class AccessFunction extends BaseTenantModel {
 
     // Defining Function to get User Profile Status. ---- End
 }
-

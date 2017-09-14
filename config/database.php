@@ -2,7 +2,7 @@
 ini_set('memory_limit', '-1');
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| PDO Fetch Style
 	|--------------------------------------------------------------------------
@@ -13,9 +13,9 @@ return array(
 	|
 	*/
 
-	'fetch' => PDO::FETCH_CLASS,
+    'fetch' => PDO::FETCH_CLASS,
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Default Database Connection Name
 	|--------------------------------------------------------------------------
@@ -26,9 +26,9 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+    'default' => 'mysql',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Database Connections
 	|--------------------------------------------------------------------------
@@ -44,61 +44,61 @@ return array(
 	|
 	*/
 
-	'connections' => array(
+    'connections' => array(
 
-		'sqlite' => array(
-			'driver'   => 'sqlite',
-			'database' => __DIR__.'/../database/production.sqlite',
-			'prefix'   => '',
-		),
+        'sqlite' => array(
+            'driver'   => 'sqlite',
+            'database' => __DIR__.'/../database/production.sqlite',
+            'prefix'   => '',
+        ),
 
-		'mysql' => array(
-			'driver'    => 'mysql',
-			'host'      => 'localhost',
-           		'database'  => 'gssreo',
-			'username'  => 'gssreo',
-			'password'  => '########',
-			
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
+        'mysql' => array(
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+                'database'  => 'gssreo',
+            'username'  => 'gssreo',
+            'password'  => '########',
+            
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
 
-		'mysql2' => array(
-			'driver'    => 'mysql',
-			'host'      => 'localhost',
-           		'database'  => 'gssreo_app',
-			'username'  => 'gssreo_oldgss',
-			'password'  => 'a1s2d3f4',
-			
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),  
+        'mysql2' => array(
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+                'database'  => 'gssreo_app',
+            'username'  => 'gssreo_oldgss',
+            'password'  => 'a1s2d3f4',
+            
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
 
-		'pgsql' => array(
-			'driver'   => 'pgsql',
-			'host'     => 'localhost',
-			'database' => 'forge',
-			'username' => 'forge',
-			'password' => '',
-			'charset'  => 'utf8',
-			'prefix'   => '',
-			'schema'   => 'public',
-		),
+        'pgsql' => array(
+            'driver'   => 'pgsql',
+            'host'     => 'localhost',
+            'database' => 'forge',
+            'username' => 'forge',
+            'password' => '',
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+        ),
 
-		'sqlsrv' => array(
-			'driver'   => 'sqlsrv',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
-			'prefix'   => '',
-		),
+        'sqlsrv' => array(
+            'driver'   => 'sqlsrv',
+            'host'     => 'localhost',
+            'database' => 'database',
+            'username' => 'root',
+            'password' => '',
+            'prefix'   => '',
+        ),
 
-	),
+    ),
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Migration Repository Table
 	|--------------------------------------------------------------------------
@@ -109,9 +109,9 @@ return array(
 	|
 	*/
 
-	'migrations' => 'migrations',
+    'migrations' => 'migrations',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Redis Databases
 	|--------------------------------------------------------------------------
@@ -122,16 +122,16 @@ return array(
 	|
 	*/
 
-	'redis' => array(
+    'redis' => array(
 
-		'cluster' => false,
+        'cluster' => false,
 
-		'default' => array(
-			'host'     => 'localhost',
-			'port'     => 6379,
-			'database' => 0,
-		),
+        'default' => array(
+            'host'     => 'localhost',
+            'port'     => 6379,
+            'database' => 0,
+        ),
 
-	),
+    ),
 
 );

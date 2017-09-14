@@ -2,7 +2,8 @@
 
 
 
-class UserRole extends BaseTenantModel {
+class UserRole extends BaseTenantModel
+{
 
 
 
@@ -12,104 +13,91 @@ class UserRole extends BaseTenantModel {
 
 
 
-    public static function addRoles($data) {
+    public static function addRoles($data)
+    {
 
 
 
         $UserRoles = UserRoles::create($data);
 
         return ($UserRoles) ? true : false;
-
     }
 
 
 
-    public static function listRoles() {
+    public static function listRoles()
+    {
 
 
 
         $UserRoles = self::all();
 
         return $UserRoles;
-
     }
 
 
 
-    public function user() {
+    public function user()
+    {
 
         return $this->hasMany('User', 'user_role_id');
-
     }
 
-	
+    
 
-	public function roleDetails() {
+    public function roleDetails()
+    {
 
         return $this->hasMany('RoleDetail', 'role_id');
-
     }
 
-	
+    
 
-	public static function updateRole($role_data, $role_id)
+    public static function updateRole($role_data, $role_id)
+    {
 
-	{
+        $role = self::find($role_id);
 
-		$role = self::find($role_id);
+        $role->role_name = $role_data['role_name'];
 
-		$role->role_name = $role_data['role_name'];
+        $role->description = $role_data['description'];
 
-		$role->description = $role_data['description'];
+        $role->status = $role_data['status'];
 
-		$role->status = $role_data['status'];
+        $save=$role->save();
 
-		$save=$role->save();
+        return ($save) ? true : false;
+    }
 
-		return ($save) ? true : false;
+    
 
-	}
+    public static function updateStatus($role_status, $role_id)
+    {
 
-	
+        $role = self::find($role_id);
 
-	public static function updateStatus($role_status, $role_id)
+        $role->status = $role_data['status'];
 
-	{
+        $save=$role->save();
 
-		$role = self::find($role_id);
+        return ($save) ? true : false;
+    }
 
-		$role->status = $role_data['status'];
+    
 
-		$save=$role->save();
+    public static function getAllRoles()
+    {
 
-		return ($save) ? true : false;
+        $userRoles = self::all();
 
-	}
+        return $userRoles;
+    }
 
-	
+    
 
-	public static function getAllRoles()
+    public function getTable()
+    {
 
-	{
-
-		$userRoles = self::all();	
-
-		return $userRoles;
-
-	}
-
-	
-
-	public function getTable()
-
-	{
-
-		return $this->table;
-
-	}
-
-
-
-	
-
+        return $this->table;
+    }
 }

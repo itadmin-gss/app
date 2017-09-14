@@ -3,17 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Notifications extends Migration {
+class Notifications extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-            Schema::create('notifications', function($table)
-            {   
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+            Schema::create('notifications', function ($table) {
                 $table->increments('id');
                 $table->integer('sender_id', false, true)->nullable();
                 $table->integer('recepient_id', false, true)->nullable();
@@ -23,16 +23,15 @@ class Notifications extends Migration {
                 $table->boolean('is_read')->nullable();
                 $table->timestamp('created_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             });
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
             Schema::drop('notifications');
-	}
-
+    }
 }

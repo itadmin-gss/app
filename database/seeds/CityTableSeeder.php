@@ -1,8 +1,10 @@
 <?php
 
-class CityTableSeeder extends Seeder {
+class CityTableSeeder extends Seeder
+{
 
-    public function run() {
+    public function run()
+    {
         DB::table('cities')->delete();
         DB::table('cities')->insert(array('id' => 1, 'name' => 'Abbeville', 'state_id' => 1, 'status' => 1));
         DB::table('cities')->insert(array('id' => 2, 'name' => 'Abernant', 'state_id' => 1, 'status' => 1));
@@ -31,5 +33,4 @@ class CityTableSeeder extends Seeder {
         DB::table('cities')->insert(array('id' => 19, 'name' => 'Baker', 'state_id' => 4, 'status' => 1));
         DB::table('cities')->insert(array('id' => 20, 'name' => 'Big Bar', 'state_id' => 4, 'status' => 1));
     }
-
 }

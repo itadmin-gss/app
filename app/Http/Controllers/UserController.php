@@ -10,14 +10,16 @@
 use Cryt\Forms\RegistrationForm;
 use JeroenDesloovere\Geolocation\Geolocation;
 
-class UserController extends \BaseController {
+class UserController extends \BaseController
+{
 
     /**
      * Redirects the Users to Login Page
      * @params none
      * @return redirects User to Login Page.
      */
-    public function showLogin() {
+    public function showLogin()
+    {
 
         if (Auth::check()) {
             $user = Auth::user();
@@ -34,7 +36,8 @@ class UserController extends \BaseController {
      * @params none
      * @return redirects User to Registration Page.
      */
-    public function showRegistration() {
+    public function showRegistration()
+    {
 
 
         $customer = DB::table('user_types')->where('title', 'customer')->pluck('id');
@@ -43,7 +46,8 @@ class UserController extends \BaseController {
         return View::make('pages.customer.registration')->with('customer', $customer)->with('vendor', $vendor);
     }
 
-    public function showThankYou($user_id) {
+    public function showThankYou($user_id)
+    {
         $user = User::find($user_id);
         return View::make('pages.thankyou')->with('user', $user);
     }
@@ -53,7 +57,8 @@ class UserController extends \BaseController {
      * @params none
      * @return Redirect to login page with success message & send an email to User.
      */
-    public function createUser() {
+    public function createUser()
+    {
 
         $rules = array(
             'first_name' => 'required|min:2|max:80|alpha',
@@ -68,20 +73,17 @@ class UserController extends \BaseController {
 
 
         if ($validator->fails()) {
-
             return Redirect::to('user-register')
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
         } else {
-
-
             $data = Input::all();
             $user_type = Input::get('type_id');
             unset($data['_token'], $data['password_confirmation']);
             $data['password'] = Hash::make($data['password']);
             $data['status'] = 0;
 
-            $data['type_id'] = $data['type_id'] ? $data['type_id'] : NULL;
+            $data['type_id'] = $data['type_id'] ? $data['type_id'] : null;
             $user_types = UserType::find($user_type);
             $user_roles = UserRole::where('role_name', '=', $user_types->title)->first();
             $data['user_role_id'] = $user_roles->id;
@@ -101,22 +103,18 @@ class UserController extends \BaseController {
 
                  $customervendor="";
                  $notification_url="";
-                if(    $user_type == 3)
-                {
+                if ($user_type == 3) {
                     $customervendor="Vendor";
                     $notification_url="list-vendors";
-                }
-                else
-                {
+                } else {
                       $customervendor="Customer";
                      $notification_url="list-customer";
                 }
                 // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
                 $recepient_id = User::getAdminUsersId();
-                foreach( $recepient_id as $rec_id)
-                {
+                foreach ($recepient_id as $rec_id) {
                     //admin to admin notification
-                $notification = NotificationController::doNotification($rec_id,$rec_id, "New ".$customervendor." ".$id." has been registered.", 1,$email_data,$notification_url);
+                    $notification = NotificationController::doNotification($rec_id, $rec_id, "New ".$customervendor." ".$id." has been registered.", 1, $email_data, $notification_url);
                 }
 
                 
@@ -129,7 +127,8 @@ class UserController extends \BaseController {
     }
 
     
-    function activeUser($id) {
+    function activeUser($id)
+    {
         if (Auth::check()) {
             $user = Auth::user();
             $userController = new UserController;
@@ -143,7 +142,6 @@ class UserController extends \BaseController {
             $save = User::find($id)->update($userdata);
             return View::make('home')->with('active', $id);
         }
-        
     }
     
     /**
@@ -151,7 +149,8 @@ class UserController extends \BaseController {
      * @params none
      * @return Redirect to dashboard or profile complete form on the basis of user's profile status & user status.
      */
-    public function doLogin() {
+    public function doLogin()
+    {
 
 
 
@@ -168,63 +167,49 @@ class UserController extends \BaseController {
 
         $username = Input::get('username');
         $password = Input::get('password');
-		
+        
         if ($validator->fails()) {
-			
             $messages = $validator->messages();
 
             return Redirect::to('/')
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
         } else {
-
-			
-            $status = User::where($field,'=',$username)->first();
-			
-            if(isset($status))
-            {
-            if($status->status == 1)
-            {
-				//$field = "username";
-                $userdata = array(
-                $field => trim($username),
-                'password' => trim($password),
-                'status' => 1
-                );
-
-                if (Input::get('remember_me')) {
-                    $auth_attempt = Auth::attempt($userdata, true);
-                } else {
-                    $auth_attempt = Auth::attempt($userdata);
-                }
-				//echo "<pre>";print_r($auth_attempt);print_r($userdata);exit;
-                if ($auth_attempt) {
-
-                    $user = Auth::user();
-                    $redirect = $this->whereRedirect($user->id);
-                    return $redirect;
-                } else {
-                    $login_error_message = FlashMessage::messages('user.user_login_error');
-                    return Redirect::back()
-                                    ->withErrors(array('password' => 'Invalid Login. Please correct your user name or password'));
-                }
-            }
-            else
-            {
-                return Redirect::back()
-                                    ->withErrors(array('password' => 'Your account is De-Activated kindly contact to admin to activate your account'));
-            }
-        }
-        else
-        {
-                $login_error_message = FlashMessage::messages('user.user_login_error');
-                    return Redirect::back()
-                                    ->withErrors(array('password' => 'Invalid Login. Please correct your user name or password'));
-                
-        }
-
-
+            $status = User::where($field, '=', $username)->first();
             
+            if (isset($status)) {
+                if ($status->status == 1) {
+                    //$field = "username";
+                    $userdata = array(
+                    $field => trim($username),
+                    'password' => trim($password),
+                    'status' => 1
+                        );
+
+                    if (Input::get('remember_me')) {
+                        $auth_attempt = Auth::attempt($userdata, true);
+                    } else {
+                        $auth_attempt = Auth::attempt($userdata);
+                    }
+                        //echo "<pre>";print_r($auth_attempt);print_r($userdata);exit;
+                    if ($auth_attempt) {
+                        $user = Auth::user();
+                        $redirect = $this->whereRedirect($user->id);
+                        return $redirect;
+                    } else {
+                        $login_error_message = FlashMessage::messages('user.user_login_error');
+                        return Redirect::back()
+                                ->withErrors(array('password' => 'Invalid Login. Please correct your user name or password'));
+                    }
+                } else {
+                    return Redirect::back()
+                                    ->withErrors(array('password' => 'Your account is De-Activated kindly contact to admin to activate your account'));
+                }
+            } else {
+                $login_error_message = FlashMessage::messages('user.user_login_error');
+                return Redirect::back()
+                                ->withErrors(array('password' => 'Invalid Login. Please correct your user name or password'));
+            }
         }
     }
 
@@ -235,7 +220,8 @@ class UserController extends \BaseController {
      * @params none
      * @return Redirect to dashboard or profile complete form on the basis of user's profile status & user status.
      */
-    public function doLoginAsUser($userid) {
+    public function doLoginAsUser($userid)
+    {
         Auth::loginUsingId($userid);
          return Redirect::to('/');
     }
@@ -245,43 +231,32 @@ class UserController extends \BaseController {
      * @params none
      * @return Redirect to profile edit page.
      */
-    public function editProfile() {
+    public function editProfile()
+    {
         $user_data = Auth::user();
         $user_type = UserType::getUserTypeByID($user_data->type_id);
         $clientType=CustomerType::get();
          $vendor_services = VendorService::getAllVendorServices();
            $VendorServiceArray=array();
         foreach ($vendor_services as $value) {
-          $VendorServiceArray[]=$value->service_id;
+            $VendorServiceArray[]=$value->service_id;
         }
 
         $servicesDATAoption='';
-        foreach ($clientType as  $clientTypeData) {
+        foreach ($clientType as $clientTypeData) {
                  $servicesDATAoption.="<optgroup label='".$clientTypeData->title."'>";
-                 $getserviceBycustomerType=Service::where("customer_type_id","=",$clientTypeData->id)->get();
-                 foreach ($getserviceBycustomerType as $getserviceBycustomerTypeDATA) {
-                 
-                      if( in_array($getserviceBycustomerTypeDATA->id, $VendorServiceArray) ) 
-             {
-             
-            $servicesDATAoption.="<option value='".$getserviceBycustomerTypeDATA->id."' selected=\"selected\">".$getserviceBycustomerTypeDATA->title."</option>";
-              
-                
-              }
-              else
-              {
-                $servicesDATAoption.="<option value='".$getserviceBycustomerTypeDATA->id."' >".$getserviceBycustomerTypeDATA->title."</option>";
-            
-              }
-
-
-                         
-                 }
+                 $getserviceBycustomerType=Service::where("customer_type_id", "=", $clientTypeData->id)->get();
+            foreach ($getserviceBycustomerType as $getserviceBycustomerTypeDATA) {
+                if (in_array($getserviceBycustomerTypeDATA->id, $VendorServiceArray)) {
+                    $servicesDATAoption.="<option value='".$getserviceBycustomerTypeDATA->id."' selected=\"selected\">".$getserviceBycustomerTypeDATA->title."</option>";
+                } else {
+                    $servicesDATAoption.="<option value='".$getserviceBycustomerTypeDATA->id."' >".$getserviceBycustomerTypeDATA->title."</option>";
+                }
+            }
 
 
 
                  $servicesDATAoption.="</optgroup>";
-         
         }
        
 
@@ -301,10 +276,10 @@ class UserController extends \BaseController {
         ->with('states', $states)
         ->with('user_data', $user_data)
         ->with('user_type', $user_type)
-        ->with('services',$services)
-        ->with('vendor_services',$VendorServiceArray)
-        ->with('CustomerType',$CustomerType)
-        ->with('servicesDATAoption',$servicesDATAoption);
+        ->with('services', $services)
+        ->with('vendor_services', $VendorServiceArray)
+        ->with('CustomerType', $CustomerType)
+        ->with('servicesDATAoption', $servicesDATAoption);
     }
 
     /**
@@ -312,11 +287,12 @@ class UserController extends \BaseController {
      * @params none
      * @return return success & error message through AJAX.
      */
-    public function saveProfile() {
+    public function saveProfile()
+    {
         if (Auth::check()) {
             $id = Auth::user()->id;
             $username = Auth::user()->username;
-            Validator::extend('hashmatch', function($attribute, $value, $parameters) {
+            Validator::extend('hashmatch', function ($attribute, $value, $parameters) {
                 return Hash::check($value, Auth::user()->$parameters[0]);
             });
 
@@ -361,7 +337,6 @@ class UserController extends \BaseController {
                 }
                 return $profile_error_messages;
             } else {
-
                 $street = '';
                 $streetNumber = '';
                 $city_id = Input::get('city_id');
@@ -393,12 +368,12 @@ class UserController extends \BaseController {
                 $save = User::profile($data, $id);
    
                 $affectedRows = VendorService::where('vendor_id', '=', Auth::user()->id)->delete();
-                foreach ($data['vendor_services'] as  $value) {
+                foreach ($data['vendor_services'] as $value) {
                     $dataArray['vendor_id']=Auth::user()->id;
                     $dataArray['status']=1;
                     $dataArray['service_id']=$value;
 
-                 VendorService::create($dataArray);  
+                    VendorService::create($dataArray);
                 }
 
 
@@ -416,7 +391,8 @@ class UserController extends \BaseController {
      * @params User ID
      * @return Redirect to relative pages.
      */
-    public function whereRedirect($id) {
+    public function whereRedirect($id)
+    {
         $user = User::find($id);
         $type_id = $user->type_id;
         $profile_status = User::getProfileStatusById($id);
@@ -426,13 +402,10 @@ class UserController extends \BaseController {
 
 
         if ($user_type == 'vendors') {
-
             if ($profile_status == 0 && $user_status == 1) {
-
                 $redirect = 'vendor-profile-complete';
                 return Redirect::to($redirect);
             } else if ($profile_status == 1 && $user_status == 1) {
-
                 $redirect = $user_type;
                 return Redirect::to($redirect);
             } else if ($profile_status == 0 && $user_status == 0) {
@@ -444,14 +417,12 @@ class UserController extends \BaseController {
                 Auth::logout();
                 return Redirect::to($redirect);
             } else if ($user_status == 0) {
-
                 $redirect = '/';
                 Auth::logout();
                 return Redirect::to($redirect)
                                 ->withErrors(array('password' => 'Your are not approved by admin yet.'));
             }
         } else if ($user_type == 'admin' || $user_type == 'user') {
-
             if ($user_status == 1) {
                 $redirect = 'admin';
                 return Redirect::to($redirect);
@@ -462,25 +433,20 @@ class UserController extends \BaseController {
                                 ->withErrors(array('password' => 'Your are not approved by admin yet.'));
             }
         } else if ($user_type == 'customer') {
-
             if ($profile_status < 1 && $user_status > 0) {
-
                 $redirect = 'customer-profile-complete';
                 return Redirect::to($redirect);
                 ;
             } else if ($profile_status > 0 && $user_status > 0) {
-
                 $redirect = $user_type;
                 return Redirect::to($redirect);
                 ;
             } else if ($profile_status < 1 && $user_status < 1) {
-
                 $redirect = '/';
                 Auth::logout();
                 return Redirect::to($redirect);
                 ;
             } else if ($user_status == 0) {
-
                 $redirect = '/';
                 Auth::logout();
                 return Redirect::to($redirect)
@@ -492,5 +458,4 @@ class UserController extends \BaseController {
             }
         }
     }
-
 }

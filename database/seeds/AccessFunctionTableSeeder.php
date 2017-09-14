@@ -1,8 +1,10 @@
 <?php
 
-class AccessFunctionTableSeeder extends Seeder {
+class AccessFunctionTableSeeder extends Seeder
+{
 
-    public function run() {
+    public function run()
+    {
         DB::table('access_functions')->delete();
         DB::statement('ALTER TABLE access_functions AUTO_INCREMENT = 1;');
         DB::table('access_functions')->insert(array( 'access_function' => 'Users'));
@@ -16,5 +18,4 @@ class AccessFunctionTableSeeder extends Seeder {
         DB::table('access_functions')->insert(array( 'access_function' => 'Invoice'));
         DB::table('access_functions')->insert(array( 'access_function' => 'Special Price'));
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Remainder extends BaseTenantModel {
+class Remainder extends BaseTenantModel
+{
 
     /**
      * The database table used by the model.
@@ -8,9 +9,10 @@ class Remainder extends BaseTenantModel {
      * @var string
      */
     protected $table = 'remainders';
-     protected $fillable = array('id', 'date', 'model','type', 'remainder_text', 'user_id','request_id');
+    protected $fillable = array('id', 'date', 'model','type', 'remainder_text', 'user_id','request_id');
 
- public function user() {
+    public function user()
+    {
         return $this->belongsTo('User', 'user_id');
     }
 
@@ -19,5 +21,4 @@ class Remainder extends BaseTenantModel {
      *
      * @var array
      */
-    
 }

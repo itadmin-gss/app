@@ -3,16 +3,18 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUpdatedAddInNotification extends Migration {
+class AddUpdatedAddInNotification extends Migration
+{
 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         DB::statement('Alter table notifications drop created_date');
-        Schema::table('notifications', function($table) {
+        Schema::table('notifications', function ($table) {
             $table->timestamps();
         });
     }
@@ -22,8 +24,8 @@ class AddUpdatedAddInNotification extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         //
     }
-
 }

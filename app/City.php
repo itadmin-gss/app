@@ -2,7 +2,8 @@
 
 
 
-class City extends BaseTenantModel {
+class City extends BaseTenantModel
+{
 
 
 
@@ -34,41 +35,42 @@ class City extends BaseTenantModel {
 
 
 
-    public function state(){
+    public function state()
+    {
 
-       return $this->belongsTo('State','state_id');
-
+        return $this->belongsTo('State', 'state_id');
     }
 
     
 
-    public function user(){
+    public function user()
+    {
 
-       return $this->hasMany('User','city_id');
-
+        return $this->hasMany('User', 'city_id');
     }
 
     
 
-    public static function getCitiesByStateId($id){
+    public static function getCitiesByStateId($id)
+    {
 
-       $cities = self::whereRaw('state_id = ?', array($id))->orderBy('name', 'asc')->get(array('id','name'));
+        $cities = self::whereRaw('state_id = ?', array($id))->orderBy('name', 'asc')->get(array('id','name'));
 
-       return $cities;
-
+        return $cities;
     }
 
-    public static function getAllCities(){
+    public static function getAllCities()
+    {
 
         $cities = self::all();
 
          return $cities;
-
     }
 
 
 
-    public static function updateCity($data, $id) {
+    public static function updateCity($data, $id)
+    {
 
       // $save = City::find($id)->update($data);
 
@@ -93,10 +95,5 @@ class City extends BaseTenantModel {
 
 
         return $save;
-
-
-
     }
-
 }
-

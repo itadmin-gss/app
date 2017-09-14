@@ -2,7 +2,8 @@
 
 
 
-class AssignRequestBidsImage extends BaseTenantModel {
+class AssignRequestBidsImage extends BaseTenantModel
+{
 
 
 
@@ -32,23 +33,19 @@ class AssignRequestBidsImage extends BaseTenantModel {
 
      */
 
-    public function requestedService() {
+    public function requestedService()
+    {
 
         return $this->belongsTo('RquestedService', 'requested_id');
-
     }
 
 
 
-    public static function addServiceImage($data) {
+    public static function addServiceImage($data)
+    {
 
         $add_service = self::create($data);
 
         return ($add_service) ? true : false;
-
     }
-
-
-
 }
-

@@ -1,8 +1,10 @@
 <?php
 
-class UserTableSeeder extends Seeder {
+class UserTableSeeder extends Seeder
+{
 
-    public function run() {
+    public function run()
+    {
         DB::table('users')->delete();
  
         DB::table('users')->insert(array(
@@ -52,5 +54,4 @@ class UserTableSeeder extends Seeder {
             'longitude' => '-103.1807294',
         ));
     }
-
 }

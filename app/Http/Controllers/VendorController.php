@@ -9,115 +9,103 @@
  */
 use JeroenDesloovere\Geolocation\Geolocation;
 
-class VendorController extends \BaseController {
+class VendorController extends \BaseController
+{
 
     /**
      * Get Vendor to Vendor Dashboard.
      * @params none
      * @return Redirect to Vendor Dashboard.
      */
-    public function index() {
+    public function index()
+    {
 
 
-    	$user_id = Auth::user()->id;
-        $new_work_order = Order::where('vendor_id', '=', $user_id)->where('status','=',0)->take(5)->orderBy('id', 'desc')->get();
-        $requests = AssignRequest::where('vendor_id', '=', $user_id)->take(5)->where('status','!=',2)->groupBy('request_id')->orderBy('id', 'desc')->get();
+        $user_id = Auth::user()->id;
+        $new_work_order = Order::where('vendor_id', '=', $user_id)->where('status', '=', 0)->take(5)->orderBy('id', 'desc')->get();
+        $requests = AssignRequest::where('vendor_id', '=', $user_id)->take(5)->where('status', '!=', 2)->groupBy('request_id')->orderBy('id', 'desc')->get();
         $assign_requests = array();
         $i = 0;
 
         foreach ($requests as $request) {
+            $orderid="No Work Order";
+            $InvoiceRequest="";
+            $customerprice="";
+            $vendorprice="No Invoice";
+            $vendorID="No Invoice";
+            $customerID="No Invoice";
+            $vendorname="";
+            foreach ($request->maintenanceRequest->order as $data) {
+                $orderid= $data->id;
+            }
 
-           $orderid="No Work Order";
-           $InvoiceRequest="";
-           $customerprice="";
-           $vendorprice="No Invoice";
-           $vendorID="No Invoice";
-           $customerID="No Invoice";
-           $vendorname="";
-           foreach($request->maintenanceRequest->order as $data)
-           {
-             $orderid= $data->id;
-         }
+            foreach ($request->maintenanceRequest->assignRequest as $dataAssigned) {
+                if (isset($dataAssigned->requestedService->service->title)) {
+                    $vendorname .=$dataAssigned->requestedService->service->title."<br/>";
+                } else {
+                    $vendorname .="";
+                }
+            }
 
-         foreach($request->maintenanceRequest->assignRequest as $dataAssigned)
-         {
-            if(isset($dataAssigned->requestedService->service->title)){
-             $vendorname .=$dataAssigned->requestedService->service->title."<br/>";
-         }
-         else
-         {
-            $vendorname .="";    
+
+
+            foreach ($request->maintenanceRequest->invoiceRequest as $dataAssigned) {
+                if ($dataAssigned->user_type_id==2) {
+                     $customerID=$dataAssigned->id;
+                     $customerprice =$dataAssigned->total_amount."<br/>";
+                } else {
+                    $vendorprice =$dataAssigned->total_amount."<br/>";
+                    $vendorID =$dataAssigned->id;
+                }
+            }
+
+
+            $assign_requests[$i]['order_id'] =  $orderid;
+            $assign_requests[$i]['vendor_price'] =  $vendorprice;
+            $assign_requests[$i]['invoiceNo'] =  $vendorID;
+
+
+
+            $services = AssignRequest::where('vendor_id', '=', $user_id)->where('request_id', '=', $request->maintenanceRequest->id)->where('status', '!=', 2)->orderBy('id', 'desc')->get();
+            $assign_requests[$i]['request_id'] = $request->maintenanceRequest->id;
+            $assign_requests[$i]['status'] = $request->maintenanceRequest->status;
+            $assign_requests[$i]['service_code'] = '';
+            $assign_requests[$i]['service_name'] = '';
+
+            $assign_requests[$i]['customer_name'] = $request->maintenanceRequest->user->first_name .' '. $request->maintenanceRequest->user->last_name;
+            if (isset($request->maintenanceRequest->asset->asset_number)) {
+                         $assign_requests[$i]['asset_number'] = $request->maintenanceRequest->asset->asset_number;
+            } else {
+                         $assign_requests[$i]['asset_number'] =" ";
+            }
+
+            $assign_requests[$i]['property_address'] = $request->maintenanceRequest->asset->property_address;
+
+            $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->maintenanceRequest->created_at)) ;
+            $assign_requests[$i]['emergency_request']=$request->maintenanceRequest->emergency_request;
+            $assign_requests[$i]['due_date'] = $request->maintenanceRequest->created_at;
+
+            $countService=0;
+            foreach ($services as $service) {
+                if (isset($service->requestedService->service->service_code)) {
+                    $assign_requests[$i]['service_code'].='&diams; '.$service->requestedService->service->service_code . ', <br>';
+                }
+                if (isset($service->requestedService->service->title)) {
+                    $assign_requests[$i]['service_name'].='&diams; '.$service->requestedService->service->title ;
+                }
+
+                if (isset($service->requestedService->due_date)) {
+                    $assign_requests[$i]['service_name'] .= "<br>".    $service->requestedService->due_date . ', <br>';
+                } else {
+                    $assign_requests[$i]['service_name']  .=   ', <br>';
+                }
+
+                         $countService++;
+            }
+            $assign_requests[$i]['no_of_services']=$countService;
+            $i++;
         }
-    }
-
-
-
-    foreach($request->maintenanceRequest->invoiceRequest as $dataAssigned)
-    {
-     if($dataAssigned->user_type_id==2)
-     {
-       $customerID=$dataAssigned->id;
-       $customerprice =$dataAssigned->total_amount."<br/>";
-   }
-   else
-   {
-    $vendorprice =$dataAssigned->total_amount."<br/>";
-    $vendorID =$dataAssigned->id;
-}
-}
-
-
-$assign_requests[$i]['order_id'] =  $orderid;
-$assign_requests[$i]['vendor_price'] =  $vendorprice;
-$assign_requests[$i]['invoiceNo'] =  $vendorID;
-
-
-
-$services = AssignRequest::where('vendor_id', '=', $user_id)->where('request_id','=',$request->maintenanceRequest->id)->where('status','!=',2)->orderBy('id', 'desc')->get();
-$assign_requests[$i]['request_id'] = $request->maintenanceRequest->id;
-$assign_requests[$i]['status'] = $request->maintenanceRequest->status;
-$assign_requests[$i]['service_code'] = '';
-$assign_requests[$i]['service_name'] = '';
-
-$assign_requests[$i]['customer_name'] = $request->maintenanceRequest->user->first_name .' '. $request->maintenanceRequest->user->last_name;
-if (isset($request->maintenanceRequest->asset->asset_number)) {
-
- $assign_requests[$i]['asset_number'] = $request->maintenanceRequest->asset->asset_number;
-
-} else {
- $assign_requests[$i]['asset_number'] =" ";
-}
-
-$assign_requests[$i]['property_address'] = $request->maintenanceRequest->asset->property_address;
-
-$assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A',strtotime($request->maintenanceRequest->created_at)) ;
-$assign_requests[$i]['emergency_request']=$request->maintenanceRequest->emergency_request;
-$assign_requests[$i]['due_date'] = $request->maintenanceRequest->created_at;
-
-$countService=0;
-foreach ($services as $service) {
-    if(isset($service->requestedService->service->service_code))
-        $assign_requests[$i]['service_code'].='&diams; '.$service->requestedService->service->service_code . ', <br>';
-    if(isset($service->requestedService->service->title))
-        $assign_requests[$i]['service_name'].='&diams; '.$service->requestedService->service->title ;
-
-    if(isset($service->requestedService->due_date))
-    { 
-        $assign_requests[$i]['service_name'] .= "<br>".    $service->requestedService->due_date . ', <br>';
-    }
-    else
-    {
-     $assign_requests[$i]['service_name']  .=   ', <br>';
-
-
- }
-
- $countService++;        
-}
-$assign_requests[$i]['no_of_services']=$countService;
-$i++;
-}
-$recent_orders = Order::where('vendor_id', '=', $user_id)->take(5)->get();
+        $recent_orders = Order::where('vendor_id', '=', $user_id)->take(5)->get();
 
 
 
@@ -125,34 +113,36 @@ $recent_orders = Order::where('vendor_id', '=', $user_id)->take(5)->get();
         //Recent Bid Requests
 
 
-$requests = BidRequest::where('vendor_id', '=', $user_id)->take(5)->where('status',"=", 1)->orderBy('id', 'desc')->get();
+        $requests = BidRequest::where('vendor_id', '=', $user_id)->take(5)->where('status', "=", 1)->orderBy('id', 'desc')->get();
 
 
-$assign_requests_bids = array();
-$i = 0;
-foreach ($requests as $request) {
-    $services = BidRequestedService::where('request_id', '=', $request->id)->where('status','=',1)->orderBy('id', 'desc')->get();
+        $assign_requests_bids = array();
+        $i = 0;
+        foreach ($requests as $request) {
+            $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
 
-    $assign_requests_bids[$i]['request_id'] = $request->id;
-    $assign_requests_bids[$i]['service_code'] = '';
-    $assign_requests_bids[$i]['service_name'] = '';
-    $assign_requests_bids[$i]['request_date'] = date('m/d/Y h:i:s A',strtotime($request->created_at));
-    $assign_requests_bids[$i]['due_date'] = $request->created_at;
-    $assign_requests_bids[$i]['property_address'] = $request->asset->property_address;
-    $request_id_array=array();
-    foreach ($services as $service) {
-        $request_id_array[]=$service->service->id;
+            $assign_requests_bids[$i]['request_id'] = $request->id;
+            $assign_requests_bids[$i]['service_code'] = '';
+            $assign_requests_bids[$i]['service_name'] = '';
+            $assign_requests_bids[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->created_at));
+            $assign_requests_bids[$i]['due_date'] = $request->created_at;
+            $assign_requests_bids[$i]['property_address'] = $request->asset->property_address;
+            $request_id_array=array();
+            foreach ($services as $service) {
+                $request_id_array[]=$service->service->id;
 
-        if(isset($service->service->service_code))
-            $assign_requests_bids[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
-        if(isset($service->service->title))
-            $assign_requests_bids[$i]['service_name'].='&diams; '.$service->service->title . ', <br>';
-    }
+                if (isset($service->service->service_code)) {
+                    $assign_requests_bids[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
+                }
+                if (isset($service->service->title)) {
+                    $assign_requests_bids[$i]['service_name'].='&diams; '.$service->service->title . ', <br>';
+                }
+            }
 
 
 
-    $i++;
-}
+            $i++;
+        }
 
 
 
@@ -160,54 +150,55 @@ foreach ($requests as $request) {
 
 
 
-$invoices  = Invoice::where('user_type_id','=',3)
-->where('user_id','=',$user_id)
+        $invoices  = Invoice::where('user_type_id', '=', 3)
+        ->where('user_id', '=', $user_id)
 
-->take(5)
-->orderBy('id', 'desc')
-->get();
+        ->take(5)
+        ->orderBy('id', 'desc')
+        ->get();
 
-$list_orders = array();
-$i = 0;
+        $list_orders = array();
+        $i = 0;
 
 
-foreach ($invoices as $invoice) {
-    $order_details = ($invoice->order->orderDetail);
+        foreach ($invoices as $invoice) {
+            $order_details = ($invoice->order->orderDetail);
 
-    $list_orders[$i]['order_id'] = $invoice->order_id;
-    $list_orders[$i]['customer_name'] = $invoice->order->customer->first_name . ' ' . $invoice->order->customer->last_name;
-    $list_orders[$i]['vendor_name'] = $invoice->order->vendor->first_name . ' ' . $invoice->order->vendor->last_name;
-    $list_orders[$i]['asset_number'] = $invoice->order->maintenanceRequest->asset->asset_number;
-    $list_orders[$i]['propery_address'] = $invoice->order->maintenanceRequest->asset->address;
-    $list_orders[$i]['zip'] = $invoice->order->maintenanceRequest->asset->zip;
+            $list_orders[$i]['order_id'] = $invoice->order_id;
+            $list_orders[$i]['customer_name'] = $invoice->order->customer->first_name . ' ' . $invoice->order->customer->last_name;
+            $list_orders[$i]['vendor_name'] = $invoice->order->vendor->first_name . ' ' . $invoice->order->vendor->last_name;
+            $list_orders[$i]['asset_number'] = $invoice->order->maintenanceRequest->asset->asset_number;
+            $list_orders[$i]['propery_address'] = $invoice->order->maintenanceRequest->asset->address;
+            $list_orders[$i]['zip'] = $invoice->order->maintenanceRequest->asset->zip;
 
-    $list_orders[$i]['city'] = $invoice->order->maintenanceRequest->asset->city->name;
-    $list_orders[$i]['state'] = $invoice->order->maintenanceRequest->asset->state->name;
+            $list_orders[$i]['city'] = $invoice->order->maintenanceRequest->asset->city->name;
+            $list_orders[$i]['state'] = $invoice->order->maintenanceRequest->asset->state->name;
 
-    $list_orders[$i]['order_date'] =date('m/d/Y h:i:s A',strtotime($invoice->order->created_at));
-    $list_orders[$i]['service_name'] = '';
-    $list_orders[$i]['status'] = $invoice->status;
-    $list_orders[$i]['price'] = $invoice->total_amount;
-    foreach ($order_details as $order_detail) {
-     $list_orders[$i]['service_name'].=$order_detail->requestedService->service->title . ', <br>';
- }
- $i++;
-}
+            $list_orders[$i]['order_date'] =date('m/d/Y h:i:s A', strtotime($invoice->order->created_at));
+            $list_orders[$i]['service_name'] = '';
+            $list_orders[$i]['status'] = $invoice->status;
+            $list_orders[$i]['price'] = $invoice->total_amount;
+            foreach ($order_details as $order_detail) {
+                $list_orders[$i]['service_name'].=$order_detail->requestedService->service->title . ', <br>';
+            }
+                 $i++;
+        }
 
-return View::make('pages.vendors.dashboard')
-->with('assign_requests', $assign_requests)
-->with('assign_requests_bids', $assign_requests_bids)
-->with('recent_orders' , $recent_orders)
-->with('list_orders',$list_orders)
-->with('new_work_orders',$new_work_order);
-}
+        return View::make('pages.vendors.dashboard')
+        ->with('assign_requests', $assign_requests)
+        ->with('assign_requests_bids', $assign_requests_bids)
+        ->with('recent_orders', $recent_orders)
+        ->with('list_orders', $list_orders)
+        ->with('new_work_orders', $new_work_order);
+    }
 
     /**
      * Get Vendor to profile complete form.
      * @params none
      * @return Redirect to respective page either its add services or dashboard.
      */
-    public function showCompleteProfile() {
+    public function showCompleteProfile()
+    {
         if (Auth::check()) {
             $id = Auth::user()->id;
             $profile_status = Auth::user()->profile_status;
@@ -229,7 +220,8 @@ return View::make('pages.vendors.dashboard')
      * @params none
      * @return Error messages or redirect to Dashboard.
      */
-    public function completeProfile() {
+    public function completeProfile()
+    {
         if (Auth::check()) {
             $id = Auth::user()->id;
             if (Input::get('save_continue')) {
@@ -265,65 +257,65 @@ return View::make('pages.vendors.dashboard')
                 ->withErrors($validator)
                 ->withInput(Input::except('profile_picture'));
             } else {
-
-              $street = '';
-              $streetNumber = '';
-              $city_id = Input::get('city_id');
-              $city = City::find($city_id)->name;
-              $zip = Input::get('zipcode');
-              $country = 'United States';
+                $street = '';
+                $streetNumber = '';
+                $city_id = Input::get('city_id');
+                $city = City::find($city_id)->name;
+                $zip = Input::get('zipcode');
+                $country = 'United States';
              //   $result = Geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
-              $property_address= Input::get('address_1');
-              $state_id = Input::get('state_id');
-              $state = State::find($state_id)->name;
-              $result  =  Asset::getLatLong($property_address.$zip,$city,$state);
-              $data = Input::all();
-              $data['latitude'] = $result['lat'];
-              $data['longitude'] = $result['lng'];
+                $property_address= Input::get('address_1');
+                $state_id = Input::get('state_id');
+                $state = State::find($state_id)->name;
+                $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
+                $data = Input::all();
+                $data['latitude'] = $result['lat'];
+                $data['longitude'] = $result['lng'];
 
 
                  //User Notification Email for profile completeness
               
-              $email_data = array(
+                $email_data = array(
                 'user_email_template'=>EmailNotification::$user_email_completeness_template);
-              Email::send(Auth::user()->email, 'Your profile has been completed', 'emails.user_email_template', $email_data);
+                Email::send(Auth::user()->email, 'Your profile has been completed', 'emails.user_email_template', $email_data);
                  //End Nofication Email Code
 
-              $data['profile_status'] = 1;
-              $file = Input::file('profile_picture');
+                $data['profile_status'] = 1;
+                $file = Input::file('profile_picture');
                 //This section will handel profile pictures.
-              if ($file) {
-                $destinationPath = Config::get('app.upload_path');
-                $filename = $file->getClientOriginalName();
-                $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
-                $data['profile_picture'] = $filename;
-                Input::file('profile_picture')->move($destinationPath, $filename);
-            } else {
-                $data['profile_picture'] = Auth::user()->profile_picture;
+                if ($file) {
+                    $destinationPath = Config::get('app.upload_path');
+                    $filename = $file->getClientOriginalName();
+                    $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
+                    $data['profile_picture'] = $filename;
+                    Input::file('profile_picture')->move($destinationPath, $filename);
+                } else {
+                    $data['profile_picture'] = Auth::user()->profile_picture;
+                }
+                $save = User::profile($data, $id);
+                if ($save) {
+                    return Redirect::to($redirect);
+                }
             }
-            $save = User::profile($data, $id);
-            if ($save) {
-                return Redirect::to($redirect);
-            }
+        } else {
+            return Redirect::to('/');
         }
-    } else {
-        return Redirect::to('/');
     }
-}
 
     /**
      * List All Assigned requests by admin.
      * @params none
      * @return List of assigned requests through AJAX.
      */
-    public function listAssignedRequests() {
+    public function listAssignedRequests()
+    {
 
         $user_id = Auth::user()->id;
-        $requests = AssignRequest::where('vendor_id', '=', $user_id)->where('status',"=",1)->groupBy('request_id')->orderBy('id', 'desc')->get();
+        $requests = AssignRequest::where('vendor_id', '=', $user_id)->where('status', "=", 1)->groupBy('request_id')->orderBy('id', 'desc')->get();
         $assign_requests = array();
         $i = 0;
         foreach ($requests as $request) {
-            $services = AssignRequest::where('vendor_id', '=', $user_id)->where('request_id','=',$request->maintenanceRequest->id)->where('status','!=',2)->orderBy('id', 'desc')->get();
+            $services = AssignRequest::where('vendor_id', '=', $user_id)->where('request_id', '=', $request->maintenanceRequest->id)->where('status', '!=', 2)->orderBy('id', 'desc')->get();
             $assign_requests[$i]['request_id'] = $request->maintenanceRequest->id;
             $assign_requests[$i]['status'] = $request->maintenanceRequest->status;
             $assign_requests[$i]['service_code'] = '';
@@ -336,43 +328,46 @@ return View::make('pages.vendors.dashboard')
             $assign_requests[$i]['city'] = $request->maintenanceRequest->asset->city->name;
             $assign_requests[$i]['state'] = $request->maintenanceRequest->asset->state->name;
 
-            $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A',strtotime($request->maintenanceRequest->created_at)) ;
+            $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->maintenanceRequest->created_at)) ;
             $assign_requests[$i]['emergency_request']=$request->maintenanceRequest->emergency_request;
             $assign_requests[$i]['due_date'] = $request->maintenanceRequest->created_at;
             foreach ($services as $service) {
-             if(isset($service->requestedService->service->service_code))
-                $assign_requests[$i]['service_code'].='&diams; '.$service->requestedService->service->service_code . ', <br>';
+                if (isset($service->requestedService->service->service_code)) {
+                    $assign_requests[$i]['service_code'].='&diams; '.$service->requestedService->service->service_code . ', <br>';
+                }
 
-            if(isset($service->requestedService->service->title))
-                $assign_requests[$i]['service_name'].='&diams; '.$service->requestedService->service->title . ', <br>';
+                if (isset($service->requestedService->service->title)) {
+                    $assign_requests[$i]['service_name'].='&diams; '.$service->requestedService->service->title . ', <br>';
+                }
+            }
+            $i++;
         }
-        $i++;
+
+        return View::make('pages.vendors.list_assign_requests')->with('assign_requests', $assign_requests);
     }
 
-    return View::make('pages.vendors.list_assign_requests')->with('assign_requests', $assign_requests);
-}
 
-
-   public function listAssignedBids() {
+    public function listAssignedBids()
+    {
 
         $user_id = Auth::user()->id;
-        $requests = AssignRequestBid::where('vendor_id', '=', $user_id)->where('status',"=",1)->groupBy('request_id')->orderBy('id', 'desc')->get();
+        $requests = AssignRequestBid::where('vendor_id', '=', $user_id)->where('status', "=", 1)->groupBy('request_id')->orderBy('id', 'desc')->get();
         $assign_requests = array();
         $i = 0;
         foreach ($requests as $request) {
-            $services = AssignRequestBid::where('vendor_id', '=', $user_id)->where('request_id','=',$request->maintenanceRequest->id)->where('status','!=',2)->orderBy('id', 'desc')->get();
+            $services = AssignRequestBid::where('vendor_id', '=', $user_id)->where('request_id', '=', $request->maintenanceRequest->id)->where('status', '!=', 2)->orderBy('id', 'desc')->get();
             $assign_requests[$i]['request_id'] = $request->maintenanceRequest->id;
             $assign_requests[$i]['status'] = $request->maintenanceRequest->status;
             $assign_requests[$i]['service_code'] = '';
             $assign_requests[$i]['service_name'] = '';
             $customer_FirstName="";
-            if(isset($request->maintenanceRequest->user->first_name)){
-            $customer_FirstName=$request->maintenanceRequest->user->first_name;
+            if (isset($request->maintenanceRequest->user->first_name)) {
+                $customer_FirstName=$request->maintenanceRequest->user->first_name;
             }
 
              $customer_LastName="";
-            if(isset($request->maintenanceRequest->user->last_name)){
-            $customer_LastName=$request->maintenanceRequest->user->last_name;
+            if (isset($request->maintenanceRequest->user->last_name)) {
+                $customer_LastName=$request->maintenanceRequest->user->last_name;
             }
             $assign_requests[$i]['customer_name'] = $customer_FirstName .' '. $customer_LastName;
             $assign_requests[$i]['asset_number'] = $request->maintenanceRequest->asset->asset_number;
@@ -381,28 +376,31 @@ return View::make('pages.vendors.dashboard')
             $assign_requests[$i]['city'] = $request->maintenanceRequest->asset->city->name;
             $assign_requests[$i]['state'] = $request->maintenanceRequest->asset->state->name;
 
-            $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A',strtotime($request->maintenanceRequest->created_at)) ;
+            $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->maintenanceRequest->created_at)) ;
             $assign_requests[$i]['emergency_request']=$request->maintenanceRequest->emergency_request;
             $assign_requests[$i]['due_date'] = $request->maintenanceRequest->created_at;
             foreach ($services as $service) {
-             if(isset($service->requestedService->service->service_code))
-                $assign_requests[$i]['service_code'].='&diams; '.$service->requestedService->service->service_code . ', <br>';
+                if (isset($service->requestedService->service->service_code)) {
+                    $assign_requests[$i]['service_code'].='&diams; '.$service->requestedService->service->service_code . ', <br>';
+                }
 
-            if(isset($service->requestedService->service->title))
-                $assign_requests[$i]['service_name'].='&diams; '.$service->requestedService->service->title . ', <br>';
+                if (isset($service->requestedService->service->title)) {
+                    $assign_requests[$i]['service_name'].='&diams; '.$service->requestedService->service->title . ', <br>';
+                }
+            }
+            $i++;
         }
-        $i++;
-    }
 
-    return View::make('pages.vendors.list_assign_bids')->with('assign_requests', $assign_requests);
-}
+        return View::make('pages.vendors.list_assign_bids')->with('assign_requests', $assign_requests);
+    }
 
     /**
      * List All Orders.
      * @params none
      * @return List of Orders through AJAX.
      */
-    public function listOrders() {
+    public function listOrders()
+    {
         $user_id = Auth::user()->id;
         $orders = Order::where('vendor_id', '=', $user_id)->orderBy('id', 'desc')->get();
         $list_orders = array();
@@ -413,98 +411,90 @@ return View::make('pages.vendors.dashboard')
 
 
             $customerfirstname="";
-            if(isset($order->customer->first_name))
-            {
-               $customerfirstname=$order->customer->first_name;
-           }
-
-           $customerlastname="";
-           if(isset($order->customer->last_name))
-           {
-               $customerlastname=$order->customer->last_name;
-           }
-
-
-           $vendorfirstname="";
-           if(isset($order->vendor->first_name))
-           {
-               $vendorfirstname=$order->vendor->first_name;
-           }
-
-           $vendorlastname="";
-           if(isset($order->vendor->last_name))
-           {
-               $vendorlastname=$order->vendor->last_name;
-           }
-           foreach ($order->maintenanceRequest->requestedService as $req_ser) {
-               if (isset($req_ser->due_date)) {
-
-                   $duedate= $req_ser->due_date;
-
-               }else
-               {
-                $duedate="";
+            if (isset($order->customer->first_name)) {
+                $customerfirstname=$order->customer->first_name;
             }
 
-        }
+            $customerlastname="";
+            if (isset($order->customer->last_name)) {
+                $customerlastname=$order->customer->last_name;
+            }
 
 
-        $list_orders[$i]['customer_name'] = $customerfirstname. ' ' . $customerlastname;
-        $list_orders[$i]['vendor_name'] =  $vendorfirstname. ' ' .  $vendorlastname;
-        if (isset($order->maintenanceRequest->asset->asset_number)) {
- 	   $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
-        }else{
-        	$list_orders[$i]['asset_number'] = "";
-        }
+            $vendorfirstname="";
+            if (isset($order->vendor->first_name)) {
+                $vendorfirstname=$order->vendor->first_name;
+            }
+
+            $vendorlastname="";
+            if (isset($order->vendor->last_name)) {
+                $vendorlastname=$order->vendor->last_name;
+            }
+            foreach ($order->maintenanceRequest->requestedService as $req_ser) {
+                if (isset($req_ser->due_date)) {
+                    $duedate= $req_ser->due_date;
+                } else {
+                    $duedate="";
+                }
+            }
+
+
+            $list_orders[$i]['customer_name'] = $customerfirstname. ' ' . $customerlastname;
+            $list_orders[$i]['vendor_name'] =  $vendorfirstname. ' ' .  $vendorlastname;
+            if (isset($order->maintenanceRequest->asset->asset_number)) {
+                $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
+            } else {
+                $list_orders[$i]['asset_number'] = "";
+            }
      
-            // $list_orders[$i]['due_date'] = $duedate;   
-        $list_orders[$i]['due_date'] = '';
-        $list_orders[$i]['service_name'] = '';
-         if (isset($order->maintenanceRequest->asset->asset_number)) {
-        $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;
-    }else{
-    	$list_orders[$i]['property_address'] =""; 
-    }
-if(isset($order->maintenanceRequest->asset->city->name)){
-        $list_orders[$i]['city'] = $order->maintenanceRequest->asset->city->name;
-}else{
- $list_orders[$i]['city'] ="";
-} 
-if (isset($order->maintenanceRequest->asset->state->name)) {
-  $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
-} else {
-  $list_orders[$i]['state'] = "";
-}
-if (isset($order->maintenanceRequest->asset->zip)) {
-   $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
-} else {
-   $list_orders[$i]['zipcode'] = "";
-}
+            // $list_orders[$i]['due_date'] = $duedate;
+            $list_orders[$i]['due_date'] = '';
+            $list_orders[$i]['service_name'] = '';
+            if (isset($order->maintenanceRequest->asset->asset_number)) {
+                $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;
+            } else {
+                $list_orders[$i]['property_address'] ="";
+            }
+            if (isset($order->maintenanceRequest->asset->city->name)) {
+                    $list_orders[$i]['city'] = $order->maintenanceRequest->asset->city->name;
+            } else {
+                         $list_orders[$i]['city'] ="";
+            }
+            if (isset($order->maintenanceRequest->asset->state->name)) {
+                          $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
+            } else {
+                          $list_orders[$i]['state'] = "";
+            }
+            if (isset($order->maintenanceRequest->asset->zip)) {
+                           $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
+            } else {
+                           $list_orders[$i]['zipcode'] = "";
+            }
 
         
        
 
-        $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
-        $list_orders[$i]['status'] = $order->status;
-        $list_orders[$i]['status_class'] = ($order->status==1)? "warning": $order->status_class; ;
-        $list_orders[$i]['status_text'] = ($order->status==1)? "In-Process":$order->status_text;;
-        foreach ($order_details as $order_detail) {
-          if (isset($order_detail->requestedService->service->title)) {
-          $list_orders[$i]['service_name'].=$order_detail->requestedService->service->title . ', <br>';
-          }else{
-            $list_orders[$i]['service_name'].= " ";
-          }
-          if (isset($order_detail->requestedService->due_date)) {
-            $list_orders[$i]['due_date'].=$order_detail->requestedService->due_date . ', <br>';
-            
-          }else{
-            $list_orders[$i]['due_date'].= " ";
+            $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
+            $list_orders[$i]['status'] = $order->status;
+            $list_orders[$i]['status_class'] = ($order->status==1)? "warning": $order->status_class;
+            ;
+            $list_orders[$i]['status_text'] = ($order->status==1)? "In-Process":$order->status_text;
+            ;
+            foreach ($order_details as $order_detail) {
+                if (isset($order_detail->requestedService->service->title)) {
+                    $list_orders[$i]['service_name'].=$order_detail->requestedService->service->title . ', <br>';
+                } else {
+                    $list_orders[$i]['service_name'].= " ";
+                }
+                if (isset($order_detail->requestedService->due_date)) {
+                    $list_orders[$i]['due_date'].=$order_detail->requestedService->due_date . ', <br>';
+                } else {
+                    $list_orders[$i]['due_date'].= " ";
+                }
+            }
 
-          }
-           } 
-
-        $i++;
-          }
+            $i++;
+        }
           return View::make('pages.vendors.list_orders')->with('orders', $list_orders);
     }
     
@@ -516,7 +506,8 @@ if (isset($order->maintenanceRequest->asset->zip)) {
      *status=2
      * @return List of Completed Orders through AJAX.
      */
-    public function listCompletedOrders() {
+    public function listCompletedOrders()
+    {
         $user_id = Auth::user()->id;
         $orders = Order::where('vendor_id', '=', $user_id)->where('status', '=', '2')->orderBy('id', 'desc')->get();
         $list_orders = array();
@@ -544,20 +535,19 @@ if (isset($order->maintenanceRequest->asset->zip)) {
      *
      */
 
-    public function viewMaintenanceRequest($maintenance_request_id = "") {
+    public function viewMaintenanceRequest($maintenance_request_id = "")
+    {
 
 
         $request_maintenance = MaintenanceRequest::find($maintenance_request_id);
 
         $assign_requests = AssignRequest::where('request_id', '=', $maintenance_request_id)
-        ->where('status',"!=",2)
-        ->where('vendor_id',"=", Auth::user()->id)
+        ->where('status', "!=", 2)
+        ->where('vendor_id', "=", Auth::user()->id)
         ->get();
 
         foreach ($assign_requests as $adata) {
-
             $assigned_request_ids[] = $adata->requestedService->service->id;
-
         }
 
 
@@ -569,28 +559,27 @@ if (isset($order->maintenanceRequest->asset->zip)) {
     }
 
 
-       public function viewBidRequest($maintenance_request_id = "") {
+    public function viewBidRequest($maintenance_request_id = "")
+    {
 
 
         $request_maintenance = MaintenanceBid::find($maintenance_request_id);
 
         $assign_requests = AssignRequestBid::where('request_id', '=', $maintenance_request_id)
-        ->where('status',"!=",2)
-        ->where('vendor_id',"=", Auth::user()->id)
+        ->where('status', "!=", 2)
+        ->where('vendor_id', "=", Auth::user()->id)
         ->get();
 
         foreach ($assign_requests as $adata) {
-
             $assigned_request_ids[] = $adata->requestedService->service->id;
-
         }
 
 
         return View::make('pages.vendors.viewvendorbiddingrequest')
         ->with(array(
-            'request_maintenance' => $request_maintenance,
-            'assign_requests'=>$assign_requests
-            ));
+        'request_maintenance' => $request_maintenance,
+        'assign_requests'=>$assign_requests
+        ));
     }
 
 
@@ -601,165 +590,160 @@ if (isset($order->maintenanceRequest->asset->zip)) {
      *
      */
 
-     public function viewOSR($maintenance_request_id = "") {
+    public function viewOSR($maintenance_request_id = "")
+    {
 
 
-      $request_maintenance = BidRequest::find($maintenance_request_id);
+        $request_maintenance = BidRequest::find($maintenance_request_id);
 
-      $assign_requests = BidRequestedService::where('request_id', '=', $maintenance_request_id)
+        $assign_requests = BidRequestedService::where('request_id', '=', $maintenance_request_id)
 
-      ->get();
+        ->get();
 
 
 
-      return View::make('pages.vendors.viewosr')
-      ->with(array(
+        return View::make('pages.vendors.viewosr')
+        ->with(array(
         'request_maintenance' => $request_maintenance,
         'assign_requests'=>$assign_requests
         ));
     }
 
 
-    public function declineRequest() {
+    public function declineRequest()
+    {
         $data = Input::all();
         $delete_request = AssignRequest::deleteRequest($data['request_id'], $data['vendor_id']);
 
 
         //BUt is will be for all requests not particular
-        if($data['declined_notes']!="")
-        {
-          $declined_notesdata = array(
+        if ($data['declined_notes']!="") {
+            $declined_notesdata = array(
             'decline_notes'       => $data['declined_notes']
             );
 
-          $save = MaintenanceRequest::where('id','=',$data['request_id'])
-          ->update($declined_notesdata);
-
-      }
-      $notification_url="list-maintenance-request";
+            $save = MaintenanceRequest::where('id', '=', $data['request_id'])
+            ->update($declined_notesdata);
+        }
+        $notification_url="list-maintenance-request";
 
                 // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
-      $recepient_id = User::getAdminUsersId();
-      foreach( $recepient_id as $rec_id)
-      {
+        $recepient_id = User::getAdminUsersId();
+        foreach ($recepient_id as $rec_id) {
                     //admin to admin notification
-        $notification = NotificationController::doNotification($rec_id,$rec_id, "Request ".$data['request_id']." has been declined by vendor", 1,array(),$notification_url);
-    }
-
-
-    if ($delete_request) {
-        return " Request has been declined. You will not be re-assigned this request.";
-    }
-}
-
-public function acceptRequest() {
-    $input = Input::all();
-    $accept_request = AssignRequest::acceptRequest($input['request_id'], $input['vendor_id']);
-
-
-    if ($accept_request) {
-            //Creating the work order
-        $data['status'] = 1;
-        $data['request_id'] = $input['request_id'];
-        $data['vendor_id'] = $input['vendor_id'];
-        $data['customer_id'] = MaintenanceRequest::find($input['request_id'])->asset->customer_id;
-        $order_id = Order::addOrder($data);
-
-        $order_details = array();
-            //Getting  services  ids
-        $assigned_requests = AssignRequest::where('request_id', '=', $data['request_id'])
-        ->where('vendor_id', '=', $data['vendor_id'])
-        ->where('status', '!=', 2)
-        ->get();
-
-        foreach ($assigned_requests as $request) {
-            $order_details['requested_service_id'] = $request->requested_service_id;
-            $order_details['order_id'] = $order_id;
-            $order_details['status'] = 1;
-            OrderDetail::addOrderDetails($order_details);
+            $notification = NotificationController::doNotification($rec_id, $rec_id, "Request ".$data['request_id']." has been declined by vendor", 1, array(), $notification_url);
         }
 
 
-        return " Thank you for accepting the request! You now have a work order marked as “In-Process”. Please upload photos and complete the order once work is performed.";
+        if ($delete_request) {
+            return " Request has been declined. You will not be re-assigned this request.";
+        }
     }
 
+    public function acceptRequest()
+    {
+        $input = Input::all();
+        $accept_request = AssignRequest::acceptRequest($input['request_id'], $input['vendor_id']);
 
-}
-public function acceptSingleRequest() {
-    $input = Input::all();
-    $accept_request = AssignRequest::acceptSingleRequest($input['request_id'], $input['vendor_id'], $input['service_id']);
-    if ($accept_request) {
+
+        if ($accept_request) {
             //Creating the work order
-        $data['status'] = 1;
-        $data['request_id'] = $input['request_id'];
-        $data['vendor_id'] = $input['vendor_id'];
-        $data['customer_id'] = MaintenanceRequest::find($input['request_id'])->asset->customer_id;
-        $order_id = Order::addOrder($data);
+            $data['status'] = 1;
+            $data['request_id'] = $input['request_id'];
+            $data['vendor_id'] = $input['vendor_id'];
+            $data['customer_id'] = MaintenanceRequest::find($input['request_id'])->asset->customer_id;
+            $order_id = Order::addOrder($data);
 
-        $order_details = array();
-        $order_details['requested_service_id'] = $input['service_id'];
-        $order_details['order_id'] = $order_id;
-        $order_details['status'] = 1;
-        OrderDetail::addOrderDetails($order_details);
+            $order_details = array();
+            //Getting  services  ids
+            $assigned_requests = AssignRequest::where('request_id', '=', $data['request_id'])
+            ->where('vendor_id', '=', $data['vendor_id'])
+            ->where('status', '!=', 2)
+            ->get();
+
+            foreach ($assigned_requests as $request) {
+                $order_details['requested_service_id'] = $request->requested_service_id;
+                $order_details['order_id'] = $order_id;
+                $order_details['status'] = 1;
+                OrderDetail::addOrderDetails($order_details);
+            }
+
+
+            return " Thank you for accepting the request! You now have a work order marked as “In-Process”. Please upload photos and complete the order once work is performed.";
+        }
+    }
+    public function acceptSingleRequest()
+    {
+        $input = Input::all();
+        $accept_request = AssignRequest::acceptSingleRequest($input['request_id'], $input['vendor_id'], $input['service_id']);
+        if ($accept_request) {
+            //Creating the work order
+            $data['status'] = 1;
+            $data['request_id'] = $input['request_id'];
+            $data['vendor_id'] = $input['vendor_id'];
+            $data['customer_id'] = MaintenanceRequest::find($input['request_id'])->asset->customer_id;
+            $order_id = Order::addOrder($data);
+
+            $order_details = array();
+            $order_details['requested_service_id'] = $input['service_id'];
+            $order_details['order_id'] = $order_id;
+            $order_details['status'] = 1;
+            OrderDetail::addOrderDetails($order_details);
 
 
                //Declined other required
-        AssignRequest::deleteSingleRequest($data['request_id'], $data['vendor_id'],$input['service_id']);
+            AssignRequest::deleteSingleRequest($data['request_id'], $data['vendor_id'], $input['service_id']);
 
 
-        return " Thank you for accepting the request! You now have a work order marked as “In-Process”. Please upload photos and complete the order once work is performed.";
+            return " Thank you for accepting the request! You now have a work order marked as “In-Process”. Please upload photos and complete the order once work is performed.";
+        }
     }
-
-
-
-
-}
         /*
         Add bid for a particular workorder
         */
-        public function addBidRequest($order_id=0)
-        {
+    public function addBidRequest($order_id = 0)
+    {
 
       // Get all customer assets to send in view
 
         $services = Service::getAllServices(1); // get all services provided by admin
-          $jobType=JobType::get();
+        $jobType=JobType::get();
 
-            //get vendor id
+        //get vendor id
         $vendor_id = Auth::user()->id;
-          // All in progress work orders
+      // All in progress work orders
         $orders = Order::where('vendor_id', '=', $vendor_id)
         ->where('status', '=', '1')
         ->get();
 
         $order_ids=array();
-        foreach($orders as $order):
-           $order_ids[$order->id."--".$order->MaintenanceRequest->Asset->id]=  $order->id."-".$order->MaintenanceRequest->Asset->property_address;
-        if($order_id==$order->id)
-        {
-          $order_id=$order_id."--".$order->MaintenanceRequest->Asset->id;
-        }
-       endforeach;
+        foreach ($orders as $order) :
+            $order_ids[$order->id."--".$order->MaintenanceRequest->Asset->id]=  $order->id."-".$order->MaintenanceRequest->Asset->property_address;
+            if ($order_id==$order->id) {
+                  $order_id=$order_id."--".$order->MaintenanceRequest->Asset->id;
+            }
+        endforeach;
 
-       return View::make('pages.vendors.add-bid')
-       ->with('order_ids', $order_ids)
-       ->with('services', $services)
-      ->with('jobType', $jobType)
-      ->with('order_id',$order_id) ;
-   }
+        return View::make('pages.vendors.add-bid')
+        ->with('order_ids', $order_ids)
+        ->with('services', $services)
+        ->with('jobType', $jobType)
+        ->with('order_id', $order_id) ;
+    }
 
                 /**
      * Create Bid request
      * @params none
      * @return Redirect to maintenance request page
      */
-      public function createBidServiceRequest() {
+    public function createBidServiceRequest()
+    {
 
-        $data = Input::all(); 
+        $data = Input::all();
         //$customer_id = Auth::user()->id;
         //for customer id
 
-        $exploded_orderid_asset_id=explode("--",$data['work_order']);
+        $exploded_orderid_asset_id=explode("--", $data['work_order']);
         $orderData= Order::find($exploded_orderid_asset_id[0]);
         $request['vendor_id'] = Auth::user()->id; // assign current logged id to request
         $request['asset_id'] = $exploded_orderid_asset_id[1]; // assign asset number to request
@@ -778,7 +762,7 @@ public function acceptSingleRequest() {
 
             /// loop through all selected services
             foreach ($selected_services as $service_id) {
-               $request_detail['maintenance_request_id'] =$orderData->request_id;
+                $request_detail['maintenance_request_id'] =$orderData->request_id;
 
                 $request_detail['request_id'] = $request_id; // assign request id to $requested detail
                 $request_detail['service_id'] = $service_id; // assign service_id to $requested detail
@@ -866,38 +850,36 @@ public function acceptSingleRequest() {
 
 
         /// loop through all selected services
-            $selectedServices="";
-          foreach ($selected_services as $service_id) {
-           $servicesEMAIL= Service::find($service_id);
+        $selectedServices="";
+        foreach ($selected_services as $service_id) {
+            $servicesEMAIL= Service::find($service_id);
 
             $selectedServices.=$servicesEMAIL->title."<br/>";
-          }
+        }
 
-                   $BidRequestEmailDATA=  BidRequest::find($request_id);
-                   $emailbody='OSR '.$request_id .' has been created';
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'ID:'.$request_id;
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'Property Address'.$BidRequestEmailDATA->asset->property_address;
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'City:'.$BidRequestEmailDATA->asset->city->name;
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'State:'.$BidRequestEmailDATA->asset->state->name;;
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'Service Type:'.$selectedServices;
-                   $emailbody.= '<br/>';
+               $BidRequestEmailDATA=  BidRequest::find($request_id);
+               $emailbody='OSR '.$request_id .' has been created';
+               $emailbody.= '<br/>';
+               $emailbody.= 'ID:'.$request_id;
+               $emailbody.= '<br/>';
+               $emailbody.= 'Property Address'.$BidRequestEmailDATA->asset->property_address;
+               $emailbody.= '<br/>';
+               $emailbody.= 'City:'.$BidRequestEmailDATA->asset->city->name;
+               $emailbody.= '<br/>';
+               $emailbody.= 'State:'.$BidRequestEmailDATA->asset->state->name;
+        ;
+               $emailbody.= '<br/>';
+               $emailbody.= 'Service Type:'.$selectedServices;
+               $emailbody.= '<br/>';
 
-                   $url="admin-bid-requests/".$request_id;
-                   $emailbody.='To view the OSR <a href="http://'.URL::to($url).'">please click here</a>!.'; 
-
-
-
-                     // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
-                $recepient_id = User::getAdminUsersId();
-                foreach( $recepient_id as $rec_id)
-                {
+               $url="admin-bid-requests/".$request_id;
+               $emailbody.='To view the OSR <a href="http://'.URL::to($url).'">please click here</a>!.';
 
 
+
+                 // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
+            $recepient_id = User::getAdminUsersId();
+        foreach ($recepient_id as $rec_id) {
             $userDAta=User::find($rec_id);
             $email_data = array(
             'first_name' => $userDAta->first_name,
@@ -906,16 +888,15 @@ public function acceptSingleRequest() {
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-                               );
+                 );
 
             $customervendor="Admin";
             $notification_url="admin-bid-requests";
               
-            //Vendor to admin notification
-            $notification = NotificationController::doNotification($rec_id,$rec_id, 'OSR '.$request_id .' has been created', 1,$email_data,$notification_url);
-            Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);   
-       
-            }
+    //Vendor to admin notification
+            $notification = NotificationController::doNotification($rec_id, $rec_id, 'OSR '.$request_id .' has been created', 1, $email_data, $notification_url);
+            Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);
+        }
 
 
 
@@ -934,17 +915,18 @@ public function acceptSingleRequest() {
      * @params none
      * @return List of assigned requests through AJAX.
      */
-    public function listBidRequests($status=1) {
+    public function listBidRequests($status = 1)
+    {
 
         $user_id = Auth::user()->id;
 
-        $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status',"=", $status)->orderBy('id', 'desc')->get();
+        $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status', "=", $status)->orderBy('id', 'desc')->get();
 
 
         $assign_requests = array();
         $i = 0;
         foreach ($requests as $request) {
-            $services = BidRequestedService::where('request_id', '=', $request->id)->where('status','=',1)->orderBy('id', 'desc')->get();
+            $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
 
             $assign_requests[$i]['request_id'] = $request->id;
             $assign_requests[$i]['service_code'] = '';
@@ -963,20 +945,21 @@ public function acceptSingleRequest() {
 
 
 
-            $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A',strtotime($request->created_at));
+            $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->created_at));
             $assign_requests[$i]['due_date'] = $request->created_at;
             $assign_requests[$i]['property_address'] = $request->asset->property_address;
             $request_id_array=array();
             foreach ($services as $service) {
-
                 $assign_requests[$i]['price'].=$service->biding_prince."<br/>";
 
                 $request_id_array[]=$service->service->id;
 
-                if(isset($service->service->service_code))
+                if (isset($service->service->service_code)) {
                     $assign_requests[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
-                if(isset($service->service->title))
+                }
+                if (isset($service->service->title)) {
                     $assign_requests[$i]['service_name'].='&diams; '.$service->service->title . ', <br>';
+                }
             }
 
 
@@ -987,7 +970,7 @@ public function acceptSingleRequest() {
 
         return View::make('pages.vendors.list_bid_requests')
         ->with('assign_requests', $assign_requests)
-        ->with('status',$status);
+        ->with('status', $status);
     }
 
      /**
@@ -995,17 +978,18 @@ public function acceptSingleRequest() {
      * @params none
      * @return List of assigned requests through AJAX.
      */
-     public function listApprovedBidRequests() {
+    public function listApprovedBidRequests()
+    {
 
         $user_id = Auth::user()->id;
 
-        $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status',"=", 2)->orderBy('id', 'desc')->get();
+        $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status', "=", 2)->orderBy('id', 'desc')->get();
 
 
         $assign_requests = array();
         $i = 0;
         foreach ($requests as $request) {
-            $services = BidRequestedService::where('request_id', '=', $request->id)->where('status','=',1)->orderBy('id', 'desc')->get();
+            $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
             $assign_requests[$i]['request_id'] = $request->id;
             $assign_requests[$i]['service_code'] = '';
             $assign_requests[$i]['service_name'] = '';
@@ -1014,17 +998,19 @@ public function acceptSingleRequest() {
             $assign_requests[$i]['request_date'] = $request->created_at;
             $assign_requests[$i]['due_date'] = $request->created_at;
             foreach ($services as $service) {
-             if(isset($service->service->service_code))
-                $assign_requests[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
+                if (isset($service->service->service_code)) {
+                    $assign_requests[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
+                }
 
-            if(isset($service->service->title))
-                $assign_requests[$i]['service_name'].='&diams; '.$service->service->title . ', <br>';
+                if (isset($service->service->title)) {
+                    $assign_requests[$i]['service_name'].='&diams; '.$service->service->title . ', <br>';
+                }
+            }
+            $i++;
         }
-        $i++;
-    }
 
-    return View::make('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
-}
+        return View::make('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
+    }
 
 
     /**
@@ -1032,17 +1018,18 @@ public function acceptSingleRequest() {
      * @params none
      * @return List of assigned requests through AJAX.
      */
-    public function listDeclinedBidRequests() {
+    public function listDeclinedBidRequests()
+    {
 
         $user_id = Auth::user()->id;
 
-        $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status',"=", 3)->orderBy('id', 'desc')->get();
+        $requests = BidRequest::where('vendor_id', '=', $user_id)->where('status', "=", 3)->orderBy('id', 'desc')->get();
 
 
         $assign_requests = array();
         $i = 0;
         foreach ($requests as $request) {
-            $services = BidRequestedService::where('request_id', '=', $request->id)->where('status','=',1)->orderBy('id', 'desc')->get();
+            $services = BidRequestedService::where('request_id', '=', $request->id)->where('status', '=', 1)->orderBy('id', 'desc')->get();
             $assign_requests[$i]['request_id'] = $request->id;
             $assign_requests[$i]['service_code'] = '';
             $assign_requests[$i]['service_name'] = '';
@@ -1051,68 +1038,68 @@ public function acceptSingleRequest() {
             $assign_requests[$i]['request_date'] = $request->created_at;
             $assign_requests[$i]['due_date'] = $request->created_at;
             foreach ($services as $service) {
-             if(isset($service->service->service_code))
-                $assign_requests[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
-            if(isset($service->service->title))
-                $assign_requests[$i]['service_name'].='&diams; '.$service->service->title . ', <br>';
+                if (isset($service->service->service_code)) {
+                    $assign_requests[$i]['service_code'].='&diams; '.$service->service->service_code . ', <br>';
+                }
+                if (isset($service->service->title)) {
+                    $assign_requests[$i]['service_name'].='&diams; '.$service->service->title . ', <br>';
+                }
+            }
+            $i++;
         }
-        $i++;
+
+        return View::make('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
     }
 
-    return View::make('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
-}
-
-function changeVendorPrice()
-{
-     $data = Input::all(); 
+    function changeVendorPrice()
+    {
+         $data = Input::all();
 
      
-     $declined_notesdata = array(
+         $declined_notesdata = array(
             'biding_prince'       => $data['vendorPrice'],
            
             );
 
-          $save = BidRequestedService::where('id','=',$data['assignid'])
-          ->update($declined_notesdata);
+              $save = BidRequestedService::where('id', '=', $data['assignid'])
+              ->update($declined_notesdata);
 
 
           
 
 
-          $BidRequestedService=BidRequestedService::find($data['assignid']);
+              $BidRequestedService=BidRequestedService::find($data['assignid']);
 
 
-          $StatusDATA = array(
+              $StatusDATA = array(
             'status'       => 1,
            
             );
 
-          $save = BidRequest::where('id','=',$BidRequestedService->request_id)
-          ->update( $StatusDATA);
+              $save = BidRequest::where('id', '=', $BidRequestedService->request_id)
+              ->update($StatusDATA);
 
 
 
                   // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
                 $recepient_id = User::getAdminUsersId();
-                foreach( $recepient_id as $rec_id)
-                {
-
-
-                  $BidRequestEmailDATA=  BidRequest::find($BidRequestedService->request_id);
-                   $emailbody='OSR '.$BidRequestedService->request_id.' has been modified after decline ';
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'ID:'.$BidRequestedService->request_id;
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'Property Address'.$BidRequestEmailDATA->asset->property_address;
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'City:'.$BidRequestEmailDATA->asset->city->name;
-                   $emailbody.= '<br/>';
-                   $emailbody.= 'State:'.$BidRequestEmailDATA->asset->state->name;;
-                   $emailbody.= '<br/>';
+        foreach ($recepient_id as $rec_id) {
+            $BidRequestEmailDATA=  BidRequest::find($BidRequestedService->request_id);
+            $emailbody='OSR '.$BidRequestedService->request_id.' has been modified after decline ';
+            $emailbody.= '<br/>';
+            $emailbody.= 'ID:'.$BidRequestedService->request_id;
+            $emailbody.= '<br/>';
+            $emailbody.= 'Property Address'.$BidRequestEmailDATA->asset->property_address;
+            $emailbody.= '<br/>';
+            $emailbody.= 'City:'.$BidRequestEmailDATA->asset->city->name;
+            $emailbody.= '<br/>';
+            $emailbody.= 'State:'.$BidRequestEmailDATA->asset->state->name;
+            ;
+            $emailbody.= '<br/>';
                   
 
-                   $url="admin-bid-requests/".$BidRequestedService->request_id;
-                   $emailbody.='To view the OSR <a href="http://'.URL::to($url).'">please click here</a>!.'; 
+            $url="admin-bid-requests/".$BidRequestedService->request_id;
+            $emailbody.='To view the OSR <a href="http://'.URL::to($url).'">please click here</a>!.';
 
 
 
@@ -1124,21 +1111,20 @@ function changeVendorPrice()
             'email' => $userDAta->email,
             'id' =>  $rec_id,
             'user_email_template'=>$emailbody
-                               );
+                   );
 
             $customervendor="Admin";
             $notification_url="admin-bid-requests";
               
-            //Vendor to admin notification
-            $notification = NotificationController::doNotification($rec_id,$rec_id, 'OSR '.$BidRequestedService->request_id .' has been modified after decline', 1,$email_data,$notification_url);
-            Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);   
-       
-            }
-
-}
+        //Vendor to admin notification
+            $notification = NotificationController::doNotification($rec_id, $rec_id, 'OSR '.$BidRequestedService->request_id .' has been modified after decline', 1, $email_data, $notification_url);
+            Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);
+        }
+    }
 
 //Add images for bid when vendor viewing bids
-public function addBeforeImages() {
+    public function addBeforeImages()
+    {
 
         $destinationPath = Config::get('app.bid_images_before');   //2
         if (!empty($_FILES)) {
@@ -1146,23 +1132,21 @@ public function addBeforeImages() {
             $request_id=$data['requested_id'];
             $type=$data['image_type'];
            
-            $tempFile = $_FILES['file']['tmp_name'];          //3             
+            $tempFile = $_FILES['file']['tmp_name'];          //3
             $targetPath = $destinationPath;  //4
             $originalFile=$_FILES['file']['name'];
             $changedFileName=$request_id.'-'.$originalFile;
             $targetFile = $targetPath . $changedFileName;  //5
             $moved=move_uploaded_file($tempFile, $targetFile); //6
-            if($moved)
-            {
+            if ($moved) {
                 $data['image_name']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
                 
                 setcookie('request_id', $request_id);
-                setcookie('type', $type);   
+                setcookie('type', $type);
                 $save=AssignRequestBidsImage::create($data);
-                if($save)
-                {
+                if ($save) {
                     $image='<img id="'.$request_id.'-'.$save->image_name.'" src="'.Config::get('app.url').'/'.Config::get('app.bid_images_before').$save->image_name.'" width="80px" height="80px" style="padding: 10px" class="img-thumbnail" alt="">';
                     echo $image;
                 }
@@ -1171,106 +1155,93 @@ public function addBeforeImages() {
     }
 
 
-      public function displayImages() {
+    public function displayImages()
+    {
         $data = Input::all();
         $order_id = $data['id'];
    
         $type = $data['type'];
         $popDiv='';
-$app_path="";
-if($type=="after")
-{
-$app_path="bid_images_after";
-}
-elseif($type=="before")
-{
-$app_path="bid_images_before";
-}
-elseif($type=="during")
-{
-   $app_path="bid_images_during"; 
-}
+        $app_path="";
+        if ($type=="after") {
+                $app_path="bid_images_after";
+        } elseif ($type=="before") {
+                $app_path="bid_images_before";
+        } elseif ($type=="during") {
+                   $app_path="bid_images_during";
+        }
 
-        $images=AssignRequestBidsImage::where('requested_id','=',$order_id)->get();
+        $images=AssignRequestBidsImage::where('requested_id', '=', $order_id)->get();
         
       
-     $tag_counter = 1;
-     $output="";
+        $tag_counter = 1;
+        $output="";
      
 
-        foreach($images as $image)
-        { 
+        foreach ($images as $image) {
              $filecheck=  '/home/gssreo/public_html/'.Config::get('app.'.$app_path).$image->address;
-             if (file_exists(  $filecheck)) {
+            if (file_exists($filecheck)) {
                 $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
-        
-            }
-            else
-            {
+            } else {
                 $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6"> <img  src="'.Config::get('app.url')."/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
-        
             }
-        $OrderImagesPosition     =OrderImagesPosition::where('order_image_id','=',$image->id)->get();
-        $OrderImagesPositionCount=OrderImagesPosition::where('order_image_id','=',$image->id)->count();
+            $OrderImagesPosition     =OrderImagesPosition::where('order_image_id', '=', $image->id)->get();
+            $OrderImagesPositionCount=OrderImagesPosition::where('order_image_id', '=', $image->id)->count();
  
 
-      $tag_counter = 1;
+            $tag_counter = 1;
 
       //Build output
        
-      foreach ($OrderImagesPosition as $tag) {
-        if($tag_counter ==1) { $output .= '<style type="text/css">';
-     $output .=  '.map'.$tag->order_image_id.' { display:none;}';
-         }
+            foreach ($OrderImagesPosition as $tag) {
+                if ($tag_counter ==1) {
+                    $output .= '<style type="text/css">';
+                    $output .=  '.map'.$tag->order_image_id.' { display:none;}';
+                }
        
        
-        $output .=  '.map'.$tag->order_image_id.' .map .tag_'.$tag_counter.$tag->order_image_id.' { ';
-        // $output .= 'border:1px solid #000;';
-        $output .= 'background:url("'.URL::to('/').'/public/assets/images/tag_hotspot_62x62.png") no-repeat;';
-        $output .= 'top:'.$tag['y1'].'px;';
-        $output .= 'left:'.$tag['x1'].'px;';
-        $output .= 'width:'.$tag['w'].'px;';
-        $output .= 'height:'.$tag['h'].'px;';
+                    $output .=  '.map'.$tag->order_image_id.' .map .tag_'.$tag_counter.$tag->order_image_id.' { ';
+                    // $output .= 'border:1px solid #000;';
+                    $output .= 'background:url("'.URL::to('/').'/public/assets/images/tag_hotspot_62x62.png") no-repeat;';
+                    $output .= 'top:'.$tag['y1'].'px;';
+                    $output .= 'left:'.$tag['x1'].'px;';
+                    $output .= 'width:'.$tag['w'].'px;';
+                    $output .= 'height:'.$tag['h'].'px;';
 
-        $output .= '}';
+                    $output .= '}';
         
     
-       $tag_counter++;
-      }
-     if($tag_counter !=1)  { $output .= '</style>';}
-
-        $tag_counter = 1;
-  
-if( $OrderImagesPositionCount>0)
-       {
-    foreach($OrderImagesPosition as $tag) {
-        if($tag_counter ==1) 
-            { 
-                $output.= '<div class="map'.$tag->order_image_id.'"><ul class="map">';
+                   $tag_counter++;
             }
-        $output.=  '<li class="tag_'.$tag_counter.$tag->order_image_id.'" id="uniq'.$tag->id.'"><a  href="javascript:;"><span class="titleDs">'.$tag['comment'].' </span></a><a href="javascript:;" class="removeBtn" onclick="deletePhotoTag('.$tag->id.')">X</a></li>';
+            if ($tag_counter !=1) {
+                $output .= '</style>';
+            }
+
+            $tag_counter = 1;
+  
+            if ($OrderImagesPositionCount>0) {
+                foreach ($OrderImagesPosition as $tag) {
+                    if ($tag_counter ==1) {
+                            $output.= '<div class="map'.$tag->order_image_id.'"><ul class="map">';
+                    }
+                    $output.=  '<li class="tag_'.$tag_counter.$tag->order_image_id.'" id="uniq'.$tag->id.'"><a  href="javascript:;"><span class="titleDs">'.$tag['comment'].' </span></a><a href="javascript:;" class="removeBtn" onclick="deletePhotoTag('.$tag->id.')">X</a></li>';
            
           
-        $tag_counter++;
-         }
-        }
-        else
-        {
-           $output.= '<div class="mapunique"><ul class="map">';
-            $output.= "</ul></div>";
-        }
-
-
-          if($tag_counter !=1) {
-       $output.= "</ul></div>";
+                    $tag_counter++;
+                }
+            } else {
+                   $output.= '<div class="mapunique"><ul class="map">';
+                $output.= "</ul></div>";
             }
-     
 
 
+            if ($tag_counter !=1) {
+                $output.= "</ul></div>";
+            }
         }
          
 
-         $popDiv.= '<script type="text/javascript">
+        $popDiv.= '<script type="text/javascript">
             $(".example6").fancybox({
                     onStart: function(element){
                         var jquery_element=$(element);
@@ -1294,8 +1265,4 @@ if( $OrderImagesPositionCount>0)
         </script>';
         return $popDiv;
     }
-
-
 }
-
-

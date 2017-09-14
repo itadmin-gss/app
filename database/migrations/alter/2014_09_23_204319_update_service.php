@@ -3,15 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateService extends Migration {
+class UpdateService extends Migration
+{
 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
-        Schema::table('services', function($table) {
+    public function up()
+    {
+        Schema::table('services', function ($table) {
             $table->tinyInteger('verified_vacancy')->default(0);
             $table->tinyInteger('cash_for_keys')->default(0);
             $table->tinyInteger('cash_for_keys_trash_out')->default(0);
@@ -26,8 +28,8 @@ class UpdateService extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         //
     }
-
 }
