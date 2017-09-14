@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\View;
 
 class Controller extends BaseController
 {
-
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
@@ -23,11 +22,10 @@ class Controller extends BaseController
      */
     protected function setupLayout()
     {
-        if (! is_null($this->layout)) {
+        if (!is_null($this->layout)) {
             $this->layout = view($this->layout);
         }
     }
-
 
 
     public function __construct()
@@ -36,9 +34,9 @@ class Controller extends BaseController
             $role_id = Auth::user()->user_role_id;
 
             $role_detail = RoleDetail::where('role_id', '=', $role_id)
-            ->get();
+                ->get();
 
-                        $access_roles=[];
+            $access_roles = [];
 
 
             foreach ($role_detail as $role) {
@@ -52,33 +50,35 @@ class Controller extends BaseController
             }
 
             View::share('access_roles', $access_roles);
-            $getNotifications    =  Notification::getNotifications(Auth::user()->id);
-            $unreadnotifications =  Notification::where('recepient_id', '=', Auth::user()->id)
-                                                ->where('is_read', '=', 1)
-                                                ->skip(0)
-                                                ->take(5)
-                                                ->count();
-            $CustomerType=CustomerType::get();
-            $clientTypeSession=  Session::get('clientType');
+            $getNotifications = Notification::getNotifications(Auth::user()->id);
+            $unreadnotifications = Notification::where('recepient_id', '=', Auth::user()->id)
+                ->where('is_read', '=', 1)
+                ->skip(0)
+                ->take(5)
+                ->count();
+            $CustomerType = CustomerType::get();
+            $clientTypeSession = Session::get('clientType');
             View::share('get_notifications', $getNotifications);
             View::share('unreadnotifications', $unreadnotifications);
             View::share('CustomerType', $CustomerType);
             View::share('clientTypeSession', $clientTypeSession);
         }
     }
+
     public function notify()
     {
-            $getNotifications    =  Notification::getNotifications(Auth::user()->id);
-            $unreadnotifications =  Notification::where('recepient_id', '=', Auth::user()->id)
-                                                ->where('is_read', '=', 1)
-                                                ->skip(0)
-                                                ->take(5)
-                                                ->count();
-            $CustomerType=CustomerType::get();
-            $clientTypeSession=  Session::get('clientType');
-            //View::share('get_notifications', $getNotifications);
-            return $unreadnotifications;
-            //View::share('CustomerType', $CustomerType);
-            //View::share('clientTypeSession', $clientTypeSession);
+        $getNotifications = Notification::getNotifications(Auth::user()->id);
+        $unreadnotifications = Notification::where('recepient_id', '=', Auth::user()->id)
+            ->where('is_read', '=', 1)
+            ->skip(0)
+            ->take(5)
+            ->count();
+        $CustomerType = CustomerType::get();
+        $clientTypeSession = Session::get('clientType');
+
+        //View::share('get_notifications', $getNotifications);
+        return $unreadnotifications;
+        //View::share('CustomerType', $CustomerType);
+        //View::share('clientTypeSession', $clientTypeSession);
     }
 }
