@@ -267,7 +267,7 @@ class ServiceController extends Controller
                  return Redirect::back()
 
                               ->withErrors($validator);
-             } else {
+                } else {
                     $save = Service::addAdminService($data);
 
                     $serviceID=DB::getPdo()->lastInsertId();
@@ -570,14 +570,14 @@ class ServiceController extends Controller
                         return redirect('list-services')
 
                            ->with('message', FlashMessage::DisplayAlert($message, 'success'));
-                    } else {
+                       } else {
                         $message = FlashMessage::messages('admin_service.service_error');
 
                         return Redirect::back()
 
                         ->with('message', FlashMessage::DisplayAlert($message, 'success'));
-                    }
-                   }
+                       }
+                }
         } else {
             $ServiceCategory=ServiceCategory::get();
 
@@ -645,7 +645,7 @@ class ServiceController extends Controller
                  return Redirect::back()
 
                               ->withErrors($validator);
-             } else {
+                } else {
                     $vendor_edit =  Input::get("vendor_edit");
             
                     Service::where('id', '=', $service_id)->update(['vendor_edit'=>$vendor_edit]);
@@ -1235,14 +1235,14 @@ class ServiceController extends Controller
                         return redirect('list-services')
 
                            ->with('message', FlashMessage::DisplayAlert($message, 'success'));
-                    } else {
+                       } else {
                         $message = FlashMessage::messages('admin_service.service_error');
 
                         return Redirect::back()
 
                         ->with('message', FlashMessage::DisplayAlert($message, 'success'));
-                    }
-                   }
+                       }
+                }
         } else {
             $serviceTypeArray=[];
 
