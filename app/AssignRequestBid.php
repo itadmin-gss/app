@@ -10,17 +10,17 @@ class AssignRequestBid extends BaseTenantModel
 
     public function requestedService()
     {
-        return $this->belongsTo('App\RequestedBid', 'requested_service_id');
+        return $this->belongsTo(\App\RequestedBid::class, 'requested_service_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('App\MaintenanceBid', 'request_id');
+        return $this->belongsTo(\App\MaintenanceBid::class, 'request_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'vendor_id');
+        return $this->belongsTo(\App\User::class, 'vendor_id');
     }
     public static function addRequest($data)
     {
@@ -29,7 +29,7 @@ class AssignRequestBid extends BaseTenantModel
     }
     public function assignRequestBidsImage()
     {
-        return $this->hasMany('App\AssignRequestBidsImage', 'requested_id');
+        return $this->hasMany(\App\AssignRequestBidsImage::class, 'requested_id');
     }
 
 

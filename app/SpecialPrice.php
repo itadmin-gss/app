@@ -14,12 +14,12 @@ class SpecialPrice extends BaseTenantModel
 
     public function service()
     {
-        return $this->belongsTo('App\Service', 'service_id');
+        return $this->belongsTo(\App\Service::class, 'service_id');
         //return user type
     }
     public function user()
     {
-        return $this->belongsTo('App\User', 'customer_id');
+        return $this->belongsTo(\App\User::class, 'customer_id');
         //return user type
     }
     public static function addSpecialPrice($data)

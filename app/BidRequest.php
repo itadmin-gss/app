@@ -20,7 +20,7 @@ class BidRequest extends BaseTenantModel
     public function user()
     {
 
-        return $this->belongsTo('App\User', 'vendor_id');
+        return $this->belongsTo(\App\User::class, 'vendor_id');
     }
 
 
@@ -28,7 +28,7 @@ class BidRequest extends BaseTenantModel
     public function customer()
     {
 
-        return $this->belongsTo('App\User', 'customer_id');
+        return $this->belongsTo(\App\User::class, 'customer_id');
     }
 
 
@@ -38,7 +38,7 @@ class BidRequest extends BaseTenantModel
     public function asset()
     {
 
-        return $this->belongsTo('App\Asset', 'asset_id');
+        return $this->belongsTo(\App\Asset::class, 'asset_id');
     }
 
 
@@ -46,7 +46,7 @@ class BidRequest extends BaseTenantModel
     public function assignRequest()
     {
 
-        return $this->hasMany('App\AssignRequest', 'request_id');
+        return $this->hasMany(\App\AssignRequest::class, 'request_id');
     }
 
 
@@ -54,7 +54,7 @@ class BidRequest extends BaseTenantModel
     public function requestedService()
     {
 
-        return $this->hasMany('App\RequestedService', 'request_id');
+        return $this->hasMany(\App\RequestedService::class, 'request_id');
     }
 
 
@@ -62,7 +62,7 @@ class BidRequest extends BaseTenantModel
     public function order()
     {
 
-        return $this->hasMany('App\Order', 'request_id');
+        return $this->hasMany(\App\Order::class, 'request_id');
     }
 
 

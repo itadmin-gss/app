@@ -40,7 +40,7 @@ class UserRole extends BaseTenantModel
     public function user()
     {
 
-        return $this->hasMany('App\User', 'user_role_id');
+        return $this->hasMany(\App\User::class, 'user_role_id');
     }
 
     
@@ -48,7 +48,7 @@ class UserRole extends BaseTenantModel
     public function roleDetails()
     {
 
-        return $this->hasMany('App\RoleDetail', 'role_id');
+        return $this->hasMany(\App\RoleDetail::class, 'role_id');
     }
 
     

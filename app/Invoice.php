@@ -11,23 +11,23 @@ class Invoice extends BaseTenantModel
 
     public function vendor()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
 
     public function customer()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
 
 
     public function order()
     {
-          return $this->belongsTo('App\Order', 'order_id');
+          return $this->belongsTo(\App\Order::class, 'order_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
+        return $this->belongsTo(\App\MaintenanceRequest::class, 'request_id');
     }
     public static function listAll($userTypeId = 2, $user_id = "")
     {

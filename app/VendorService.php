@@ -14,11 +14,11 @@ class VendorService extends BaseTenantModel
         
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
     public function services()
     {
-        return $this->belongsTo('App\Service', 'service_id');
+        return $this->belongsTo(\App\Service::class, 'service_id');
     }
         
         // Defining Function to get User Profile Status. ---- Start

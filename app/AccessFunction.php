@@ -12,7 +12,7 @@ class AccessFunction extends BaseTenantModel
     
     public function roleFunctions()
     {
-        return $this->hasMany('App\RoleFunction', 'access_function_id');
+        return $this->hasMany(\App\RoleFunction::class, 'access_function_id');
         //return user type
     }
     

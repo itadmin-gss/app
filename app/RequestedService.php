@@ -21,32 +21,32 @@ class RequestedService extends BaseTenantModel
 
     public function service()
     {
-        return $this->belongsTo('App\Service', 'service_id');
+        return $this->belongsTo(\App\Service::class, 'service_id');
     }
 
     public function asset()
     {
-        return $this->belongsTo('App\Asset', 'asset_id');
+        return $this->belongsTo(\App\Asset::class, 'asset_id');
     }
 
     public function assignRequest()
     {
-        return $this->hasMany('App\AssignRequest', 'requested_service_id');
+        return $this->hasMany(\App\AssignRequest::class, 'requested_service_id');
     }
 
     public function orderDetail()
     {
-        return $this->hasMany('App\OrderDetail', 'requested_service_id');
+        return $this->hasMany(\App\OrderDetail::class, 'requested_service_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
+        return $this->belongsTo(\App\MaintenanceRequest::class, 'request_id');
     }
 
     public function serviceImages()
     {
-        return $this->hasMany('App\ServiceImage', 'requested_id');
+        return $this->hasMany(\App\ServiceImage::class, 'requested_id');
     }
     public static function addRequestedService($data)
     {

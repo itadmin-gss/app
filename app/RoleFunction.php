@@ -42,7 +42,7 @@ class RoleFunction extends BaseTenantModel
     public function roleDetails()
     {
 
-        return $this->hasMany('App\RoleDetail', 'role_function_id');
+        return $this->hasMany(\App\RoleDetail::class, 'role_function_id');
 
         //return user type
     }
@@ -52,7 +52,7 @@ class RoleFunction extends BaseTenantModel
     public function accessFunction()
     {
 
-        return $this->belongsTo('App\AccessFunction', 'access_function_id');
+        return $this->belongsTo(\App\AccessFunction::class, 'access_function_id');
 
         //return user type
     }
