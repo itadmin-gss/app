@@ -6,7 +6,7 @@ use App\Notification;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class NotificationController extends Controller
@@ -149,7 +149,7 @@ class NotificationController extends Controller
 
     public function ChangeNotificationStatus()
     {
-         $data = Input::all();
+         $data = Request::all();
          Notification::where('id', '=', $data['notification_id'])
                         ->update(['is_read'=>0]);
     }

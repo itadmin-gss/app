@@ -13,7 +13,7 @@ use App\User;
 use App\VendorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
@@ -37,16 +37,16 @@ class ServiceController extends Controller
 
     public function addRequestedService($id)
     {
-        $data = Input::all();
+        $data = Request::all();
         $data['order_id'] = $id;
         
-        $customers_notes = Input::get('customers_notes');
-        $vendors_notes = Input::get('vendors_notes');
-        $notes_for_vendors = Input::get('notes_for_vendors');
-        $admin_quantity = Input::get('admin_quantity');
-        $quantity = Input::get('quantity');
-        $customer_price = Input::get('customer_price');
-        $vendor_price = Input::get('vendors_price');
+        $customers_notes = Request::get('customers_notes');
+        $vendors_notes = Request::get('vendors_notes');
+        $notes_for_vendors = Request::get('notes_for_vendors');
+        $admin_quantity = Request::get('admin_quantity');
+        $quantity = Request::get('quantity');
+        $customer_price = Request::get('customer_price');
+        $vendor_price = Request::get('vendors_price');
         
         $Dataexist = OrderCustomData::where('order_id', '=', $id)->count();
         if ($Dataexist==0) {
@@ -69,19 +69,19 @@ class ServiceController extends Controller
     public function updateAdditionalItem($id)
     {
 
-        $description = Input::get('description');
-        $adminQuantity = Input::get('admin_quantity');
-        $quantity = Input::get('quantity');
-        $rate = Input::get('rate');
-        $customer_price = Input::get('customer_price');
-        print_r(Input::all());
+        $description = Request::get('description');
+        $adminQuantity = Request::get('admin_quantity');
+        $quantity = Request::get('quantity');
+        $rate = Request::get('rate');
+        $customer_price = Request::get('customer_price');
+        print_r(Request::all());
         $record =  AdditionalServiceItem::where("id", '=', $id)->update(['description' => $description ,'admin_quantity'=>$adminQuantity, 'quantity' => $quantity, 'rate' => $rate , 'customer_price' =>$customer_price]);
 
         echo $record;
     }
     public function addAdditionalItem()
     {
-        $data = Input::all();
+        $data = Request::all();
     
         $id =  AdditionalServiceItem::Add_Items($data);
 
@@ -114,8 +114,8 @@ class ServiceController extends Controller
     }
     public function checkAddedTitle()
     {
-        $data = Input::all();
-        $id = Input::get('id');
+        $data = Request::all();
+        $id = Request::get('id');
         foreach ($data as $serviceTitle) {
             $services = DB::table('services')->where('id', '=', $id)->orderBy('created_at', 'desc')->first();
         }
@@ -138,7 +138,7 @@ class ServiceController extends Controller
 
         ];
 
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
 
 
 
@@ -149,7 +149,7 @@ class ServiceController extends Controller
 
                             ->withErrors($validator);
         } else {
-            $data=Input::get('services');
+            $data=Request::get('services');
 
             $user_data=Auth::user();
 
@@ -177,23 +177,23 @@ class ServiceController extends Controller
 
             $user = new Users;
 
-            $user->first_name = Input::get('first_name');
+            $user->first_name = Request::get('first_name');
 
-            $user->last_name = Input::get('last_name');
+            $user->last_name = Request::get('last_name');
 
-            $user->email = Input::get('email');
+            $user->email = Request::get('email');
 
-            $user->company = Input::get('company');
+            $user->company = Request::get('company');
 
-            $user->username = Input::get('username');
+            $user->username = Request::get('username');
 
-            $user->type_id = Input::get('type_id') ? Input::get('type_id') : NULL;
+            $user->type_id = Request::get('type_id') ? Request::get('type_id') : NULL;
 
             $user->user_role_id = '0';
 
             $user->status = '1';
 
-            $user->password = Hash::make(Input::get('password'));
+            $user->password = Hash::make(Request::get('password'));
 
 
 
@@ -205,13 +205,13 @@ class ServiceController extends Controller
 
                 $email_data = array(
 
-                    'first_name' => Input::get('first_name'),
+                    'first_name' => Request::get('first_name'),
 
-                    'last_name' => Input::get('last_name'),
+                    'last_name' => Request::get('last_name'),
 
-                    'username' => Input::get('username'),
+                    'username' => Request::get('username'),
 
-                    'email' => Input::get('email'),
+                    'email' => Request::get('email'),
 
                     'id' => $id,
 
@@ -232,10 +232,10 @@ class ServiceController extends Controller
     public static function addAdminService()
     {
 
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
 
         if ($submitted) {
-            $data = Input::all();
+            $data = Request::all();
 
             unset($data['_token']);
 
@@ -259,7 +259,7 @@ class ServiceController extends Controller
 
 
 
-             $validator = Validator::make(Input::all(), $rules); // put all rules to validator
+             $validator = Validator::make(Request::all(), $rules); // put all rules to validator
 
              // if validation is failed redirect to add customer asset with errors
 
@@ -577,7 +577,7 @@ class ServiceController extends Controller
 
                         ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                     }
-                   }
+                }
         } else {
             $ServiceCategory=ServiceCategory::get();
 
@@ -614,10 +614,10 @@ class ServiceController extends Controller
     public static function updateAdminService($service_id)
     {
 
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
 
         if ($submitted) {
-            $data = Input::except('_token', 'submitted');
+            $data = Request::except('_token', 'submitted');
 
             //echo '<pre>'; print_r($data); exit;
 
@@ -646,7 +646,7 @@ class ServiceController extends Controller
 
                               ->withErrors($validator);
              } else {
-                    $vendor_edit =  Input::get("vendor_edit");
+                    $vendor_edit =  Request::get("vendor_edit");
             
                     Service::where('id', '=', $service_id)->update(['vendor_edit'=>$vendor_edit]);
             
@@ -1242,7 +1242,7 @@ class ServiceController extends Controller
 
                         ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                     }
-                   }
+                }
         } else {
             $serviceTypeArray=[];
 

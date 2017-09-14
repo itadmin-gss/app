@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Registration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -47,47 +47,47 @@ class RegistrationController extends Controller
             'password_confirmation' => 'same:password',
             'type_id'               => 'required'
           ];
-          $validator = Validator::make(Input::all(), $rules);
+          $validator = Validator::make(Request::all(), $rules);
 
 
           if ($validator->fails()) {
               return redirect('user-register')
                             ->withErrors($validator)
-                            ->withInput(Input::except('password'));
+                            ->withInput(Request::except('password'));
           } else {
                 $user               = new Registration;
-                $user->first_name   = Input::get('first_name');
-                $user->last_name    = Input::get('last_name');
-                $user->email        = Input::get('email');
-                $user->company      = Input::get('company');
-                $user->username     = Input::get('username');
+                $user->first_name   = Request::get('first_name');
+                $user->last_name    = Request::get('last_name');
+                $user->email        = Request::get('email');
+                $user->company      = Request::get('company');
+                $user->username     = Request::get('username');
                 $user->type_id      = '1';
                 $user->user_role_id = '0';
                 $user->status       = '0';
 
-                $user->password     = Hash::make(Input::get('password'));
+                $user->password     = Hash::make(Request::get('password'));
                 if ($user->save()) {
                     $id = $user->id;
              
                     $email_data = [
-                    'first_name'    => Input::get('first_name'),
-                    'last_name'     => Input::get('last_name'),
-                    'username'      => Input::get('username'),
-                    'email'         => Input::get('email'),
+                    'first_name'    => Request::get('first_name'),
+                    'last_name'     => Request::get('last_name'),
+                    'username'      => Request::get('username'),
+                    'email'         => Request::get('email'),
                     'id'            => $id,
                     
                     ];
                 
                     Mail::send('emails.customer_registered', $email_data, function ($message) {
                  
-                        $message->to(Input::get('email'), Input::get('first_name').' '.Input::get('last_name'))
+                        $message->to(Request::get('email'), Request::get('first_name').' '.Request::get('last_name'))
                          ->subject('Welcome to the GSS!')
                          ->from('imran@invortex.com', 'GSS');
                     });
                     Session::flash('message', 'Your account has been created successfully.');
                     return redirect('user-register');
                 }
-              }
+            }
     }
 
     

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Invoice;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 
 class InvoiceController extends Controller
 {
@@ -15,7 +15,7 @@ class InvoiceController extends Controller
     {
 
         //Show dashboard of customer
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
         if ($submitted) {
         } else {
             $order = Invoice::where('id', '=', $order_id)->get();
@@ -155,8 +155,8 @@ class InvoiceController extends Controller
 
     public function changePrice()
     {
-        $invoice_id= Input::get('invoice_id');
-        $invoice_price= Input::get('invoice_price');
+        $invoice_id= Request::get('invoice_id');
+        $invoice_price= Request::get('invoice_price');
      
         $flag= Invoice::where('id', '=', $invoice_id)->update(['total_amount' =>$invoice_price]); //Assigned to Technician Status
         echo "You has updated the price for vendor";

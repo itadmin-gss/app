@@ -25,7 +25,7 @@ use App\ServiceImageBid;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 
@@ -252,7 +252,7 @@ class MaintenanceRequestController extends Controller
     public function createAdditionalServiceRequest()
     {
       
-        $data = Input::all(); // get all submitted data of user
+        $data = Request::all(); // get all submitted data of user
        
         $request['substitutor_id'] = Auth::user()->id;
         $request['customer_id'] = Asset::find($data['asset_number'])->customer_id; // assign current logged id to request
@@ -584,7 +584,7 @@ class MaintenanceRequestController extends Controller
      */
     public function createServiceRequest()
     {
-        $data = Input::all(); // get all submitted data of user
+        $data = Request::all(); // get all submitted data of user
         $customer_id_for_request = "";
         if (Auth::user()->id==1) {
              $customer_id_for_request=Asset::find($data['asset_number'])->customer_id;
@@ -879,7 +879,7 @@ class MaintenanceRequestController extends Controller
                     */
                } else {
                     // $emergency_request_message=" Your Property address is far away from system vendors, admin will assign it manually. ";
-                 }
+                }
         }
 
 
@@ -987,7 +987,7 @@ Status: New Bid Request
      */
     public function editServiceRequest()
     {
-        $data = Input::all(); // get all submitted data of user
+        $data = Request::all(); // get all submitted data of user
     
        
         // get last id to assign to each service request
@@ -1219,7 +1219,7 @@ Status: New Bid Request
 
     public function assignServiceRequest()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
 
         $userDAta=User::find($assignment_data['vendor']);
         $workOrderId = '';
@@ -1358,7 +1358,7 @@ Status: New Bid Request
 
     public function assignServiceBid()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
 
         foreach ($assignment_data['services'] as $service_id) {
               $ifassignedcount=AssignRequestBid::where('request_id', '=', $assignment_data['request_id'])
@@ -1710,7 +1710,7 @@ Service Type:".$serviceType;
 
     public function approveBidRequestStatusChanged()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
         // Status has been changed to Approved Bid
         $data = ['status' => 8 ];
         $save = MaintenanceBid::find($assignment_data['request_id'])->update($data);
@@ -1781,7 +1781,7 @@ Service Type:".$serviceType;
     }
     public function approveBidRequest()
     {
-          $assignment_data = Input::all();
+          $assignment_data = Request::all();
 
          //Create Work Order
 
@@ -1994,7 +1994,7 @@ Service Type:".$serviceType;
 
     function declineBidRequest()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
 
         // Decline Bid Request
         $data = ['status' => 7,'declinebidnotes'=>$assignment_data['declinebidnotes'] ];
@@ -2050,14 +2050,14 @@ Service Type:".$serviceType;
 
     function adminNotes()
     {
-           $assignment_data = Input::all();
+           $assignment_data = Request::all();
 
               MaintenanceRequest::where('id', '=', $assignment_data['request_id'])
                                  ->update(['admin_notes'=>$assignment_data['admin_notes']]);
     }
     function adminNotesBid()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
 
           MaintenanceBid::where('id', '=', $assignment_data['request_id'])
                                ->update(['admin_notes'=>$assignment_data['admin_notes']]);
@@ -2066,7 +2066,7 @@ Service Type:".$serviceType;
 
     function adminNotesOsr()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
 
         BidRequest::where('id', '=', $assignment_data['request_id'])
                          ->update(['admin_notes'=>$assignment_data['admin_notes']]);
@@ -2074,7 +2074,7 @@ Service Type:".$serviceType;
 
     function customerNotesOsr()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
 
         BidRequest::where('id', '=', $assignment_data['request_id'])
                          ->update(['customer_notes'=>$assignment_data['admin_notes']]);
@@ -2085,14 +2085,14 @@ Service Type:".$serviceType;
     */
     function vendorNotesBid()
     {
-        $assignment_data = Input::all();
+        $assignment_data = Request::all();
         print_r($assignment_data);
           MaintenanceBid::where('id', '=', $assignment_data['request_id'])
                                ->update(['vendor_notes'=>$assignment_data['vendor_notes']]);
     }
     function publicNotes()
     {
-         $assignment_data = Input::all();
+         $assignment_data = Request::all();
 
             RequestedService::where('id', '=', $assignment_data['service_id'])
                                ->update(['public_notes'=>$assignment_data['public_notes']]);
@@ -2100,7 +2100,7 @@ Service Type:".$serviceType;
 
     function publicNotesBid()
     {
-           $assignment_data = Input::all();
+           $assignment_data = Request::all();
 
               RequestedBid::where('id', '=', $assignment_data['service_id'])
                                  ->update(['public_notes'=>$assignment_data['public_notes']]);
@@ -2108,14 +2108,14 @@ Service Type:".$serviceType;
 
     function customerNotesBid()
     {
-           $assignment_data = Input::all();
+           $assignment_data = Request::all();
 
               RequestedBid::where('id', '=', $assignment_data['service_id'])
                                  ->update(['customer_notes_bid'=>$assignment_data['customer_notes_bid']]);
     }
     function changeDueDate()
     {
-              $assignment_data = Input::all();
+              $assignment_data = Request::all();
 
               RequestedService::where('id', '=', $assignment_data['requestedID'])
                                  ->update(['due_date'=>$assignment_data['duedatechange']]);

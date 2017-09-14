@@ -23,7 +23,7 @@ use App\State;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
@@ -252,13 +252,13 @@ class VendorController extends Controller
     {
         if (Auth::check()) {
             $id = Auth::user()->id;
-            if (Input::get('save_continue')) {
+            if (Request::get('save_continue')) {
                 $redirect = 'vendor-profile-service';
-            } elseif (Input::get('save_exit')) {
+            } elseif (Request::get('save_exit')) {
                 $redirect = 'vendors';
             }
-            if (Input::get('create_by_admin') == 'yes') {
-                $username = Input::get('username');
+            if (Request::get('create_by_admin') == 'yes') {
+                $username = Request::get('username');
                 $rules = [
                     'username' => 'required|unique:users',
                     'phone' => 'required|numeric',
@@ -278,25 +278,25 @@ class VendorController extends Controller
                     ];
             }
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Request::all(), $rules);
 
             if ($validator->fails()) {
                 return redirect('vendor-profile-complete')
                 ->withErrors($validator)
-                ->withInput(Input::except('profile_picture'));
+                ->withInput(Request::except('profile_picture'));
             } else {
                 $street = '';
                 $streetNumber = '';
-                $city_id = Input::get('city_id');
+                $city_id = Request::get('city_id');
                 $city = City::find($city_id)->name;
-                $zip = Input::get('zipcode');
+                $zip = Request::get('zipcode');
                 $country = 'United States';
              //   $result = Geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
-                $property_address= Input::get('address_1');
-                $state_id = Input::get('state_id');
+                $property_address= Request::get('address_1');
+                $state_id = Request::get('state_id');
                 $state = State::find($state_id)->name;
                 $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
-                $data = Input::all();
+                $data = Request::all();
                 $data['latitude'] = $result['lat'];
                 $data['longitude'] = $result['lng'];
 
@@ -309,14 +309,14 @@ class VendorController extends Controller
                  //End Nofication Email Code
 
                 $data['profile_status'] = 1;
-                $file = Input::file('profile_picture');
+                $file = Request::file('profile_picture');
                 //This section will handel profile pictures.
                 if ($file) {
                     $destinationPath = config('app.upload_path');
                     $filename = $file->getClientOriginalName();
                     $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                     $data['profile_picture'] = $filename;
-                    Input::file('profile_picture')->move($destinationPath, $filename);
+                    Request::file('profile_picture')->move($destinationPath, $filename);
                 } else {
                     $data['profile_picture'] = Auth::user()->profile_picture;
                 }
@@ -640,7 +640,7 @@ class VendorController extends Controller
 
     public function declineRequest()
     {
-        $data = Input::all();
+        $data = Request::all();
         $delete_request = AssignRequest::deleteRequest($data['request_id'], $data['vendor_id']);
 
 
@@ -670,7 +670,7 @@ class VendorController extends Controller
 
     public function acceptRequest()
     {
-        $input = Input::all();
+        $input = Request::all();
         $accept_request = AssignRequest::acceptRequest($input['request_id'], $input['vendor_id']);
 
 
@@ -702,7 +702,7 @@ class VendorController extends Controller
     }
     public function acceptSingleRequest()
     {
-        $input = Input::all();
+        $input = Request::all();
         $accept_request = AssignRequest::acceptSingleRequest($input['request_id'], $input['vendor_id'], $input['service_id']);
         if ($accept_request) {
             //Creating the work order
@@ -767,7 +767,7 @@ class VendorController extends Controller
     public function createBidServiceRequest()
     {
 
-        $data = Input::all();
+        $data = Request::all();
         //$customer_id = Auth::user()->id;
         //for customer id
 
@@ -1081,7 +1081,7 @@ class VendorController extends Controller
 
     function changeVendorPrice()
     {
-         $data = Input::all();
+         $data = Request::all();
 
      
          $declined_notesdata = [
@@ -1156,7 +1156,7 @@ class VendorController extends Controller
 
         $destinationPath = config('app.bid_images_before');   //2
         if (!empty($_FILES)) {
-            $data=Input::all();
+            $data=Request::all();
             $request_id=$data['requested_id'];
             $type=$data['image_type'];
            
@@ -1185,7 +1185,7 @@ class VendorController extends Controller
 
     public function displayImages()
     {
-        $data = Input::all();
+        $data = Request::all();
         $order_id = $data['id'];
    
         $type = $data['type'];

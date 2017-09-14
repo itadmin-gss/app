@@ -23,7 +23,7 @@ use App\UserType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -97,14 +97,14 @@ class CustomerController extends Controller
     {
         if (Auth::check()) { //if logged in
             $id = Auth::user()->id; // Get current user logged in id
-            if (Input::get('save_continue')) {
+            if (Request::get('save_continue')) {
                 $redirect = 'customer';
-            } elseif (Input::get('save_exit')) {
+            } elseif (Request::get('save_exit')) {
                 $redirect = 'customer';
             }
             //Set rules for validation
-            if (Input::get('create_by_admin') == 'yes') {
-                $username = Input::get('username');
+            if (Request::get('create_by_admin') == 'yes') {
+                $username = Request::get('username');
                 $rules = [
                     'username' => 'required|unique:users',
                     'phone' => 'required|numeric',
@@ -123,27 +123,27 @@ class CustomerController extends Controller
                     'city_id' => 'required',
                     ];
             }
-            $validator = Validator::make(Input::all(), $rules); // put all rules to validator
+            $validator = Validator::make(Request::all(), $rules); // put all rules to validator
             // if validation is failed redirect to page with errorsa
             if ($validator->fails()) {
                 return redirect('customer-profile-complete')
                                 ->withErrors($validator)// send back all errors to the login form
-                                ->withInput(Input::except('profile_picture')); // send back the input (not the password) so that we can repopulate the form
+                                ->withInput(Request::except('profile_picture')); // send back the input (not the password) so that we can repopulate the form
             } else {
-                $data = Input::all();
-                $file = Input::file('profile_picture');
+                $data = Request::all();
+                $file = Request::file('profile_picture');
                 //This section will handel profile pictures.
                 if ($file) {
                     $destinationPath = config('app.upload_path');
                     $filename = $file->getClientOriginalName();
                     $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                     $data['profile_picture'] = $filename;
-                    Input::file('profile_picture')->move($destinationPath, $filename);
+                    Request::file('profile_picture')->move($destinationPath, $filename);
                 } else {
                     $data['profile_picture'] = Auth::user()->profile_picture;
                 }
                 // Get all form data in $data variable
-                //  $data = Input::all();
+                //  $data = Request::all();
 
 
                 //User Notification Email for profile completeness
@@ -177,7 +177,7 @@ class CustomerController extends Controller
         //if Add customer form is submitted
         if ($method == 'POST') {
             //Get all submitted data from form
-            $data = Input::all();
+            $data = Request::all();
             $rules = [
                 'first_name' => 'required|min:2|max:80|alpha',
                 'last_name' => 'required|min:2|max:80|alpha',
@@ -208,13 +208,13 @@ class CustomerController extends Controller
                 $from_email = config('app.admin_email');
                 Mail::send('emails.admin_customer_created', $data, function ($message) use ($from_email) {
 
-                    $message->to(Input::get('email'), Input::get('first_name') . ' ' . Input::get('last_name'))
+                    $message->to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))
                     ->subject('Customer Created By Admin!')
                     ->from($from_email, 'GSS');
                 });
                 
                 Mail::send('emails.admin_customer_created_for_admin', $data, function ($message) use ($from_email, $data) {
-                    $message->to($from_email, Input::get('Admin'))
+                    $message->to($from_email, Request::get('Admin'))
                     ->subject('Customer Created!')
                     ->from($data['email'], 'GSS');
                 });
@@ -272,7 +272,7 @@ class CustomerController extends Controller
         $customer_detail = User::find($customer_id);
 
         if ($method == 'POST') {
-            $data = Input::all();
+            $data = Request::all();
             $rules = [
                 'first_name' => 'required|min:2|max:80|alpha',
                 'last_name' => 'required|min:2|max:80|alpha',
@@ -627,7 +627,7 @@ List all workorders
         */
     public function acceptBidRequest()
     {
-        $input = Input::all();
+        $input = Request::all();
             
         $BidRequestedService = BidRequestedService::where('request_id', '=', $input['request_id'])
         ->get();
@@ -699,7 +699,7 @@ List all workorders
     */
     public function DeclineBidRequest()
     {
-        $input = Input::all();
+        $input = Request::all();
         // declined bid request status
         $data = ['status' => 3 ];
         $save = BidRequest::find($input['request_id'])->update($data);

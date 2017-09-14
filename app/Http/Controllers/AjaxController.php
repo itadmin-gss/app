@@ -17,7 +17,7 @@ use App\Service;
 use App\ServiceFieldDetail;
 use App\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 
@@ -76,7 +76,7 @@ class AjaxController extends Controller
     public function getCitiesByState()
     {
         // Get all post data through ajax
-        $data = Input::all();
+        $data = Request::all();
         //Check if request is ajax
         if (Request::ajax()) {
             //Get all cities by state id from City Model
@@ -91,7 +91,7 @@ class AjaxController extends Controller
     public function getAssetById()
     {
         // Get all post data through ajax
-        $data = Input::all();
+        $data = Request::all();
         //Check if request is ajax
         if (Request::ajax()) {
             //Get all asset information by asset_id
@@ -118,7 +118,7 @@ class AjaxController extends Controller
      */
     public function getServicePopup()
     {
-        $data = Input::all();
+        $data = Request::all();
 
         $id = $data['service_id'];
         $asset_number = $data['asset_number'];
@@ -199,10 +199,10 @@ class AjaxController extends Controller
     public function getServiceList()
     {
 
-        $data = Input::all();
+        $data = Request::all();
 
         
-        $files = Input::file('service_image_' . $data['service_id']);
+        $files = Request::file('service_image_' . $data['service_id']);
         $i = 0;
         foreach ($files as $file) {
             if ($file) {
@@ -231,10 +231,10 @@ class AjaxController extends Controller
     public function getServiceListOrderReivew()
     {
 
-        $data = Input::all();
+        $data = Request::all();
 
         
-        $files = Input::file('service_image_' . $data['service_id']);
+        $files = Request::file('service_image_' . $data['service_id']);
         $i = 0;
         foreach ($files as $file) {
             if ($file) {
@@ -279,7 +279,7 @@ class AjaxController extends Controller
 
     public static function removeFile()
     {
-        $data = Input::all();
+        $data = Request::all();
 
         $path = config('app.request_images');
 
@@ -301,7 +301,7 @@ class AjaxController extends Controller
      */
     public function getVendorServicePopup()
     {
-        $data = Input::all();
+        $data = Request::all();
 
         $id = $data['service_id'];
         
@@ -374,7 +374,7 @@ class AjaxController extends Controller
 
     public function loadServiceOnJobType()
     {
-        $Input=Input::all();
+        $Input=Request::all();
        
         $services =  Service::getAllServicesBySeviceJobTypeId($Input['job_type'], $Input['client_type']);
         $dataService=[];
@@ -421,7 +421,7 @@ class AjaxController extends Controller
 // function saveBidPrice()
 // {
 //     $statusMessage="";
-//   $Input=Input::all();
+//   $Input=Request::all();
 //    $requestDataBid=RequestedBid::find($Input['id']);
 // if(isset($Input['customer_bid_price'])&& $Input['customer_bid_price']!="")
 // {
@@ -527,7 +527,7 @@ class AjaxController extends Controller
     function saveBidPrice()
     {
           $statusMessage="";
-          $Input=Input::all();
+          $Input=Request::all();
           $requestDataBid=RequestedBid::find($Input['id']);
           $data=  [];
 
@@ -665,7 +665,7 @@ Service Type:".$serviceType;
     function saveBidPriceVendor()
     {
           $statusMessage="";
-          $Input=Input::all();
+          $Input=Request::all();
           $requestDataBid=RequestedBid::find($Input['id']);
           $data=  [];
 
