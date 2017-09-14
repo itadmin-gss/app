@@ -121,6 +121,7 @@ return [
         'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
         'Collective\Html\HtmlServiceProvider',
         App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class
     ],
