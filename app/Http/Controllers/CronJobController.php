@@ -29,19 +29,19 @@ class CronJobController extends Controller
     public function index()
     {
 
-        
+
 
     /*
 					Can we set a different time limit for vendor acceptance on emergency orders? We are thinking within 2 hours.
 					*/
                     $emergencyData=  MaintenanceRequest::where('emergency_request', '=', 1)->get();
-                    
+
                     $requestIDARray=[];
 
         foreach ($emergencyData as $value) {
             foreach ($value->assignRequest as $assignRequestss) {
                 if ($assignRequestss->status==1) {
-                    $date = new DateTime($assignRequestss->created_at);
+                    $date = new \DateTime($assignRequestss->created_at);
                     $date->modify("+2 hours");
                     if ($date->format("Y-m-d H:i:s") <= date("Y-m-d H:i:s")) {
                         $requestIDARray[$assignRequestss->request_id]= $assignRequestss->vendor_id;
@@ -68,7 +68,7 @@ class CronJobController extends Controller
         foreach ($emergencyData as $value) {
             foreach ($value->assignRequest as $assignRequestss) {
                 if ($assignRequestss->status==1) {
-                    $date = new DateTime($assignRequestss->created_at);
+                    $date = new \DateTime($assignRequestss->created_at);
                     $date->modify("+168 hours");
                     if ($date->format("Y-m-d H:i:s") <= date("Y-m-d H:i:s")) {
                         $requestIDARray[$assignRequestss->request_id]= $assignRequestss->vendor_id;
@@ -81,11 +81,11 @@ class CronJobController extends Controller
         foreach ($requestIDARray as $requestID => $VendorID) {
             AssignRequest::deleteRequest($requestID, $VendorID);
         }
-                
 
 
 
-                
+
+
 
                 $recurring= Recurring::where('start_date', '<=', date('Y-m-d'))
                 ->get();
@@ -235,7 +235,7 @@ class CronJobController extends Controller
                         // var_dump($response);
                     }
                 }
-//Ending 
+//Ending
 
                         Recurring::find($value->id)
                         ->update(['start_date'=>$nextDate]);
@@ -247,7 +247,7 @@ class CronJobController extends Controller
 
 
 
-//Remainder Emails Generation 
+//Remainder Emails Generation
                         $Remainder = Remainder::where('status', '=', 0)->get();
 
         foreach ($Remainder as $value) {

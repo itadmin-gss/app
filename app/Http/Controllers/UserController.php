@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\City;
 use App\CustomerType;
 use App\EmailNotification;
+use App\Helpers\Email;
+use App\Helpers\FlashMessage;
 use App\Service;
 use App\State;
 use App\User;
@@ -15,8 +17,8 @@ use Cryt\Forms\RegistrationForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
 
@@ -135,16 +137,16 @@ class UserController extends Controller
                     $notification = NotificationController::doNotification($rec_id, $rec_id, "New ".$customervendor." ".$id." has been registered.", 1, $email_data, $notification_url);
                 }
 
-                
+
 
                 Email::send(Request::get('email'), 'Welcome to GSS', 'emails.customer_registered', $email_data);
-               
+
                 return redirect('thankyou/' . $id);
             }
         }
     }
 
-    
+
     function activeUser($id)
     {
         if (Auth::check()) {
@@ -161,7 +163,7 @@ class UserController extends Controller
             return view('home')->with('active', $id);
         }
     }
-    
+
     /**
      * Handle login process & Authenticate user
      * @params none
@@ -185,7 +187,7 @@ class UserController extends Controller
 
         $username = Request::get('username');
         $password = Request::get('password');
-        
+
         if ($validator->fails()) {
             $messages = $validator->messages();
 
@@ -194,7 +196,7 @@ class UserController extends Controller
                             ->withInput(Request::except('password'));
         } else {
             $status = User::where($field, '=', $username)->first();
-            
+
             if (isset($status)) {
                 if ($status->status == 1) {
                     //$field = "username";
@@ -276,17 +278,17 @@ class UserController extends Controller
 
                  $servicesDATAoption.="</optgroup>";
         }
-       
 
 
-       
+
+
         $cities = City::getAllCities();
         $states = State::getAllStates();
-        
+
          $services=   Service::getAllServices();
 
 
-      
+
 
         $CustomerType=CustomerType::get();
         return view('common.edit_profile')
@@ -384,7 +386,7 @@ class UserController extends Controller
                     $data['profile_picture'] = Auth::user()->profile_picture;
                 }
                 $save = User::profile($data, $id);
-   
+
                 $affectedRows = VendorService::where('vendor_id', '=', Auth::user()->id)->delete();
                 foreach ($data['vendor_services'] as $value) {
                     $dataArray['vendor_id']=Auth::user()->id;

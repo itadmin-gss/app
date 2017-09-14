@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\AdditionalServiceItem;
 use App\CustomerType;
+use App\Helpers\Email;
+use App\Helpers\FlashMessage;
 use App\JobType;
 use App\OrderCustomData;
 use App\Service;
@@ -13,8 +15,8 @@ use App\User;
 use App\VendorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,7 +41,7 @@ class ServiceController extends Controller
     {
         $data = Request::all();
         $data['order_id'] = $id;
-        
+
         $customers_notes = Request::get('customers_notes');
         $vendors_notes = Request::get('vendors_notes');
         $notes_for_vendors = Request::get('notes_for_vendors');
@@ -47,7 +49,7 @@ class ServiceController extends Controller
         $quantity = Request::get('quantity');
         $customer_price = Request::get('customer_price');
         $vendor_price = Request::get('vendors_price');
-        
+
         $Dataexist = OrderCustomData::where('order_id', '=', $id)->count();
         if ($Dataexist==0) {
             $record = OrderCustomData::createCustomData($data);
@@ -65,7 +67,7 @@ class ServiceController extends Controller
             return false;
         }
     }
-    
+
     public function updateAdditionalItem($id)
     {
 
@@ -82,14 +84,14 @@ class ServiceController extends Controller
     public function addAdditionalItem()
     {
         $data = Request::all();
-    
+
         $id =  AdditionalServiceItem::Add_Items($data);
 
            $emailUrl="edit-order/".$data['order_id'];
            $userDAta=User::find($data['vendor_id']);
             $recepient_id = User::getOnlyAdminUsersId();
-           
-         
+
+
             $email_data = [
             'first_name' => $userDAta->first_name,
             'last_name' => $userDAta->last_name,
@@ -101,15 +103,15 @@ class ServiceController extends Controller
 
             // $customervendor="Vendor";
             $notification_url="list-work-order-admin";
-              
+
             //Vendor to admin notification
             $noti_message =  "New Additional Service has been Created. Order# ".$data['order_id'];
             $notification = NotificationController::doNotification($recepient_id['id'], $data['vendor_id'], $noti_message, 1, $email_data, $notification_url);
-           
-            $email = Email::send($recepient_id['email'], 'GSS Additional Service Notification', 'emails.customer_registered', $email_data);
-            
 
-                    
+            $email = Email::send($recepient_id['email'], 'GSS Additional Service Notification', 'emails.customer_registered', $email_data);
+
+
+
             return $id;
     }
     public function checkAddedTitle()
@@ -367,7 +369,7 @@ class ServiceController extends Controller
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
 
-                    
+
 
 
 
@@ -391,7 +393,7 @@ class ServiceController extends Controller
 
 
 
-    
+
 
                         if (isset($data['install_temporary_system_type'])) {
                             $ServicesFieldsDetailData=['fieldname'=>'install_temporary_system_type',
@@ -445,7 +447,7 @@ class ServiceController extends Controller
 
 
 
-   
+
 
                         if (isset($data['boarding_type'])) {
                             $ServicesFieldsDetailData=['fieldname'=>'boarding_type',
@@ -539,7 +541,7 @@ class ServiceController extends Controller
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
 
-                    
+
 
 
 
@@ -557,13 +559,13 @@ class ServiceController extends Controller
                             ServiceFieldDetail::add($ServicesFieldsDetailData);
                         }
 
-                    
-
-                    
 
 
 
-                    
+
+
+
+
 
                         $message = FlashMessage::messages('admin_service.service_added');
 
@@ -647,16 +649,16 @@ class ServiceController extends Controller
                               ->withErrors($validator);
              } else {
                     $vendor_edit =  Request::get("vendor_edit");
-            
+
                     Service::where('id', '=', $service_id)->update(['vendor_edit'=>$vendor_edit]);
-            
+
 
                     $save = Service::updateAdminService($data, $service_id);
 
                     if ($save) {
                            $serviceTypes= ServiceFieldDetail::getServiceFieldById($service_id);
 
-                        
+
 
 
 
@@ -991,7 +993,7 @@ class ServiceController extends Controller
 
 
 
-                 
+
 
 
 
@@ -1059,7 +1061,7 @@ class ServiceController extends Controller
 
 
 
-    
+
 
                             if (isset($data['install_temporary_system_type'])) {
                                 $ServicesFieldsDetailData=['fieldname'=>'install_temporary_system_type',
@@ -1113,7 +1115,7 @@ class ServiceController extends Controller
 
 
 
-   
+
 
                             if (isset($data['boarding_type'])) {
                                 $ServicesFieldsDetailData=['fieldname'=>'boarding_type',
@@ -1177,7 +1179,7 @@ class ServiceController extends Controller
                                 ServiceFieldDetail::add($ServicesFieldsDetailData);
                             }
 
-                    
+
 
                             if (isset($data['remove_carpe_type'])) {
                                 $ServicesFieldsDetailData=['fieldname'=>'remove_carpe_type',
@@ -1209,7 +1211,7 @@ class ServiceController extends Controller
                                 ServiceFieldDetail::add($ServicesFieldsDetailData);
                             }
 
-                    
+
 
                             if (isset($data['remove_appliances_type'])) {
                                 $ServicesFieldsDetailData=['fieldname'=>'remove_appliances_type',
@@ -1320,7 +1322,7 @@ class ServiceController extends Controller
 
             $serviceValueArray['spruce_up_type']='';
 
-           
+
 
 
 

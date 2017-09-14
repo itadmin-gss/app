@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Helpers\Email;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 
 class Asset extends BaseTenantModel
@@ -83,13 +85,13 @@ class Asset extends BaseTenantModel
 
     public static function editAsset($data, $id)
     {
-        
+
         $data['status'] = 1;
         $assetDATA= Asset::find($id);
         if ($data['property_status']!=$assetDATA->property_status) {
                   // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
                 $recepient_id = User::getAdminUsersId();
-                
+
             foreach ($recepient_id as $rec_id) {
                 $emailbody='Property '.$id .' property status has been changed to '.$data['property_status'];
                 $emailbody.= '<br/>';
@@ -110,7 +112,7 @@ class Asset extends BaseTenantModel
                 $emailbody.= 'State:'.$assetDATA->state->name;
                 ;
                 $emailbody.= '<br/>';
-                   
+
 
                 $url="edit-asset/".$id;
                 $emailbody.='To view the Property <a href="http://app.gssreo.com/edit-asset/'.$id.'">please click here</a>!.';
@@ -118,8 +120,8 @@ class Asset extends BaseTenantModel
 
 
                 $userDAta=User::find($rec_id);
-        
-            
+
+
                 $email_data = [
                 'first_name' => $userDAta['first_name'],
                 'last_name' => $userDAta['last_name'],
@@ -128,16 +130,16 @@ class Asset extends BaseTenantModel
                 'id' =>  $rec_id,
                 'user_email_template'=>$emailbody
                        ];
-           
+
                 $customervendor="Admin";
                 $notification_url="edit-asset/".$id;
-              
+
             //Vendor to admin notification
                 $notification = NotificationController::doNotification($rec_id, $rec_id, 'Property '.$id .' has been changed to'.$data['property_status'], 1, $email_data, $notification_url);
                 Email::send($userDAta['email'], ': Property Status Notification', 'emails.customer_registered', $email_data);
             }
         }
-        
+
         $updateOrder = Asset::find($id)->update($data);
         return ($updateOrder) ? true : false;
     }
@@ -178,7 +180,7 @@ class Asset extends BaseTenantModel
 
     public static function requiredFields($flag = 0)
     {
-   
+
         $fields = [
             'asset_number' =>   $flag == 0 ? 'required|unique:assets': 'required',
             'property_address' => 'required',
@@ -211,11 +213,11 @@ class Asset extends BaseTenantModel
     public static function getLatLong($address = "", $zip, $city = "", $state = "")
     {
         $fullAddress = $address." ".$city." ".$state." ".$zip;
-   
+
         $urlAddress = str_replace(" ", "+", $fullAddress);
         $url = "http://maps.google.com/maps/api/geocode/json?address=";
         $url = $url.$urlAddress;
-    
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

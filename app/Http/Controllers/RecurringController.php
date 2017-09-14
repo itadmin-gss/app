@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FlashMessage;
 use App\Recurring;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 /**
  *
@@ -22,7 +23,7 @@ class RecurringController extends Controller
     {
 
         $recurrings = Recurring::all();
-    
+
         return view('pages.admin.recurring')->with('recurrings', $recurrings);
     }
 
@@ -30,14 +31,14 @@ class RecurringController extends Controller
     {
 
         $recurrings = Recurring::where('vendor_id', '=', Auth::user()->id)->get();
-    
+
         return view('pages.vendors.recurring')->with('recurrings', $recurrings);
     }
     public static function showCustomerrecurring()
     {
 
         $recurrings = Recurring::get();
-    
+
         return view('pages.customer.recurring')->with('recurrings', $recurrings);
     }
     public function updateAdminRecurring($recurring_id)

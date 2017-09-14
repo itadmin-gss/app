@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Request;
+use App\Helpers\FlashMessage;
 use App\RoleDetail;
 use App\RoleFunction;
 use App\User;
 use App\UserRole;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 /**
  * AccessLevel Controller Class.
@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Redirect;
  * @copyright Copyright 2014 Invortex Technology Development Team
  * @version $Id: 1.0
  */
- 
+
 class AccessLevelController extends Controller
 {
-    
+
    /**
     * To delete an Access Level
     * @params integer role_id (must be passed to delete a sepecific role)
@@ -35,7 +35,7 @@ class AccessLevelController extends Controller
                 return Redirect::back()
                 ->with('message', FlashMessage::displayAlert($message, 'success'));
     }
-    
+
    /**
     * To Edit an Access Level
     * @params integer role_id (must be passed to delete a sepecific role)
@@ -68,7 +68,7 @@ class AccessLevelController extends Controller
             }
         }
     }
-    
+
    /**
     * To update an access Level for a user.
     * @params none

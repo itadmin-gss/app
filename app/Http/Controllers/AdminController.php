@@ -12,7 +12,9 @@ use App\BidRequestedService;
 use App\BidServiceImage;
 use App\City;
 use App\CustomerType;
-use App\Http\Requests\Request;
+use App\Helpers\Email;
+use App\Helpers\FlashMessage;
+use App\Helpers\General;
 use App\Invoice;
 use App\JobType;
 use App\MaintenanceBid;
@@ -35,9 +37,9 @@ use App\VendorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
@@ -221,7 +223,7 @@ class AdminController extends Controller
         $db_table = $user->getTable();
         return view('pages.admin.list_vendors')->with(['vendors' => $vendors, 'db_table' => $db_table]);
     }
-    
+
 
     public function listVendorsDynamically()
     {
@@ -555,7 +557,7 @@ class AdminController extends Controller
             $user_type_id = UserType::where('title', '=', 'user')->first();
             $user->type_id = $user_type_id->id; // for admin users
               // $password = rand(); //Get random password to send user
-            
+
 
             $user->password = Hash::make($password);
             $user->user_role_id = $user_role_id;
@@ -574,7 +576,7 @@ class AdminController extends Controller
                 ->from($from_email, 'GSS');
             });
             //Send admin email to create user profile
-            
+
             Mail::send('emails.admin_customer_created', $user_data, function ($message) use ($from_email) {
 
                 $id = Auth::user()->id;
@@ -585,7 +587,7 @@ class AdminController extends Controller
             });
 
 
-            
+
             $message = FlashMessage::messages('admin.user_created');
 
             return Redirect::back()
@@ -1032,7 +1034,7 @@ class AdminController extends Controller
             }
 
             $resultCommonServices = array_intersect($vendorServicesIds, $RequestedServiceIDS);
-       
+
             $zip_codes_comma_seprated = explode(",", $value->available_zipcodes);
             if ((!empty($resultCommonServices))  && ($zip_codes_comma_seprated != "" && in_array($request_maintenance->asset->zip, $zip_codes_comma_seprated))) {
                 $techDatalatitude[$value->id] = 1;
@@ -1109,7 +1111,7 @@ class AdminController extends Controller
         $lat = $request_maintenance->asset->latitude;
         $lon = $request_maintenance->asset->longitude;
 
-   
+
          // $vendors = $userobj->getUserByTypeId(3, $lat, $lon, 600, $RequestedServiceIDS);
 
 
@@ -1528,7 +1530,7 @@ class AdminController extends Controller
     function saveJobType()
     {
           $data = Request::all();
-  
+
           $save = JobType::find($data['id'])->update($data);
           $message = "Job Type has been modified";
           return redirect('list-job-type')
@@ -1783,7 +1785,7 @@ class AdminController extends Controller
         $order_ids=[];
         foreach ($orders as $order) :
             $orderDetail= $order->orderDetail;
-        
+
             $serviceType="";
 
             foreach ($orderDetail as $value) {
@@ -2138,12 +2140,12 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
               $bidData['customer_bid_price']=$input['customer_price'][$i];
 
 
-           
+
 
               if (isset($input['vendor_price'][$i]) && ($input['vendor_price'][$i]!="")) {
                   $data = ['biding_prince' => $input['vendor_price'][$i] ];
                   BidRequestedService::find($biddatavalue->id)->update($data);
-            
+
                   $bidData['vendor_bid_price']=$input['vendor_price'][$i];
               }
                 if (isset($input['customer_price'][$i]) && ($input['customer_price'][$i]!="")) {

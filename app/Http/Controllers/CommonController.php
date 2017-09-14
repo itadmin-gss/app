@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\EmailNotification;
-use App\Http\Requests\Request;
+use App\Helpers\Email;
 use App\RoleDetail;
 use App\RoleFunction;
 use App\SpecialPrice;
@@ -84,7 +84,7 @@ class CommonController extends Controller
 
                     ];
 
-         
+
 
 
 
@@ -157,7 +157,7 @@ class CommonController extends Controller
 
                     ];
 
-         
+
 
 
 

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\ResetPassword;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 class RemindersController extends Controller
 {

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use UserRoles;
+
 class UserRole extends BaseTenantModel
 {
 
@@ -43,7 +45,7 @@ class UserRole extends BaseTenantModel
         return $this->hasMany(\App\User::class, 'user_role_id');
     }
 
-    
+
 
     public function roleDetails()
     {
@@ -51,7 +53,7 @@ class UserRole extends BaseTenantModel
         return $this->hasMany(\App\RoleDetail::class, 'role_id');
     }
 
-    
+
 
     public static function updateRole($role_data, $role_id)
     {
@@ -69,7 +71,7 @@ class UserRole extends BaseTenantModel
         return ($save) ? true : false;
     }
 
-    
+
 
     public static function updateStatus($role_status, $role_id)
     {
@@ -83,7 +85,7 @@ class UserRole extends BaseTenantModel
         return ($save) ? true : false;
     }
 
-    
+
 
     public static function getAllRoles()
     {
@@ -93,7 +95,7 @@ class UserRole extends BaseTenantModel
         return $userRoles;
     }
 
-    
+
 
     public function getTable()
     {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\AccessFunction;
-use App\Http\Requests\Request;
 use App\RoleDetail;
 use App\RoleFunction;
 use App\UserRole;
@@ -40,7 +39,7 @@ class AccessRightController extends Controller
             $results = RoleDetail::where('role_function_id', '=', $roles->id)
             ->where('role_id', '=', 1) // getting admin rights by default, which cant be changed.
             ->get(['add','edit','delete', 'view'])->toArray();
-            
+
             $results = array_shift($results);
             $data[$roles->access_function_id][$roles->role_function] = $results;
         }
@@ -51,7 +50,7 @@ class AccessRightController extends Controller
                     'userRoles' => $access_roles,
                     'roleFunctions' => $data]);
     }
-    
+
    /**
     * Gets the Role Details for every Access Role via ajax.
     * @params role_id passed via ajax.
@@ -72,7 +71,7 @@ class AccessRightController extends Controller
                 $results = RoleDetail::where('role_function_id', '=', $roles->id)
                 ->where('role_id', '=', $role_id)
                 ->get(['add','edit','delete', 'view'])->toArray();
-                
+
                 $results = array_shift($results);
                 $data[$roles->access_function_id][$roles->role_function] = $results;
             }
@@ -86,7 +85,7 @@ class AccessRightController extends Controller
         }
     }
 
-    
+
    /**
     * Update Access Rights for a specific role via ajax.
     * @params
@@ -126,15 +125,15 @@ class AccessRightController extends Controller
             } // user_role foreach
         } // data foreach
     }
-    
+
     public static function checkAccessRight($perm, $action)
     {
-        
+
         if (Auth::check()) {
             $user=Auth::user();
             $user_role_id=Auth::user()->user_role_id;
             $usertype=UserType::getUserTypeByID($user->type_id);
-            
+
             $role_detail = RoleDetail::where('role_id', '=', $user_role_id)
             ->where('role_function_id', '=', $perm)->first([$action]);
             if (($usertype=='admin' || $usertype=='user') && $role_detail->$action == 1) {
