@@ -577,7 +577,7 @@ class ServiceController extends Controller
 
                         ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                     }
-                }
+                   }
         } else {
             $ServiceCategory=ServiceCategory::get();
 
@@ -1242,7 +1242,7 @@ class ServiceController extends Controller
 
                         ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                     }
-                }
+                   }
         } else {
             $serviceTypeArray=[];
 

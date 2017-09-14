@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\UserInterface;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class User extends Model implements UserInterface, RemindableInterface
 {
+    use Notifiable;
 
     use SoftDeletes;
 

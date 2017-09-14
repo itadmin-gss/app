@@ -879,7 +879,7 @@ class MaintenanceRequestController extends Controller
                     */
                } else {
                     // $emergency_request_message=" Your Property address is far away from system vendors, admin will assign it manually. ";
-                }
+                 }
         }
 
 
