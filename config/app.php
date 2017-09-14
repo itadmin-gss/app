@@ -167,7 +167,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Jcf\Geocode\GeocodeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,7 +226,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Geocode' => Jcf\Geocode\Facades\Geocode::class,
         'GridRender' => Mgallegos\LaravelJqgrid\Facades\GridRender::class,
         'GridEncoder' => Mgallegos\LaravelJqgrid\Facades\GridEncoder::class,
         'Form' => Collective\Html\FormFacade::class,

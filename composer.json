@@ -10,7 +10,6 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "consolibyte/quickbooks": "dev-master",
-        "jcf/geocode": "dev-master",
         "jeroendesloovere/geolocation-php-api": "dev-master",
         "laravelcollective/html": "5.5.*"
     },
