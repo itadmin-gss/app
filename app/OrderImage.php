@@ -2,9 +2,6 @@
 
 namespace App;
 
-
-
-
 class OrderImage extends BaseTenantModel
 {
 

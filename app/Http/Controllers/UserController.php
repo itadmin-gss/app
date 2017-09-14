@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
 
-
 /**
  * User Controller Class.
  *

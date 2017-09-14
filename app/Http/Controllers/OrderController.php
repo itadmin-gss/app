@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\URL;
 
-
 class OrderController extends Controller
 {
 
@@ -1480,7 +1479,7 @@ $(".example6").fancybox({
             'status_class' =>   Input::get('orderstatus_class') ,
             'status_text'  =>   Input::get('orderstatus_text'),
              'approved_date' => $current_data
-            ];
+               ];
         } else {
             $orderdata = [
             'status'       =>   Input::get('orderstatusid') ,
@@ -1664,7 +1663,7 @@ Completion Date: ".$orders[0]->completion_date;
                $orderdata = [
             'vendor_submitted' => $current_data,
             'completion_date'       =>    $completion_date
-            ];
+               ];
         } else {
             $orderdata = [
             'completion_date'  => $completion_date
@@ -1683,9 +1682,9 @@ Completion Date: ".$orders[0]->completion_date;
             'close_property_status'       =>   Input::get('status_id')
             ];
 
-        $save = Order::where('id', '=', Input::get('order_id'))
-        ->update($orderdata);
-         echo "Order Property Status has been updated";
+           $save = Order::where('id', '=', Input::get('order_id'))
+           ->update($orderdata);
+           echo "Order Property Status has been updated";
     }
 
     public function updatevendorid()

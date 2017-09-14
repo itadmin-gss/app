@@ -9,7 +9,6 @@ use App\UserType;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
-
 class SpecialPriceController extends Controller
 {
 

@@ -2,9 +2,6 @@
 
 namespace App;
 
-
-
-
 class City extends BaseTenantModel
 {
 

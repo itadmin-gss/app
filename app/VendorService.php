@@ -4,8 +4,6 @@ namespace App;
 
 use Illuminate\Support\Facades\Auth;
 
-
-
 class VendorService extends BaseTenantModel
 {
 

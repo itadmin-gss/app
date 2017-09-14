@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class OrderDetail extends BaseTenantModel
 {
 

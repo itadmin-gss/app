@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
 
-
-
 class AssetController extends Controller
 {
 

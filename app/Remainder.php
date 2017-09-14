@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class Remainder extends BaseTenantModel
 {
 

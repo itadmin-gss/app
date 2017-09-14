@@ -44,7 +44,6 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
 
-
 /**
  * Admin Controller Class.
  *
@@ -1497,24 +1496,24 @@ class AdminController extends Controller
           $rules = [
         'name' => 'required|min:2|max:100',
         'state_id' => 'required',
-        ];
+          ];
           $validator = Validator::make(Input::all(), $rules);
-        if ($validator->fails()) {
-            $validation_messages = $validator->messages()->all();
-            $profile_error_messages = '';
-            foreach ($validation_messages as $validation_message) {
-                $profile_error_messages.="<h4 class='alert alert-error'>" . $validation_message . "</h4>";
+          if ($validator->fails()) {
+              $validation_messages = $validator->messages()->all();
+              $profile_error_messages = '';
+              foreach ($validation_messages as $validation_message) {
+                  $profile_error_messages.="<h4 class='alert alert-error'>" . $validation_message . "</h4>";
+              }
+                return $profile_error_messages;
+          } else {
+                $saved_message = FlashMessage::messages('admin.city_edit_success');
+                $id = Input::get('id');
+                $data = Input::all();
+                $save = City::updateCity($data, $id);
+                if ($save) {
+                    return FlashMessage::displayAlert($saved_message, 'success');
+                }
             }
-            return $profile_error_messages;
-        } else {
-            $saved_message = FlashMessage::messages('admin.city_edit_success');
-            $id = Input::get('id');
-            $data = Input::all();
-            $save = City::updateCity($data, $id);
-            if ($save) {
-                return FlashMessage::displayAlert($saved_message, 'success');
-            }
-        }
     }
 
     public function editTypeJob($id)
@@ -2107,7 +2106,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         'job_type'=>$BidRequest->job_type,
         'status'=>6
 
-        ];
+          ];
           $MaintenanceBid=MaintenanceBid::create($MaintenanceBidDATA);
           $MaintenanceBidID = DB::getPdo()->lastInsertId(); // get last id of service
 
@@ -2117,140 +2116,140 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
           $bidData=[];
           $i=0;
-        foreach ($BidRequestedService as $biddatavalue) {
-            $bidData['request_id']= $MaintenanceBidID;
-            $bidData['service_id']=$biddatavalue->service_id;
-            $bidData['status']=1;
-            $bidData['created_at']=$biddatavalue->created_at;
-            $bidData['updated_at']=$biddatavalue->updated_at;
-            $bidData['required_date']=$biddatavalue->required_date;
-            $bidData['required_time']=$biddatavalue->required_time;
-            $bidData['service_men']=$biddatavalue->service_men;
-            $bidData['service_note']=$biddatavalue->service_note;
-            $bidData['customer_note']=$biddatavalue->customer_note;
-            $bidData['vendor_note']=$biddatavalue->vendor_note;
-            $bidData['verified_vacancy']=$biddatavalue->verified_vacancy;
-            $bidData['cash_for_keys']=$biddatavalue->cash_for_keys;
-            $bidData['cash_for_keys_trash_out']=$biddatavalue->cash_for_keys_trash_out;
-            $bidData['trash_size']=$biddatavalue->trash_size;
-            $bidData['storage_shed']=$biddatavalue->storage_shed;
-            $bidData['lot_size']=$biddatavalue->lot_size;
-            $bidData['vendor_bid_price']=$biddatavalue->biding_prince;
-            $bidData['customer_bid_price']=$input['customer_price'][$i];
+          foreach ($BidRequestedService as $biddatavalue) {
+              $bidData['request_id']= $MaintenanceBidID;
+              $bidData['service_id']=$biddatavalue->service_id;
+              $bidData['status']=1;
+              $bidData['created_at']=$biddatavalue->created_at;
+              $bidData['updated_at']=$biddatavalue->updated_at;
+              $bidData['required_date']=$biddatavalue->required_date;
+              $bidData['required_time']=$biddatavalue->required_time;
+              $bidData['service_men']=$biddatavalue->service_men;
+              $bidData['service_note']=$biddatavalue->service_note;
+              $bidData['customer_note']=$biddatavalue->customer_note;
+              $bidData['vendor_note']=$biddatavalue->vendor_note;
+              $bidData['verified_vacancy']=$biddatavalue->verified_vacancy;
+              $bidData['cash_for_keys']=$biddatavalue->cash_for_keys;
+              $bidData['cash_for_keys_trash_out']=$biddatavalue->cash_for_keys_trash_out;
+              $bidData['trash_size']=$biddatavalue->trash_size;
+              $bidData['storage_shed']=$biddatavalue->storage_shed;
+              $bidData['lot_size']=$biddatavalue->lot_size;
+              $bidData['vendor_bid_price']=$biddatavalue->biding_prince;
+              $bidData['customer_bid_price']=$input['customer_price'][$i];
 
 
            
 
-            if (isset($input['vendor_price'][$i]) && ($input['vendor_price'][$i]!="")) {
-                $data = ['biding_prince' => $input['vendor_price'][$i] ];
-                BidRequestedService::find($biddatavalue->id)->update($data);
+              if (isset($input['vendor_price'][$i]) && ($input['vendor_price'][$i]!="")) {
+                  $data = ['biding_prince' => $input['vendor_price'][$i] ];
+                  BidRequestedService::find($biddatavalue->id)->update($data);
             
-                $bidData['vendor_bid_price']=$input['vendor_price'][$i];
-            }
-            if (isset($input['customer_price'][$i]) && ($input['customer_price'][$i]!="")) {
-                $data = ['customer_price' => $input['customer_price'][$i] ];
-                BidRequestedService::find($biddatavalue->id)->update($data);
-            }
+                  $bidData['vendor_bid_price']=$input['vendor_price'][$i];
+              }
+                if (isset($input['customer_price'][$i]) && ($input['customer_price'][$i]!="")) {
+                    $data = ['customer_price' => $input['customer_price'][$i] ];
+                    BidRequestedService::find($biddatavalue->id)->update($data);
+                }
 
 
 
-            $i++;
+                $i++;
 
-            $add_requested_service = RequestedBid::addRequestedService($bidData);
+                $add_requested_service = RequestedBid::addRequestedService($bidData);
 
-            $request_detail_id = DB::getPdo()->lastInsertId(); // get last id of service
-
-
-
-            $dataRequests['request_id']=$MaintenanceBidID;
-            $dataRequests['requested_service_id']=$request_detail_id;
-            $dataRequests['vendor_id']=$input['vendor_id'];
-            $dataRequests['status']=1;
+                $request_detail_id = DB::getPdo()->lastInsertId(); // get last id of service
 
 
-            $accept_request = AssignRequestBid::create($dataRequests);
-            $accept_requestID = DB::getPdo()->lastInsertId(); // get last id of service
+
+                $dataRequests['request_id']=$MaintenanceBidID;
+                $dataRequests['requested_service_id']=$request_detail_id;
+                $dataRequests['vendor_id']=$input['vendor_id'];
+                $dataRequests['status']=1;
 
 
-            $imageDataArray=BidServiceImage::where('requested_id', '=', $biddatavalue->id)->get();
-
-            foreach ($imageDataArray as $imageData) {
-                $image_detail['requested_id'] =$accept_requestID ;
-                $image_detail['image_name'] = $accept_requestID."-".$imageData->image_name;
-                $image_detail['image_type'] = 'before';
-                $image_detail['status'] = 1;
-                $add_image = AssignRequestBidsImage::create($image_detail);
-            }
-
-            $destinationPath = config('app.bid_images_before');   //2
-            $upload_path = config('app.upload_path')."request";
-            foreach ($imageDataArray as $imageData) {
-    //Copy Images for bid
-
-                $type='before';
-                $tempFile = $upload_path."/".$imageData->image_name;          //3
-                $targetPath = $destinationPath;  //4
-                $originalFile=$imageData->image_name;
-                $changedFileName=$accept_requestID.'-'.$originalFile;
-                $targetFile = $targetPath . $changedFileName;  //5
-
-                copy($tempFile, $targetFile);
-
-    //End coping images
-            }
-
-            //Notification to Customer
-            $statusMessage="Awaiting Customer Approval";
-            $emailbody='Bid Request '.$MaintenanceBid->id .' status has been changed to '.$statusMessage;
+                $accept_request = AssignRequestBid::create($dataRequests);
+                $accept_requestID = DB::getPdo()->lastInsertId(); // get last id of service
 
 
-            $url="list-customer-requested-bids/".$MaintenanceBid->id;
-            $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
+                $imageDataArray=BidServiceImage::where('requested_id', '=', $biddatavalue->id)->get();
+
+                foreach ($imageDataArray as $imageData) {
+                    $image_detail['requested_id'] =$accept_requestID ;
+                    $image_detail['image_name'] = $accept_requestID."-".$imageData->image_name;
+                    $image_detail['image_type'] = 'before';
+                    $image_detail['status'] = 1;
+                    $add_image = AssignRequestBidsImage::create($image_detail);
+                }
+
+                $destinationPath = config('app.bid_images_before');   //2
+                $upload_path = config('app.upload_path')."request";
+                foreach ($imageDataArray as $imageData) {
+          //Copy Images for bid
+
+                    $type='before';
+                    $tempFile = $upload_path."/".$imageData->image_name;          //3
+                    $targetPath = $destinationPath;  //4
+                    $originalFile=$imageData->image_name;
+                    $changedFileName=$accept_requestID.'-'.$originalFile;
+                    $targetFile = $targetPath . $changedFileName;  //5
+
+                    copy($tempFile, $targetFile);
+
+          //End coping images
+                }
+
+                //Notification to Customer
+                $statusMessage="Awaiting Customer Approval";
+                $emailbody='Bid Request '.$MaintenanceBid->id .' status has been changed to '.$statusMessage;
 
 
-            $userDAta=User::find($MaintenanceBid->user->id);
-            $email_data = [
-            'first_name' => $userDAta->first_name,
-            'last_name' => $userDAta->last_name,
-            'username' => $userDAta->username,
-            'email' => $userDAta->email,
-            'id' =>  $MaintenanceBid->user->id,
-            'user_email_template'=>$emailbody
-            ];
-
-            $customervendor="Customer";
-            $notification_url="list-customer-requested-bids";
-
-          //Vendor to admin notification
-            $notification = NotificationController::doNotification($MaintenanceBid->user->id, $MaintenanceBid->user->id, 'Bid Request '.$MaintenanceBid->id .' status has been changed to '. $statusMessage, 1, $email_data, $notification_url);
-            Email::send($userDAta->email, ': Bid Request Notification', 'pages.emails.customer_registered', $email_data);
+                $url="list-customer-requested-bids/".$MaintenanceBid->id;
+                $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
 
 
-      //  $emailUrl="vendor-list-orders?url=".$order_id;
-          //  $userDAta=User::find($BidRequest->vendor_id);
-          // $email_data = array(
-          // 'first_name' => $userDAta->first_name,
-          // 'last_name' => $userDAta->last_name,
-          // 'username' => $userDAta->username,
-          // 'email' => $userDAta->email,
-          // 'id' =>  $BidRequest->vendor_id,
-          // 'user_email_template'=>'OSR has been approved and '.$order_id ."  has been assigned to you! To view work order, <a href='http://".URL::to($emailUrl)."'>please click here</a>!"
-          // );
+                $userDAta=User::find($MaintenanceBid->user->id);
+                $email_data = [
+                'first_name' => $userDAta->first_name,
+                'last_name' => $userDAta->last_name,
+                'username' => $userDAta->username,
+                'email' => $userDAta->email,
+                'id' =>  $MaintenanceBid->user->id,
+                'user_email_template'=>$emailbody
+                ];
 
-          // $customervendor="Vendor";
-          // $notification_url="vendor-bid-requests";
+                $customervendor="Customer";
+                $notification_url="list-customer-requested-bids";
 
-          // //Vendor to admin notification
-          // $notification = NotificationController::doNotification($BidRequest->vendor_id,$BidRequest->vendor_id, "OSR has been accepted. New Work Order ".$order_id ." has been assigned to you!", 1,$email_data,$notification_url);
-          // Email::send($userDAta->email, 'GSS Work Order Notification', 'pages.emails.customer_registered', $email_data);
-        }
+              //Vendor to admin notification
+                $notification = NotificationController::doNotification($MaintenanceBid->user->id, $MaintenanceBid->user->id, 'Bid Request '.$MaintenanceBid->id .' status has been changed to '. $statusMessage, 1, $email_data, $notification_url);
+                Email::send($userDAta->email, ': Bid Request Notification', 'pages.emails.customer_registered', $email_data);
+
+
+          //  $emailUrl="vendor-list-orders?url=".$order_id;
+              //  $userDAta=User::find($BidRequest->vendor_id);
+              // $email_data = array(
+              // 'first_name' => $userDAta->first_name,
+              // 'last_name' => $userDAta->last_name,
+              // 'username' => $userDAta->username,
+              // 'email' => $userDAta->email,
+              // 'id' =>  $BidRequest->vendor_id,
+              // 'user_email_template'=>'OSR has been approved and '.$order_id ."  has been assigned to you! To view work order, <a href='http://".URL::to($emailUrl)."'>please click here</a>!"
+              // );
+
+              // $customervendor="Vendor";
+              // $notification_url="vendor-bid-requests";
+
+              // //Vendor to admin notification
+              // $notification = NotificationController::doNotification($BidRequest->vendor_id,$BidRequest->vendor_id, "OSR has been accepted. New Work Order ".$order_id ." has been assigned to you!", 1,$email_data,$notification_url);
+              // Email::send($userDAta->email, 'GSS Work Order Notification', 'pages.emails.customer_registered', $email_data);
+          }
 
             // accepted bid request status
-        $data = ['status' => 2 ];
-        $save = BidRequest::find($input['request_id'])->update($data);
+            $data = ['status' => 2 ];
+            $save = BidRequest::find($input['request_id'])->update($data);
 
 
-        return "OSR has been assigned to Customer Approval.";
+            return "OSR has been assigned to Customer Approval.";
     }
 
     function customerCompany()

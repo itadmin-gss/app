@@ -2,9 +2,6 @@
 
 namespace App;
 
-
-
-
 class ServiceImage extends BaseTenantModel
 {
 

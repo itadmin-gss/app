@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class Notification extends BaseTenantModel
 {
 

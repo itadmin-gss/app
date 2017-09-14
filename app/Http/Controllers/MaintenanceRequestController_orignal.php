@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 
-
 class MaintenanceRequestController extends Controller
 {
 
@@ -512,42 +511,42 @@ class MaintenanceRequestController extends Controller
                   $emergency_request_id = DB::getPdo()->lastInsertId();
                   $nearest_users   = User::getNearestUsers(3, $assetData[0]->latitude, $assetData[0]->longitude, 50);
       
-            if (isset($nearest_users[0])) {
-                foreach ($nearest_users as $userdata) {
-                      $dataEmergencyRequestDetail['request_id']          =$request_id;
-                      $dataEmergencyRequestDetail['vendor_id']           =$userdata->id;
-                      $dataEmergencyRequestDetail['distance']            =$userdata->distance;
-                      $dataEmergencyRequestDetail['emergency_request_id']=$emergency_request_id;
-                      EmergencyRequestDetail::create($dataEmergencyRequestDetail);
-                }
-                 /*
-                  Commenting below code for making sure emergency request not being auto assigned assigned 
-                  */
-                // foreach ( $requested_selected_services as $service_id) {
-                //         $service_data['request_id'] = $request_id;
-                //         $service_data['requested_service_id'] = $service_id;
-                //         $service_data['vendor_id'] = $nearest_users[0]->id;
-                //         $service_data['status'] = 1;
+               if (isset($nearest_users[0])) {
+                   foreach ($nearest_users as $userdata) {
+                         $dataEmergencyRequestDetail['request_id']          =$request_id;
+                         $dataEmergencyRequestDetail['vendor_id']           =$userdata->id;
+                         $dataEmergencyRequestDetail['distance']            =$userdata->distance;
+                         $dataEmergencyRequestDetail['emergency_request_id']=$emergency_request_id;
+                         EmergencyRequestDetail::create($dataEmergencyRequestDetail);
+                    }
+                    /*
+                     Commenting below code for making sure emergency request not being auto assigned assigned 
+                     */
+                      // foreach ( $requested_selected_services as $service_id) {
+                      //         $service_data['request_id'] = $request_id;
+                      //         $service_data['requested_service_id'] = $service_id;
+                      //         $service_data['vendor_id'] = $nearest_users[0]->id;
+                      //         $service_data['status'] = 1;
 
-                //         AssignRequest::addRequest($service_data);
+                      //         AssignRequest::addRequest($service_data);
 
             
-                //     }
-                //     $data=User::where('id','=', $service_data['vendor_id'])->select('first_name','last_name')->get();
+                      //     }
+                      //     $data=User::where('id','=', $service_data['vendor_id'])->select('first_name','last_name')->get();
 
-                //     //Updating the status
-                //     EmergencyRequestDetail::where('vendor_id','=',$nearest_users[0]->id)
-                //                            ->where('emergency_request_id','=',$emergency_request_id)
-                //                            ->update(array('status'=>1)); //Auto Assigned request status, nearest vendor has been assigned
-                //     $emergency_request_message=" Auto assigned to ". $data[0]->first_name." ".$data[0]->last_name;
-                //    }
-                  /*
+                      //     //Updating the status
+                      //     EmergencyRequestDetail::where('vendor_id','=',$nearest_users[0]->id)
+                      //                            ->where('emergency_request_id','=',$emergency_request_id)
+                      //                            ->update(array('status'=>1)); //Auto Assigned request status, nearest vendor has been assigned
+                      //     $emergency_request_message=" Auto assigned to ". $data[0]->first_name." ".$data[0]->last_name;
+                      //    }
+                     /*
                     End Commenting
 
-              */
-            } else {
-                // $emergency_request_message=" Your Property address is far away from system vendors, admin will assign it manually. ";
-            }
+                    */
+               } else {
+                    // $emergency_request_message=" Your Property address is far away from system vendors, admin will assign it manually. ";
+                }
         }
 
 
@@ -614,7 +613,7 @@ Status: New Bid Request
                        'user_email_template'=>"Request ". $request_id ." has been created"
                        ];
 
-                    Email::send($userDAta->email, 'GSS New Request Notification', 'emails.customer_registered', $email_data);
+                       Email::send($userDAta->email, 'GSS New Request Notification', 'emails.customer_registered', $email_data);
                 }
             }
 
@@ -1472,7 +1471,7 @@ Service Type:".$serviceType;
             'updated_at'=>$BidRequest->updated_at
             ];
           MaintenanceRequest::addMaintenanceRequest($dataArray);
-        $MaintenanceRequestID = DB::getPdo()->lastInsertId(); // get last id of service
+          $MaintenanceRequestID = DB::getPdo()->lastInsertId(); // get last id of service
 
 
 
@@ -1482,112 +1481,81 @@ Service Type:".$serviceType;
 
           $bidData=[];
           $i=0;
-        foreach ($BidRequestedService as $biddatavalue) {
-            $bidData['request_id']= $MaintenanceRequestID;
-            $bidData['service_id']=$biddatavalue->service_id;
-            $bidData['status']=1;
-            $bidData['created_at']=$biddatavalue->created_at;
-            $bidData['updated_at']=$biddatavalue->updated_at;
-            $bidData['required_date']=$biddatavalue->required_date;
-            $bidData['required_time']=$biddatavalue->required_time;
-            $bidData['service_men']=$biddatavalue->service_men;
-            $bidData['service_note']=$biddatavalue->service_note;
-            $bidData['customer_note']=$biddatavalue->customer_notes_bid;
-            $bidData['vendor_note']=$biddatavalue->vendor_note_for_bid;
-            $bidData['public_notes']=$biddatavalue->public_notes;
-            $bidData['verified_vacancy']=$biddatavalue->verified_vacancy;
-            $bidData['cash_for_keys']=$biddatavalue->cash_for_keys;
-            $bidData['cash_for_keys_trash_out']=$biddatavalue->cash_for_keys_trash_out;
-            $bidData['trash_size']=$biddatavalue->trash_size;
-            $bidData['storage_shed']=$biddatavalue->storage_shed;
-            $bidData['lot_size']=$biddatavalue->lot_size;
-            $bidData['bidding_prince']=$biddatavalue->vendor_bid_price;
-            $bidData['customer_price']=$biddatavalue->customer_bid_price;
-            $bidData['due_date']= $assignment_data ['completion_date'];
+          foreach ($BidRequestedService as $biddatavalue) {
+              $bidData['request_id']= $MaintenanceRequestID;
+              $bidData['service_id']=$biddatavalue->service_id;
+              $bidData['status']=1;
+              $bidData['created_at']=$biddatavalue->created_at;
+              $bidData['updated_at']=$biddatavalue->updated_at;
+              $bidData['required_date']=$biddatavalue->required_date;
+              $bidData['required_time']=$biddatavalue->required_time;
+              $bidData['service_men']=$biddatavalue->service_men;
+              $bidData['service_note']=$biddatavalue->service_note;
+              $bidData['customer_note']=$biddatavalue->customer_notes_bid;
+              $bidData['vendor_note']=$biddatavalue->vendor_note_for_bid;
+              $bidData['public_notes']=$biddatavalue->public_notes;
+              $bidData['verified_vacancy']=$biddatavalue->verified_vacancy;
+              $bidData['cash_for_keys']=$biddatavalue->cash_for_keys;
+              $bidData['cash_for_keys_trash_out']=$biddatavalue->cash_for_keys_trash_out;
+              $bidData['trash_size']=$biddatavalue->trash_size;
+              $bidData['storage_shed']=$biddatavalue->storage_shed;
+              $bidData['lot_size']=$biddatavalue->lot_size;
+              $bidData['bidding_prince']=$biddatavalue->vendor_bid_price;
+              $bidData['customer_price']=$biddatavalue->customer_bid_price;
+              $bidData['due_date']= $assignment_data ['completion_date'];
           
 
          
-            $i++;
+              $i++;
 
-            $add_requested_service = RequestedService::addRequestedService($bidData);
+              $add_requested_service = RequestedService::addRequestedService($bidData);
 
-            $request_detail_id = DB::getPdo()->lastInsertId(); // get last id of service
-
-
-            $imageDataArray=ServiceImageBid::where('requested_id', '=', $biddatavalue->id)->get();
-
-            foreach ($imageDataArray as $imageData) {
-                $image_detail['requested_id'] = $request_detail_id;
-                $image_detail['image_name'] = $imageData->image_name;
-                $image_detail['image_type'] = 'request';
-                $image_detail['status'] = 1;
-                $add_image = ServiceImage::addServiceImage($image_detail);
-            }
-            $dataRequests['request_id']=$MaintenanceRequestID;
-            $dataRequests['requested_service_id']=$request_detail_id;
-            $dataRequests['vendor_id']=$assignment_data['vendor'];
-            $dataRequests['status']=3;
+              $request_detail_id = DB::getPdo()->lastInsertId(); // get last id of service
 
 
-            $accept_request = AssignRequest::create($dataRequests);
+              $imageDataArray=ServiceImageBid::where('requested_id', '=', $biddatavalue->id)->get();
 
-          // $orderDATA= Order::where('request_id','=',$biddatavalue->maintenance_request_id)
-          // ->where('vendor_id','=',$input['vendor_id'])
-          // ->first();
-
-
-            //Creating the work order
-            $data['status'] = 0;
-            $data['status_text'] = "New Work Order";
-            $data['status_class'] = "green";
-            $data['request_id'] = $MaintenanceRequestID;
-            $data['vendor_id'] = $assignment_data['vendor'];
-            $data['customer_id'] = $BidRequest->customer_id;
-            $data['bid_flag']=1;
-            $order_id = Order::addOrder($data);
+              foreach ($imageDataArray as $imageData) {
+                  $image_detail['requested_id'] = $request_detail_id;
+                  $image_detail['image_name'] = $imageData->image_name;
+                  $image_detail['image_type'] = 'request';
+                  $image_detail['status'] = 1;
+                  $add_image = ServiceImage::addServiceImage($image_detail);
+              }
+                $dataRequests['request_id']=$MaintenanceRequestID;
+                $dataRequests['requested_service_id']=$request_detail_id;
+                $dataRequests['vendor_id']=$assignment_data['vendor'];
+                $dataRequests['status']=3;
 
 
-            $order_details['requested_service_id'] =  $request_detail_id;
-            $order_details['order_id'] =$order_id;
-            $order_details['status'] = 1;
-            OrderDetail::create($order_details);
-            $OrderDetailID = DB::getPdo()->lastInsertId();
-            $destinationPath = config('app.order_images_before');   //2
-            $upload_path = config('app.upload_path')."request";
+                $accept_request = AssignRequest::create($dataRequests);
+
+              // $orderDATA= Order::where('request_id','=',$biddatavalue->maintenance_request_id)
+              // ->where('vendor_id','=',$input['vendor_id'])
+              // ->first();
+
+
+                //Creating the work order
+                $data['status'] = 0;
+                $data['status_text'] = "New Work Order";
+                $data['status_class'] = "green";
+                $data['request_id'] = $MaintenanceRequestID;
+                $data['vendor_id'] = $assignment_data['vendor'];
+                $data['customer_id'] = $BidRequest->customer_id;
+                $data['bid_flag']=1;
+                $order_id = Order::addOrder($data);
+
+
+                $order_details['requested_service_id'] =  $request_detail_id;
+                $order_details['order_id'] =$order_id;
+                $order_details['status'] = 1;
+                OrderDetail::create($order_details);
+                $OrderDetailID = DB::getPdo()->lastInsertId();
+                $destinationPath = config('app.order_images_before');   //2
+                $upload_path = config('app.upload_path')."request";
           
-            foreach ($imageDataArray as $imageData) {
-              //Copy Images for order
-                $order_details_id=$OrderDetailID;
-                $type='before';
-                $tempFile = $upload_path."/".$imageData->image_name;          //3
-                $targetPath = $destinationPath;  //4
-                $originalFile=$imageData->image_name;
-                $changedFileName=$order_id.'-'.$order_details_id.'-'.$originalFile;
-                $targetFile = $targetPath . $changedFileName;  //5
-       
-                copy($tempFile, $targetFile);
-
-              //End coping images
-
-                $image_detail['order_id'] = $order_id;
-                $image_detail['order_details_id'] = $order_details_id;
-            
-                $image_detail['type'] = 'before';
-                $image_detail['address'] =  $changedFileName;
-                $image_detail['status'] = 1;
-                $add_image = OrderImage::create($image_detail);
-            }
-
-
-         //Images of Vendor Bid images
-            foreach ($BidRequest->assignRequest as $assignRequestData) {
-                 $destinationPath = config('app.order_images_before');   //2
-                $upload_path = config('app.bid_images_before');
-          
-                     $imageDataArray=AssignRequestBidsImage::where('requested_id', '=', $assignRequestData->id)->get();
-
                 foreach ($imageDataArray as $imageData) {
-                //Copy Images for order
+                    //Copy Images for order
                     $order_details_id=$OrderDetailID;
                     $type='before';
                     $tempFile = $upload_path."/".$imageData->image_name;          //3
@@ -1598,7 +1566,7 @@ Service Type:".$serviceType;
        
                     copy($tempFile, $targetFile);
 
-                //End coping images
+                    //End coping images
 
                     $image_detail['order_id'] = $order_id;
                     $image_detail['order_details_id'] = $order_details_id;
@@ -1608,12 +1576,43 @@ Service Type:".$serviceType;
                     $image_detail['status'] = 1;
                     $add_image = OrderImage::create($image_detail);
                 }
-            }
-        }
+
+
+             //Images of Vendor Bid images
+                foreach ($BidRequest->assignRequest as $assignRequestData) {
+                     $destinationPath = config('app.order_images_before');   //2
+                    $upload_path = config('app.bid_images_before');
+          
+                     $imageDataArray=AssignRequestBidsImage::where('requested_id', '=', $assignRequestData->id)->get();
+
+                    foreach ($imageDataArray as $imageData) {
+                    //Copy Images for order
+                        $order_details_id=$OrderDetailID;
+                        $type='before';
+                        $tempFile = $upload_path."/".$imageData->image_name;          //3
+                        $targetPath = $destinationPath;  //4
+                        $originalFile=$imageData->image_name;
+                        $changedFileName=$order_id.'-'.$order_details_id.'-'.$originalFile;
+                        $targetFile = $targetPath . $changedFileName;  //5
+       
+                        copy($tempFile, $targetFile);
+
+                    //End coping images
+
+                        $image_detail['order_id'] = $order_id;
+                        $image_detail['order_details_id'] = $order_details_id;
+            
+                        $image_detail['type'] = 'before';
+                        $image_detail['address'] =  $changedFileName;
+                        $image_detail['status'] = 1;
+                        $add_image = OrderImage::create($image_detail);
+                    }
+                }
+          }
 
             // Created Work Order
-        $data = ['status' => 4 ];
-        $save = MaintenanceBid::find($assignment_data['request_id'])->update($data);
+            $data = ['status' => 4 ];
+            $save = MaintenanceBid::find($assignment_data['request_id'])->update($data);
 
 
 
@@ -1633,31 +1632,31 @@ Service Type:".$serviceType;
 
                      // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
                 $recepient_id = User::getAdminUsersId();
-        foreach ($recepient_id as $rec_id) {
-            $userDAta=User::find($rec_id);
-            $email_data = [
-            'first_name' => $userDAta->first_name,
-            'last_name' => $userDAta->last_name,
-            'username' => $userDAta->username,
-            'email' => $userDAta->email,
-            'id' =>  $rec_id,
-            'user_email_template'=>$emailbody
-               ];
+            foreach ($recepient_id as $rec_id) {
+                $userDAta=User::find($rec_id);
+                $email_data = [
+                'first_name' => $userDAta->first_name,
+                'last_name' => $userDAta->last_name,
+                'username' => $userDAta->username,
+                'email' => $userDAta->email,
+                'id' =>  $rec_id,
+                'user_email_template'=>$emailbody
+                   ];
 
-            $customervendor="Admin";
-            $notification_url="list-work-order-admin";
+                $customervendor="Admin";
+                $notification_url="list-work-order-admin";
               
-    //Vendor to admin notification
-            $notification = NotificationController::doNotification($rec_id, $rec_id, 'Work Order '.$order_id .' has been generated due to bid request', 1, $email_data, $notification_url);
-            Email::send($userDAta->email, ': Work Order Notification', 'emails.customer_registered', $email_data);
- //Update status for not sending remainder emails
-            Remainder::where('user_id', '=', Auth::user()->id)
-            ->where('request_id', '=', $assignment_data['request_id'])
-            ->update(['status'=>1]);
-        }
+            //Vendor to admin notification
+                $notification = NotificationController::doNotification($rec_id, $rec_id, 'Work Order '.$order_id .' has been generated due to bid request', 1, $email_data, $notification_url);
+                Email::send($userDAta->email, ': Work Order Notification', 'emails.customer_registered', $email_data);
+         //Update status for not sending remainder emails
+                Remainder::where('user_id', '=', Auth::user()->id)
+                ->where('request_id', '=', $assignment_data['request_id'])
+                ->update(['status'=>1]);
+            }
 
                  Session::flash('message', "Bid Approved, Work Order Generated");
-           FlashMessage::displayAlert("Bid Approved, Work Order Generated", 'success');
+            FlashMessage::displayAlert("Bid Approved, Work Order Generated", 'success');
     }
 
 

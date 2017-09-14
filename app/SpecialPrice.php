@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class SpecialPrice extends BaseTenantModel
 {
 

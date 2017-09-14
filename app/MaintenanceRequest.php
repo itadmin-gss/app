@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class MaintenanceRequest extends BaseTenantModel
 {
 

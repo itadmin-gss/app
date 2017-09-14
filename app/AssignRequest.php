@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class AssignRequest extends BaseTenantModel
 {
 

@@ -2,8 +2,6 @@
 
 namespace App;
 
-
-
 class Registration extends BaseTenantModel
 {
 

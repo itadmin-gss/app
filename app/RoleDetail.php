@@ -2,9 +2,6 @@
 
 namespace App;
 
-
-
-
 class RoleDetail extends BaseTenantModel
 {
 

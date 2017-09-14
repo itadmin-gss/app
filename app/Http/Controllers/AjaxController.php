@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 
-
 class AjaxController extends Controller
 {
 
@@ -629,25 +628,25 @@ Service Type:".$serviceType;
 
                      // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
                 $recepient_id = User::getAdminUsersId();
-        foreach ($recepient_id as $rec_id) {
-            $userDAta=User::find($rec_id);
-            $email_data = [
-            'first_name' => $userDAta->first_name,
-            'last_name' => $userDAta->last_name,
-            'username' => $userDAta->username,
-            'email' => $userDAta->email,
-            'id' =>  $rec_id,
-            'user_email_template'=>$emailbody
+            foreach ($recepient_id as $rec_id) {
+                $userDAta=User::find($rec_id);
+                $email_data = [
+                'first_name' => $userDAta->first_name,
+                'last_name' => $userDAta->last_name,
+                'username' => $userDAta->username,
+                'email' => $userDAta->email,
+                'id' =>  $rec_id,
+                'user_email_template'=>$emailbody
                    ];
 
-            $customervendor="Admin";
-            $notification_url="list-bidding-request";
+                $customervendor="Admin";
+                $notification_url="list-bidding-request";
               
-        //Vendor to admin notification
-            $notification = NotificationController::doNotification($rec_id, $rec_id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to Completed Vendor Bid', 1, $email_data, $notification_url);
-            Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
-        }
-        if ($Input['datepickerremainder']!="") {
+                //Vendor to admin notification
+                $notification = NotificationController::doNotification($rec_id, $rec_id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to Completed Vendor Bid', 1, $email_data, $notification_url);
+                Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
+            }
+            if ($Input['datepickerremainder']!="") {
                 //Remainder add
                 $RemainderData=[
                   'date' => $Input['datepickerremainder'],
@@ -659,7 +658,7 @@ Service Type:".$serviceType;
                  ];
                 Remainder::create($RemainderData);
                 //End Remainder
-        }
+            }
     }
 
 

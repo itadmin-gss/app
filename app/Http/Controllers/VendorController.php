@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
 
-
 /**
  * Vendor Controller Class.
  *
@@ -1103,7 +1102,7 @@ class VendorController extends Controller
               $StatusDATA = [
             'status'       => 1,
            
-            ];
+              ];
 
               $save = BidRequest::where('id', '=', $BidRequestedService->request_id)
               ->update($StatusDATA);
@@ -1112,43 +1111,43 @@ class VendorController extends Controller
 
                   // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
                 $recepient_id = User::getAdminUsersId();
-        foreach ($recepient_id as $rec_id) {
-            $BidRequestEmailDATA=  BidRequest::find($BidRequestedService->request_id);
-            $emailbody='OSR '.$BidRequestedService->request_id.' has been modified after decline ';
-            $emailbody.= '<br/>';
-            $emailbody.= 'ID:'.$BidRequestedService->request_id;
-            $emailbody.= '<br/>';
-            $emailbody.= 'Property Address'.$BidRequestEmailDATA->asset->property_address;
-            $emailbody.= '<br/>';
-            $emailbody.= 'City:'.$BidRequestEmailDATA->asset->city->name;
-            $emailbody.= '<br/>';
-            $emailbody.= 'State:'.$BidRequestEmailDATA->asset->state->name;
-            ;
-            $emailbody.= '<br/>';
+              foreach ($recepient_id as $rec_id) {
+                  $BidRequestEmailDATA=  BidRequest::find($BidRequestedService->request_id);
+                  $emailbody='OSR '.$BidRequestedService->request_id.' has been modified after decline ';
+                  $emailbody.= '<br/>';
+                  $emailbody.= 'ID:'.$BidRequestedService->request_id;
+                  $emailbody.= '<br/>';
+                  $emailbody.= 'Property Address'.$BidRequestEmailDATA->asset->property_address;
+                  $emailbody.= '<br/>';
+                  $emailbody.= 'City:'.$BidRequestEmailDATA->asset->city->name;
+                  $emailbody.= '<br/>';
+                  $emailbody.= 'State:'.$BidRequestEmailDATA->asset->state->name;
+                  ;
+                  $emailbody.= '<br/>';
                   
 
-            $url="admin-bid-requests/".$BidRequestedService->request_id;
-            $emailbody.='To view the OSR <a href="http://'.URL::to($url).'">please click here</a>!.';
+                  $url="admin-bid-requests/".$BidRequestedService->request_id;
+                  $emailbody.='To view the OSR <a href="http://'.URL::to($url).'">please click here</a>!.';
 
 
 
-            $userDAta=User::find($rec_id);
-            $email_data = [
-            'first_name' => $userDAta->first_name,
-            'last_name' => $userDAta->last_name,
-            'username' => $userDAta->username,
-            'email' => $userDAta->email,
-            'id' =>  $rec_id,
-            'user_email_template'=>$emailbody
+                  $userDAta=User::find($rec_id);
+                  $email_data = [
+                  'first_name' => $userDAta->first_name,
+                  'last_name' => $userDAta->last_name,
+                  'username' => $userDAta->username,
+                  'email' => $userDAta->email,
+                  'id' =>  $rec_id,
+                  'user_email_template'=>$emailbody
                    ];
 
-            $customervendor="Admin";
-            $notification_url="admin-bid-requests";
+                  $customervendor="Admin";
+                  $notification_url="admin-bid-requests";
               
-        //Vendor to admin notification
-            $notification = NotificationController::doNotification($rec_id, $rec_id, 'OSR '.$BidRequestedService->request_id .' has been modified after decline', 1, $email_data, $notification_url);
-            Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);
-        }
+                    //Vendor to admin notification
+                  $notification = NotificationController::doNotification($rec_id, $rec_id, 'OSR '.$BidRequestedService->request_id .' has been modified after decline', 1, $email_data, $notification_url);
+                  Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);
+              }
     }
 
 //Add images for bid when vendor viewing bids

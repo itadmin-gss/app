@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-
 ################################### Helper Function for Flash Messages #####################
 
 class FlashMessage

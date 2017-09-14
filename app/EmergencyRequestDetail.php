@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class EmergencyRequestDetail extends BaseTenantModel
 {
 

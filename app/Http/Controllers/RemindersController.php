@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
 
-
-
-
 class RemindersController extends Controller
 {
 

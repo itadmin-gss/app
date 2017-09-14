@@ -2,9 +2,6 @@
 
 namespace App;
 
-
-
-
 class BidRequest extends BaseTenantModel
 {
 

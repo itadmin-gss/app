@@ -2,13 +2,6 @@
 
 namespace App;
 
-
-
-
-
-
-
-
 class State extends BaseTenantModel
 {
 

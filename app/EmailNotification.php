@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 /*
 
 Class is Created for Email Notifications
