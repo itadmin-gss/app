@@ -37,65 +37,65 @@ class User extends Model implements UserInterface, RemindableInterface
      
     public function customerType()
     {
-        return $this->belongsTo('App\CustomerType', 'customer_type_id');
+        return $this->belongsTo(\App\CustomerType::class, 'customer_type_id');
     }
 
     public function userType()
     {
-        return $this->belongsTo('App\UserType', 'type_id');
+        return $this->belongsTo(\App\UserType::class, 'type_id');
     }
 
     public function userRole()
     {
-        return $this->belongsTo('App\UserRole', 'user_role_id');
+        return $this->belongsTo(\App\UserRole::class, 'user_role_id');
     }
 
     public function city()
     {
-        return $this->belongsTo('App\City', 'city_id');
+        return $this->belongsTo(\App\City::class, 'city_id');
     }
 
     public function state()
     {
-        return $this->belongsTo('App\State', 'state_id');
+        return $this->belongsTo(\App\State::class, 'state_id');
     }
     public function maintenanceRequest()
     {
-        return $this->hasMany('App\MaintenanceRequest', 'customer_id');
+        return $this->hasMany(\App\MaintenanceRequest::class, 'customer_id');
     }
 
     public function assignRequest()
     {
-        return $this->hasMany('App\AssignRequest', 'vendor_id');
+        return $this->hasMany(\App\AssignRequest::class, 'vendor_id');
     }
 
     public function specialPrice()
     {
-        return $this->hasMany('App\SpecialPrice', 'customer_id');
+        return $this->hasMany(\App\SpecialPrice::class, 'customer_id');
     }
 
     public function asset()
     {
-        return $this->hasMany('App\Asset', 'customer_id');
+        return $this->hasMany(\App\Asset::class, 'customer_id');
     }
     
     public function vendorService()
     {
-        return $this->hasMany('App\VendorService', 'vendor_id');
+        return $this->hasMany(\App\VendorService::class, 'vendor_id');
     }
 
     public function orderVendor()
     {
         $user_type = UserType::where('title', '=', 'vendors');
         $user_type_id = $user_type->id;
-        return $this->hasMany('App\Order', 'vendor_id')->where('type_id', '=', $user_type_id);
+        return $this->hasMany(\App\Order::class, 'vendor_id')->where('type_id', '=', $user_type_id);
     }
 
     public function orderCustomer()
     {
         $user_type = UserType::where('title', '=', 'customer');
         $user_type_id = $user_type->id;
-        return $this->hasMany('App\Order', 'customer_id')->where('type_id', '=', $user_type_id);
+        return $this->hasMany(\App\Order::class, 'customer_id')->where('type_id', '=', $user_type_id);
     }
 
     public static function createUser($data)

@@ -12,39 +12,39 @@ class MaintenanceBid extends BaseTenantModel
 
     public function jobType()
     {
-        return $this->belongsTo('App\JobType', 'job_type');
+        return $this->belongsTo(\App\JobType::class, 'job_type');
     }
     public function user()
     {
-        return $this->belongsTo('App\User', 'customer_id');
+        return $this->belongsTo(\App\User::class, 'customer_id');
     }
     public function user2()
     {
-        return $this->belongsTo('App\User', 'substitutor_id');
+        return $this->belongsTo(\App\User::class, 'substitutor_id');
     }
 
     public function asset()
     {
-        return $this->belongsTo('App\Asset', 'asset_id');
+        return $this->belongsTo(\App\Asset::class, 'asset_id');
     }
 
     public function assignRequest()
     {
-        return $this->hasMany('App\AssignRequestBid', 'request_id');
+        return $this->hasMany(\App\AssignRequestBid::class, 'request_id');
     }
     public function invoiceRequest()
     {
-        return $this->hasMany('App\Invoice', 'request_id');
+        return $this->hasMany(\App\Invoice::class, 'request_id');
     }
 
     public function requestedService()
     {
-        return $this->hasMany('App\RequestedBid', 'request_id');
+        return $this->hasMany(\App\RequestedBid::class, 'request_id');
     }
 
     public function order()
     {
-        return $this->hasMany('App\Order', 'request_id');
+        return $this->hasMany(\App\Order::class, 'request_id');
     }
 
     public static function addMaintenanceRequest($data)

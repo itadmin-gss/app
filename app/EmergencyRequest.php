@@ -15,6 +15,6 @@ class EmergencyRequest extends BaseTenantModel
 
     public function emergencyRequestDetail()
     {
-        return $this->hasMany('App\EmergencyRequestDetail', 'emergency_request_id');
+        return $this->hasMany(\App\EmergencyRequestDetail::class, 'emergency_request_id');
     }
 }

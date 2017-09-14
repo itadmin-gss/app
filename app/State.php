@@ -68,7 +68,7 @@ class State extends BaseTenantModel
 
 
 
-        return $this->hasMany('App\City', 'state_id');
+        return $this->hasMany(\App\City::class, 'state_id');
     }
 
 

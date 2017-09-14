@@ -575,9 +575,9 @@ class ServiceController extends Controller
 
                         return Redirect::back()
 
-                       ->with('message', FlashMessage::DisplayAlert($message, 'success'));
+                        ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                     }
-                }
+                   }
         } else {
             $ServiceCategory=ServiceCategory::get();
 
@@ -1240,9 +1240,9 @@ class ServiceController extends Controller
 
                         return Redirect::back()
 
-                       ->with('message', FlashMessage::DisplayAlert($message, 'success'));
+                        ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                     }
-                }
+                   }
         } else {
             $serviceTypeArray=[];
 

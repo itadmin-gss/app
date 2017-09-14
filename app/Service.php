@@ -77,25 +77,25 @@ class Service extends BaseTenantModel
     public function serviceCategory()
     {
 
-        return $this->belongsTo('App\ServiceCategory', 'service_cat_id');
+        return $this->belongsTo(\App\ServiceCategory::class, 'service_cat_id');
     }
 
     public function requestedService()
     {
-        return $this->hasMany('App\RequestedService', 'service_id');
+        return $this->hasMany(\App\RequestedService::class, 'service_id');
         //return user type
     }
     
     
     public function specialPrice()
     {
-        return $this->hasMany('App\SpecialPrice', 'service_id');
+        return $this->hasMany(\App\SpecialPrice::class, 'service_id');
         //return user type
     }
     
     public function orderDetail()
     {
-        return $this->hasMany('App\OrderDetail', 'service_id');
+        return $this->hasMany(\App\OrderDetail::class, 'service_id');
         //return user type
     }
         
@@ -180,11 +180,11 @@ class Service extends BaseTenantModel
 
     public function getcustomertype()
     {
-        return $this->belongsTo('App\CustomerType', 'customer_type_id');
+        return $this->belongsTo(\App\CustomerType::class, 'customer_type_id');
     }
 
     public function getjobtype()
     {
-        return $this->belongsTo('App\JobType', 'job_type_id');
+        return $this->belongsTo(\App\JobType::class, 'job_type_id');
     }
 }

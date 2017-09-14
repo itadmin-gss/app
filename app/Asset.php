@@ -36,30 +36,30 @@ class Asset extends BaseTenantModel
       //   }
     public function user()
     {
-        return $this->belongsTo('App\User', 'customer_id');
+        return $this->belongsTo(\App\User::class, 'customer_id');
     }
 
     public function close()
     {
-        return $this->belongsTo('App\User', 'property_dead_user');
+        return $this->belongsTo(\App\User::class, 'property_dead_user');
     }
     public function customerType()
     {
-        return $this->belongsTo('App\CustomerType', 'customer_type');
+        return $this->belongsTo(\App\CustomerType::class, 'customer_type');
     }
 
     public function state()
     {
-        return $this->belongsTo('App\State', 'state_id');
+        return $this->belongsTo(\App\State::class, 'state_id');
     }
 
     public function city()
     {
-        return $this->belongsTo('App\City', 'city_id');
+        return $this->belongsTo(\App\City::class, 'city_id');
     }
     public function customerTitle()
     {
-        return $this->belongsTo('App\CustomerType', 'customer_type');
+        return $this->belongsTo(\App\CustomerType::class, 'customer_type');
     }
     public static function addAsset($data, $customer_id)
     {
@@ -71,13 +71,13 @@ class Asset extends BaseTenantModel
 
     public function maintenanceRequest()
     {
-        return $this->hasMany('App\MaintenanceRequest', 'asset_id');
+        return $this->hasMany(\App\MaintenanceRequest::class, 'asset_id');
         //return user type
     }
 
     public function bidRequest()
     {
-        return $this->hasMany('App\BidRequest', 'asset_id');
+        return $this->hasMany(\App\BidRequest::class, 'asset_id');
         //return user type
     }
 

@@ -17,10 +17,10 @@ class Recurring extends BaseTenantModel
     
     public function user()
     {
-        return $this->belongsTo('App\User', 'vendor_id');
+        return $this->belongsTo(\App\User::class, 'vendor_id');
     }
     public function requestedService()
     {
-        return $this->belongsTo('App\RequestedService', 'request_service_id');
+        return $this->belongsTo(\App\RequestedService::class, 'request_service_id');
     }
 }

@@ -10,17 +10,17 @@ class AssignRequest extends BaseTenantModel
 
     public function requestedService()
     {
-        return $this->belongsTo('App\RequestedService', 'requested_service_id');
+        return $this->belongsTo(\App\RequestedService::class, 'requested_service_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
+        return $this->belongsTo(\App\MaintenanceRequest::class, 'request_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'vendor_id');
+        return $this->belongsTo(\App\User::class, 'vendor_id');
     }
     public static function addRequest($data)
     {

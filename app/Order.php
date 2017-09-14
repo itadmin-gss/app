@@ -11,17 +11,17 @@ class Order extends BaseTenantModel
 
     public function vendor()
     {
-        return $this->belongsTo('App\User', 'vendor_id');
+        return $this->belongsTo(\App\User::class, 'vendor_id');
     }
 
     public function customer()
     {
-        return $this->belongsTo('App\User', 'customer_id');
+        return $this->belongsTo(\App\User::class, 'customer_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
+        return $this->belongsTo(\App\MaintenanceRequest::class, 'request_id');
     }
     public function maintenanceRequest2()
     {
@@ -29,17 +29,17 @@ class Order extends BaseTenantModel
     }
     public function scopeRequest()
     {
-        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
+        return $this->belongsTo(\App\MaintenanceRequest::class, 'request_id');
     }
 
     public function orderDetail()
     {
-        return $this->hasMany('App\OrderDetail', 'order_id');
+        return $this->hasMany(\App\OrderDetail::class, 'order_id');
     }
 
     public function orderImage()
     {
-        return $this->hasMany('App\OrderImage', 'order_id');
+        return $this->hasMany(\App\OrderImage::class, 'order_id');
     }
 
     public static function listAllWorkOrder()

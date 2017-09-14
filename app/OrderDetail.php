@@ -10,17 +10,17 @@ class OrderDetail extends BaseTenantModel
 
     public function order()
     {
-        return $this->belongsTo('App\Order', 'order_id');
+        return $this->belongsTo(\App\Order::class, 'order_id');
     }
     
     public function orderImage()
     {
-        return $this->hasMany('App\OrderImage', 'order_details_id');
+        return $this->hasMany(\App\OrderImage::class, 'order_details_id');
     }
     
     public function requestedService()
     {
-        return $this->belongsTo('App\RequestedService', 'requested_service_id');
+        return $this->belongsTo(\App\RequestedService::class, 'requested_service_id');
     }
 
     
