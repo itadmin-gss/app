@@ -18,7 +18,7 @@ use App\Service;
 use App\SpecialPrice;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 
 class OrderController extends Controller
@@ -63,7 +63,7 @@ class OrderController extends Controller
             ->update(['status' => 1,'status_text' => "In-Process",'status_class'=>"warning"]);
         }
         //Show dashboard of customer
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
         if ($submitted) {
         } else {
             $order = Order::getOrderByID($order_id);
@@ -168,7 +168,7 @@ class OrderController extends Controller
 
         $destinationPath = config('app.order_images_before');   //2
         if (!empty($_FILES)) {
-            $data=Input::all();
+            $data=Request::all();
             $order_id=$data['order_id'];
             $order_details_id=$data['order_details_id'];
             $type=$data['type'];
@@ -213,7 +213,7 @@ class OrderController extends Controller
 
         $destinationPath = config('app.order_additional_images_before');   //2
         if (!empty($_FILES)) {
-            $data=Input::all();
+            $data=Request::all();
             
             $additional_service_id=$data['additional_service_id'];
             $type=$data['type'];
@@ -257,7 +257,7 @@ class OrderController extends Controller
 
         $destinationPath = config('app.order_additional_images_during');   //2
         if (!empty($_FILES)) {
-            $data=Input::all();
+            $data=Request::all();
             $additional_service_id=$data['additional_service_id'];
             $type=$data['type'];
             $tempFile = $_FILES['file']['tmp_name'];          //3
@@ -299,7 +299,7 @@ class OrderController extends Controller
 
         $destinationPath = config('app.order_images_during');   //2
         if (!empty($_FILES)) {
-            $data=Input::all();
+            $data=Request::all();
             $order_id=$data['order_id'];
             $order_details_id=$data['order_details_id'];
             $type=$data['type'];
@@ -343,7 +343,7 @@ class OrderController extends Controller
 
         $destinationPath = config('app.order_additional_images_after');   //2
         if (!empty($_FILES)) {
-            $data=Input::all();
+            $data=Request::all();
             $additional_service_id = $data['additional_service_id'];
             $type=$data['type'];
             $tempFile = $_FILES['file']['tmp_name'];          //3
@@ -385,7 +385,7 @@ class OrderController extends Controller
 
         $destinationPath = config('app.order_images_after');   //2
         if (!empty($_FILES)) {
-            $data=Input::all();
+            $data=Request::all();
             $order_id=$data['order_id'];
             $order_details_id=$data['order_details_id'];
             $type=$data['type'];
@@ -426,7 +426,7 @@ class OrderController extends Controller
     
     public function deleteOrderAllBeforeImages()
     {
-        $data=Input::all();
+        $data=Request::all();
         $order_id=$data['order_id'];
         if ($data['before_image']==0) {
             $images=OrderImage::where('order_id', '=', $order_id)->get();
@@ -459,7 +459,7 @@ class OrderController extends Controller
     
     public function deleteAfterImages()
     {
-        $data = Input::all();
+        $data = Request::all();
         $order_id = $data['order_id'];
         $order_details_id = $data['order_details_id'];
         $type = $data['type'];
@@ -476,7 +476,7 @@ class OrderController extends Controller
 
     public function deleteDuringImages()
     {
-        $data = Input::all();
+        $data = Request::all();
         $order_id = $data['order_id'];
         $order_details_id = $data['order_details_id'];
         $type = $data['type'];
@@ -492,7 +492,7 @@ class OrderController extends Controller
     public function downloadSeletedAdditionalItemImages()
     {
 
-        $data =  Input::all();
+        $data =  Request::all();
         $result = [];
         foreach ($data as $key => $value) {
             foreach ($value as $key => $val) {
@@ -554,7 +554,7 @@ class OrderController extends Controller
     }
     public function downloadSeletedImages()
     {
-        $data =  Input::all();
+        $data =  Request::all();
         $result = [];
         foreach ($data as $key => $value) {
             foreach ($value as $key => $val) {
@@ -616,7 +616,7 @@ class OrderController extends Controller
     }
     public function displayAdditionalExportImages()
     {
-           $data = Input::all();
+           $data = Request::all();
 
            $additional_service_id = $data['additional_service_id'];
 
@@ -843,7 +843,7 @@ $(".example6").fancybox({
 
     public function displayExportImages()
     {
-           $data = Input::all();
+           $data = Request::all();
 
            $order_id = $data['order_id'];
 
@@ -1074,7 +1074,7 @@ $(".example6").fancybox({
 
     public function deleteBeforeImages()
     {
-        $data = Input::all();
+        $data = Request::all();
         $order_id = $data['order_id'];
         $order_details_id = $data['order_details_id'];
         $type = $data['type'];
@@ -1089,7 +1089,7 @@ $(".example6").fancybox({
 
     public function saveVendorNote()
     {
-        $data = Input::all();
+        $data = Request::all();
         $vendor_note=['vendor_note'=>$data['vendor_note']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
@@ -1101,8 +1101,8 @@ $(".example6").fancybox({
     }
     public function saveAdditionalVendorNote()
     {
-        $id = Input::get('additional_id');
-        $additional_vendors_notes = Input::get('additional_vendors_notes');
+        $id = Request::get('additional_id');
+        $additional_vendors_notes = Request::get('additional_vendors_notes');
         $save = AdditionalServiceItem::where('id', '=', $id)->update(['additional_vendors_notes' => $additional_vendors_notes]);
                 
         if ($save) {
@@ -1111,7 +1111,7 @@ $(".example6").fancybox({
     }
     public function saveBillingNote()
     {
-         $data = Input::all();
+         $data = Request::all();
         $billing_note=['billing_note'=>$data['billing_note']];
         $orders=Order::find($data['order_id']);
         $save=$orders->billing_note=$data['billing_note'];
@@ -1122,7 +1122,7 @@ $(".example6").fancybox({
     }
     public function saveAdminNote()
     {
-        $data = Input::all();
+        $data = Request::all();
         $vendor_note=['vendor_note'=>$data['vendor_note']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
@@ -1135,7 +1135,7 @@ $(".example6").fancybox({
 
     public function saveAdminQuantity()
     {
-        $data = Input::all();
+        $data = Request::all();
         $vendor_note=['vendor_qty'=>$data['vendor_qty']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
@@ -1147,7 +1147,7 @@ $(".example6").fancybox({
     }
     public function saveCustomerNote()
     {
-        $data = Input::all();
+        $data = Request::all();
         $vendor_note=['vendor_note'=>$data['vendor_note']];
         $order_details=OrderDetail::find($data['order_detail_id']);
         $requested_service=RequestedService::find($order_details->requestedService->id);
@@ -1159,7 +1159,7 @@ $(".example6").fancybox({
     }
     public function displayAdditonalItemImages()
     {
-        $data = Input::all();
+        $data = Request::all();
         $additional_service_id = $data['additional_service_id'];
         $type = $data['type'];
         $popDiv='';
@@ -1275,7 +1275,7 @@ $(".example6").fancybox({
 
     public function displayImages()
     {
-        $data = Input::all();
+        $data = Request::all();
         $order_id = $data['order_id'];
 
         $order_details_id = $data['order_detail_id'];
@@ -1390,7 +1390,7 @@ $(".example6").fancybox({
     
     public function displayViewImages()
     {
-        $data = Input::all();
+        $data = Request::all();
         $order_id = $data['order_id'];
         $order_details_id = $data['order_detail_id'];
         $type = $data['type'];
@@ -1409,7 +1409,7 @@ $(".example6").fancybox({
     
     public function deleteImageById()
     {
-        $data = Input::all();
+        $data = Request::all();
         $order_id = $data['order_id'];
         $order_details_id = $data['order_detail_id'];
         $filename = $data['filename'];
@@ -1431,7 +1431,7 @@ $(".example6").fancybox({
     }
     public function deleteImageByAdditionalItemId()
     {
-        $data = Input::all();
+        $data = Request::all();
         $additional_service_id = $data['additional_service_id'];
         $filename = $data['filename'];
         $type=$data['type'];
@@ -1461,9 +1461,9 @@ $(".example6").fancybox({
     public function changeStatus()
     {
         
-        $order_id= Input::get('order_id');
-        if (Auth::user()->type_id==3 && Input::get('orderstatusid')==2) {
-            $totalRequestedServices = Input::get('totalRequestedServices');
+        $order_id= Request::get('order_id');
+        if (Auth::user()->type_id==3 && Request::get('orderstatusid')==2) {
+            $totalRequestedServices = Request::get('totalRequestedServices');
             $orderimages=OrderImage::where('order_id', '=', $order_id)->count();
       
             if ($orderimages < $totalRequestedServices) {
@@ -1475,16 +1475,16 @@ $(".example6").fancybox({
         if (empty($data)) {
               $current_data = date("m/d/Y");
                $orderdata = [
-            'status'       =>   Input::get('orderstatusid') ,
-            'status_class' =>   Input::get('orderstatus_class') ,
-            'status_text'  =>   Input::get('orderstatus_text'),
+            'status'       =>   Request::get('orderstatusid') ,
+            'status_class' =>   Request::get('orderstatus_class') ,
+            'status_text'  =>   Request::get('orderstatus_text'),
              'approved_date' => $current_data
                ];
         } else {
             $orderdata = [
-            'status'       =>   Input::get('orderstatusid') ,
-            'status_class' =>   Input::get('orderstatus_class') ,
-            'status_text'  =>   Input::get('orderstatus_text')
+            'status'       =>   Request::get('orderstatusid') ,
+            'status_class' =>   Request::get('orderstatus_class') ,
+            'status_text'  =>   Request::get('orderstatus_text')
             ];
         }
         $save = Order::where('id', '=', $order_id)
@@ -1496,7 +1496,7 @@ $(".example6").fancybox({
      //If order status is going to be approved then create invoice
 
 
-        if (Input::get('orderstatusid')==1) {
+        if (Request::get('orderstatusid')==1) {
              $serviceType="";
             $order_details = ($orders[0]->orderDetail);
             $vendor_price=0;
@@ -1526,7 +1526,7 @@ Service Type: ".$serviceType;
                Email::send($userDAta->email, 'Subject - '.$order_id .' marked In Process', 'emails.customer_registered', $email_data);
         }
 
-        if (Input::get('orderstatusid')==4) {
+        if (Request::get('orderstatusid')==4) {
               $serviceType="";
             $order_details = ($orders[0]->orderDetail);
             $vendor_price=0;
@@ -1614,7 +1614,7 @@ Completion Date: ".$orders[0]->completion_date;
 
         if (Auth::user()->type_id==3) {
                 //Send to admins
-                $message =   "Vendor has changed the status of order to ".Input::get('orderstatus_text')." of order number ". $order_id;
+                $message =   "Vendor has changed the status of order to ".Request::get('orderstatus_text')." of order number ". $order_id;
                 //send system notifications to admin users
               
                 $recepient_id = User::getAdminUsersId();
@@ -1628,35 +1628,35 @@ Completion Date: ".$orders[0]->completion_date;
                  NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "customer-list-work-orders");
         } elseif (Auth::user()->type_id==2) {
               //Send to vendor
-              $message =  "Customer has changed the status of order to ".Input::get('orderstatus_text')." of order number ". $order_id;
+              $message =  "Customer has changed the status of order to ".Request::get('orderstatus_text')." of order number ". $order_id;
               $recepient_id = $orders[0]->vendor->id;
                
                NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "vendor-list-orders");
               //End comments
         } else {
           //Send to vendor
-            $message =  "Admin has changed the status of order to ".Input::get('orderstatus_text')." of order number ". $order_id;
+            $message =  "Admin has changed the status of order to ".Request::get('orderstatus_text')." of order number ". $order_id;
             $recepient_id = $orders[0]->vendor->id;
                
             NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "vendor-list-orders");
           //End comments
         }
 
-        if (Input::get('orderstatusid')==2) {
+        if (Request::get('orderstatusid')==2) {
             echo "Your work order has been completed! We will now process your order for approval. Once approved, an invoice will be generated on your behalf." ;
-        } elseif (Input::get('orderstatusid')==4) {
+        } elseif (Request::get('orderstatusid')==4) {
             echo " Work order has been approved successfully! Invoice is now being generated.";
         } else {
-            echo "Status has been changed to ".Input::get('orderstatus_text') ;
+            echo "Status has been changed to ".Request::get('orderstatus_text') ;
         }
     }
 
     function completionDate()
     {
-        $completion_date= Input::get('completion_date');
+        $completion_date= Request::get('completion_date');
 
       
-        $order_id= Input::get('order_id');
+        $order_id= Request::get('order_id');
         $data = Order::where("id", "=", $order_id)->pluck("vendor_submitted");
         if (empty($data)) {
               $current_data = date("m/d/Y");
@@ -1679,18 +1679,18 @@ Completion Date: ".$orders[0]->completion_date;
     function closePropertyStatus()
     {
            $orderdata = [
-            'close_property_status'       =>   Input::get('status_id')
+            'close_property_status'       =>   Request::get('status_id')
             ];
 
-           $save = Order::where('id', '=', Input::get('order_id'))
+           $save = Order::where('id', '=', Request::get('order_id'))
            ->update($orderdata);
            echo "Order Property Status has been updated";
     }
 
     public function updatevendorid()
     {
-        $order_id=Input::get('order_id');
-        $vendorid=Input::get('vendorid');
+        $order_id=Request::get('order_id');
+        $vendorid=Request::get('vendorid');
             $data['status'] = 0;
             $data['status_text'] = "New Work Order";
             $data['status_class'] = "green";
@@ -1706,9 +1706,9 @@ Completion Date: ".$orders[0]->completion_date;
 
     public function underreviewnotes()
     {
-        $order_id=Input::get('order_id');
-        $vendorid=Input::get('vendorid');
-        $under_review_notes=Input::get('under_review_notes');
+        $order_id=Request::get('order_id');
+        $vendorid=Request::get('vendorid');
+        $under_review_notes=Request::get('under_review_notes');
 
             $data['order_id'] = $order_id;
             $data['vendor_id'] = $vendorid;
@@ -1722,7 +1722,7 @@ Completion Date: ".$orders[0]->completion_date;
     }
     function photoTag()
     {
-        $data = Input::all();
+        $data = Request::all();
     
 
           $result= OrderImagesPosition::create($data);
@@ -1731,7 +1731,7 @@ Completion Date: ".$orders[0]->completion_date;
 
     function deleteTag()
     {
-        $data = Input::all();
+        $data = Request::all();
         $delete=OrderImagesPosition::where('id', '=', $data['imageID'])->delete();
     }
 

@@ -9,7 +9,7 @@ use App\RoleFunction;
 use App\UserRole;
 use App\UserType;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 
 /**
@@ -59,7 +59,7 @@ class AccessRightController extends Controller
     */
     public function getRoleDetails()
     {
-        $role_id = Input::get('role_id');
+        $role_id = Request::get('role_id');
         if (Request::ajax()) {
             $access_roles = UserRole::listRoles();
             $role_functions = RoleFunction::listRoleFunctions();
@@ -96,8 +96,8 @@ class AccessRightController extends Controller
     */
     public function updateAccessRights()
     {
-        $role_id = Input::get('role_id');
-        $data = Input::get('data');
+        $role_id = Request::get('role_id');
+        $data = Request::get('data');
         $users_role = RoleDetail::where('role_id', '=', $role_id)->get();
 
         foreach ($data as $dat) {

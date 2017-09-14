@@ -61,7 +61,7 @@
                                 {!!Form::label('city_id', 'City: *', array('class' => 'control-label'))!!}
                                  <?php
                                 $cities_data = array('' => 'Select City');
-                                $cities = City::getCitiesByStateId(Input::old('state_id'));
+                                $cities = City::getCitiesByStateId(Request::old('state_id'));
                                 foreach ($cities as $city) {
                                     $cities_data[$city['id']] = $city['name'];
                                 }

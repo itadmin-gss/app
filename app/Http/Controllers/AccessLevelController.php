@@ -8,7 +8,7 @@ use App\RoleFunction;
 use App\User;
 use App\UserRole;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 
 /**
@@ -43,7 +43,7 @@ class AccessLevelController extends Controller
     */
     public function editAccessLevel($role_id)
     {
-        $update = Input::get('update');
+        $update = Request::get('update');
         if (!$update) {
             $user_role = UserRole::find($role_id);
             //$user->delete();
@@ -55,7 +55,7 @@ class AccessLevelController extends Controller
                             ]
                    );
         } else {
-            $user_role = Input::all();
+            $user_role = Request::all();
             $update_user_role = UserRole::updateRole($user_role, $role_id);
             if ($update_user_role) {
                 $message = FlashMessage::messages('admin.user_role_updated');
@@ -82,8 +82,8 @@ class AccessLevelController extends Controller
             $roledetail=RoleDetail::where('role_id', '=', $user->user_role_id)->where('role_function_id', '=', $rolefunction->id)->first();
         if ($roledetail->edit == 1) {
             if (Request::ajax()) {
-                $user_id = Input::get('user_id');
-                $role_id = Input::get('role_id');
+                $user_id = Request::get('user_id');
+                $role_id = Request::get('role_id');
 
                 $user = User::find($user_id);
                 $user->user_role_id = $role_id ;

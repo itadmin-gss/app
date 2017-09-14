@@ -46,20 +46,20 @@ class RegistrationConroller extends Controller
 //                        'type_id' => 'required'
 //			
 //		);
-//		$validator = Validator::make(Input::all(), $rules);
+//		$validator = Validator::make(Request::all(), $rules);
 //
 //		// process the login
 //		if ($validator->fails()) {
 //			return redirect('user-register')
 //				->withErrors($validator)
-//				->withInput(Input::except('password'));
+//				->withInput(Request::except('password'));
 //		} else {
 //                    
 //                    
 ////                    $nerd = new Nerd;
-////			$nerd->name       = Input::get('name');
-////			$nerd->email      = Input::get('email');
-////			$nerd->nerd_level = Input::get('nerd_level');
+////			$nerd->name       = Request::get('name');
+////			$nerd->email      = Request::get('email');
+////			$nerd->nerd_level = Request::get('nerd_level');
 ////			$nerd->save();
 ////
 ////			// redirect
@@ -71,10 +71,10 @@ class RegistrationConroller extends Controller
 //
 //                        $user = new User;
 //                        
-//			$user->first_name       = Input::get('first_name');
+//			$user->first_name       = Request::get('first_name');
 //                   
-//			$user->last_name      = Input::get('last_name');
-//			$user->email      = Input::get('email');
+//			$user->last_name      = Request::get('last_name');
+//			$user->email      = Request::get('email');
 //                        
 //                      
 //                        

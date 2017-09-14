@@ -12,7 +12,7 @@ use App\User;
 use App\UserRole;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 
 /**
@@ -51,13 +51,13 @@ class CommonController extends Controller
 
         $userrole=UserRole::find($user->user_role_id);
 
-        $type=Input::get('type');
+        $type=Request::get('type');
 
-        $status = Input::get('status');
+        $status = Request::get('status');
 
-        $db_table = Input::get('db_table');
+        $db_table = Request::get('db_table');
 
-        $id = Input::get('id');
+        $id = Request::get('id');
 
         if ($type == 'vendor') {
             $rolefunction=RoleFunction::where('role_function', '=', 'Vendor')->first();
@@ -210,11 +210,11 @@ class CommonController extends Controller
 
         $userrole=UserRole::find($user->user_role_id);
 
-        $type=Input::get('type');
+        $type=Request::get('type');
 
-        $db_table = Input::get('db_table');
+        $db_table = Request::get('db_table');
 
-        $id = Input::get('id');
+        $id = Request::get('id');
 
         if ($type == 'vendor') {
             $rolefunction=RoleFunction::where('role_function', '=', 'Vendor')->first();

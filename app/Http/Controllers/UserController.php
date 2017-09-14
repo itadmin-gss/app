@@ -15,7 +15,7 @@ use Cryt\Forms\RegistrationForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
@@ -87,16 +87,16 @@ class UserController extends Controller
             'password_confirmation' => 'same:password',
             'type_id' => 'required'
         ];
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
 
 
         if ($validator->fails()) {
             return redirect('user-register')
                             ->withErrors($validator)
-                            ->withInput(Input::except('password'));
+                            ->withInput(Request::except('password'));
         } else {
-            $data = Input::all();
-            $user_type = Input::get('type_id');
+            $data = Request::all();
+            $user_type = Request::get('type_id');
             unset($data['_token'], $data['password_confirmation']);
             $data['password'] = Hash::make($data['password']);
             $data['status'] = 0;
@@ -111,10 +111,10 @@ class UserController extends Controller
                 $id = $created_user_id;
 
                 $email_data = [
-                    'first_name' => Input::get('first_name'),
-                    'last_name' => Input::get('last_name'),
-                    'username' => Input::get('username'),
-                    'email' => Input::get('email'),
+                    'first_name' => Request::get('first_name'),
+                    'last_name' => Request::get('last_name'),
+                    'username' => Request::get('username'),
+                    'email' => Request::get('email'),
                     'id' => $id,
                     'user_email_template'=>EmailNotification::$user_email_template
                 ];
@@ -137,7 +137,7 @@ class UserController extends Controller
 
                 
 
-                Email::send(Input::get('email'), 'Welcome to GSS', 'emails.customer_registered', $email_data);
+                Email::send(Request::get('email'), 'Welcome to GSS', 'emails.customer_registered', $email_data);
                
                 return redirect('thankyou/' . $id);
             }
@@ -179,19 +179,19 @@ class UserController extends Controller
 
 
 
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
 
-        $field = filter_var(Input::get('username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $field = filter_var(Request::get('username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $username = Input::get('username');
-        $password = Input::get('password');
+        $username = Request::get('username');
+        $password = Request::get('password');
         
         if ($validator->fails()) {
             $messages = $validator->messages();
 
             return redirect('/')
                             ->withErrors($validator)
-                            ->withInput(Input::except('password'));
+                            ->withInput(Request::except('password'));
         } else {
             $status = User::where($field, '=', $username)->first();
             
@@ -204,7 +204,7 @@ class UserController extends Controller
                     'status' => 1
                         ];
 
-                    if (Input::get('remember_me')) {
+                    if (Request::get('remember_me')) {
                         $auth_attempt = Auth::attempt($userdata, true);
                     } else {
                         $auth_attempt = Auth::attempt($userdata);
@@ -318,7 +318,7 @@ class UserController extends Controller
                 'hashmatch' => 'Your current password must match your account password.'
             ];
 
-            if (Input::get('change_password')) {
+            if (Request::get('change_password')) {
                 $rules = [
                     'first_name' => 'required|min:2|max:80|alpha',
                     'last_name' => 'required|min:2|max:80|alpha',
@@ -342,10 +342,10 @@ class UserController extends Controller
                     'city_id' => 'required',
                 ];
             }
-            if (Input::get('check_user_name') == 'yes') {
+            if (Request::get('check_user_name') == 'yes') {
                 $rules['username'] = 'required|unique:users';
             }
-            $validator = Validator::make(Input::all(), $rules, $messages);
+            $validator = Validator::make(Request::all(), $rules, $messages);
 
             if ($validator->fails()) {
                 $validation_messages = $validator->messages()->all();
@@ -357,29 +357,29 @@ class UserController extends Controller
             } else {
                 $street = '';
                 $streetNumber = '';
-                $city_id = Input::get('city_id');
+                $city_id = Request::get('city_id');
                 $city = City::find($city_id)->name;
-                $zip = Input::get('zipcode');
+                $zip = Request::get('zipcode');
                 $country = 'United States';
                 $result = Geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
 
 
                 $profile_message = FlashMessage::messages('vendor.profile_edit_success');
-                $data = Input::all();
+                $data = Request::all();
                 $data['latitude'] = $result['latitude'];
                 $data['longitude'] = $result['longitude'];
-                if (!Input::get('change_password')) {
+                if (!Request::get('change_password')) {
                     $data['password'] = Auth::user()->password;
                 } else {
                     $data['password'] = Hash::make($data['password']);
                 }
-                $file = Input::file('profile_picture');
+                $file = Request::file('profile_picture');
                 if ($file) {
                     $destinationPath = config('app.upload_path');
                     $filename = $file->getClientOriginalName();
                     $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                     $data['profile_picture'] = $filename;
-                    Input::file('profile_picture')->move($destinationPath, $filename);
+                    Request::file('profile_picture')->move($destinationPath, $filename);
                 } else {
                     $data['profile_picture'] = Auth::user()->profile_picture;
                 }

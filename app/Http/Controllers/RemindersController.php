@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ResetPassword;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Redirect;
@@ -49,7 +49,7 @@ class RemindersController extends Controller
 
              $from_email = config('app.admin_email');
 
-        switch ($response = Password::remind(Input::only('email'), function ($message) use ($from_email) {
+        switch ($response = Password::remind(Request::only('email'), function ($message) use ($from_email) {
 
 
 
@@ -108,7 +108,7 @@ class RemindersController extends Controller
     public function postReset()
     {
 
-        $credentials = Input::only(
+        $credentials = Request::only(
 
             'email',
             'password',
@@ -116,7 +116,7 @@ class RemindersController extends Controller
             'token'
         );
 
-        $data = Input::only(
+        $data = Request::only(
 
             'email',
             'password'

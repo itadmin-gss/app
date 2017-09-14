@@ -242,7 +242,7 @@
 
                                 $city_data = array('' => 'Select City');
 
-                                $cities = City::getCitiesByStateId(Input::old('state_id'));
+                                $cities = City::getCitiesByStateId(Request::old('state_id'));
 
                                 foreach ($cities as $city) {
 

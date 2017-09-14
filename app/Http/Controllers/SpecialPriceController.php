@@ -6,7 +6,7 @@ use App\Service;
 use App\SpecialPrice;
 use App\User;
 use App\UserType;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SpecialPriceController extends Controller
@@ -17,7 +17,7 @@ class SpecialPriceController extends Controller
 
 
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
-        $submitted=Input::get('submitted');
+        $submitted=Request::get('submitted');
         if ($submitted) {
             $rules = [
                         'service_id' => 'required',
@@ -25,12 +25,12 @@ class SpecialPriceController extends Controller
                         'special_price' => 'required|numeric',
                         'status' => 'required'];
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Request::all(), $rules);
             if ($validator->fails()) {
                 $special_price_validation_messages=General::validationErrors($validator);
                 return $special_price_validation_messages;
             } else {
-                $data = Input::all();
+                $data = Request::all();
                 $service=$data['service_id'];
                 $customer=$data['customer_id'];
                 $flag=SpecialPrice::where('service_id', '=', $service)->where('customer_id', '=', $customer)->first();
@@ -71,7 +71,7 @@ class SpecialPriceController extends Controller
 
 
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
-        $submitted=Input::get('submitted');
+        $submitted=Request::get('submitted');
         if ($submitted) {
             $rules = [
                         'service_id' => 'required',
@@ -79,12 +79,12 @@ class SpecialPriceController extends Controller
                         'special_price' => 'required|numeric',
                         'status' => 'required'];
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Request::all(), $rules);
             if ($validator->fails()) {
                 $special_price_validation_messages=General::validationErrors($validator);
                 return $special_price_validation_messages;
             } else {
-                $data = Input::all();
+                $data = Request::all();
                 $service=$data['service_id'];
                 $customer=$data['customer_id'];
                 $flag=SpecialPrice::where('service_id', '=', $service)->where('customer_id', '=', $customer)->first();
@@ -121,19 +121,19 @@ class SpecialPriceController extends Controller
     public static function editSpecialPrice($special_price_id)
     {
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
-        $submitted=Input::get('submitted');
+        $submitted=Request::get('submitted');
         if ($submitted) {
             $rules = [
                         'service_id' => 'required',
                         'special_price' => 'required|numeric',
                         'status' => 'required'];
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Request::all(), $rules);
             if ($validator->fails()) {
                 $special_price_validation_messages=General::validationErrors($validator);
                 return $special_price_validation_messages;
             } else {
-                $data = Input::all();
+                $data = Request::all();
                 $service=$data['service_id'];
                 $customer=$data['customer_id'];
                        
@@ -169,19 +169,19 @@ class SpecialPriceController extends Controller
     public static function editVendorSpecialPrice($special_price_id)
     {
         $special_price_add_message=FlashMessage::messages('admin.special_price_success');
-        $submitted=Input::get('submitted');
+        $submitted=Request::get('submitted');
         if ($submitted) {
             $rules = [
                         'service_id' => 'required',
                         'special_price' => 'required|numeric',
                         'status' => 'required'];
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Request::all(), $rules);
             if ($validator->fails()) {
                 $special_price_validation_messages=General::validationErrors($validator);
                 return $special_price_validation_messages;
             } else {
-                $data = Input::all();
+                $data = Request::all();
                 $service=$data['service_id'];
                 $customer=$data['customer_id'];
                 $flag=SpecialPrice::where('service_id', '=', $service)->where('customer_id', '=', $customer)->first();

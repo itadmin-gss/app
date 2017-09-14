@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Recurring;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 
 /**
@@ -51,8 +51,8 @@ class RecurringController extends Controller
     }
     public function updatevendorid()
     {
-        $recurring_id=Input::get('recurring_id');
-        $vendorid=Input::get('vendorid');
+        $recurring_id=Request::get('recurring_id');
+        $vendorid=Request::get('vendorid');
 
          $vname=Recurring::where("id", $recurring_id)
         ->update(["vendor_id"=>$vendorid]);

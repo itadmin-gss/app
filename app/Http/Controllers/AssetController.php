@@ -13,7 +13,7 @@ use App\ServiceCategory;
 use App\State;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -69,29 +69,29 @@ class AssetController extends Controller
             $method = Request::method();
             //if form is submitted
             if ($method == 'POST') {
-                $data = Input::all();
+                $data = Request::all();
                 if ($data['edit_asset'] == 'yes') {
                     //Set rules for validation of assets
                     $rules = Asset::requiredFields(1); //These rules are defined in Asset Model
-                    $validator = Validator::make(Input::all(), $rules); // put all rules to validator
+                    $validator = Validator::make(Request::all(), $rules); // put all rules to validator
                     // if validation is failed redirect to add customer asset with errors
                     if ($validator->fails()) {
                         return redirect('edit-customer-asset/' . $id)
                         ->withErrors($validator)
-                                        ->withInput(Input::except('password')); // send back all errors to the login form
+                                        ->withInput(Request::except('password')); // send back all errors to the login form
                         ; // send back the input (not the password) so that we can repopulate the form
                     } else {
                         // Get all form data in $data variable
-                        $data = Input::all();
+                        $data = Request::all();
                         $message = '';
                         $street = '';
                         $streetNumber = '';
-                        $city_id = Input::get('city_id');
+                        $city_id = Request::get('city_id');
                         $city = City::find($city_id)->name;
-                        $zip = Input::get('zipcode');
+                        $zip = Request::get('zipcode');
 
-                        $property_address= Input::get('property_address');
-                        $state_id = Input::get('state_id');
+                        $property_address= Request::get('property_address');
+                        $state_id = Request::get('state_id');
                         $state = State::find($state_id)->name;
                         $country = 'USA';
                         $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
@@ -129,7 +129,7 @@ class AssetController extends Controller
     public function createAsset()
     {
         $id = Auth::user()->id;
-        $input_data = Input::all();
+        $input_data = Request::all();
         $one_column = $input_data['one_column'];
         if ($one_column == 'yes') {
             $page_redirect = 'add-customer-asset';
@@ -140,7 +140,7 @@ class AssetController extends Controller
             $succes_redirect = 'add-new-customer-asset';
         }
         //Set rules for validation of assets
-        if (Input::get('outbuilding_shed')==0 || Input::get('outbuilding_shed')=="") {
+        if (Request::get('outbuilding_shed')==0 || Request::get('outbuilding_shed')=="") {
             //outbuilding_shed notes flag
             $rules =  [
                 'asset_number' => 'required|unique:assets',
@@ -173,28 +173,28 @@ class AssetController extends Controller
 
 
 
-        $validator = Validator::make(Input::all(), $rules); // put all rules to validator
+        $validator = Validator::make(Request::all(), $rules); // put all rules to validator
         // if validation is failed redirect to add customer asset with errors
         if ($validator->fails()) {
             return redirect($page_redirect)
                             ->withErrors($validator)// send back all errors to the login form
-                            ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+                            ->withInput(Request::except('password')); // send back the input (not the password) so that we can repopulate the form
         } else {
             $message = '';
             $street = '';
             $streetNumber = '';
-            $city_id = Input::get('city_id');
+            $city_id = Request::get('city_id');
             $city = City::find($city_id)->name;
-            $zip = Input::get('zipcode');
+            $zip = Request::get('zipcode');
             $country = 'United States';
-            $property_address= Input::get('property_address');
-            $state_id = Input::get('state_id');
+            $property_address= Request::get('property_address');
+            $state_id = Request::get('state_id');
             $state = State::find($state_id)->name;
             $country = 'USA';
             $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
 
            // Get all form data in $data variable
-            $data = Input::all();
+            $data = Request::all();
             $data['latitude'] = $result['lat'];
             $data['longitude'] = $result['lng'];
             //set data in addAsset function
@@ -250,11 +250,11 @@ class AssetController extends Controller
         $cities = City::getAllCities();
         //Get all states from city
         $states = State::getAllStates();
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
         $customerType=CustomerType::get();
 
         if ($submitted) {
-            if (Input::get('outbuilding_shed')==0 || Input::get('outbuilding_shed')=="") {
+            if (Request::get('outbuilding_shed')==0 || Request::get('outbuilding_shed')=="") {
                 //outbuilding_shed notes flag
                 $rules =  [
                 'asset_number' => 'required|unique:assets',
@@ -269,7 +269,7 @@ class AssetController extends Controller
                 'electric_status' => 'required',
                 'water_status' => 'required',
                 'gas_status' => 'required',
-                'lock_box' => (Input::get('occupancy_status'))=="Occupied" ? '': 'required',
+                'lock_box' => (Request::get('occupancy_status'))=="Occupied" ? '': 'required',
                 'access_code' => '',
                 'brokage' => 'required',
                 'agent' => 'required',
@@ -295,7 +295,7 @@ class AssetController extends Controller
                 'electric_status' => 'required',
                 'water_status' => 'required',
                 'gas_status' => 'required',
-                'lock_box' => (Input::get('occupancy_status'))=="Occupied" ? '': 'required',
+                'lock_box' => (Request::get('occupancy_status'))=="Occupied" ? '': 'required',
                 'access_code' => '',
                 'brokage' => 'required',
                 'agent' => 'required',
@@ -309,22 +309,22 @@ class AssetController extends Controller
                  ];
             }
             $rules['customer_id'] = 'required';
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Request::all(), $rules);
             //print_r($validator); exit;
             if ($validator->fails()) {
                  return Redirect::back()
                  ->withErrors($validator)
-                 ->withInput(Input::except('password'));
+                 ->withInput(Request::except('password'));
             } else {
-                $data = Input::all();
+                $data = Request::all();
                 $customer_id = $data['customer_id'];
                 $message = '';
 
-                $city_id = Input::get('city_id');
+                $city_id = Request::get('city_id');
                 $city = City::find($city_id)->name;
-                $zip = Input::get('zipcode');
-                $property_address= Input::get('property_address');
-                $state_id = Input::get('state_id');
+                $zip = Request::get('zipcode');
+                $property_address= Request::get('property_address');
+                $state_id = Request::get('state_id');
                 $state = State::find($state_id)->name;
                 $country = 'USA';
                 $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
@@ -445,30 +445,30 @@ class AssetController extends Controller
     public function reporting()
     {
 
-         $data = Input::all();
+         $data = Request::all();
 
         if (isset($data['order_staus']) && $data['order_staus'] !="") {
               $work_orders = Order::where('status', '=', $data['order_staus'])->get();
         } elseif (isset($data['properties']) && $data['properties'] !="") {
                $work_orders = Order::whereHas('maintenanceRequest', function ($q) {
-                   $data = Input::all();
+                   $data = Request::all();
                    $q->where('asset_id', '=', $data['properties']);
                })
 
                ->get();
         } elseif (isset($data['service_type']) && $data['service_type'] !="") {
             $work_orders = Order::whereHas('maintenanceRequest', function ($q) {
-                $data = Input::all();
+                $data = Request::all();
 
                 $q->whereHas('requestedService', function ($qq) {
-                    $data = Input::all();
+                    $data = Request::all();
 
                     $qq->where('service_id', '=', $data['service_type']);
                 });
             }) ->get();
         } else if ((isset($data['properties']) && isset($data['order_staus'])) && ($data['order_staus']!="" && $data['properties'] !="" )) {
             $work_orders = Order::whereHas('maintenanceRequest', function ($q) {
-                $data = Input::all();
+                $data = Request::all();
                 $q->where('asset_id', '=', $data['properties']);
             })->where('status', '=', $data['order_staus'])->get();
         } else {
@@ -617,30 +617,30 @@ class AssetController extends Controller
     public function whiteboardReporting()
     {
 
-         $data = Input::all();
+         $data = Request::all();
 
         if (isset($data['order_staus']) && $data['order_staus'] !="") {
               $work_orders = Order::where('status', '=', $data['order_staus'])->get();
         } elseif (isset($data['properties']) && $data['properties'] !="") {
                $work_orders = Order::whereHas('maintenanceRequest', function ($q) {
-                   $data = Input::all();
+                   $data = Request::all();
                    $q->where('asset_id', '=', $data['properties']);
                })
 
                ->get();
         } elseif (!empty($data['service_type']) && count($data['service_type']) >0) {
             $work_orders = Order::whereHas('maintenanceRequest', function ($q) {
-                $data = Input::all();
+                $data = Request::all();
 
                 $q->whereHas('requestedService', function ($qq) {
-                    $data = Input::all();
+                    $data = Request::all();
 
                     $qq->whereIn('service_id', $data['service_type']);
                 });
             }) ->get();
         } else if ((isset($data['properties']) && isset($data['order_staus'])) && ($data['order_staus']!="" && $data['properties'] !="" )) {
             $work_orders = Order::whereHas('maintenanceRequest', function ($q) {
-                $data = Input::all();
+                $data = Request::all();
                 $q->where('asset_id', '=', $data['properties']);
             })->where('status', '=', $data['order_staus'])->get();
         } else {
@@ -778,20 +778,20 @@ class AssetController extends Controller
 
     public function editAdminAsset($asset_id)
     {
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
 
         $customerType=CustomerType::get();
         if ($submitted) {
-            $data = Input::all();
+            $data = Request::all();
 
 
             $message = '';
         
-            $city_id = Input::get('city_id');
+            $city_id = Request::get('city_id');
             $city = City::find($city_id)->name;
-            $zip = Input::get('zipcode');
-            $property_address= Input::get('property_address');
-            $state_id = Input::get('state_id');
+            $zip = Request::get('zipcode');
+            $property_address= Request::get('property_address');
+            $state_id = Request::get('state_id');
             $state = State::find($state_id)->name;
             $country = 'USA';
             $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
@@ -799,7 +799,7 @@ class AssetController extends Controller
             $data['longitude'] = $result['lng'];
         
             $property_dead_status=0;
-            if (Input::get('property_status')=='closed' || Input::get('property_status')=='inactive') {
+            if (Request::get('property_status')=='closed' || Request::get('property_status')=='inactive') {
                 $property_dead_status=1;
 
                 $data['property_dead_date']=date('m/d/Y h:i:s A') ;
@@ -841,10 +841,10 @@ class AssetController extends Controller
     public function getAssetMap()
     {
 
-          $zip = Input::get('zip');
-          $state = Input::get('state');
-          $city = Input::get('city');
-          $property_address= Input::get('property_address');
+          $zip = Request::get('zip');
+          $state = Request::get('state');
+          $city = Request::get('city');
+          $property_address= Request::get('property_address');
         if ($state=="Select State") {
              $state="";
         }

@@ -35,7 +35,7 @@ use App\VendorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -129,7 +129,7 @@ class AdminController extends Controller
 
     public function swapDBNow()
     {
-        $data = Input::all();
+        $data = Request::all();
         if ($data['db'] == 'old') {
             Session::put('swapdb', 'mysql2');
             return Redirect::back()->with('swapped', 'Database has been swapped to OLD!');
@@ -178,14 +178,14 @@ class AdminController extends Controller
         'email' => 'required|email|unique:users|between:3,64',
         'password' => 'required|between:4,20'
         ];
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
 
         if ($validator->fails()) {
             $profile_error_messages = General::validationErrors($validator);
             return $profile_error_messages;
         } else {
             $vendor_add_message = FlashMessage::messages('admin.vendor_add_success');
-            $data = Input::all();
+            $data = Request::all();
             $user_type_id = UserType::where('title', '=', 'vendors')->first();
             $user_types = UserType::find($user_type_id->id);
             $user_roles = UserRole::where('role_name', '=', $user_types->title)->first();
@@ -200,7 +200,7 @@ class AdminController extends Controller
                 $from_email = config('app.admin_email');
                 Mail::send('emails.admin_customer_created', $data, function ($message) use ($from_email) {
 
-                    $message->to(Input::get('email'), Input::get('first_name') . ' ' . Input::get('last_name'))
+                    $message->to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))
                     ->subject('Vendor Created By Admin!')
                     ->from($from_email, 'GSS');
                 });
@@ -428,7 +428,7 @@ class AdminController extends Controller
      */
     public function editUser($user_id)
     {
-        $update_user = Input::get('update_user');
+        $update_user = Request::get('update_user');
         if (!$update_user) {
             $user = User::find($user_id);
             $role_id = $user->userRole->id;
@@ -445,7 +445,7 @@ class AdminController extends Controller
                 ]
             );
         } else {
-            $user = Input::all();
+            $user = Request::all();
             $save = User::updateAdminUser($user, $user_id);
             if ($save) {
                 $message = FlashMessage::messages('admin.user_created');
@@ -479,7 +479,7 @@ class AdminController extends Controller
     public function updateUserStatus($user_id)
     {
         if (Request::ajax()) {
-            $activityId = Input::get('activityId');
+            $activityId = Request::get('activityId');
             $check = AccessRightController::checkAccessRight($role_function_id->id, 'edit');
             if ($check) {
                 if ($activityId == 'active') {
@@ -525,11 +525,11 @@ class AdminController extends Controller
     public function addNewUser()
     {
 
-        $first_name = Input::get('first_name');
-        $last_name = Input::get('last_name');
-        $email = Input::get('email');
-        $user_role_id = Input::get('role_id');
-        $password = Input::get('password');
+        $first_name = Request::get('first_name');
+        $last_name = Request::get('last_name');
+        $email = Request::get('email');
+        $user_role_id = Request::get('role_id');
+        $password = Request::get('password');
 
         $rules = [
         'first_name' => 'required|between:3,55',
@@ -539,7 +539,7 @@ class AdminController extends Controller
         ];
 
         // run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
         // if the validator fails, redirect back to the form
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -560,7 +560,7 @@ class AdminController extends Controller
             $user->password = Hash::make($password);
             $user->user_role_id = $user_role_id;
             $user->status = 1;
-            $user_data = Input::all();
+            $user_data = Request::all();
 
             $user_data['password'] = $password;
             //echo '<pre>'; print_r($user_data); exit;
@@ -569,7 +569,7 @@ class AdminController extends Controller
             $from_email = config('app.admin_email');
             Mail::send('emails.admin_customer_created', $user_data, function ($message) use ($from_email) {
 
-                $message->to(Input::get('email'), Input::get('first_name') . ' ' . Input::get('last_name'))
+                $message->to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))
                 ->subject('User Created By Admin!')
                 ->from($from_email, 'GSS');
             });
@@ -579,7 +579,7 @@ class AdminController extends Controller
 
                 $id = Auth::user()->id;
                 $admin_email= User::getEmail($id);
-                $message->to($admin_email, Input::get('first_name') . ' ' . Input::get('last_name'))
+                $message->to($admin_email, Request::get('first_name') . ' ' . Request::get('last_name'))
                 ->subject('User Created By Admin!')
                 ->from($from_email, 'GSS');
             });
@@ -630,8 +630,8 @@ class AdminController extends Controller
     public function addNewCity()
     {
 
-        $name = Input::get('name');
-        $state_id = Input::get('state_id');
+        $name = Request::get('name');
+        $state_id = Request::get('state_id');
 
         $rules = [
         'name' => 'required|between:3,55',
@@ -639,7 +639,7 @@ class AdminController extends Controller
         ];
 
       // run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
       // if the validator fails, redirect back to the form
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -669,14 +669,14 @@ class AdminController extends Controller
      */
     public function addAccessLevel()
     {
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
         if ($submitted) {
             $message = FlashMessage::messages('admin.access_level_success');
             $rules = [
             'role_name' => 'required',
               ];
 
-            $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Request::all(), $rules);
             if ($validator->fails()) {
                   $messages = $validator->messages();
 
@@ -684,9 +684,9 @@ class AdminController extends Controller
                   ->withErrors($validator);
             } else {
                   $user_role = new UserRole;
-                  $user_role->role_name = Input::get('role_name');
-                  $user_role->description = Input::get('description');
-                  $user_role->status = Input::get('status');
+                  $user_role->role_name = Request::get('role_name');
+                  $user_role->description = Request::get('description');
+                  $user_role->status = Request::get('status');
                   $save = $user_role->save();
                 if ($save) {
                     $role_id = $user_role->id;
@@ -1497,7 +1497,7 @@ class AdminController extends Controller
         'name' => 'required|min:2|max:100',
         'state_id' => 'required',
           ];
-          $validator = Validator::make(Input::all(), $rules);
+          $validator = Validator::make(Request::all(), $rules);
           if ($validator->fails()) {
               $validation_messages = $validator->messages()->all();
               $profile_error_messages = '';
@@ -1507,8 +1507,8 @@ class AdminController extends Controller
                 return $profile_error_messages;
             } else {
                 $saved_message = FlashMessage::messages('admin.city_edit_success');
-                $id = Input::get('id');
-                $data = Input::all();
+                $id = Request::get('id');
+                $data = Request::all();
                 $save = City::updateCity($data, $id);
                 if ($save) {
                     return FlashMessage::displayAlert($saved_message, 'success');
@@ -1527,7 +1527,7 @@ class AdminController extends Controller
 
     function saveJobType()
     {
-          $data = Input::get();
+          $data = Request::all();
   
           $save = JobType::find($data['id'])->update($data);
           $message = "Job Type has been modified";
@@ -1563,7 +1563,7 @@ class AdminController extends Controller
         'hashmatch' => 'Your current password must match your account password.'
         ];
 
-        if (Input::get('change_password')) {
+        if (Request::get('change_password')) {
             $rules = [
             'email' => 'required|email|unique:users,email,'.$id,
             'first_name' => 'required|min:2|max:80|alpha',
@@ -1591,13 +1591,13 @@ class AdminController extends Controller
         }
         $street = '';
         $streetNumber = '';
-        $city_id = Input::get('city_id');
+        $city_id = Request::get('city_id');
         $city = City::find($city_id)->name;
-        $zip = Input::get('zipcode');
+        $zip = Request::get('zipcode');
         $country = 'United States';
         $result = Geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
 
-        $validator = Validator::make(Input::all(), $rules, $messages);
+        $validator = Validator::make(Request::all(), $rules, $messages);
 
         if ($validator->fails()) {
             $validation_messages = $validator->messages()->all();
@@ -1608,21 +1608,21 @@ class AdminController extends Controller
             return $profile_error_messages;
         } else {
             $profile_message = FlashMessage::messages('vendor.profile_edit_success');
-            $data = Input::all();
+            $data = Request::all();
             $data['latitude'] = $result['latitude'];
             $data['longitude'] = $result['longitude'];
-            if (!Input::get('change_password')) {
+            if (!Request::get('change_password')) {
                 $data['password'] = $user_data->password;
             } else {
                 $data['password'] = Hash::make($data['password']);
             }
-            $file = Input::file('profile_picture');
+            $file = Request::file('profile_picture');
             if ($file) {
                 $destinationPath = config('app.upload_path');
                 $filename = $file->getClientOriginalName();
                 $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                 $data['profile_picture'] = $filename;
-                Input::file('profile_picture')->move($destinationPath, $filename);
+                Request::file('profile_picture')->move($destinationPath, $filename);
             } else {
                 $data['profile_picture'] = Auth::user()->profile_picture;
             }
@@ -1855,7 +1855,7 @@ class AdminController extends Controller
      */
     public function createBidServiceRequest()
     {
-        $data = Input::all(); // get all submitted data of user
+        $data = Request::all(); // get all submitted data of user
         //$customer_id = Auth::user()->id;
         //for customer id
         $exploded_orderid_asset_id=explode("--", $data['work_order']);
@@ -2051,7 +2051,7 @@ class AdminController extends Controller
     */
     public function DeclineBidRequest()
     {
-        $input = Input::all();
+        $input = Request::all();
         // declined bid request status
         $data = [
         'status' => 3,
@@ -2096,7 +2096,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         */
     public function acceptBidRequest()
     {
-          $input = Input::all();
+          $input = Request::all();
 
           $BidRequest = BidRequest::find($input['request_id']);
 
@@ -2254,14 +2254,14 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
     function customerCompany()
     {
-        $input = Input::all();
+        $input = Request::all();
         $company=  User::getCustomerCompanyById($input['id']);
         return $company;
     }
     //For changing the grid with respect to Status button
     function ajaxDashoboardGridRequests()
     {
-        $input = Input::all();
+        $input = Request::all();
         if ($input['id']!="null") {
             $requests =MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')
             ->where('status', '=', $input['id'])->get();
@@ -2308,7 +2308,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
     function ajaxDashoboardGridOrdersPagination()
     {
-        $input = Input::all();
+        $input = Request::all();
         $work_orders = Order::orderBy('id', 'desc')
         ->where("status", "=", $input['id'])
 
@@ -2501,7 +2501,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
     }
     function ajaxDashoboardGridOrders()
     {
-         $input = Input::all();
+         $input = Request::all();
          // print_r($input);
          // exit();
         if ($input['id']==4) {
@@ -2762,7 +2762,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
     function ajaxDeleteServiceRequest()
     {
-          $input = Input::all();
+          $input = Request::all();
           RequestedService::where('request_id', '=', $input['request_id'])
           ->where('service_id', '=', $input['service_id'])
           ->delete();
@@ -2822,14 +2822,14 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
     public function addNewServiceCategory()
     {
 
-        $title = Input::get('title');
+        $title = Request::get('title');
 
         $rules = [
         'title' => 'required|between:3,55'
         ];
 
         // run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
         // if the validator fails, redirect back to the form
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -2862,15 +2862,15 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
     public function editNewCustomerType()
     {
 
-        $title = Input::get('title');
-        $id = Input::get('id');
+        $title = Request::get('title');
+        $id = Request::get('id');
 
         $rules = [
         'title' => 'required|between:3,55'
         ];
 
         // run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
         // if the validator fails, redirect back to the form
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -2905,14 +2905,14 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
     public function addNewCustomerType()
     {
 
-        $title = Input::get('title');
+        $title = Request::get('title');
 
         $rules = [
         'title' => 'required|between:3,55'
         ];
 
         // run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
         // if the validator fails, redirect back to the form
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -2944,14 +2944,14 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
     public function addNewJobType()
     {
 
-        $title = Input::get('title');
+        $title = Request::get('title');
 
         $rules = [
         'title' => 'required|between:3,55'
         ];
 
         // run the validation rules on the inputs from the form
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
         // if the validator fails, redirect back to the form
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -3014,9 +3014,9 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
     public static function doRequest()
     {
-        $submitted = Input::get('submitted');
+        $submitted = Request::get('submitted');
         if ($submitted) {
-            $data = Input::all();
+            $data = Request::all();
             unset($data['_token']);
             unset($data['submitted']);
           //echo '<pre>'; print_r($data); exit;
@@ -3026,7 +3026,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             'title' => 'required'
               ];
 
-               $validator = Validator::make(Input::all(), $rules); // put all rules to validator
+               $validator = Validator::make(Request::all(), $rules); // put all rules to validator
            // if validation is failed redirect to add customer asset with errors
             if ($validator->fails()) {
                 return Redirect::back()
