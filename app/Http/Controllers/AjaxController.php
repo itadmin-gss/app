@@ -35,7 +35,7 @@ class AjaxController extends Controller
               $allservices = Service::getAllServices();
         }
         
-        return View::make('common.quick-view-order')
+        return view('common.quick-view-order')
            ->with('order_details', $order_details)
            ->with('vendorsDATA', $vendorsDATA)
             ->with('order', $data)
@@ -80,7 +80,7 @@ class AjaxController extends Controller
 
             $asset_information = Asset::getAssetInformationById($data['asset_id']);
            
-            return View::make('pages.customer.asset_information')
+            return view('pages.customer.asset_information')
             ->with('asset_information', $asset_information)
             ->with('latitude', $asset_information->latitude)
             ->with('longitude', $asset_information->longitude);
@@ -161,7 +161,7 @@ class AjaxController extends Controller
                 $serviceValueArray[$value->fieldname]=$value->field_values;
             }
 
-            return View::make('pages.customer.service_information_popup')
+            return view('pages.customer.service_information_popup')
                          ->with('serviceTypeArray', $serviceTypeArray)
                          ->with('serviceValueArray', $serviceValueArray)
                          ->with('service_data', $service_data);
@@ -185,7 +185,7 @@ class AjaxController extends Controller
         $i = 0;
         foreach ($files as $file) {
             if ($file) {
-                $destinationPath = Config::get('app.request_images');
+                $destinationPath = config('app.request_images');
                 $filename = $file->getClientOriginalName();
                 $extension = $file->getClientOriginalExtension();
 
@@ -200,10 +200,10 @@ class AjaxController extends Controller
             $i++;
         }
 
-        return View::make('pages.customer.service_information_list')
+        return view('pages.customer.service_information_list')
                         ->with('data', $data);
         //return $data;
-        //return View::make('pages.customer.service_information_list');
+        //return view('pages.customer.service_information_list');
     }
 
 
@@ -217,7 +217,7 @@ class AjaxController extends Controller
         $i = 0;
         foreach ($files as $file) {
             if ($file) {
-                $destinationPath = Config::get('app.request_images');
+                $destinationPath = config('app.request_images');
                 $filename = $file->getClientOriginalName();
                 $extension = $file->getClientOriginalExtension();
 
@@ -232,10 +232,10 @@ class AjaxController extends Controller
             $i++;
         }
 
-        return View::make('pages.customer.service_information_list_order_reivew')
+        return view('pages.customer.service_information_list_order_reivew')
                   ->with('data', $data);
         //return $data;
-        //return View::make('pages.customer.service_information_list');
+        //return view('pages.customer.service_information_list');
     }
 
     public static function generateAssetNumber()
@@ -260,7 +260,7 @@ class AjaxController extends Controller
     {
         $data = Input::all();
 
-        $path = Config::get('app.request_images');
+        $path = config('app.request_images');
 
         unlink($path.'/'.$data['image_name']);
 
@@ -270,7 +270,7 @@ class AjaxController extends Controller
 
     public function testingLink()
     {
-        return View::make('test');
+        return view('test');
     }
 
      /**
@@ -345,7 +345,7 @@ class AjaxController extends Controller
         }
 
 
-            return View::make('pages.customer.service_information_popup_vendor')
+            return view('pages.customer.service_information_popup_vendor')
                           ->with('serviceTypeArray', $serviceTypeArray)
                          ->with('serviceValueArray', $serviceValueArray)
                             ->with('service_data', $service_data);

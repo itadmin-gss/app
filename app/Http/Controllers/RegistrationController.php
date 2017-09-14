@@ -16,7 +16,7 @@ class RegistrationController extends Controller
         $customer=DB::table('user_type')->where('title', 'customer')->pluck('id');//storing id of customer id
         $vendor=DB::table('user_type')->where('title', 'vendor')->pluck('id'); //storing id of vendor id
         
-        return View::make('pages.customer.registration')->with('customer', $customer)->with('vendor', $vendor);
+        return view('pages.customer.registration')->with('customer', $customer)->with('vendor', $vendor);
     }
 
     /**
@@ -41,7 +41,7 @@ class RegistrationController extends Controller
 
 
         if ($validator->fails()) {
-            return Redirect::to('user-register')
+            return redirect('user-register')
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
         } else {
@@ -75,7 +75,7 @@ class RegistrationController extends Controller
                      ->from('imran@invortex.com', 'GSS');
                 });
                 Session::flash('message', 'Your account has been created successfully.');
-                return Redirect::to('user-register');
+                return redirect('user-register');
             }
         }
     }
@@ -95,7 +95,7 @@ class RegistrationController extends Controller
         }
      
                        
-                       return View::make('pages.profile_completation')
+                       return view('pages.profile_completation')
             ->with('user_detail', $user_detail);
 
         // show the view and pass the nerd to it

@@ -32,7 +32,7 @@ class AccessRightController extends Controller
             $data[$roles->access_function_id][$roles->role_function] = $results;
         }
 
-        return View::make('pages.admin.access_rights')
+        return view('pages.admin.access_rights')
             ->with([
                     'role_id' => 1,
                     'userRoles' => $access_roles,
@@ -64,7 +64,7 @@ class AccessRightController extends Controller
                 $data[$roles->access_function_id][$roles->role_function] = $results;
             }
 
-            $data = View::make('pages.admin.ajaxHtml.role_functions')
+            $data = view('pages.admin.ajaxHtml.role_functions')
                     ->with([
                     'role_id' => $role_id,
                     'userRoles' => $access_roles,

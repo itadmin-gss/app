@@ -34,7 +34,7 @@ App::after(function ($request, $response) {
 Route::filter('auth', function () {
     if (Auth::guest()) {
         if (Request::ajax()) {
-            return Response::make('Unauthorized', 401);
+            return response('Unauthorized', 401);
         } else {
             return Redirect::guest('/');
         }
@@ -58,7 +58,7 @@ Route::filter('auth.basic', function () {
 
 Route::filter('guest', function () {
     if (Auth::check()) {
-        return Redirect::to('/');
+        return redirect('/');
     }
 });
 
@@ -82,7 +82,7 @@ Route::filter('csrf', function () {
 // This filter will redirect user to login if already logged in user try to access user registration. ----- Start -----
 Route::filter('loginCheck', function () {
     if (Auth::check()) {
-        return Redirect::to("/");
+        return redirect("/");
     }
 });
 
@@ -94,7 +94,7 @@ Route::filter('customer', function () {
     $redirect_to = $user_type;
 
     if ($user_type != 'customer') {
-        return Redirect::to($redirect_to);
+        return redirect($redirect_to);
     }
 });
 
@@ -102,7 +102,7 @@ Route::filter('adminCheck', function () {
     $user=Auth::user();
     $usertype=UserType::getUserTypeByID($user->type_id);
     if ($usertype!='admin' && $usertype != 'user') {
-        return Redirect::to("/");
+        return redirect("/");
     }
 });
 
@@ -111,7 +111,7 @@ Route::filter('vendorCheck', function () {
     $user=Auth::user();
     $usertype=UserType::getUserTypeByID($user->type_id);
     if ($usertype!='vendors') {
-        return Redirect::to("/");
+        return redirect("/");
     }
 });
 
@@ -120,7 +120,7 @@ Route::filter('customerCheck', function () {
     $user=Auth::user();
     $usertype=UserType::getUserTypeByID($user->type_id);
     if ($usertype!='customer') {
-        return Redirect::to("/");
+        return redirect("/");
     }
 });
 
@@ -218,7 +218,7 @@ Route::filter('adminRightsCheck', function () {
     //if no rights then rediects back to admin 	Dashboard.
     if (!$check) {
         $mesg = FlashMessage::messages('admin_access.access_denied');
-        return Redirect::to("/admin")
+        return redirect("/admin")
         ->with('message', FlashMessage::displayAlert($mesg, 'warning'));
     }
 });

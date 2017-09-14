@@ -23,7 +23,7 @@ class AssetController extends Controller
         $cities = City::getAllCities();
         //Get all states from city
         $states = State::getAllStates();
-        return View::make('pages.add_assets')
+        return view('pages.add_assets')
         ->with('cities', $cities)
         ->with('states', $states);
     }
@@ -39,7 +39,7 @@ class AssetController extends Controller
         $cities = City::getAllCities();
         //Get all states from city
         $states = State::getAllStates();
-        return View::make('pages.customer.add_assets_customer')
+        return view('pages.customer.add_assets_customer')
         ->with('cities', $cities)
         ->with('states', $states)
         ->with('customerType', $customerType);
@@ -59,7 +59,7 @@ class AssetController extends Controller
                     $validator = Validator::make(Input::all(), $rules); // put all rules to validator
                     // if validation is failed redirect to add customer asset with errors
                     if ($validator->fails()) {
-                        return Redirect::to('edit-customer-asset/' . $id)
+                        return redirect('edit-customer-asset/' . $id)
                         ->withErrors($validator)
                                         ->withInput(Input::except('password')); // send back all errors to the login form
                         ; // send back the input (not the password) so that we can repopulate the form
@@ -94,13 +94,13 @@ class AssetController extends Controller
             $cities = City::getAllCities();
             //Get all states from city
             $states = State::getAllStates();
-            return View::make('pages.customer.edit_assets')
+            return view('pages.customer.edit_assets')
             ->with('cities', $cities)
             ->with('states', $states)
             ->with('customerType', $customerType)
             ->with('asset_data', $asset_data);
         } else {
-            return Redirect::to('/'); // else return to login page
+            return redirect('/'); // else return to login page
         }
     }
 
@@ -159,7 +159,7 @@ class AssetController extends Controller
         $validator = Validator::make(Input::all(), $rules); // put all rules to validator
         // if validation is failed redirect to add customer asset with errors
         if ($validator->fails()) {
-            return Redirect::to($page_redirect)
+            return redirect($page_redirect)
                             ->withErrors($validator)// send back all errors to the login form
                             ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
         } else {
@@ -190,14 +190,14 @@ class AssetController extends Controller
 
 
             if (Session::get('request_flag')==1) {
-                return Redirect::to(Session::get('request_addition'));
+                return redirect(Session::get('request_addition'));
                 Session::put('request_addition', "");
                 Session::put('request_flag', "");
             } else {
-                return Redirect::to('view-assets-list');
+                return redirect('view-assets-list');
             }
         } else {
-            return Redirect::to($page_redirect); // return back to add customer asset page
+            return redirect($page_redirect); // return back to add customer asset page
         }
 
         //
@@ -218,7 +218,7 @@ class AssetController extends Controller
     {
         //Call viewAssets function
         $assets_data = Asset::getAssetsByCustomerId(Auth::user()->id);
-        return View::make('pages.view_assets')->with('assets_data', $assets_data);  // set assets_data to view to show list of assets
+        return view('pages.view_assets')->with('assets_data', $assets_data);  // set assets_data to view to show list of assets
     }
 
     public function addAdminAsset($id = 0)
@@ -318,38 +318,38 @@ class AssetController extends Controller
 
             if ($save) {
                 if (Session::get('request_flag')==1) {
-                      return Redirect::to(Session::get('request_addition'))
+                      return redirect(Session::get('request_addition'))
                       ->with('message', FlashMessage::displayAlert('Your property has been added Successfully', 'success'));
                       Session::put('request_addition', "");
                       Session::put('request_flag', "");
                 } else {
-                    return Redirect::to('list-assets')
+                    return redirect('list-assets')
                     ->with('message', FlashMessage::displayAlert('Your property has been added Successfully', 'success'));
                 }
             } else {
-                return View::make('pages.admin.add_assets')
+                return view('pages.admin.add_assets')
                 ->with('cities', $cities)
                 ->with('states', $states)
                 ->with('customerType', $customerType);
             }
         } else {
-            return View::make('pages.admin.add_assets')
+            return view('pages.admin.add_assets')
             ->with('cities', $cities)
             ->with('states', $states)
             ->with('customerType', $customerType);
         }
 
         /* if ($save) {
-          return Redirect::to('list-asset');
+          return redirect('list-asset');
           } else {
-          return View::make('pages.admin.add_assets');
+          return view('pages.admin.add_assets');
       } */
     }
 
     public function listAdminAssets()
     {
         $assets = Asset::get();
-        return View::make('pages.admin.list_assets')
+        return view('pages.admin.list_assets')
         ->with([
         'assets_data' => $assets]);
     }
@@ -358,7 +358,7 @@ class AssetController extends Controller
     {
         $assets = Asset::orderBy('id', 'desc')->get();
 
-        return View::make('pages.admin.list-assets-summary')
+        return view('pages.admin.list-assets-summary')
         ->with([
         'assets_data' => $assets]);
     }
@@ -384,7 +384,7 @@ class AssetController extends Controller
            $service=Service::where('status', '=', 1)->where('bid_flag', '=', 0)->get();
 
 
-           return View::make('pages.admin.property-report')
+           return view('pages.admin.property-report')
            ->with([
         'assets_data' => $assets,
         'list_orders'=>$work_orders,
@@ -417,7 +417,7 @@ class AssetController extends Controller
            $service=Service::where('status', '=', 1)->where('bid_flag', '=', 0)->get();
 
 
-           return View::make('pages.admin.recurring-report')
+           return view('pages.admin.recurring-report')
            ->with([
         'assets_data' => $assets,
         'list_orders'=>$work_orders,
@@ -586,7 +586,7 @@ class AssetController extends Controller
         $service=Service::where('status', '=', 1)->where('bid_flag', '=', 0)->get();
 
 
-        return View::make('pages.admin.reporting')
+        return view('pages.admin.reporting')
         ->with([
         'assets_data' => $assets,
         'orders'=>$list_orders,
@@ -749,7 +749,7 @@ class AssetController extends Controller
         $service=Service::where('status', '=', 1)->where('bid_flag', '=', 0)->get();
 
 
-        return View::make('pages.admin.whiteboard-reporting')
+        return view('pages.admin.whiteboard-reporting')
         ->with([
         'assets_data' => $assets,
         'orders'=>$list_orders,
@@ -796,10 +796,10 @@ class AssetController extends Controller
 
             if ($save) {
                   $message = FlashMessage::messages('admin_asset.asset_updated');
-                  return Redirect::to('list-assets')
+                  return redirect('list-assets')
                   ->with('message', FlashMessage::displayAlert($message, 'success'));
             } else {
-                return View::make('pages.admin.add_assets');
+                return view('pages.admin.add_assets');
             }
         } else {
             $asset = Asset::find($asset_id);
@@ -809,7 +809,7 @@ class AssetController extends Controller
             $states = State::getAllStates();
             //Get all customers
             $customers = User::getAllCustomers();
-            return View::make('pages.admin.edit_assets')
+            return view('pages.admin.edit_assets')
             ->with([
             'asset_data' => $asset,
             'states' => $states,
@@ -859,7 +859,7 @@ class AssetController extends Controller
                       $state = $addrescomp->long_name;
                 }
             }
-            return  View::make('pages.admin.add-asset-map')
+            return  view('pages.admin.add-asset-map')
             ->with('latitude', $myresult['lat'])
             ->with('longitude', $myresult['lng'])
             ->with('zipcode', $zipcode)

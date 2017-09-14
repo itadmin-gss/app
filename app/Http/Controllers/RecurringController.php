@@ -15,7 +15,7 @@ class RecurringController extends Controller
 
         $recurrings = Recurring::all();
     
-        return View::make('pages.admin.recurring')->with('recurrings', $recurrings);
+        return view('pages.admin.recurring')->with('recurrings', $recurrings);
     }
 
     public static function showVendorrecurring()
@@ -23,21 +23,21 @@ class RecurringController extends Controller
 
         $recurrings = Recurring::where('vendor_id', '=', Auth::user()->id)->get();
     
-        return View::make('pages.vendors.recurring')->with('recurrings', $recurrings);
+        return view('pages.vendors.recurring')->with('recurrings', $recurrings);
     }
     public static function showCustomerrecurring()
     {
 
         $recurrings = Recurring::get();
     
-        return View::make('pages.customer.recurring')->with('recurrings', $recurrings);
+        return view('pages.customer.recurring')->with('recurrings', $recurrings);
     }
     public function updateAdminRecurring($recurring_id)
     {
         $recurrings = Recurring::find($recurring_id);
 
         $vendors=User::where('type_id', '=', 3)->get();
-        return View::make('pages.admin.edit_recurring')
+        return view('pages.admin.edit_recurring')
         ->with('recurrings', $recurrings)
         ->with('vendors', $vendors);
     }

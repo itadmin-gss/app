@@ -12,7 +12,7 @@ class RegistrationConroller extends Controller
       // protected $layout = 'layouts.onecolumn';
     public function index()
     {
-        return View::make('pages.customer.registration');
+        return view('pages.customer.registration');
     }
 
 
@@ -46,7 +46,7 @@ class RegistrationConroller extends Controller
 //
 //		// process the login
 //		if ($validator->fails()) {
-//			return Redirect::to('user-register')
+//			return redirect('user-register')
 //				->withErrors($validator)
 //				->withInput(Input::except('password'));
 //		} else {
@@ -60,9 +60,9 @@ class RegistrationConroller extends Controller
 ////
 ////			// redirect
 ////			Session::flash('message', 'Successfully created nerd!');
-////			return Redirect::to('nerds');
+////			return redirect('nerds');
 //         
-//          //  return Redirect::to('/')->with('message', 'Thanks for registering!');
+//          //  return redirect('/')->with('message', 'Thanks for registering!');
 //
 //
 //                        $user = new User;

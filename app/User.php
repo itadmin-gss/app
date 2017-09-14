@@ -358,10 +358,10 @@ class User extends Model implements UserInterface, RemindableInterface
         /* DB table to use */
         $sTable = "users";
          
-        $gaSql['user']       = Config::get('database.connections.mysql.username');
-        $gaSql['password']   = Config::get('database.connections.mysql.password');
-        $gaSql['db']         = Config::get('database.connections.mysql.database');
-        $gaSql['server']     = Config::get('database.connections.mysql.host');
+        $gaSql['user']       = config('database.connections.mysql.username');
+        $gaSql['password']   = config('database.connections.mysql.password');
+        $gaSql['db']         = config('database.connections.mysql.database');
+        $gaSql['server']     = config('database.connections.mysql.host');
          
          
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

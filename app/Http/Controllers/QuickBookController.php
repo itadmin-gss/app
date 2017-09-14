@@ -55,7 +55,7 @@ class QuickBookController extends Controller
 
 
 
-        $username = Config::get('quickbooks.quickbooks_user');      // This is the username you stored in the 'quickbooks_user' table by using QuickBooks_Utilities::createUser()
+        $username = config('quickbooks.quickbooks_user');      // This is the username you stored in the 'quickbooks_user' table by using QuickBooks_Utilities::createUser()
 
 
 
@@ -112,13 +112,13 @@ class QuickBookController extends Controller
 
         
 
-        $username = Config::get('database.connections.mysql.username');
+        $username = config('database.connections.mysql.username');
 
-        $password = Config::get('database.connections.mysql.password');
+        $password = config('database.connections.mysql.password');
 
         // Memory limit
 
-        ini_set('memory_limit', Config::get('quickbooks.quickbooks_memorylimit'));
+        ini_set('memory_limit', config('quickbooks.quickbooks_memorylimit'));
 
         
 
@@ -129,7 +129,7 @@ class QuickBookController extends Controller
 
             // List of valid timezones is here: http://us3.php.net/manual/en/timezones.php
 
-            date_default_timezone_set(Config::get('quickbooks.quickbooks_tz'));
+            date_default_timezone_set(config('quickbooks.quickbooks_tz'));
         }
 
                 
@@ -172,7 +172,7 @@ class QuickBookController extends Controller
 
         // Logging level
 
-        $log_level = Config::get('quickbooks.quickbooks_loglevel');
+        $log_level = config('quickbooks.quickbooks_loglevel');
 
         
 
@@ -212,13 +212,13 @@ class QuickBookController extends Controller
 
         // Build the database connection string
 
-        $db_user = Config::get('database.connections.mysql.username');
+        $db_user = config('database.connections.mysql.username');
 
-        $db_pass = Config::get('database.connections.mysql.password');
+        $db_pass = config('database.connections.mysql.password');
 
-        $db_host = Config::get('database.connections.mysql.host');
+        $db_host = config('database.connections.mysql.host');
 
-        $db_db = Config::get('database.connections.mysql.database');
+        $db_db = config('database.connections.mysql.database');
 
         // Build the database connection string
 

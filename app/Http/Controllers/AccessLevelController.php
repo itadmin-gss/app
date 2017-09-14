@@ -35,7 +35,7 @@ class AccessLevelController extends Controller
         if (!$update) {
             $user_role = UserRole::find($role_id);
             //$user->delete();
-            return View::make('pages.admin.edit-access-level')
+            return view('pages.admin.edit-access-level')
                    ->with(
                        [
                             'user_role' => $user_role,

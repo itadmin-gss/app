@@ -15,11 +15,11 @@ class InvoiceController extends Controller
             $order = Invoice::where('id', '=', $order_id)->get();
             $order_details =[];
             
-            return View::make('common.edit_invoice')
+            return view('common.edit_invoice')
             ->with('order', $order[0])
             ->with('order_details', $order_details);
 
-           // return View::make('common.edit_invoice')->with('order', $order)->with('order_details', $order_details)->with('before_image',$before_image);
+           // return view('common.edit_invoice')->with('order', $order)->with('order_details', $order_details)->with('before_image',$before_image);
         }
     }
     public function listAdminInvoices($userTypeId = 2)
@@ -59,7 +59,7 @@ class InvoiceController extends Controller
         }
 
 
-        return View::make('pages.admin.list_invoices')
+        return view('pages.admin.list_invoices')
                         ->with('orders', $list_orders)
                         ->with('status', $userTypeId);
     }
@@ -101,7 +101,7 @@ class InvoiceController extends Controller
         }
 
 
-        return View::make('pages.customer.list_invoices')
+        return view('pages.customer.list_invoices')
                         ->with('orders', $list_orders)
                         ->with('status', $userTypeId);
     }
@@ -142,7 +142,7 @@ class InvoiceController extends Controller
         }
 
 
-        return View::make('pages.vendors.list_invoices')
+        return view('pages.vendors.list_invoices')
                         ->with('orders', $list_orders)
                         ->with('status', $userTypeId);
     }

@@ -53,7 +53,7 @@ class SpecialPriceController extends Controller
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name.' '.$customer->company;
             }
 
-            return View::make('pages.admin.addspecialprice')->with(['services' => $all_services,'customers' => $all_customers ]);
+            return view('pages.admin.addspecialprice')->with(['services' => $all_services,'customers' => $all_customers ]);
         }
     }
 
@@ -103,7 +103,7 @@ class SpecialPriceController extends Controller
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name.' '.$customer->company;
             }
 
-            return View::make('pages.admin.vendoraddspecialprice')->with(['services' => $all_services,'customers' => $all_customers ]);
+            return view('pages.admin.vendoraddspecialprice')->with(['services' => $all_services,'customers' => $all_customers ]);
         }
     }
 
@@ -148,7 +148,7 @@ class SpecialPriceController extends Controller
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name;
             }
 
-            return View::make('pages.admin.editspecialprice')->with(['services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ]);
+            return view('pages.admin.editspecialprice')->with(['services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ]);
         }
     }
 
@@ -201,7 +201,7 @@ class SpecialPriceController extends Controller
                 $all_customers[$customer->id]=$customer->first_name.' '.$customer->last_name;
             }
 
-            return View::make('pages.admin.edit-vendor-special-price')->with(['services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ]);
+            return view('pages.admin.edit-vendor-special-price')->with(['services' => $all_services,'customers' => $all_customers,'special_price'=>$special_price_data ]);
         }
     }
 
@@ -224,7 +224,7 @@ class SpecialPriceController extends Controller
 //                }
         $special_price = new SpecialPrice;
         $db_table = $special_price->getTable();
-        return View::make('pages.admin.list_special_price')->with(['special_prices' => $all_special_prices,'db_table' => $db_table ]);
+        return view('pages.admin.list_special_price')->with(['special_prices' => $all_special_prices,'db_table' => $db_table ]);
     }
 
     public static function vendorListSpecialPrice()
@@ -244,6 +244,6 @@ class SpecialPriceController extends Controller
 //                }
         $special_price = new SpecialPrice;
         $db_table = $special_price->getTable();
-        return View::make('pages.admin.vendor_special_price')->with(['special_prices' => $all_special_prices,'db_table' => $db_table ]);
+        return view('pages.admin.vendor_special_price')->with(['special_prices' => $all_special_prices,'db_table' => $db_table ]);
     }
 }

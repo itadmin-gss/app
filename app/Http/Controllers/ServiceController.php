@@ -14,7 +14,7 @@ class ServiceController extends Controller
 
 
 
-        return View::make('pages.vendors.vendor_profile_service')->with('services', $services);
+        return view('pages.vendors.vendor_profile_service')->with('services', $services);
     }
 
     public function addRequestedService($id)
@@ -127,7 +127,7 @@ class ServiceController extends Controller
         // process the login
 
         if ($validator->fails()) {
-            return Redirect::to('vendor-profile-service')
+            return redirect('vendor-profile-service')
 
                             ->withErrors($validator);
         } else {
@@ -153,7 +153,7 @@ class ServiceController extends Controller
                 }
             }
 
-            return Redirect::to('vendors');
+            return redirect('vendors');
 
             /*
 
@@ -201,7 +201,7 @@ class ServiceController extends Controller
 
 
 
-                return Redirect::to('/');
+                return redirect('/');
 
             }
 
@@ -549,7 +549,7 @@ class ServiceController extends Controller
 
                     $message = FlashMessage::messages('admin_service.service_added');
 
-                    return Redirect::to('list-services')
+                    return redirect('list-services')
 
                            ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                 } else {
@@ -579,7 +579,7 @@ class ServiceController extends Controller
 
 
 
-            return View::make('pages.admin.add_service')
+            return view('pages.admin.add_service')
 
                         ->with('typeArray', $typeArray)
 
@@ -1214,7 +1214,7 @@ class ServiceController extends Controller
 
                     $message = FlashMessage::messages('admin_service.service_updated');
 
-                    return Redirect::to('list-services')
+                    return redirect('list-services')
 
                        ->with('message', FlashMessage::DisplayAlert($message, 'success'));
                 } else {
@@ -1356,7 +1356,7 @@ class ServiceController extends Controller
 
 
 
-            return View::make('pages.admin.edit_service')
+            return view('pages.admin.edit_service')
 
             ->with('typeArray', $typeArray)
 
@@ -1385,7 +1385,7 @@ class ServiceController extends Controller
 
         $db_table = $serv->getTable();
 
-        return View::make('pages.admin.list_services')->with(['services' => $services,
+        return view('pages.admin.list_services')->with(['services' => $services,
 
         'db_table' => $db_table ]);
     }

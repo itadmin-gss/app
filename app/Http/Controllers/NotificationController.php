@@ -157,7 +157,7 @@ class NotificationController extends Controller
         $getNotifications    =  Notification::getNotificationsAll(Auth::user()->id);
 
     
-        return View::make('pages.notifications')// return to page
+        return view('pages.notifications')// return to page
                         ->with('get_notifications', $getNotifications);
     }
 }

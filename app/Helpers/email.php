@@ -12,8 +12,8 @@ class Email
     public static function send($to_email = [], $subject, $template, $email_data = [])
     {
 
-        $from_email = Config::get('app.admin_email');
-        $from_name = Config::get('app.from_email_name');
+        $from_email = config('app.admin_email');
+        $from_name = config('app.from_email_name');
         $email_data['user_email_template'].='<div dir="ltr"><div class="adM">
 </div><p class="MsoNormal" style="line-height:105%">
 <a href="http://www.gssreo.com/" target="_blank"><span style="font-size:10pt;line-height:105%;font-family:&quot;Times&quot;,serif;text-decoration:none"><img src="http://www.gssreo.com/wp-content/uploads/2015/03/gsslogo.png" border="0" height="58" width="138" class="CToWUd"></span></a><span style="font-size:11pt;line-height:105%;font-family:&quot;Calibri&quot;,sans-serif"></span></p>

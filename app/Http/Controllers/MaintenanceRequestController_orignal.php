@@ -26,7 +26,7 @@ class MaintenanceRequestController extends Controller
                 }
             }
         }
-        return View::make('pages.customer.request_service')// return to page
+        return view('pages.customer.request_service')// return to page
                         ->with('customer_assets', $customer_assets)
                         ->with('services', $dataService)
                         ->with('jobType', $jobType);
@@ -51,7 +51,7 @@ class MaintenanceRequestController extends Controller
         }
 
         $dataService['Not Found Service']['otherflag']="Other";
-        return View::make('pages.customer.request_service')// return to page
+        return view('pages.customer.request_service')// return to page
                       ->with('customer_assets', $asset_information)
                       ->with('services', $dataService)
                       ->with('jobType', $jobType);
@@ -65,7 +65,7 @@ class MaintenanceRequestController extends Controller
         $RequestedService =  MaintenanceRequest::find($id);
         $services = Service::getAllServices(); // get all services provided by admin
 
-        return View::make('pages.customer.edit_request_service')   // return to page
+        return view('pages.customer.edit_request_service')   // return to page
                       ->with('customer_assets', $asset_information)
                       ->with('services', $services)
                       ->with('RequestedService', $RequestedService);
@@ -121,7 +121,7 @@ class MaintenanceRequestController extends Controller
              $i++;
         }
 
-        return View::make('pages.customer.list_customer_requested_services')
+        return view('pages.customer.list_customer_requested_services')
                         ->with('assign_requests', $assign_requests);
     }
 
@@ -180,7 +180,7 @@ class MaintenanceRequestController extends Controller
              $i++;
         }
 
-        return View::make('pages.customer.list_customer_requested_bids')
+        return view('pages.customer.list_customer_requested_bids')
                         ->with('assign_requests', $assign_requests);
     }
 
@@ -196,7 +196,7 @@ class MaintenanceRequestController extends Controller
         // Get all maintenance request of current customer logged in
         $request_detail = MaintenanceRequest::viewDetailByRequestId($id);
 
-        return View::make('pages.customer.view_customer_requested_service')
+        return view('pages.customer.view_customer_requested_service')
                         ->with('request_detail', $request_detail);
     }
 
@@ -212,7 +212,7 @@ class MaintenanceRequestController extends Controller
         // Get all maintenance request of current customer logged in
         $request_detail = MaintenanceBid::viewDetailByRequestId($id);
 
-        return View::make('pages.customer.view_customer_requested_bid')
+        return view('pages.customer.view_customer_requested_bid')
                         ->with('request_detail', $request_detail);
     }
     /**
@@ -596,18 +596,18 @@ Status: New Bid Request
                 if (isset($data['bid_flag']) && $data['bid_flag']==1) {
                     Session::flash('message', $message.  $emergency_request_message);
                     FlashMessage::displayAlert($message.  $emergency_request_message, 'success');
-                    return Redirect::to('list-bidding-request') ;
+                    return redirect('list-bidding-request') ;
                 } else {
-                      return Redirect::to('list-maintenance-request')
+                      return redirect('list-maintenance-request')
                       ->with('message', FlashMessage::displayAlert($message.  $emergency_request_message, 'success'));
                 }
             } else {
                 if (isset($data['bid_flag']) && $data['bid_flag']==1) {
                        Session::flash('message', $message.  $emergency_request_message);
                     FlashMessage::displayAlert($message.  $emergency_request_message, 'success');
-                    return Redirect::to('list-customer-requested-bids');
+                    return redirect('list-customer-requested-bids');
                 } else {
-                    return Redirect::to('list-customer-requested-services')
+                    return redirect('list-customer-requested-services')
                     ->with('message', FlashMessage::displayAlert($message.  $emergency_request_message, 'success'));
                 }
             }
@@ -845,10 +845,10 @@ Status: New Bid Request
 
                     if (Auth::user()->type_id==1||Auth::user()->type_id==4) {
                           print_r($message);
-                              return Redirect::to('list-maintenance-request')
+                              return redirect('list-maintenance-request')
                             ->with('message', FlashMessage::displayAlert($message, 'success'));
                     } else {
-                        return Redirect::to('list-customer-requested-services')
+                        return redirect('list-customer-requested-services')
                         ->with('message', FlashMessage::displayAlert($message, 'success'));
                     }
                 }
@@ -925,8 +925,8 @@ Status: New Bid Request
 
                 $OrderDetailID = DB::getPdo()->lastInsertId();
                 $image_detail=[];
-                $destinationPath = Config::get('app.order_images_before');   //2
-                $upload_path = Config::get('app.upload_path')."request";
+                $destinationPath = config('app.order_images_before');   //2
+                $upload_path = config('app.upload_path')."request";
           
                 $imageDataArray=ServiceImage::where('requested_id', '=', $request->requested_service_id)->get();
 
@@ -991,7 +991,7 @@ Status: New Bid Request
         // var_dump($response);
 
         $message = FlashMessage::messages('admin.request_service_add');
-        return Redirect::to('list-maintenance-request')
+        return redirect('list-maintenance-request')
                         ->with('message', FlashMessage::displayAlert($message, 'success'));
     }
 
@@ -1180,8 +1180,8 @@ Status: New Bid Request
                    $order_details['status'] = 1;
                    OrderDetail::create($order_details);
                    $OrderDetailID = DB::getPdo()->lastInsertId();
-                   $destinationPath = Config::get('app.order_images_before');   //2
-                   $upload_path = Config::get('app.upload_path')."request";
+                   $destinationPath = config('app.order_images_before');   //2
+                   $upload_path = config('app.upload_path')."request";
                 foreach ($imageDataArray as $imageData) {
                       //Copy Images for order
                       $order_details_id=$OrderDetailID;
@@ -1340,7 +1340,7 @@ Service Type:".$serviceType;
 
             Session::flash('message', $message);
             FlashMessage::displayAlert($message, 'success');
-            return Redirect::to('list-bidding-request');
+            return redirect('list-bidding-request');
     }
 
 
@@ -1522,8 +1522,8 @@ Service Type:".$serviceType;
             $order_details['status'] = 1;
             OrderDetail::create($order_details);
             $OrderDetailID = DB::getPdo()->lastInsertId();
-            $destinationPath = Config::get('app.order_images_before');   //2
-            $upload_path = Config::get('app.upload_path')."request";
+            $destinationPath = config('app.order_images_before');   //2
+            $upload_path = config('app.upload_path')."request";
           
             foreach ($imageDataArray as $imageData) {
               //Copy Images for order
@@ -1551,8 +1551,8 @@ Service Type:".$serviceType;
 
          //Images of Vendor Bid images
             foreach ($BidRequest->assignRequest as $assignRequestData) {
-                 $destinationPath = Config::get('app.order_images_before');   //2
-                $upload_path = Config::get('app.bid_images_before');
+                 $destinationPath = config('app.order_images_before');   //2
+                $upload_path = config('app.bid_images_before');
           
                      $imageDataArray=AssignRequestBidsImage::where('requested_id', '=', $assignRequestData->id)->get();
 

@@ -184,7 +184,7 @@ class VendorController extends Controller
                  $i++;
         }
 
-        return View::make('pages.vendors.dashboard')
+        return view('pages.vendors.dashboard')
         ->with('assign_requests', $assign_requests)
         ->with('assign_requests_bids', $assign_requests_bids)
         ->with('recent_orders', $recent_orders)
@@ -206,12 +206,12 @@ class VendorController extends Controller
                 $user_detail = User::find($id);
                 $cities = City::getAllCities();
                 $states = State::getAllStates();
-                return View::make('pages.vendors.vendor_profile_complete')->with('cities', $cities)->with('states', $states)->with('user_detail', $user_detail);
+                return view('pages.vendors.vendor_profile_complete')->with('cities', $cities)->with('states', $states)->with('user_detail', $user_detail);
             } else {
-                return Redirect::to('edit-profile');
+                return redirect('edit-profile');
             }
         } else {
-            return Redirect::to('/');
+            return redirect('/');
         }
     }
 
@@ -253,7 +253,7 @@ class VendorController extends Controller
             $validator = Validator::make(Input::all(), $rules);
 
             if ($validator->fails()) {
-                return Redirect::to('vendor-profile-complete')
+                return redirect('vendor-profile-complete')
                 ->withErrors($validator)
                 ->withInput(Input::except('profile_picture'));
             } else {
@@ -284,7 +284,7 @@ class VendorController extends Controller
                 $file = Input::file('profile_picture');
                 //This section will handel profile pictures.
                 if ($file) {
-                    $destinationPath = Config::get('app.upload_path');
+                    $destinationPath = config('app.upload_path');
                     $filename = $file->getClientOriginalName();
                     $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                     $data['profile_picture'] = $filename;
@@ -294,11 +294,11 @@ class VendorController extends Controller
                 }
                 $save = User::profile($data, $id);
                 if ($save) {
-                    return Redirect::to($redirect);
+                    return redirect($redirect);
                 }
             }
         } else {
-            return Redirect::to('/');
+            return redirect('/');
         }
     }
 
@@ -343,7 +343,7 @@ class VendorController extends Controller
             $i++;
         }
 
-        return View::make('pages.vendors.list_assign_requests')->with('assign_requests', $assign_requests);
+        return view('pages.vendors.list_assign_requests')->with('assign_requests', $assign_requests);
     }
 
 
@@ -391,7 +391,7 @@ class VendorController extends Controller
             $i++;
         }
 
-        return View::make('pages.vendors.list_assign_bids')->with('assign_requests', $assign_requests);
+        return view('pages.vendors.list_assign_bids')->with('assign_requests', $assign_requests);
     }
 
     /**
@@ -495,7 +495,7 @@ class VendorController extends Controller
 
             $i++;
         }
-          return View::make('pages.vendors.list_orders')->with('orders', $list_orders);
+          return view('pages.vendors.list_orders')->with('orders', $list_orders);
     }
     
 
@@ -525,7 +525,7 @@ class VendorController extends Controller
             }
             $i++;
         }
-        return View::make('pages.vendors.list_completed_orders')->with('orders', $list_orders);
+        return view('pages.vendors.list_completed_orders')->with('orders', $list_orders);
     }
 
     /*
@@ -551,7 +551,7 @@ class VendorController extends Controller
         }
 
 
-        return View::make('pages.vendors.viewvendormaintenancerequest')
+        return view('pages.vendors.viewvendormaintenancerequest')
         ->with([
             'request_maintenance' => $request_maintenance,
             'assign_requests'=>$assign_requests
@@ -575,7 +575,7 @@ class VendorController extends Controller
         }
 
 
-        return View::make('pages.vendors.viewvendorbiddingrequest')
+        return view('pages.vendors.viewvendorbiddingrequest')
         ->with([
         'request_maintenance' => $request_maintenance,
         'assign_requests'=>$assign_requests
@@ -602,7 +602,7 @@ class VendorController extends Controller
 
 
 
-        return View::make('pages.vendors.viewosr')
+        return view('pages.vendors.viewosr')
         ->with([
         'request_maintenance' => $request_maintenance,
         'assign_requests'=>$assign_requests
@@ -724,7 +724,7 @@ class VendorController extends Controller
             }
         endforeach;
 
-        return View::make('pages.vendors.add-bid')
+        return view('pages.vendors.add-bid')
         ->with('order_ids', $order_ids)
         ->with('services', $services)
         ->with('jobType', $jobType)
@@ -968,7 +968,7 @@ class VendorController extends Controller
             $i++;
         }
 
-        return View::make('pages.vendors.list_bid_requests')
+        return view('pages.vendors.list_bid_requests')
         ->with('assign_requests', $assign_requests)
         ->with('status', $status);
     }
@@ -1009,7 +1009,7 @@ class VendorController extends Controller
             $i++;
         }
 
-        return View::make('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
+        return view('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
     }
 
 
@@ -1048,7 +1048,7 @@ class VendorController extends Controller
             $i++;
         }
 
-        return View::make('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
+        return view('pages.vendors.list_bid_requests')->with('assign_requests', $assign_requests);
     }
 
     function changeVendorPrice()
@@ -1126,7 +1126,7 @@ class VendorController extends Controller
     public function addBeforeImages()
     {
 
-        $destinationPath = Config::get('app.bid_images_before');   //2
+        $destinationPath = config('app.bid_images_before');   //2
         if (!empty($_FILES)) {
             $data=Input::all();
             $request_id=$data['requested_id'];
@@ -1147,7 +1147,7 @@ class VendorController extends Controller
                 setcookie('type', $type);
                 $save=AssignRequestBidsImage::create($data);
                 if ($save) {
-                    $image='<img id="'.$request_id.'-'.$save->image_name.'" src="'.Config::get('app.url').'/'.Config::get('app.bid_images_before').$save->image_name.'" width="80px" height="80px" style="padding: 10px" class="img-thumbnail" alt="">';
+                    $image='<img id="'.$request_id.'-'.$save->image_name.'" src="'.config('app.url').'/'.config('app.bid_images_before').$save->image_name.'" width="80px" height="80px" style="padding: 10px" class="img-thumbnail" alt="">';
                     echo $image;
                 }
             }
@@ -1179,11 +1179,11 @@ class VendorController extends Controller
      
 
         foreach ($images as $image) {
-             $filecheck=  '/home/gssreo/public_html/'.Config::get('app.'.$app_path).$image->address;
+             $filecheck=  '/home/gssreo/public_html/'.config('app.'.$app_path).$image->address;
             if (file_exists($filecheck)) {
-                $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+                $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
             } else {
-                $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6"> <img  src="'.Config::get('app.url')."/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+                $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6"> <img  src="'.config('app.url')."/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
             }
             $OrderImagesPosition     =OrderImagesPosition::where('order_image_id', '=', $image->id)->get();
             $OrderImagesPositionCount=OrderImagesPosition::where('order_image_id', '=', $image->id)->count();

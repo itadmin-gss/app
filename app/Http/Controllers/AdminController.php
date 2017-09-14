@@ -66,7 +66,7 @@ class AdminController extends Controller
 
 
 
-        return View::make('pages.admin.dashboard')->with(
+        return view('pages.admin.dashboard')->with(
             ['requests' => $requests,
             'requestsNew' => $requestsNew,
             'orders_process' => $orders_process,
@@ -81,7 +81,7 @@ class AdminController extends Controller
 
     public function swapDB()
     {
-        return View::make('pages.admin.showdb');
+        return view('pages.admin.showdb');
     }
 
     public function swapDBNow()
@@ -109,7 +109,7 @@ class AdminController extends Controller
             $user_roles[$role->id] = $role->role_name;
         }
 
-        return View::make('pages.admin.adduser')->with('user_roles', $user_roles);
+        return view('pages.admin.adduser')->with('user_roles', $user_roles);
     }
 
     /**
@@ -121,9 +121,9 @@ class AdminController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            return View::make('pages.admin.addvendor');
+            return view('pages.admin.addvendor');
         } else {
-            return Redirect::to('list-vendors');
+            return redirect('list-vendors');
         }
     }
 
@@ -154,7 +154,7 @@ class AdminController extends Controller
             $save = User::createUser($data);
             if ($save) {
                 $data['password'] = $passowrd;
-                $from_email = Config::get('app.admin_email');
+                $from_email = config('app.admin_email');
                 Mail::send('emails.admin_customer_created', $data, function ($message) use ($from_email) {
 
                     $message->to(Input::get('email'), Input::get('first_name') . ' ' . Input::get('last_name'))
@@ -176,7 +176,7 @@ class AdminController extends Controller
 
 
         $db_table = $user->getTable();
-        return View::make('pages.admin.list_vendors')->with(['vendors' => $vendors, 'db_table' => $db_table]);
+        return view('pages.admin.list_vendors')->with(['vendors' => $vendors, 'db_table' => $db_table]);
     }
     
 
@@ -359,7 +359,7 @@ class AdminController extends Controller
 
 
 
-        return View::make('pages.admin.list_vendors_summary')
+        return view('pages.admin.list_vendors_summary')
         ->with('assign_requests', $assign_requests)
         ->with('orders', $list_orders)
         ->with('invoices', $list_invoice)
@@ -394,7 +394,7 @@ class AdminController extends Controller
             foreach ($roles as $role) {
                 $user_roles[$role->id] = $role->role_name;
             }
-            return View::make('pages.admin.edituser')
+            return view('pages.admin.edituser')
             ->with(
                 ['user' => $user,
                 'user_roles' => $user_roles,
@@ -467,7 +467,7 @@ class AdminController extends Controller
             $roles[$role->id] = $role->role_name;
         }
 
-        return View::make('pages.admin.listuser')
+        return view('pages.admin.listuser')
         ->with([
         'users' => $users,
         'userRoles' => $roles,
@@ -501,7 +501,7 @@ class AdminController extends Controller
         if ($validator->fails()) {
             $messages = $validator->messages();
 
-            return Redirect::to('/add-user')
+            return redirect('/add-user')
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -523,7 +523,7 @@ class AdminController extends Controller
             //echo '<pre>'; print_r($user_data); exit;
 
             $user->save();
-            $from_email = Config::get('app.admin_email');
+            $from_email = config('app.admin_email');
             Mail::send('emails.admin_customer_created', $user_data, function ($message) use ($from_email) {
 
                 $message->to(Input::get('email'), Input::get('first_name') . ' ' . Input::get('last_name'))
@@ -548,7 +548,7 @@ class AdminController extends Controller
             return Redirect::back()
             ->with('message', FlashMessage::displayAlert($message, 'success'));
         }
-          return View::make('pages.admin.adduser');
+          return view('pages.admin.adduser');
     }
 
         // func to list city by shm
@@ -564,7 +564,7 @@ class AdminController extends Controller
         //   $roles[$role->id] = $role->role_name;
         // }
 
-        return View::make('pages.admin.listcity')
+        return view('pages.admin.listcity')
         ->with([
         'cities' => $cities,
       // 'userRoles' => $roles,
@@ -580,7 +580,7 @@ class AdminController extends Controller
             $city_state[$state->id] = $state->name;
         }
 
-        return View::make('pages.admin.addcity')->with('city_state', $city_state);
+        return view('pages.admin.addcity')->with('city_state', $city_state);
     }
 
     // fucn to post new city by shm
@@ -601,7 +601,7 @@ class AdminController extends Controller
         if ($validator->fails()) {
             $messages = $validator->messages();
 
-            return Redirect::to('/add-city')
+            return redirect('/add-city')
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -616,7 +616,7 @@ class AdminController extends Controller
             return Redirect::back()
             ->with('message', FlashMessage::displayAlert($message, 'success'));
         }
-        return View::make('pages.admin.addcity');
+        return view('pages.admin.addcity');
     }
 
     /**
@@ -637,7 +637,7 @@ class AdminController extends Controller
             if ($validator->fails()) {
                   $messages = $validator->messages();
 
-                  return Redirect::to('add-access-level')
+                  return redirect('add-access-level')
                   ->withErrors($validator);
             } else {
                   $user_role = new UserRole;
@@ -664,7 +664,7 @@ class AdminController extends Controller
                   ->with('message', FlashMessage::displayAlert($message, 'success'));
             }
         } else {
-            return View::make('pages.admin.add_access_level');
+            return view('pages.admin.add_access_level');
         }
     }
 
@@ -679,7 +679,7 @@ class AdminController extends Controller
         $role_obj = new UserRole;
         $db_table = $role_obj->getTable();
 
-        return View::make('pages.admin.list_access_level')
+        return view('pages.admin.list_access_level')
         ->with([
         'userRoles' => $userRoles,
         'db_table' => $db_table]);
@@ -727,7 +727,7 @@ class AdminController extends Controller
         $request_maintenance_obj = new MaintenanceRequest;
         $db_table = $request_maintenance_obj->getTable();
 
-        return View::make('pages.admin.listmaintenancerequest')
+        return view('pages.admin.listmaintenancerequest')
         ->with([
         'request_maintenance' => $request_maintenance,
         'numberofrequestids' => $numberofrequestids,
@@ -754,7 +754,7 @@ class AdminController extends Controller
         $request_maintenance_obj = new MaintenanceBID;
         $db_table = $request_maintenance_obj->getTable();
 
-        return View::make('pages.admin.listmaintenancebid')
+        return view('pages.admin.listmaintenancebid')
         ->with([
         'request_maintenance' => $request_maintenance,
         'db_table' => $db_table
@@ -807,7 +807,7 @@ class AdminController extends Controller
         $request_maintenance_obj = new MaintenanceRequest;
         $db_table = $request_maintenance_obj->getTable();
 
-        return View::make('pages.admin.listassignedmaintenancerequest')
+        return view('pages.admin.listassignedmaintenancerequest')
         ->with([
         'request_maintenance' => $request_maintenance,
         'numberofrequestids' => $numberofrequestids,
@@ -835,7 +835,7 @@ class AdminController extends Controller
       // MaintenanceRequest::where('id','=',$maintenance_request_id)
       //                       ->update(array('status'=>'2')); //Reviewed by Admin
 
-        return View::make('pages.admin.viewmaintenancerequest')
+        return view('pages.admin.viewmaintenancerequest')
         ->with([
         'request_maintenance' => $request_maintenance,
         ]);
@@ -867,7 +867,7 @@ class AdminController extends Controller
         } elseif ($request_maintenance->status==3) {
              $layoutBid="viewbiddingrequestwhenvendorcompletedbid";
         }
-        return View::make('pages.admin.'.$layoutBid)
+        return view('pages.admin.'.$layoutBid)
         ->with([
         'request_maintenance' => $request_maintenance,
         ]);
@@ -919,7 +919,7 @@ class AdminController extends Controller
     {
         $asset = Asset::find($asset_id);
 
-        return View::make('pages.admin.assetview')
+        return view('pages.admin.assetview')
         ->with([
         'asset' => $asset,
         ]);
@@ -998,7 +998,7 @@ class AdminController extends Controller
             }
         }
 
-        return View::make('pages.admin.showmaintenanceservices')
+        return view('pages.admin.showmaintenanceservices')
         ->with([
         'request_maintenance' => $request_maintenance,
         'vendors' => $vendors,
@@ -1100,7 +1100,7 @@ class AdminController extends Controller
 
 
 
-        return View::make('pages.admin.showbidservices')
+        return view('pages.admin.showbidservices')
         ->with([
         'flagworkorder'=>$flagworkorder,
         'request_maintenance' => $request_maintenance,
@@ -1224,7 +1224,7 @@ class AdminController extends Controller
         }
 
 
-        return View::make('pages.admin.list_work_order')
+        return view('pages.admin.list_work_order')
         ->with('orders', $list_orders)
         ->with('db_table', 'orders')
         ->with('addl_itemz', $addl_itemz);
@@ -1343,7 +1343,7 @@ class AdminController extends Controller
         }
 
 
-        return View::make('pages.admin.list_work_order')
+        return view('pages.admin.list_work_order')
         ->with('orders', $list_orders)
         ->with('db_table', 'orders')
         ->with('addl_itemz', $addl_itemz);
@@ -1358,7 +1358,7 @@ class AdminController extends Controller
     }
     public function viewonly()
     {
-          return View::make('pages.admin.list_work_order_grid');
+          return view('pages.admin.list_work_order_grid');
     }
 
     public function listCompletedOrders()
@@ -1387,7 +1387,7 @@ class AdminController extends Controller
         }
 
 
-          return View::make('pages.admin.list_completed_orders')
+          return view('pages.admin.list_completed_orders')
           ->with('orders', $list_orders);
     }
 
@@ -1425,7 +1425,7 @@ class AdminController extends Controller
 
 
         $CustomerType  = CustomerType::get();
-        return View::make('pages.admin.edit_profile')
+        return view('pages.admin.edit_profile')
         ->with('cities', $cities)
         ->with('states', $states)
         ->with('user_data', $user_data)
@@ -1442,7 +1442,7 @@ class AdminController extends Controller
     {
           $city_data = City::find($id);
           $states = State::getAllStates();
-          return View::make('pages.admin.edit_city')
+          return view('pages.admin.edit_city')
           ->with('city_data', $city_data)
           ->with('states', $states);
     }
@@ -1477,7 +1477,7 @@ class AdminController extends Controller
     {
           $user_data = JobType::find($id);
 
-          return View::make('pages.admin.edit_job_type')
+          return view('pages.admin.edit_job_type')
 
           ->with('user_data', $user_data);
     }
@@ -1488,7 +1488,7 @@ class AdminController extends Controller
   
           $save = JobType::find($data['id'])->update($data);
           $message = "Job Type has been modified";
-          return Redirect::to('list-job-type')
+          return redirect('list-job-type')
           ->with('message', FlashMessage::displayAlert($message, 'success'));
     }
 
@@ -1497,7 +1497,7 @@ class AdminController extends Controller
 
          JobType::where('id', '=', $id)->delete();
          $message = "Job Type has been deleted";
-         return Redirect::to('list-job-type')
+         return redirect('list-job-type')
          ->with('message', FlashMessage::displayAlert($message, 'success'));
     }
 
@@ -1575,7 +1575,7 @@ class AdminController extends Controller
             }
             $file = Input::file('profile_picture');
             if ($file) {
-                $destinationPath = Config::get('app.upload_path');
+                $destinationPath = config('app.upload_path');
                 $filename = $file->getClientOriginalName();
                 $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                 $data['profile_picture'] = $filename;
@@ -1638,7 +1638,7 @@ class AdminController extends Controller
             $i++;
         }
 
-        return View::make('pages.admin.list_bid_requests')
+        return view('pages.admin.list_bid_requests')
         ->with('assign_requests', $assign_requests)
         ->with('status', $status);
     }
@@ -1678,7 +1678,7 @@ class AdminController extends Controller
             $i++;
         }
 
-        return View::make('pages.admin.list_bid_requests')->with('assign_requests', $assign_requests);
+        return view('pages.admin.list_bid_requests')->with('assign_requests', $assign_requests);
     }
 
 
@@ -1716,7 +1716,7 @@ class AdminController extends Controller
             $i++;
         }
 
-        return View::make('pages.admin.list_bid_requests')->with('assign_requests', $assign_requests);
+        return view('pages.admin.list_bid_requests')->with('assign_requests', $assign_requests);
     }
 
 
@@ -1770,7 +1770,7 @@ class AdminController extends Controller
             $order_ids[$order->id."--".$order->MaintenanceRequest->Asset->id]=  $order->id."-".$order->MaintenanceRequest->Asset->property_address."-".$serviceType."-".$vendorfirstname."-".$vendorlastname."-". $vendorcompany ;
         endforeach;
 
-        return View::make('pages.admin.add-bid')
+        return view('pages.admin.add-bid')
         ->with('order_ids', $order_ids)
         ->with('services', $services)
         ->with('jobType', $jobType) ;
@@ -1800,7 +1800,7 @@ class AdminController extends Controller
             $order_ids[$order->id."--".$order->MaintenanceRequest->Asset->id]=  $order->id."-".$order->MaintenanceRequest->Asset->property_address;
         endforeach;
 
-        return View::make('pages.admin.add-bid')
+        return view('pages.admin.add-bid')
         ->with('order_ids', $order_ids)
         ->with('services', $services);
     }
@@ -1995,7 +1995,7 @@ class AdminController extends Controller
 
 
 
-        return View::make('pages.admin.viewadminbidrequest')
+        return view('pages.admin.viewadminbidrequest')
         ->with([
         'request_maintenance' => $request_maintenance,
         'assign_requests'=>$assign_requests
@@ -2138,8 +2138,8 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
                 $add_image = AssignRequestBidsImage::create($image_detail);
             }
 
-            $destinationPath = Config::get('app.bid_images_before');   //2
-            $upload_path = Config::get('app.upload_path')."request";
+            $destinationPath = config('app.bid_images_before');   //2
+            $upload_path = config('app.upload_path')."request";
             foreach ($imageDataArray as $imageData) {
     //Copy Images for bid
 
@@ -2252,7 +2252,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
 
-        return View::make('pages.admin.ajax-dashoboard-grid-requests')->with(
+        return view('pages.admin.ajax-dashoboard-grid-requests')->with(
             ['requests' => $requests,
             'statusshow'=>$input['statusshow'],
 
@@ -2443,15 +2443,15 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
         if ($input['id']==2) {
-                  return View::make('pages.admin.ajax-dashboard-grid-orders-completed')
+                  return view('pages.admin.ajax-dashboard-grid-orders-completed')
                   ->with('orders', $list_orders)
                   ->with('db_table', 'orders');
         } elseif ($input['id']==4) {
-                  return View::make('pages.admin.ajax-dashboard-grid-orders-approved')
+                  return view('pages.admin.ajax-dashboard-grid-orders-approved')
                   ->with('orders', $list_orders)
                   ->with('db_table', 'orders');
         } else {
-                  return View::make('pages.admin.ajax-dashoboard-grid-orders')
+                  return view('pages.admin.ajax-dashoboard-grid-orders')
                   ->with('orders', $list_orders)
                   ->with('db_table', 'orders');
         }
@@ -2692,7 +2692,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
         if ($input['id']==2) {
-              return View::make('pages.admin.ajax-dashboard-grid-orders-completed')
+              return view('pages.admin.ajax-dashboard-grid-orders-completed')
               ->with('orders', $list_orders)
               ->with('db_table', 'orders')
               ->with('addl_itemz', $addl_itemz)
@@ -2700,7 +2700,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
               ->with('addl_itemz_service_type', $addl_itemz_service_type)
              ->with('addl_itemz_customerPrice', $addl_itemz_customerPrice) ;
         } elseif ($input['id']==4) {
-              return View::make('pages.admin.ajax-dashboard-grid-orders-approved')
+              return view('pages.admin.ajax-dashboard-grid-orders-approved')
               ->with('orders', $list_orders)
               ->with('db_table', 'orders')
               ->with('addl_itemz', $addl_itemz)
@@ -2708,7 +2708,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
               ->with('addl_itemz_service_type', $addl_itemz_service_type)
               ->with('addl_itemz_customerPrice', $addl_itemz_customerPrice) ;
         } else {
-              return View::make('pages.admin.ajax-dashoboard-grid-orders')
+              return view('pages.admin.ajax-dashoboard-grid-orders')
               ->with('orders', $list_orders)
               ->with('db_table', 'orders')
               ->with('addl_itemz', $addl_itemz)
@@ -2736,7 +2736,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
 
-        return View::make('pages.admin.list-service-categories')
+        return view('pages.admin.list-service-categories')
         ->with([
         'serviceCategories' => $serviceCategories,
 
@@ -2754,24 +2754,24 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             $user_roles[$role->id] = $role->role_name;
         }
 
-        return View::make('pages.admin.addservicecategory')->with('user_roles', $user_roles);
+        return view('pages.admin.addservicecategory')->with('user_roles', $user_roles);
     }
 
     public function addJobType()
     {
 
-        return View::make('pages.admin.addjobtype');
+        return view('pages.admin.addjobtype');
     }
     public function addCustomerType()
     {
 
-        return View::make('pages.admin.customertype');
+        return view('pages.admin.customertype');
     }
     public function editCustomerType($id)
     {
         $CustomerType=CustomerType::find($id);
 
-        return View::make('pages.admin.editcustomertype')
+        return view('pages.admin.editcustomertype')
         ->with('CustomerType', $CustomerType);
     }
 
@@ -2791,7 +2791,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         if ($validator->fails()) {
             $messages = $validator->messages();
 
-            return Redirect::to('/add-service-category')
+            return redirect('/add-service-category')
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -2802,7 +2802,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             //echo '<pre>'; print_r($user_data); exit;
 
             $serviceCategory->save();
-            $from_email = Config::get('app.admin_email');
+            $from_email = config('app.admin_email');
 
 
 
@@ -2810,10 +2810,10 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
             $message ="Service Category has been added";
 
-            return Redirect::to('/list-service-categories')
+            return redirect('/list-service-categories')
             ->with('message', FlashMessage::displayAlert($message, 'success'));
         }
-        return View::make('pages.admin.addservicecategory');
+        return view('pages.admin.addservicecategory');
     }
 
     public function editNewCustomerType()
@@ -2832,7 +2832,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         if ($validator->fails()) {
             $messages = $validator->messages();
 
-            return Redirect::to("/edit-client-type/{$id}")
+            return redirect("/edit-client-type/{$id}")
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -2853,10 +2853,10 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
             $message ="Customer type has been modified";
 
-            return Redirect::to('/list-customer-type')
+            return redirect('/list-customer-type')
             ->with('message', FlashMessage::displayAlert($message, 'success'));
         }
-        return View::make('pages.admin.addservicecategory');
+        return view('pages.admin.addservicecategory');
     }
 
     public function addNewCustomerType()
@@ -2874,7 +2874,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         if ($validator->fails()) {
             $messages = $validator->messages();
 
-            return Redirect::to('/add-customer-type')
+            return redirect('/add-customer-type')
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -2892,10 +2892,10 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
             $message ="Customer type has been added";
 
-            return Redirect::to('/list-customer-type')
+            return redirect('/list-customer-type')
             ->with('message', FlashMessage::displayAlert($message, 'success'));
         }
-        return View::make('pages.admin.addservicecategory');
+        return view('pages.admin.addservicecategory');
     }
 
     public function addNewJobType()
@@ -2913,7 +2913,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         if ($validator->fails()) {
             $messages = $validator->messages();
 
-            return Redirect::to('/add-job-type')
+            return redirect('/add-job-type')
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -2931,10 +2931,10 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
             $message ="Job type has been added";
 
-            return Redirect::to('/list-job-type')
+            return redirect('/list-job-type')
             ->with('message', FlashMessage::displayAlert($message, 'success'));
         }
-        return View::make('pages.admin.addservicecategory');
+        return view('pages.admin.addservicecategory');
     }
 
     function listJobType()
@@ -2946,7 +2946,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
 
-        return View::make('pages.admin.list-job-types')
+        return view('pages.admin.list-job-types')
         ->with([
         'serviceCategories' => $serviceCategories,
         'db_table' => $db_table
@@ -2960,7 +2960,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         $serviceCategories = CustomerType::get();
 
 
-        return View::make('pages.admin.customer-types')
+        return view('pages.admin.customer-types')
         ->with([
         'serviceCategories' => $serviceCategories,
 
@@ -3157,7 +3157,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
 
                     //   $message = FlashMessage::messages('admin_service.service_added');
-                    //   return Redirect::to('list-services')
+                    //   return redirect('list-services')
                     //      ->with('message', FlashMessage::DisplayAlert($message,'success'));
                 } else {
                    //   $message = FlashMessage::messages('admin_service.service_error');
@@ -3175,7 +3175,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             "radio"   => "radio"
             ];
 
-            return View::make('pages.admin.do-request')
+            return view('pages.admin.do-request')
             ->with('typeArray', $typeArray)
             ->with('ServiceCategory', $ServiceCategory)
             ->with('CustomerType', $CustomerType)
@@ -3190,7 +3190,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
         $services = Service::getBidServices();
         $serv = new Service;
         $db_table = $serv->getTable();
-        return View::make('pages.admin.list-bid-servies')->with(['services' => $services,
+        return view('pages.admin.list-bid-servies')->with(['services' => $services,
         'db_table' => $db_table ]);
     }
 
@@ -3204,7 +3204,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
         ->get();
 
-        return View::make('pages.admin.quantityapproved')
+        return view('pages.admin.quantityapproved')
         ->with('orders', $orders);
     }
 }

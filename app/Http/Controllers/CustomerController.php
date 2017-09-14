@@ -29,7 +29,7 @@ class CustomerController extends Controller
         ->skip(0)
         ->take(5)
         ->orderBy('id', 'desc')->get();
-        return View::make('pages.customer.dashboard')
+        return view('pages.customer.dashboard')
         ->with('maintenanceRequest', $maintenanceRequest)
         ->with('requests', $requests)
         ->with('completeorder', $list_orders)
@@ -52,15 +52,15 @@ class CustomerController extends Controller
                 //Get all states from city
                 $states = State::getAllStates();
                 //Send data to view to show user data
-                return View::make('pages.customer.customer_profile_complete')->with('user_detail', $user_detail)
+                return view('pages.customer.customer_profile_complete')->with('user_detail', $user_detail)
                 ->with('cities', $cities)
                 ->with('states', $states);
             } else {
-                return Redirect::to('edit-profile');
+                return redirect('edit-profile');
             }
         } else {
             //if not logged in return to login page
-            return Redirect::to('/');
+            return redirect('/');
         }
     }
 
@@ -97,7 +97,7 @@ class CustomerController extends Controller
             $validator = Validator::make(Input::all(), $rules); // put all rules to validator
             // if validation is failed redirect to page with errorsa
             if ($validator->fails()) {
-                return Redirect::to('customer-profile-complete')
+                return redirect('customer-profile-complete')
                                 ->withErrors($validator)// send back all errors to the login form
                                 ->withInput(Input::except('profile_picture')); // send back the input (not the password) so that we can repopulate the form
             } else {
@@ -105,7 +105,7 @@ class CustomerController extends Controller
                 $file = Input::file('profile_picture');
                 //This section will handel profile pictures.
                 if ($file) {
-                    $destinationPath = Config::get('app.upload_path');
+                    $destinationPath = config('app.upload_path');
                     $filename = $file->getClientOriginalName();
                     $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                     $data['profile_picture'] = $filename;
@@ -127,11 +127,11 @@ class CustomerController extends Controller
                 $data['profile_status'] = 1;
                 $save = User::profile($data, $id);
                 if ($save) {
-                    return Redirect::to($redirect);
+                    return redirect($redirect);
                 }
             }
         } else {
-            return Redirect::to('/');
+            return redirect('/');
         }
     }
 
@@ -176,7 +176,7 @@ class CustomerController extends Controller
                 $add_customer = User::createUser($data); // Add customer
                 $data['password'] = $passowrd;
                 $data['user_id'] = $add_customer;
-                $from_email = Config::get('app.admin_email');
+                $from_email = config('app.admin_email');
                 Mail::send('emails.admin_customer_created', $data, function ($message) use ($from_email) {
 
                     $message->to(Input::get('email'), Input::get('first_name') . ' ' . Input::get('last_name'))
@@ -192,14 +192,14 @@ class CustomerController extends Controller
             }
 
             if ($add_customer) {
-                return Redirect::to('list-customer')
+                return redirect('list-customer')
                 ->with('message', FlashMessage::displayAlert("Customer has been created successfully", 'success'));
             }
         }
             $CustomerType  = CustomerType::get();
         
 
-        return View::make('pages.admin.add_customer')
+        return view('pages.admin.add_customer')
         ->with('CustomerType', $CustomerType);
     }
 
@@ -213,11 +213,11 @@ class CustomerController extends Controller
 
 
 
-        return View::make('pages.admin.list_customer')
+        return view('pages.admin.list_customer')
         ->with(['customers' => $customers,
             'db_table' => $db_table
             ]);
-        // return View::make('pages.admin.list_customer');
+        // return view('pages.admin.list_customer');
     }
     
     function activeCustomer($id)
@@ -233,7 +233,7 @@ class CustomerController extends Controller
             // show the form
             $userdata = ['status' => 1 ];
             $save = User::find($id)->update($userdata);
-            return View::make('home')->with('active', $id);
+            return view('home')->with('active', $id);
         }
     }
 
@@ -264,7 +264,7 @@ class CustomerController extends Controller
         }
                           $CustomerType  = CustomerType::get();
 
-                        return View::make('pages.admin.edit_customer')
+                        return view('pages.admin.edit_customer')
                         ->with('customer', $customer_detail)
                         ->with('CustomerType', $CustomerType);
     }
@@ -345,7 +345,7 @@ List all workorders
             }
             $i++;
         }
-         return View::make('pages.customer.list_work_orders')->with('orders', $list_orders);
+         return view('pages.customer.list_work_orders')->with('orders', $list_orders);
     }
         /*
         List only completed work orders
@@ -373,7 +373,7 @@ List all workorders
             }
             $i++;
         }
-        return View::make('pages.customer.list_completed_work_orders')->with('orders', $list_orders);
+        return view('pages.customer.list_completed_work_orders')->with('orders', $list_orders);
     }
 
     /*
@@ -401,7 +401,7 @@ List all workorders
             }
             $i++;
         }
-        return View::make('pages.customer.list_approval_completion_order')->with('orders', $list_orders);
+        return view('pages.customer.list_approval_completion_order')->with('orders', $list_orders);
     }
 
 
@@ -426,7 +426,7 @@ List all workorders
             }
             $i++;
         }
-        return View::make('pages.customer.list_process_work_order')->with('orders', $list_orders);
+        return view('pages.customer.list_process_work_order')->with('orders', $list_orders);
     }
 
 
@@ -498,7 +498,7 @@ List all workorders
         }
 
 
-        return View::make('pages.customer.list_bid_requests')
+        return view('pages.customer.list_bid_requests')
         ->with('assign_requests', $assign_requests)
          ->with('status', $status);
     }
@@ -534,7 +534,7 @@ List all workorders
             $i++;
         }
 
-        return View::make('pages.customer.list_bid_requests')->with('assign_requests', $assign_requests);
+        return view('pages.customer.list_bid_requests')->with('assign_requests', $assign_requests);
     }
 
     public function listDeclinedBidRequests()
@@ -563,7 +563,7 @@ List all workorders
             $i++;
         }
 
-        return View::make('pages.customer.list_bid_requests')->with('assign_requests', $assign_requests);
+        return view('pages.customer.list_bid_requests')->with('assign_requests', $assign_requests);
     }
     /*
      * Function Name : viewMaintenanceRequest
@@ -584,7 +584,7 @@ List all workorders
         
         
 
-        return View::make('pages.customer.viewcustomermaintenancerequest')
+        return view('pages.customer.viewcustomermaintenancerequest')
         ->with([
             'request_maintenance' => $request_maintenance,
             'assign_requests'=>$assign_requests
@@ -687,6 +687,6 @@ List all workorders
     public function unSetClientType()
     {
         Session::put('clientType', "");
-        return Redirect::to('customer');
+        return redirect('customer');
     }
 }

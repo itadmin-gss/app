@@ -17,7 +17,7 @@ class OrderController extends Controller
 
 
         if (!Auth::check()) {
-            return Redirect::to('');
+            return redirect('');
         }
         $order_req = Order::where('id', '=', $order_id)->pluck('request_id');
         $services_asset_id= MaintenanceRequest::where('id', '=', $order_req)->pluck('asset_id');
@@ -81,7 +81,7 @@ class OrderController extends Controller
 
                 // print_r($edit_order);
             //$allservices = Service::getAllServices();
-            return View::make('common.'. $edit_order)
+            return view('common.'. $edit_order)
             ->with('order', $order)
             ->with('order_details', $order_details)
             ->with('before_image', $before_image)
@@ -139,13 +139,13 @@ class OrderController extends Controller
         if ($order->bid_flag==1) {
                     $view_order="view_bidorder";
         }
-        return View::make('common.'.$view_order)->with('order', $order)->with('order_details', $order_details)
+        return view('common.'.$view_order)->with('order', $order)->with('order_details', $order_details)
         ->with('message', $view_message);
     }
     public function addBeforeImages()
     {
 
-        $destinationPath = Config::get('app.order_images_before');   //2
+        $destinationPath = config('app.order_images_before');   //2
         if (!empty($_FILES)) {
             $data=Input::all();
             $order_id=$data['order_id'];
@@ -180,7 +180,7 @@ class OrderController extends Controller
                 setcookie('type', $type);
                 $save=OrderImage::createImage($data);
                 if ($save) {
-                    $image='<img id="'.$save->order_id.'-'.$save->order_details_id.'-'.$save->address.'" src="'.Config::get('app.url').'/'.Config::get('app.order_images_before').$save->address.'" width="80px" height="80px" style="padding: 10px" class="img-thumbnail" alt="">';
+                    $image='<img id="'.$save->order_id.'-'.$save->order_details_id.'-'.$save->address.'" src="'.config('app.url').'/'.config('app.order_images_before').$save->address.'" width="80px" height="80px" style="padding: 10px" class="img-thumbnail" alt="">';
                     echo $image;
                 }
             }
@@ -190,7 +190,7 @@ class OrderController extends Controller
     public function addAdditionalBeforeImages()
     {
 
-        $destinationPath = Config::get('app.order_additional_images_before');   //2
+        $destinationPath = config('app.order_additional_images_before');   //2
         if (!empty($_FILES)) {
             $data=Input::all();
             
@@ -224,7 +224,7 @@ class OrderController extends Controller
                 setcookie('type', $type);
                 $save=  AdditionalServiceItemImage::createImage($data);
                 if ($save) {
-                    $image='<img id="'.$save->additional_service_id.'-'.$save->address.'" src="'.Config::get('app.url').'/'.Config::get('app.order_additional_images_before').$save->address.'" width="80px" height="80px" style="padding: 10px" class="img-thumbnail" alt="">';
+                    $image='<img id="'.$save->additional_service_id.'-'.$save->address.'" src="'.config('app.url').'/'.config('app.order_additional_images_before').$save->address.'" width="80px" height="80px" style="padding: 10px" class="img-thumbnail" alt="">';
                     echo $image;
                 }
             }
@@ -234,7 +234,7 @@ class OrderController extends Controller
     public function addAdditionalDuringImages()
     {
 
-        $destinationPath = Config::get('app.order_additional_images_during');   //2
+        $destinationPath = config('app.order_additional_images_during');   //2
         if (!empty($_FILES)) {
             $data=Input::all();
             $additional_service_id=$data['additional_service_id'];
@@ -276,7 +276,7 @@ class OrderController extends Controller
     public function addDuringImages()
     {
 
-        $destinationPath = Config::get('app.order_images_during');   //2
+        $destinationPath = config('app.order_images_during');   //2
         if (!empty($_FILES)) {
             $data=Input::all();
             $order_id=$data['order_id'];
@@ -320,7 +320,7 @@ class OrderController extends Controller
     public function addAdditionalAfterImages()
     {
 
-        $destinationPath = Config::get('app.order_additional_images_after');   //2
+        $destinationPath = config('app.order_additional_images_after');   //2
         if (!empty($_FILES)) {
             $data=Input::all();
             $additional_service_id = $data['additional_service_id'];
@@ -362,7 +362,7 @@ class OrderController extends Controller
     public function addAfterImages()
     {
 
-        $destinationPath = Config::get('app.order_images_after');   //2
+        $destinationPath = config('app.order_images_after');   //2
         if (!empty($_FILES)) {
             $data=Input::all();
             $order_id=$data['order_id'];
@@ -412,10 +412,10 @@ class OrderController extends Controller
             foreach ($images as $image) {
                 $filename=$image->address;
                 if ($image->type=='before') {
-                    $destinationPath = Config::get('app.order_images_before');   //2
+                    $destinationPath = config('app.order_images_before');   //2
                     unlink($destinationPath . $filename);
                 } else {
-                    $destinationPath = Config::get('app.order_images_after');   //2
+                    $destinationPath = config('app.order_images_after');   //2
                     unlink($destinationPath . $filename);
                 }
             }
@@ -425,10 +425,10 @@ class OrderController extends Controller
             foreach ($images as $image) {
                 $filename=$image->address;
                 if ($image->type=='before') {
-                    $destinationPath = Config::get('app.order_images_before');   //2
+                    $destinationPath = config('app.order_images_before');   //2
                     unlink($destinationPath . $filename);
                 } else {
-                    $destinationPath = Config::get('app.order_images_after');   //2
+                    $destinationPath = config('app.order_images_after');   //2
                     unlink($destinationPath . $filename);
                 }
             }
@@ -447,7 +447,7 @@ class OrderController extends Controller
         if ($delete) {
             echo 'delete success';
         }
-        $destinationPath = Config::get('app.order_images_after');   //2
+        $destinationPath = config('app.order_images_after');   //2
         unlink($destinationPath . $filename);
     }
 
@@ -464,7 +464,7 @@ class OrderController extends Controller
         if ($delete) {
             echo 'delete success';
         }
-        $destinationPath = Config::get('app.order_images_during');   //2
+        $destinationPath = config('app.order_images_during');   //2
         unlink($destinationPath . $filename);
     }
 
@@ -490,38 +490,38 @@ class OrderController extends Controller
                 if ($image->type=="after") {
                     $app_path="order_additional_images_after";
 
-                    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                     if (file_exists($filecheck)) {
-                        $afterimages.='<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>After Images</h3> <img src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" style="height:300px; width:300px;   " class="img-thumbnail" alt="'.$image->address.'" ></div>';
+                        $afterimages.='<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>After Images</h3> <img src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" style="height:300px; width:300px;   " class="img-thumbnail" alt="'.$image->address.'" ></div>';
                     } else {
-                           $afterimages.= '<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>After Images</h3> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'"  style="height:300px; width:300px;  "   class="img-thumbnail" alt="'.$image->address.'"></div>';
+                           $afterimages.= '<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>After Images</h3> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'"  style="height:300px; width:300px;  "   class="img-thumbnail" alt="'.$image->address.'"></div>';
                     }
                 } elseif ($image->type=="before") {
                     $app_path="order_additional_images_before";
 
-                    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                     if (file_exists($filecheck)) {
-                        $beforeimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>Before Images</h3> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" style="height:300px; width:300px;   "  class="img-thumbnail" alt="'.$image->address.'"></div>';
+                        $beforeimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>Before Images</h3> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" style="height:300px; width:300px;   "  class="img-thumbnail" alt="'.$image->address.'"></div>';
                     } else {
-                           $beforeimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> </div>';
+                           $beforeimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> </div>';
                     }
                 } elseif ($image->type=="during") {
                      $app_path="order_additional_images_during";
 
-                    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                     if (file_exists($filecheck)) {
-                        $duringimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>During Images</h3> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'"  style="height:300px; width:300px;   "class="img-thumbnail" alt="'.$image->address.'"> </div>';
+                        $duringimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>During Images</h3> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'"  style="height:300px; width:300px;   "class="img-thumbnail" alt="'.$image->address.'"> </div>';
                     } else {
-                           $duringimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> <p>During Images</p></div>';
+                           $duringimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> <p>During Images</p></div>';
                     }
                 }
             }
@@ -552,38 +552,38 @@ class OrderController extends Controller
                 if ($image->type=="after") {
                     $app_path="order_images_after";
 
-                    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                     if (file_exists($filecheck)) {
-                        $afterimages.='<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>After Images</h3> <img src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'"style="height:300px; width:300px;  " class="img-thumbnail" alt="'.$image->address.'" ></div>';
+                        $afterimages.='<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>After Images</h3> <img src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'"style="height:300px; width:300px;  " class="img-thumbnail" alt="'.$image->address.'" ></div>';
                     } else {
-                           $afterimages.= '<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>After Images</h3> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'"style="height:300px; width:300px;   "   class="img-thumbnail" alt="'.$image->address.'"></div>';
+                           $afterimages.= '<div class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>After Images</h3> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'"style="height:300px; width:300px;   "   class="img-thumbnail" alt="'.$image->address.'"></div>';
                     }
                 } elseif ($image->type=="before") {
                     $app_path="order_images_before";
 
-                    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                     if (file_exists($filecheck)) {
-                        $beforeimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>Before Images</h3> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" style="height:300px; width:300px;   "  class="img-thumbnail" alt="'.$image->address.'"></div>';
+                        $beforeimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <h3>Before Images</h3> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" style="height:300px; width:300px;   "  class="img-thumbnail" alt="'.$image->address.'"></div>';
                     } else {
-                           $beforeimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> </div>';
+                           $beforeimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> </div>';
                     }
                 } elseif ($image->type=="during") {
                      $app_path="order_images_during";
 
-                    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                     if (file_exists($filecheck)) {
-                        $duringimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>During Images</h3> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'"  style="height:300px; width:300px;  "class="img-thumbnail" alt="'.$image->address.'"> </div>';
+                        $duringimages.='<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"><h3>During Images</h3> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'"  style="height:300px; width:300px;  "class="img-thumbnail" alt="'.$image->address.'"> </div>';
                     } else {
-                           $duringimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> <p>During Images</p></div>';
+                           $duringimages.= '<div  class="" style="display:inline-block; vertical-align:top; padding:5px; text-align:center; height: auto;"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="50%"   class="img-thumbnail" alt="'.$image->address.'"> <p>During Images</p></div>';
                     }
                 }
             }
@@ -624,47 +624,47 @@ class OrderController extends Controller
             if ($image->type == "before") {
                 $app_path="order_additional_images_before";
 
-                $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                 if (file_exists($filecheck)) {
-                      $popDiv.='<td><div class="imageFrame exprtTab active"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
+                      $popDiv.='<td><div class="imageFrame exprtTab active"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
                 } else {
-                    $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
+                    $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
                 }
             } elseif ($image->type == "during") {
                 $app_path="order_additional_images_during";
-                 $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                 $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                 if (file_exists($filecheck)) {
-                    $popDiv.='<td><div class="imageFrame exprtTab2"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"><a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
+                    $popDiv.='<td><div class="imageFrame exprtTab2"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"><a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
                 } else {
-                    $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
+                    $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
                 }
             } elseif ($image->type == "after") {
                  $app_path="order_additional_images_after";
-                  $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                  $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                 if (file_exists($filecheck)) {
-                    //print_r(Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address);
-                    $popDiv.='<td><div  class="imageFrame exprtTab3"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
+                    //print_r(config('app.url').'/'.config('app.'.$app_path).$image->address);
+                    $popDiv.='<td><div  class="imageFrame exprtTab3"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
                 } else {
-                        $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
+                        $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
                 }
             }
 
-             //    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+             //    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-             // // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+             // // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
              //    if (file_exists($filecheck)) {
 
-             //        '<div  class="imageFrame"><button><a href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+             //        '<div  class="imageFrame"><button><a href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
 
 
 
@@ -674,7 +674,7 @@ class OrderController extends Controller
 
              //    {
 
-             //        $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+             //        $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
 
 
 
@@ -855,46 +855,46 @@ $(".example6").fancybox({
             if ($image->type == "before") {
                 $app_path="order_images_before";
 
-                $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                 // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                 if (file_exists($filecheck)) {
-                      $popDiv.='<td><div class="imageFrame exprtTab active"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
+                      $popDiv.='<td><div class="imageFrame exprtTab active"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
                 } else {
-                    $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/img/'.$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
+                    $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/img/'.$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
                 }
             } elseif ($image->type == "during") {
                 $app_path="order_images_during";
-                 $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                 $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                 if (file_exists($filecheck)) {
-                    $popDiv.='<td><div class="imageFrame exprtTab2"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"><a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
+                    $popDiv.='<td><div class="imageFrame exprtTab2"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"><a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
                 } else {
-                    $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/img/'.$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
+                    $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/img/'.$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
                 }
             } elseif ($image->type == "after") {
                  $app_path="order_images_after";
-                  $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+                  $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                     // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
                 if (file_exists($filecheck)) {
-                    $popDiv.='<td><div  class="imageFrame exprtTab3"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
+                    $popDiv.='<td><div  class="imageFrame exprtTab3"><input type="checkbox" name="vehicle[]" value="'.$image->id.'" checked="checked"> <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a></div></td>';
                 } else {
-                        $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/img/'.$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
+                        $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/img/'.$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a></div>';
                 }
             }
 
-             //    $filecheck=  Config::get('app.'.$app_path).$image->address; //its for live
+             //    $filecheck=  config('app.'.$app_path).$image->address; //its for live
 
-             // // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+             // // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
 
              //    if (file_exists($filecheck)) {
 
-             //        '<div  class="imageFrame"><button><a href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+             //        '<div  class="imageFrame"><button><a href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
 
 
 
@@ -904,7 +904,7 @@ $(".example6").fancybox({
 
              //    {
 
-             //        $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+             //        $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px"  class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
 
 
 
@@ -1062,7 +1062,7 @@ $(".example6").fancybox({
         if ($delete) {
             echo 'delete success';
         }
-        $destinationPath = Config::get('app.order_images_before');   //2
+        $destinationPath = config('app.order_images_before');   //2
         unlink($destinationPath . $filename);
     }
 
@@ -1159,14 +1159,14 @@ $(".example6").fancybox({
 
  
         foreach ($images as $image) {
-                $filecheck= Config::get('app.'.$app_path).$image->address; //its for live
+                $filecheck= config('app.'.$app_path).$image->address; //its for live
             
-             // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+             // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
             if (file_exists($filecheck)) {
-                // $popDiv.= '<div  class="imageFrame"><button><a href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
-                $popDiv.= '<div  class="imageFrame"><a class="dwnldBtn" href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" download ><i class="fa-icon-download" aria-hidden="true"></i></a>  <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeAdditionalImage('.$additional_service_id.',this,\''.$type.'\');" >X</a></div>';
+                // $popDiv.= '<div  class="imageFrame"><button><a href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+                $popDiv.= '<div  class="imageFrame"><a class="dwnldBtn" href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" download ><i class="fa-icon-download" aria-hidden="true"></i></a>  <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeAdditionalImage('.$additional_service_id.',this,\''.$type.'\');" >X</a></div>';
             } else {
-                $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url')."/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$additional_service_id.',this,\''.$type.'\');" >X</a></div>';
+                $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url')."/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$additional_service_id.',this,\''.$type.'\');" >X</a></div>';
             }
 
             //           $OrderImagesPosition     =OrderImagesPosition::where('order_image_id','=',$image->id)->get();
@@ -1277,13 +1277,13 @@ $(".example6").fancybox({
 
 
         foreach ($images as $image) {
-                $filecheck= Config::get('app.'.$app_path).$image->address; //its for live
-             // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.Config::get('app.'.$app_path).$image->address;
+                $filecheck= config('app.'.$app_path).$image->address; //its for live
+             // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
             if (file_exists($filecheck)) {
-                // $popDiv.= '<div  class="imageFrame"><button><a href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
-                $popDiv.= '<div  class="imageFrame"><a class="dwnldBtn" href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" download ><i class="fa-icon-download" aria-hidden="true"></i></a>  <a  href="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url').'/'.Config::get('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+                // $popDiv.= '<div  class="imageFrame"><button><a href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+                $popDiv.= '<div  class="imageFrame"><a class="dwnldBtn" href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" download ><i class="fa-icon-download" aria-hidden="true"></i></a>  <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
             } else {
-                $popDiv.= '<div  class="imageFrame"> <a  href="'.Config::get('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.Config::get('app.url')."/img/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
+                $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url')."/img/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
             }
             
             $OrderImagesPosition     =OrderImagesPosition::where('order_image_id', '=', $image->id)->get();
@@ -1374,14 +1374,14 @@ $(".example6").fancybox({
         $order_details_id = $data['order_detail_id'];
         $type = $data['type'];
         if ($type == 'before') {
-            $config_path = Config::get('app.order_images_before');
+            $config_path = config('app.order_images_before');
         } elseif ($type == 'after') {
-            $config_path = Config::get('app.order_images_after');
+            $config_path = config('app.order_images_after');
         }
         $popDiv = '';
         $images=OrderImage::where('order_id', '=', $order_id)->where('order_details_id', '=', $order_details_id)->where('type', '=', $type)->get();
         foreach ($images as $image) {
-            $popDiv.='<div class="imageFrame"><img src="'.Config::get('app.url').'/'.$config_path.$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></div>';
+            $popDiv.='<div class="imageFrame"><img src="'.config('app.url').'/'.$config_path.$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></div>';
         }
         return $popDiv;
     }
@@ -1396,13 +1396,13 @@ $(".example6").fancybox({
         $delete=OrderImage::where('order_id', '=', $order_id)->where('order_details_id', '=', $order_details_id)->where('address', '=', $filename)->where('type', '=', $type)->delete();
         if ($delete) {
             if ($type=='before') {
-                $destinationPath = Config::get('app.order_images_before');   //2
+                $destinationPath = config('app.order_images_before');   //2
                 unlink($destinationPath . $filename);
             } elseif ($type=='during') {
-                $destinationPath = Config::get('app.order_images_during');   //2
+                $destinationPath = config('app.order_images_during');   //2
                 unlink($destinationPath . $filename);
             } else {
-                $destinationPath = Config::get('app.order_images_after');   //2
+                $destinationPath = config('app.order_images_after');   //2
                 unlink($destinationPath . $filename);
             }
         }
@@ -1424,14 +1424,14 @@ $(".example6").fancybox({
         }
         if ($delete) {
             if ($type=='before') {
-                $destinationPath = Config::get('order_additional_images_before');   //2
+                $destinationPath = config('order_additional_images_before');   //2
                
                 unlink();
             } elseif ($type=='during') {
-                $destinationPath = Config::get('order_additional_images_during');   //2
+                $destinationPath = config('order_additional_images_during');   //2
                 unlink($destinationPath . $filename);
             } else {
-                $destinationPath = Config::get('order_additional_images_after');   //2
+                $destinationPath = config('order_additional_images_after');   //2
                 unlink($destinationPath . $filename);
             }
         }
@@ -1718,7 +1718,7 @@ Completion Date: ".$orders[0]->completion_date;
     {
         $assets = Order::orderBy('id', 'desc')->get();
 
-        return View::make('pages.admin.status-report')
+        return view('pages.admin.status-report')
         ->with([
         'assets_data' => $assets]);
     }

@@ -27,7 +27,7 @@ class UserController extends Controller
             return $redirect;
         } else {
             // show the form
-            return View::make('home');
+            return view('home');
         }
     }
 
@@ -43,13 +43,13 @@ class UserController extends Controller
         $customer = DB::table('user_types')->where('title', 'customer')->pluck('id');
         $vendor = DB::table('user_types')->where('title', 'vendors')->pluck('id');
 
-        return View::make('pages.customer.registration')->with('customer', $customer)->with('vendor', $vendor);
+        return view('pages.customer.registration')->with('customer', $customer)->with('vendor', $vendor);
     }
 
     public function showThankYou($user_id)
     {
         $user = User::find($user_id);
-        return View::make('pages.thankyou')->with('user', $user);
+        return view('pages.thankyou')->with('user', $user);
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends Controller
 
 
         if ($validator->fails()) {
-            return Redirect::to('user-register')
+            return redirect('user-register')
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
         } else {
@@ -121,7 +121,7 @@ class UserController extends Controller
 
                 Email::send(Input::get('email'), 'Welcome to GSS', 'emails.customer_registered', $email_data);
                
-                return Redirect::to('thankyou/' . $id);
+                return redirect('thankyou/' . $id);
             }
         }
     }
@@ -140,7 +140,7 @@ class UserController extends Controller
             // show the form
             $userdata = ['status' => 1 ];
             $save = User::find($id)->update($userdata);
-            return View::make('home')->with('active', $id);
+            return view('home')->with('active', $id);
         }
     }
     
@@ -171,7 +171,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             $messages = $validator->messages();
 
-            return Redirect::to('/')
+            return redirect('/')
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
         } else {
@@ -223,7 +223,7 @@ class UserController extends Controller
     public function doLoginAsUser($userid)
     {
         Auth::loginUsingId($userid);
-         return Redirect::to('/');
+         return redirect('/');
     }
 
     /**
@@ -271,7 +271,7 @@ class UserController extends Controller
       
 
         $CustomerType=CustomerType::get();
-        return View::make('common.edit_profile')
+        return view('common.edit_profile')
         ->with('cities', $cities)
         ->with('states', $states)
         ->with('user_data', $user_data)
@@ -357,7 +357,7 @@ class UserController extends Controller
                 }
                 $file = Input::file('profile_picture');
                 if ($file) {
-                    $destinationPath = Config::get('app.upload_path');
+                    $destinationPath = config('app.upload_path');
                     $filename = $file->getClientOriginalName();
                     $filename = str_replace('.', '-' . $username . '.', 'profile-' . $filename);
                     $data['profile_picture'] = $filename;
@@ -382,7 +382,7 @@ class UserController extends Controller
                 }
             }
         } else {
-            return Redirect::to('/');
+            return redirect('/');
         }
     }
 
@@ -404,57 +404,57 @@ class UserController extends Controller
         if ($user_type == 'vendors') {
             if ($profile_status == 0 && $user_status == 1) {
                 $redirect = 'vendor-profile-complete';
-                return Redirect::to($redirect);
+                return redirect($redirect);
             } else if ($profile_status == 1 && $user_status == 1) {
                 $redirect = $user_type;
-                return Redirect::to($redirect);
+                return redirect($redirect);
             } else if ($profile_status == 0 && $user_status == 0) {
                 $redirect = '/';
                 Auth::logout();
-                return Redirect::to($redirect);
+                return redirect($redirect);
             } else if ($user_status == 0) {
                 $redirect = '/';
                 Auth::logout();
-                return Redirect::to($redirect);
+                return redirect($redirect);
             } else if ($user_status == 0) {
                 $redirect = '/';
                 Auth::logout();
-                return Redirect::to($redirect)
+                return redirect($redirect)
                                 ->withErrors(['password' => 'Your are not approved by admin yet.']);
             }
         } else if ($user_type == 'admin' || $user_type == 'user') {
             if ($user_status == 1) {
                 $redirect = 'admin';
-                return Redirect::to($redirect);
+                return redirect($redirect);
             } else {
                 $redirect = '/';
                 Auth::logout();
-                return Redirect::to($redirect)
+                return redirect($redirect)
                                 ->withErrors(['password' => 'Your are not approved by admin yet.']);
             }
         } else if ($user_type == 'customer') {
             if ($profile_status < 1 && $user_status > 0) {
                 $redirect = 'customer-profile-complete';
-                return Redirect::to($redirect);
+                return redirect($redirect);
                 ;
             } else if ($profile_status > 0 && $user_status > 0) {
                 $redirect = $user_type;
-                return Redirect::to($redirect);
+                return redirect($redirect);
                 ;
             } else if ($profile_status < 1 && $user_status < 1) {
                 $redirect = '/';
                 Auth::logout();
-                return Redirect::to($redirect);
+                return redirect($redirect);
                 ;
             } else if ($user_status == 0) {
                 $redirect = '/';
                 Auth::logout();
-                return Redirect::to($redirect)
+                return redirect($redirect)
                                 ->withErrors(['password' => 'Your are not approved by admin yet.']);
             } else if ($user_status == 0) {
                 $redirect = '/';
                 Auth::logout();
-                return Redirect::to($redirect);
+                return redirect($redirect);
             }
         }
     }

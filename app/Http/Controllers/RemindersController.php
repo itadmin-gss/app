@@ -20,7 +20,7 @@ class RemindersController extends Controller
     public function getRemind()
     {
 
-        return View::make('forgot_password');
+        return view('forgot_password');
     }
 
 
@@ -40,7 +40,7 @@ class RemindersController extends Controller
 
 
 
-             $from_email = Config::get('app.admin_email');
+             $from_email = config('app.admin_email');
 
         switch ($response = Password::remind(Input::only('email'), function ($message) use ($from_email) {
 
@@ -78,12 +78,12 @@ class RemindersController extends Controller
     {
 
         if (is_null($token)) {
-            App::abort(404);
+            abort(404);
         }
 
 
 
-        return View::make('password_reset')->with('token', $token);
+        return view('password_reset')->with('token', $token);
     }
 
 
@@ -136,7 +136,7 @@ class RemindersController extends Controller
 
 
             case Password::PASSWORD_RESET:
-                return Redirect::to('/');
+                return redirect('/');
         }
     }
 }

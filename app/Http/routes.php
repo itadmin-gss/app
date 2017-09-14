@@ -26,7 +26,7 @@
 
 //   Route::get('pdf', function(){
    
-//       print_r(Config::get('app.bid_images_before'));
+//       print_r(config('app.bid_images_before'));
 // });	
  Route::get('work-order-info', function () {
       
@@ -75,7 +75,7 @@
 
     Session::put('clientType', "");
 
-    return View::make('home');
+    return view('home');
  });
 
   Route::match(['GET', 'POST'], 'update-additional-service/{id}', ['uses' => 'ServiceController@updateAdditionalItem']);
