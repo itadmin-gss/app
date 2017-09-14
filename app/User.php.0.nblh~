@@ -1,0 +1,172 @@
+<?php
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Auth\Authenticatable;
+
+
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+
+    use UserTrait,
+        RemindableTrait;
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['password', 'remember_token'];
+    protected $fillable = ['id', 'first_name', 'last_name', 'company', 'email', 'username', 'password', 'phone', 'address_1', 'address_2', 'city_id', 'state_id', 'zipcode', 'profile_image', 'type_id', 'user_role_id', 'profile_status', 'status', 'remember_token', 'created_at', 'updated_at', 'profile_picture','latitude','longitude'];
+
+    public function userType() {
+        return $this->belongsTo('App\UserType', 'type_id');
+    }
+
+    public function userRole() {
+        return $this->belongsTo('App\UserRole', 'user_role_id');
+    }
+
+    public function maintenanceRequest() {
+        return $this->hasMany('App\MaintenanceRequest', 'customer_id');
+    }
+
+    public function assignRequest() {
+        return $this->hasMany('App\AssignRequest', 'vendor_id');
+    }
+    
+    public function specialPrice() {
+        return $this->hasMany('App\SpecialPrice', 'customer_id');
+    }
+
+    public function asset() {
+        return $this->hasMany('App\Asset', 'customer_id');
+    }
+
+    public function orderVendor() {
+        $user_type = UserType::where('title', '=', 'vendors');
+        $user_type_id = $user_type->id;
+        return $this->hasMany('App\Order', 'vendor_id')->where('type_id', '=', $user_type_id);
+    }
+
+    public function orderCustomer() {
+        $user_type = UserType::where('title', '=', 'customer');
+        $user_type_id = $user_type->id;
+        return $this->hasMany('App\Order', 'customer_id')->where('type_id', '=', $user_type_id);
+    }
+
+    public static function createUser($data) {
+        $users = User::create($data);
+        return $users->id;
+    }
+
+    public static function profile($data, $id) {
+        $save = User::find($id)->update($data);
+        return $save;
+    }
+
+    public static function getProfileStatusById($id) {
+        $user = Self::find($id);
+        return $user->profile_status; //return user type
+    }
+
+    public static function getUserStatusById($id) {
+        $user = Self::find($id);
+        return $user->status; //return user type
+    }
+
+    public static function getUserFullName($id) {
+        $user_detail = Self::find($id);
+        if (sizeof($user_detail) > 0)
+            $data = $user_detail->first_name . ' ' . $user_detail->last_name;
+        else // show user not found
+            $data = "User Not Found";
+
+        return $data;
+    }
+
+    // Defining Function to get User Status by ID. ---- End
+
+    public static function updateAdminUser($user_data, $user_id) {
+        $user = Self::find($user_id);
+        $user->first_name = $user_data['first_name'];
+        $user->last_name = $user_data['last_name'];
+        $user->email = $user_data['email'];
+        $user->user_role_id = $user_data['role_id'];
+        $save = $user->save();
+        return ($save) ? true : false;
+    }
+
+    public static function getAllCustomers() {
+        $customers = Self::where('type_id', '=', 2)->get();
+        foreach ($customers as $cus) {
+            $cust[$cus->id] = $cus->first_name . ' ' . $cus->last_name;
+        }
+        return $cust;
+    }
+    
+    public static function getAllVendors() {
+        $usertype=UserType::where('title','=','vendors')->first();
+        $vendors = Self::where('type_id', '=', $usertype->id)->get();
+        return $vendors;
+    }
+
+   public static function getCustomers(){
+       $customers = Self::where('type_id', '=', 2)->get();
+       return $customers;
+   }
+
+	public static function getAdminUser()
+	{
+		$users = Self::where('type_id', '=', 4)->get();
+		return $users;
+	}
+
+    public function getTable() {
+        return $this->table;
+    }
+    /*
+     * Function Name : getUserByTypeId
+     * @params :$type_id
+     * @description : This function is being used for getting all available vendors with respect to the following conditions
+     * 1.	All the nearest vendors according to zipcodes
+       2.	All the vendors previously worked for this Asset
+       3.	All vendors previously assigned this same request with cross sign will be available so 
+     */
+    public function getUserByTypeId($type_id=1,$lat=0,$lon=0,$nearest_dist=600)
+    {
+       
+      
+         $users = Self::select(
+            DB::raw("*,( 6371 * acos( cos( radians(?) ) *
+                            cos( radians(latitude ) )
+                            * cos( radians(longitude ) - radians(?)
+                            ) + sin( radians(?) ) *
+                            sin( radians( latitude ) ) )
+                          ) AS distance"))
+            ->having("distance", "<", $nearest_dist)
+            ->having("type_id", "=", $type_id)   
+            ->orderBy("distance")
+            ->setBindings([$lat, $lon, $lat])
+            ->get();
+         
+           $vendors_previously_worked_for_this_assset=MaintenanceRequest::getMaintenanceRequestByAssetId(1);
+           $vendors=[]
+           foreach($vendors_previously_worked_for_this_assset as $vendors_data)
+           {
+              $vendors[]= $vendors_data->user->id; 
+           }
+           print_r( $vendors);
+         
+        return $users;
+        
+    }
+
+}
