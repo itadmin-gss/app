@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+
 // This filter will redirect user to login if already logged in user try to access user registration. ----- Start -----
 Route::filter('loginCheck', function () {
     if (Auth::check()) {

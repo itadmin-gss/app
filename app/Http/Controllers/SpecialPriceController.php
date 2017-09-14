@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FlashMessage;
+use App\Helpers\General;
 use App\Service;
 use App\SpecialPrice;
 use App\User;
@@ -136,7 +138,7 @@ class SpecialPriceController extends Controller
                 $data = Request::all();
                 $service=$data['service_id'];
                 $customer=$data['customer_id'];
-                       
+
                     $save = SpecialPrice::updateSpecialPrice($data, $special_price_id);
                 if ($save) {
                     return FlashMessage::displayAlert("Price has been modified", 'success');

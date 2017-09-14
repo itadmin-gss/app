@@ -10,7 +10,9 @@ use App\BidServiceImage;
 use App\City;
 use App\CustomerType;
 use App\EmailNotification;
-use App\Http\Requests\Request;
+use App\Helpers\Email;
+use App\Helpers\FlashMessage;
+use App\Helpers\General;
 use App\MaintenanceRequest;
 use App\Order;
 use App\OrderDetail;
@@ -23,9 +25,9 @@ use App\UserType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -147,12 +149,12 @@ class CustomerController extends Controller
 
 
                 //User Notification Email for profile completeness
-                                
+
                 $email_data = [
                 'user_email_template'=>EmailNotification::$user_email_completeness_template];
                 Email::send(Auth::user()->email, 'Your profile has been completed', 'emails.user_email_template', $email_data);
  //End Nofication Email Code
-                                
+
                 $data['profile_status'] = 1;
                 $save = User::profile($data, $id);
                 if ($save) {
@@ -212,7 +214,7 @@ class CustomerController extends Controller
                     ->subject('Customer Created By Admin!')
                     ->from($from_email, 'GSS');
                 });
-                
+
                 Mail::send('emails.admin_customer_created_for_admin', $data, function ($message) use ($from_email, $data) {
                     $message->to($from_email, Request::get('Admin'))
                     ->subject('Customer Created!')
@@ -226,7 +228,7 @@ class CustomerController extends Controller
             }
         }
             $CustomerType  = CustomerType::get();
-        
+
 
         return view('pages.admin.add_customer')
         ->with('CustomerType', $CustomerType);
@@ -248,7 +250,7 @@ class CustomerController extends Controller
             ]);
         // return view('pages.admin.list_customer');
     }
-    
+
     function activeCustomer($id)
     {
         if (Auth::check()) {
@@ -307,7 +309,7 @@ List all workorders
         $orders = Order::where('customer_id', '=', $user_id)
                     ->orderBy('id', 'desc')
                     ->whereHas('MaintenanceRequest', function ($query) {
-                   
+
                          $query ->whereHas('Asset', function ($query2) {
                             // $query2->where('customer_type', '=',  Session::get('clientType'));
                          });
@@ -477,7 +479,7 @@ List all workorders
             ->orderBy('id', 'desc')
             ->get();
 
-    
+
         $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
@@ -492,7 +494,7 @@ List all workorders
             $assign_requests[$i]['price'] = '';
             $assign_requests[$i]['customer_name'] = $request->user->first_name .' '. $request->user->last_name;
             $assign_requests[$i]['asset_number'] = $request->asset->asset_number;
-        
+
               $assign_requests[$i]['property_address'] = $request->asset->address;
                $assign_requests[$i]['zip'] = $request->asset->zip;
 
@@ -521,7 +523,7 @@ List all workorders
                 }
             }
 
- 
+
 
             $i++;
         }
@@ -544,7 +546,7 @@ List all workorders
 
         $requests = BidRequest::where('customer_id', '=', $user_id)->where('status', "=", 2)->orderBy('id', 'desc')->get();
 
-        
+
         $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
@@ -573,7 +575,7 @@ List all workorders
 
         $requests = BidRequest::where('customer_id', '=', $user_id)->where('status', "=", 3)->orderBy('id', 'desc')->get();
 
-        
+
         $assign_requests = [];
         $i = 0;
         foreach ($requests as $request) {
@@ -606,12 +608,12 @@ List all workorders
 
 
         $request_maintenance = BidRequest::find($maintenance_request_id);
-        
+
         $assign_requests = BidRequestedService::where('request_id', '=', $maintenance_request_id)
-        
+
         ->get();
-        
-        
+
+
 
         return view('pages.customer.viewcustomermaintenancerequest')
         ->with([
@@ -628,10 +630,10 @@ List all workorders
     public function acceptBidRequest()
     {
         $input = Request::all();
-            
+
         $BidRequestedService = BidRequestedService::where('request_id', '=', $input['request_id'])
         ->get();
-            
+
 
         $bidData=[];
         foreach ($BidRequestedService as $biddatavalue) {
@@ -653,13 +655,13 @@ List all workorders
             $bidData['storage_shed']=$biddatavalue->storage_shed;
             $bidData['lot_size']    =$biddatavalue->lot_size;
             $bidData['bidding_prince']=$biddatavalue->biding_prince;
-           
+
             $add_requested_service = RequestedService::addRequestedService($bidData);
             $request_detail_id = DB::getPdo()->lastInsertId(); // get last id of service
-           
-           
+
+
             $imageDataArray=BidServiceImage::where('requested_id', '=', $biddatavalue->id)->get();
-           
+
             foreach ($imageDataArray as $imageData) {
                 $image_detail['requested_id'] = $request_detail_id;
                 $image_detail['image_name'] = $imageData->image_name;
@@ -671,10 +673,10 @@ List all workorders
             $dataRequests['requested_service_id']=$request_detail_id;
             $dataRequests['vendor_id']=$input['vendor_id'];
             $dataRequests['status']=3;
-        
+
 
             $accept_request = AssignRequest::create($dataRequests);
-        
+
             $orderDATA= Order::where('request_id', '=', $biddatavalue->maintenance_request_id)
             ->where('vendor_id', '=', $input['vendor_id'])
             ->first();
@@ -689,7 +691,7 @@ List all workorders
         $data = ['status' => 2 ];
         $save = BidRequest::find($input['request_id'])->update($data);
 
-    
+
         return "OSR has been accepted. New Work Order will now be generated.";
     }
 
@@ -704,7 +706,7 @@ List all workorders
         $data = ['status' => 3 ];
         $save = BidRequest::find($input['request_id'])->update($data);
 
-        
+
         return "OSR has been declined";
     }
 

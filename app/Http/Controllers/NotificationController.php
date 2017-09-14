@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Email;
 use App\Notification;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 class NotificationController extends Controller
 {
@@ -68,11 +70,11 @@ class NotificationController extends Controller
             } else {
             }
         }
-        
+
         return $notification;
     }
 
-  
+
     /**
      * Display a listing of the resource.
      *
@@ -155,17 +157,17 @@ class NotificationController extends Controller
     }
     public function ChangeAllNotificationStatus()
     {
-       
+
                Notification::where('id', '>=', 1)
                         ->update(['is_read'=>0]);
          return Redirect::back();
     }
-    
+
     public function listNotifications()
     {
         $getNotifications    =  Notification::getNotificationsAll(Auth::user()->id);
 
-    
+
         return view('pages.notifications')// return to page
                         ->with('get_notifications', $getNotifications);
     }

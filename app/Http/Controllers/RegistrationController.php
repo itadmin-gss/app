@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Registration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -87,7 +87,7 @@ class RegistrationController extends Controller
                     Session::flash('message', 'Your account has been created successfully.');
                     return redirect('user-register');
                 }
-            }
+              }
     }
 
     

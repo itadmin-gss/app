@@ -2,24 +2,14 @@
 
 namespace App;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Reminders\RemindableInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\UserTrait;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class User extends Model implements UserInterface, RemindableInterface
+class User extends Authenticatable
 {
     use Notifiable;
-
     use SoftDeletes;
-
-    use UserTrait,
-    RemindableTrait;
 
     /**
      * The database table used by the model.
@@ -36,7 +26,7 @@ class User extends Model implements UserInterface, RemindableInterface
     protected $hidden = ['password', 'remember_token'];
     protected $fillable = ['id', 'first_name', 'last_name', 'company', 'email', 'username', 'password', 'phone', 'address_1', 'address_2', 'city_id', 'state_id', 'zipcode', 'profile_image', 'type_id', 'user_role_id', 'profile_status', 'status', 'remember_token', 'created_at', 'updated_at', 'profile_picture', 'latitude', 'longitude','customer_type_id','available_zipcodes','office_notes' ];
 
-     
+
     public function customerType()
     {
         return $this->belongsTo(\App\CustomerType::class, 'customer_type_id');
@@ -80,7 +70,7 @@ class User extends Model implements UserInterface, RemindableInterface
     {
         return $this->hasMany(\App\Asset::class, 'customer_id');
     }
-    
+
     public function vendorService()
     {
         return $this->hasMany(\App\VendorService::class, 'vendor_id');
@@ -201,7 +191,7 @@ class User extends Model implements UserInterface, RemindableInterface
         }
            return $user_ids;
     }
-     
+
 
     public static function getAllUsersEmailByIds($ids)
     {
@@ -352,7 +342,7 @@ class User extends Model implements UserInterface, RemindableInterface
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         * Easy set variables
         */
-         
+
         /* Array of database columns which should be read and sent back to DataTables. Use a space where
         * you want to insert a non-database field (for example a counter or static image)
         */
@@ -362,18 +352,18 @@ class User extends Model implements UserInterface, RemindableInterface
 
         /* DB table to use */
         $sTable = "users";
-         
+
         $gaSql['user']       = config('database.connections.mysql.username');
         $gaSql['password']   = config('database.connections.mysql.password');
         $gaSql['db']         = config('database.connections.mysql.database');
         $gaSql['server']     = config('database.connections.mysql.host');
-         
-         
+
+
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         * If you just want to use the basic configuration for DataTables with PHP server-side, there is
         * no need to edit below this line
         */
-         
+
         /*
         * Local functions
         */
@@ -382,20 +372,20 @@ class User extends Model implements UserInterface, RemindableInterface
             header($_SERVER['SERVER_PROTOCOL'] .' 500 Internal Server Error');
             die($sErrorMessage);
         }
-         
-         
+
+
         /*
         * MySQL connection
         */
         if (! $gaSql['link'] = mysql_pconnect($gaSql['server'], $gaSql['user'], $gaSql['password'])) {
             fatal_error('Could not open connection to server');
         }
-         
+
         if (! mysql_select_db($gaSql['db'], $gaSql['link'])) {
             fatal_error('Could not select database ');
         }
-         
-         
+
+
         /*
         * Paging
         */
@@ -404,8 +394,8 @@ class User extends Model implements UserInterface, RemindableInterface
             $sLimit = "LIMIT ".intval($_GET['iDisplayStart']).", ".
                     intval($_GET['iDisplayLength']);
         }
-         
-         
+
+
         /*
         * Ordering
         */
@@ -418,14 +408,14 @@ class User extends Model implements UserInterface, RemindableInterface
                         ($_GET['sSortDir_'.$i]==='asc' ? 'asc' : 'desc') .", ";
                 }
             }
-         
+
             $sOrder = substr_replace($sOrder, "", -2);
             if ($sOrder == "ORDER BY") {
                 $sOrder = "";
             }
         }
-         
-         
+
+
         /*
         * Filtering
         * NOTE this does not match the built-in DataTables filtering which does it
@@ -469,7 +459,7 @@ class User extends Model implements UserInterface, RemindableInterface
             // $sWhere = substr_replace( $sWhere, "", -3 );
             // $sWhere .= ')';
         }
-         
+
         /* Individual column filtering */
         for ($i=0; $i<count($aColumns); $i++) {
             if (isset($_GET['bSearchable_'.$i]) && $_GET['bSearchable_'.$i] == "true" && $_GET['sSearch_'.$i] != '') {
@@ -481,8 +471,8 @@ class User extends Model implements UserInterface, RemindableInterface
                 $sWhere .= "`".$aColumns[$i]."` LIKE '%".mysql_real_escape_string(trim($_GET['sSearch_'.$i]))."%' ";
             }
         }
-         
-         
+
+
         /*
         * SQL queries
         * Get data to display
@@ -495,7 +485,7 @@ class User extends Model implements UserInterface, RemindableInterface
             $sLimit
             ";
         $rResult = mysql_query($sQuery, $gaSql['link']) or fatal_error('MySQL Error: ' . exit($sQuery));
-         
+
         /* Data set length after filtering */
         $sQuery = "
     SELECT FOUND_ROWS()
@@ -503,7 +493,7 @@ class User extends Model implements UserInterface, RemindableInterface
         $rResultFilterTotal = mysql_query($sQuery, $gaSql['link']) or fatal_error('MySQL Error: ' . mysql_errno());
         $aResultFilterTotal = mysql_fetch_array($rResultFilterTotal);
         $iFilteredTotal = $aResultFilterTotal[0];
-         
+
         /* Total data set length */
         $sQuery = "
     SELECT COUNT(`".$sIndexColumn."`)
@@ -512,8 +502,8 @@ class User extends Model implements UserInterface, RemindableInterface
         $rResultTotal = mysql_query($sQuery, $gaSql['link']) or fatal_error('MySQL Error: ' . mysql_errno());
         $aResultTotal = mysql_fetch_array($rResultTotal);
         $iTotal = $aResultTotal[0];
-         
-         
+
+
         /*
         * Output
         */if (empty($_GET['sEcho'])) {

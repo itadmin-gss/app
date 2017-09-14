@@ -11,6 +11,9 @@ use App\BidRequestedService;
 use App\BidServiceImage;
 use App\City;
 use App\EmailNotification;
+use App\Helpers\Email;
+use App\Helpers\FlashMessage;
+use App\Helpers\General;
 use App\Invoice;
 use App\JobType;
 use App\MaintenanceBid;
@@ -23,8 +26,8 @@ use App\State;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
@@ -302,7 +305,7 @@ class VendorController extends Controller
 
 
                  //User Notification Email for profile completeness
-              
+
                 $email_data = [
                 'user_email_template'=>EmailNotification::$user_email_completeness_template];
                 Email::send(Auth::user()->email, 'Your profile has been completed', 'emails.user_email_template', $email_data);
@@ -474,7 +477,7 @@ class VendorController extends Controller
             } else {
                 $list_orders[$i]['asset_number'] = "";
             }
-     
+
             // $list_orders[$i]['due_date'] = $duedate;
             $list_orders[$i]['due_date'] = '';
             $list_orders[$i]['service_name'] = '';
@@ -499,8 +502,8 @@ class VendorController extends Controller
                            $list_orders[$i]['zipcode'] = "";
             }
 
-        
-       
+
+
 
             $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
             $list_orders[$i]['status'] = $order->status;
@@ -525,7 +528,7 @@ class VendorController extends Controller
         }
           return view('pages.vendors.list_orders')->with('orders', $list_orders);
     }
-    
+
 
 
     /**
@@ -920,7 +923,7 @@ class VendorController extends Controller
 
             $customervendor="Admin";
             $notification_url="admin-bid-requests";
-              
+
     //Vendor to admin notification
             $notification = NotificationController::doNotification($rec_id, $rec_id, 'OSR '.$request_id .' has been created', 1, $email_data, $notification_url);
             Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);
@@ -991,7 +994,7 @@ class VendorController extends Controller
             }
 
 
-            
+
 
             $i++;
         }
@@ -1083,17 +1086,17 @@ class VendorController extends Controller
     {
          $data = Request::all();
 
-     
+
          $declined_notesdata = [
             'biding_prince'       => $data['vendorPrice'],
-           
+
             ];
 
               $save = BidRequestedService::where('id', '=', $data['assignid'])
               ->update($declined_notesdata);
 
 
-          
+
 
 
               $BidRequestedService=BidRequestedService::find($data['assignid']);
@@ -1101,7 +1104,7 @@ class VendorController extends Controller
 
               $StatusDATA = [
             'status'       => 1,
-           
+
               ];
 
               $save = BidRequest::where('id', '=', $BidRequestedService->request_id)
@@ -1124,7 +1127,7 @@ class VendorController extends Controller
                   $emailbody.= 'State:'.$BidRequestEmailDATA->asset->state->name;
                   ;
                   $emailbody.= '<br/>';
-                  
+
 
                   $url="admin-bid-requests/".$BidRequestedService->request_id;
                   $emailbody.='To view the OSR <a href="http://'.URL::to($url).'">please click here</a>!.';
@@ -1143,7 +1146,7 @@ class VendorController extends Controller
 
                   $customervendor="Admin";
                   $notification_url="admin-bid-requests";
-              
+
                     //Vendor to admin notification
                   $notification = NotificationController::doNotification($rec_id, $rec_id, 'OSR '.$BidRequestedService->request_id .' has been modified after decline', 1, $email_data, $notification_url);
                   Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);
@@ -1159,7 +1162,7 @@ class VendorController extends Controller
             $data=Request::all();
             $request_id=$data['requested_id'];
             $type=$data['image_type'];
-           
+
             $tempFile = $_FILES['file']['tmp_name'];          //3
             $targetPath = $destinationPath;  //4
             $originalFile=$_FILES['file']['name'];
@@ -1170,7 +1173,7 @@ class VendorController extends Controller
                 $data['image_name']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
-                
+
                 setcookie('request_id', $request_id);
                 setcookie('type', $type);
                 $save=AssignRequestBidsImage::create($data);
@@ -1187,7 +1190,7 @@ class VendorController extends Controller
     {
         $data = Request::all();
         $order_id = $data['id'];
-   
+
         $type = $data['type'];
         $popDiv='';
         $app_path="";
@@ -1200,11 +1203,11 @@ class VendorController extends Controller
         }
 
         $images=AssignRequestBidsImage::where('requested_id', '=', $order_id)->get();
-        
-      
+
+
         $tag_counter = 1;
         $output="";
-     
+
 
         foreach ($images as $image) {
              $filecheck=  '/home/gssreo/public_html/'.config('app.'.$app_path).$image->address;
@@ -1215,19 +1218,19 @@ class VendorController extends Controller
             }
             $OrderImagesPosition     =OrderImagesPosition::where('order_image_id', '=', $image->id)->get();
             $OrderImagesPositionCount=OrderImagesPosition::where('order_image_id', '=', $image->id)->count();
- 
+
 
             $tag_counter = 1;
 
       //Build output
-       
+
             foreach ($OrderImagesPosition as $tag) {
                 if ($tag_counter ==1) {
                     $output .= '<style type="text/css">';
                     $output .=  '.map'.$tag->order_image_id.' { display:none;}';
                 }
-       
-       
+
+
                     $output .=  '.map'.$tag->order_image_id.' .map .tag_'.$tag_counter.$tag->order_image_id.' { ';
                     // $output .= 'border:1px solid #000;';
                     $output .= 'background:url("'.URL::to('/').'/public/assets/images/tag_hotspot_62x62.png") no-repeat;';
@@ -1237,8 +1240,8 @@ class VendorController extends Controller
                     $output .= 'height:'.$tag['h'].'px;';
 
                     $output .= '}';
-        
-    
+
+
                    $tag_counter++;
             }
             if ($tag_counter !=1) {
@@ -1246,15 +1249,15 @@ class VendorController extends Controller
             }
 
             $tag_counter = 1;
-  
+
             if ($OrderImagesPositionCount>0) {
                 foreach ($OrderImagesPosition as $tag) {
                     if ($tag_counter ==1) {
                             $output.= '<div class="map'.$tag->order_image_id.'"><ul class="map">';
                     }
                     $output.=  '<li class="tag_'.$tag_counter.$tag->order_image_id.'" id="uniq'.$tag->id.'"><a  href="javascript:;"><span class="titleDs">'.$tag['comment'].' </span></a><a href="javascript:;" class="removeBtn" onclick="deletePhotoTag('.$tag->id.')">X</a></li>';
-           
-          
+
+
                     $tag_counter++;
                 }
             } else {
@@ -1267,7 +1270,7 @@ class VendorController extends Controller
                 $output.= "</ul></div>";
             }
         }
-         
+
 
         $popDiv.= '<script type="text/javascript">
             $(".example6").fancybox({

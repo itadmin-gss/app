@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Asset;
 use App\City;
 use App\CustomerType;
-use App\Http\Requests\Request;
+use App\Helpers\FlashMessage;
 use App\Order;
 use App\Recurring;
 use App\Service;
@@ -13,8 +13,8 @@ use App\ServiceCategory;
 use App\State;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
@@ -786,7 +786,7 @@ class AssetController extends Controller
 
 
             $message = '';
-        
+
             $city_id = Request::get('city_id');
             $city = City::find($city_id)->name;
             $zip = Request::get('zipcode');
@@ -797,7 +797,7 @@ class AssetController extends Controller
             $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
             $data['latitude'] = $result['lat'];
             $data['longitude'] = $result['lng'];
-        
+
             $property_dead_status=0;
             if (Request::get('property_status')=='closed' || Request::get('property_status')=='inactive') {
                 $property_dead_status=1;
@@ -857,8 +857,8 @@ class AssetController extends Controller
 
 
         /*
-        ->with('zipcode',$myresult['overall']->results[0]->address_components[0]->long_name) 
-            ->with('City',$myresult['overall']->results[0]->address_components[1]->long_name) 
+        ->with('zipcode',$myresult['overall']->results[0]->address_components[0]->long_name)
+            ->with('City',$myresult['overall']->results[0]->address_components[1]->long_name)
             */
             $zipcode="";
             $state="";

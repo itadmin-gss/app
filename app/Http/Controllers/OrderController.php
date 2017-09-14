@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AdditionalServiceItem;
 use App\AdditionalServiceItemImage;
 use App\Asset;
+use App\Helpers\Email;
 use App\Invoice;
 use App\MaintenanceRequest;
 use App\Order;
@@ -45,16 +46,16 @@ class OrderController extends Controller
 
 
         //$job_type =MaintenanceRequest::where('id','=',$order_req)->pluck('job_type');
-        
+
         $client_id = Asset::getAssetInformationById($services_asset_id);
        // print_r($services_asset_id);
        // exit("asdl");
         $allservices = Service::getServicesByClientId($client_id->customer_type);
                 // echo "<pre>";
                 // print_r($allservices);
-            
+
            $orderFLAG = Order::getOrderByID($order_id);
-        
+
         $vendorsDATA=User::where('type_id', '=', 3)->get();
         $OrderReviewNote=OrderReviewNote::where('order_id', '=', $order_id)->get();
 
@@ -67,11 +68,11 @@ class OrderController extends Controller
         if ($submitted) {
         } else {
             $order = Order::getOrderByID($order_id);
-            
+
             $order_details = $order->orderDetail;
-            
+
             $before_image_flag=OrderImage::where('order_id', '=', $order_id)->where('type', '=', 'before')->first();
-            
+
             if ($before_image_flag) {
                 $before_image=1;
             } else {
@@ -89,8 +90,8 @@ class OrderController extends Controller
             // $service_titles = Service::where('id','=',$service_ids)->pluck("title");
             // print_r($testvariable);
             // exit();
-            
-          
+
+
             $items = AdditionalServiceItem::where('order_id', '=', $order_id)->get();
 
             if (OrderCustomData::where('order_id', '=', $order_id)->count() > 0) {
@@ -98,7 +99,7 @@ class OrderController extends Controller
             } else {
                 $customData[1] = "lol";
             }
-            
+
 
                 // print_r($edit_order);
             //$allservices = Service::getAllServices();
@@ -115,13 +116,13 @@ class OrderController extends Controller
     }
 
 
-    
+
 
     public function orderImage($order_id)
     {
         $orderimages = OrderImage::where('order_id', '=', $order_id)->get();
-      
-      
+
+
         $ImagesArray=[];
         $ImagesArray['before']=0;
         $ImagesArray['after']=0;
@@ -195,7 +196,7 @@ class OrderController extends Controller
                 $data['address']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
-                
+
                 setcookie('order_id', $order_id);
                 setcookie('order_details_id', $order_details_id);
                 setcookie('type', $type);
@@ -207,14 +208,14 @@ class OrderController extends Controller
             }
         }
     }
-    
+
     public function addAdditionalBeforeImages()
     {
 
         $destinationPath = config('app.order_additional_images_before');   //2
         if (!empty($_FILES)) {
             $data=Request::all();
-            
+
             $additional_service_id=$data['additional_service_id'];
             $type=$data['type'];
             $tempFile = $_FILES['file']['tmp_name'];          //3
@@ -234,13 +235,13 @@ class OrderController extends Controller
             }
 
             $targetFile = imagejpeg($image, $targetFile, 80);
-            
+
             $moved=move_uploaded_file($tempFile, $targetFile); //6
             if ($moved) {
                 $data['address']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
-                
+
                 setcookie('additional_service_id', $additional_service_id);
                 setcookie('type', $type);
                 $save=  AdditionalServiceItemImage::createImage($data);
@@ -283,7 +284,7 @@ class OrderController extends Controller
                 $data['address']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
-                
+
                 setcookie('additional_service_id', $additional_service_id);
                 setcookie('type', $type);
                 $save=AdditionalServiceItemImage::createImage($data);
@@ -326,7 +327,7 @@ class OrderController extends Controller
                 $data['address']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
-                
+
                 setcookie('order_id', $order_id);
                 setcookie('order_details_id', $order_details_id);
                 setcookie('type', $type);
@@ -369,7 +370,7 @@ class OrderController extends Controller
                 $data['address']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
-                
+
                 setcookie('additional_service_id', $additional_service_id);
                 setcookie('type', $type);
                 $save=AdditionalServiceItemImage::createImage($data);
@@ -412,7 +413,7 @@ class OrderController extends Controller
                 $data['address']=$changedFileName;
                 unset($data['file']);
                 unset($data['_token']);
-                
+
                 setcookie('order_id', $order_id);
                 setcookie('order_details_id', $order_details_id);
                 setcookie('type', $type);
@@ -423,7 +424,7 @@ class OrderController extends Controller
             }
         }
     }
-    
+
     public function deleteOrderAllBeforeImages()
     {
         $data=Request::all();
@@ -456,7 +457,7 @@ class OrderController extends Controller
             $delete=OrderImage::where('order_id', '=', $order_id)->where('type', '=', 'after')->delete();
         }
     }
-    
+
     public function deleteAfterImages()
     {
         $data = Request::all();
@@ -549,7 +550,7 @@ class OrderController extends Controller
         }
         $images = '';
         $images = $beforeimages ." ". $duringimages." ".$afterimages;
-   
+
         return $images;
     }
     public function downloadSeletedImages()
@@ -611,7 +612,7 @@ class OrderController extends Controller
         }
         $images = '';
         $images = $beforeimages ." ". $duringimages." ".$afterimages;
-   
+
         return $images;
     }
     public function displayAdditionalExportImages()
@@ -1104,7 +1105,7 @@ $(".example6").fancybox({
         $id = Request::get('additional_id');
         $additional_vendors_notes = Request::get('additional_vendors_notes');
         $save = AdditionalServiceItem::where('id', '=', $id)->update(['additional_vendors_notes' => $additional_vendors_notes]);
-                
+
         if ($save) {
             return $additional_vendors_notes;
         }
@@ -1178,10 +1179,10 @@ $(".example6").fancybox({
         $tag_counter = 1;
         $output="";
 
- 
+
         foreach ($images as $image) {
                 $filecheck= config('app.'.$app_path).$image->address; //its for live
-            
+
              // $filecheck=  'C:\xampp\htdocs\phpnewlatest\\'.config('app.'.$app_path).$image->address;
             if (file_exists($filecheck)) {
                 // $popDiv.= '<div  class="imageFrame"><button><a href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" download >Download</a></button>  <a  href="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url').'/'.config('app.'.$app_path).$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
@@ -1245,7 +1246,7 @@ $(".example6").fancybox({
             //        $output.= "</ul></div>";
             //    }
         }
-     
+
 
 
         $popDiv.= '<script type="text/javascript">
@@ -1291,8 +1292,8 @@ $(".example6").fancybox({
         }
 
         $images=OrderImage::where('order_id', '=', $order_id)->where('order_details_id', '=', $order_details_id)->where('type', '=', $type)->get();
-        
-      
+
+
         $tag_counter = 1;
         $output="";
 
@@ -1306,22 +1307,22 @@ $(".example6").fancybox({
             } else {
                 $popDiv.= '<div  class="imageFrame"> <a  href="'.config('app.url')."/".$image->address.'" data-image_id="'.$image->id.'" class="example6" rel="group1"> <img  src="'.config('app.url')."/img/".$image->address.'" width="120px" height="120px" class="img-thumbnail" alt="'.$image->address.'"></a><a  href="#" class="deletImg" data-value="'.$image->address.'" onclick="removeImage('.$order_id.','.$order_details_id.',this,\''.$type.'\');" >X</a></div>';
             }
-            
+
             $OrderImagesPosition     =OrderImagesPosition::where('order_image_id', '=', $image->id)->get();
             $OrderImagesPositionCount=OrderImagesPosition::where('order_image_id', '=', $image->id)->count();
- 
+
 
             $tag_counter = 1;
 
       //Build output
-       
+
             foreach ($OrderImagesPosition as $tag) {
                 if ($tag_counter ==1) {
                     $output .= '<style type="text/css">';
                     $output .=  '.map'.$tag->order_image_id.' { display:none;}';
                 }
-       
-       
+
+
                     $output .=  '.map'.$tag->order_image_id.' .map .tag_'.$tag_counter.$tag->order_image_id.' { ';
                     // $output .= 'border:1px solid #000;';
                     $output .= 'background:url("'.URL::to('/').'/public/assets/images/tag_hotspot_62x62.png") no-repeat;';
@@ -1331,8 +1332,8 @@ $(".example6").fancybox({
                     $output .= 'height:'.$tag['h'].'px;';
 
                     $output .= '}';
-        
-    
+
+
                    $tag_counter++;
             }
             if ($tag_counter !=1) {
@@ -1340,15 +1341,15 @@ $(".example6").fancybox({
             }
 
             $tag_counter = 1;
-  
+
             if ($OrderImagesPositionCount>0) {
                 foreach ($OrderImagesPosition as $tag) {
                     if ($tag_counter ==1) {
                             $output.= '<div class="map'.$tag->order_image_id.'"><ul class="map">';
                     }
                     $output.=  '<li class="tag_'.$tag_counter.$tag->order_image_id.'" id="uniq'.$tag->id.'"><a  href="javascript:;"><span class="titleDs">'.$tag['comment'].' </span></a><a href="javascript:;" class="removeBtn" onclick="deletePhotoTag('.$tag->id.')">X</a></li>';
-           
-          
+
+
                     $tag_counter++;
                 }
             } else {
@@ -1361,7 +1362,7 @@ $(".example6").fancybox({
                 $output.= "</ul></div>";
             }
         }
-         
+
 
          $popDiv.= '<script type="text/javascript">
             $(".example6").fancybox({
@@ -1387,7 +1388,7 @@ $(".example6").fancybox({
         </script>';
         return $popDiv;
     }
-    
+
     public function displayViewImages()
     {
         $data = Request::all();
@@ -1406,7 +1407,7 @@ $(".example6").fancybox({
         }
         return $popDiv;
     }
-    
+
     public function deleteImageById()
     {
         $data = Request::all();
@@ -1446,7 +1447,7 @@ $(".example6").fancybox({
         if ($delete) {
             if ($type=='before') {
                 $destinationPath = config('order_additional_images_before');   //2
-               
+
                 unlink();
             } elseif ($type=='during') {
                 $destinationPath = config('order_additional_images_during');   //2
@@ -1458,14 +1459,18 @@ $(".example6").fancybox({
         }
         return $delete;
     }
+
+    /**
+     *
+     */
     public function changeStatus()
     {
-        
+
         $order_id= Request::get('order_id');
         if (Auth::user()->type_id==3 && Request::get('orderstatusid')==2) {
             $totalRequestedServices = Request::get('totalRequestedServices');
             $orderimages=OrderImage::where('order_id', '=', $order_id)->count();
-      
+
             if ($orderimages < $totalRequestedServices) {
                   echo "Sorry, no photos have been uploaded. Please upload your BEFORE and AFTER photos in order to complete the work order.";
                 die;
@@ -1505,7 +1510,7 @@ $(".example6").fancybox({
                 $serviceType=$order_detail->requestedService->service->title;
             }
 
-  
+
             $emailUrl="edit-order/".$order_id;
             $EmailDATA =   $order_id. " has been marked In Process. To view work order details <a href='".URL::to($emailUrl)."'> click here:</a>
 <br/>Order ID: ".$order_id." <br/>
@@ -1564,7 +1569,7 @@ Service Type: ".$serviceType;
                     }
                 } else {
                     // $customer_price+=$order_detail->requestedService->service->customer_price;
-            
+
                     if ($order_detail->requestedService->quantity=="" || $order_detail->requestedService->quantity==0) {
                         $customer_price+=$order_detail->requestedService->service->customer_price;
                     } else {
@@ -1616,7 +1621,7 @@ Completion Date: ".$orders[0]->completion_date;
                 //Send to admins
                 $message =   "Vendor has changed the status of order to ".Request::get('orderstatus_text')." of order number ". $order_id;
                 //send system notifications to admin users
-              
+
                 $recepient_id = User::getAdminUsersId();
             foreach ($recepient_id as $rec_id) {
                 $notification = NotificationController::doNotification($rec_id, Auth::user()->id, $message, 2, [], "list-work-order-admin");
@@ -1624,20 +1629,20 @@ Completion Date: ".$orders[0]->completion_date;
 
                 //Send to customer
                 $recepient_id = $orders[0]->customer->id;
-               
+
                  NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "customer-list-work-orders");
         } elseif (Auth::user()->type_id==2) {
               //Send to vendor
               $message =  "Customer has changed the status of order to ".Request::get('orderstatus_text')." of order number ". $order_id;
               $recepient_id = $orders[0]->vendor->id;
-               
+
                NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "vendor-list-orders");
               //End comments
         } else {
           //Send to vendor
             $message =  "Admin has changed the status of order to ".Request::get('orderstatus_text')." of order number ". $order_id;
             $recepient_id = $orders[0]->vendor->id;
-               
+
             NotificationController::doNotification($recepient_id, Auth::user()->id, $message, 2, [], "vendor-list-orders");
           //End comments
         }
@@ -1655,7 +1660,7 @@ Completion Date: ".$orders[0]->completion_date;
     {
         $completion_date= Request::get('completion_date');
 
-      
+
         $order_id= Request::get('order_id');
         $data = Order::where("id", "=", $order_id)->pluck("vendor_submitted");
         if (empty($data)) {
@@ -1669,11 +1674,11 @@ Completion Date: ".$orders[0]->completion_date;
             'completion_date'  => $completion_date
             ];
         }
-       
+
 
         $save = Order::where('id', '=', $order_id)
         ->update($orderdata);
-        
+
         echo "Completion date has been updated";
     }
     function closePropertyStatus()
@@ -1713,7 +1718,7 @@ Completion Date: ".$orders[0]->completion_date;
             $data['order_id'] = $order_id;
             $data['vendor_id'] = $vendorid;
             $data['review_notes'] = $under_review_notes;
-            
+
 
         $vname=OrderReviewNote::create($data);
 
@@ -1723,7 +1728,7 @@ Completion Date: ".$orders[0]->completion_date;
     function photoTag()
     {
         $data = Request::all();
-    
+
 
           $result= OrderImagesPosition::create($data);
         return $result->id;

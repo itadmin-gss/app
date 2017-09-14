@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\AdditionalServiceItem;
 use App\Asset;
 use App\City;
-use App\Http\Requests\Request;
+use App\Helpers\FlashMessage;
+use App\Helpers\General;
 use App\MaintenanceBid;
 use App\MaintenanceRequest;
 use App\Order;
@@ -33,7 +34,7 @@ class AjaxController extends Controller
         $next = Order::where('id', '>', $order_id)->where("status", "=", 2)->min('id');
 
         $data = Order::getOrderByID($order_id);
-        
+
         $order_details = $data->orderDetail;
         $vendorsDATA=User::where('type_id', '=', 3)->get();
         $items = AdditionalServiceItem::where('order_id', '=', $order_id)->get();
@@ -48,14 +49,14 @@ class AjaxController extends Controller
 
 
         //$job_type =MaintenanceRequest::where('id','=',$order_req)->pluck('job_type');
-        
+
         $client_id = Asset::getAssetInformationById($services_asset_id);
         if (isset($client_id->customer_type)) {
             $allservices = Service::getServicesByClientId($client_id->customer_type);
         } else {
               $allservices = Service::getAllServices();
         }
-        
+
         return view('common.quick-view-order')
            ->with('order_details', $order_details)
            ->with('vendorsDATA', $vendorsDATA)
@@ -97,10 +98,10 @@ class AjaxController extends Controller
             //Get all asset information by asset_id
 
 
-        
+
 
             $asset_information = Asset::getAssetInformationById($data['asset_id']);
-           
+
             return view('pages.customer.asset_information')
             ->with('asset_information', $asset_information)
             ->with('latitude', $asset_information->latitude)
@@ -127,7 +128,7 @@ class AjaxController extends Controller
             $last_service_id = $id;
             $service_data = Service::find($id);
 
-       
+
             $serviceTypeArray=[];
             $serviceValueArray=[];
             $serviceTypes                     =   ServiceFieldDetail::getServiceFieldById($last_service_id);
@@ -166,7 +167,7 @@ class AjaxController extends Controller
             $serviceValueArray['pool_service_type']='';
             $serviceValueArray['boarding_type']='';
             $serviceValueArray['spruce_up_type']='';
-           
+
 
             $serviceValueArray['constable_information_type']='';
             $serviceValueArray['remove_carpe_type']='';
@@ -201,7 +202,7 @@ class AjaxController extends Controller
 
         $data = Request::all();
 
-        
+
         $files = Request::file('service_image_' . $data['service_id']);
         $i = 0;
         foreach ($files as $file) {
@@ -233,7 +234,7 @@ class AjaxController extends Controller
 
         $data = Request::all();
 
-        
+
         $files = Request::file('service_image_' . $data['service_id']);
         $i = 0;
         foreach ($files as $file) {
@@ -304,7 +305,7 @@ class AjaxController extends Controller
         $data = Request::all();
 
         $id = $data['service_id'];
-        
+
             $string_ids = implode(',', $id);
 
             $array_id = explode(',', $string_ids);
@@ -351,7 +352,7 @@ class AjaxController extends Controller
             $serviceValueArray['pool_service_type']='';
             $serviceValueArray['boarding_type']='';
             $serviceValueArray['spruce_up_type']='';
-           
+
 
             $serviceValueArray['constable_information_type']='';
             $serviceValueArray['remove_carpe_type']='';
@@ -375,12 +376,12 @@ class AjaxController extends Controller
     public function loadServiceOnJobType()
     {
         $Input=Request::all();
-       
+
         $services =  Service::getAllServicesBySeviceJobTypeId($Input['job_type'], $Input['client_type']);
         $dataService=[];
 
         $options="";
-      
+
         $servicesData=[];
         $i=0;
         foreach ($services as $value) {
@@ -438,26 +439,26 @@ class AjaxController extends Controller
 
 // }else{
 // $data= array(
-  
+
 //     'vendor_bid_price' =>  $Input['vendor_bid_price']
 //     );
 
 //     $statusMessage="Vendor Price Changed";
-//     //Status 3  is for when vendor entered price 
+//     //Status 3  is for when vendor entered price
 //            MaintenanceBid::where('id','=', $requestDataBid->request_id)
 //            ->update(array('status'=>3));
 
-         
+
 // }
 
 //      $MaintenanceBid= MaintenanceBid::find($requestDataBid->request_id);
 
 //     //Notification to Customer
 //            $emailbody='Bid Request '.$requestDataBid->request_id .' status has been changed to '.$statusMessage;
-                   
+
 
 //                    $url="list-customer-requested-bids/".$requestDataBid->request_id;
-//                    $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.'; 
+//                    $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
 
 
 //             $userDAta=User::find($MaintenanceBid->user->id);
@@ -472,13 +473,13 @@ class AjaxController extends Controller
 
 //             $customervendor="Customer";
 //             $notification_url="list-customer-requested-bids";
-              
+
 //             //Vendor to admin notification
 //             $notification = NotificationController::doNotification($MaintenanceBid->user->id,$MaintenanceBid->user->id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to '. $statusMessage, 1,$email_data,$notification_url);
 //            Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
-       
+
 //   $save = RequestedBid::where('id','=',$Input['id'])
-//           ->update($data); 
+//           ->update($data);
 //       // $save = AssignRequestBid::where('requested_service_id','=',$Input['id'])
 //       //     ->update(array('status'=>2));
 
@@ -486,10 +487,10 @@ class AjaxController extends Controller
 // ///Notification to admin
 
 //                    $emailbody='Bid Request '.$requestDataBid->request_id .' status has been changed to '.$statusMessage;
-                   
+
 
 //                    $url="list-bidding-request/".$requestDataBid->request_id;
-//                    $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.'; 
+//                    $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
 
 
 
@@ -511,11 +512,11 @@ class AjaxController extends Controller
 
 //             $customervendor="Admin";
 //             $notification_url="list-bidding-request";
-              
+
 //             //Vendor to admin notification
 //             $notification = NotificationController::doNotification($rec_id,$rec_id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to Completed Vendor Bid', 1,$email_data,$notification_url);
-//            Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);   
-       
+//            Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
+
 
 
 // }
@@ -534,7 +535,7 @@ class AjaxController extends Controller
         if (isset($Input['customer_bid_price'])&& $Input['customer_bid_price']!="") {
             $data= [
             'customer_bid_price' =>  $Input['customer_bid_price'],
-    
+
             'bypassornot'=> $Input['bypassornot']
                 ];
 
@@ -548,7 +549,7 @@ class AjaxController extends Controller
 
           Session::flash('message', "Your Bid has been sent successfully!");
            FlashMessage::displayAlert("Your Bid has been sent successfully!", 'success');
-    
+
 
 
         $assetData=Asset::find($MaintenanceBid->asset_id);
@@ -576,7 +577,7 @@ Service Type:".$serviceType;
 
 
         $emailbody='Bid Request '.$requestDataBid->request_id .' status has been changed to '.$statusMessage;
-                   
+
 
          $url="list-customer-requested-bids/".$requestDataBid->request_id;
          $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
@@ -584,7 +585,7 @@ Service Type:".$serviceType;
 
 
         $emailRmainder='Bid '.$requestDataBid->request_id .' Still awaiting Approval';
-                   
+
 
          $urlRmainder="list-customer-requested-bids/".$requestDataBid->request_id;
          $emailRmainder.='\nTo view the Bid Request <a href="http://'.URL::to($urlRmainder).'">please click here</a>!.';
@@ -603,11 +604,11 @@ Service Type:".$serviceType;
 
             $customervendor="Customer";
             $notification_url="list-customer-requested-bids";
-              
+
             //Vendor to admin notification
             $notification = NotificationController::doNotification($MaintenanceBid->user->id, $MaintenanceBid->user->id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to '. $statusMessage, 1, $email_data, $notification_url);
              Email::send($userDAta->email, $subject, 'emails.customer_registered', $email_data);
-       
+
 
 
               $save = RequestedBid::where('id', '=', $Input['id'])
@@ -619,7 +620,7 @@ Service Type:".$serviceType;
         ///Notification to admin
 
                    $emailbody='Bid Request '.$requestDataBid->request_id .' status has been changed to '.$statusMessage;
-                   
+
 
                    $url="list-bidding-request/".$requestDataBid->request_id;
                    $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
@@ -641,7 +642,7 @@ Service Type:".$serviceType;
 
                 $customervendor="Admin";
                 $notification_url="list-bidding-request";
-              
+
                 //Vendor to admin notification
                 $notification = NotificationController::doNotification($rec_id, $rec_id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to Completed Vendor Bid', 1, $email_data, $notification_url);
                 Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
@@ -672,7 +673,7 @@ Service Type:".$serviceType;
         if (isset($Input['vendor_bid_price'])&& $Input['vendor_bid_price']!="") {
             $data= [
             'vendor_bid_price' =>  $Input['vendor_bid_price'],
-    
+
             'vendor_note_for_bid'=> $Input['vendor_note_for_bid']
                 ];
 
@@ -688,7 +689,7 @@ Service Type:".$serviceType;
            FlashMessage::displayAlert("Thank you for submitting your bid", 'success');
         // //Notification to Customer
         // $emailbody='Bid Request '.$requestDataBid->request_id .' status has been changed to '.$statusMessage;
-                   
+
 
         //  $url="list-customer-requested-bids/".$requestDataBid->request_id;
         //  $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
@@ -706,11 +707,11 @@ Service Type:".$serviceType;
 
         //         $customervendor="Customer";
         //         $notification_url="list-customer-requested-bids";
-              
+
         //         //Vendor to admin notification
         //         $notification = NotificationController::doNotification($MaintenanceBid->user->id,$MaintenanceBid->user->id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to '. $statusMessage, 1,$email_data,$notification_url);
         //      Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
-       
+
 
 
           $save = RequestedBid::where('id', '=', $Input['id'])
@@ -722,7 +723,7 @@ Service Type:".$serviceType;
         ///Notification to admin
 
                    $emailbody='Bid Request '.$requestDataBid->request_id .' status has been changed to '.$statusMessage;
-                   
+
 
                    $url="list-bidding-request/".$requestDataBid->request_id;
                    $emailbody.='To view the Bid Request <a href="http://'.URL::to($url).'">please click here</a>!.';
@@ -744,7 +745,7 @@ Service Type:".$serviceType;
 
             $customervendor="Admin";
             $notification_url="list-bidding-request";
-              
+
     //Vendor to admin notification
             $notification = NotificationController::doNotification($rec_id, $rec_id, 'Bid Request '.$requestDataBid->request_id .' status has been changed to Completed Vendor Bid', 1, $email_data, $notification_url);
             Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
