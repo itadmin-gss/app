@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 
 
 
@@ -72,7 +75,7 @@ class State extends BaseTenantModel
 
 
 
-        return $this->hasMany('City', 'state_id');
+        return $this->hasMany('App\City', 'state_id');
     }
 
 

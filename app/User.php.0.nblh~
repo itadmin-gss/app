@@ -27,39 +27,39 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $fillable = ['id', 'first_name', 'last_name', 'company', 'email', 'username', 'password', 'phone', 'address_1', 'address_2', 'city_id', 'state_id', 'zipcode', 'profile_image', 'type_id', 'user_role_id', 'profile_status', 'status', 'remember_token', 'created_at', 'updated_at', 'profile_picture','latitude','longitude'];
 
     public function userType() {
-        return $this->belongsTo('UserType', 'type_id');
+        return $this->belongsTo('App\UserType', 'type_id');
     }
 
     public function userRole() {
-        return $this->belongsTo('UserRole', 'user_role_id');
+        return $this->belongsTo('App\UserRole', 'user_role_id');
     }
 
     public function maintenanceRequest() {
-        return $this->hasMany('MaintenanceRequest', 'customer_id');
+        return $this->hasMany('App\MaintenanceRequest', 'customer_id');
     }
 
     public function assignRequest() {
-        return $this->hasMany('AssignRequest', 'vendor_id');
+        return $this->hasMany('App\AssignRequest', 'vendor_id');
     }
     
     public function specialPrice() {
-        return $this->hasMany('SpecialPrice', 'customer_id');
+        return $this->hasMany('App\SpecialPrice', 'customer_id');
     }
 
     public function asset() {
-        return $this->hasMany('Asset', 'customer_id');
+        return $this->hasMany('App\Asset', 'customer_id');
     }
 
     public function orderVendor() {
         $user_type = UserType::where('title', '=', 'vendors');
         $user_type_id = $user_type->id;
-        return $this->hasMany('Order', 'vendor_id')->where('type_id', '=', $user_type_id);
+        return $this->hasMany('App\Order', 'vendor_id')->where('type_id', '=', $user_type_id);
     }
 
     public function orderCustomer() {
         $user_type = UserType::where('title', '=', 'customer');
         $user_type_id = $user_type->id;
-        return $this->hasMany('Order', 'customer_id')->where('type_id', '=', $user_type_id);
+        return $this->hasMany('App\Order', 'customer_id')->where('type_id', '=', $user_type_id);
     }
 
     public static function createUser($data) {

@@ -1,5 +1,9 @@
 <?php
+
+namespace App;
+
 use Mgallegos\LaravelJqgrid\Repositories\RepositoryInterface;
+
  
 class ExampleRepository implements RepositoryInterface
 {

@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class AccessFunction extends BaseTenantModel
 {
 
@@ -10,7 +13,7 @@ class AccessFunction extends BaseTenantModel
     
     public function roleFunctions()
     {
-        return $this->hasMany('RoleFunction', 'access_function_id');
+        return $this->hasMany('App\RoleFunction', 'access_function_id');
         //return user type
     }
     

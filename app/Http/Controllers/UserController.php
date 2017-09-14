@@ -1,5 +1,26 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\City;
+use App\CustomerType;
+use App\EmailNotification;
+use App\Service;
+use App\State;
+use App\User;
+use App\UserRole;
+use App\UserType;
+use App\VendorService;
+use Cryt\Forms\RegistrationForm;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use JeroenDesloovere\Geolocation\Geolocation;
+
+
 /**
  * User Controller Class.
  *
@@ -7,8 +28,6 @@
  * @copyright Copyright 2014 Devronix Technology Development Team
  * @version $Id: 1.0
  */
-use Cryt\Forms\RegistrationForm;
-use JeroenDesloovere\Geolocation\Geolocation;
 
 class UserController extends Controller
 {

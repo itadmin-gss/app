@@ -1,5 +1,15 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\ResetPassword;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Redirect;
+
+
 
 
 class RemindersController extends Controller

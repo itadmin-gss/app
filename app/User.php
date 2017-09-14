@@ -1,12 +1,17 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
+namespace App;
+
 use Illuminate\Auth\Reminders\RemindableInterface;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Reminders\RemindableTrait;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\UserTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+
+
 
 class User extends Model implements UserInterface, RemindableInterface
 {
@@ -34,65 +39,65 @@ class User extends Model implements UserInterface, RemindableInterface
      
     public function customerType()
     {
-        return $this->belongsTo('CustomerType', 'customer_type_id');
+        return $this->belongsTo('App\CustomerType', 'customer_type_id');
     }
 
     public function userType()
     {
-        return $this->belongsTo('UserType', 'type_id');
+        return $this->belongsTo('App\UserType', 'type_id');
     }
 
     public function userRole()
     {
-        return $this->belongsTo('UserRole', 'user_role_id');
+        return $this->belongsTo('App\UserRole', 'user_role_id');
     }
 
     public function city()
     {
-        return $this->belongsTo('City', 'city_id');
+        return $this->belongsTo('App\City', 'city_id');
     }
 
     public function state()
     {
-        return $this->belongsTo('State', 'state_id');
+        return $this->belongsTo('App\State', 'state_id');
     }
     public function maintenanceRequest()
     {
-        return $this->hasMany('MaintenanceRequest', 'customer_id');
+        return $this->hasMany('App\MaintenanceRequest', 'customer_id');
     }
 
     public function assignRequest()
     {
-        return $this->hasMany('AssignRequest', 'vendor_id');
+        return $this->hasMany('App\AssignRequest', 'vendor_id');
     }
 
     public function specialPrice()
     {
-        return $this->hasMany('SpecialPrice', 'customer_id');
+        return $this->hasMany('App\SpecialPrice', 'customer_id');
     }
 
     public function asset()
     {
-        return $this->hasMany('Asset', 'customer_id');
+        return $this->hasMany('App\Asset', 'customer_id');
     }
     
     public function vendorService()
     {
-        return $this->hasMany('VendorService', 'vendor_id');
+        return $this->hasMany('App\VendorService', 'vendor_id');
     }
 
     public function orderVendor()
     {
         $user_type = UserType::where('title', '=', 'vendors');
         $user_type_id = $user_type->id;
-        return $this->hasMany('Order', 'vendor_id')->where('type_id', '=', $user_type_id);
+        return $this->hasMany('App\Order', 'vendor_id')->where('type_id', '=', $user_type_id);
     }
 
     public function orderCustomer()
     {
         $user_type = UserType::where('title', '=', 'customer');
         $user_type_id = $user_type->id;
-        return $this->hasMany('Order', 'customer_id')->where('type_id', '=', $user_type_id);
+        return $this->hasMany('App\Order', 'customer_id')->where('type_id', '=', $user_type_id);
     }
 
     public static function createUser($data)

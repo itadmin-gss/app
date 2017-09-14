@@ -1,5 +1,14 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Recurring;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+
+
 /**
  *
  * Recuring Controller.

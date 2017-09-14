@@ -1,5 +1,16 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Registration;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+
+
 class RegistrationController extends Controller
 {
 

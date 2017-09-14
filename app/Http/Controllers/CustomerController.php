@@ -1,5 +1,35 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Asset;
+use App\AssignRequest;
+use App\BidRequest;
+use App\BidRequestedService;
+use App\BidServiceImage;
+use App\City;
+use App\CustomerType;
+use App\EmailNotification;
+use App\Http\Requests\Request;
+use App\MaintenanceRequest;
+use App\Order;
+use App\OrderDetail;
+use App\RequestedService;
+use App\ServiceImage;
+use App\State;
+use App\User;
+use App\UserRole;
+use App\UserType;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+
+
 class CustomerController extends Controller
 {
 

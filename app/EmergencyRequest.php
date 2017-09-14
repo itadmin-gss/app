@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class EmergencyRequest extends BaseTenantModel
 {
 
@@ -13,6 +16,6 @@ class EmergencyRequest extends BaseTenantModel
 
     public function emergencyRequestDetail()
     {
-        return $this->hasMany('EmergencyRequestDetail', 'emergency_request_id');
+        return $this->hasMany('App\EmergencyRequestDetail', 'emergency_request_id');
     }
 }

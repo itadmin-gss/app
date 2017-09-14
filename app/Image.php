@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class Image extends BaseTenantModel
 {
 

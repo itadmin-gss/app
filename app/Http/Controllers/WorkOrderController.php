@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Http\Controllers;
+
+
 class WorkOrderController extends Controller
 {
 

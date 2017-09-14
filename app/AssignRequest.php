@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class AssignRequest extends BaseTenantModel
 {
 
@@ -8,17 +11,17 @@ class AssignRequest extends BaseTenantModel
 
     public function requestedService()
     {
-        return $this->belongsTo('RequestedService', 'requested_service_id');
+        return $this->belongsTo('App\RequestedService', 'requested_service_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('MaintenanceRequest', 'request_id');
+        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('User', 'vendor_id');
+        return $this->belongsTo('App\User', 'vendor_id');
     }
     public static function addRequest($data)
     {

@@ -1,4 +1,20 @@
 <?php
+
+namespace App\Http\Controllers;
+
+use App\AssignRequest;
+use App\Cronjob;
+use App\MaintenanceRequest;
+use App\Order;
+use App\OrderDetail;
+use App\Recurring;
+use App\Remainder;
+use App\RequestedService;
+use App\ServiceImage;
+use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+
 /**
  * AccessLevel Controller Class.
  *

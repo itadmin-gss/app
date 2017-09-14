@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 
 
 class RoleDetail extends BaseTenantModel
@@ -20,7 +23,7 @@ class RoleDetail extends BaseTenantModel
     public function roleFunctions()
     {
 
-        return $this->belongsTo('RoleFunction', 'role_function_id');
+        return $this->belongsTo('App\RoleFunction', 'role_function_id');
 
         //return user type
     }
@@ -30,7 +33,7 @@ class RoleDetail extends BaseTenantModel
     public function userRole()
     {
 
-        return $this->belongsTo('UserRole', 'role_id');
+        return $this->belongsTo('App\UserRole', 'role_id');
     }
 
 

@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 
 
 class OrderImage extends BaseTenantModel
@@ -16,7 +19,7 @@ class OrderImage extends BaseTenantModel
     public function orderDetail()
     {
 
-        return $this->belongsTo('OrderDetail', 'order_details_id');
+        return $this->belongsTo('App\OrderDetail', 'order_details_id');
     }
 
     
@@ -24,7 +27,7 @@ class OrderImage extends BaseTenantModel
     public function order()
     {
 
-        return $this->belongsTo('Order', 'order_id');
+        return $this->belongsTo('App\Order', 'order_id');
     }
 
     

@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class AdditionalServiceItemImage extends BaseTenantModel
 {
 

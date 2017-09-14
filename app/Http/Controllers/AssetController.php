@@ -1,6 +1,25 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Asset;
+use App\City;
+use App\CustomerType;
+use App\Http\Requests\Request;
+use App\Order;
+use App\Recurring;
+use App\Service;
+use App\ServiceCategory;
+use App\State;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use JeroenDesloovere\Geolocation\Geolocation;
+
+
 
 class AssetController extends Controller
 {

@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 
 
 class AssignRequestBidsImage extends BaseTenantModel
@@ -36,7 +39,7 @@ class AssignRequestBidsImage extends BaseTenantModel
     public function requestedService()
     {
 
-        return $this->belongsTo('RquestedService', 'requested_id');
+        return $this->belongsTo('App\RquestedService', 'requested_id');
     }
 
 

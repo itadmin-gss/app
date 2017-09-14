@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class ServiceFieldDetail extends BaseTenantModel
 {
     

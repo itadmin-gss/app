@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class BidRequestedService extends BaseTenantModel
 {
 
@@ -10,23 +13,23 @@ class BidRequestedService extends BaseTenantModel
 
     public function service()
     {
-        return $this->belongsTo('Service', 'service_id');
+        return $this->belongsTo('App\Service', 'service_id');
     }
 
     public function asset()
     {
-        return $this->belongsTo('Asset', 'asset_id');
+        return $this->belongsTo('App\Asset', 'asset_id');
     }
 
     
     public function maintenanceRequest()
     {
-        return $this->belongsTo('MaintenanceRequest', 'maintenance_request_id');
+        return $this->belongsTo('App\MaintenanceRequest', 'maintenance_request_id');
     }
 
     public function serviceImages()
     {
-        return $this->hasMany('BidServiceImage', 'requested_id');
+        return $this->hasMany('App\BidServiceImage', 'requested_id');
     }
     public static function addRequestedService($data)
     {

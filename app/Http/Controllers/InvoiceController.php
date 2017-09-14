@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Invoice;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+
+
 class InvoiceController extends Controller
 {
 

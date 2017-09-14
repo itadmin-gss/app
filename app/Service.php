@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class Service extends BaseTenantModel
 {
 
@@ -75,25 +78,25 @@ class Service extends BaseTenantModel
     public function serviceCategory()
     {
 
-        return $this->belongsTo('ServiceCategory', 'service_cat_id');
+        return $this->belongsTo('App\ServiceCategory', 'service_cat_id');
     }
 
     public function requestedService()
     {
-        return $this->hasMany('RequestedService', 'service_id');
+        return $this->hasMany('App\RequestedService', 'service_id');
         //return user type
     }
     
     
     public function specialPrice()
     {
-        return $this->hasMany('SpecialPrice', 'service_id');
+        return $this->hasMany('App\SpecialPrice', 'service_id');
         //return user type
     }
     
     public function orderDetail()
     {
-        return $this->hasMany('OrderDetail', 'service_id');
+        return $this->hasMany('App\OrderDetail', 'service_id');
         //return user type
     }
         
@@ -178,11 +181,11 @@ class Service extends BaseTenantModel
 
     public function getcustomertype()
     {
-        return $this->belongsTo('CustomerType', 'customer_type_id');
+        return $this->belongsTo('App\CustomerType', 'customer_type_id');
     }
 
     public function getjobtype()
     {
-        return $this->belongsTo('JobType', 'job_type_id');
+        return $this->belongsTo('App\JobType', 'job_type_id');
     }
 }

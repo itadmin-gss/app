@@ -1,4 +1,17 @@
 <?php
+
+namespace App\Http\Controllers;
+
+use App\AccessFunction;
+use App\Http\Requests\Request;
+use App\RoleDetail;
+use App\RoleFunction;
+use App\UserRole;
+use App\UserType;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
+
 /**
  * AccessRight Controller Class.
  *

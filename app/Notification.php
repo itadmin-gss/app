@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class Notification extends BaseTenantModel
 {
 
@@ -13,11 +16,11 @@ class Notification extends BaseTenantModel
     protected $fillable = ['id', 'sender_id', 'recepient_id', 'message', 'notification_type_id', 'notification_url','is_read', 'created_date'];
     public function sender()
     {
-        return $this->belongsTo('User', 'sender_id');
+        return $this->belongsTo('App\User', 'sender_id');
     }
     public function recepient()
     {
-        return $this->belongsTo('User', 'recepient_id');
+        return $this->belongsTo('App\User', 'recepient_id');
     }
     public static function add($data)
     {

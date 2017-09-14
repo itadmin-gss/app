@@ -1,5 +1,50 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\AdditionalServiceItem;
+use App\Asset;
+use App\AssignRequest;
+use App\AssignRequestBid;
+use App\AssignRequestBidsImage;
+use App\BidRequest;
+use App\BidRequestedService;
+use App\BidServiceImage;
+use App\City;
+use App\CustomerType;
+use App\Http\Requests\Request;
+use App\Invoice;
+use App\JobType;
+use App\MaintenanceBid;
+use App\MaintenanceRequest;
+use App\Order;
+use App\OrderCustomData;
+use App\RequestedBid;
+use App\RequestedService;
+use App\RoleDetail;
+use App\RoleFunction;
+use App\Service;
+use App\ServiceCategory;
+use App\ServiceFieldDetail;
+use App\SpecialPrice;
+use App\State;
+use App\User;
+use App\UserRole;
+use App\UserType;
+use App\VendorService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
+use JeroenDesloovere\Geolocation\Geolocation;
+
+
 /**
  * Admin Controller Class.
  *
@@ -7,7 +52,6 @@
  * @copyright Copyright 2014 Invortex Technology Development Team
  * @version $Id: 1.0
  */
-use JeroenDesloovere\Geolocation\Geolocation;
 
 class AdminController extends Controller
 {

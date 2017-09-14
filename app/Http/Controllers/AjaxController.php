@@ -1,5 +1,27 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\AdditionalServiceItem;
+use App\Asset;
+use App\City;
+use App\Http\Requests\Request;
+use App\MaintenanceBid;
+use App\MaintenanceRequest;
+use App\Order;
+use App\OrderCustomData;
+use App\OrderReviewNote;
+use App\Remainder;
+use App\RequestedBid;
+use App\Service;
+use App\ServiceFieldDetail;
+use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+
+
 class AjaxController extends Controller
 {
 

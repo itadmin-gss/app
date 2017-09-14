@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class Recurring extends BaseTenantModel
 {
 
@@ -15,10 +18,10 @@ class Recurring extends BaseTenantModel
     
     public function user()
     {
-        return $this->belongsTo('User', 'vendor_id');
+        return $this->belongsTo('App\User', 'vendor_id');
     }
     public function requestedService()
     {
-        return $this->belongsTo('RequestedService', 'request_service_id');
+        return $this->belongsTo('App\RequestedService', 'request_service_id');
     }
 }

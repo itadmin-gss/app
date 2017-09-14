@@ -1,5 +1,10 @@
 <?php
 
+namespace App;
+
+use Illuminate\Support\Facades\Auth;
+
+
 
 class VendorService extends BaseTenantModel
 {
@@ -11,11 +16,11 @@ class VendorService extends BaseTenantModel
         
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\User');
     }
     public function services()
     {
-        return $this->belongsTo('Service', 'service_id');
+        return $this->belongsTo('App\Service', 'service_id');
     }
         
         // Defining Function to get User Profile Status. ---- Start

@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class OrderDetail extends BaseTenantModel
 {
 
@@ -8,17 +11,17 @@ class OrderDetail extends BaseTenantModel
 
     public function order()
     {
-        return $this->belongsTo('Order', 'order_id');
+        return $this->belongsTo('App\Order', 'order_id');
     }
     
     public function orderImage()
     {
-        return $this->hasMany('OrderImage', 'order_details_id');
+        return $this->hasMany('App\OrderImage', 'order_details_id');
     }
     
     public function requestedService()
     {
-        return $this->belongsTo('RequestedService', 'requested_service_id');
+        return $this->belongsTo('App\RequestedService', 'requested_service_id');
     }
 
     

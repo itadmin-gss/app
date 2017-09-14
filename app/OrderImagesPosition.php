@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 
 
 class OrderImagesPosition extends BaseTenantModel

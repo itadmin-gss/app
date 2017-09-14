@@ -1,5 +1,9 @@
 <?php
+
+namespace App;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class SpecialPrice extends BaseTenantModel
 {
@@ -11,12 +15,12 @@ class SpecialPrice extends BaseTenantModel
 
     public function service()
     {
-        return $this->belongsTo('Service', 'service_id');
+        return $this->belongsTo('App\Service', 'service_id');
         //return user type
     }
     public function user()
     {
-        return $this->belongsTo('User', 'customer_id');
+        return $this->belongsTo('App\User', 'customer_id');
         //return user type
     }
     public static function addSpecialPrice($data)

@@ -1,5 +1,35 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Asset;
+use App\AssignRequest;
+use App\AssignRequestBid;
+use App\AssignRequestBidsImage;
+use App\BidRequest;
+use App\EmergencyRequest;
+use App\EmergencyRequestDetail;
+use App\JobType;
+use App\MaintenanceBid;
+use App\MaintenanceRequest;
+use App\Order;
+use App\OrderDetail;
+use App\OrderImage;
+use App\Recurring;
+use App\Remainder;
+use App\RequestedBid;
+use App\RequestedService;
+use App\Service;
+use App\ServiceImage;
+use App\ServiceImageBid;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+
+
 class MaintenanceRequestController extends Controller
 {
 

@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class Invoice extends BaseTenantModel
 {
 
@@ -9,23 +12,23 @@ class Invoice extends BaseTenantModel
 
     public function vendor()
     {
-        return $this->belongsTo('User', 'user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function customer()
     {
-        return $this->belongsTo('User', 'user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
 
     public function order()
     {
-          return $this->belongsTo('Order', 'order_id');
+          return $this->belongsTo('App\Order', 'order_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('MaintenanceRequest', 'request_id');
+        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
     }
     public static function listAll($userTypeId = 2, $user_id = "")
     {

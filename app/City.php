@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 
 
 class City extends BaseTenantModel
@@ -38,7 +41,7 @@ class City extends BaseTenantModel
     public function state()
     {
 
-        return $this->belongsTo('State', 'state_id');
+        return $this->belongsTo('App\State', 'state_id');
     }
 
     
@@ -46,7 +49,7 @@ class City extends BaseTenantModel
     public function user()
     {
 
-        return $this->hasMany('User', 'city_id');
+        return $this->hasMany('App\User', 'city_id');
     }
 
     

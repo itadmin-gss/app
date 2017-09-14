@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Helpers;
+
+use App\User;
+use Illuminate\Support\Facades\Mail;
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 class Order extends BaseTenantModel
 {
 
@@ -9,35 +12,35 @@ class Order extends BaseTenantModel
 
     public function vendor()
     {
-        return $this->belongsTo('User', 'vendor_id');
+        return $this->belongsTo('App\User', 'vendor_id');
     }
 
     public function customer()
     {
-        return $this->belongsTo('User', 'customer_id');
+        return $this->belongsTo('App\User', 'customer_id');
     }
 
     public function maintenanceRequest()
     {
-        return $this->belongsTo('MaintenanceRequest', 'request_id');
+        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
     }
     public function maintenanceRequest2()
     {
-        return $this->hasMany('request_id');
+        return $this->hasMany('App\request_id');
     }
     public function scopeRequest()
     {
-        return $this->belongsTo('MaintenanceRequest', 'request_id');
+        return $this->belongsTo('App\MaintenanceRequest', 'request_id');
     }
 
     public function orderDetail()
     {
-        return $this->hasMany('OrderDetail', 'order_id');
+        return $this->hasMany('App\OrderDetail', 'order_id');
     }
 
     public function orderImage()
     {
-        return $this->hasMany('OrderImage', 'order_id');
+        return $this->hasMany('App\OrderImage', 'order_id');
     }
 
     public static function listAllWorkOrder()

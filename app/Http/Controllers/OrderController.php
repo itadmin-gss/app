@@ -1,5 +1,27 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\AdditionalServiceItem;
+use App\AdditionalServiceItemImage;
+use App\Asset;
+use App\Invoice;
+use App\MaintenanceRequest;
+use App\Order;
+use App\OrderCustomData;
+use App\OrderDetail;
+use App\OrderImage;
+use App\OrderImagesPosition;
+use App\OrderReviewNote;
+use App\RequestedService;
+use App\Service;
+use App\SpecialPrice;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
+
+
 class OrderController extends Controller
 {
 

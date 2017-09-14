@@ -1,5 +1,24 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\AdditionalServiceItem;
+use App\CustomerType;
+use App\JobType;
+use App\OrderCustomData;
+use App\Service;
+use App\ServiceCategory;
+use App\ServiceFieldDetail;
+use App\User;
+use App\VendorService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
+
+
 class ServiceController extends Controller
 {
 

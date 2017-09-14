@@ -1,5 +1,35 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Asset;
+use App\AssignRequest;
+use App\AssignRequestBid;
+use App\AssignRequestBidsImage;
+use App\BidRequest;
+use App\BidRequestedService;
+use App\BidServiceImage;
+use App\City;
+use App\EmailNotification;
+use App\Invoice;
+use App\JobType;
+use App\MaintenanceBid;
+use App\MaintenanceRequest;
+use App\Order;
+use App\OrderDetail;
+use App\OrderImagesPosition;
+use App\Service;
+use App\State;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
+use JeroenDesloovere\Geolocation\Geolocation;
+
+
 /**
  * Vendor Controller Class.
  *
@@ -7,7 +37,6 @@
  * @copyright Copyright 2014 Devronix Technology Development Team
  * @version $Id: 1.0
  */
-use JeroenDesloovere\Geolocation\Geolocation;
 
 class VendorController extends Controller
 {

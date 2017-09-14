@@ -1,5 +1,8 @@
 <?php
 
+namespace App;
+
+
 
 
 class UserType extends BaseTenantModel
@@ -30,7 +33,7 @@ class UserType extends BaseTenantModel
     public function user()
     {
 
-        return $this->belongsTo('Users');
+        return $this->belongsTo('App\Users');
     }
 
 

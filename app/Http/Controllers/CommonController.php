@@ -1,5 +1,21 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\City;
+use App\EmailNotification;
+use App\Http\Requests\Request;
+use App\RoleDetail;
+use App\RoleFunction;
+use App\SpecialPrice;
+use App\User;
+use App\UserRole;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
+
+
 
 
 /**

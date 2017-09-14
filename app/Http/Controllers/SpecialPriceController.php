@@ -1,5 +1,15 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Service;
+use App\SpecialPrice;
+use App\User;
+use App\UserType;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+
+
 class SpecialPriceController extends Controller
 {
 
