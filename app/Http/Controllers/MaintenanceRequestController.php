@@ -854,7 +854,7 @@ class MaintenanceRequestController extends Controller
                          $dataEmergencyRequestDetail['distance']            =$userdata->distance;
                          $dataEmergencyRequestDetail['emergency_request_id']=$emergency_request_id;
                          EmergencyRequestDetail::create($dataEmergencyRequestDetail);
-                    }
+                   }
                     /*
                      Commenting below code for making sure emergency request not being auto assigned assigned
                      */
@@ -880,9 +880,9 @@ class MaintenanceRequestController extends Controller
                     End Commenting
 
                     */
-               } else {
+                } else {
                     // $emergency_request_message=" Your Property address is far away from system vendors, admin will assign it manually. ";
-                 }
+                }
         }
 
 
@@ -1856,7 +1856,7 @@ Service Type:".$serviceType;
                   $image_detail['image_type'] = 'request';
                   $image_detail['status'] = 1;
                   $add_image = ServiceImage::addServiceImage($image_detail);
-              }
+                }
                 $dataRequests['request_id']=$MaintenanceRequestID;
                 $dataRequests['requested_service_id']=$request_detail_id;
                 $dataRequests['vendor_id']=$assignment_data['vendor'];
@@ -1943,7 +1943,7 @@ Service Type:".$serviceType;
                         $add_image = OrderImage::create($image_detail);
                     }
                 }
-          }
+            }
 
             // Created Work Order
             $data = ['status' => 4 ];

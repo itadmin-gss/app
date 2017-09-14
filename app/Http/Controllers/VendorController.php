@@ -1150,7 +1150,7 @@ class VendorController extends Controller
                     //Vendor to admin notification
                   $notification = NotificationController::doNotification($rec_id, $rec_id, 'OSR '.$BidRequestedService->request_id .' has been modified after decline', 1, $email_data, $notification_url);
                   Email::send($userDAta->email, ': OSR Notification', 'emails.customer_registered', $email_data);
-              }
+                }
     }
 
 //Add images for bid when vendor viewing bids
