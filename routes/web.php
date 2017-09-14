@@ -20,13 +20,6 @@
   |
 
  */
-
-// Home Routs
-
-//   Route::get('pdf', function(){
-
-//       print_r(config('app.bid_images_before'));
-// });
 Route::get('work-order-info', function () {
 
     echo "<pre>";
@@ -39,7 +32,8 @@ Route::get('work-order-info', function () {
     echo "Password:" . " " . DB::connection()->getConfig("password");
     echo "<br>";
 });
-Route::get('refresh', ['uses' => 'BaseController@notify']);
+
+//Route::get('refresh', ['uses' => 'BaseController@notify']);
 
 Route::get('/', ['uses' => 'UserController@showLogin']);
 
@@ -85,7 +79,7 @@ Route::match(['GET', 'POST'], 'add-requested-service/{id}', ['uses' => 'ServiceC
 
 #########################################################  Admin Routes ####################################################3
 
-Route::group(['before' => 'auth|adminCheck|adminRightsCheck'], function () {
+Route::group(['middleware' => 'auth|adminCheck|adminRightsCheck'], function () {
 
     // Login Secure Admin Routes
 
@@ -324,8 +318,8 @@ Route::group(['before' => 'auth|adminCheck|adminRightsCheck'], function () {
 
 /* Maintenance Request */
 
-Route::post('create-service-request', ['uses' => 'MaintenanceRequestController@createServiceRequest'])->before('auth');
-Route::post('create-additional-service-request', ['uses' => 'MaintenanceRequestController@createAdditionalServiceRequest'])->before('auth');
+Route::post('create-service-request', ['uses' => 'MaintenanceRequestController@createServiceRequest'])->middleware('auth');
+Route::post('create-additional-service-request', ['uses' => 'MaintenanceRequestController@createAdditionalServiceRequest'])->middleware('auth');
 
 Route::post('edit-service-request', ['uses' => 'MaintenanceRequestController@editServiceRequest']);
 
@@ -385,7 +379,7 @@ Route::match(['GET', 'POST'], 'show-bid-services/{id}', ['uses' => 'AdminControl
 Route::match(['GET', 'POST'], 'show-bid-services/{id}/{flagworkorder}/{customer_bid_price}/{vendor_bid_price}/{requestedServiceBidId}/{due_date}', ['uses' => 'AdminController@showBidServices']);
 
 
-Route::group(['before' => 'auth|customerCheck'], function () {
+Route::group(['middleware' => 'auth|customerCheck'], function () {
 
 
     Route::get('customer', ['uses' => 'CustomerController@index']);
@@ -470,7 +464,7 @@ Route::post('ajax-decline-bid-request', ['uses' => 'MaintenanceRequestController
 
 ################################## Vendor Routes #############################################
 
-Route::group(['before' => 'auth|vendorCheck'], function () {
+Route::group(['middleware' => 'auth|vendorCheck'], function () {
 
     Route::get('vendors', ['uses' => 'VendorController@index']);
 
@@ -649,7 +643,7 @@ Route::match(['GET', 'POST'], 'delete-record', ['uses' => 'CommonController@dele
 Route::get('testing-link', ['uses' => 'AjaxController@testingLink']);
 
 
-Route::group(['before' => 'loginCheck'], function () {
+Route::group(['middleware' => 'loginCheck'], function () {
 
     Route::get('user-register', ['uses' => 'UserController@showRegistration']);
 });
