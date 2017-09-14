@@ -180,7 +180,6 @@ return [
         'GridRender' => 'Mgallegos\LaravelJqgrid\Facades\GridRender',
         'GridEncoder' => 'Mgallegos\LaravelJqgrid\Facades\GridEncoder',
         'Bus' => 'Illuminate\Support\Facades\Bus',
-        'Inspiring' => 'Illuminate\Foundation\Inspiring',
         'Storage' => 'Illuminate\Support\Facades\Storage',
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
