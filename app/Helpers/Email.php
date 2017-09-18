@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Mail\GenericMail;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,9 +17,6 @@ class Email
 
     public static function send($to_email = [], $subject, $template, $email_data = [])
     {
-
-        $from_email = config('app.admin_email');
-        $from_name = config('app.from_email_name');
         $email_data['user_email_template'].='<div dir="ltr"><div class="adM">
 </div><p class="MsoNormal" style="line-height:105%">
 <a href="http://www.gssreo.com/" target="_blank"><span style="font-size:10pt;line-height:105%;font-family:&quot;Times&quot;,serif;text-decoration:none"><img src="http://www.gssreo.com/wp-content/uploads/2015/03/gsslogo.png" border="0" height="58" width="138" class="CToWUd"></span></a><span style="font-size:11pt;line-height:105%;font-family:&quot;Calibri&quot;,sans-serif"></span></p>
@@ -32,15 +30,11 @@ class Email
 
 </div>';
 
- 
+
         $userStatus= User::where('email', '=', $to_email)->pluck("status");
 
         if ($userStatus == 1) {
-            Mail::send($template, $email_data, function ($message) use ($from_email, $to_email, $subject, $from_name) {
-                    $message->to($to_email)
-                    ->subject($subject)
-                    ->from($from_email, $from_name);
-            });
+            Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
         }
     }
 }

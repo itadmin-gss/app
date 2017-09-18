@@ -13,6 +13,8 @@ use App\EmailNotification;
 use App\Helpers\Email;
 use App\Helpers\FlashMessage;
 use App\Helpers\General;
+use App\Mail\AdminCustomerCreated;
+use App\Mail\AdminCustomerCreatedForAdmin;
 use App\MaintenanceRequest;
 use App\Order;
 use App\OrderDetail;
@@ -207,19 +209,9 @@ class CustomerController extends Controller
                 $add_customer = User::createUser($data); // Add customer
                 $data['password'] = $passowrd;
                 $data['user_id'] = $add_customer;
-                $from_email = config('app.admin_email');
-                Mail::send('emails.admin_customer_created', $data, function ($message) use ($from_email) {
 
-                    $message->to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))
-                    ->subject('Customer Created By Admin!')
-                    ->from($from_email, 'GSS');
-                });
-
-                Mail::send('emails.admin_customer_created_for_admin', $data, function ($message) use ($from_email, $data) {
-                    $message->to($from_email, Request::get('Admin'))
-                    ->subject('Customer Created!')
-                    ->from($data['email'], 'GSS');
-                });
+                Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($data));
+                Mail::to(config('app.admin_email'), Request::get('Admin'))->send(new AdminCustomerCreatedForAdmin($data));
             }
 
             if ($add_customer) {
