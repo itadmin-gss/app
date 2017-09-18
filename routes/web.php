@@ -79,7 +79,7 @@ Route::match(['GET', 'POST'], 'add-requested-service/{id}', ['uses' => 'ServiceC
 
 #########################################################  Admin Routes ####################################################3
 
-Route::group(['middleware' => 'auth|adminCheck|adminRightsCheck'], function () {
+Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], function () {
 
     // Login Secure Admin Routes
 
@@ -379,7 +379,7 @@ Route::match(['GET', 'POST'], 'show-bid-services/{id}', ['uses' => 'AdminControl
 Route::match(['GET', 'POST'], 'show-bid-services/{id}/{flagworkorder}/{customer_bid_price}/{vendor_bid_price}/{requestedServiceBidId}/{due_date}', ['uses' => 'AdminController@showBidServices']);
 
 
-Route::group(['middleware' => 'auth|customerCheck'], function () {
+Route::group(['middleware' => ['auth', 'customerCheck']], function () {
 
 
     Route::get('customer', ['uses' => 'CustomerController@index']);
@@ -464,7 +464,7 @@ Route::post('ajax-decline-bid-request', ['uses' => 'MaintenanceRequestController
 
 ################################## Vendor Routes #############################################
 
-Route::group(['middleware' => 'auth|vendorCheck'], function () {
+Route::group(['middleware' => ['auth', 'vendorCheck']], function () {
 
     Route::get('vendors', ['uses' => 'VendorController@index']);
 
@@ -643,7 +643,7 @@ Route::match(['GET', 'POST'], 'delete-record', ['uses' => 'CommonController@dele
 Route::get('testing-link', ['uses' => 'AjaxController@testingLink']);
 
 
-Route::group(['middleware' => 'loginCheck'], function () {
+Route::group(['middleware' => 'guest'], function () {
 
     Route::get('user-register', ['uses' => 'UserController@showRegistration']);
 });
