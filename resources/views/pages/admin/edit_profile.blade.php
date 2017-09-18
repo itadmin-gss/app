@@ -45,7 +45,7 @@
                                         <div class="controls">
                                             {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email', 'readonly'=>'true'))!!}
                                           {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editEmail'))!!}
-                                      
+
                                         </div>
                                     </div>
                                     <div class="control-group">
@@ -115,14 +115,14 @@
                                             {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress2'))!!}
                                         </div>
                                     </div>
-                                    
+
                                      @if($user_data['type_id']==3)
 
                                      <div class="control-group">
                                         {!!Form::label('office_notes', 'Office Notes', array('class' => 'control-label'))!!}
                                         <div class="controls">
                                             {!! Form::textarea('office_notes',  isset($user_data['office_notes']) ? $user_data['office_notes'] : '' , array('class'=>'span10 typeahead','id'=>'office_notes'))!!}
-                                           
+
                                         </div>
                                     </div>
                                     @endif
@@ -134,7 +134,7 @@
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                             <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
                                                 @if($user_data['profile_picture'])
-                                                {!! HTML::image(Config::get('app.upload_path').$user_data['profile_picture']) !!}
+                                                {!! Html::image(Config::get('app.upload_path').$user_data['profile_picture']) !!}
                                                 @endif
                                             </div>
                                             <div>
@@ -195,29 +195,29 @@
 @if($user_data->type_id==3 )
 
 
-                            
+
                            <div class="control-group span3">
                          Vendor Services
-                           
-         
+
+
           <select class="span8 typeahead " id="vendor_services" data-rel="chosen" multiple="true" name="vendor_services[]" >
      {!! $servicesDATAoption!!}
      </select>
-                
-              
-                                   
+
+
+
                             </div>
                                  @endif
-                                
+
                         @if($user_data->type_id==3)
                         <div class="clearfix"></div>
                                <div class="controls control-group">
                                         Service Zipcodes(Comma seprated)
                                         <div class="control-group">
                                             {!! Form::textarea('available_zipcodes', isset($user_data['available_zipcodes']) ? $user_data['available_zipcodes'] : '' , array('class'=>'span10 typeahead','id'=>'available_zipcodes'))!!}
-                                         
+
                                         </div>
-                              </div>   
+                              </div>
                               @endif
 
 

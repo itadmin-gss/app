@@ -40,7 +40,7 @@ class QuickBookController extends Controller
         $this->qbwc();
     }
 
-    
+
 
     public function config()
     {
@@ -61,9 +61,9 @@ class QuickBookController extends Controller
 
 
 
-        $fileid = QuickBooks_WebConnector_QWC::fileID();        // Just make this up, but make sure it keeps that format
+        $fileid = \QuickBooks_WebConnector_QWC::fileID();        // Just make this up, but make sure it keeps that format
 
-        $ownerid = QuickBooks_WebConnector_QWC::ownerID();      // Just make this up, but make sure it keeps that format
+        $ownerid = \QuickBooks_WebConnector_QWC::ownerID();      // Just make this up, but make sure it keeps that format
 
 
 
@@ -81,7 +81,7 @@ class QuickBookController extends Controller
 
         // Generate the XML file
 
-        $QWC = new QuickBooks_WebConnector_QWC($name, $descrip, $appurl, $appsupport, $username, $fileid, $ownerid, $qbtype, $readonly, $run_every_n_seconds);
+        $QWC = new \QuickBooks_WebConnector_QWC($name, $descrip, $appurl, $appsupport, $username, $fileid, $ownerid, $qbtype, $readonly, $run_every_n_seconds);
 
         $xml = $QWC->generate();
 
@@ -98,7 +98,7 @@ class QuickBookController extends Controller
         exit;
     }
 
-    
+
 
     public function qbwc()
     {
@@ -112,7 +112,7 @@ class QuickBookController extends Controller
         $user = 'quickbooks';
         $pass = 'password';
 
-        
+
 
         $username = config('database.connections.mysql.username');
 
@@ -122,7 +122,7 @@ class QuickBookController extends Controller
 
         ini_set('memory_limit', config('quickbooks.quickbooks_memorylimit'));
 
-        
+
 
         // We need to make sure the correct timezone is set, or some PHP installations will complain
 
@@ -134,7 +134,7 @@ class QuickBookController extends Controller
             date_default_timezone_set(config('quickbooks.quickbooks_tz'));
         }
 
-                
+
 
         // Map QuickBooks actions to handler functions
 
@@ -144,7 +144,7 @@ class QuickBookController extends Controller
 
             ];
 
-        
+
 
         // Catch all errors that QuickBooks throws with this function
 
@@ -154,7 +154,7 @@ class QuickBookController extends Controller
 
             ];
 
-        
+
 
         // Call this method whenever the Web Connector connects
 
@@ -164,19 +164,19 @@ class QuickBookController extends Controller
 
             ];
 
-        
+
 
         // An array of callback options
 
         $callback_options = [];
 
-        
+
 
         // Logging level
 
         $log_level = config('quickbooks.quickbooks_loglevel');
 
-        
+
 
         // What SOAP server you're using
 
@@ -184,13 +184,13 @@ class QuickBookController extends Controller
 
         $soapserver = QUICKBOOKS_SOAPSERVER_BUILTIN;        // A pure-PHP SOAP server (no PHP ext/soap extension required, also makes debugging easier)
 
-        
+
 
         $soap_options = [      // See http://www.php.net/soap
 
             ];
 
-        
+
 
         $handler_options = [
 
@@ -200,7 +200,7 @@ class QuickBookController extends Controller
 
             ];      // See the comments in the QuickBooks/Server/Handlers.php file
 
-        
+
 
         $driver_options = [        // See the comments in the QuickBooks/Driver/<YOUR DRIVER HERE>.php file ( i.e. 'Mysql.php', etc. )
 
@@ -210,7 +210,7 @@ class QuickBookController extends Controller
 
             ];
 
-        
+
 
         // Build the database connection string
 
@@ -226,46 +226,46 @@ class QuickBookController extends Controller
 
         $dsn = 'mysqli://' . $db_user . ':' . $db_pass  . '@' . $db_host . '/' . $db_db;
 
-        
+
         $primary_key_of_your_customer = 4;
 
-        $Queue = new QuickBooks_WebConnector_Queue($dsn);
+        $Queue = new \QuickBooks_WebConnector_Queue($dsn);
         $Queue->enqueue(QUICKBOOKS_ADD_CUSTOMER, $primary_key_of_your_customer);
 
-        
+
 
         // Check to make sure our database is set up
 
-        if (!QuickBooks_Utilities::initialized($dsn)) {
+        if (!\QuickBooks_Utilities::initialized($dsn)) {
             // Initialize creates the neccessary database schema for queueing up requests and logging
 
-            QuickBooks_Utilities::initialize($dsn);
+            \QuickBooks_Utilities::initialize($dsn);
 
-            
+
 
             // This creates a username and password which is used by the Web Connector to authenticate
 
-            QuickBooks_Utilities::createUser($dsn, $user, $pass);
+            \QuickBooks_Utilities::createUser($dsn, $user, $pass);
         }
 
-        
+
 
         // Set up our queue singleton
 
-        QuickBooks_WebConnector_Queue_Singleton::initialize($dsn);
+        \QuickBooks_WebConnector_Queue_Singleton::initialize($dsn);
 
-        
+
 
         // Create a new server and tell it to handle the requests
 
         // __construct($dsn_or_conn, $map, $errmap = array(), $hooks = array(), $log_level = QUICKBOOKS_LOG_NORMAL, $soap = QUICKBOOKS_SOAPSERVER_PHP, $wsdl = QUICKBOOKS_WSDL, $soap_options = array(), $handler_options = array(), $driver_options = array(), $callback_options = array()
 
-        $Server = new QuickBooks_WebConnector_Server($dsn, $map, $errmap, $hooks, $log_level, $soapserver, QUICKBOOKS_WSDL, $soap_options, $handler_options, $driver_options, $callback_options);
+        $Server = new \QuickBooks_WebConnector_Server($dsn, $map, $errmap, $hooks, $log_level, $soapserver, QUICKBOOKS_WSDL, $soap_options, $handler_options, $driver_options, $callback_options);
 
         $response = $Server->handle(true, true);
     }
 
-    
+
 
     /**
 
@@ -282,7 +282,7 @@ class QuickBookController extends Controller
 
         //$data = $this->yourmodel->getCustomerData($ID);
 
-        
+
 
         // Build the qbXML request from $data
 
@@ -340,7 +340,7 @@ class QuickBookController extends Controller
 
 		</QBXML>';
 
-    
+
 
         return $xml;
     }
@@ -358,12 +358,12 @@ class QuickBookController extends Controller
 
         // Do something here to record that the data was added to QuickBooks successfully
 
-        
+
 
         return true;
     }
 
-    
+
 
     /**
 
@@ -377,7 +377,7 @@ class QuickBookController extends Controller
         return false;
     }
 
-    
+
 
     /**
 

@@ -102,7 +102,7 @@
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                           <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
                                               @if($user_data['profile_picture'])
-                                              {{ HTML::image(Config::get('app.upload_path').$user_data['profile_picture']) }}
+                                              {{ Html::image(Config::get('app.upload_path').$user_data['profile_picture']) }}
                                               @endif
                                           </div>
                                           <div>

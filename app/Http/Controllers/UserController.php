@@ -13,7 +13,6 @@ use App\User;
 use App\UserRole;
 use App\UserType;
 use App\VendorService;
-use Cryt\Forms\RegistrationForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;

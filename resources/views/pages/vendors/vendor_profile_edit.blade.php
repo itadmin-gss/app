@@ -10,14 +10,14 @@
             <div class="box-content custome-form clearfix">
 
                 <div class="row-fluid">
-                    <div id="profileSuccessMessage" class="">                        
+                    <div id="profileSuccessMessage" class="">
                     </div>
                     <div id="profileValidationErrorMessage" class="">
                     </div>
                     <div id="profileErrorMessage" class="hide">
                         <h4 class="alert alert-error">Can not Updated Profile</h4>
                     </div>
-                    
+
                 </div>
                 @if($errors->has())
                 @foreach ($errors->all() as $error)
@@ -30,7 +30,7 @@
                         <fieldset>
                             <div class="row-fluid">
                                 <div class="span6">
-                                    
+
                                     <div class="control-group">
                                         {!!Form::label('username', 'Username', array('class' => 'control-label'))!!}
                                         <div class="controls">
@@ -58,7 +58,7 @@
                                             {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editLastName'))!!}
                                         </div>
                                     </div>
-                                    
+
                                     <div class="control-group">
                                         {!!Form::label('company', 'Company', array('class' => 'control-label'))!!}
                                         <div class="controls">
@@ -102,7 +102,7 @@
                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                           <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
                                               @if($user_data['profile_picture'])
-                                              {!! HTML::image(Config::get('app.upload_path').$user_data['profile_picture']) !!}
+                                              {!! Html::image(Config::get('app.upload_path').$user_data['profile_picture']) !!}
                                               @endif
                                           </div>
                                           <div>
@@ -112,7 +112,7 @@
                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                           </div>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </div>
                                 <!--/span-4-->
 
@@ -195,7 +195,7 @@
                                     <div class="controls">
                                         {!! Form::password('password_confirmation', '', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
 

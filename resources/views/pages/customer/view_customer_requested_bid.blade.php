@@ -8,7 +8,7 @@
 
 
 
-            <table class="table table-bordered customeTable"> 
+            <table class="table table-bordered customeTable">
                 <tbody>
                     <tr>
                         <td class="center span3"><h2><span>Property #:</span>{!!$request_detail->asset->asset_number!!}</h2></td>
@@ -41,7 +41,7 @@
               @elseif($request_detail->status==8)
 
             Approved Bid
-            
+
             @endif</h2></td>
                         <td class="center span3">
 
@@ -50,15 +50,15 @@
                        Service: <span style="font-size: 13px !important;font-weight: normal;"> {!!$services->service->title!!}</span>
                          Due Date:<span style="font-size: 13px !important;font-weight: normal;"> @if($services->due_date=="") Not assigned @else{!!$services->due_date!!} @endif</span>
                          @endforeach
-                              
 
-                        
+
+
                         </h2>
                         </td>
 
                     </tr>
                 </tbody>
-            </table>   
+            </table>
 
 <?php if($request_detail->status==7){?>
 <div class="declinebidstatus">Declined Note:<span>{!!$request_detail->declinebidnotes!!}</span></div>
@@ -78,12 +78,12 @@ foreach ($request_detail->assignRequest as $value) {
 
 <div class="row-fluid">
         <p id="errorMessage" @if($request_detail->status==7) style="display:block" @else style="display:none" @endif >@if($request_detail->status==7) Bid has been declined @endif</p>
-           
-            </div><!--/row-->   
-   
+
+            </div><!--/row-->
+
     <div class="row-fluid">
        <div class="box span12">
-   
+
         <div class="box-header" data-original-title>
                         <h2>Customer Details</h2>
                 </div>
@@ -91,43 +91,43 @@ foreach ($request_detail->assignRequest as $value) {
                             {!!Session::get('message')!!}
                         @endif
       <div class="box-content">
-        <table class="table"> 
+        <table class="table">
                               <tbody>
-                            
+
                                 <tr>
-                                                  
+
                                     <td class="center span3"><h2>Customer Name:</h2></td>
                                     <td class="center span3"><h2>@if(isset($request_detail->user->first_name)) {!! $request_detail->user->first_name!!} @endif  @if(isset($request_detail->user->last_name)){!!$request_detail->user->last_name !!} @endif</h2></td>
                                <td class="center span3"><h2>Email:</h2></td>
 
                   <td class="center span3"><h2>@if(isset( $request_detail->user->email)){!! $request_detail->user->email!!} @endif</h2></td>
-                   
+
                     </tr>
                     <tr>
                     <td class="center span3"><h2>Customer Company:</h2></td>
                     <td class="center span3"><h2>@if(isset($request_detail->user->company)) {!! $request_detail->user->company!!} @endif </h2></td>
-                 
+
                     <td class="center span3"><h2>Customer Phone:</h2></td>
                     <td class="center span3"><h2>@if(isset($request_detail->user->phone)) {!! $request_detail->user->phone!!} @endif </h2></td>
-                 
+
                     </tr>
-                            
-                    
+
+
                             <!--    <tr>
-               
+
                   <td class="center span3"><h2>Admin Notes:</h2></td>
                                     <td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_detail->admin_notes) ? $request_detail->admin_notes : '' , array('class'=>'span12 typeahead', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_detail->id.'")'))!!} </td>
-                               
+
                                 </tr> -->
                 <tr></tr>
 
 
 
                               </tbody>
-                         </table>    
+                         </table>
       </div>
     </div>
-    <!--/span--> 
+    <!--/span-->
     </div><!--/row-->
 
        <div class="row-fluid">
@@ -142,7 +142,7 @@ foreach ($request_detail->assignRequest as $value) {
 
             <div class="box-content">
 
-                <table class="table"> 
+                <table class="table">
 
                     <tbody>
 
@@ -152,7 +152,7 @@ foreach ($request_detail->assignRequest as $value) {
 
                             <td class="center span3"><h2>City: <span >{!!$request_detail->asset->city->name !!} </span></h2></td>
 
-                           
+
 
                         </tr>
 
@@ -162,7 +162,7 @@ foreach ($request_detail->assignRequest as $value) {
 
                              <td class="center span3"><h2>Zip: <span > {!!$request_detail->asset->zip!!}</span> </h2></td>
 
-                            
+
 
                         </tr>
 
@@ -176,11 +176,11 @@ foreach ($request_detail->assignRequest as $value) {
 
                         </tr>
 
-                       
+
 
                     </tbody>
 
-                </table>      
+                </table>
 
             </div>
 
@@ -188,10 +188,10 @@ foreach ($request_detail->assignRequest as $value) {
 
         </div><!--/span-->
 
-    </div><!--/row--> 
-   
+    </div><!--/row-->
+
     <h2 class="bidRqst btn-warning" style="display: block;text-align:left;padding:12px;margin:0px">Service Bid Details</h2>
-        
+
 <?php
   $totalPrice=0;
 ?>
@@ -200,12 +200,12 @@ foreach ($request_detail->assignRequest as $value) {
         <div class="box span12">
             <div class="box-header" data-original-title>
                 <h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h2>
-              
+
 
 
                 <div class="box-icon">
                 <?php
-                if($services->quantity=="" || $services->quantity==0) 
+                if($services->quantity=="" || $services->quantity==0)
           {
             $servicePrice=$services->customer_bid_price;
              $totalPrice+=$services->customer_bid_price;
@@ -224,14 +224,14 @@ foreach ($request_detail->assignRequest as $value) {
     ?>
                 Price :  ${!!$servicePrice!!}
                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-              
+
                 </div>
             </div>
             <div class="box-content">
             <div class="customerBidDetails">
                 <table>
                  <tr><td> {!!$services->service->desc!!}</td></tr>
-                  
+
                     <tr>
                     <div class="row-fluid browse-sec">
                        <?php if(count($services->serviceImages ) >0){?>
@@ -248,15 +248,15 @@ foreach ($request_detail->assignRequest as $value) {
                         <ul>
                           {{--*/ $loop = 1 /*--}}
                                @foreach($services->serviceImages as $images)
-                          <li><a href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" class="dwnldBtn bluBtn" target="_blank">Download</a>{!! HTML::image(Config::get('app.request_images').'/'.$images->image_name) !!}
+                          <li><a href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" class="dwnldBtn bluBtn" target="_blank">Download</a>{!! Html::image(Config::get('app.request_images').'/'.$images->image_name) !!}
                           </li>
-                         
+
                           @endforeach
                         </ul>
                   </div>
                 </div>
 
-                     
+
 
 
                     </div>
@@ -267,24 +267,24 @@ foreach ($request_detail->assignRequest as $value) {
                 <fieldset>
                 <p id="errorCalender" class="alert alert-error" style="display:none;"></p>
                      <legend><a class="btn btn-info" href="#" onclick="printDiv('printpdf')" > Convert to PDF  </a></legend>
-                    <div> 
+                    <div>
                      Bid Price : <input type="text" value="{!!$servicePrice!!}" disabled="disabled" >
                     </div>
                     <div>  @if($services->service_note != '')
                   <h2>Note For Customer :</h2>
                   <textarea disabled="disabled">{!!$services->customer_notes_bid!!}</textarea>
-                 
+
                     @endif
                     </div>
-                    
+
                     <div>
                      <button class="btn btn-large btn-danger"  onclick="declineBidRequestNotes('{!!$request_detail->id!!}')" >Decline</button>
-                     <input type="text" class="input-small span5 datepicker " placeholder="Due date" id="date_completion_appears" name="completion_date" @if($request_detail->status==7) disabled @endif style="display:none;">  
+                     <input type="text" class="input-small span5 datepicker " placeholder="Due date" id="date_completion_appears" name="completion_date" @if($request_detail->status==7) disabled @endif style="display:none;">
                      <button class="btn btn-large btn-success" onclick="approveBidRequest('{!!$request_detail->id!!}','{!!$vendor_id!!}')" id="approvebutton" @if($request_detail->status==7) disabled @endif >Approve</button>
                     </div>
                 </fieldset>
                 </div>
-                     
+
             </div>
         </div><!--/span-->
 
@@ -440,7 +440,7 @@ foreach ($request_detail->assignRequest as $value) {
          <input type="hidden" id="declinenoteshidden">
          <button onclick="declineBidRequest()"></button>
 </div>
-  
+
                                     <div class="modal-footer">
                                         <div class="text-right">
                                             <button type="button" class="btn btn-large btn-inverse" data-dismiss="modal">Close</button>
@@ -471,17 +471,17 @@ foreach ($request_detail->assignRequest as $value) {
     #pdfHeader .rightPnl h2 { margin:0 0 10px; text-align: right; font-size: 35px; }
     #pdfHeader .rightPnl tr td { min-width:130px; text-align:center; }
     #pdfHeader .pdfLogo {  }
-    
+
     #pdfMain .cstmrName { margin:50px 0 30px; }
     #pdfMain .cstmrName p { color: #6160A5; font-size: 20px; line-height: 26px; margin:0 0 10px; }
     #pdfMain .cstmrName p input { border:2px solid #7170C3; padding:10px 20px; width:350px; border-radius:10px; background:#CDCDFF; color:#6160A5; font-size:20px; }
-    
+
     #pdfMain .projectTble .smlTbl  { width: 400px; float: right; }
     #pdfMain .projectTble .smlTbl th, #pdfMain .projectTble .smlTbl td { padding:18px 20px; text-align: center; }
-    
+
     #pdfMain .btmNote { margin:40px 0; }
     #pdfMain .btmNote p { margin:0; padding:10px 0; font-size:17px; }
-    
+
     #pdfMain .ftrPdf { text-align:center; }
     #pdfMain .ftrPdf span { float:left; font-size:19px; color: #6160A5; }
     #pdfMain .ftrPdf a { font-size:19px; color: #6160A5; }
@@ -490,7 +490,7 @@ foreach ($request_detail->assignRequest as $value) {
 </style>
 
 <div id="pdfMain" class="wrapper" >
-    
+
     <div id="pdfHeader" class="clearfix">
         <a class="pdfLogo" href="#"></a>
         <div class="leftPnl">
@@ -550,8 +550,8 @@ foreach ($request_detail->assignRequest as $value) {
                     <td>${!!$servicePrice!!}</td>
                 </tr>
                  @endforeach
-                
-               
+
+
                 <tr>
                     <td colspan="2" class="noBrdr">We look forward to doing business with you.</td>
                     <td>Total</td>
@@ -560,15 +560,15 @@ foreach ($request_detail->assignRequest as $value) {
             </tbody>
         </table>
     </div>
-    
-  
+
+
 
     <div class="ftrPdf clearfix">
         <span>972-772-0209</span>
         <a href="#">www.gssreo.com </a>
         <a class="mailt" href="mailto:accounting@gssreo.com">accounting@gssreo.com </a>
     </div>
-    
+
 </div>
 </div>
                                     @stop

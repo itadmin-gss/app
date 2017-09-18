@@ -168,7 +168,7 @@
 
                                               @if($user_detail['profile_picture'])
 
-                                              {!! HTML::image(Config::get('app.upload_path').$user_detail['profile_picture']) !!}
+                                              {!! Html::image(Config::get('app.upload_path').$user_detail['profile_picture']) !!}
 
                                               @endif
 

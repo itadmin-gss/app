@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\UserType;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class AdminCheck
 {

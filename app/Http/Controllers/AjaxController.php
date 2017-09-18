@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AdditionalServiceItem;
 use App\Asset;
 use App\City;
+use App\Helpers\Email;
 use App\Helpers\FlashMessage;
 use App\Helpers\General;
 use App\MaintenanceBid;

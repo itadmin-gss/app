@@ -65,36 +65,36 @@
          if($services->quantity=="" || $services->quantity==0)
          	{
           $servicePrice=$priceData->special_price;
-        $totalPrice += $priceData->special_price;  
+        $totalPrice += $priceData->special_price;
             }
              else
              {
              	      $servicePrice=$priceData->special_price*$services->quantity ;
-          $totalPrice += $priceData->special_price*$services->quantity ;  
+          $totalPrice += $priceData->special_price*$services->quantity ;
 
-             }  
-
-
+             }
 
 
-        
+
+
+
     }
     else {
-        
-         
-         
+
+
+
 
             if($services->quantity=="" || $services->quantity==0)
          	{
              $servicePrice=$services->service->customer_price;
-          $totalPrice += $services->service->customer_price;    
+          $totalPrice += $services->service->customer_price;
             }
              else
              {
              	      $servicePrice=$services->service->customer_price*$services->quantity ;
-          $totalPrice += $services->service->customer_price*$services->quantity ;  
+          $totalPrice += $services->service->customer_price*$services->quantity ;
 
-             }  
+             }
 
 
 
@@ -114,7 +114,7 @@
     ?>
                 Price :  ${!!$servicePrice!!}
                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-              
+
                 </div>
             </div>
             <div class="box-content">
@@ -136,13 +136,13 @@
                              if( $docType[1]=='jpeg'|| $docType[1]=='jpg'|| $docType[1]=='png'|| $docType[1]=='gif')
                              {
                             ?>
-                            <li>{!! HTML::image(Config::get('app.request_images').'/'.$images->image_name) !!}</li>
-                          
+                            <li>{!! Html::image(Config::get('app.request_images').'/'.$images->image_name) !!}</li>
 
-                             <?php 
+
+                             <?php
                           }  else {
                         	?>
-                    
+
                         <li> <a  href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" target="_blank" > Download File</a></li>
                         	<?php
                         	}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Registration;
+use App\UserType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -22,10 +23,10 @@ class RegistrationController extends Controller
     public function index()
     {
 
-        
+
         $customer=DB::table('user_type')->where('title', 'customer')->pluck('id');//storing id of customer id
         $vendor=DB::table('user_type')->where('title', 'vendor')->pluck('id'); //storing id of vendor id
-        
+
         return view('pages.customer.registration')->with('customer', $customer)->with('vendor', $vendor);
     }
 
@@ -37,7 +38,7 @@ class RegistrationController extends Controller
     public function create()
     {
 
-        
+
           $rules = [
             'first_name'            => 'required|min:2|max:80|alpha',
             'last_name'             => 'required|min:2|max:80|alpha',
@@ -68,18 +69,18 @@ class RegistrationController extends Controller
                 $user->password     = Hash::make(Request::get('password'));
                 if ($user->save()) {
                     $id = $user->id;
-             
+
                     $email_data = [
                     'first_name'    => Request::get('first_name'),
                     'last_name'     => Request::get('last_name'),
                     'username'      => Request::get('username'),
                     'email'         => Request::get('email'),
                     'id'            => $id,
-                    
+
                     ];
-                
+
                     Mail::send('emails.customer_registered', $email_data, function ($message) {
-                 
+
                         $message->to(Request::get('email'), Request::get('first_name').' '.Request::get('last_name'))
                          ->subject('Welcome to the GSS!')
                          ->from('imran@invortex.com', 'GSS');
@@ -90,21 +91,21 @@ class RegistrationController extends Controller
             }
     }
 
-    
-   
-    
+
+
+
     public function completeProfile($id)
     {
-       
+
         $type_id = Registration::userTypeId($id);
-        $type = Usertype::checkUserType($type_id);
-        
-  
+        $type = UserType::checkUserType($type_id);
+
+
         if ($type == 'Customer') {
         } elseif ($type == 'Vendor') {
         }
-     
-                       
+
+
                        return view('pages.profile_completation')
             ->with('user_detail', $user_detail);
 

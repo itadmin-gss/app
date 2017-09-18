@@ -12,21 +12,21 @@
                             {!!Session::get('message')!!}
                         @endif
 
-                      
+
       <div class="box-content">
-        <table class="table"> 
+        <table class="table">
 							  <tbody>
 								 <?php
-                       
+
                         if($request_maintenance->status==3)
                         {
                         ?>
                         <tr> <td class='center span3'><h2>Decline Notes:</h2></td><td>{!! $request_maintenance->decline_notes!!}</td></tr>
-                        
+
                         <?php
                         	}
                         ?>
-							 
+
 								<tr>
 									<td class="center span3"><h2>Request ID:</h2></td>
 									<td class="center span3"><h2>{!! $request_maintenance->id !!}</h2></td>
@@ -39,7 +39,7 @@
 									<td class="center span3"><h2>Vendor Name:</h2></td>
 									<td class="center span3"><h2>{!! $request_maintenance->user->first_name.' '.$request_maintenance->user->last_name !!} </h2></td>
 								</tr>
-								
+
 								<tr>
 									<td class="center span3"><h2>Zip:</h2></td>
 									<td class="center span3"><h2>{!! $request_maintenance->asset->zip !!}</h2></td>
@@ -47,10 +47,10 @@
 									<td class="center span3"><h2>{!! $request_maintenance->user->email!!}</h2></td>
 								</tr>
 							  </tbody>
-						 </table>    
+						 </table>
       </div>
     </div>
-    <!--/span--> 
+    <!--/span-->
 
 
      <div class="row-fluid">
@@ -65,7 +65,7 @@
 
             <div class="box-content">
 
-                <table class="table"> 
+                <table class="table">
 
                     <tbody>
 
@@ -75,7 +75,7 @@
 
                             <td class="center span3"><h2>City: <span >{!!$request_maintenance->asset->city->name !!} </span></h2></td>
 
-                           
+
 
                         </tr>
 
@@ -85,7 +85,7 @@
 
                              <td class="center span3"><h2>Zip: <span > {!!$request_maintenance->asset->zip!!}</span> </h2></td>
 
-                            
+
 
                         </tr>
 
@@ -99,11 +99,11 @@
 
                         </tr>
 
-                       
+
 
                     </tbody>
 
-                </table>      
+                </table>
 
             </div>
 
@@ -111,86 +111,86 @@
 
         </div><!--/span-->
 
-    </div><!--/row-->	
+    </div><!--/row-->
 
 
-    
+
     <span><h1 class="text-center">OSR Services</h1></span>
-    	
+
 		@foreach ($assign_requests as $assigned)
                 <div class="row-fluid">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$assigned->service->title!!}</h2>
 						<div class="box-icon">
-						
+
 							Vendor Price : {!!$assigned->biding_prince!!}
 						</div>
 					</div>
 					<div class="box-content">
-						<table> 
+						<table>
 								<tr>
 									<td class="center"><h2>Vendor Notes:</h2>{!!$assigned->service_note!!}</td>
 								</tr>
 						<!-- 		<tr><td class="center"><h2>Customer Price:</h2> <input type="text" name="customer_price[]" value="<?php if(isset($assigned->customer_price)) { echo $assigned->customer_price; } ?>" id="customer_price_{!!$assigned->id!!}" /></td>
-								
+
 									<tr><td class="center"><h2>Vendor Price:</h2> <input type="text" name="vendor_price[]" value="<?php if(isset($assigned->biding_prince)) { echo $assigned->biding_prince; } ?>" id="vendor_price_{!!$assigned->id!!}" /> <button onclick="markup('vendor_price_{!!$assigned->id!!}',  'customer_price_{!!$assigned->id!!}')" class="btn btn-large btn-success">Mark Up</button></td>
-										
+
 									-->
-         			<?php 
+         			<?php
          			if($request_maintenance->status==3)
                         {
                         ?>
 						<tr><td class="center"><h2>Vendor Price:</h2> <input type="text" name="vendor_price[]" value="<?php if(isset($assigned->biding_prince)) { echo $assigned->biding_prince; } ?>" id="vendor_price_{!!$assigned->id!!}" /> <button onclick="changePrice('vendor_price_{!!$assigned->id!!}',  '{!!$assigned->id!!}')" class="btn btn-large btn-success">Change Price</button></td></tr>
-										
+
 							<?php
 
 						}
 							?>
-								
+
 								<tr>
 									<div class="row-fluid browse-sec">
-                                                   
 
-            
-                                                                            
+
+
+
                               @if(count($assigned->serviceImages)!=0)<h2>Images</h2>@endif
-                                                       
-                                                        
+
+
                                                           <ul class="media-list ">
                             @foreach($assigned->serviceImages as $images)
 
-                            <li>{!! HTML::image(Config::get('app.request_images').'/'.$images->image_name) !!}</li>
+                            <li>{!! Html::image(Config::get('app.request_images').'/'.$images->image_name) !!}</li>
                             @endforeach
 
 
                         </ul>
-                                                        
+
                                                       </div>
 								</tr>
-								
-						 </table>      
+
+						 </table>
 					</div>
 				</div><!--/span-->
 
 			</div><!--/row-->
                 @endforeach
-			
-			
-			
+
+
+
 		<div class="row-fluid">
 				<!-- <div class="box span12 text-center">
-					<div class="span6 box text-center">   
+					<div class="span6 box text-center">
 						<button class="btn btn-large btn-danger" {!! $request_maintenance->status!=1? 'disabled=disabled':'' !!} onclick="admin_decline_bid_request('{!! $request_maintenance->id !!}','{!! $request_maintenance->vendor_id !!}')">Decline</button>
 					</div>
-					<div class="span6 box text-center">   
+					<div class="span6 box text-center">
 						<button class="btn btn-large btn-success" {!! $request_maintenance->status!=1? 'disabled=disabled':'' !!} onclick="admin_accept_bid_request('{!! $request_maintenance->id !!}','{!! $request_maintenance->vendor_id !!}')">Approve</button>
 					</div>
 				</div --><!--/span-->
-		</div><!--/row-->	
-    
-    
-    
+		</div><!--/row-->
+
+
+
   </div>
 <div class="modal hide fade" id="myModal">
 			<div class="modal-header">
@@ -206,14 +206,14 @@
 			</div>
 		</div>
 <div class="modal  hide fade modelForm larg-model"  id="showVendorList">
-        	
+
                  </div>
 
 <div class="modal hide fade modelForm larg-model"  id="showServiceid"></div>
-		
-  
-  
- 
+
+
+
+
 </div>
 @parent
 @include('common.delete_alert')

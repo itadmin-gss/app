@@ -244,7 +244,7 @@
 
                                                 @if($user_data['profile_picture'])
 
-                                                {!! HTML::image(Config::get('app.upload_path').$user_data['profile_picture']) !!}
+                                                {!! Html::image(Config::get('app.upload_path').$user_data['profile_picture']) !!}
 
                                                 @endif
 
@@ -373,9 +373,9 @@
                                             <div class="checker" id="uniform-inlineCheckbox1"><span class="checked">
 
                                                     <div class="checker" id="uniform-inlineCheckbox1"><span>
-                                                       
-                                                           {!!Form::checkbox('change_password','1',false,array('id'=>'changePassword'))!!} 
-                                                       
+
+                                                           {!!Form::checkbox('change_password','1',false,array('id'=>'changePassword'))!!}
+
 
                                                         </span></div>
 
@@ -387,9 +387,9 @@
 
                                         </label>
                                          <?php }else{
-                                                            
+
                                                             } ?>
-                                                           
+
                                     </div>
 
                                 </div>
@@ -441,12 +441,12 @@
                             </div>
 
 
-@if(Auth::user()->type_id==3) 
+@if(Auth::user()->type_id==3)
                             <div class="row-fluid">
                             <h3>Vendor Services</h3>
                                 <div class="box">
-                          
-         
+
+
      <select class="span8 typeahead " id="vendor_services" data-rel="chosen" multiple="true" name="vendor_services[]" >
      {!! $servicesDATAoption!!}
      </select>
@@ -454,15 +454,15 @@
                                 </div>
                             </div>
                             @endif
-                      @if(Auth::user()->type_id==3) 
+                      @if(Auth::user()->type_id==3)
                         <div class="clearfix"></div>
                                <div class="controls control-group" style="margin-left:0px;">
                                         Service Zipcodes(Comma seprated)
                                         <div class="control-group">
                                             {!! Form::textarea('available_zipcodes', isset($user_data['available_zipcodes']) ? $user_data['available_zipcodes'] : '' , array('class'=>'span10 typeahead','id'=>'available_zipcodes'))!!}
-                                         
+
                                         </div>
-                              </div>   
+                              </div>
                               @endif
 
 

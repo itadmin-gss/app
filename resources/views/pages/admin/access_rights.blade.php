@@ -38,7 +38,7 @@
             </div>
             <div class="alert alert-success" id="success-message">Success! Access Rights have been updated.</div>
             <span id="loader" style="display:none;align:center;">
-                {!!HTML::image('public/assets/img/loader.gif', '',
+                {!!Html::image('public/assets/img/loader.gif', '',
        array('height' => 200, 'width' => '200'))!!}</span>
             <div class="box-content text-center">
                 {!! Form::open(array('url' => 'update-access-rights', 'class'=>'form-horizontal',
@@ -276,7 +276,7 @@
                     </div>
                     @endforeach
                 </div>
-       
+
                 <div class="row-fluid box">
                     <div class="row-fluid box">
                         <div class="span3 text-left">
@@ -327,7 +327,7 @@
                     </div>
                     @endforeach
                 </div>
-                
+
                 <div class="row-fluid box">
                     <div class="row-fluid box">
                         <div class="span3 text-left">

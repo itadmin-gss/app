@@ -4,7 +4,7 @@
 	<meta name="author" content="Scott Tharp">
 	<meta name="keyword" content="ACME, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 	<!-- end: Meta -->
-	
+
 	<!-- start: Mobile Specific -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- end: Mobile Specific -->
@@ -18,7 +18,7 @@
 	<link href="{!! URL::asset('public/assets/css/style-responsive.css') !!}" rel="stylesheet">
 	<link href="{!! URL::asset('public/assets/css/retina.css') !!}" rel="stylesheet">
     <link href="{!! URL::asset('public/assets/css/dropzone.css') !!}" type="text/css" rel="stylesheet">
-    
+
 	<!-- <link href="{!! URL ::asset('public/assets/assetszoomer/style.css' ) !!}" rel="stylesheet" type="text/css"> -->
 	<link rel="stylesheet" type="text/css" href="{!! URL::asset('public/assets/lightbox/fancybox/jquery.fancybox-1.3.4.css') !!}" media="screen" />
  	<link rel="stylesheet" href= "{!! URL::asset('public/assets/lightbox/style.css') !!}" />
@@ -50,5 +50,5 @@
 	<link rel="apple-touch-icon-precomposed" href="public/assets/ico/apple-touch-icon-57-precomposed.png">
 	<link rel="shortcut icon" href="public/assets/ico/favicon.png">
 
-{!! HTML::style('https://datatables.net/release-datatables/media/css/jquery.dataTables.css'); !!}
+{!! Html::style('https://datatables.net/release-datatables/media/css/jquery.dataTables.css'); !!}
 <link href="{!! URL::asset('public/assets/css/dataTables.tableTools.css') !!}" rel="stylesheet">
