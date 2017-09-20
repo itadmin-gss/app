@@ -1,0 +1,687 @@
+
+
+
+$(document).ready(function() {
+
+
+    $('.request-services').on('submit', function(e) {
+        var list_of_services = $('#list_of_services').html();
+        var asset_number = $('#asset_number').val();
+        var service_id = $('#service_ids').val();
+        if (asset_number == '' || service_id == null) {
+            $('#add_asset_alert').html('Asset number and at least one service is required.').slideDown('slow');
+            return false;
+        } else {
+            if (list_of_services == "") {
+
+                $('#add_asset_alert').html('Service detail is required.').slideDown('slow');
+                $('#service_ids').val('Select some options');
+                $('#service_ids').trigger('liszt:updated');
+                return false;
+            } else {
+
+                return true;
+            }
+
+        }
+
+
+
+
+
+
+
+    });
+
+    $('#generate_asset_number').click(function() {
+
+
+        $.ajax({
+            type: 'Post',
+            url: 'generate-asset-number',
+            cache: false,
+            success: function(response) {
+                var asset_number = response;
+                $('#asset_number').val(asset_number);
+            }
+        });
+    });
+
+    $('#state_id').change(function() {
+        //e.preventDefault();
+        var state_id = this.value;
+        var options = '';
+        $.ajax({
+            type: 'Post',
+            url: 'get-cities-by-state-id',
+            data: {
+                state_id: state_id
+            },
+            cache: false,
+            success: function(response) {
+                var obj = JSON.parse(response);
+                for (var i = 0; i < obj.length; i++) {
+                    options += '<option value="' + obj[i].id + '">' + obj[i].name + '</option>';
+                }
+                $("#city_id").html(options);
+
+                $('#city_id').trigger('liszt:updated');
+            }
+        });
+    });
+
+
+    $('#asset_number').change(function(e) {
+        $('#add_asset_alert').slideUp('slow');
+        var asset_id = this.value;
+        $.ajax({
+            type: 'Post',
+            url: 'ajax-get-asset-by-asset-id',
+            data: {
+                asset_id: asset_id
+            },
+            cache: false,
+            success: function(response) {
+
+                $('#showServiceid').html(response);
+
+            }
+        });
+    });
+
+    $('.view_asset_information').click(function() {
+        var asset_id = this.id;
+
+
+        $.ajax({
+            type: 'Post',
+            url: 'ajax-get-asset-by-asset-id',
+            data: {
+                asset_id: asset_id
+            },
+            cache: false,
+            success: function(response) {
+                $('#asset_information').html(response);
+            }
+        });
+
+        $('#asset_information').modal('show');
+    });
+
+
+
+    $('#viewassets').click(function() {
+        var asset_number = $('#asset_number').val();
+        if (asset_number == '') {
+            $('#add_asset_alert').html('Please Select asset.').slideDown('slow');
+
+        } else {
+            $('#showServiceid').modal('show');
+        }
+
+
+    });
+
+    // Set the dialog to open when mySelect changes
+
+    /*
+     * While Service is selected in add request page
+     * Start here
+     */
+
+    
+    
+    {
+        $('select#service_ids').on('change',function(event, params) {
+            if(params.selected)
+            {
+                var asset_number = $('#asset_number').val();        
+                var service_id = $(this).val();
+                var current_service= params.selected;
+                //        var current_service_id=service_id[service_id.length - 1];
+                $.ajax({
+                    type: 'Post',
+                    url: 'ajax-service-information-popup',
+                    data: {
+                        service_id: service_id,
+                        asset_number: asset_number
+                    },
+                    cache: false,
+                    success: function(response) {
+                        if (response == 'error') {
+                            $('#add_asset_alert').html('Please Select asset.');
+                            $('#add_asset_alert').slideDown('slow');
+                            $('#service_ids').val('Select some options');
+                            $('#service_ids').trigger('liszt:updated');
+
+                        // $('#service_ids').append('<option></option>');
+                        // $( "#allservices" ).load(baseurl+'/includejs.php');
+
+                        } else {
+                            $('#allservices').append(response);
+                            $('#add_asset_alert').slideUp('slow');
+                            $('#' + current_service ).modal('show');
+                            $('.datepicker').datepicker();
+                        }
+                    }
+                });
+            }
+            else
+            {
+                
+        }
+        
+        // $('#addcontenthere').load('view-customer-assets');
+
+        });
+    }
+
+
+
+
+//    $('select#service_ids').change(function() {
+//        var asset_number = $('#asset_number').val();
+//
+//        var service_id = $(this).val();
+//        var current_service_id = service_id[service_id.length - 1];
+//        $.ajax({
+//            type: 'Post',
+//            url: 'ajax-service-information-popup',
+//            data: {
+//                service_id: service_id,
+//                asset_number: asset_number
+//            },
+//            cache: false,
+//            success: function(response) {
+//                if (response == 'error') {
+//                    $('#add_asset_alert').html('Please Select asset.');
+//                    $('#add_asset_alert').slideDown('slow');
+//                    $('#service_ids').val('Select some options');
+//                    $('#service_ids').trigger('liszt:updated');
+//
+//                    // $('#service_ids').append('<option></option>');
+//                    // $( "#allservices" ).load(baseurl+'/includejs.php');
+//
+//                } else {
+//                    $('#allservices').html(response);
+//                    $('#add_asset_alert').slideUp('slow');
+//                    $('#' + current_service_id).modal('show');
+//                    $('.datepicker').datepicker();
+//                }
+//
+//            }
+//        });
+//        // $('#addcontenthere').load('view-customer-assets');
+//
+//    });
+
+    /*
+     * While Service is selected in add request page
+     * Start End
+     */
+
+
+
+    ////////////////////////////////////////////// Vendor //////////////////////////////////
+
+
+
+    {
+        $('#changePassword').click(function() {
+            if ($(this).is(':checked')) {
+                $('#changePasswordControll').slideDown();
+            }
+            else {
+                $('#changePasswordControll').slideUp();
+            }
+        });
+
+        $('#editFirstName').click(function() {
+            $('firstName').removeAttr('readonly');
+        })
+
+    }
+
+
+
+    {
+        // Set the dialog to open when mySelect changes
+        $('#changePassword').click(function() {
+            if ($(this).is(':checked')) {
+                $('#changePasswordControll').slideDown();
+            }
+            else {
+                $('#changePasswordControll').slideUp();
+            }
+        });
+
+        $('#editFirstName').click(function() {
+            $('#firstName').removeAttr('readonly');
+        })
+        $('#editLastName').click(function() {
+            $('#lastName').removeAttr('readonly');
+        })
+        $('#editUsername').click(function() {
+            $('#username').removeAttr('readonly');
+        })
+        $('#editEmail').click(function() {
+            $('#email').removeAttr('readonly');
+        })
+        $('#editCompany').click(function() {
+            $('#company').removeAttr('readonly');
+        })
+        $('#editPhone').click(function() {
+            $('#phone').removeAttr('readonly');
+        })
+        $('#editFirstName').click(function() {
+            $('#firstName').removeAttr('readonly');
+        })
+        $('#editAddress1').click(function() {
+            $('#address1').removeAttr('readonly');
+        })
+        $('#editAddress2').click(function() {
+            $('#address2').removeAttr('readonly');
+        })
+        $('#editZipcode').click(function() {
+            $('#zipcode').removeAttr('readonly');
+        })
+
+    }
+
+
+
+    {
+        $('#state_id').change(function() {
+            var state_id = this.value;
+            var options = '';
+            $.ajax({
+                type: 'POST',
+                url: 'get-cities-by-state-id',
+                data: {
+                    state_id: state_id
+                },
+                cache: false,
+                success: function(response) {
+                    var obj = JSON.parse(response);
+                    for (var i = 0; i < obj.length; i++) {
+                        options += '<option value="' + obj[i].id + '">' + obj[i].name + '</option>';
+                    }
+
+                    $("select#city_id").html(options);
+                }
+            });
+        });
+    }
+
+
+
+    {
+        $("#profileEditForm").on('submit', (function(e) {
+
+
+
+            e.preventDefault();
+            var over = '<div id="overlay">' +
+            '<img id="loading" src="public/assets/img/loader.gif">' +
+            '</div>';
+            $(over).appendTo('body');
+            $.ajax(
+            {
+                url: 'save-profile',
+                type: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data)
+                {
+
+                    if (data.indexOf("Update Profile Successfully") > -1)
+                    {
+                        $('#overlay').remove();
+
+                        $('#profileValidationErrorMessage').slideUp('slow')
+                        $('#profileSuccessMessage').html(data).hide();
+                        $('#profileSuccessMessage').slideDown('slow');
+                    }
+                    else
+                    {
+                        $('#overlay').remove();
+                        $('#profileSuccessMessage').slideUp('slow')
+                        $('#profileValidationErrorMessage').html(data).hide();
+                        $('#profileValidationErrorMessage').slideDown('slow');
+                    }
+                },
+                error: function()
+                {
+                    $('#overlay').remove();
+                    $('#profileErrorMessage').slideDown();
+                }
+            });
+        }));
+    }
+
+
+    {
+        $("#addVendorForm").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax(
+            {
+                url: 'process-add-vendor',
+                type: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data)
+                {
+                    if (data.indexOf("Successfully ! Vendor Created!") > -1)
+                    {
+                        $('#addVendorValidationErrorMessage').slideUp('slow')
+                        $('#addVendorSuccessMessage').html(data).hide();
+                        $('#addVendorSuccessMessage').slideDown('slow');
+
+                    }
+                    else
+                    {
+                        $('#addVendorSuccessMessage').slideUp('slow')
+                        $('#addVendorValidationErrorMessage').html(data).hide();
+                        $('#addVendorValidationErrorMessage').slideDown('slow');
+                    }
+                },
+                error: function()
+                {
+                    $('#addVendorErrorMessage').slideDown();
+                }
+            });
+        }));
+    }
+
+
+
+
+    {
+        $("#addSpecialPriceForm").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax(
+            {
+                url: 'add-special-prices',
+                type: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data)
+                {
+                    if (data.indexOf("Successfully ! Added Special Price!") > -1)
+                    {
+                        $('#addSpecialPriceValidationErrorMessage').slideUp('slow')
+                        $('#addSpecialPriceSuccessMessage').html(data).hide();
+                        $('#addSpecialPriceSuccessMessage').slideDown('slow');
+
+                    }
+                    else
+                    {
+                        $('#addSpecialPriceSuccessMessage').slideUp('slow')
+                        $('#addSpecialPriceValidationErrorMessage').html(data).hide();
+                        $('#addSpecialPriceValidationErrorMessage').slideDown('slow');
+                    }
+                },
+                error: function()
+                {
+                    $('#addSpecialPriceErrorMessage').slideDown();
+                }
+            });
+        }));
+    }
+
+
+
+    {
+        $("#editSpecialPriceForm").on('submit', (function(e) {
+
+            e.preventDefault();
+            $.ajax(
+            {
+                url: 'edit-special-price/'+special_price_id,
+                type: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data)
+                {
+                    if (data.indexOf("Successfully ! Added Special Price!") > -1)
+                    {
+                        $('#editSpecialPriceValidationErrorMessage').slideUp('slow')
+                        $('#editSpecialPriceSuccessMessage').html(data).hide();
+                        $('#editSpecialPriceSuccessMessage').slideDown('slow');
+
+                    }
+                    else
+                    {
+                        $('#editSpecialPriceSuccessMessage').slideUp('slow')
+                        $('#editSpecialPriceValidationErrorMessage').html(data).hide();
+                        $('#editSpecialPriceValidationErrorMessage').slideDown('slow');
+                    }
+                },
+                error: function()
+                {
+                    $('#editSpecialPriceErrorMessage').slideDown();
+                }
+            });
+
+        }));
+    }
+
+
+    /*
+     {
+     $('#submenuVendorListAssignRequests').click(function(){
+     $.ajax({
+     type: "GET",
+     url : "vendor-assigned-requests",
+     success: function(data) {
+     $('#content').empty();
+     $('#content').html(data);
+     return false;
+     }
+     })
+     })
+     }
+     */
+    /*
+     {
+     $('#submenuVendorListOrders').click(function(){
+     $.ajax({
+     type: "GET",
+     url : "vendor-list-orders",
+     success: function(data) {
+     $('#content').empty();
+     $('#content').html(data);
+     return false;
+     }
+     })
+     })
+     }
+     */
+    /*
+     {
+     $('#submenuVendorListCompletedOrders').click(function(){
+     $.ajax({
+     type: "GET",
+     url : "vendor-list-completed-orders",
+     success: function(data) {
+     $('#content').empty();
+     $('#content').html(data);
+
+     }
+     })
+     })
+     }
+     */
+
+    {
+        $('#submenuVendorDashboard').click(function() {
+            $.ajax({
+                type: "GET",
+                url: "vendor-dashboard",
+                success: function(data) {
+                    $('#content').empty();
+                    $('#content').html(data);
+                    return false;
+                }
+            })
+        })
+    }
+    
+    
+    
+    {
+        
+        
+        Dropzone.options.myDropzone = {
+
+          // Prevents Dropzone from uploading dropped files immediately
+          autoProcessQueue: false,
+
+          init: function() {
+            var submitButton = document.querySelector("#submit-all")
+                myDropzone = this; // closure
+
+            submitButton.addEventListener("click", function() {
+              myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+            });
+
+            // You might want to show the submit button only when 
+            // files are dropped here:
+            this.on("addedfile", function() {
+              // Show submit button here and/or inform user to click it.
+            });
+
+          }
+        };
+        
+    }
+
+});
+
+jQuery(document).ready(function() {
+    "use strict";
+    var options = {
+        common: {
+            onLoad: function() {
+
+            },
+            onKeyUp: function(evt, data) {
+
+            }
+        },
+        rules: {},
+        ui: {
+            showPopover: false,
+            showErrors: true,
+            bootstrap2: true,
+        }
+    };
+
+    $('#password').pwstrength(options);
+});
+function viewAsset(asset_id)
+{
+
+
+    $.ajax({
+        type: "GET",
+
+        url: baseurl+"/asset-view/"+asset_id,
+
+        success: function(data) {
+            $('#showServiceid').modal('show')
+            $('#showServiceid').empty();
+            $('#showServiceid').html(data);
+            return false;
+        }
+    })
+
+}
+
+
+function showMaintenanceServices(maintenance_request_id)
+{
+
+
+    $.ajax({
+        type: "GET",
+        url: baseurl+"/show-maintenance-services/"+maintenance_request_id,
+
+
+        success: function(data) {
+            $('#showVendorList').modal('show')
+            $('#showVendorList').empty();
+            $('#showVendorList').html(data);
+            return false;
+        }
+    })
+
+}
+
+
+
+$(document).ready(function() {
+    $("[rel='popover']").popover({
+        html: 'true',
+
+        content : '<div id="popOverBox">1) Should contain minimum 10 characters. <br> 2)Should contain 2 special characters. <br> 3) Should contain 2 upper case.</div>'
+
+    });
+});
+
+//Assign services by admin
+function assign_request()
+{
+  var request_id=$('input[name="request_id"]').val();
+  var vendor_id=$('input[name="vendor"]:checked').val();
+  var services_ids = $('input[name="services[]"]:checked').map(function(){
+      return $(this).val();
+    }).get();
+   if($('input[name="vendor"]:checked').length<=0)
+{
+ $('#errorMessage').fadeIn('slow');
+ $("#errorMessage").html("Please select vendor");
+
+}
+else if($('input[name="services[]"]:checked').length<=0)
+    {
+
+ $('#errorMessage').fadeIn('slow');
+ $("#errorMessage").html("Please select at least one service");
+    }
+    else
+        {
+ $( "#assignRequest" ).submit();
+        }
+
+
+}
+//Decline services by Vendor
+function decline_request(request_id)
+{
+
+
+    $.ajax({
+                type: "GET",
+                url: baseurl+"/show-maintenance-services/"+maintenance_request_id,
+                success: function(data) {
+                    $('#showVendorList').modal('show')
+                    $('#showVendorList').empty();
+                    $('#showVendorList').html(data);
+                    return false;
+                }
+            })
+
+
+
+}
+
+

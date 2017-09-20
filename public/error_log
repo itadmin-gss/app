@@ -1,0 +1,136 @@
+[29-Aug-2014 11:48:47 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:48:47 UTC] PHP Stack trace:
+[29-Aug-2014 11:48:47 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:48:47 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:48:47 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:48:47 UTC] PHP Stack trace:
+[29-Aug-2014 11:48:47 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:48:47 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:11 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:11 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:11 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:11 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:11 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:11 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:11 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:11 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:26 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:26 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:26 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:26 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:26 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:26 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:26 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:26 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:26 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:26 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:26 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:26 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:26 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:26 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:26 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:26 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:28 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:28 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:28 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:28 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:50:28 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:50:28 UTC] PHP Stack trace:
+[29-Aug-2014 11:50:28 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:50:28 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:51:38 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:51:38 UTC] PHP Stack trace:
+[29-Aug-2014 11:51:38 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:51:38 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:51:38 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:51:38 UTC] PHP Stack trace:
+[29-Aug-2014 11:51:38 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:51:38 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:51:40 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:51:40 UTC] PHP Stack trace:
+[29-Aug-2014 11:51:40 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:51:40 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[29-Aug-2014 11:51:40 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[29-Aug-2014 11:51:40 UTC] PHP Stack trace:
+[29-Aug-2014 11:51:40 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[29-Aug-2014 11:51:40 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[01-Sep-2014 13:45:37 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[01-Sep-2014 13:45:37 UTC] PHP Stack trace:
+[01-Sep-2014 13:45:37 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 13:45:37 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[01-Sep-2014 13:45:37 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/bootstrap/../vendor/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/bootstrap/autoload.php on line 17
+[01-Sep-2014 13:45:37 UTC] PHP Stack trace:
+[01-Sep-2014 13:45:37 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 13:45:37 UTC] PHP   2. require() /home/gssdev/public_html/gss-dev/php/public/index.php:21
+[01-Sep-2014 14:11:34 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:11:34 UTC] PHP Stack trace:
+[01-Sep-2014 14:11:34 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:11:34 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:11:34 UTC] PHP Stack trace:
+[01-Sep-2014 14:11:34 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:14:33 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:14:33 UTC] PHP Stack trace:
+[01-Sep-2014 14:14:33 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:14:33 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:14:33 UTC] PHP Stack trace:
+[01-Sep-2014 14:14:33 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:04 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:04 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:04 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:04 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:04 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:04 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:06 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:06 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:06 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:06 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:06 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:06 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:08 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:08 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:08 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:08 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:08 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:08 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:10 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:10 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:10 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:10 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:10 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:10 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:17 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:17 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:17 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:16:17 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:16:17 UTC] PHP Stack trace:
+[01-Sep-2014 14:16:17 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:35:29 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:35:29 UTC] PHP Stack trace:
+[01-Sep-2014 14:35:29 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 14:35:29 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 14:35:29 UTC] PHP Stack trace:
+[01-Sep-2014 14:35:29 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 15:11:54 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 15:11:54 UTC] PHP Stack trace:
+[01-Sep-2014 15:11:54 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 15:11:54 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 15:11:54 UTC] PHP Stack trace:
+[01-Sep-2014 15:11:54 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 15:12:00 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 15:12:00 UTC] PHP Stack trace:
+[01-Sep-2014 15:12:00 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 15:12:00 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 15:12:00 UTC] PHP Stack trace:
+[01-Sep-2014 15:12:00 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 15:21:52 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 15:21:52 UTC] PHP Stack trace:
+[01-Sep-2014 15:21:52 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 15:21:52 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 15:21:52 UTC] PHP Stack trace:
+[01-Sep-2014 15:21:52 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 20:11:55 UTC] PHP Warning:  require(/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php): failed to open stream: No such file or directory in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 20:11:55 UTC] PHP Stack trace:
+[01-Sep-2014 20:11:55 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0
+[01-Sep-2014 20:11:55 UTC] PHP Fatal error:  require(): Failed opening required '/home/gssdev/public_html/gss-dev/php/public/../gss-dev/php/bootstrap/autoload.php' (include_path='.:/opt/alt/php55/usr/share/pear:/opt/alt/php55/usr/share/php') in /home/gssdev/public_html/gss-dev/php/public/index.php on line 21
+[01-Sep-2014 20:11:55 UTC] PHP Stack trace:
+[01-Sep-2014 20:11:55 UTC] PHP   1. {main}() /home/gssdev/public_html/gss-dev/php/public/index.php:0

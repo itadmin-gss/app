@@ -1,0 +1,51 @@
+@extends('layouts.onecolumn')
+@section('content')
+<!-- start: Content -->
+<div id="content" class="span12">
+
+    <div class="row-fluid">
+        <div class="box span12">
+            <div class="box-header" data-original-title>
+                <h2><span class="break"></span>Vender Profile Completion - Step 2 - Add Services</h2>
+            </div>
+            <div class="box-content custome-form">
+                {{ Form::open(array('url' => 'vendor-service-add', 'class'=>'form-horizontal')) }}
+                    <fieldset>
+                        <div  class="row-fluid vendor-ser">
+                            <div class="control-group">
+
+                                <h4 class="offset1">Select Services that your Company Provides:</h4>
+                                <label class="control-label"></label>
+                                <div class="controls">
+                                    <div class="span3">
+                                        <?php $i=0; ?>
+                                        @foreach ($services as $service)
+                                            @if($i%10==0)
+                                                </div>
+                                                <div class="span3">
+                                            @endif
+                                                <label class="checkbox ">
+                                                    {{ Form::checkbox('services',  $service->id, false, ['id'=>$service->id]) }} {{$service->title}}
+                                                </label>
+                                                 <?php $i++; ?>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions text-right">
+                            <button type="submit" class="btn btn-success">Finish</button>
+                            <button type="button" class="btn btn-inverse">Cancel</button>
+                        </div>  
+                    </fieldset>
+                </form>   
+
+            </div>
+        </div><!--/span-->
+
+    </div><!--/row-->
+
+</div>
+<!-- end: Content -->
+@stop
