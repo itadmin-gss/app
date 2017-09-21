@@ -143,7 +143,7 @@ Assigned Service Request</span></a>
             
 
         </li>
-        <li> <a href="{!!URL::to('list-exported-workorder')!!}"><i class="fa fa-archive"></i><span class="hidden-tablet">Exported Work orders</span></a>
+        <li> <a href="{!!URL::to('list-exported-workorder')!!}"><i class="fa-icon-download-alt"></i><span class="hidden-tablet">Exported Work orders</span></a>
 
             
 

@@ -10,11 +10,17 @@
 define('LARAVEL_START', microtime(true));
 
 /*
- * Vagrant on Windows has a hard time loading the files within the PHP execution timeout. 
- * This is here for debugging / local development
+ * Vagrant / Homestead / Virtualbox On Windows - 
+ * Using the default settings, Vagrant/Homestead/Virtualbox on Windows hosts can get really slow
+ * when using large Laravel Applications. The quick and dirty way to overcome this is to 
+ * increase the PHP Execution timeout below. 
+ * A better solution is to enable NFS for Vagrant/Windows. 
+ * Use the following link to set it up.
+ * http://backendtime.com/setup-laravel-homestead-windows/#speeding-up 
+ * 
  */
  
-ini_set('max_execution_time', 300);
+ ini_set('max_execution_time', 300);
 
 /*
 |--------------------------------------------------------------------------

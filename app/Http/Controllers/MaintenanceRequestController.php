@@ -905,6 +905,7 @@ class MaintenanceRequestController extends Controller
                 $recepient_id = User::getAdminUsersId();
             foreach ($recepient_id as $rec_id) {
                 //admin to admin notification
+                //admin to admin notification
 
             //2.    Notification to Admin for New Request
                 $userDAta=User::find($rec_id);
