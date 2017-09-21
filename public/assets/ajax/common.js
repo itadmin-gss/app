@@ -24,12 +24,15 @@ function download(img) {
 }
 function showQuickWorkOrderPage(order_id){
    var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
   $.ajax({
-      url: baseurl + "get-quick-workorder/"+order_id,
+      url: "get-quick-workorder/"+order_id,
       cache: false,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
       success: function(data){
         $("#overlay").remove();
          // alert(data);
@@ -56,7 +59,7 @@ $(".popUpOvrlay .popUpOvrlay .ovrlyPop").click(function(){
   //   $('.modal-backdrop').fadeToggle();
   // $(".popUpOvrlay").fadeOut();
   // var over = '<div id="overlay">' +
-  //       '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+  //       '<img id="loading" src="assets/img/loader.gif">' +
   //       '</div>';
   //       $(over).appendTo('body');
   // window.location.reload();
@@ -171,8 +174,9 @@ function getQueryParams(qs) {
 function deleteSelectedAsset(id) {
     if (confirm('Are you sure you want to delete Asset #: '+id)) {
      $.ajax({
-      url: baseurl + "delete-selected-asset/"+id,
+      url: "delete-selected-asset/"+id,
       cache: false,
+
       success: function(data){
         $('#assetFlash').slideDown('slow');
         window.location.reload();
@@ -220,7 +224,7 @@ $(document).ready(function() {
 //setInterval(auto_load,10000);
 function auto_load(){
     $.ajax({
-      url: baseurl + "refresh",
+      url: "refresh",
       cache: false,
       success: function(data){
         $(".refVal").text(data);
@@ -235,7 +239,7 @@ function auto_load(){
 
 
     //     var over = '<div id="overlay">' +
-    //     '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    //     '<img id="loading" src="assets/img/loader.gif">' +
     //     '</div>';
     //     $(over).appendTo('body');
 
@@ -317,11 +321,11 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
-        window.location=baseurl+"admin-list-invoice/"+Invoiceonchange;
+        window.location="admin-list-invoice/"+Invoiceonchange;
 
     });
 
@@ -332,11 +336,11 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
-        window.location=baseurl+"customer-bid-requests/"+bidRequestonchange;
+        window.location="customer-bid-requests/"+bidRequestonchange;
 
     });
 
@@ -346,11 +350,11 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
-        window.location=baseurl+"vendor-bid-requests/"+bidRequestonchange;
+        window.location="vendor-bid-requests/"+bidRequestonchange;
 
     });
 
@@ -360,11 +364,11 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
-        window.location=baseurl+"admin-bid-requests/"+bidRequestonchange;
+        window.location="admin-bid-requests/"+bidRequestonchange;
 
     });
 
@@ -379,7 +383,7 @@ function auto_load(){
 
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -397,7 +401,7 @@ function auto_load(){
 
         $.ajax({
             type: 'Get',
-            url:  baseurl + 'order-images/'+order_id,
+            url:  'order-images/'+order_id,
 
 
             
@@ -413,7 +417,7 @@ function auto_load(){
                     alert(orderstatus);
                      $.ajax({
             type: 'Post',
-            url:  baseurl + 'change-status',
+            url:  'change-status',
 
             data: {
                 order_id: order_id,
@@ -537,7 +541,7 @@ function auto_load(){
 
         $.ajax({
             type: 'Post',
-            url:  baseurl + 'change-status',
+            url:  'change-status',
 
             data: {
                 order_id: order_id,
@@ -579,14 +583,14 @@ function auto_load(){
 //     var property_address=  $('#property_address').val();
 
 //     var over = '<div id="overlay">' +
-//     '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+//     '<img id="loading" src="assets/img/loader.gif">' +
 //     '</div>';
 //     $(over).appendTo('body');
 
 
 //     $.ajax({
 //         type: 'Post',
-//         url: baseurl + 'get-asset-map',
+//         url: 'get-asset-map',
 
 //         data: {
 //             zip: zip,
@@ -614,14 +618,14 @@ $("#zip").change(function() {
     var property_address=  $('#property_address').val();
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'get-asset-map',
+        url: 'get-asset-map',
 
         data: {
             zip: zip,
@@ -698,7 +702,7 @@ $('#generate_asset_number').click(function() {
 $('#state_id').change(function() {
         //e.preventDefault();
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -706,7 +710,7 @@ $('#state_id').change(function() {
         var options = '';
         $.ajax({
             type: 'Post',
-            url: baseurl + '/get-cities-by-state-id',
+            url: '/get-cities-by-state-id',
             data: {
                 state_id: state_id
             },
@@ -737,13 +741,13 @@ $('#asset_number').change(function(e) {
         data: {
             asset_id: asset_id
         },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         cache: false,
         success: function(response) {
 
-            $('#showServiceid').html(response);
-
-
-            
+            $('#showServiceid').html(response);           
 
         }
     });
@@ -758,6 +762,9 @@ $('.view_asset_information').click(function() {
         url: 'ajax-get-asset-by-asset-id',
         data: {
             asset_id: asset_id
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         cache: false,
         success: function(response) {
@@ -818,10 +825,13 @@ $('#viewassets').click(function() {
                 //        var current_service_id=service_id[service_id.length - 1];
                 $.ajax({
                     type: 'Post',
-                    url: baseurl+'ajax-service-information-popup',
+                    url: 'ajax-service-information-popup',
                     data: {
                         service_id: current_service,
                         asset_number: asset_number
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     cache: false,
                     success: function(response) {
@@ -832,7 +842,7 @@ $('#viewassets').click(function() {
                             $('#service_ids').trigger('liszt:updated');
 
                             // $('#service_ids').append('<option></option>');
-                            // $( "#allservices" ).load(baseurl+'/includejs.php');
+                            // $( "#allservices" ).load('/includejs.php');
 
                         } else {
 
@@ -891,7 +901,7 @@ $('#viewassets').click(function() {
                             $('#service_ids').trigger('liszt:updated');
 
                             // $('#service_ids').append('<option></option>');
-                            // $( "#allservices" ).load(baseurl+'/includejs.php');
+                            // $( "#allservices" ).load('/includejs.php');
 
                         } else {
                             $('#allservices').html(response);
@@ -946,7 +956,7 @@ $('#viewassets').click(function() {
 //                    $('#service_ids').trigger('liszt:updated');
 //
 //                    // $('#service_ids').append('<option></option>');
-//                    // $( "#allservices" ).load(baseurl+'/includejs.php');
+//                    // $( "#allservices" ).load('/includejs.php');
 //
 //                } else {
 //                    $('#allservices').html(response);
@@ -1081,7 +1091,7 @@ $('#viewassets').click(function() {
 
         $.ajax(
         {
-            url: baseurl + '/save-profile',
+            url: '/save-profile',
             type: 'POST',
             data: new FormData(this),
             contentType: false,
@@ -1128,12 +1138,12 @@ $('#viewassets').click(function() {
 
         e.preventDefault();
         var over = '<div id="overlay">' +
-        '<img id="loading" src="' + baseurl + '/public/assets/img/loader.gif">' +
+        '<img id="loading" src="' + '/public/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
         $.ajax(
         {
-            url: baseurl + '/save-profile-admin/' + id,
+            url: '/save-profile-admin/' + id,
             type: 'POST',
             data: new FormData(this),
             contentType: false,
@@ -1173,7 +1183,7 @@ $('#viewassets').click(function() {
     $("#addVendorForm").on('submit', (function(e) {
 
        var over = '<div id="overlay">' +
-       '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+       '<img id="loading" src="assets/img/loader.gif">' +
        '</div>';
        $(over).appendTo('body');
 
@@ -1191,7 +1201,7 @@ $('#viewassets').click(function() {
         {
             if (data.indexOf("Successfully ! Vendor Created!") > -1)
             {
-                window.location=baseurl+"/list-vendors";
+                window.location="/list-vendors";
                 $('#addVendorValidationErrorMessage').slideUp('slow')
                 $('#addVendorSuccessMessage').html(data).hide();
                 $('#addVendorSuccessMessage').slideDown('slow');
@@ -1395,9 +1405,9 @@ jQuery(document).ready(function() {
       var title = $("#servicename option:selected").text();
       $("#title_test").change(function(){
         var service_id = $("#servicename option:selected").val();
-        var over = '<div id="overlay">' +'<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +'</div>';
+        var over = '<div id="overlay">' +'<img id="loading" src="assets/img/loader.gif">' +'</div>';
         $(over).appendTo('body');
-        $.ajax({method: "POST",url: baseurl+'/show-additional-service-popup',data: {service_id:service_id,asset: asset,job_type:job_type,asset_number:asset_number }}).done(function( msg ) {
+        $.ajax({method: "POST",url: '/show-additional-service-popup',data: {service_id:service_id,asset: asset,job_type:job_type,asset_number:asset_number }}).done(function( msg ) {
           $('#overlay').remove();
           $('#getpopup').html(msg);
           $('#'+service_id).modal({backdrop: 'static',keyboard: true});
@@ -1429,12 +1439,12 @@ jQuery(document).ready(function() {
             $('#title_test_chzn').hide();
         }
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
         $.ajax({
             method: "POST",
-            url: baseurl+'/additional-service-title-change',
+            url: '/additional-service-title-change',
             data: { title: title,id:id }
         })
         .done(function( msg ) {
@@ -1488,13 +1498,13 @@ jQuery(document).ready(function() {
        }, 5000); 
     }else{
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');   
 
         $.ajax({
             type: "POST",
-            url: baseurl + "add-additional-service",
+            url: "add-additional-service",
             data:{customer_price:customer_price,title:title,rate:rate,description:description,quantity,quantity,
                 vendor_id:vendor_id,order_id:order_id,additional_vendors_notes:additional_vendors_notes},
                 success: function(data) {
@@ -1539,7 +1549,7 @@ function updateRequestedService(id){
 
        $.ajax({
         type: "POST",
-        url: baseurl + "add-requested-service/"+id,
+        url: "add-requested-service/"+id,
         data:{vendors_price:vendors_price,customer_price:customer_price,admin_quantity:admin_quantity,quantity:quantity,
             customers_notes:customers_notes,vendors_notes:vendors_notes,notes_for_vendors:notes_for_vendors},
             success: function(data) {
@@ -1577,7 +1587,7 @@ function updateRequestedService(id){
     var customer_price = $("#customer_price_"+id).val();
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     if (admin_quantity == 0) {
@@ -1598,7 +1608,7 @@ function updateRequestedService(id){
     }else{
        $.ajax({
         type: "POST",
-        url: baseurl + "update-additional-service/"+id,
+        url: "update-additional-service/"+id,
         data:{description:description,admin_quantity:admin_quantity,quantity:quantity,rate:rate,customer_price:customer_price},
         success: function(data) {
                 //console.log(data);
@@ -1621,7 +1631,7 @@ function viewAsset(asset_id)
 
     $.ajax({
         type: "GET",
-        url: baseurl + "/asset-view/" + asset_id,
+        url: "/asset-view/" + asset_id,
         success: function(data) {
             $('#showServiceid').empty();
             $('#showServiceid').modal('show')
@@ -1638,13 +1648,13 @@ function showMaintenanceServices(maintenance_request_id)
 {
 
    var over = '<div id="overlay">' +
-   '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+   '<img id="loading" src="assets/img/loader.gif">' +
    '</div>';
    $(over).appendTo('body');
 
    $.ajax({
     type: "GET",
-    url: baseurl + "/show-maintenance-services/" + maintenance_request_id,
+    url: "/show-maintenance-services/" + maintenance_request_id,
     success: function(data) {
 
       $('#overlay').remove();
@@ -1662,7 +1672,7 @@ function showBidServices(maintenance_request_id,service_id)
 {
 
    var over = '<div id="overlay">' +
-   '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+   '<img id="loading" src="assets/img/loader.gif">' +
    '</div>';
    $(over).appendTo('body');
    if(!service_id || service_id == "")
@@ -1672,7 +1682,7 @@ function showBidServices(maintenance_request_id,service_id)
 
   $.ajax({
     type: "GET",
-    url: baseurl + "show-bid-services/" + maintenance_request_id,
+    url: "show-bid-services/" + maintenance_request_id,
     success: function(data) {
 
       $('#overlay').remove();
@@ -1703,7 +1713,7 @@ function showBidServicesWorkOrder(maintenance_request_id,flagworkorder,requested
     {
 
        var over = '<div id="overlay">' +
-       '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+       '<img id="loading" src="assets/img/loader.gif">' +
        '</div>';
        $(over).appendTo('body');
 
@@ -1713,7 +1723,7 @@ function showBidServicesWorkOrder(maintenance_request_id,flagworkorder,requested
 
        $.ajax({
         type: "GET",
-        url: baseurl + "show-bid-services/" + maintenance_request_id+"/"+flagworkorder+"/"+customer_bid_price+"/"+vendor_bid_price+"/"+requestedServiceBidId+"/"+res2,
+        url: "show-bid-services/" + maintenance_request_id+"/"+flagworkorder+"/"+customer_bid_price+"/"+vendor_bid_price+"/"+requestedServiceBidId+"/"+res2,
         success: function(data) {
 
           $('#overlay').remove();
@@ -1773,7 +1783,7 @@ function deleteOrderAllImages(order_id, before_image)
 {
     $.ajax({
         type: 'POST',
-        url: baseurl+'/delete-order-all-before-image',
+        url: '/delete-order-all-before-image',
         data: {order_id: order_id, before_image: before_image},
         dataType: 'html',
         success: function(data) {
@@ -1788,7 +1798,7 @@ function removeImage(order_id, order_detail_id, obj, type)
     var filename = $(obj).data('value');
     $.ajax({
         type: 'POST',
-        url: baseurl+'/delete-before-image-id',
+        url: '/delete-before-image-id',
         data: {order_id: order_id, order_detail_id: order_detail_id, filename: filename, type: type},
         dataType: 'html',
         success: function(data) {
@@ -1804,7 +1814,7 @@ function removeAdditionalImage(additional_service_id, obj, type)
     var filename = $(obj).data('value');
     $.ajax({
         type: 'POST',
-        url: baseurl+'/delete-before-additional-image-id',
+        url: '/delete-before-additional-image-id',
         data: {additional_service_id: additional_service_id, filename: filename, type: type},
         dataType: 'html',
         success: function(data) {
@@ -1825,7 +1835,7 @@ function ExportAdditonalitempdf(id)
 
     $.ajax({
         type: 'Post',
-        url: baseurl + '/download-seleted-additional-images',
+        url: '/download-seleted-additional-images',
         data: {
             val
         },
@@ -1856,7 +1866,7 @@ function Exportpdf()
 
     $.ajax({
         type: 'Post',
-        url: baseurl + '/download-seleted-images',
+        url: '/download-seleted-images',
         data: {
             val
         },
@@ -1879,7 +1889,7 @@ function Exportpdf()
 
 function popModalAdditionalItemExport(additional_service_id, type)
 {   
-   var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">'+'</div>';
+   var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="assets/img/loader.gif">'+'</div>';
    $(over).appendTo('#export_modal_additional_image_'+additional_service_id);    
 
    $.ajax({
@@ -1902,12 +1912,12 @@ function popModalAdditionalItemExport(additional_service_id, type)
 } 
 function popModalExport(order_id, order_detail_id, type)
 {
-    var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">'+'</div>';
+    var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="assets/img/loader.gif">'+'</div>';
     //$(over).appendTo('#export_view_images');  
     $('#export_view_images').css("overflow", "hidden");
     $.ajax({
         type: 'POST',
-        url: baseurl+'/display-export-images',
+        url: '/display-export-images',
         data: {order_id: order_id, order_detail_id: order_detail_id, type: type},
         dataType: 'html',
         success: function(data) {
@@ -1929,7 +1939,7 @@ function popModalAdditionalItem(additional_service_id,type)
 {
     $.ajax({
         type: 'POST',
-        url: baseurl+'/display-order-additional-items-images',
+        url: '/display-order-additional-items-images',
         data: {additional_service_id: additional_service_id, type: type},
         dataType: 'html',
         success: function(data) {
@@ -1971,7 +1981,7 @@ function popModal(order_id, order_detail_id, type)
   
     $.ajax({
         type: 'POST',
-        url:  baseurl+'/display-order-images',
+        url:  '/display-order-images',
         data: {order_id: order_id, order_detail_id: order_detail_id, type: type},
         dataType: 'html',
         success: function(data) {
@@ -2013,7 +2023,7 @@ function popViewModal(order_id, order_detail_id, type)
 {
     $.ajax({
         type: 'POST',
-        url: baseurl+'/display-order-images-view',
+        url: '/display-order-images-view',
         data: {order_id: order_id, order_detail_id: order_detail_id, type: type},
         dataType: 'html',
         success: function(data) {
@@ -2050,7 +2060,7 @@ function popModalBid(id,type)
 {
     $.ajax({
         type: 'POST',
-        url: baseurl+'/display-bid-images',
+        url: '/display-bid-images',
         data: {id: id,type: type},
         dataType: 'html',
         success: function(data) {
@@ -2100,7 +2110,7 @@ function saveVendorNote(order_id, order_detail_id)
     {
         $.ajax({
             type: 'POST',
-            url: baseurl+'/save-vendor-note',
+            url: '/save-vendor-note',
             data: {order_id: order_id, order_detail_id: order_detail_id, vendor_note: vendor_note},
             dataType: 'html',
             success: function(data) {
@@ -2133,7 +2143,7 @@ function saveAdditionalVendorNote(additional_id)
             
         $.ajax({
             type: 'POST',
-            url: baseurl+'/save-additional-vendor-note',
+            url: '/save-additional-vendor-note',
             data: {additional_id: additional_id, additional_vendors_notes: additional_vendors_notes},
             dataType: 'html',
             success: function(data) {
@@ -2157,7 +2167,7 @@ function saveBillingNote(order_id)
     {
         $.ajax({
             type: 'POST',
-            url: baseurl+'/save-billing-note',
+            url: '/save-billing-note',
             data: {order_id: order_id,  billing_note: billing_note},
             dataType: 'html',
             success: function(data) {
@@ -2221,7 +2231,7 @@ function saveCustomerNote(order_id, order_detail_id)
     {
         $.ajax({
             type: 'POST',
-            url: baseurl+'/save-customer-note',
+            url: '/save-customer-note',
             data: {order_id: order_id, order_detail_id: order_detail_id, vendor_note: vendor_note},
             dataType: 'html',
             success: function(data) {
@@ -2290,7 +2300,7 @@ function saveAdminQuantity(order_id, order_detail_id)
                 $('#input-vendor-qty-' + order_id + '-' + order_detail_id).fadeOut("slow");
                 $('#show-vendor-qty-' + order_id + '-' + order_detail_id).html(data);                
                 $('#show-vendor-qty-' + order_id + '-' + order_detail_id).html(data).slideDown('slow');
-                window.location=baseurl+"edit-order/"+order_id;
+                window.location="edit-order/"+order_id;
             }
         });
     }
@@ -2314,7 +2324,7 @@ function decline_request(request_id, vendor_id)
         $(".btn-danger").attr("disabled","disabled"); 
         $.ajax({
             type: 'Post',
-            url: baseurl + '/decline-request',
+            url: '/decline-request',
             data: {
                 request_id: request_id,
                 vendor_id: vendor_id,
@@ -2345,7 +2355,7 @@ function accept_request(request_id, vendor_id)
 
   $.ajax({
     type: 'Post',
-    url: baseurl + '/accept-request',
+    url: '/accept-request',
     data: {
         request_id: request_id,
         vendor_id: vendor_id
@@ -2359,7 +2369,7 @@ function accept_request(request_id, vendor_id)
         $('#errorMessage').html(response).hide();
         $('#errorMessage').slideDown('slow');
 
-        setTimeout(function(){         window.location= baseurl + '/vendor-assigned-requests';}, 2000);
+        setTimeout(function(){         window.location= '/vendor-assigned-requests';}, 2000);
 
 
     }
@@ -2375,7 +2385,7 @@ function accept_bid_request(request_id, vendor_id)
 
   $.ajax({
     type: 'Post',
-    url: baseurl + '/accept-bid-request',
+    url: '/accept-bid-request',
     data: {
         request_id: request_id,
         vendor_id: vendor_id
@@ -2404,7 +2414,7 @@ function decline_bid_request (request_id, vendor_id)
 
     $.ajax({
         type: 'Post',
-        url: baseurl + '/decline-bid-request',
+        url: '/decline-bid-request',
         data: {
             request_id: request_id,
             vendor_id: vendor_id
@@ -2461,7 +2471,7 @@ $(".btn-success").attr("disabled","disabled");
 $(".btn-danger").attr("disabled","disabled"); 
 $.ajax({
     type: 'Post',
-    url: baseurl + '/admin-accept-bid-request',
+    url: '/admin-accept-bid-request',
     data: {
         request_id: request_id,
         vendor_id: vendor_id,
@@ -2502,7 +2512,7 @@ else
     $(".btn-danger").attr("disabled","disabled"); 
     $.ajax({
         type: 'Post',
-        url: baseurl + '/admin-decline-bid-request',
+        url: '/admin-decline-bid-request',
         data: {
             decline_notes:decline_notes,
             request_id: request_id,
@@ -2526,13 +2536,13 @@ else
 function ChangeNotificationStatus(notification_id,notification_url,notification_messages)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url: baseurl + '/change-notification-status',
+        url: '/change-notification-status',
         data: {
             notification_id: notification_id,
             notification_url:notification_url
@@ -2613,7 +2623,7 @@ function accept_single_request(request_id, vendor_id,service_id)
 
   $.ajax({
     type: 'Post',
-    url: baseurl + '/accept-single-request',
+    url: '/accept-single-request',
     data: {
         request_id: request_id,
         vendor_id : vendor_id,
@@ -2641,13 +2651,13 @@ function adminNotesOsr(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'admin-notes-osr',
+        url: 'admin-notes-osr',
         data: {
             admin_notes: valueObj.value,
             request_id:request_id
@@ -2672,13 +2682,13 @@ function customerNotesOsr(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'customer-notes-osr',
+        url: 'customer-notes-osr',
         data: {
             admin_notes: valueObj.value,
             request_id:request_id
@@ -2703,13 +2713,13 @@ function adminNotes(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'admin-notes',
+        url: 'admin-notes',
         data: {
             admin_notes: valueObj.value,
             request_id:request_id
@@ -2731,13 +2741,13 @@ function adminNotesBid(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'admin-notes-bid',
+        url: 'admin-notes-bid',
         data: {
             admin_notes: valueObj.value,
             request_id:request_id
@@ -2759,13 +2769,13 @@ function vendorNotes(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'vendor-notes',
+        url: 'vendor-notes',
         data: {
             vendor_notes: valueObj.value,
             request_id:request_id
@@ -2788,13 +2798,13 @@ function publicNotes(valueObj,service_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'public-notes',
+        url: 'public-notes',
         data: {
             public_notes: valueObj.value,
             service_id:service_id
@@ -2823,7 +2833,7 @@ function publicNotesBid(valueObj,service_id)
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'public-notes-bid',
+        url: 'public-notes-bid',
         data: {
             public_notes: valueObj.value,
             service_id:service_id
@@ -2854,7 +2864,7 @@ function customerNotesBid(valueObj,service_id)
 
     $.ajax({
         type: 'Post',
-        url: baseurl + 'customer-notes-bid',
+        url: 'customer-notes-bid',
         data: {
             customer_notes_bid: valueObj.value,
             service_id:service_id
@@ -2898,7 +2908,7 @@ function updateInvoice ()
 
  $.ajax({
     type: 'Post',
-    url:  baseurl + 'change-price',
+    url:  'change-price',
     data: { invoice_price:invoice_price,
         invoice_id:invoice_id
     },
@@ -2926,7 +2936,7 @@ function completionDate()
 
     $.ajax({
         type: 'Post',
-        url:  baseurl + 'completion-date',
+        url:  'completion-date',
         data: { completion_date:completion_date,
             order_id:order_id
         },
@@ -2947,13 +2957,13 @@ function completionDate()
 function populateCompany(id)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url:  baseurl + 'admin-get-customer-company',
+        url:  'admin-get-customer-company',
         data: { id:id },
 
         success: function(response) {
@@ -2973,13 +2983,13 @@ function populateCompany(id)
 function ajaxDashoboardGridRequests(id,statusshow)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url:  baseurl + 'ajax-dashoboard-grid-requests',
+        url:  'ajax-dashoboard-grid-requests',
         data: { id:id,statusshow:statusshow },
 
         success: function(response) {
@@ -2993,13 +3003,13 @@ function ajaxDashoboardGridRequests(id,statusshow)
 function ajaxDashoboardGridOrders(id,statusshow)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url:  baseurl + 'ajax-dashoboard-grid-orders',
+        url:  'ajax-dashoboard-grid-orders',
         data: { id:id,statusshow:statusshow },
 
         success: function(response) {
@@ -3018,19 +3028,19 @@ function DeleteServiceRequest(request_id,service_id,id)
     //Logic to delete the item
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
         type: 'Post',
-        url:  baseurl + 'ajax-delete-service-request',
+        url:  'ajax-delete-service-request',
         data: { request_id:id,service_id:service_id },
 
         success: function(response) {
 
          $('#overlay').remove();
-         window.location=baseurl+"admin-edit-service-request/"+id;
+         window.location="admin-edit-service-request/"+id;
      }
  });
 }
@@ -3038,12 +3048,12 @@ function DeleteServiceRequest(request_id,service_id,id)
 function closeWorkOrderOrContinue(order_id,status_id)
 {
   var over = '<div id="overlay">' +
-  '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+  '<img id="loading" src="assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   $.ajax({
     type: 'Post',
-    url:  baseurl + 'close-property-status',
+    url:  'close-property-status',
     data: { order_id:order_id,status_id:status_id },
 
     success: function(response) {
@@ -3058,14 +3068,14 @@ function closeWorkOrderOrContinue(order_id,status_id)
 function changevendorname()
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     var recurring_id=$('#uniquerecurringid').val();
     var vendorid=$('#uniquevendorid').val();
     $.ajax({
      type: 'Post',
-     url:  baseurl + 'change-vendor-name',
+     url:  'change-vendor-name',
      data: { recurring_id:recurring_id,vendorid:vendorid},
      success: function(response) {
 
@@ -3082,14 +3092,14 @@ function changeVendorOrder()
 {
 
  var over = '<div id="overlay">' +
- '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+ '<img id="loading" src="assets/img/loader.gif">' +
  '</div>';
  $(over).appendTo('body');
  var order_id=$('#order_id_custom').val();
  var vendorid=$('#vendorsAssigned').val();
  $.ajax({
      type: 'Post',
-     url:  baseurl + 'change-vendor-order',
+     url:  'change-vendor-order',
      data: { order_id:order_id,vendorid:vendorid},
      success: function(response) {
 
@@ -3108,14 +3118,14 @@ function under_review_notes(vendorid)
 
 
   var over = '<div id="overlay">' +
-  '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+  '<img id="loading" src="assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   var order_id=$('#order_id_custom').val();
   var under_review_notes=$('#under_review_notes').val();
   $.ajax({
      type: 'Post',
-     url:  baseurl + 'saving_under_reviewing_notes',
+     url:  'saving_under_reviewing_notes',
      data: {under_review_notes:under_review_notes, order_id:order_id,vendorid:vendorid},
      success: function(response) {
 
@@ -3142,14 +3152,17 @@ function loadServiceOnJobType()
   //$(this).closest('.control-group').find('.nxtStep').trigger('click');
 
   var over = '<div id="overlay">' +
-  '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+  '<img id="loading" src="assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   
   $.ajax({
-     type: 'Post',
-     url:  baseurl + 'load-service-on-job-type',
+     type: 'POST',
+     url:  'load-service-on-job-type',
      data: {job_type:job_type,client_type:client_type},
+     headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
      success: function(response) {
 
       $('#overlay').remove();
@@ -3172,7 +3185,7 @@ function loadServiceOnJobType()
     $(".btn-addbid").on('click', (function(e) {
 
        var over = '<div id="overlay">' +
-       '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+       '<img id="loading" src="assets/img/loader.gif">' +
        '</div>';
        $(over).appendTo('body');
 
@@ -3187,7 +3200,7 @@ function loadServiceOnJobType()
 
        $.ajax({
          type: 'Post',
-         url:  baseurl + 'do-request',
+         url:  'do-request',
          data: { title:title,service_code:service_code,bid_flag:bid_flag, submitted:submitted,job_type_id:job_type_id },
          success: function(response) {
 
@@ -3217,10 +3230,13 @@ function loadServiceOnJobType()
                 //        var current_service_id=service_id[service_id.length - 1];
                 $.ajax({
                     type: 'Post',
-                    url: baseurl+'ajax-service-information-popup',
+                    url: 'ajax-service-information-popup',
                     data: {
                         service_id: current_service,
                         asset_number: asset_number
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     cache: false,
                     success: function(response) {
@@ -3231,7 +3247,7 @@ function loadServiceOnJobType()
                             $('#service_ids').trigger('liszt:updated');
 
                             // $('#service_ids').append('<option></option>');
-                            // $( "#allservices" ).load(baseurl+'/includejs.php');
+                            // $( "#allservices" ).load('/includejs.php');
 
                         } else {
                             $('#allservices').html(response);
@@ -3303,18 +3319,18 @@ if(customer_bid_price=="")
     alert("Please insert the customer price");
 }else{
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
     $.ajax({
      type: 'Post',
-     url:  baseurl + 'save-bid-price',
+     url:  'save-bid-price',
      data: {bypassornot:bypassornot,datepickerremainder:datepickerremainder,vendor_bid_price:vendor_bid_price,customer_bid_price:customer_bid_price,id:id},
      success: function(response) {
 
       $('#overlay').remove();
-      window.location=  baseurl + 'list-bidding-request';
+      window.location=  'list-bidding-request';
 
 
 
@@ -3340,18 +3356,18 @@ function saveBidPriceDirectSendWithoutReminder(id)
         alert("Please insert the customer price");
     }else{
         var over = '<div id="overlay">' +
-        '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+        '<img id="loading" src="assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
         $.ajax({
          type: 'Post',
-         url:  baseurl + 'save-bid-price',
+         url:  'save-bid-price',
          data: {bypassornot:bypassornot,datepickerremainder:datepickerremainder,vendor_bid_price:vendor_bid_price,customer_bid_price:customer_bid_price,id:id},
          success: function(response) {
 
           $('#overlay').remove();
-          window.location=  baseurl + 'list-bidding-request';
+          window.location=  'list-bidding-request';
 
 
 
@@ -3367,19 +3383,19 @@ function saveBidPriceVendor(id)
     var vendor_note_for_bid=  $("#vendor_note_for_bid").val()
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
   //alert(baseurl);
   $.ajax({
      type: 'GET',
-     url:  baseurl + 'save-bid-price-vendor',
+     url:  'save-bid-price-vendor',
      data: {vendor_bid_price:vendor_bid_price,id:id,vendor_note_for_bid:vendor_note_for_bid},
      success: function(response) {
 
       $('#overlay').remove();
 
-      window.location=baseurl + 'vendor-assigned-bids';
+      window.location='vendor-assigned-bids';
 
 
 
@@ -3441,11 +3457,11 @@ function savePhotoTaging()
 
     $.ajax({
      type: 'Post',
-     url:  baseurl + 'add-photo-tagging',
+     url:  'add-photo-tagging',
      data: {x1:x1,x2:x2,y1:y1,y2:y2,w:w,h:h,order_image_id:order_image_id,comment:comment},
      success: function(response) {
 
-       var htmlli ='<li  id="uniq'+response+'" style="background: url('+baseurl+'public/assets/images/tag_hotspot_62x62.png) no-repeat;top: '+y1+'px;left: '+x1+'px;width: '+w+'px;height: '+h+'px;"><a href="javascript:;"><span class="titleDs">'+comment+' </span></a><a href="javascript:;" onclick="deletePhotoTag('+response+')" class="removeBtn">X</a></li>';
+       var htmlli ='<li  id="uniq'+response+'" style="background: url(assets/images/tag_hotspot_62x62.png) no-repeat;top: '+y1+'px;left: '+x1+'px;width: '+w+'px;height: '+h+'px;"><a href="javascript:;"><span class="titleDs">'+comment+' </span></a><a href="javascript:;" onclick="deletePhotoTag('+response+')" class="removeBtn">X</a></li>';
 
        if( $('.map'+order_image_id+" .map").length >0)
        {
@@ -3471,7 +3487,7 @@ function deletePhotoTag(imageID)
 
     $.ajax({
      type: 'Post',
-     url:  baseurl + 'delete-photo-tagging',
+     url:  'delete-photo-tagging',
      data: {imageID:imageID},
      success: function(response) {
 
@@ -3488,12 +3504,12 @@ function changePrice(vendor_id,assignid)
   vendorPrice=$("#"+vendor_id).val();
 
   var over = '<div id="overlay">' +
-  '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+  '<img id="loading" src="assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   $.ajax({
      type: 'Post',
-     url:  baseurl + 'change-price-vendor',
+     url:  'change-price-vendor',
      data: {
        assignid:assignid,
        vendorPrice:vendorPrice
@@ -3519,12 +3535,12 @@ function SaveDueDate(requestedID)
    var duedatechange=$("#duedatechange").val();
 
    var over = '<div id="overlay">' +
-   '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+   '<img id="loading" src="assets/img/loader.gif">' +
    '</div>';
    $(over).appendTo('body');
    $.ajax({
      type: 'Post',
-     url:  baseurl + 'change-due-date',
+     url:  'change-due-date',
      data: {
        requestedID:requestedID,
        duedatechange:duedatechange
@@ -3571,7 +3587,7 @@ function approveBidRequest(id,vendor_id)
 
     var date_completion_appears=$("#date_completion_appears").val();
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -3591,7 +3607,7 @@ function approveBidRequest(id,vendor_id)
 
              $.ajax({
                  type: 'Post',
-                 url:  baseurl + 'ajax-approve-bid-request-status-changed',
+                 url:  'ajax-approve-bid-request-status-changed',
                  data: {
                    request_id:id,
                    vendor:vendor_id,
@@ -3600,7 +3616,7 @@ function approveBidRequest(id,vendor_id)
                success: function(response) {
 
 
-                   window.location=baseurl + 'list-customer-requested-bids';
+                   window.location='list-customer-requested-bids';
 
 
 
@@ -3629,7 +3645,7 @@ function approveBidRequest(id,vendor_id)
 
           $.ajax({
              type: 'Post',
-             url:  baseurl + 'ajax-approve-bid-request',
+             url:  'ajax-approve-bid-request',
              data: {
                request_id:id,
                vendor:vendor_id,
@@ -3646,7 +3662,7 @@ function approveBidRequest(id,vendor_id)
             $('#errorMessage').html("Work Order has been Generated").hide();
             $('#errorMessage').slideDown('slow');
 
-            window.location=baseurl + 'list-customer-requested-bids';
+            window.location='list-customer-requested-bids';
 
 
 
@@ -3679,12 +3695,12 @@ function declineBidRequest()
 
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'public/assets/img/loader.gif">' +
+    '<img id="loading" src="assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     $.ajax({
      type: 'Post',
-     url:  baseurl + 'ajax-decline-bid-request',
+     url:  'ajax-decline-bid-request',
      data: {
        request_id:id,declinebidnotes:declinebidnotes
 
@@ -3699,7 +3715,7 @@ function declineBidRequest()
     $('#errorMessage').slideUp('slow');
     $('#errorMessage').html("Bid has been declined");
     $('#errorMessage').slideDown('slow');
-    window.location=baseurl + 'list-customer-requested-bids';
+    window.location='list-customer-requested-bids';
 
 }
 });

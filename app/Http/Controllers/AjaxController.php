@@ -92,8 +92,11 @@ class AjaxController extends Controller
     //Get asset information by id
     public function getAssetById()
     {
+
+        
         // Get all post data through ajax
         $data = Request::all();
+        
         //Check if request is ajax
         if (Request::ajax()) {
             //Get all asset information by asset_id
@@ -206,22 +209,27 @@ class AjaxController extends Controller
 
         $files = Request::file('service_image_' . $data['service_id']);
         $i = 0;
-        foreach ($files as $file) {
-            if ($file) {
-                $destinationPath = config('app.request_images');
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
 
-                //$unique_id = . $ext;
-                $filename = substr(base_convert(time(), 10, 36) . md5(microtime()), 0, 16) . '.' . $extension;
-                //$filename = $data['service_id'] . '-' . $i . '.' . $extension;
-                $data['service_images_' . $data['service_id']][] = $filename;
-                $file->move($destinationPath, $filename);
-            } else {
-                //$data['profile_picture'] = Auth::user()->profile_picture;
+        if ($files)
+        {
+            foreach ($files as $file) {
+                if ($file) {
+                    $destinationPath = config('app.request_images');
+                    $filename = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+    
+                    //$unique_id = . $ext;
+                    $filename = substr(base_convert(time(), 10, 36) . md5(microtime()), 0, 16) . '.' . $extension;
+                    //$filename = $data['service_id'] . '-' . $i . '.' . $extension;
+                    $data['service_images_' . $data['service_id']][] = $filename;
+                    $file->move($destinationPath, $filename);
+                } else {
+                    //$data['profile_picture'] = Auth::user()->profile_picture;
+                }
+                $i++;
             }
-            $i++;
         }
+
 
         return view('pages.customer.service_information_list')
                         ->with('data', $data);
@@ -238,22 +246,26 @@ class AjaxController extends Controller
 
         $files = Request::file('service_image_' . $data['service_id']);
         $i = 0;
-        foreach ($files as $file) {
-            if ($file) {
-                $destinationPath = config('app.request_images');
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-
-                //$unique_id = . $ext;
-                $filename = substr(base_convert(time(), 10, 36) . md5(microtime()), 0, 16) . '.' . $extension;
-                //$filename = $data['service_id'] . '-' . $i . '.' . $extension;
-                $data['service_images_' . $data['service_id']][] = $filename;
-                $file->move($destinationPath, $filename);
-            } else {
-                //$data['profile_picture'] = Auth::user()->profile_picture;
+        if ($files) 
+        {
+            foreach ($files as $file) {
+                if ($file) {
+                    $destinationPath = config('app.request_images');
+                    $filename = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
+    
+                    //$unique_id = . $ext;
+                    $filename = substr(base_convert(time(), 10, 36) . md5(microtime()), 0, 16) . '.' . $extension;
+                    //$filename = $data['service_id'] . '-' . $i . '.' . $extension;
+                    $data['service_images_' . $data['service_id']][] = $filename;
+                    $file->move($destinationPath, $filename);
+                } else {
+                    //$data['profile_picture'] = Auth::user()->profile_picture;
+                }
+                $i++;
             }
-            $i++;
         }
+
 
         return view('pages.customer.service_information_list_order_reivew')
                   ->with('data', $data);
@@ -376,9 +388,15 @@ class AjaxController extends Controller
 
     public function loadServiceOnJobType()
     {
+        
         $Input=Request::all();
-
-        $services =  Service::getAllServicesBySeviceJobTypeId($Input['job_type'], $Input['client_type']);
+        try{
+            $services =  Service::getAllServicesBySeviceJobTypeId($Input['job_type'], $Input['client_type']);
+        } catch (Exception $e)
+        {
+            var_dump($e);
+        }
+        
         $dataService=[];
 
         $options="";

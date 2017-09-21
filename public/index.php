@@ -10,6 +10,13 @@
 define('LARAVEL_START', microtime(true));
 
 /*
+ * Vagrant on Windows has a hard time loading the files within the PHP execution timeout. 
+ * This is here for debugging / local development
+ */
+ 
+ini_set('max_execution_time', 300);
+
+/*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
 |--------------------------------------------------------------------------

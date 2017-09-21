@@ -119,7 +119,7 @@
 
 
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->property_address)) {!!  $rm->asset->property_address !!} @endif</td>
 
 
 
@@ -164,7 +164,7 @@
 
 
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->zip !!}</td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->asset->zip)) {!!  $rm->asset->zip !!} @endif</td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
             @if(isset($rm->jobType->id))
                 {!!$rm->jobType->title!!}

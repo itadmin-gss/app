@@ -23,6 +23,7 @@ class Notification extends BaseTenantModel
     }
     public static function add($data)
     {
+
         $notification = self::create($data);
         return $notification;
     }

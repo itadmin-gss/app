@@ -1521,7 +1521,7 @@ function openFields(obj,id)
             }
     function removeservice(id) {
     var over = '<div id="overlay">' +
-            '<img id="loading" src="public/assets/img/loader.gif">' +
+            '<img id="loading" src="assets/img/loader.gif">' +
             '</div>';
             $(over).appendTo('body');
             var image_name = $('#' + id + '_input').val();

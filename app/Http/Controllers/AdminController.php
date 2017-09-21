@@ -1180,20 +1180,53 @@ Delete Request @param id
             $list_orders[$i]['vendor_name'] = $vendorfirstname . ' ' . $vendorlastname;
             $list_orders[$i]['job_type'] = $jobtype;
             $list_orders[$i]['clientType'] = $clientType;
-            $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
+       
+            if (isset($order->maintenanceRequest->asset->asset_number))
+            {
+                $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;                
+            }
+            else
+            {
+                $list_orders[$i]['asset_number'] = 0;
+            }
             $list_orders[$i]['order_date'] = date('m/d/Y h:i:s A', strtotime($order->created_at));
             $list_orders[$i]['service_name'] = '';
             $list_orders[$i]['due_date'] = '';
-            $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;
+
+            if (isset($order->maintenanceRequest->asset->property_address))
+            {
+                $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;                
+            }
+            else
+            {
+                $list_orders[$i]['property_address'] = " ";
+            }
 
             if (isset($order->maintenanceRequest->asset->city->name)) {
                 $list_orders[$i]['city'] = $order->maintenanceRequest->asset->city->name;
             } else {
                 $list_orders[$i]['city'] = " ";
             }
+            
+            if (isset($order->maintenanceRequest->asset->state->name))
+            {
+                $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;                
+            }
+            else
+            {
+                $list_orders[$i]['state'] = " ";
+            }
 
-            $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
-            $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
+            if (isset($order->maintenanceRequest->asset->zip))
+            {
+                $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
+            } 
+            else 
+            {
+                $list_orders[$i]['zipcode'] = " ";
+            }
+            
+
             $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
             $list_orders[$i]['status'] = $order->status;
             $list_orders[$i]['status_class'] = ($order->status == 1) ? "warning" : $order->status_class;;
@@ -1296,11 +1329,27 @@ Delete Request @param id
             $list_orders[$i]['vendor_name'] = $vendorfirstname . ' ' . $vendorlastname;
             $list_orders[$i]['job_type'] = $jobtype;
             $list_orders[$i]['clientType'] = $clientType;
-            $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
+            if (isset($oder->maintenanceRequest->asset->asset_number))
+            {
+                $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;                
+            }
+            else
+            {
+                $list_orders[$i]['asset_number'] = 0;
+            }
             $list_orders[$i]['order_date'] = date('m/d/Y h:i:s A', strtotime($order->created_at));
             $list_orders[$i]['service_name'] = '';
             $list_orders[$i]['due_date'] = '';
-            $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;
+
+            if (isset($order->maintenanceRequest->asset->property_address))
+            {
+                $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;
+            }
+            else
+            {
+                $list_orders[$i]['property_address'] = " ";
+            }
+            
 
             if (isset($order->maintenanceRequest->asset->city->name)) {
                 $list_orders[$i]['city'] = $order->maintenanceRequest->asset->city->name;
@@ -1308,8 +1357,25 @@ Delete Request @param id
                 $list_orders[$i]['city'] = " ";
             }
 
-            $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
-            $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
+            if (isset($order->maintenanceRequest->asset->state->name))
+            {
+                $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
+            }
+            else
+            {
+                $list_orders[$i]['state'] = " ";
+            }
+            
+            if (isset($order->maintenanceRequest->asset->zip))
+            {
+                $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
+            }
+            else
+            {
+                $list_orders[$i]['zipcode'] = " ";
+            }
+            
+    
             $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
             $list_orders[$i]['status'] = $order->status;
             $list_orders[$i]['status_class'] = ($order->status == 1) ? "warning" : $order->status_class;;

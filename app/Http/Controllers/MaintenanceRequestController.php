@@ -26,6 +26,7 @@ use App\Service;
 use App\ServiceImage;
 use App\ServiceImageBid;
 use App\User;
+use \Maintenance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -611,7 +612,7 @@ class MaintenanceRequestController extends Controller
         $requested_selected_services=[]; // array for getting the ids of requested servcies it will be used for auto assigning the emergency request
 
         // Add maintainence request to main table
-        $add_request = $MaintenanceRequestClass::addMaintenanceRequest($request);
+        $add_request = MaintenanceRequest::addMaintenanceRequest($request);
 
         // get last id to assign to each service request
         $request_id = DB::getPdo()->lastInsertId();
@@ -802,7 +803,7 @@ class MaintenanceRequestController extends Controller
 
                 //End recurring Request
 
-                $add_requested_service = $RequestedServiceClass::addRequestedService($request_detail);
+                $add_requested_service = RequestedService::addRequestedService($request_detail);
 
                 $request_detail_id = DB::getPdo()->lastInsertId(); // get last id of service
 

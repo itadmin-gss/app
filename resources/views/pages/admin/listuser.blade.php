@@ -64,7 +64,7 @@
             <td class="center">{!! Form::select('role_name', $userRoles,
             $user->user_role_id, array('class' => 'form-control role_name', 'onchange'=>'updateAccessLevel('.$user->id.',this)')) !!}
             <span id="loader" style="display:none; float:left;width:20%;">
-       {!!Html::image('public/assets/img/loader.gif', '',
+       {!!Html::image('assets/img/loader.gif', '',
        array('height' => '25', 'width' => '25'))!!}</span></td>
            <td class="center">
                <div class="activate">

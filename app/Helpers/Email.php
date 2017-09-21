@@ -31,10 +31,10 @@ class Email
 </div>';
 
 
-        $userStatus= User::where('email', '=', $to_email)->pluck("status");
+        $userStatus = User::getUserByEmail($to_email);
 
-        if ($userStatus == 1) {
-            Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
-        }
+        // if ($userStatus[0]->status == 1) {
+        //     Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
+        // }
     }
 }

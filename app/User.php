@@ -109,6 +109,11 @@ class User extends Authenticatable
         return $user->profile_status; //return user type
     }
 
+    public static function getUserByEmail($email) 
+    {
+        $user = self::where('email', $email)->get();
+        return $user;
+    }
     public static function getUserStatusById($id)
     {
         $user = self::find($id);
@@ -178,7 +183,6 @@ class User extends Authenticatable
         $user_ids = [];
         foreach ($users as $user) {
             $user_ids[] = $user->id;
-            $user_ids['email_'.$user->id] = $user->email;
         }
         return $user_ids;
     }
