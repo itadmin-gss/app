@@ -175,6 +175,40 @@ class AdminController extends Controller
         }
     }
 
+
+    public function processAddVendorFromVendorPage()
+    {
+        $rules = [
+            'first_name' => 'required|min:2|max:80|alpha',
+            'last_name' => 'required|min:2|max:80|alpha',
+            'email' => 'required|email|unique:users|between:3,64',
+            'password' => 'required|between:4,20'
+        ];
+        $validator = Validator::make(Request::all(), $rules);
+
+        if ($validator->fails()) {
+            $profile_error_messages = General::validationErrors($validator);
+
+            return $profile_error_messages;
+        } else {
+            $vendor_add_message = FlashMessage::messages('admin.vendor_add_success');
+            $data = Request::all();
+            $user_type_id = UserType::where('title', '=', 'vendors')->first();
+            $user_types = UserType::find($user_type_id->id);
+            $user_roles = UserRole::where('role_name', '=', $user_types->title)->first();
+            $data['type_id'] = $user_type_id->id;
+            // $passowrd = rand(); //Get random password to send user
+            $passowrd = $data['password'];
+            $data['password'] = Hash::make($passowrd);
+            $data['status'] = 1;
+            $save = User::createUser($data);
+            if ($save) {
+                
+                Session::flash('message', $vendor_add_message);
+                return redirect('list-vendors');
+            }
+        }
+    }
     public function processAddVendor()
     {
         $rules = [
@@ -203,7 +237,7 @@ class AdminController extends Controller
             $save = User::createUser($data);
             if ($save) {
                 $data['password'] = $passowrd;
-                Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($data));
+                // Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($data));
 
                 Session::flash('message', $vendor_add_message);
 

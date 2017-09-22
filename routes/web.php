@@ -199,6 +199,8 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
 
     Route::post('process-add-vendor', ['uses' => 'AdminController@processAddVendor']);
 
+    Route::post('admin-create-vendor', 'AdminController@processAddVendorFromVendorPage');
+
     Route::match(['GET', 'POST'], 'list-maintenance-request', ['uses' => 'AdminController@listMaintenanceRequest']);
 
     Route::match(['GET', 'POST'], 'list-bidding-request', ['uses' => 'AdminController@listBidRequest']);

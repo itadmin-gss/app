@@ -1209,6 +1209,7 @@ $('#viewassets').click(function() {
             }
             else
             {
+                $("#overlay").remove();
                 $('#addVendorSuccessMessage').slideUp('slow')
                 $('#addVendorValidationErrorMessage').html(data).hide();
                 $('#addVendorValidationErrorMessage').slideDown('slow');
@@ -1216,9 +1217,11 @@ $('#viewassets').click(function() {
         },
         error: function()
         {
+            $("#overlay").remove();
             $('#addVendorErrorMessage').slideDown();
         }
     });
+
    }));
 }
 
