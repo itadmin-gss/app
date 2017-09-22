@@ -1224,6 +1224,8 @@ Status: New Bid Request
 
     public function assignServiceRequest()
     {
+
+       
         $assignment_data = Request::all();
 
         $userDAta=User::find($assignment_data['vendor']);
@@ -1266,6 +1268,9 @@ Status: New Bid Request
             ->where('vendor_id', '=', $assignment_data['vendor'])
             ->where('status', '!=', 2)
             ->get();
+
+            var_dump($assigned_requests);
+            exit();
             $order_details = [];
             foreach ($assigned_requests as $request) {
                  //Creating the work order

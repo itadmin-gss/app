@@ -24,7 +24,7 @@ function download(img) {
 }
 function showQuickWorkOrderPage(order_id){
    var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
   $.ajax({
@@ -59,7 +59,7 @@ $(".popUpOvrlay .popUpOvrlay .ovrlyPop").click(function(){
   //   $('.modal-backdrop').fadeToggle();
   // $(".popUpOvrlay").fadeOut();
   // var over = '<div id="overlay">' +
-  //       '<img id="loading" src="assets/img/loader.gif">' +
+  //       '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
   //       '</div>';
   //       $(over).appendTo('body');
   // window.location.reload();
@@ -239,7 +239,7 @@ function auto_load(){
 
 
     //     var over = '<div id="overlay">' +
-    //     '<img id="loading" src="assets/img/loader.gif">' +
+    //     '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     //     '</div>';
     //     $(over).appendTo('body');
 
@@ -321,7 +321,7 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -336,7 +336,7 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -350,7 +350,7 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -364,7 +364,7 @@ function auto_load(){
         
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -383,7 +383,7 @@ function auto_load(){
 
 
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -583,7 +583,7 @@ function auto_load(){
 //     var property_address=  $('#property_address').val();
 
 //     var over = '<div id="overlay">' +
-//     '<img id="loading" src="assets/img/loader.gif">' +
+//     '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
 //     '</div>';
 //     $(over).appendTo('body');
 
@@ -618,7 +618,7 @@ $("#zip").change(function() {
     var property_address=  $('#property_address').val();
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -702,7 +702,7 @@ $('#generate_asset_number').click(function() {
 $('#state_id').change(function() {
         //e.preventDefault();
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -1085,7 +1085,7 @@ $('#viewassets').click(function() {
 
         e.preventDefault();
         var over = '<div id="overlay">' +
-        '<img id="loading" src="public/assets/img/loader.gif">' +
+        '<img id="loading" src="public/'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -1138,7 +1138,7 @@ $('#viewassets').click(function() {
 
         e.preventDefault();
         var over = '<div id="overlay">' +
-        '<img id="loading" src="' + '/public/assets/img/loader.gif">' +
+        '<img id="loading" src="' + '/public/'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
         $.ajax(
@@ -1183,7 +1183,7 @@ $('#viewassets').click(function() {
     $("#addVendorForm").on('submit', (function(e) {
 
        var over = '<div id="overlay">' +
-       '<img id="loading" src="assets/img/loader.gif">' +
+       '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
        '</div>';
        $(over).appendTo('body');
 
@@ -1408,7 +1408,7 @@ jQuery(document).ready(function() {
       var title = $("#servicename option:selected").text();
       $("#title_test").change(function(){
         var service_id = $("#servicename option:selected").val();
-        var over = '<div id="overlay">' +'<img id="loading" src="assets/img/loader.gif">' +'</div>';
+        var over = '<div id="overlay">' +'<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +'</div>';
         $(over).appendTo('body');
         $.ajax({method: "POST",url: '/show-additional-service-popup',data: {service_id:service_id,asset: asset,job_type:job_type,asset_number:asset_number }}).done(function( msg ) {
           $('#overlay').remove();
@@ -1442,7 +1442,7 @@ jQuery(document).ready(function() {
             $('#title_test_chzn').hide();
         }
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
         $.ajax({
@@ -1501,7 +1501,7 @@ jQuery(document).ready(function() {
        }, 5000); 
     }else{
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');   
 
@@ -1590,7 +1590,7 @@ function updateRequestedService(id){
     var customer_price = $("#customer_price_"+id).val();
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     if (admin_quantity == 0) {
@@ -1651,7 +1651,7 @@ function showMaintenanceServices(maintenance_request_id)
 {
 
    var over = '<div id="overlay">' +
-   '<img id="loading" src="assets/img/loader.gif">' +
+   '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
    '</div>';
    $(over).appendTo('body');
 
@@ -1675,7 +1675,7 @@ function showBidServices(maintenance_request_id,service_id)
 {
 
    var over = '<div id="overlay">' +
-   '<img id="loading" src="assets/img/loader.gif">' +
+   '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
    '</div>';
    $(over).appendTo('body');
    if(!service_id || service_id == "")
@@ -1716,7 +1716,7 @@ function showBidServicesWorkOrder(maintenance_request_id,flagworkorder,requested
     {
 
        var over = '<div id="overlay">' +
-       '<img id="loading" src="assets/img/loader.gif">' +
+       '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
        '</div>';
        $(over).appendTo('body');
 
@@ -1892,7 +1892,7 @@ function Exportpdf()
 
 function popModalAdditionalItemExport(additional_service_id, type)
 {   
-   var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="assets/img/loader.gif">'+'</div>';
+   var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="'+baseurl+'/assets/img/loader.gif">'+'</div>';
    $(over).appendTo('#export_modal_additional_image_'+additional_service_id);    
 
    $.ajax({
@@ -1915,7 +1915,7 @@ function popModalAdditionalItemExport(additional_service_id, type)
 } 
 function popModalExport(order_id, order_detail_id, type)
 {
-    var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="assets/img/loader.gif">'+'</div>';
+    var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="'+baseurl+'/assets/img/loader.gif">'+'</div>';
     //$(over).appendTo('#export_view_images');  
     $('#export_view_images').css("overflow", "hidden");
     $.ajax({
@@ -2539,7 +2539,7 @@ else
 function ChangeNotificationStatus(notification_id,notification_url,notification_messages)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2654,7 +2654,7 @@ function adminNotesOsr(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2685,7 +2685,7 @@ function customerNotesOsr(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2716,7 +2716,7 @@ function adminNotes(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2744,7 +2744,7 @@ function adminNotesBid(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2772,7 +2772,7 @@ function vendorNotes(valueObj,request_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2801,7 +2801,7 @@ function publicNotes(valueObj,service_id)
 {
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2960,7 +2960,7 @@ function completionDate()
 function populateCompany(id)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -2986,7 +2986,7 @@ function populateCompany(id)
 function ajaxDashoboardGridRequests(id,statusshow)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -3006,7 +3006,7 @@ function ajaxDashoboardGridRequests(id,statusshow)
 function ajaxDashoboardGridOrders(id,statusshow)
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -3031,7 +3031,7 @@ function DeleteServiceRequest(request_id,service_id,id)
     //Logic to delete the item
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -3051,7 +3051,7 @@ function DeleteServiceRequest(request_id,service_id,id)
 function closeWorkOrderOrContinue(order_id,status_id)
 {
   var over = '<div id="overlay">' +
-  '<img id="loading" src="assets/img/loader.gif">' +
+  '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   $.ajax({
@@ -3071,7 +3071,7 @@ function closeWorkOrderOrContinue(order_id,status_id)
 function changevendorname()
 {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     var recurring_id=$('#uniquerecurringid').val();
@@ -3095,7 +3095,7 @@ function changeVendorOrder()
 {
 
  var over = '<div id="overlay">' +
- '<img id="loading" src="assets/img/loader.gif">' +
+ '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
  '</div>';
  $(over).appendTo('body');
  var order_id=$('#order_id_custom').val();
@@ -3121,7 +3121,7 @@ function under_review_notes(vendorid)
 
 
   var over = '<div id="overlay">' +
-  '<img id="loading" src="assets/img/loader.gif">' +
+  '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   var order_id=$('#order_id_custom').val();
@@ -3155,7 +3155,7 @@ function loadServiceOnJobType()
   //$(this).closest('.control-group').find('.nxtStep').trigger('click');
 
   var over = '<div id="overlay">' +
-  '<img id="loading" src="assets/img/loader.gif">' +
+  '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   
@@ -3188,7 +3188,7 @@ function loadServiceOnJobType()
     $(".btn-addbid").on('click', (function(e) {
 
        var over = '<div id="overlay">' +
-       '<img id="loading" src="assets/img/loader.gif">' +
+       '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
        '</div>';
        $(over).appendTo('body');
 
@@ -3322,7 +3322,7 @@ if(customer_bid_price=="")
     alert("Please insert the customer price");
 }else{
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -3359,7 +3359,7 @@ function saveBidPriceDirectSendWithoutReminder(id)
         alert("Please insert the customer price");
     }else{
         var over = '<div id="overlay">' +
-        '<img id="loading" src="assets/img/loader.gif">' +
+        '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
         '</div>';
         $(over).appendTo('body');
 
@@ -3386,7 +3386,7 @@ function saveBidPriceVendor(id)
     var vendor_note_for_bid=  $("#vendor_note_for_bid").val()
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
   //alert(baseurl);
@@ -3507,7 +3507,7 @@ function changePrice(vendor_id,assignid)
   vendorPrice=$("#"+vendor_id).val();
 
   var over = '<div id="overlay">' +
-  '<img id="loading" src="assets/img/loader.gif">' +
+  '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
   '</div>';
   $(over).appendTo('body');
   $.ajax({
@@ -3538,7 +3538,7 @@ function SaveDueDate(requestedID)
    var duedatechange=$("#duedatechange").val();
 
    var over = '<div id="overlay">' +
-   '<img id="loading" src="assets/img/loader.gif">' +
+   '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
    '</div>';
    $(over).appendTo('body');
    $.ajax({
@@ -3590,7 +3590,7 @@ function approveBidRequest(id,vendor_id)
 
     var date_completion_appears=$("#date_completion_appears").val();
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
 
@@ -3698,7 +3698,7 @@ function declineBidRequest()
 
 
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     $.ajax({

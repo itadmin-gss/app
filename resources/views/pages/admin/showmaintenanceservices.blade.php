@@ -49,7 +49,10 @@
       <h3 style="width:50%;float:left;">Available Vendors</h3></div>
       {!! Form::hidden('request_id', $request_maintenance->id);!!}
 
-      @if(count($request_maintenance->requested_service)==count($assigned_services))
+      <?php var_dump($request_maintenance->id); ?>
+      @if(count($request_maintenance->requestedService())==count($assigned_services))
+
+     
       <table class="table table-striped table-bordered" style="width:48%;float:left;margin-right: 2%;"><tr>
        <td class="center">
 
@@ -71,7 +74,7 @@
     </thead>   
     <tbody>
 
-     @foreach ($request_maintenance->requested_service as $services)
+     @foreach ($request_maintenance->requestedService()->get() as $services)
      @if(!in_array($services->id,$assigned_services)) 
      <tr>
        <td class="center">{!! Form::checkbox('services[]', $services->id);!!}
