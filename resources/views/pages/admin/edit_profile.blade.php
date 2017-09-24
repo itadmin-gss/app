@@ -64,7 +64,7 @@
                                     </div>
                                     @if($user_data['type_id']==2)
 <!--                                     <div class="control-group">
-                                        {!!Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
                                            <select name="customer_type_id" id="customer_type_id">
                                                <?php
@@ -242,21 +242,21 @@
 
                             <div id="changePasswordControll" class="box hide">
                                 <!-- <div class="control-group">
-                                    {!!Form::label('current_password', 'Current Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
+                                    {{--  {!!Form::label('current_password', 'Current Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}  --}}
                                     <div class="controls">
-                                        {!! Form::password('current_password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}
+                                        {{--  {!! Form::password('current_password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}  --}}
                                     </div>
                                 </div> -->
                                 <div class="control-group">
                                     {!!Form::label('password', 'New Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
                                     <div class="controls">
-                                        {!! Form::password('password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}
+                                        {!! Form::password('password', array('class'=>'span10 typeahead','id'=>'password'))!!}
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     {!!Form::label('password_confirmation', 'Confirm New password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
                                     <div class="controls">
-                                        {!! Form::password('password_confirmation', '', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
+                                        {!! Form::password('password_confirmation', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
                                     </div>
                                 </div>
                             </div>
