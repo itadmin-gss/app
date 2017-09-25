@@ -1229,7 +1229,8 @@ Delete Request @param id
             } else {
                 $clientType = "";
             }
-            $additional_service_items = AdditionalServiceItem::where('order_id', '=', $order->id)->get();
+            $additional_service_items = [];
+            // $additional_service_items = AdditionalServiceItem::where('order_id', '=', $order->id)->get();
 
 
             $list_orders[$i]['order_id'] = $order->id;
