@@ -716,7 +716,7 @@ function modalClose(){
   $('#state_id').change(function() {
           //e.preventDefault();
           var over = '<div id="overlay">' +
-          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
+          '<img id="loading" src="/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   

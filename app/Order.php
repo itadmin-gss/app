@@ -44,11 +44,11 @@ class Order extends BaseTenantModel
 
     public static function listAllWorkOrder()
     {
-        $work_orders = [];
+        $work_orders = new StdObj;
         self::chunk(100, function ($orders){
             foreach($orders as $order)
             {
-                $work_orders[] = $order;
+                $work_orders->append($orders);
             }
         });
         return $work_orders;
