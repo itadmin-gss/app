@@ -20,6 +20,10 @@
   |
 
  */
+
+
+
+
 Route::get('work-order-info', function () {
 
     echo "<pre>";
@@ -33,10 +37,9 @@ Route::get('work-order-info', function () {
     echo "<br>";
 });
 
-//Route::get('refresh', ['uses' => 'BaseController@notify']);
 
-Route::get('/', ['uses' => 'UserController@showLogin']);
-
+// Route::get('/', ['uses' => 'UserController@showLogin']);
+Route::get('/', ['as' => 'login', 'uses' => 'UserController@showLogin']);
 Route::get('active-customer/{id}', ['uses' => 'CustomerController@activeCustomer']);
 
 Route::get('active-user/{id}', ['uses' => 'UserController@activeUser']);
@@ -71,6 +74,7 @@ Route::get('logout', function () {
     return view('home');
 });
 
+
 Route::match(['GET', 'POST'], 'update-additional-service/{id}', ['uses' => 'ServiceController@updateAdditionalItem']);
 Route::match(['GET', 'POST'], 'additional-service-title-change', ['uses' => 'ServiceController@checkAddedTitle']);
 Route::match(['GET', 'POST'], 'add-additional-service', ['uses' => 'ServiceController@addAdditionalItem']);
@@ -81,240 +85,129 @@ Route::match(['GET', 'POST'], 'add-requested-service/{id}', ['uses' => 'ServiceC
 
 Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], function () {
 
-    // Login Secure Admin Routes
-
-
+    // Admin Controller
+    Route::get('admin', ['uses' => 'AdminController@index']);
+    Route::match(['GET', 'POST'], 'approved-pagination', ['uses' => 'AdminController@ajaxDashoboardGridOrdersPagination']);
+    Route::match(['GET', 'POST'], 'list-vendor-summary', ['uses' => 'AdminController@listVendorsSummary']);
+    Route::match(['GET', 'POST'], 'list-bid-services', ['uses' => 'AdminController@listBidServices']);
+    Route::match(['GET', 'POST'], 'edit-client-type/{clientID}', ['uses' => 'AdminController@editCustomerType']);
+    Route::match(['GET', 'POST'], 'list-user', ['uses' => 'AdminController@listUser']);
+    Route::match(['GET', 'POST'], 'list-city', ['uses' => 'AdminController@listCity']);
+    Route::get('add-city', ['uses' => 'AdminController@addCity']);    
+    Route::post('addCity', ['uses' => 'AdminController@addNewCity']);
+    Route::get('edit-city/{id}', ['uses' => 'AdminController@editCity']);
+    Route::post('save-city', ['uses' => 'AdminController@saveCity']);
+    Route::match(['GET', 'POST'], 'list-service-categories', ['uses' => 'AdminController@listServiceCategories']);
+    Route::match(['GET', 'POST'], 'list-job-type', ['uses' => 'AdminController@listJobType']);
+    Route::match(['GET', 'POST'], 'list-customer-type', ['uses' => 'AdminController@listCustomerType']);
+    Route::match(['GET', 'POST'], 'add-access-level', ['uses' => 'AdminController@addAccessLevel']);
+    Route::get('add-user', ['uses' => 'AdminController@addUser']);
+    Route::get('add-service-category', ['uses' => 'AdminController@addServiceCategory']);
+    Route::get('add-job-type', ['uses' => 'AdminController@addJobType']);
+    Route::get('add-customer-type', ['uses' => 'AdminController@addCustomerType']);
+    Route::post('addUser', ['uses' => 'AdminController@addNewUser']);
+    Route::post('addServiceCat', ['uses' => 'AdminController@addNewServiceCategory']);
+    Route::post('addJobType', ['uses' => 'AdminController@addNewJobType']);
+    Route::post('addCustomerType', ['uses' => 'AdminController@addNewCustomerType']);
+    Route::post('editCustomerType', ['uses' => 'AdminController@editNewCustomerType']);
+    Route::match(['GET', 'POST'], 'edit-user/{user_id}', ['uses' => 'AdminController@editUser']);
+    Route::get('list-access-level', ['uses' => 'AdminController@listAccessLevel']);
+    Route::get('show-add-vendor', ['uses' => 'AdminController@addVendor']);
+    Route::post('process-add-vendor', ['uses' => 'AdminController@processAddVendor']);
+    Route::post('admin-create-vendor', 'AdminController@processAddVendorFromVendorPage');
+    Route::match(['GET', 'POST'], 'list-maintenance-request', ['uses' => 'AdminController@listMaintenanceRequest']);
+    Route::match(['GET', 'POST'], 'list-bidding-request', ['uses' => 'AdminController@listBidRequest']);
+    Route::match(['GET', 'POST'], 'list-assigned-maintenance-request', ['uses' => 'AdminController@listAssignedMaintenanceRequest']);
+    Route::match(['GET', 'POST'], 'view-maintenance-request/{id}', ['uses' => 'AdminController@viewMaintenanceRequest']);
+    Route::match(['GET', 'POST'], 'cancel-maintenance-request/{id}', ['uses' => 'AdminController@cancelMaintenanceRequest']);
+    Route::match(['GET', 'POST'], 'delete-maintenance-request/{id}', ['uses' => 'AdminController@deleteMaintenanceRequest']);
+    Route::match(['GET', 'POST'], 'cancel-bidding-request/{id}', ['uses' => 'AdminController@cancelBiddingRequest']);
+    Route::match(['GET', 'POST'], 'view-bidding-request/{id}/{service_id}', ['uses' => 'AdminController@viewBiddingRequest']);
+    Route::match(['GET', 'POST'], 'view-bidding-request/{id}', ['uses' => 'AdminController@viewBiddingRequest']);
+    Route::get('list-exported-workorder', ['uses' => 'AdminController@listExportedWorkOrder']);
+    Route::get('list-work-order-admin', ['uses' => 'AdminController@listWorkOrder']);
+    Route::get('list-work-order-admin1', ['uses' => 'AdminController@viewonly']);
+    Route::get('list-work-order-admin-grid', ['uses' => 'AdminController@listWorkOrderGrid']);
+    Route::get('admin-list-completed-order', ['uses' => 'AdminController@listCompletedOrders']);
+    Route::get('list-vendors', ['uses' => 'AdminController@listVendors']);
+    Route::get('list-vendorss', ['uses' => 'AdminController@listVendorsDynamically']);
+    Route::get('edit-profile-admin/{id}', ['uses' => 'AdminController@editProfileAdmin']);    
+    Route::get('edit-job-type/{id}', ['uses' => 'AdminController@editTypeJob']);       
+    Route::post('save-profile-admin/{id}', ['uses' => 'AdminController@saveUserProfile']);
+    Route::get('admin-add-bid-request', ['uses' => 'AdminController@addBidRequest']);    
+    Route::get('create-bid/{id}', ['uses' => 'AdminController@createBidRequest']);
+    Route::get('admin-bid-requests', ['uses' => 'AdminController@listBidRequests']);
+    Route::get('admin-bid-requests/{id}', ['uses' => 'AdminController@listBidRequests']);
+    Route::get('admin-approved-bid-requests', ['uses' => 'AdminController@listApprovedBidRequests']);
+    Route::get('admin-declined-bid-requests', ['uses' => 'AdminController@listDeclinedBidRequests']);
+    Route::post('admin-create-bid-service-request', ['uses' => 'AdminController@createBidServiceRequest']);
+    Route::match(['GET', 'POST'], 'view-admin-bid-request/{id}', ['uses' => 'AdminController@viewBidRequest']);
+    Route::match(['GET', 'POST'], 'admin-accept-bid-request/', ['uses' => 'AdminController@acceptBidRequest']);
+    Route::match(['GET', 'POST'], 'admin-decline-bid-request/', ['uses' => 'AdminController@DeclineBidRequest']);
+    Route::match(['GET', 'POST'], 'delete-user/{user_id}', ['uses' => 'AdminController@deleteUser']);
+    Route::get('quantity-of-approved-orders', ['uses' => 'AdminController@quantityOfApprovedOrders']);
+    
+    //User Controller
     Route::get('login-as/{user_id}', ['uses' => 'UserController@doLoginAsUser']);
 
-    Route::get('admin', ['uses' => 'AdminController@index']);
-
+    //Access Rights Controller
     Route::get('access-rights', ['uses' => 'AccessRightController@index']);
 
+    //Asset Controller
     Route::match(['GET', 'POST'], 'add-asset', ['uses' => 'AssetController@addAdminAsset']);
-
     Route::match(['GET', 'POST'], 'add-asset/{id}', ['uses' => 'AssetController@addAdminAsset']);
-
-    Route::match(['GET', 'POST'], 'approved-pagination', ['uses' => 'AdminController@ajaxDashoboardGridOrdersPagination']);
-
-
-    Route::match(['GET', 'POST'], 'add-service', ['uses' => 'ServiceController@addAdminService']);
-
     Route::match(['GET', 'POST'], 'list-assets', ['uses' => 'AssetController@listAdminAssets']);
-
     Route::match(['GET', 'POST'], 'list-assets-summary', ['uses' => 'AssetController@listAdminAssetsSummary']);
-
+    Route::match(['GET', 'POST'], 'property-report', ['uses' => 'AssetController@propertyReport']);    
+    Route::match(['GET', 'POST'], 'recurring-report', ['uses' => 'AssetController@recurringReport']);
+    Route::match(['GET', 'POST'], 'reporting', ['uses' => 'AssetController@reporting']);
+    Route::match(['GET', 'POST'], 'whiteboard-reporting', ['uses' => 'AssetController@whiteboardReporting']);
+    Route::match(['GET', 'POST'], 'edit-asset/{asset_id}', ['uses' => 'AssetController@editAdminAsset']);
+    
+    //Service Controller
+    Route::match(['GET', 'POST'], 'add-service', ['uses' => 'ServiceController@addAdminService']);
+    Route::match(['GET', 'POST'], 'list-services', ['uses' => 'ServiceController@listAdminServices']);
+    Route::match(['GET', 'POST'], 'edit-service/{service_id}', ['uses' => 'ServiceController@updateAdminService']);
+    
+    //Order Controller
     Route::match(['GET', 'POST'], 'status-report', ['uses' => 'OrderController@statusReport']);
 
-
-    Route::match(['GET', 'POST'], 'property-report', ['uses' => 'AssetController@propertyReport']);
-
-    Route::match(['GET', 'POST'], 'recurring-report', ['uses' => 'AssetController@recurringReport']);
-
-    Route::match(['GET', 'POST'], 'reporting', ['uses' => 'AssetController@reporting']);
-
-    Route::match(['GET', 'POST'], 'whiteboard-reporting', ['uses' => 'AssetController@whiteboardReporting']);
-
-
-    Route::match(['GET', 'POST'], 'list-vendor-summary', ['uses' => 'AdminController@listVendorsSummary']);
-
-    Route::match(['GET', 'POST'], 'list-services', ['uses' => 'ServiceController@listAdminServices']);
-
-
-    Route::match(['GET', 'POST'], 'list-bid-services', ['uses' => 'AdminController@listBidServices']);
-
+    //Special Price Controller
     Route::match(['GET', 'POST'], 'add-special-prices', ['uses' => 'SpecialPriceController@addSpecialPrice']);
-
     Route::match(['GET', 'POST'], 'vendor-add-special-prices', ['uses' => 'SpecialPriceController@vendorAddSpecialPrice']);
-
     Route::match(['GET', 'POST'], 'list-special-prices', ['uses' => 'SpecialPriceController@listSpecialPrice']);
-
     Route::match(['GET', 'POST'], 'vendor-list-special-prices', ['uses' => 'SpecialPriceController@vendorListSpecialPrice']);
-
     Route::match(['GET', 'POST'], 'edit-special-price/{special_price_id}', ['uses' => 'SpecialPriceController@editSpecialPrice']);
-
     Route::match(['GET', 'POST'], 'edit-vendor-special-price/{special_price_id}', ['uses' => 'SpecialPriceController@editVendorSpecialPrice']);
 
-
-    Route::match(['GET', 'POST'], 'edit-service/{service_id}', ['uses' => 'ServiceController@updateAdminService']);
-
-
-    Route::match(['GET', 'POST'], 'edit-client-type/{clientID}', ['uses' => 'AdminController@editCustomerType']);
-
-
-    Route::match(['GET', 'POST'], 'edit-asset/{asset_id}', ['uses' => 'AssetController@editAdminAsset']);
-
-    // Admin Routes
-
-    Route::match(['GET', 'POST'], 'list-user', ['uses' => 'AdminController@listUser']);
+    //Ajax Controller
     Route::match(['GET', 'POST'], 'approved-grid-export', ['uses' => 'AjaxController@approvedGridExport']);
 
-
-    // routes set to city screen by shm
-
-    Route::match(['GET', 'POST'], 'list-city', ['uses' => 'AdminController@listCity']);
-
-    Route::get('add-city', ['uses' => 'AdminController@addCity']);
-
-    Route::post('addCity', ['uses' => 'AdminController@addNewCity']);
-
-    Route::get('edit-city/{id}', ['uses' => 'AdminController@editCity']);
-
-    Route::post('save-city', ['uses' => 'AdminController@saveCity']);
-
-
-    Route::match(['GET', 'POST'], 'list-service-categories', ['uses' => 'AdminController@listServiceCategories']);
-
-    Route::match(['GET', 'POST'], 'list-job-type', ['uses' => 'AdminController@listJobType']);
-
-
-    Route::match(['GET', 'POST'], 'list-customer-type', ['uses' => 'AdminController@listCustomerType']);
-
-
-    Route::match(['GET', 'POST'], 'add-access-level', ['uses' => 'AdminController@addAccessLevel']);
-
-    Route::get('add-user', ['uses' => 'AdminController@addUser']);
-
-    Route::get('add-service-category', ['uses' => 'AdminController@addServiceCategory']);
-
-    Route::get('add-job-type', ['uses' => 'AdminController@addJobType']);
-
-    Route::get('add-customer-type', ['uses' => 'AdminController@addCustomerType']);
-
-    Route::post('addUser', ['uses' => 'AdminController@addNewUser']);
-
-    Route::post('addServiceCat', ['uses' => 'AdminController@addNewServiceCategory']);
-
-    Route::post('addJobType', ['uses' => 'AdminController@addNewJobType']);
-
-    Route::post('addCustomerType', ['uses' => 'AdminController@addNewCustomerType']);
-
-    Route::post('editCustomerType', ['uses' => 'AdminController@editNewCustomerType']);
-
-
-    Route::match(['GET', 'POST'], 'edit-user/{user_id}', ['uses' => 'AdminController@editUser']);
-
-    Route::get('list-access-level', ['uses' => 'AdminController@listAccessLevel']);
-
-    Route::get('show-add-vendor', ['uses' => 'AdminController@addVendor']);
-
-    Route::post('process-add-vendor', ['uses' => 'AdminController@processAddVendor']);
-
-    Route::post('admin-create-vendor', 'AdminController@processAddVendorFromVendorPage');
-
-    Route::match(['GET', 'POST'], 'list-maintenance-request', ['uses' => 'AdminController@listMaintenanceRequest']);
-
-    Route::match(['GET', 'POST'], 'list-bidding-request', ['uses' => 'AdminController@listBidRequest']);
-
-    Route::match(['GET', 'POST'], 'list-assigned-maintenance-request', ['uses' => 'AdminController@listAssignedMaintenanceRequest']);
-
-    Route::match(['GET', 'POST'], 'view-maintenance-request/{id}', ['uses' => 'AdminController@viewMaintenanceRequest']);
-
-    Route::match(['GET', 'POST'], 'cancel-maintenance-request/{id}', ['uses' => 'AdminController@cancelMaintenanceRequest']);
-
-    Route::match(['GET', 'POST'], 'delete-maintenance-request/{id}', ['uses' => 'AdminController@deleteMaintenanceRequest']);
-
-    Route::match(['GET', 'POST'], 'cancel-bidding-request/{id}', ['uses' => 'AdminController@cancelBiddingRequest']);
-
-
-    Route::match(['GET', 'POST'], 'view-bidding-request/{id}/{service_id}', ['uses' => 'AdminController@viewBiddingRequest']);
-
-    Route::match(['GET', 'POST'], 'view-bidding-request/{id}', ['uses' => 'AdminController@viewBiddingRequest']);
-
-
+    //Customer Controller
     Route::match(['GET', 'POST'], 'add-new-customer', ['uses' => 'CustomerController@createCustomerAdmin']);
-
     Route::get('list-customer', ['uses' => 'CustomerController@listCustomerAdmin']);
-
     Route::match(['GET', 'POST'], 'edit-customer/{id}', ['uses' => 'CustomerController@editCustomerAdmin']);
-    //Exported Route
 
-    Route::get('list-exported-workorder', ['uses' => 'AdminController@listExportedWorkOrder']);
-
-    //Work Order Routes
-
-    Route::get('list-work-order-admin', ['uses' => 'AdminController@listWorkOrder']);
-
-    Route::get('list-work-order-admin1', ['uses' => 'AdminController@viewonly']);
-
-    Route::get('list-work-order-admin-grid', ['uses' => 'AdminController@listWorkOrderGrid']);
-
-
-    Route::get('admin-list-completed-order', ['uses' => 'AdminController@listCompletedOrders']);
-
+    //Invoice Controller
     Route::get('admin-list-invoice', ['uses' => 'InvoiceController@listAdminInvoices']);
-
-
     Route::get('admin-list-invoice/{id}', ['uses' => 'InvoiceController@listAdminInvoices']);
 
-
-    //    Route::get('list-completed-order-admin', array('uses' => 'AdminController@listCompletedOrders'));
-
-    //WorkOrder Routes
-
-
-    Route::get('edit-profile-admin/{id}', ['uses' => 'AdminController@editProfileAdmin']);
-
-    Route::get('edit-job-type/{id}', ['uses' => 'AdminController@editTypeJob']);
-
-
-    Route::post('save-profile-admin/{id}', ['uses' => 'AdminController@saveUserProfile']);
-
+    //Maintenance Request Controller
     Route::match(['GET', 'POST'], 'assign-service-request', ['uses' => 'MaintenanceRequestController@assignServiceRequest']);
-
     Route::match(['GET', 'POST'], 'assign-service-bid', ['uses' => 'MaintenanceRequestController@assignServiceBid']);
-
-
     Route::match(['GET', 'POST'], 'admin-notes', ['uses' => 'MaintenanceRequestController@adminNotes']);
-
     Route::match(['GET', 'POST'], 'admin-notes-bid', ['uses' => 'MaintenanceRequestController@adminNotesBid']);
-
     Route::match(['GET', 'POST'], 'admin-notes-osr', ['uses' => 'MaintenanceRequestController@adminNotesOsr']);
-
     Route::match(['GET', 'POST'], 'customer-notes-osr', ['uses' => 'MaintenanceRequestController@customerNotesOsr']);
-
-
     Route::match(['GET', 'POST'], 'public-notes', ['uses' => 'MaintenanceRequestController@publicNotes']);
-
     Route::match(['GET', 'POST'], 'public-notes-bid', ['uses' => 'MaintenanceRequestController@publicNotesBid']);
-
-
     Route::match(['GET', 'POST'], 'customer-notes-bid', ['uses' => 'MaintenanceRequestController@customerNotesBid']);
-
-
-    Route::match(['GET', 'POST'], 'edit-access-level/{role_id}', ['uses' => 'AccessLevelController@editAccessLevel']);
-
-    Route::match(['GET', 'POST'], 'delete-user/{user_id}', ['uses' => 'AdminController@deleteUser']);
-
-    Route::get('admin-add-bid-request', ['uses' => 'AdminController@addBidRequest']);
-
-    Route::get('create-bid/{id}', ['uses' => 'AdminController@createBidRequest']);
-
-
-    Route::get('admin-bid-requests', ['uses' => 'AdminController@listBidRequests']);
-
-
-    Route::get('admin-bid-requests/{id}', ['uses' => 'AdminController@listBidRequests']);
-
-    Route::get('admin-approved-bid-requests', ['uses' => 'AdminController@listApprovedBidRequests']);
-
-
-    Route::get('admin-declined-bid-requests', ['uses' => 'AdminController@listDeclinedBidRequests']);
-
-    Route::post('admin-create-bid-service-request', ['uses' => 'AdminController@createBidServiceRequest']);
-
-    Route::match(['GET', 'POST'], 'view-admin-bid-request/{id}', ['uses' => 'AdminController@viewBidRequest']);
-
-
-    Route::match(['GET', 'POST'], 'admin-accept-bid-request/', ['uses' => 'AdminController@acceptBidRequest']);
-
-    Route::match(['GET', 'POST'], 'admin-decline-bid-request/', ['uses' => 'AdminController@DeclineBidRequest']);
-
-
-    Route::get('admin-add-new-service-request', ['uses' => 'MaintenanceRequestController@viewAdminRequestForm']);
-
+    Route::get('admin-add-new-service-request', ['uses' => 'MaintenanceRequestController@viewAdminRequestForm']);    
     Route::get('admin-edit-service-request/{id}', ['uses' => 'MaintenanceRequestController@editAdminRequestForm']);
 
-    Route::get('quantity-of-approved-orders', ['uses' => 'AdminController@quantityOfApprovedOrders']);
+    //Access Level Controller
+    Route::match(['GET', 'POST'], 'edit-access-level/{role_id}', ['uses' => 'AccessLevelController@editAccessLevel']);
+    
 });
 
 
@@ -332,8 +225,7 @@ Route::get('list-customer-requested-services', ['uses' => 'MaintenanceRequestCon
 
 Route::get('list-customer-requested-bids', ['uses' => 'MaintenanceRequestController@listServiceRequestBid']);
 
-Route::get('list-vendors', ['uses' => 'AdminController@listVendors']);
-Route::get('list-vendorss', ['uses' => 'AdminController@listVendorsDynamically']);
+
 
 Route::get('view-customer-request-service/{id}', ['uses' => 'MaintenanceRequestController@viewServiceRequest']);
 
