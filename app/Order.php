@@ -44,7 +44,7 @@ class Order extends BaseTenantModel
 
     public static function listAllWorkOrder()
     {
-        $work_orders = self::orderBy('id', 'desc')->get();
+        $work_orders = self::all();
         return $work_orders;
     }
 

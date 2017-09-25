@@ -24,7 +24,7 @@ function modalClose(){
   }
   function showQuickWorkOrderPage(order_id){
      var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
     $.ajax({
@@ -326,7 +326,7 @@ function modalClose(){
           
   
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -341,7 +341,7 @@ function modalClose(){
           
   
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -355,7 +355,7 @@ function modalClose(){
           
   
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -369,7 +369,7 @@ function modalClose(){
           
   
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -388,7 +388,7 @@ function modalClose(){
   
   
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -592,7 +592,7 @@ function modalClose(){
   //     var property_address=  $('#property_address').val();
   
   //     var over = '<div id="overlay">' +
-  //     '<img id="loading" src="assets/img/loader.gif">' +
+  //     '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
   //     '</div>';
   //     $(over).appendTo('body');
   
@@ -627,7 +627,7 @@ function modalClose(){
       var property_address=  $('#property_address').val();
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -716,14 +716,14 @@ function modalClose(){
   $('#state_id').change(function() {
           //e.preventDefault();
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
           var state_id = this.value;
           var options = '';
           $.ajax({
-              type: 'Post',
+              type: 'POST',
               url: '/get-cities-by-state-id',
               data: {
                   state_id: state_id
@@ -1105,7 +1105,7 @@ function modalClose(){
   
           e.preventDefault();
           var over = '<div id="overlay">' +
-          '<img id="loading" src="public/assets/img/loader.gif">' +
+          '<img id="loading" src="public/'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -1161,7 +1161,7 @@ function modalClose(){
   
           e.preventDefault();
           var over = '<div id="overlay">' +
-          '<img id="loading" src="' + '/public/assets/img/loader.gif">' +
+          '<img id="loading" src="' + '/public/'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
           $.ajax(
@@ -1209,7 +1209,7 @@ function modalClose(){
       $("#addVendorForm").on('submit', (function(e) {
   
          var over = '<div id="overlay">' +
-         '<img id="loading" src="assets/img/loader.gif">' +
+         '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
          '</div>';
          $(over).appendTo('body');
   
@@ -1443,7 +1443,7 @@ function modalClose(){
         var title = $("#servicename option:selected").text();
         $("#title_test").change(function(){
           var service_id = $("#servicename option:selected").val();
-          var over = '<div id="overlay">' +'<img id="loading" src="assets/img/loader.gif">' +'</div>';
+          var over = '<div id="overlay">' +'<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +'</div>';
           $(over).appendTo('body');
           $.ajax({
               method: "POST",
@@ -1484,7 +1484,7 @@ function modalClose(){
               $('#title_test_chzn').hide();
           }
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
           $.ajax({
@@ -1546,7 +1546,7 @@ function modalClose(){
          }, 5000); 
       }else{
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');   
   
@@ -1638,7 +1638,7 @@ function modalClose(){
       var customer_price = $("#customer_price_"+id).val();
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
       if (admin_quantity == 0) {
@@ -1705,7 +1705,7 @@ function modalClose(){
   {
   
      var over = '<div id="overlay">' +
-     '<img id="loading" src="assets/img/loader.gif">' +
+     '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
      '</div>';
      $(over).appendTo('body');
   
@@ -1732,7 +1732,7 @@ function modalClose(){
   {
   
      var over = '<div id="overlay">' +
-     '<img id="loading" src="assets/img/loader.gif">' +
+     '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
      '</div>';
      $(over).appendTo('body');
      if(!service_id || service_id == "")
@@ -1776,7 +1776,7 @@ function modalClose(){
       {
   
          var over = '<div id="overlay">' +
-         '<img id="loading" src="assets/img/loader.gif">' +
+         '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
          '</div>';
          $(over).appendTo('body');
   
@@ -1970,7 +1970,7 @@ function modalClose(){
   
   function popModalAdditionalItemExport(additional_service_id, type)
   {   
-     var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="assets/img/loader.gif">'+'</div>';
+     var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="'+baseurl+'/assets/img/loader.gif">'+'</div>';
      $(over).appendTo('#export_modal_additional_image_'+additional_service_id);    
   
      $.ajax({
@@ -1996,7 +1996,7 @@ function modalClose(){
   } 
   function popModalExport(order_id, order_detail_id, type)
   {
-      var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="assets/img/loader.gif">'+'</div>';
+      var over = '<div id="overlay" class="cstmOverlay">'+'<img id="loading" src="'+baseurl+'/assets/img/loader.gif">'+'</div>';
       //$(over).appendTo('#export_view_images');  
       $('#export_view_images').css("overflow", "hidden");
       $.ajax({
@@ -2668,7 +2668,7 @@ function modalClose(){
   function ChangeNotificationStatus(notification_id,notification_url,notification_messages)
   {
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -2789,7 +2789,7 @@ function modalClose(){
   {
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -2823,7 +2823,7 @@ function modalClose(){
   {
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -2857,7 +2857,7 @@ function modalClose(){
   {
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -2888,7 +2888,7 @@ function modalClose(){
   {
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -2919,7 +2919,7 @@ function modalClose(){
   {
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -2951,7 +2951,7 @@ function modalClose(){
   {
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -3124,7 +3124,7 @@ function modalClose(){
   function populateCompany(id)
   {
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -3153,7 +3153,7 @@ function modalClose(){
   function ajaxDashoboardGridRequests(id,statusshow)
   {
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -3175,7 +3175,7 @@ function modalClose(){
   function ajaxDashoboardGridOrders(id,statusshow)
   {
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -3202,7 +3202,7 @@ function modalClose(){
       //Logic to delete the item
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -3225,7 +3225,7 @@ function modalClose(){
   function closeWorkOrderOrContinue(order_id,status_id)
   {
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     $.ajax({
@@ -3248,7 +3248,7 @@ function modalClose(){
   function changevendorname()
   {
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
       var recurring_id=$('#uniquerecurringid').val();
@@ -3275,7 +3275,7 @@ function modalClose(){
   {
   
    var over = '<div id="overlay">' +
-   '<img id="loading" src="assets/img/loader.gif">' +
+   '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
    '</div>';
    $(over).appendTo('body');
    var order_id=$('#order_id_custom').val();
@@ -3304,7 +3304,7 @@ function modalClose(){
   
   
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     var order_id=$('#order_id_custom').val();
@@ -3341,7 +3341,7 @@ function modalClose(){
     //$(this).closest('.control-group').find('.nxtStep').trigger('click');
   
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     
@@ -3374,7 +3374,7 @@ function modalClose(){
       $(".btn-addbid").on('click', (function(e) {
   
          var over = '<div id="overlay">' +
-         '<img id="loading" src="assets/img/loader.gif">' +
+         '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
          '</div>';
          $(over).appendTo('body');
   
@@ -3511,7 +3511,7 @@ function modalClose(){
       alert("Please insert the customer price");
   }else{
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -3551,7 +3551,7 @@ function modalClose(){
           alert("Please insert the customer price");
       }else{
           var over = '<div id="overlay">' +
-          '<img id="loading" src="assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -3581,7 +3581,7 @@ function modalClose(){
       var vendor_note_for_bid=  $("#vendor_note_for_bid").val()
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
     //alert(baseurl);
@@ -3711,7 +3711,7 @@ function modalClose(){
     vendorPrice=$("#"+vendor_id).val();
   
     var over = '<div id="overlay">' +
-    '<img id="loading" src="assets/img/loader.gif">' +
+    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
     '</div>';
     $(over).appendTo('body');
     $.ajax({
@@ -3745,7 +3745,7 @@ function modalClose(){
      var duedatechange=$("#duedatechange").val();
   
      var over = '<div id="overlay">' +
-     '<img id="loading" src="assets/img/loader.gif">' +
+     '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
      '</div>';
      $(over).appendTo('body');
      $.ajax({
@@ -3800,7 +3800,7 @@ function modalClose(){
   
       var date_completion_appears=$("#date_completion_appears").val();
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
   
@@ -3914,7 +3914,7 @@ function modalClose(){
   
   
       var over = '<div id="overlay">' +
-      '<img id="loading" src="assets/img/loader.gif">' +
+      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
       $(over).appendTo('body');
       $.ajax({

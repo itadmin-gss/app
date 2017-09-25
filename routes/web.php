@@ -21,24 +21,26 @@
 
  */
 
+// leave this commented out in a production environment. This will display the MySQL connection credentials. 
+//
+//
+// Route::get('work-order-info', function () {
 
+//     echo "<pre>";
+//     echo "Host:" . " " . DB::connection()->getConfig("host");
+//     echo "<br>";
+//     echo "Database Name:" . " " . DB::connection()->getConfig("database");
+//     echo "<br>";
+//     echo "Username:" . " " . DB::connection()->getConfig("username");
+//     echo "<br>";
+//     echo "Password:" . " " . DB::connection()->getConfig("password");
+//     echo "<br>";
+// });
+//
+//
 
+Route::get('test-email-sending', 'AdminController@testEmail');
 
-Route::get('work-order-info', function () {
-
-    echo "<pre>";
-    echo "Host:" . " " . DB::connection()->getConfig("host");
-    echo "<br>";
-    echo "Database Name:" . " " . DB::connection()->getConfig("database");
-    echo "<br>";
-    echo "Username:" . " " . DB::connection()->getConfig("username");
-    echo "<br>";
-    echo "Password:" . " " . DB::connection()->getConfig("password");
-    echo "<br>";
-});
-
-
-// Route::get('/', ['uses' => 'UserController@showLogin']);
 Route::get('/', ['as' => 'login', 'uses' => 'UserController@showLogin']);
 Route::get('active-customer/{id}', ['uses' => 'CustomerController@activeCustomer']);
 
@@ -146,7 +148,19 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     Route::match(['GET', 'POST'], 'admin-decline-bid-request/', ['uses' => 'AdminController@DeclineBidRequest']);
     Route::match(['GET', 'POST'], 'delete-user/{user_id}', ['uses' => 'AdminController@deleteUser']);
     Route::get('quantity-of-approved-orders', ['uses' => 'AdminController@quantityOfApprovedOrders']);
-    
+    Route::post('update-user-status/{user_id}', ['uses' => 'AdminController@updateUserStatus']);
+    Route::match(['GET', 'POST'], 'delete-vendor/{vendor_id}', ['uses' => 'AdminController@deleteVendor']);
+    Route::match(['GET', 'POST'], 'asset-view/{id}', ['uses' => 'AdminController@assetView']);
+    Route::match(['GET', 'POST'], 'show-bid-services/{id}/{service_id}', ['uses' => 'AdminController@showBidServices']);
+    Route::match(['GET', 'POST'], 'show-bid-services/{id}', ['uses' => 'AdminController@showBidServices']);    
+    Route::match(['GET', 'POST'], 'show-bid-services/{id}/{flagworkorder}/{customer_bid_price}/{vendor_bid_price}/{requestedServiceBidId}/{due_date}', ['uses' => 'AdminController@showBidServices']);
+    Route::post('update-access-level', ['uses' => 'AccessLevelController@updateUserAccessLevel']);
+    Route::post('update-access-rights', ['uses' => 'AccessRightController@updateAccessRights']);
+    Route::post('get-role-details', ['uses' => 'AccessRightController@getRoleDetails']);
+    Route::match(['GET', 'POST'], 'delete-access-level/{role_id}', ['uses' => 'AccessLevelController@deleteAccessLevel']);
+    Route::match(['GET', 'POST'], 'show-maintenance-services/{id}', ['uses' => 'AdminController@showMaintenanceServices']);
+
+
     //User Controller
     Route::get('login-as/{user_id}', ['uses' => 'UserController@doLoginAsUser']);
 
@@ -215,62 +229,26 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
 
 Route::post('create-service-request', ['uses' => 'MaintenanceRequestController@createServiceRequest'])->middleware('auth');
 Route::post('create-additional-service-request', ['uses' => 'MaintenanceRequestController@createAdditionalServiceRequest'])->middleware('auth');
-
 Route::post('edit-service-request', ['uses' => 'MaintenanceRequestController@editServiceRequest']);
-
 Route::post('create-bid-service-request', ['uses' => 'VendorController@createBidServiceRequest']);
-
-
 Route::get('list-customer-requested-services', ['uses' => 'MaintenanceRequestController@listServiceRequest']);
-
 Route::get('list-customer-requested-bids', ['uses' => 'MaintenanceRequestController@listServiceRequestBid']);
-
-
-
 Route::get('view-customer-request-service/{id}', ['uses' => 'MaintenanceRequestController@viewServiceRequest']);
-
 Route::get('view-customer-request-bid/{id}', ['uses' => 'MaintenanceRequestController@viewServiceBid']);
 
 /* Asset Routes */
 
 Route::get('add-customer-asset', ['uses' => 'AssetController@showAddAsset']);
-
 Route::post('create-customer-asset', ['uses' => 'AssetController@createAsset']);
-
 Route::get('add-new-customer-asset', ['uses' => 'AssetController@showAddAssetNew']);
-
 Route::get('add-new-customer-asset/{id}', ['uses' => 'AssetController@showAddAssetNew']);
-
 Route::post('edit-customer-asset/{id}', ['uses' => 'AssetController@editAsset']);
-
 Route::get('edit-customer-asset/{id}', ['uses' => 'AssetController@editAsset']);
 
 
 ############################################# Admin Routes for ajax call ######################################
 
-Route::post('update-access-level', ['uses' => 'AccessLevelController@updateUserAccessLevel']);
 
-Route::post('update-access-rights', ['uses' => 'AccessRightController@updateAccessRights']);
-
-Route::post('get-role-details', ['uses' => 'AccessRightController@getRoleDetails']);
-
-Route::post('update-user-status/{user_id}', ['uses' => 'AdminController@updateUserStatus']);
-
-
-Route::match(['GET', 'POST'], 'delete-vendor/{vendor_id}', ['uses' => 'AdminController@deleteVendor']);
-
-Route::match(['GET', 'POST'], 'delete-access-level/{role_id}', ['uses' => 'AccessLevelController@deleteAccessLevel']);
-
-
-Route::match(['GET', 'POST'], 'asset-view/{id}', ['uses' => 'AdminController@assetView']);
-
-Route::match(['GET', 'POST'], 'show-maintenance-services/{id}', ['uses' => 'AdminController@showMaintenanceServices']);
-
-
-Route::match(['GET', 'POST'], 'show-bid-services/{id}/{service_id}', ['uses' => 'AdminController@showBidServices']);
-Route::match(['GET', 'POST'], 'show-bid-services/{id}', ['uses' => 'AdminController@showBidServices']);
-
-Route::match(['GET', 'POST'], 'show-bid-services/{id}/{flagworkorder}/{customer_bid_price}/{vendor_bid_price}/{requestedServiceBidId}/{due_date}', ['uses' => 'AdminController@showBidServices']);
 
 
 Route::group(['middleware' => ['auth', 'customerCheck']], function () {
@@ -333,7 +311,7 @@ Route::group(['middleware' => ['auth', 'customerCheck']], function () {
 Route::match(['GET', 'POST'], 'admin-get-customer-company', ['uses' => 'AdminController@customerCompany']);
 
 
-Route::post('get-cities-by-state-id', ['uses' => 'AjaxController@getCitiesByState']);
+Route::post('get-cities-by-state-id', 'AjaxController@getCitiesByState');
 
 Route::post('ajax-get-asset-by-asset-id', ['uses' => 'AjaxController@getAssetById']);
 
@@ -505,7 +483,6 @@ Route::get('register-page-redirect', ['uses' => 'UserController@whereRedirect'])
 
 //Ajax Customer Routes
 
-Route::post('get-cities-by-state-id', ['uses' => 'AjaxController@getCitiesByState']);
 
 Route::post('ajax-get-asset-by-asset-id', ['uses' => 'AjaxController@getAssetById']);
 

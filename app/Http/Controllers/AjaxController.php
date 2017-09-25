@@ -74,9 +74,12 @@ class AjaxController extends Controller
         $work_orders = Order::where("status", "=", 4)->update(['status'=>6,'status_class'=>'blue','status_text'=>'Exported']);
         return "Exported Successfully!";
     }
+
+
     //Get all cities by state
     public function getCitiesByState()
     {
+
         // Get all post data through ajax
         $data = Request::all();
         //Check if request is ajax

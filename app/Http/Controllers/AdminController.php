@@ -160,6 +160,28 @@ class AdminController extends Controller
         return view('pages.admin.adduser')->with('user_roles', $user_roles);
     }
 
+    public function testEmail()
+    {
+            
+               //      $userDAta=User::find($MaintenanceBid->user->id);
+            $email_data = array(
+            'first_name' => "Jamie",
+            'last_name' => "Dunn",
+            'username' => "jdunn82k@gmail.com",
+            'email' => "jdunn82k@gmail.com",
+            'id' =>  123,
+            'user_email_template'=> "TEST EMAIL BODY"
+                               );
+
+       //      Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
+       try{
+        Email::send("jdunn82k@gmail.com", "GSS TEST", "emails.customer_registered", $email_data);
+       } catch (Exception $e){
+           return $e;
+       }
+
+    }
+
     /**
      * Gets the user to the add user page
      * @params none
@@ -1165,6 +1187,7 @@ Delete Request @param id
     public function listWorkOrder()
     {
         $work_orders = Order::listAllWorkOrder();
+
         $list_orders = [];
         $i = 0;
         $additional_count = 1;
@@ -1206,7 +1229,7 @@ Delete Request @param id
             } else {
                 $clientType = "";
             }
-            $additional_service_items = AdditionalServiceItem::where('order_id', '=', $order->id)->orderBy('id', 'desc')->get();
+            $additional_service_items = AdditionalServiceItem::where('order_id', '=', $order->id)->get();
 
 
             $list_orders[$i]['order_id'] = $order->id;
@@ -1657,13 +1680,7 @@ Delete Request @param id
                 'city_id' => 'required',
             ];
         }
-        $street = '';
-        $streetNumber = '';
-        $city_id = Request::get('city_id');
-        $city = City::find($city_id)->name;
-        $zip = Request::get('zipcode');
-        $country = 'United States';
-        $result = Geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
+
 
         $validator = Validator::make(Request::all(), $rules, $messages);
 
@@ -1676,6 +1693,13 @@ Delete Request @param id
 
             return $profile_error_messages;
         } else {
+            $street = '';
+            $streetNumber = '';
+            $city_id = Request::get('city_id');
+            $city = City::find($city_id)->name;
+            $zip = Request::get('zipcode');
+            $country = 'United States';
+            $result = (new Geolocation)->getCoordinates($street, $streetNumber, $city, $zip, $country);
             $profile_message = FlashMessage::messages('vendor.profile_edit_success');
             $data = Request::all();
             $data['latitude'] = $result['latitude'];

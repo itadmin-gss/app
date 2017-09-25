@@ -15,7 +15,6 @@ else
     <div class="row-fluid">
         <div class="box span12 noMarginTop">
             <h1>Service Request</h1>
-            <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="box-content custome-form requsrForm">
                 @if (Session::has('message'))
                 {!! Session::get('message') !!}

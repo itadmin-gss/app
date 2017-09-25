@@ -1,5 +1,5 @@
 
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="inFooter">
 	<div class="wrapper">
     	<span class="flt">&copy; <a href="" target="_blank">Good Scent Services</a> <?php echo date("Y"); ?></span> 

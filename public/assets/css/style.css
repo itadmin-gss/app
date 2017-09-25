@@ -2234,7 +2234,6 @@ div.uploader {
 =================================================================== */
 footer {
     min-height: 24px;
-    background: #3b3b41;
     color: #fff !important;
 }
 /* Sparkline stats
@@ -3341,14 +3340,14 @@ p#message {
 .txtCenter { text-align:center !important; }
 .login-box p a { color:#005cc7; }
 
-.inFooter { background: #fff; padding: 20px 0; position: absolute; bottom:0; width: 100%; }
+.inFooter { background: #fff; padding: 20px 0; }
 .inFooter .wrapper { padding: 0 30px; color: #005cc7; font-size: 14px; font-weight: 600; }
 .inFooter .wrapper a { color: #005cc7; }
 .inFooter .wrapper:after { content:""; display:block; clear:both; }
 .inFooter .wrapper .flt { float:left; }
 .inFooter .wrapper .rlt { float:right; }
 
-footer { margin:25px 0 0 !important; padding:3px 0 0 !important; }
+footer { margin:25px 0 0 !important; padding:3px 0 0 !important; position:absolute; bottom:0, width:100%}
 
 .registerd  { width:100%; }
 .registerd .row-fluid .span6 { width:100%; }
