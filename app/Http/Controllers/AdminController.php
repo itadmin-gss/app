@@ -1186,147 +1186,153 @@ Delete Request @param id
 
     public function listWorkOrder()
     {
+        // Get Work Orders
         $work_orders = Order::listAllWorkOrder();
+
+        //Get Job Types
+        $job_types = \App\JobType::all()->toArray();
+
+        //Get Customer Types
+        $customer_types = \App\CustomerType::all()->toArray();
 
         $list_orders = [];
         $i = 0;
         $additional_count = 1;
         $addl_itemz = [];
 
-        foreach ($work_orders as $order) {
-            $order_details = ($order->orderDetail);
-            //Property Address, City, State, Zip fields
-            $customerfirstname = "";
-            if (isset($order->customer->first_name)) {
-                $customerfirstname = $order->customer->first_name;
-            }
+        foreach($work_orders as $order)
+        {
+            $job_type               = '';
+            $customer_type          = '';
+            $order_id               = $order->id;
+            $request_id             = $order->request_id;
 
-            $customerlastname = "";
-            if (isset($order->customer->last_name)) {
-                $customerlastname = $order->customer->last_name;
-            }
+            //Retrieve Details From Various Tables
+            $customer_details       = \App\User::getUserNameArray($order->customer_id);
 
+            $order_details          = \App\OrderDetail::where('order_id', $order_id)->get();
+            $vendor_details         = \App\User::getUserNameArray($order->vendor_id);
+            $maintenance_request    = \App\MaintenanceRequest::getRequest($request_id);
+            $customer2_details      = \App\User::getUserNameArray($maintenance_request->substitutor_id);
+            $asset_details          = \App\Asset::getAssetInformationById($maintenance_request->asset_id);
+            $additional_service_items = AdditionalServiceItem::where('order_id', $order_id)->get();
 
-            $vendorfirstname = "";
-            if (isset($order->vendor->first_name)) {
-                $vendorfirstname = $order->vendor->first_name;
-            }
+            //Put it all together
 
-            $vendorlastname = "";
-            if (isset($order->vendor->last_name)) {
-                $vendorlastname = $order->vendor->last_name;
-            }
-            $jobtype = "";
-            if (isset($order->maintenanceRequest->jobType->title)) {
-                $jobtype = $order->maintenanceRequest->jobType->title;
-            } else {
-                $jobtype = "";
-            }
-
-            $clientType = "";
-            if (isset($order->maintenanceRequest->asset->customerType->title)) {
-                $clientType = $order->maintenanceRequest->asset->customerType->title;
-            } else {
-                $clientType = "";
-            }
-            $additional_service_items = [];
-            // $additional_service_items = AdditionalServiceItem::where('order_id', '=', $order->id)->get();
-
-
-            $list_orders[$i]['order_id'] = $order->id;
-            $list_orders[$i]['customer_name'] = $customerfirstname . ' ' . $customerlastname;
-            $list_orders[$i]['vendor_name'] = $vendorfirstname . ' ' . $vendorlastname;
-            $list_orders[$i]['job_type'] = $jobtype;
-            $list_orders[$i]['clientType'] = $clientType;
-       
-            if (isset($order->maintenanceRequest->asset->asset_number))
+            foreach($job_types as $type)
             {
-                $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;                
+                if ($type['id'] == $maintenance_request->job_type)
+                {
+                    $job_type = $type['title'];
+                }
+            }
+
+            if (isset($asset_details->customer_type))
+            {
+                foreach($customer_types as $cType)
+                {
+                    if ($cType['id'] == $asset_details->customer_type)
+                    {
+                        $customer_type = $cType['title'];
+                    }
+                }
+            }
+
+
+            $list_orders[$i]['order_id']        = $order_id;
+            $list_orders[$i]['customer_name']   = trim($customer_details['first_name'].' '.$customer_details['last_name']);
+            $list_orders[$i]['vendor_name']     = trim($vendor_details['first_name'].' '.$vendor_details['last_name']);
+            $list_orders[$i]['job_type']        = $job_type;
+            $list_orders[$i]['clientType']      = $customer_type;
+            $list_orders[$i]['order_date']      = date('m/d/Y h:i:s A', strtotime($order->created_at));
+            $list_orders[$i]['service_name']    = '';
+            $list_orders[$i]['due_date']        = '';
+            $list_orders[$i]['submit_by']       = "";
+            $list_orders[$i]['request_status']  = $maintenance_request->status;
+            $list_orders[$i]['status']          = $order->status;
+            $list_orders[$i]['status_class']    = ($order->status == 1) ? "warning" : $order->status_class;;
+            $list_orders[$i]['status_text']     = ($order->status == 1) ? "In-Process" : $order->status_text;;
+            
+            if (isset($asset_details->asset_number))
+            {
+                $list_orders[$i]['asset_number'] = $asset_details->asset_number;
             }
             else
             {
-                $list_orders[$i]['asset_number'] = 0;
+                $list_orders[$i]['asset_number'] = '';
             }
-            $list_orders[$i]['order_date'] = date('m/d/Y h:i:s A', strtotime($order->created_at));
-            $list_orders[$i]['service_name'] = '';
-            $list_orders[$i]['due_date'] = '';
 
-            if (isset($order->maintenanceRequest->asset->property_address))
+            if (isset($asset_details->property_address))
             {
-                $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;                
+                $list_orders[$i]['property_address'] = $asset_details->property_address;                
             }
             else
             {
                 $list_orders[$i]['property_address'] = " ";
             }
 
-            if (isset($order->maintenanceRequest->asset->city->name)) {
-                $list_orders[$i]['city'] = $order->maintenanceRequest->asset->city->name;
+            if (isset($asset_details->city->name)) {
+                $list_orders[$i]['city'] = $asset_details->city->name;
             } else {
                 $list_orders[$i]['city'] = " ";
             }
             
-            if (isset($order->maintenanceRequest->asset->state->name))
+            if (isset($asset_details->state->name))
             {
-                $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;                
+                $list_orders[$i]['state'] = $asset_details->state->name;                
             }
             else
             {
                 $list_orders[$i]['state'] = " ";
             }
 
-            if (isset($order->maintenanceRequest->asset->zip))
+            if (isset($asset_details->zip))
             {
-                $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
+                $list_orders[$i]['zipcode'] = $asset_details->zip;
             } 
             else 
             {
                 $list_orders[$i]['zipcode'] = " ";
             }
+
             
-
-            $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
-            $list_orders[$i]['status'] = $order->status;
-            $list_orders[$i]['status_class'] = ($order->status == 1) ? "warning" : $order->status_class;;
-            $list_orders[$i]['status_text'] = ($order->status == 1) ? "In-Process" : $order->status_text;;
-
-            $list_orders[$i]['submit_by'] = "";
-            if (isset($order->maintenanceRequest->user2->first_name) && isset($order->maintenanceRequest->user2->last_name)) {
-                $list_orders[$i]['submit_by'] = $order->maintenanceRequest->user2->first_name . " " . $order->maintenanceRequest->user2->last_name;
+            if (isset($customer2_details['first_name']) && isset($customer2_details['last_name'])) {
+                $list_orders[$i]['submit_by'] = $customer2_details['first_name'] . " " . $customer2_details['last_name'];
             }
 
             foreach ($order_details as $order_detail) {
-                if (isset($order_detail->requestedService->due_date) && ($order_detail->requestedService->due_date != "")) {
-                    $list_orders[$i]['due_date'] .= date('m/d/Y', strtotime($order_detail->requestedService->due_date)) . "<br/>";
-                } else {
+                $request_service_id = $order_detail->requested_service_id;
+
+                
+                $request_service = \App\RequestedService::find($request_service_id);
+                if (isset($request_service->due_date) && $request_service->due_date != '')
+                {
+                    $list_orders[$i]['due_date'] .= date('m/d/Y', strtotime($request_service->due_date)) . "<br/>";    
+                }
+                else 
+                {
                     $list_orders[$i]['due_date'] .= "Not Set" . "<br/>";
                 }
-                if (isset($order_detail->requestedService->service->title)) {
-                    $list_orders[$i]['service_name'] .= $order_detail->requestedService->service->title . ' <br>';
+                
+                $services = \App\Service::where('id', $request_service->service_id);
+                if (isset($services->title)) {
+                    $list_orders[$i]['service_name'] .= $services->title . ' <br>';
                 }
-            }
-            if (!empty($additional_service_items)) {
-                foreach ($additional_service_items as $item) {
-                    if ($item->order_id == $order->id) {
-                        // print_r($order_id);
-                        // echo "<br>";
-                        // print_r($order_id);
 
-                        $addl_itemz[$order->id][$order->id . "-" . $additional_count] = $item->title;
-                        //   if (isset($item->title)) {
-                        //    $item_id[$order->id]['additional_sevice'.$item->id] = $item->title;
-                        //  }else{
-                        //   $item_id[$order->id]['additional_sevice'] = "";
-                        // }
+                if (!empty($additional_service_items)) {
+                    foreach ($additional_service_items as $item) {
+                        if ($item->order_id == $order->id) {
+                            $addl_itemz[$order->id][$order->id . "-" . $additional_count] = $item->title;
+                        }
+    
+                        $additional_count++;
                     }
-
-                    $additional_count++;
+                    $additional_count = 1;
                 }
-                $additional_count = 1;
             }
             $i++;
+            
         }
-
 
         return view('pages.admin.list_work_order')
             ->with('orders', $list_orders)

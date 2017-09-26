@@ -119,7 +119,29 @@ class User extends Authenticatable
         $user = self::find($id);
         return $user->status; //return user type
     }
+    public static function getUserNameArray($id)
+    {
+        $user_details = self::find($id);
 
+        $user_array = [];
+        if (isset($user_details->first_name))
+        {
+            $user_array['first_name'] = $user_details->first_name;
+        } else 
+        {
+            $user_array['first_name'] = '';
+        }
+
+        if (isset($user_details->last_name))
+        {
+            $user_array['last_name'] = $user_details->last_name;
+        }
+        else
+        {
+            $user_array['last_name'] = '';
+        }
+        return $user_array;
+    }
     public static function getUserFullName($id)
     {
         $user_detail = self::find($id);

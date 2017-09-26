@@ -47,6 +47,10 @@ class MaintenanceRequest extends BaseTenantModel
     {
         return $this->hasMany(\App\Order::class, 'request_id');
     }
+    public static function getRequest($id)
+    {
+        return self::find($id);
+    }
 
     public static function addMaintenanceRequest($data)
     {
