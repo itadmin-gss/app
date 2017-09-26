@@ -1210,11 +1210,12 @@ Delete Request @param id
             //Retrieve Details From Various Tables
             $customer_details       = \App\User::getUserNameArray($order->customer_id);
 
-            $order_details          = \App\OrderDetail::where('order_id', $order_id)->get();
+            $order_details          = \App\OrderDetail::where('order_id', $order_id)->get(['requested_service_id']);
             $vendor_details         = \App\User::getUserNameArray($order->vendor_id);
-            $maintenance_request    = \App\MaintenanceRequest::getRequest($request_id);
+            $maintenance_request    = \App\MaintenanceRequest::where('id', $request_id)->get(['job_type', 'status', 'substitutor_id', 'asset_id'])[0];
             $customer2_details      = \App\User::getUserNameArray($maintenance_request->substitutor_id);
-            $asset_details          = \App\Asset::getAssetInformationById($maintenance_request->asset_id);
+            $asset_details          = \App\Asset::where('id', $maintenance_request->asset_id)->get(['asset_number', 'property_address', 'city_id', 'state_id', 'customer_type', 'zip']);
+
             $additional_service_items = AdditionalServiceItem::where('order_id', $order_id)->get();
 
             //Put it all together
@@ -1227,11 +1228,11 @@ Delete Request @param id
                 }
             }
 
-            if (isset($asset_details->customer_type))
+            if (isset($asset_details[0]->customer_type))
             {
                 foreach($customer_types as $cType)
                 {
-                    if ($cType['id'] == $asset_details->customer_type)
+                    if ($cType['id'] == $asset_details[0]->customer_type)
                     {
                         $customer_type = $cType['title'];
                     }
@@ -1253,42 +1254,45 @@ Delete Request @param id
             $list_orders[$i]['status_class']    = ($order->status == 1) ? "warning" : $order->status_class;;
             $list_orders[$i]['status_text']     = ($order->status == 1) ? "In-Process" : $order->status_text;;
             
-            if (isset($asset_details->asset_number))
+            if (isset($asset_details[0]->asset_number))
             {
-                $list_orders[$i]['asset_number'] = $asset_details->asset_number;
+                $list_orders[$i]['asset_number'] = $asset_details[0]->asset_number;
             }
             else
             {
                 $list_orders[$i]['asset_number'] = '';
             }
 
-            if (isset($asset_details->property_address))
+            if (isset($asset_details[0]->property_address))
             {
-                $list_orders[$i]['property_address'] = $asset_details->property_address;                
+                $list_orders[$i]['property_address'] = $asset_details[0]->property_address;                
             }
             else
             {
                 $list_orders[$i]['property_address'] = " ";
             }
 
-            if (isset($asset_details->city->name)) {
-                $list_orders[$i]['city'] = $asset_details->city->name;
+
+            if (isset($asset_details[0]->city_id)) {
+                $city = \App\City::where('id', $asset_details[0]->city_id)->get(['name'])[0];
+                $list_orders[$i]['city'] = $city->name;
             } else {
                 $list_orders[$i]['city'] = " ";
             }
             
-            if (isset($asset_details->state->name))
+            if (isset($asset_details[0]->state_id))
             {
-                $list_orders[$i]['state'] = $asset_details->state->name;                
+                $state = \App\State::where('id', $asset_details[0]->state_id)->get(['name'])[0];
+                $list_orders[$i]['state'] = $state->name;                
             }
             else
             {
                 $list_orders[$i]['state'] = " ";
             }
 
-            if (isset($asset_details->zip))
+            if (isset($asset_details[0]->zip))
             {
-                $list_orders[$i]['zipcode'] = $asset_details->zip;
+                $list_orders[$i]['zipcode'] = $asset_details[0]->zip;
             } 
             else 
             {
@@ -1314,9 +1318,9 @@ Delete Request @param id
                     $list_orders[$i]['due_date'] .= "Not Set" . "<br/>";
                 }
                 
-                $service_details = \App\Service::where('id', $request_service->service_id)->get();
-                if (isset($service_details->title)) {
-                    $list_orders[$i]['service_name'] .= $service_details->title. ' <br>';
+                $service_details = \App\Service::where('id', $request_service->service_id)->get()->toArray()[0];
+                if (isset($service_details['title'])) {
+                    $list_orders[$i]['service_name'] .= $service_details['title']. ' <br>';
                 }
 
                 
@@ -1333,9 +1337,20 @@ Delete Request @param id
                 }
             }
             $i++;
+            $job_type               = null;
+            $customer_type          = null;
+            $order_id               = null;
+            $request_id             = null;
+            $customer_details       = null; 
+            $order_details          = null; 
+            $vendor_details         = null; 
+            $maintenance_request    = null; 
+            $customer2_details      = null; 
+            $asset_details          = null; 
+            $additional_service_items = null;
             
         }
-        
+
         return view('pages.admin.list_work_order')
             ->with('orders', $list_orders)
             ->with('db_table', 'orders')
