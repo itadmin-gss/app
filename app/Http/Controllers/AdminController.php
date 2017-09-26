@@ -1314,10 +1314,12 @@ Delete Request @param id
                     $list_orders[$i]['due_date'] .= "Not Set" . "<br/>";
                 }
                 
-                $services = \App\Service::where('id', $request_service->service_id);
-                if (isset($services->title)) {
-                    $list_orders[$i]['service_name'] .= $services->title . ' <br>';
+                $service_details = \App\Service::where('id', $request_service->service_id)->get();
+                if (isset($service_details->title)) {
+                    $list_orders[$i]['service_name'] .= $service_details->title. ' <br>';
                 }
+
+                
 
                 if (!empty($additional_service_items)) {
                     foreach ($additional_service_items as $item) {
@@ -1333,7 +1335,7 @@ Delete Request @param id
             $i++;
             
         }
-
+        
         return view('pages.admin.list_work_order')
             ->with('orders', $list_orders)
             ->with('db_table', 'orders')
