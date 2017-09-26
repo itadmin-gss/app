@@ -13,6 +13,9 @@
   .sidebar-nav > ul {
     margin: 0px 0px 0px -20px;
   }
+  .absolute-position{
+    position:absolute !important;
+  }
   footer {
     margin: 20px -20px 0px -20px;
     padding: 10px 20px;

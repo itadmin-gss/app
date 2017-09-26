@@ -2,6 +2,7 @@
 
 <body>
 
+
     <div class="container-fluid">
 
         <div class="row-fluid"> 
@@ -118,6 +119,6 @@
 
     </div><!--/.fluid-container-->
 
-    <footer> >@include('common.footerbottom') </footer>
+    <footer class='absolute-position'> >@include('common.footer') </footer>
 
-    @include('common.footer')
+    @include('common.footerbottom')

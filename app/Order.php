@@ -1,6 +1,10 @@
 <?php
 
 namespace App;
+use \App\User;
+use \App\MaintenanceRequest;
+use \App\OrderDetail;
+use \App\OrderImage;
 
 class Order extends BaseTenantModel
 {
@@ -31,7 +35,10 @@ class Order extends BaseTenantModel
     {
         return $this->belongsTo(\App\MaintenanceRequest::class, 'request_id');
     }
-
+    public static function getOrderDetails()
+    {
+        
+    }
     public function orderDetail()
     {
         return $this->hasMany(\App\OrderDetail::class, 'order_id');
@@ -44,14 +51,15 @@ class Order extends BaseTenantModel
 
     public static function listAllWorkOrder()
     {
-        $work_orders = new StdObj;
-        self::chunk(100, function ($orders){
-            foreach($orders as $order)
-            {
-                $work_orders->append($orders);
-            }
-        });
-        return $work_orders;
+        // $work_orders = [];
+        // self::chunk(100, function ($orders){
+        //     foreach($orders as $order)
+        //     {
+        //         $work_orders[] = $orders;
+        //     }
+        // });
+        return self::all();
+        // return (object)$work_orders;
     }
 
     public static function listCompletedOrders()
