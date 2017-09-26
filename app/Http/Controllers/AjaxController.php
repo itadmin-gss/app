@@ -393,12 +393,8 @@ class AjaxController extends Controller
     {
         
         $Input=Request::all();
-        try{
-            $services =  Service::getAllServicesBySeviceJobTypeId($Input['job_type'], $Input['client_type']);
-        } catch (Exception $e)
-        {
-            var_dump($e);
-        }
+        $services =  Service::getAllServicesBySeviceJobTypeId($Input['job_type'], $Input['client_type']);
+
         
         $dataService=[];
 

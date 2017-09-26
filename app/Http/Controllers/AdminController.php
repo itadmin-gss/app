@@ -2687,9 +2687,8 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
             $additional_service_items = AdditionalServiceItem::where('order_id', '=', $order->id)->orderBy('id', 'desc')->get();
 
-            $vendorsCustomdata = OrderCustomData::where('order_id', '=', $order->id)->pluck('vendors_price');
-
-            $customerCustomdata = OrderCustomData::where('order_id', '=', $order->id)->pluck('customer_price');
+            $vendorsCustomdata = OrderCustomData::where('order_id', $order->id)->get();
+            $customerCustomdata = OrderCustomData::where('order_id', '=', $order->id)->get();
             $quantityCustom = OrderCustomData::where('order_id', '=', $order->id)->pluck('quantity');
             $adminQuantityCustom = OrderCustomData::where('order_id', '=', $order->id)->pluck('quantity');
             $list_orders[$i]['order_id'] = $order->id;
@@ -2698,36 +2697,102 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
 
             $list_orders[$i]['vendor_name'] = $vendorfirstname . ' ' . $vendorlastname;
             $list_orders[$i]['vendor_company'] = $vendorcompany;
-            if (!empty($vendorsCustomdata)) {
-                $list_orders[$i]['vendor_price'] = $vendorsCustomdata * $quantityCustom;
+
+            if (isset($vendorsCustomdata->vendors_price)) {
+                $list_orders[$i]['vendor_price'] = $vendorsCustomdata->vendors_price * $quantityCustom;
             } else {
                 $list_orders[$i]['vendor_price'] = $vendorprice;
             }
 
-            if (!empty($customerCustomdata)) {
-                $list_orders[$i]['customer_price'] = $customerCustomdata * $adminQuantityCustom;
+            if (isset($customerCustomdata->customer_price)) {
+                $list_orders[$i]['customer_price'] = $customerCustomdata->customer_price * $adminQuantityCustom;
             } else {
                 $list_orders[$i]['customer_price'] = $customerprice;
             }
             $list_orders[$i]['vendor_submitted'] = $order->vendor_submitted;
-            $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
+
+            if (isset($order->maintenanceRequest->asset->asset_number))
+            {
+                $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
+            }
+            else
+            {
+                $list_orders[$i]['asset_number'] = "";
+            }
+
+
             $list_orders[$i]['job_type'] = $jobtype;
             $list_orders[$i]['order_date'] = date('m/d/Y h:i:s A', strtotime($order->created_at));
             $list_orders[$i]['updated_at'] = date('m/d/Y h:i:s A', strtotime($order->updated_at));
             $list_orders[$i]['service_name'] = '';
-            $list_orders[$i]['property_id'] = $order->maintenanceRequest->asset->id;
-            $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;
+
+            if (isset($order->maintenanceRequest->asset->id))
+            {
+                $list_orders[$i]['property_id'] = $order->maintenanceRequest->asset->id;                
+            } 
+            else
+            {
+                $list_orders[$i]['propert_id'] = '';
+            }
+
+            if (isset($order->maintenanceRequest->asset->property_address))
+            {
+                $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;                
+            }
+            else
+            {
+                $list_orders[$i]['property_address'] = "";
+            }
+
             if (isset($order->maintenanceRequest->asset->city->name)) {
                 $list_orders[$i]['city'] = $order->maintenanceRequest->asset->city->name;
             } else {
                 $list_orders[$i]['city'] = "";
             }
-            $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
-            $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
-            $list_orders[$i]['units'] = $order->maintenanceRequest->asset->UNIT;
-            $list_orders[$i]['loan_numbers'] = $order->maintenanceRequest->asset->loan_number;
+
+            if (isset($order->maintenanceRequest->asset->state->name)) {
+                $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
+            } else {
+                $list_orders[$i]['state'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->zip))
+            {
+                $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;                
+            }
+            else
+            {
+                $list_orders[$i]['zipcode'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->UNIT))
+            {
+                $list_orders[$i]['units'] = $order->maintenanceRequest->asset->UNIT;                
+            }
+            else
+            {
+                $list_orders[$i]['units'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->loan_number))
+            {
+                $list_orders[$i]['loan_numbers'] = $order->maintenanceRequest->asset->loan_number;                
+            }
+            else
+            {
+                $list_orders[$i]['loan_numbers'] = "";
+            }
+
             $list_orders[$i]['completion_date'] = $order->completion_date;
-            $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
+
+            if (isset($order->maintenanceRequest->status))
+            {
+                $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
+            }
+            else
+            {
+                $list_orders[$i]['request_status'] = "";
+            }
             $list_orders[$i]['status'] = $order->status;
             $list_orders[$i]['billing_note'] = $order->billing_note;
             $list_orders[$i]['status_class'] = ($order->status == 1) ? "warning" : $order->status_class;

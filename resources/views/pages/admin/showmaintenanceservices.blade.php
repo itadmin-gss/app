@@ -49,7 +49,7 @@
       <h3 style="width:50%;float:left;">Available Vendors</h3></div>
       {!! Form::hidden('request_id', $request_maintenance->id);!!}
 
-      <?php var_dump($request_maintenance->id); ?>
+
       @if(count($request_maintenance->requestedService())==count($assigned_services))
 
      

@@ -118,6 +118,6 @@
 
     </div><!--/.fluid-container-->
 
-    @include('common.footerbottom')
+    <footer> >@include('common.footerbottom') </footer>
 
     @include('common.footer')

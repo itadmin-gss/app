@@ -716,7 +716,7 @@ function modalClose(){
   $('#state_id').change(function() {
           //e.preventDefault();
           var over = '<div id="overlay">' +
-          '<img id="loading" src="/assets/img/loader.gif">' +
+          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
           $(over).appendTo('body');
   
@@ -2795,7 +2795,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'admin-notes-osr',
+          url: '/admin-notes-osr',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2829,7 +2829,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'customer-notes-osr',
+          url: '/customer-notes-osr',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2863,7 +2863,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'admin-notes',
+          url: '/admin-notes',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2894,7 +2894,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'admin-notes-bid',
+          url: '/admin-notes-bid',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2925,7 +2925,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'vendor-notes',
+          url: '/vendor-notes',
           data: {
               vendor_notes: valueObj.value,
               request_id:request_id
@@ -2957,7 +2957,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'public-notes',
+          url: '/public-notes',
           data: {
               public_notes: valueObj.value,
               service_id:service_id
@@ -2989,7 +2989,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'public-notes-bid',
+          url: '/public-notes-bid',
           data: {
               public_notes: valueObj.value,
               service_id:service_id
@@ -3023,7 +3023,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'customer-notes-bid',
+          url: '/customer-notes-bid',
           data: {
               customer_notes_bid: valueObj.value,
               service_id:service_id
@@ -3070,7 +3070,7 @@ function modalClose(){
   
    $.ajax({
       type: 'Post',
-      url:  'change-price',
+      url:  '/change-price',
       data: { invoice_price:invoice_price,
           invoice_id:invoice_id
       },
@@ -3100,7 +3100,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  'completion-date',
+          url:  '/completion-date',
           data: { completion_date:completion_date,
               order_id:order_id
           },
@@ -3130,7 +3130,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  'admin-get-customer-company',
+          url:  '/admin-get-customer-company',
           data: { id:id },
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3159,7 +3159,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  'ajax-dashoboard-grid-requests',
+          url:  '/ajax-dashoboard-grid-requests',
           data: { id:id,statusshow:statusshow },
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3181,7 +3181,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  'ajax-dashoboard-grid-orders',
+          url:  '/ajax-dashoboard-grid-orders',
           data: { id:id,statusshow:statusshow },
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3208,7 +3208,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  'ajax-delete-service-request',
+          url:  '/ajax-delete-service-request',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -3255,7 +3255,7 @@ function modalClose(){
       var vendorid=$('#uniquevendorid').val();
       $.ajax({
        type: 'Post',
-       url:  'change-vendor-name',
+       url:  '/change-vendor-name',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3282,7 +3282,7 @@ function modalClose(){
    var vendorid=$('#vendorsAssigned').val();
    $.ajax({
        type: 'Post',
-       url:  'change-vendor-order',
+       url:  '/change-vendor-order',
        data: { order_id:order_id,vendorid:vendorid},
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3311,7 +3311,7 @@ function modalClose(){
     var under_review_notes=$('#under_review_notes').val();
     $.ajax({
        type: 'Post',
-       url:  'saving_under_reviewing_notes',
+       url:  '/saving_under_reviewing_notes',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3347,7 +3347,7 @@ function modalClose(){
     
     $.ajax({
        type: 'POST',
-       url:  'load-service-on-job-type',
+       url:  '/load-service-on-job-type',
        data: {job_type:job_type,client_type:client_type},
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3389,7 +3389,7 @@ function modalClose(){
   
          $.ajax({
            type: 'Post',
-           url:  'do-request',
+           url:  '/do-request',
            headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -3517,7 +3517,7 @@ function modalClose(){
   
       $.ajax({
        type: 'Post',
-       url:  'save-bid-price',
+       url:  '/save-bid-price',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3557,7 +3557,7 @@ function modalClose(){
   
           $.ajax({
            type: 'Post',
-           url:  'save-bid-price',
+           url:  '/save-bid-price',
            headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -3587,7 +3587,7 @@ function modalClose(){
     //alert(baseurl);
     $.ajax({
        type: 'GET',
-       url:  'save-bid-price-vendor',
+       url:  '/save-bid-price-vendor',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3658,7 +3658,7 @@ function modalClose(){
   
       $.ajax({
        type: 'Post',
-       url:  'add-photo-tagging',
+       url:  '/add-photo-tagging',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3691,7 +3691,7 @@ function modalClose(){
   
       $.ajax({
        type: 'Post',
-       url:  'delete-photo-tagging',
+       url:  '/delete-photo-tagging',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3716,7 +3716,7 @@ function modalClose(){
     $(over).appendTo('body');
     $.ajax({
        type: 'Post',
-       url:  'change-price-vendor',
+       url:  '/change-price-vendor',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3750,7 +3750,7 @@ function modalClose(){
      $(over).appendTo('body');
      $.ajax({
        type: 'Post',
-       url:  'change-due-date',
+       url:  '/change-due-date',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3820,7 +3820,7 @@ function modalClose(){
   
                $.ajax({
                    type: 'Post',
-                   url:  'ajax-approve-bid-request-status-changed',
+                   url:  '/ajax-approve-bid-request-status-changed',
                    headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -3919,7 +3919,7 @@ function modalClose(){
       $(over).appendTo('body');
       $.ajax({
        type: 'Post',
-       url:  'ajax-decline-bid-request',
+       url:  '/ajax-decline-bid-request',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
