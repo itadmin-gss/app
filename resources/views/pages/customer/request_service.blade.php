@@ -10,11 +10,7 @@ else
 
 @extends($layout)
 @section('content')
-<style>
-footer{
-    position:absolute !important;
-}
-</style>
+
 <div id="content" class="span11">
     <div class="row-fluid">
         <div class="box span12 noMarginTop">

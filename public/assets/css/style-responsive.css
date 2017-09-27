@@ -24,6 +24,9 @@
     width: 100%;
     z-index: 2;
   }
+  .container-fluid{
+    min-height:100%;
+  }
 }
 /* Higher than 960 (desktop devices)
 ====================================================================== */
