@@ -173,7 +173,7 @@ class AdminController extends Controller
             'user_email_template'=> "TEST EMAIL BODY"
                                );
 
-       //      Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
+            // Email::send($userDAta->email, ': Bid Request Notification', 'emails.customer_registered', $email_data);
        try{
         Email::send("jdunn82k@gmail.com", "GSS TEST", "emails.customer_registered", $email_data);
        } catch (Exception $e){
