@@ -1815,6 +1815,8 @@ function modalClose(){
   //Assign services by admin
   function assign_request()
   {
+
+        $("input[name='vendor_id']").trigger("choosen:updated");
       var request_id = $('input[name="request_id"]').val();
       var vendor_id = $('input[name="vendor"]:checked').val();
       var services_ids = $('input[name="services[]"]:checked').map(function() {

@@ -10,8 +10,8 @@
  </style>
 
 <script type="text/javascript">
+
  jQuery('#vendor_id_chossen').on('change', function(evt, params) {
-  
    jQuery('input[name="vendor"]').val(this.value);
    if(this.value!="")
    {
@@ -108,7 +108,8 @@
      <td class="center">
        <div class="controls"  style="width: 380px">
 
-       <select name="vendor_id" class="span7 typeahead" id="vendor_id_chossen" data-rel='chosen' style='width: 520px;'>
+             <select name="vendor_id" class="span7 typeahead" id="vendor_id_chossen" style='width: 520px;'>
+      <!--  <select name="vendor_id" class="span7 typeahead" id="vendor_id_chossen" data-rel='chosen' style='width: 520px;'> -->
    
   
         <?php
@@ -158,8 +159,7 @@ if($techDatalatitude[$vendor->id]==1)
 {!! Form::radio('vendor',  $firstVendorId,true);!!} 
 </div>
 
-       <!-- {!! Form::select('vendor_id',  $vendor_data, '', array('class'=>'span7 typeahead','id'=>'vendor_id_chossen', 'data-rel'=>'chosen','style'=>'width: 520px;'))!!}
- -->
+
      </td>
 
 
