@@ -526,7 +526,7 @@
                                             <td>{!! $order->id !!}</td>
 
 
-                                            <td>{!! $order->maintenanceRequest->asset->property_address !!}</td>
+                                            <td>{!! isset($order->maintenanceRequest->asset->property_address) ?  $order->maintenanceRequest->asset->property_address : '' !!}</td>
 
 
                                              <?php

@@ -198,12 +198,51 @@ class VendorController extends Controller
             $list_orders[$i]['order_id'] = $invoice->order_id;
             $list_orders[$i]['customer_name'] = $invoice->order->customer->first_name . ' ' . $invoice->order->customer->last_name;
             $list_orders[$i]['vendor_name'] = $invoice->order->vendor->first_name . ' ' . $invoice->order->vendor->last_name;
-            $list_orders[$i]['asset_number'] = $invoice->order->maintenanceRequest->asset->asset_number;
-            $list_orders[$i]['propery_address'] = $invoice->order->maintenanceRequest->asset->address;
-            $list_orders[$i]['zip'] = $invoice->order->maintenanceRequest->asset->zip;
+            
+            if (isset($invoice->order->maintenanceRequest->asset->asset_number))
+            {
+                $list_orders[$i]['asset_number'] = $invoice->order->maintenanceRequest->asset->asset_number;                
+            }
+            else
+            {
+                $list_orders[$i]['asset_number'] = "";
+            }
 
-            $list_orders[$i]['city'] = $invoice->order->maintenanceRequest->asset->city->name;
-            $list_orders[$i]['state'] = $invoice->order->maintenanceRequest->asset->state->name;
+            if (isset($invoice->order->maintenanceRequest->asset->address))
+            {
+                $list_orders[$i]['propery_address'] = $invoice->order->maintenanceRequest->asset->address;                
+            }
+            else
+            {
+                $list_orders[$i]['property_address'] = "";
+            }
+
+            if (isset($invoice->order->maintenanceRequest->asset->zip))
+            {
+                $list_orders[$i]['zip'] = $invoice->order->maintenanceRequest->asset->zip;                
+            }
+            else
+            {
+                $list_orders[$i]['zip'] = "";
+            }
+
+            if (isset($invoice->order->maintenanceRequest->asset->city->name))
+            {
+                $list_orders[$i]['city'] = $invoice->order->maintenanceRequest->asset->city->name;                
+            }
+            else
+            {
+                $list_orders[$i]['city'] = "";
+            }
+
+            if (isset($invoice->order->maintenanceRequest->asset->state->name))
+            {
+                $list_orders[$i]['state'] = $invoice->order->maintenanceRequest->asset->state->name;                
+            }
+            else
+            {
+                $list_orders[$i]['state'] = "";
+            }
 
             $list_orders[$i]['order_date'] =date('m/d/Y h:i:s A', strtotime($invoice->order->created_at));
             $list_orders[$i]['service_name'] = '';

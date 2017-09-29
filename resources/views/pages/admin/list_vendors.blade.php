@@ -96,7 +96,7 @@
               <td class="center popover-examples">
               <a class="btn btn-info" href="edit-profile-admin/{!! $vendor->id !!}" title="Edit Vendor information"> <i class="halflings-icon edit halflings-icon"></i> </a>
               <a class="btn btn-danger"  onclick="modalButtonOnClick({!!$vendor->id!!},'{!!$db_table!!}','vendor')" data-confirm="Are you sure you want to delete?" title="Delete Vendor "> <i class="halflings-icon trash halflings-icon"></i> </a>
-              <a class="btn "  href="{!!URL::to('login-as')!!}/{!!$vendor->id!!}" title="Login as Vendor"> Login</a>
+              <a class="btn" target="_blank"  href="{!!URL::to('login-as')!!}/{!!$vendor->id!!}" title="Login as Vendor"> Login</a>
                 </td>
             </tr>
 
