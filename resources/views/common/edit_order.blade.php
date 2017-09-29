@@ -1122,8 +1122,8 @@ if ( $custom->customer_price != 0){ ?>
                                             <div class="box span12">
                                                 <?php
                                                 $total_rate = array();
-                                                $vendor_additional_totaled_price = '';
-                                                $totalPriceCustomerFinal = "";
+                                                $vendor_additional_totaled_price = 0;
+                                                $totalPriceCustomerFinal = 0;
                                                //$totalPriceCustomerFinal += $totalPriceCustomer;
                                                 ?>
 
@@ -1760,6 +1760,7 @@ $total =  array_sum($total_rate);
 
 <input type="hidden" name="totalRequestedServices" id="totalRequestedServices" value="<?php echo $totalRequestedServices;?>">
 <?php
+
 
 if(Auth::user()->type_id==3) {?>
 <?php $totalPriceVendorFinal =$totalPriceVendor+$totalPrice+$total; ?>

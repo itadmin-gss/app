@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Cache;
 class City extends BaseTenantModel
 {
 
@@ -62,7 +63,9 @@ class City extends BaseTenantModel
     public static function getAllCities()
     {
 
-        $cities = self::all();
+        $cities = Cache::remember('cities', 24*60, function(){
+            return self::all();
+        });
 
          return $cities;
     }

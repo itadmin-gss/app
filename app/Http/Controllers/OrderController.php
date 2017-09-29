@@ -50,7 +50,15 @@ class OrderController extends Controller
         $client_id = Asset::getAssetInformationById($services_asset_id);
        // print_r($services_asset_id);
        // exit("asdl");
-        $allservices = Service::getServicesByClientId($client_id->customer_type);
+
+        if (isset($client_id->customer_type))
+        {
+            $allservices = Service::getServicesByClientId($client_id->customer_type);            
+        }
+        else
+        {
+            $allservices = [];
+        }
                 // echo "<pre>";
                 // print_r($allservices);
 

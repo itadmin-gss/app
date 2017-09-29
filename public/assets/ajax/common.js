@@ -28,7 +28,7 @@ function modalClose(){
           '</div>';
           $(over).appendTo('body');
     $.ajax({
-        url: "get-quick-workorder/"+order_id,
+        url: baseurl +"/get-quick-workorder/"+order_id,
         cache: false,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -174,7 +174,7 @@ function modalClose(){
   function deleteSelectedAsset(id) {
       if (confirm('Are you sure you want to delete Asset #: '+id)) {
        $.ajax({
-        url: "delete-selected-asset/"+id,
+        url: baseurl +"/delete-selected-asset/"+id,
         cache: false,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -406,7 +406,7 @@ function modalClose(){
   
           $.ajax({
               type: 'Get',
-              url:  'order-images/'+order_id,
+              url:  baseurl +'/order-images/'+order_id,
   
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -548,7 +548,7 @@ function modalClose(){
   
           $.ajax({
               type: 'Post',
-              url:  'change-status',
+              url:  baseurl +'/change-status',
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
@@ -634,7 +634,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'get-asset-map',
+          url: baseurl +'/get-asset-map',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -701,7 +701,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'generate-asset-number',
+          url: baseurl +'/generate-asset-number',
           cache: false,
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -724,7 +724,7 @@ function modalClose(){
           var options = '';
           $.ajax({
               type: 'POST',
-              url: '/get-cities-by-state-id',
+              url: baseurl +'/get-cities-by-state-id',
               data: {
                   state_id: state_id
               },
@@ -754,7 +754,7 @@ function modalClose(){
       var asset_id = this.value;
       $.ajax({
           type: 'Post',
-          url: 'ajax-get-asset-by-asset-id',
+          url: baseurl +'/ajax-get-asset-by-asset-id',
           data: {
               asset_id: asset_id
           },
@@ -776,7 +776,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: 'ajax-get-asset-by-asset-id',
+          url: baseurl +'/ajax-get-asset-by-asset-id',
           data: {
               asset_id: asset_id
           },
@@ -904,7 +904,7 @@ function modalClose(){
                   //        var current_service_id=service_id[service_id.length - 1];
                   $.ajax({
                       type: 'Post',
-                      url: 'ajax-vendor-service-information-popup',
+                      url: baseurl +'/ajax-vendor-service-information-popup',
                       data: {
                           service_id: service_id,
                           asset_number: asset_number
@@ -1111,7 +1111,7 @@ function modalClose(){
   
           $.ajax(
           {
-              url: '/save-profile',
+              url: baseurl +'/save-profile',
               type: 'POST',
               data: new FormData(this),
               contentType: false,
@@ -1166,7 +1166,7 @@ function modalClose(){
           $(over).appendTo('body');
           $.ajax(
           {
-              url: '/save-profile-admin/' + id,
+              url: baseurl +'/save-profile-admin/' + id,
               type: 'POST',
               data: new FormData(this),
               contentType: false,
@@ -1217,7 +1217,7 @@ function modalClose(){
          e.preventDefault();
          $.ajax(
          {
-          url: 'process-add-vendor',
+          url: baseurl +'/process-add-vendor',
           type: 'POST',
           data: new FormData(this),
           contentType: false,
@@ -1259,7 +1259,7 @@ function modalClose(){
           e.preventDefault();
           $.ajax(
           {
-              url: 'add-special-prices',
+              url: baseurl +'/add-special-prices',
               type: 'POST',
               data: new FormData(this),
               contentType: false,
@@ -1300,7 +1300,7 @@ function modalClose(){
           e.preventDefault();
           $.ajax(
           {
-              url: '../edit-special-price/' + special_price_id,
+              url: baseurl +'/edit-special-price/' + special_price_id,
               type: 'POST',
               data: new FormData(this),
               contentType: false,
@@ -1339,7 +1339,7 @@ function modalClose(){
       $('#submenuVendorDashboard').click(function() {
           $.ajax({
               type: "GET",
-              url: "vendor-dashboard",
+              url: baseurl +"/vendor-dashboard",
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -1489,7 +1489,7 @@ function modalClose(){
           $(over).appendTo('body');
           $.ajax({
               method: "POST",
-              url: '/additional-service-title-change',
+              url: baseurl +'/additional-service-title-change',
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -1600,7 +1600,10 @@ function modalClose(){
   
          $.ajax({
           type: "POST",
-          url: "add-requested-service/"+id,
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: baseurl +"/add-requested-service/"+id,
           data:{vendors_price:vendors_price,customer_price:customer_price,admin_quantity:admin_quantity,quantity:quantity,
               customers_notes:customers_notes,vendors_notes:vendors_notes,notes_for_vendors:notes_for_vendors},
               success: function(data) {
@@ -1613,19 +1616,21 @@ function modalClose(){
       // $('#vendors_note').html(data.vendors_price);
       //      $('#notes_for_vendors').html(data.vendors_price);
                   // alert(data.vendors_price);
-                 //location.reload();
+                 
                   $('#overlay').remove();
                   $(".modelForm").scrollTop(0);
                   $("#flash_modal").slideDown('slow');
-                   
+                
+                  $('body').on("hidden", "#edit_request_service", function(){
+                      window.location.reload();
+                  })
                   setInterval(function() {
   
                    $("#flash_modal").slideUp('slow'); 
   
                }, 10000);
                   $(id).removeClass('in');
-              $('.modal-backdrop').remove();
-  
+
               }
           });
          }
@@ -1659,7 +1664,7 @@ function modalClose(){
       }else{
          $.ajax({
           type: "POST",
-          url: "update-additional-service/"+id,
+          url: baseurl +"/update-additional-service/"+id,
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -1685,7 +1690,7 @@ function modalClose(){
   
       $.ajax({
           type: "GET",
-          url: "/asset-view/" + asset_id,
+          url: baseurl +"/asset-view/" + asset_id,
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -1711,7 +1716,7 @@ function modalClose(){
   
      $.ajax({
       type: "GET",
-      url: "/show-maintenance-services/" + maintenance_request_id,
+      url: baseurl +"/show-maintenance-services/" + maintenance_request_id,
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -1742,7 +1747,7 @@ function modalClose(){
   
     $.ajax({
       type: "GET",
-      url: "show-bid-services/" + maintenance_request_id,
+      url: baseurl +"/show-bid-services/" + maintenance_request_id,
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -1789,7 +1794,7 @@ function modalClose(){
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-          url: "show-bid-services/" + maintenance_request_id+"/"+flagworkorder+"/"+customer_bid_price+"/"+vendor_bid_price+"/"+requestedServiceBidId+"/"+res2,
+          url: baseurl +"/show-bid-services/" + maintenance_request_id+"/"+flagworkorder+"/"+customer_bid_price+"/"+vendor_bid_price+"/"+requestedServiceBidId+"/"+res2,
           success: function(data) {
   
             $('#overlay').remove();
@@ -1851,7 +1856,7 @@ function modalClose(){
   {
       $.ajax({
           type: 'POST',
-          url: '/delete-order-all-before-image',
+          url: baseurl +'/delete-order-all-before-image',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -1869,7 +1874,7 @@ function modalClose(){
       var filename = $(obj).data('value');
       $.ajax({
           type: 'POST',
-          url: '/delete-before-image-id',
+          url: baseurl +'/delete-before-image-id',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -1888,7 +1893,7 @@ function modalClose(){
       var filename = $(obj).data('value');
       $.ajax({
           type: 'POST',
-          url: '/delete-before-additional-image-id',
+          url: baseurl +'/delete-before-additional-image-id',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -1912,7 +1917,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/download-seleted-additional-images',
+          url: baseurl +'/download-seleted-additional-images',
            headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -1946,7 +1951,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/download-seleted-images',
+          url: baseurl +'/download-seleted-images',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -1977,7 +1982,7 @@ function modalClose(){
   
      $.ajax({
       type: 'POST',
-      url: '../display-additional-export-images',
+      url: baseurl +'/display-additional-export-images',
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -2003,7 +2008,7 @@ function modalClose(){
       $('#export_view_images').css("overflow", "hidden");
       $.ajax({
           type: 'POST',
-          url: '/display-export-images',
+          url: baseurl +'/display-export-images',
           data: {order_id: order_id, order_detail_id: order_detail_id, type: type},
           dataType: 'html',
           headers: {
@@ -2028,7 +2033,7 @@ function modalClose(){
   {
       $.ajax({
           type: 'POST',
-          url: '/display-order-additional-items-images',
+          url: baseurl +'/display-order-additional-items-images',
           data: {additional_service_id: additional_service_id, type: type},
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2073,7 +2078,7 @@ function modalClose(){
     
       $.ajax({
           type: 'POST',
-          url:  '/display-order-images',
+          url:  baseurl +'/display-order-images',
           data: {order_id: order_id, order_detail_id: order_detail_id, type: type},
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2118,7 +2123,7 @@ function modalClose(){
   {
       $.ajax({
           type: 'POST',
-          url: '/display-order-images-view',
+          url: baseurl +'/display-order-images-view',
           data: {order_id: order_id, order_detail_id: order_detail_id, type: type},
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2158,7 +2163,7 @@ function modalClose(){
   {
       $.ajax({
           type: 'POST',
-          url: '/display-bid-images',
+          url: baseurl +'/display-bid-images',
           data: {id: id,type: type},
           dataType: 'html',
           headers: {
@@ -2211,7 +2216,7 @@ function modalClose(){
       {
           $.ajax({
               type: 'POST',
-              url: '/save-vendor-note',
+              url: baseurl +'/save-vendor-note',
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -2247,7 +2252,7 @@ function modalClose(){
               
           $.ajax({
               type: 'POST',
-              url: '/save-additional-vendor-note',
+              url: baseurl +'/save-additional-vendor-note',
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -2274,7 +2279,7 @@ function modalClose(){
       {
           $.ajax({
               type: 'POST',
-              url: '/save-billing-note',
+              url: baseurl +'/save-billing-note',
               data: {order_id: order_id,  billing_note: billing_note},
               headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2311,7 +2316,7 @@ function modalClose(){
       {
           $.ajax({
               type: 'POST',
-              url: '../save-admin-note',
+              url: baseurl +'/save-admin-note',
               data: {order_id: order_id, order_detail_id: order_detail_id, vendor_note: vendor_note},
               dataType: 'html',
               headers: {
@@ -2344,7 +2349,7 @@ function modalClose(){
       {
           $.ajax({
               type: 'POST',
-              url: '/save-customer-note',
+              url: baseurl +'/save-customer-note',
               data: {order_id: order_id, order_detail_id: order_detail_id, vendor_note: vendor_note},
               dataType: 'html',
               headers: {
@@ -2405,7 +2410,7 @@ function modalClose(){
       {
           $.ajax({
               type: 'POST',
-              url: '../save-admin-qty',
+              url: baseurl +'/save-admin-qty',
               data: {order_id: order_id, order_detail_id: order_detail_id, vendor_qty: vendor_qty},
               dataType: 'html',
               headers: {
@@ -2443,7 +2448,7 @@ function modalClose(){
           $(".btn-danger").attr("disabled","disabled"); 
           $.ajax({
               type: 'Post',
-              url: '/decline-request',
+              url: baseurl +'/ecline-request',
               data: {
                   request_id: request_id,
                   vendor_id: vendor_id,
@@ -2477,7 +2482,7 @@ function modalClose(){
   
     $.ajax({
       type: 'Post',
-      url: '/accept-request',
+      url: baseurl +'/accept-request',
       data: {
           request_id: request_id,
           vendor_id: vendor_id
@@ -2510,7 +2515,7 @@ function modalClose(){
   
     $.ajax({
       type: 'Post',
-      url: '/accept-bid-request',
+      url: baseurl +'/accept-bid-request',
       data: {
           request_id: request_id,
           vendor_id: vendor_id
@@ -2542,7 +2547,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/decline-bid-request',
+          url: baseurl +'/decline-bid-request',
           data: {
               request_id: request_id,
               vendor_id: vendor_id
@@ -2602,7 +2607,7 @@ function modalClose(){
   $(".btn-danger").attr("disabled","disabled"); 
   $.ajax({
       type: 'Post',
-      url: '/admin-accept-bid-request',
+      url: baseurl +'/admin-accept-bid-request',
       data: {
           request_id: request_id,
           vendor_id: vendor_id,
@@ -2646,7 +2651,7 @@ function modalClose(){
       $(".btn-danger").attr("disabled","disabled"); 
       $.ajax({
           type: 'Post',
-          url: '/admin-decline-bid-request',
+          url: baseurl +'/admin-decline-bid-request',
           data: {
               decline_notes:decline_notes,
               request_id: request_id,
@@ -2676,7 +2681,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/change-notification-status',
+          url: baseurl +'/change-notification-status',
           data: {
               notification_id: notification_id,
               notification_url:notification_url
@@ -2760,7 +2765,7 @@ function modalClose(){
   
     $.ajax({
       type: 'Post',
-      url: '/accept-single-request',
+      url: baseurl +'/accept-single-request',
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -2797,7 +2802,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/admin-notes-osr',
+          url: baseurl +'/admin-notes-osr',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2831,7 +2836,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/customer-notes-osr',
+          url: baseurl +'/customer-notes-osr',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2865,7 +2870,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/admin-notes',
+          url: baseurl +'/admin-notes',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2896,7 +2901,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/admin-notes-bid',
+          url: baseurl +'/admin-notes-bid',
           data: {
               admin_notes: valueObj.value,
               request_id:request_id
@@ -2927,7 +2932,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/vendor-notes',
+          url: baseurl +'/vendor-notes',
           data: {
               vendor_notes: valueObj.value,
               request_id:request_id
@@ -2959,7 +2964,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/public-notes',
+          url: baseurl +'/public-notes',
           data: {
               public_notes: valueObj.value,
               service_id:service_id
@@ -2991,7 +2996,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/public-notes-bid',
+          url: baseurl +'/public-notes-bid',
           data: {
               public_notes: valueObj.value,
               service_id:service_id
@@ -3025,7 +3030,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url: '/customer-notes-bid',
+          url: baseurl +'/customer-notes-bid',
           data: {
               customer_notes_bid: valueObj.value,
               service_id:service_id
@@ -3072,7 +3077,7 @@ function modalClose(){
   
    $.ajax({
       type: 'Post',
-      url:  '/change-price',
+      url:  baseurl +'/change-price',
       data: { invoice_price:invoice_price,
           invoice_id:invoice_id
       },
@@ -3102,7 +3107,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  '/completion-date',
+          url:  baseurl +'/completion-date',
           data: { completion_date:completion_date,
               order_id:order_id
           },
@@ -3132,7 +3137,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  '/admin-get-customer-company',
+          url:  baseurl +'/admin-get-customer-company',
           data: { id:id },
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3161,7 +3166,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  '/ajax-dashoboard-grid-requests',
+          url:  baseurl +'/ajax-dashoboard-grid-requests',
           data: { id:id,statusshow:statusshow },
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3183,7 +3188,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  '/ajax-dashoboard-grid-orders',
+          url:  baseurl +'/ajax-dashoboard-grid-orders',
           data: { id:id,statusshow:statusshow },
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3210,7 +3215,7 @@ function modalClose(){
   
       $.ajax({
           type: 'Post',
-          url:  '/ajax-delete-service-request',
+          url:  baseurl +'/ajax-delete-service-request',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -3232,7 +3237,7 @@ function modalClose(){
     $(over).appendTo('body');
     $.ajax({
       type: 'Post',
-      url:  'close-property-status',
+      url:  baseurl +'/close-property-status',
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3257,7 +3262,7 @@ function modalClose(){
       var vendorid=$('#uniquevendorid').val();
       $.ajax({
        type: 'Post',
-       url:  '/change-vendor-name',
+       url:  baseurl +'/change-vendor-name',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3284,7 +3289,7 @@ function modalClose(){
    var vendorid=$('#vendorsAssigned').val();
    $.ajax({
        type: 'Post',
-       url:  '/change-vendor-order',
+       url:  baseurl +'/change-vendor-order',
        data: { order_id:order_id,vendorid:vendorid},
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3313,7 +3318,7 @@ function modalClose(){
     var under_review_notes=$('#under_review_notes').val();
     $.ajax({
        type: 'Post',
-       url:  '/saving_under_reviewing_notes',
+       url:  baseurl +'/saving_under_reviewing_notes',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3349,7 +3354,7 @@ function modalClose(){
     
     $.ajax({
        type: 'POST',
-       url:  '/load-service-on-job-type',
+       url:  baseurl +'/load-service-on-job-type',
        data: {job_type:job_type,client_type:client_type},
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -3391,7 +3396,7 @@ function modalClose(){
   
          $.ajax({
            type: 'Post',
-           url:  '/do-request',
+           url:  baseurl +'/do-request',
            headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -3424,7 +3429,7 @@ function modalClose(){
                   //        var current_service_id=service_id[service_id.length - 1];
                   $.ajax({
                       type: 'Post',
-                      url: 'ajax-service-information-popup',
+                      url: baseurl +'/ajax-service-information-popup',
                       data: {
                           service_id: current_service,
                           asset_number: asset_number
@@ -3519,7 +3524,7 @@ function modalClose(){
   
       $.ajax({
        type: 'Post',
-       url:  '/save-bid-price',
+       url:  baseurl +'/save-bid-price',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3559,7 +3564,7 @@ function modalClose(){
   
           $.ajax({
            type: 'Post',
-           url:  '/save-bid-price',
+           url:  baseurl +'/save-bid-price',
            headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -3589,7 +3594,7 @@ function modalClose(){
     //alert(baseurl);
     $.ajax({
        type: 'GET',
-       url:  '/save-bid-price-vendor',
+       url:  baseurl +'/save-bid-price-vendor',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3660,7 +3665,7 @@ function modalClose(){
   
       $.ajax({
        type: 'Post',
-       url:  '/add-photo-tagging',
+       url:  baseurl +'/add-photo-tagging',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3693,7 +3698,7 @@ function modalClose(){
   
       $.ajax({
        type: 'Post',
-       url:  '/delete-photo-tagging',
+       url:  baseurl +'/delete-photo-tagging',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3718,7 +3723,7 @@ function modalClose(){
     $(over).appendTo('body');
     $.ajax({
        type: 'Post',
-       url:  '/change-price-vendor',
+       url:  baseurl +'/change-price-vendor',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3752,7 +3757,7 @@ function modalClose(){
      $(over).appendTo('body');
      $.ajax({
        type: 'Post',
-       url:  '/change-due-date',
+       url:  baseurl +'/change-due-date',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -3822,7 +3827,7 @@ function modalClose(){
   
                $.ajax({
                    type: 'Post',
-                   url:  '/ajax-approve-bid-request-status-changed',
+                   url:  baseurl +'/ajax-approve-bid-request-status-changed',
                    headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -3863,7 +3868,7 @@ function modalClose(){
   
             $.ajax({
                type: 'Post',
-               url:  'ajax-approve-bid-request',
+               url:  baseurl +'/ajax-approve-bid-request',
                headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -3921,7 +3926,7 @@ function modalClose(){
       $(over).appendTo('body');
       $.ajax({
        type: 'Post',
-       url:  '/ajax-decline-bid-request',
+       url:  baseurl +'/ajax-decline-bid-request',
        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
