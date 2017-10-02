@@ -12,6 +12,9 @@ jQuery(document).ready(function($){
 		$.ajax({
 				type: "POST",
 				url : "update-status",
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				  },
 				data : {db_table : db_table, id : id, status : status},
 				success : function(data){
 					if(labelSpan.hasClass('label-important'))
@@ -46,6 +49,9 @@ jQuery(document).ready(function($){
 		$.ajax({
 					type: "POST",
 					url : "get-role-details",
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					  },
 					data : {role_id : role_id},
 					beforeSend : function(data){
 						$('.span8 .box-content').html('');
@@ -77,6 +83,9 @@ jQuery(document).ready(function($){
 		$.ajax({
 					type: "POST",
 					url : "update-access-rights",
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					  },
 					data : {data : data, role_id : role_id},
 					beforeSend : function(data){
 
@@ -138,7 +147,10 @@ function changeStatus(obj,type,status,id, db_table)
 
     $.ajax({
         type: "POST",
-        url : "update-status",
+		url : "update-status",
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  },
         data : {
             db_table : db_table, 
             id : id, 
@@ -174,7 +186,10 @@ function updateAccessLevel(user_id, obj)
     var role_id=obj.value;
     $.ajax({
         type: "POST",
-        url : "update-access-level",
+		url : "update-access-level",
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  },
         data : {
             role_id : role_id, 
             user_id : user_id
@@ -206,7 +221,10 @@ function deleteRecord(id,db_table,type)
 {     
     $.ajax({
         type: "POST",
-        url : "delete-record",
+		url : "delete-record",
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  },
         data : {
             db_table : db_table, 
             id : id, 

@@ -54,6 +54,8 @@
           <tbody>
 
           	@foreach ($vendors as $vendor)
+
+
             <tr id="tr-{!!$vendor->id!!}">
               <td>{{ $loop->iteration }}</td>
               <td>{!! $vendor->first_name !!}</td>
