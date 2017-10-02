@@ -458,7 +458,7 @@ class AdminController extends Controller
     public function deleteVendor($vendor_id)
     {
         $user = User::find($vendor_id);
-        //$user->delete();
+        $user->delete();
         $message = FlashMessage::messages('admin.user_deleted');
 
         return Redirect::back()

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class User extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes;
+    // use SoftDeletes;
 
     /**
      * The database table used by the model.
