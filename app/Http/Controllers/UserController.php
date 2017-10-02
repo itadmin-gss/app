@@ -362,8 +362,8 @@ class UserController extends Controller
                 $city = City::find($city_id)->name;
                 $zip = Request::get('zipcode');
                 $country = 'United States';
-                $result = Geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
-
+                $result = (new Geolocation)->getCoordinates($street, $streetNumber, $city, $zip, $country);
+                
 
                 $profile_message = FlashMessage::messages('vendor.profile_edit_success');
                 $data = Request::all();
@@ -387,13 +387,17 @@ class UserController extends Controller
                 $save = User::profile($data, $id);
 
                 $affectedRows = VendorService::where('vendor_id', '=', Auth::user()->id)->delete();
-                foreach ($data['vendor_services'] as $value) {
-                    $dataArray['vendor_id']=Auth::user()->id;
-                    $dataArray['status']=1;
-                    $dataArray['service_id']=$value;
-
-                    VendorService::create($dataArray);
+                if (isset($data['vendor_services']))
+                {
+                    foreach ($data['vendor_services'] as $value) {
+                        $dataArray['vendor_id']=Auth::user()->id;
+                        $dataArray['status']=1;
+                        $dataArray['service_id']=$value;
+    
+                        VendorService::create($dataArray);
+                    }
                 }
+
 
 
                 if ($save) {

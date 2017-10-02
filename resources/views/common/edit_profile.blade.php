@@ -32,7 +32,7 @@
 
                     <div id="profileErrorMessage" class="hide">
 
-                        <h4 class="alert alert-error">Can not Updated Profile</h4>
+                        <h4 class="alert alert-error">Error Updating Profile</h4>
 
                     </div>
 
@@ -72,9 +72,9 @@
 
                                             @if($user_data['username'] == '' || !isset($user_data['username']))
 
-                                            {!! Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username'))!!}
+                                            {!! Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username'))!!} 
 
-                                            {!!Form::hidden('check_user_name', 'yes')!!}
+                                             {!!Form::hidden('check_user_name', 'yes')!!}  
 
 
 
@@ -137,7 +137,7 @@
                                     </div>
                                                        @if($user_data['type_id']==2)
                                <!--      <div class="control-group">
-                                        {!!Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
                                            <select name="customer_type_id" id="customer_type_id">
                                                <?php
@@ -408,7 +408,7 @@
 
                                     <div class="controls">
 
-                                        {!! Form::password('current_password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}
+                                        {!! Form::password('current_password', array('class'=>'span10 typeahead','id'=>'password'))!!}
 
                                     </div>
 
@@ -420,7 +420,7 @@
 
                                     <div class="controls">
 
-                                        {!! Form::password('password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}
+                                        {!! Form::password('password',  array('class'=>'span10 typeahead','id'=>'password'))!!}
 
                                     </div>
 
@@ -432,7 +432,7 @@
 
                                     <div class="controls">
 
-                                        {!! Form::password('password_confirmation', '', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
+                                        {!! Form::password('password_confirmation',  array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
 
                                     </div>
 

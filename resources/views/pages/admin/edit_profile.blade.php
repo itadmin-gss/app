@@ -26,45 +26,45 @@
                 @endif
                 <div class="row-fluid">
                     <div class="span12">
-                        {!! Form::open(array('url' => 'save-profile-admin', 'files'=>true, 'id'=>'UserEditForm' , 'class'=>'form-horizontal')) !!}
+                        {{--  {!! Form::open(array('url' => 'save-profile-admin', 'files'=>true, 'id'=>'UserEditForm' , 'class'=>'form-horizontal')) !!}  --}}
                         <fieldset>
                             <div class="row-fluid">
                                 <div class="span6">
 
                                     <div class="control-group">
-                                        {!!Form::label('username', 'Username', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('username', 'Username', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username', 'readonly'=>'true'))!!}
-                                            {!!Form::hidden('user_id', $user_data['id'], array('id' => 'user_id'))!!}
-					{!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editUsername'))!!}
+                                            {{--  {!! Form::text('username',  isset($user_data['username']) ? $user_data['username'] : '' , array('class'=>'span10 typeahead','id'=>'username', 'readonly'=>'true'))!!}  --}}
+                                            {{--  {!!Form::hidden('user_id', $user_data['id'], array('id' => 'user_id'))!!}  --}}
+					{{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editUsername'))!!}  --}}
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        {!!Form::label('email', 'Email', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('email', 'Email', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email', 'readonly'=>'true'))!!}
-                                          {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editEmail'))!!}
+                                            {{--  {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email', 'readonly'=>'true'))!!}  --}}
+                                          {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editEmail'))!!}  --}}
 
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        {!!Form::label('first_name', 'First Name', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('first_name', 'First Name', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'span10 typeahead','id'=>'firstName','readonly'=>'true'))!!}
-                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editFirstName'))!!}
+                                            {{--  {!! Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'span10 typeahead','id'=>'firstName','readonly'=>'true'))!!}  --}}
+                                            {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editFirstName'))!!}  --}}
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        {!!Form::label('last_name', 'Last Name', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('last_name', 'Last Name', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'span10 typeahead','id'=>'lastName','readonly'=>'true'))!!}
-                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editLastName'))!!}
+                                            {{--  {!! Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'span10 typeahead','id'=>'lastName','readonly'=>'true'))!!}  --}}
+                                            {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editLastName'))!!}  --}}
                                         </div>
                                     </div>
                                     @if($user_data['type_id']==2)
 <!--                                     <div class="control-group">
-                                        {{--  {!!Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))!!}  --}}
+                                        {!!Form::label('customer_type_id', 'Customer Type', array('class' => 'control-label'))!!}
                                         <div class="controls">
                                            <select name="customer_type_id" id="customer_type_id">
                                                <?php
@@ -84,44 +84,44 @@
                                     @endif
 
                                     <div class="control-group">
-                                        {!!Form::label('company', 'Company', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('company', 'Company', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::text('company',  isset($user_data['company']) ? $user_data['company'] : '' ,  array('class'=>'span10 typeahead','id'=>'company','readonly'=>'true'))!!}
-                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editCompany'))!!}
+                                            {{--  {!! Form::text('company',  isset($user_data['company']) ? $user_data['company'] : '' ,  array('class'=>'span10 typeahead','id'=>'company','readonly'=>'true'))!!}  --}}
+                                            {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editCompany'))!!}  --}}
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        {!!Form::label('phone', 'Phone', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('phone', 'Phone', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::text('phone', isset($user_data['phone']) ? $user_data['phone'] : '' , array('class'=>'span10 typeahead','id'=>'phone','readonly'=>'true'))!!}
-                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editPhone'))!!}
+                                            {{--  {!! Form::text('phone', isset($user_data['phone']) ? $user_data['phone'] : '' , array('class'=>'span10 typeahead','id'=>'phone','readonly'=>'true'))!!}  --}}
+                                            {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editPhone'))!!}  --}}
                                         </div>
                                     </div>
 
                                     <div class="control-group">
 
-                                        {!!Form::label('address_1', 'Address 1', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('address_1', 'Address 1', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::text('address_1', isset($user_data['address_1']) ? $user_data['address_1'] : ''  , array('class'=>'span10 typeahead','id'=>'address1','readonly'=>'true'))!!}
-                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress1'))!!}
+                                            {{--  {!! Form::text('address_1', isset($user_data['address_1']) ? $user_data['address_1'] : ''  , array('class'=>'span10 typeahead','id'=>'address1','readonly'=>'true'))!!}  --}}
+                                            {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress1'))!!}  --}}
                                         </div>
                                     </div>
 
                                     <div class="control-group">
-                                        {!!Form::label('address_2', 'Address 2', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('address_2', 'Address 2', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::text('address_2', isset($user_data['address_2']) ? $user_data['address_2'] : '' , array('class'=>'span10 typeahead','id'=>'address2','readonly'=>'true'))!!}
-                                            {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress2'))!!}
+                                            {{--  {!! Form::text('address_2', isset($user_data['address_2']) ? $user_data['address_2'] : '' , array('class'=>'span10 typeahead','id'=>'address2','readonly'=>'true'))!!}  --}}
+                                            {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editAddress2'))!!}  --}}
                                         </div>
                                     </div>
 
                                      @if($user_data['type_id']==3)
 
                                      <div class="control-group">
-                                        {!!Form::label('office_notes', 'Office Notes', array('class' => 'control-label'))!!}
+                                        {{--  {!!Form::label('office_notes', 'Office Notes', array('class' => 'control-label'))!!}  --}}
                                         <div class="controls">
-                                            {!! Form::textarea('office_notes',  isset($user_data['office_notes']) ? $user_data['office_notes'] : '' , array('class'=>'span10 typeahead','id'=>'office_notes'))!!}
+                                            {{--  {!! Form::textarea('office_notes',  isset($user_data['office_notes']) ? $user_data['office_notes'] : '' , array('class'=>'span10 typeahead','id'=>'office_notes'))!!}  --}}
 
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                             </div>
                                             <div>
                                                 <span class="btn btn-default btn-file">
-                                                    {!!Form::file('profile_picture', array('value'=>$user_data['profile_picture'],'class'=>'input-file uniform_on', 'id'=>'fileInput'))!!}
+                                                    {{--  {!!Form::file('profile_picture', array('value'=>$user_data['profile_picture'],'class'=>'input-file uniform_on', 'id'=>'fileInput'))!!}  --}}
                                                 </span>
                                                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                             </div>
@@ -160,10 +160,10 @@
                                 ?>
                                 <div class="control-group span3">
 
-                                    {!!Form::label('state_id', 'State', array('class' => 'control-label '))!!}
+                                    {{--  {!!Form::label('state_id', 'State', array('class' => 'control-label '))!!}  --}}
 
                                     <div class="controls">
-                                        {!! Form::select('state_id', $states_data , isset($user_data['state_id']) ? $user_data['state_id'] : '0', array('class'=>'span8 typeahead','id'=>'state_id', 'data-rel'=>'chosen'))!!}
+                                        {{--  {!! Form::select('state_id', $states_data , isset($user_data['state_id']) ? $user_data['state_id'] : '0', array('class'=>'span8 typeahead','id'=>'state_id', 'data-rel'=>'chosen'))!!}  --}}
                                     </div>
                                 </div>
 
@@ -176,19 +176,19 @@
                                     }
                                     ?>
 
-                                    {!!Form::label('city_id', 'City', array('class' => 'control-label first-label'))!!}
+                                    {{--  {!!Form::label('city_id', 'City', array('class' => 'control-label first-label'))!!}  --}}
                                     <div class="controls">
-                                        {!! Form::select('city_id', $city_data , isset($user_data['city_id']) ? $user_data['city_id'] : '0' , array('class'=>'span7 typeahead','id'=>'city_id', 'data-rel'=>'chosen'))!!}
+                                        {{--  {!! Form::select('city_id', $city_data , isset($user_data['city_id']) ? $user_data['city_id'] : '0' , array('class'=>'span7 typeahead','id'=>'city_id', 'data-rel'=>'chosen'))!!}  --}}
 
                                     </div>
                                 </div>
 
                                 <div class="control-group span3">
-                                    {!!Form::label('zipcode', 'Zip ', array('class' => 'control-label '))!!}
+                                    {{--  {!!Form::label('zipcode', 'Zip ', array('class' => 'control-label '))!!}  --}}
 
                                     <div class="controls">
-                                        {!! Form::text('zipcode', isset($user_data['zipcode']) ? $user_data['zipcode'] : '' , array('class'=>'span7 typeahead','id'=>'zipcode','readonly'=>'true'))!!}
-                                        {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editZipcode'))!!}
+                                        {{--  {!! Form::text('zipcode', isset($user_data['zipcode']) ? $user_data['zipcode'] : '' , array('class'=>'span7 typeahead','id'=>'zipcode','readonly'=>'true'))!!}  --}}
+                                        {{--  {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editZipcode'))!!}  --}}
                                     </div>
                                 </div>
 
@@ -214,7 +214,7 @@
                                <div class="controls control-group">
                                         Service Zipcodes(Comma seprated)
                                         <div class="control-group">
-                                            {!! Form::textarea('available_zipcodes', isset($user_data['available_zipcodes']) ? $user_data['available_zipcodes'] : '' , array('class'=>'span10 typeahead','id'=>'available_zipcodes'))!!}
+                                            {{--  {!! Form::textarea('available_zipcodes', isset($user_data['available_zipcodes']) ? $user_data['available_zipcodes'] : '' , array('class'=>'span10 typeahead','id'=>'available_zipcodes'))!!}  --}}
 
                                         </div>
                               </div>
@@ -229,7 +229,7 @@
                                         <label class="checkbox noPadding">
                                             <div class="checker" id="uniform-inlineCheckbox1"><span class="checked">
                                                     <div class="checker" id="uniform-inlineCheckbox1"><span>
-                                                            {!!Form::checkbox('change_password','1',false,array('id'=>'changePassword'))!!}
+                                                            {{--  {!!Form::checkbox('change_password','1',false,array('id'=>'changePassword'))!!}  --}}
                                                         </span></div>
                                                 </span>
                                             </div>
@@ -242,21 +242,21 @@
 
                             <div id="changePasswordControll" class="box hide">
                                 <!-- <div class="control-group">
-                                    {{--  {!!Form::label('current_password', 'Current Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}  --}}
+                                    {!!Form::label('current_password', 'Current Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
                                     <div class="controls">
-                                        {{--  {!! Form::password('current_password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}  --}}
+                                        {!! Form::password('current_password', '', array('class'=>'span10 typeahead','id'=>'password'))!!}
                                     </div>
                                 </div> -->
                                 <div class="control-group">
-                                    {!!Form::label('password', 'New Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
+                                    {{--  {!!Form::label('password', 'New Password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}  --}}
                                     <div class="controls">
-                                        {!! Form::password('password', array('class'=>'span10 typeahead','id'=>'password'))!!}
+                                        {{--  {!! Form::password('password', array('class'=>'span10 typeahead','id'=>'password'))!!}  --}}
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    {!!Form::label('password_confirmation', 'Confirm New password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}
+                                    {{--  {!!Form::label('password_confirmation', 'Confirm New password: *', array('class'=>'control-label', 'for'=>'typeahead'))!!}  --}}
                                     <div class="controls">
-                                        {!! Form::password('password_confirmation', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}
+                                        {{--  {!! Form::password('password_confirmation', array('class'=>'span10 typeahead','id'=>'password_confirmation'))!!}  --}}
                                     </div>
                                 </div>
                             </div>
@@ -264,12 +264,12 @@
 
 
                             <div class="form-actions text-right clearfix">
-                                {!! Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'profileSaveButton'))!!}
-                                {!! Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>'profileCancelButton'
+                                {{--  {!! Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'profileSaveButton'))!!}  --}}
+                                {{--  {!! Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>'profileCancelButton'  --}}
                 ,'onClick' => 'location.href="'.URL::to('admin').'"'))!!}
                             </div>
                         </fieldset>
-                        {!! Form::close() !!}
+                        {{--  {!! Form::close() !!}  --}}
                     </div>
                 </div>
             </div>
