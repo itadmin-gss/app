@@ -2375,6 +2375,8 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             $requests = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')
                 ->where('status', '!=', 4)->get();
         }
+
+
         $request_ids = [];
         $request_service_ids = [];
         $assigned_request_ids = [];

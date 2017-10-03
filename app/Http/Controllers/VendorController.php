@@ -110,7 +110,14 @@ class VendorController extends Controller
                          $assign_requests[$i]['asset_number'] =" ";
             }
 
-            $assign_requests[$i]['property_address'] = $request->maintenanceRequest->asset->property_address;
+            if (isset($request->maintenanceRequest->asset->property_address))
+            {
+                $assign_requests[$i]['property_address'] = $request->maintenanceRequest->asset->property_address;                
+            } 
+            else
+            {
+                $assign_requests[$i]['property_address'] = '';
+            }
 
             $assign_requests[$i]['request_date'] = date('m/d/Y h:i:s A', strtotime($request->maintenanceRequest->created_at)) ;
             $assign_requests[$i]['emergency_request']=$request->maintenanceRequest->emergency_request;
