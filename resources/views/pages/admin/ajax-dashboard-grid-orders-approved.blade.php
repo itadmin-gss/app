@@ -1,5 +1,3 @@
-
-
 <table class="table table-striped table-bordered bootstrap-datatable datatabledashboardapproved" id="approved_grid" >
                       <thead>
 
@@ -119,7 +117,7 @@
                         @endif
 
                       </tr>
-                      @foreach($addl_itemz as $key => $value)
+                      {{--  @foreach($addl_itemz as $key => $value)
                       @if($key == $order['order_id'])
                       @foreach($value as $index => $addl_service)
                       <tr>
@@ -205,7 +203,7 @@
                       </tr>
                       @endforeach
                       @endif
-                      @endforeach
+                      @endforeach  --}}
 
                      
 
