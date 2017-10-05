@@ -54,15 +54,17 @@ class VendorController extends Controller
      * @params none
      * @return Redirect to Vendor Dashboard.
      */
+
     public function index()
     {
-
 
         $user_id = Auth::user()->id;
         $new_work_order = Order::where('vendor_id', '=', $user_id)->where('status', '=', 0)->take(5)->orderBy('id', 'desc')->get();
         $requests = AssignRequest::where('vendor_id', '=', $user_id)->take(5)->where('status', '!=', 2)->groupBy('request_id')->orderBy('id', 'desc')->get();
         $assign_requests = [];
         $i = 0;
+
+
 
         foreach ($requests as $request) {
             $orderid="No Work Order";
