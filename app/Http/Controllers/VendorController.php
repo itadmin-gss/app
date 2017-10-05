@@ -1287,7 +1287,7 @@ class VendorController extends Controller
 
                     $output .=  '.map'.$tag->order_image_id.' .map .tag_'.$tag_counter.$tag->order_image_id.' { ';
                     // $output .= 'border:1px solid #000;';
-                    $output .= 'background:url("'.URL::to('/').'/public/assets/images/tag_hotspot_62x62.png") no-repeat;';
+                    $output .= 'background:url("'.URL::to('/').'/assets/images/tag_hotspot_62x62.png") no-repeat;';
                     $output .= 'top:'.$tag['y1'].'px;';
                     $output .= 'left:'.$tag['x1'].'px;';
                     $output .= 'width:'.$tag['w'].'px;';

@@ -10,6 +10,16 @@ $(document).ready(function(){
 			'copy', 'csv', 'excel', 'print'
 			]
 		} );
+
+		$('.work-order-table').DataTable( {
+			dom: 'Bfrtip',
+			"order": [[ 0, "desc" ]],
+			buttons: [
+			'copy', 'csv', 'excel', 'print'
+			]
+		});
+
+
 		$('.datatabledashboard').DataTable( {
 			dom: 'Bfrtip',
 			"order": [[ 0, "desc" ]],

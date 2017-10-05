@@ -26,10 +26,10 @@ return array(
       |
      */
     'url' => 'http://gss.invortex.com/gss-dev/uat',
-    'upload_path' => 'public/assets/uploads/',
-    'request_images' => 'public/assets/uploads/request',
+    'upload_path' => 'assets/uploads/',
+    'request_images' => 'assets/uploads/request',
     'admin_email' => 'app@goodscentservices.com',
-    'img_dir' => 'public/assets/img/',
+    'img_dir' => 'assets/img/',
     /*
       |--------------------------------------------------------------------------
       | Application Timezone

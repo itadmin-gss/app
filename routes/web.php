@@ -222,6 +222,8 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     //Access Level Controller
     Route::match(['GET', 'POST'], 'edit-access-level/{role_id}', ['uses' => 'AccessLevelController@editAccessLevel']);
     
+    //Work Order Controller
+    Route::get('work-order-table', 'WorkOrderController@index');
 });
 
 
@@ -247,6 +249,8 @@ Route::get('edit-customer-asset/{id}', ['uses' => 'AssetController@editAsset']);
 
 /* Vendor Account -> First Time Login / Setup */
 Route::get('email-link/vendor/{token}', 'VendorController@emailLink');
+
+
 
 
 ############################################# Admin Routes for ajax call ######################################

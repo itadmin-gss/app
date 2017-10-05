@@ -3189,7 +3189,7 @@ function savePhotoTaging()
      data: {x1:x1,x2:x2,y1:y1,y2:y2,w:w,h:h,order_image_id:order_image_id,comment:comment},
      success: function(response) {
 
-       var htmlli ='<li  id="uniq'+response+'" style="background: url('+baseurl+'public/assets/images/tag_hotspot_62x62.png) no-repeat;top: '+y1+'px;left: '+x1+'px;width: '+w+'px;height: '+h+'px;"><a href="javascript:;"><span class="titleDs">'+comment+' </span></a><a href="javascript:;" onclick="deletePhotoTag('+response+')" class="removeBtn">X</a></li>';
+       var htmlli ='<li  id="uniq'+response+'" style="background: url('+baseurl+'assets/images/tag_hotspot_62x62.png) no-repeat;top: '+y1+'px;left: '+x1+'px;width: '+w+'px;height: '+h+'px;"><a href="javascript:;"><span class="titleDs">'+comment+' </span></a><a href="javascript:;" onclick="deletePhotoTag('+response+')" class="removeBtn">X</a></li>';
 
        if( $('.map'+order_image_id+" .map").length >0)
        {
