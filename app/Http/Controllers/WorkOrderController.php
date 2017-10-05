@@ -211,10 +211,10 @@ class WorkOrderController extends Controller
         );
 
         $sql_details = array(
-            'user' => env('DB_USERNAME'),
-            'pass' => env('DB_PASSWORD'),
-            'db' => env('DB_DATABASE'),
-            'host' => env('DB_HOST')
+            'user' => getenv('DB_USERNAME'),
+            'pass' => getenv('DB_PASSWORD'),
+            'db' => getenv('DB_DATABASE'),
+            'host' => getenv('DB_HOST')
         );
 
         return SSP::simple(Request::all(), $sql_details, $table, $primaryKey, $columns);
