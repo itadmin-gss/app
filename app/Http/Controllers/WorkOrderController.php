@@ -39,9 +39,9 @@ class WorkOrderController extends Controller
                 'formatter' => function($d, $row)
                 {
                     //Get Data Related to Work Orders
-                    $maintenance_request    = MaintenanceRequest::where('id', $d)->get(['job_type', 'status', 'substitutor_id', 'asset_id'])[0];
+                    $maintenance_request    = MaintenanceRequest::where('id', $d)->get(['job_type', 'status', 'substitutor_id', 'asset_id']);
                     $customer2_details      = User::getUserNameArray($maintenance_request->substitutor_id);
-                    $asset_details          = Asset::where('id', $maintenance_request->asset_id)->get(['asset_number', 'property_address', 'city_id', 'state_id', 'customer_type', 'zip'])[0];
+                    $asset_details          = Asset::where('id', $maintenance_request->asset_id)->get(['asset_number', 'property_address', 'city_id', 'state_id', 'customer_type', 'zip']);
                     $customer_types         = CustomerType::all()->toArray();
                     $job_types              = JobType::all()->toArray();
                     $order_details          = OrderDetail::where('order_id', $d)->get(['requested_service_id']);
@@ -54,11 +54,11 @@ class WorkOrderController extends Controller
                     $service_names = "";
 
                     //Check for Customer Type
-                    if (isset($asset_details->customer_type))
+                    if (isset($asset_details[0]->customer_type))
                     {
                         foreach($customer_types as $cType)
                         {
-                            if ($cType['id'] == $asset_details->customer_type)
+                            if ($cType['id'] == $asset_details[0]->customer_type)
                             {
                                 $customer_type = $cType['title'];
                             }
@@ -128,7 +128,7 @@ class WorkOrderController extends Controller
                     //Check for Job Type
                     foreach($job_types as $type)
                     {
-                        if ($type['id'] == $maintenance_request->job_type)
+                        if ($type['id'] == $maintenance_request[0]->job_type)
                         {
                             $job_type = $type['title'];
                         }
@@ -211,10 +211,10 @@ class WorkOrderController extends Controller
         );
 
         $sql_details = array(
-            'user' => getenv('DB_USERNAME'),
-            'pass' => getenv('DB_PASSWORD'),
-            'db' => getenv('DB_DATABASE'),
-            'host' => getenv('DB_HOST')
+            'user' => env('DB_USERNAME'),
+            'pass' => env('DB_PASSWORD'),
+            'db' => env('DB_DATABASE'),
+            'host' => env('DB_HOST')
         );
 
         return SSP::simple(Request::all(), $sql_details, $table, $primaryKey, $columns);
