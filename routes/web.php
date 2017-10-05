@@ -245,6 +245,9 @@ Route::get('add-new-customer-asset/{id}', ['uses' => 'AssetController@showAddAss
 Route::post('edit-customer-asset/{id}', ['uses' => 'AssetController@editAsset']);
 Route::get('edit-customer-asset/{id}', ['uses' => 'AssetController@editAsset']);
 
+/* Vendor Account -> First Time Login / Setup */
+Route::get('email-link/vendor/{token}', 'VendorController@emailLink');
+
 
 ############################################# Admin Routes for ajax call ######################################
 

@@ -47,13 +47,6 @@
                                     </div>
                                 </div>
 
-                                   <div class="control-group">
-                                {!! Form::label('typeahead', 'Password *', array('class' => 'control-label')) !!}
-                                <div class="controls">
-                                    <div class="input-append">
-                                        {!! Form::text('password', '', array('id' => 'password','class' => 'input-xlarge focused')) !!}
-                                    </div>
-                                </div>
                             </div>
 
                             </div>

@@ -43,6 +43,12 @@ use JeroenDesloovere\Geolocation\Geolocation;
 class VendorController extends Controller
 {
 
+    // Handle login link sent to email for new vendors
+    public function emailLink($token)
+    {
+        return $token;
+    }
+
     /**
      * Get Vendor to Vendor Dashboard.
      * @params none

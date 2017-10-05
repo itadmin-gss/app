@@ -31,6 +31,7 @@ use App\ServiceCategory;
 use App\ServiceFieldDetail;
 use App\SpecialPrice;
 use App\State;
+use App\Tokens;
 use App\User;
 use App\UserRole;
 use App\UserType;
@@ -236,8 +237,7 @@ class AdminController extends Controller
         $rules = [
             'first_name' => 'required|min:2|max:80|alpha',
             'last_name' => 'required|min:2|max:80|alpha',
-            'email' => 'required|email|unique:users|between:3,64',
-            'password' => 'required|between:4,20'
+            'email' => 'required|email|unique:users|between:3,64'
         ];
         $validator = Validator::make(Request::all(), $rules);
 
@@ -252,18 +252,25 @@ class AdminController extends Controller
             $user_types = UserType::find($user_type_id->id);
             $user_roles = UserRole::where('role_name', '=', $user_types->title)->first();
             $data['type_id'] = $user_type_id->id;
-            // $passowrd = rand(); //Get random password to send user
-            $passowrd = $data['password'];
-            $data['password'] = Hash::make($passowrd);
             $data['status'] = 1;
             $save = User::createUser($data);
             if ($save) {
-                $data['password'] = $passowrd;
-                // Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($data));
 
-                Session::flash('message', $vendor_add_message);
+                //Create Token for email link
+                $token = bin2hex(openssl_random_pseudo_bytes(12));
+ 
+                //Add token to database
+                $token_save = Tokens::addToken($save, $token);
 
-                return FlashMessage::displayAlert($vendor_add_message . $passowrd, 'success');
+                if ($token_save)
+                {
+
+                    //Return success message
+                    Session::flash('message', $vendor_add_message);
+                    return FlashMessage::displayAlert($vendor_add_message . $token, 'success');
+    
+                }
+
             }
         }
     }
