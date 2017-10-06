@@ -34,7 +34,7 @@ class Email
         $userStatus = User::getUserByEmail($to_email);
 
         // if ($userStatus[0]->status == 1) {
-            Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
+            // Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
         // }
     }
 }

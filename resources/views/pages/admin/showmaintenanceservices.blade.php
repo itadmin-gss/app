@@ -50,7 +50,8 @@
       {!! Form::hidden('request_id', $request_maintenance->id);!!}
 
 
-      @if(count($request_maintenance->requestedService())==count($assigned_services))
+      <?php var_dump($request_maintenance->requestedService()->get()); ?>
+      @if(count($request_maintenance->requestedService()->get())==count($assigned_services))
 
      
       <table class="table table-striped table-bordered" style="width:48%;float:left;margin-right: 2%;"><tr>

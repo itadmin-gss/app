@@ -40,8 +40,8 @@ class WorkOrderController extends Controller
                 {
                     //Get Data Related to Work Orders
                     $maintenance_request    = MaintenanceRequest::where('id', $d)->get(['job_type', 'status', 'substitutor_id', 'asset_id']);
-                    $customer2_details      = User::getUserNameArray($maintenance_request->substitutor_id);
-                    $asset_details          = Asset::where('id', $maintenance_request->asset_id)->get(['asset_number', 'property_address', 'city_id', 'state_id', 'customer_type', 'zip']);
+                    $customer2_details      = User::getUserNameArray($maintenance_request[0]->substitutor_id);
+                    $asset_details          = Asset::where('id', $maintenance_request[0]->asset_id)->get(['asset_number', 'property_address', 'city_id', 'state_id', 'customer_type', 'zip']);
                     $customer_types         = CustomerType::all()->toArray();
                     $job_types              = JobType::all()->toArray();
                     $order_details          = OrderDetail::where('order_id', $d)->get(['requested_service_id']);
@@ -86,9 +86,9 @@ class WorkOrderController extends Controller
                     }
 
                     //Check for Property Address
-                    if (isset($asset_details->property_address))
+                    if (isset($asset_details[0]->property_address))
                     {
-                        $property_address = $asset_details->property_address;
+                        $property_address = $asset_details[0]->property_address;
                     }
                     else 
                     {
@@ -96,9 +96,9 @@ class WorkOrderController extends Controller
                     }
 
                     //Check for City
-                    if (isset($asset_details->city_id))
+                    if (isset($asset_details[0]->city_id))
                     {
-                        $property_city = City::where('id', $asset_details->city_id)->get(['name'])[0]->name;
+                        $property_city = City::where('id', $asset_details[0]->city_id)->get(['name'])[0]->name;
                     }
                     else
                     {
@@ -106,9 +106,9 @@ class WorkOrderController extends Controller
                     }
 
                     //Check for State
-                    if (isset($asset_details->state_id))
+                    if (isset($asset_details[0]->state_id))
                     {
-                        $state = State::where('id', $asset_details->state_id)->get(['name'])[0]->name;
+                        $state = State::where('id', $asset_details[0]->state_id)->get(['name'])[0]->name;
                     }
                     else
                     {
@@ -116,9 +116,9 @@ class WorkOrderController extends Controller
                     }
 
                     //Check for Zip
-                    if (isset($asset_details->zip))
+                    if (isset($asset_details[0]->zip))
                     {
-                        $zip = $asset_details->zip;
+                        $zip = $asset_details[0]->zip;
                     }
                     else
                     {
