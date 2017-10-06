@@ -65,6 +65,8 @@ class WorkOrderController extends Controller
                         }
                     }
 
+                    
+
                     //Check for Submitted By
                     if (isset($customer2_details['first_name']))
                     {
