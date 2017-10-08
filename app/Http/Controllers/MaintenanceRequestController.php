@@ -808,12 +808,14 @@ class MaintenanceRequestController extends Controller
                 $request_detail_id = DB::getPdo()->lastInsertId(); // get last id of service
 
                 //Inserting recurring data into recurring table
+
                 if (isset($data['recurring_' . $service_id])) {
                      $recurringData['request_service_id']=     $request_detail_id;
                      $recurringData['status']=1;
                      $recurringData['assignment_type']='single';
                      Recurring::create($recurringData);
                 }
+
                 //End inserting
                 $requested_selected_services[]=$request_detail_id;
                 //check if service is created then insert images of service
@@ -1251,7 +1253,7 @@ Status: New Bid Request
             $requested_service_recurring = RequestedService::find($service_id);
 
 
-            if (isset($requested_service_recurring->recurring) && $requested_service_recurring->recurring==1) {
+            if (isset($requested_service_recurring->recurring) && ($requested_service_recurring->recurring==1 || $requested_service_recurring->recurring=='true')) {
                 Recurring::where('request_service_id', '=', $requested_service_recurring->id)
                                 ->update(['vendor_id'=>$assignment_data['vendor']]);
             }

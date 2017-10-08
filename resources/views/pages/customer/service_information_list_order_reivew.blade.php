@@ -1,6 +1,8 @@
  <style type="text/css">
 input,textarea {background: "#39afea !important";}
  </style>
+
+
  <script type="text/javascript" src="{!! URL::asset('assets/js/cycle.js') !!}"> </script>
  <table id="revieworderservice_{!!$data['service_id']!!}">
     <tbody>

@@ -50,7 +50,6 @@
       {!! Form::hidden('request_id', $request_maintenance->id);!!}
 
 
-      <?php var_dump($request_maintenance->requestedService()->get()); ?>
       @if(count($request_maintenance->requestedService()->get())==count($assigned_services))
 
      

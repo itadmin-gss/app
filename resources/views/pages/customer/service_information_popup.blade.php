@@ -1451,6 +1451,10 @@ function openFields(obj,id)
     $('#ajax-loader-' + current_sevice_id_selected).show();
             e.preventDefault();
             var formData = new FormData(this);
+
+            if ($("[name=recurring_"+current_sevice_id_selected+"]").is(":checked")){
+                formData.append("recurring_"+current_sevice_id_selected, true);
+            }
             $.ajax(
             {
             url: '{!!URL::to("ajax-service-information-list")!!}',
