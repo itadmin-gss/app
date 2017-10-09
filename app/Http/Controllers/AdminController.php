@@ -271,7 +271,7 @@ class AdminController extends Controller
                         'token' => 'email-link/vendor/'.$token,
                     ];
 
-                    Email::send($data->email, 'Welcome to GSS', 'emails.new_vendor_template', $email_data);
+                    Email::send($data['email'], 'Welcome to GSS', 'emails.new_vendor_template', $email_data);
 
                     //Return success message
                     Session::flash('message', $vendor_add_message);
