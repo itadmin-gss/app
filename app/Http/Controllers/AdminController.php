@@ -267,7 +267,6 @@ class AdminController extends Controller
                     //Email New Vendor with Link to Login
                     $email_data = [
                         'first_name' => $data['first_name'],
-                        'username' => $data['username'],
                         'email' => $data['email'],
                         'token' => 'email-link/vendor/'.$token,
                     ];
