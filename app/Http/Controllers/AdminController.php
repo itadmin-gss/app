@@ -1384,7 +1384,7 @@ Delete Request @param id
         }
 
 
-        return view('pages.admin.list_work_order')
+        return view('pages.admin.list_exported_workouts')
             ->with('orders', $list_orders)
             ->with('db_table', 'orders')
             ->with('addl_itemz', $addl_itemz);
