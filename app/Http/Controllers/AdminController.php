@@ -255,6 +255,8 @@ class AdminController extends Controller
             $data['status'] = 1;
             $save = User::createUser($data);
             if ($save) {
+                
+
 
                 //Create Token for email link
                 $token = bin2hex(openssl_random_pseudo_bytes(12));
@@ -264,11 +266,19 @@ class AdminController extends Controller
 
                 if ($token_save)
                 {
+                    $vendor_template = "<h2>Vendor Account has been created.</h2>
+                    <h2>Email: ".$data['email']."</h2>
+                    <div>
+                        Please Login and complete your profile. <a href=".$token.">Click here</a><br/>
+                    </div>";
+
+                    
                     //Email New Vendor with Link to Login
                     $email_data = [
                         'first_name' => $data['first_name'],
                         'email' => $data['email'],
                         'token' => 'email-link/vendor/'.$token,
+                        'email_user_template' => $vendor_template
                     ];
 
                     Email::send($data['email'], 'Welcome to GSS', 'emails.new_vendor_template', $email_data);
