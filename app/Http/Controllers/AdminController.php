@@ -264,6 +264,15 @@ class AdminController extends Controller
 
                 if ($token_save)
                 {
+                    //Email New Vendor with Link to Login
+                    $email_data = [
+                        'first_name' => $data->first_name,
+                        'username' => $data->username,
+                        'email' => $data->email,
+                        'token' => 'email-link/vendor/'.$token,
+                    ];
+
+                    Email::send($data->email, 'Welcome to GSS', 'emails.new_vendor_template', $email_data);
 
                     //Return success message
                     Session::flash('message', $vendor_add_message);
