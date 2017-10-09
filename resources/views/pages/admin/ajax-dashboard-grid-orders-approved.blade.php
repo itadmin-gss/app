@@ -229,7 +229,7 @@ var j = jQuery.noConflict();
              if(buttonApi.text()== "Excel"){
              //console.log(buttonApi.text());
         j.ajax({
-      url: baseurl + "approved-grid-export",
+      url: baseurl + "/approved-grid-export",
       cache: false,
       success: function(data){
         alert(data);

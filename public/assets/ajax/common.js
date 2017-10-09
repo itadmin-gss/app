@@ -99,7 +99,6 @@ function modalClose(){
           ext = "." + ext;
           imgs = [].slice.call(imgs).filter(function(img) {
               var src = img.src;
-              console.log(src);
               return (src && (src.indexOf(ext, src.length - ext.length) !== -1));
           });
   
@@ -110,7 +109,6 @@ function modalClose(){
       limit = (limit && (0 <= limit) && (limit <= imgs.length))
               ? limit : imgs.length;
   
-              console.log(limit);
   
       /* (Try to) download the images */
       for (var i = 0; i < limit; i++) {
@@ -195,12 +193,9 @@ function modalClose(){
           $(this).closest('#export_view_images').removeClass('in');
           $('.modal-backdrop').remove();
       });
-      // $("a .buttons-excel").click(function(){
-      //  console.log("i am listening");
-      // });
-       $("table").delegate('a.buttons-excel','click',function(){
-          alert("i am listening");
-      });
+      
+
+
       $('.tabBox .imageFrame').hide();
       $('.tabBox .imageFrame.exprtTab').show();
       $("body").delegate('.tabTgr li a','click',function(){
@@ -496,7 +491,6 @@ function modalClose(){
           {
               orderstatusid=4;
               orderstatus_class="gray";
-               console.log(response);
               $('#recurringpopup').modal('show');
           }
           else if (orderstatus=="Cancelled")
@@ -1865,7 +1859,6 @@ function modalClose(){
           data: {order_id: order_id, before_image: before_image},
           dataType: 'html',
           success: function(data) {
-              console.log(data);
               alert('success');
           }
       });
@@ -1927,7 +1920,6 @@ function modalClose(){
               val
           },
           success: function(data) {
-              console.log(data);
               $("#printdata1").empty()
   
               $("#printdata1").append(data);
@@ -1961,9 +1953,7 @@ function modalClose(){
               val
           },
           success: function(data) {
-              console.log(data);
               $("#printdata1").empty()
-              console.log(data);
               $("#printdata1").append(data);
   
               printDiv("printdata"); 

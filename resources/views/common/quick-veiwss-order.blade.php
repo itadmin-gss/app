@@ -1407,7 +1407,7 @@ $total =  array_sum($total_rate);
 </h4>
 <button class="btn btn-large btn-primary pull-left" onclick="ShowAdditionalServiceForm({!!$order_detail->requestedService->service->id!!},{!!$order->maintenanceRequest->asset->asset_number!!},{!!$order->maintenanceRequest->asset->id!!},{!!$order->maintenanceRequest->jobType->id!!})" >Add Additional Items</button>
 
-<button class="btn btn-large btn-warning pull-left" id="showform">Add Additional Items</button>
+{{--  <button class="btn btn-large btn-warning pull-left" id="showform">Add Additional Items</button>  --}}
 <div class="clearfix"></div>
 <br>
 <div class="popUpOvrlay">

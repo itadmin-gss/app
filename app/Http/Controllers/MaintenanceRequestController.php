@@ -827,7 +827,7 @@ class MaintenanceRequestController extends Controller
                             $image_detail['image_name'] = $image;
                             $image_detail['image_type'] = 'request';
                             $image_detail['status'] = 1;
-                            $add_image = $ServiceImageClass::addServiceImage($image_detail);
+                            $add_image = ServiceImage::addServiceImage($image_detail);
                         }
                     }
                 }
