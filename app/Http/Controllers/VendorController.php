@@ -24,8 +24,10 @@ use App\OrderImagesPosition;
 use App\Service;
 use App\State;
 use App\User;
+use App\Tokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
@@ -46,7 +48,26 @@ class VendorController extends Controller
     // Handle login link sent to email for new vendors
     public function emailLink($token)
     {
-        return $token;
+        //verify that token is valid
+        $token_info = Tokens::where('token', $token)->get();
+
+        if (count($token_info) == 0)
+        {
+            return "<h2>Invalid Link.</h2><p>Click <a href='/'>here</a> to return to login page</p>";
+        }
+
+        //verify token was created within last 72 hours
+        $dt1 = new \DateTime();
+        $dt2 = new \DateTime($token_info[0]->created_at);
+        $dt2->add(new \DateInterval('PT72H'));
+        if ($dt2 < $dt1)
+        {
+            return "<h2>Invalid Link.</h2><p>Click <a href='/'>here</a> to return to login page</p>";
+        }
+
+        //if we made it this far, token and link are good, redirect to profile completion page
+        Auth::loginUsingId($token_info[0]->user_id);
+        return redirect('vendor-profile-complete');
     }
 
     /**
@@ -323,6 +344,7 @@ class VendorController extends Controller
                     'zipcode' => 'required',
                     'state_id' => 'required',
                     'city_id' => 'required',
+                    'password' => 'required|between:4,20'
                     ];
             } else {
                 $username = Auth::user()->username;
@@ -332,6 +354,7 @@ class VendorController extends Controller
                     'zipcode' => 'required',
                     'state_id' => 'required',
                     'city_id' => 'required',
+                    'password' => 'required|between:4,20'
                     ];
             }
 
@@ -356,6 +379,7 @@ class VendorController extends Controller
                 $data = Request::all();
                 $data['latitude'] = $result['lat'];
                 $data['longitude'] = $result['lng'];
+                $data['password']  = Hash::make(Request::get('password'));
 
 
                  //User Notification Email for profile completeness

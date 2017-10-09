@@ -205,7 +205,6 @@ class AdminController extends Controller
             'first_name' => 'required|min:2|max:80|alpha',
             'last_name' => 'required|min:2|max:80|alpha',
             'email' => 'required|email|unique:users|between:3,64',
-            'password' => 'required|between:4,20'
         ];
         $validator = Validator::make(Request::all(), $rules);
 
@@ -226,9 +225,37 @@ class AdminController extends Controller
             $data['status'] = 1;
             $save = User::createUser($data);
             if ($save) {
+                 //Create Token for email link
+                 $token = bin2hex(openssl_random_pseudo_bytes(12));
+                 
+                //Add token to database
+                $token_save = Tokens::addToken($save, $token);
                 
-                Session::flash('message', $vendor_add_message);
-                return redirect('list-vendors');
+                if ($token_save)
+                {
+                    $vendor_template = "<h2>Vendor Account has been created.</h2>
+                    <h2>Email: ".$data['email']."</h2>
+                    <div>
+                        Please Login and complete your profile. <a href=".$token.">Click here</a><br/>
+                    </div>";
+
+
+                    //Email New Vendor with Link to Login
+                    $email_data = [
+                        'first_name' => $data['first_name'],
+                        'email' => $data['email'],
+                        'token' => 'email-link/vendor/'.$token,
+                        'user_email_template' => $vendor_template
+                    ];
+
+                    Email::send($data['email'], 'Welcome to GSS', 'emails.new_vendor_template', $email_data);
+
+                    //Return success message
+                    Session::flash('message', $vendor_add_message);
+                    return redirect('list-vendors');
+    
+                }
+
             }
         }
     }

@@ -77,6 +77,17 @@
                             </div>
 
 
+                            <div class="control-group">
+
+                                {!!Form::label('password', 'Password', array('class'=>'control-label', 'for'=>'typeahead'))!!}
+
+                                <div class="controls">
+
+                                    {!! Form::password('password',  array('class'=>'span10 typeahead','id'=>'password'))!!}
+
+                                </div>
+
+                            </div>
 
                             <div class="control-group">
 
