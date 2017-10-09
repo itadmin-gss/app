@@ -1114,7 +1114,7 @@ if ( $custom->customer_price != 0){ ?>
                                         <!-- Edit Service request pop modal Ends -->
 
                                         @if(isset($items))
-                                        <span><h1 class="text-center">Additional Services</h1></span>
+                                        {{--  <span><h1 class="text-center">Additional Services</h1></span>  --}}
                                         @endif
 
                                         <div class=" " id="additionalserviceform">
@@ -1408,10 +1408,10 @@ $total =  array_sum($total_rate);
   Please Fill All the Fields!
 </h4>
 <?php if (isset($order->maintenanceRequest->asset->id) && isset($order->maintenanceRequest->jobType->id)): ?>
-    <button  class="btn btn-large btn-primary pull-left" onclick="ShowAdditionalServiceForm({!!$order_detail->requestedService->service->id!!},{!!$order->maintenanceRequest->asset->asset_number!!},{!!$order->maintenanceRequest->asset->id!!},{!!$order->maintenanceRequest->jobType->id!!})" >Add Additional Items</button>
+    {{--  <button  class="btn btn-large btn-primary pull-left" onclick="ShowAdditionalServiceForm({!!$order_detail->requestedService->service->id!!},{!!$order->maintenanceRequest->asset->asset_number!!},{!!$order->maintenanceRequest->asset->id!!},{!!$order->maintenanceRequest->jobType->id!!})" >Add Additional Items</button>  --}}
 
 <?php else: ?>
-    <button class="btn btn-large btn-primary pull-left"  disabled="disabled" >U cant add additional service without property address</button>
+    {{--  <button class="btn btn-large btn-primary pull-left"  disabled="disabled" >U cant add additional service without property address</button>  --}}
 
 <?php endif ?>
 
