@@ -1238,6 +1238,7 @@ function modalClose(){
               }
               else
               {
+                  $("#overlay").remove();
                   $('#addVendorSuccessMessage').slideUp('slow')
                   $('#addVendorValidationErrorMessage').html(data).hide();
                   $('#addVendorValidationErrorMessage').slideDown('slow');
@@ -1245,6 +1246,7 @@ function modalClose(){
           },
           error: function()
           {
+              $("#overlay").remove();
               $('#addVendorErrorMessage').slideDown();
           }
       });
