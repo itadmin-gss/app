@@ -272,13 +272,13 @@ class AdminController extends Controller
                         Please Login and complete your profile. <a href=".$token.">Click here</a><br/>
                     </div>";
 
-                    
+
                     //Email New Vendor with Link to Login
                     $email_data = [
                         'first_name' => $data['first_name'],
                         'email' => $data['email'],
                         'token' => 'email-link/vendor/'.$token,
-                        'email_user_template' => $vendor_template
+                        'user_email_template' => $vendor_template
                     ];
 
                     Email::send($data['email'], 'Welcome to GSS', 'emails.new_vendor_template', $email_data);
