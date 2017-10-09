@@ -1603,30 +1603,7 @@ function modalClose(){
           data:{vendors_price:vendors_price,customer_price:customer_price,admin_quantity:admin_quantity,quantity:quantity,
               customers_notes:customers_notes,vendors_notes:vendors_notes,notes_for_vendors:notes_for_vendors},
               success: function(data) {
-                  // console.log(data);
-             // $("#vendor_price").html(data.vendors_price);
-      // $('#customer_price').html(data.vendors_price);
-      // $('#adminquantity_edit').html(data.vendors_price);
-      // $('#quantity_edit').html(data.vendors_price);;
-      //  $('#customers_notes').htmldata.vendors_price);
-      // $('#vendors_note').html(data.vendors_price);
-      //      $('#notes_for_vendors').html(data.vendors_price);
-                  // alert(data.vendors_price);
-                 
-                  $('#overlay').remove();
-                  $(".modelForm").scrollTop(0);
-                  $("#flash_modal").slideDown('slow');
-                
-                  $('body').on("hidden", "#edit_request_service", function(){
-                      window.location.reload();
-                  })
-                  setInterval(function() {
-  
-                   $("#flash_modal").slideUp('slow'); 
-  
-               }, 10000);
-                  $(id).removeClass('in');
-
+                window.location.reload();
               }
           });
          }
