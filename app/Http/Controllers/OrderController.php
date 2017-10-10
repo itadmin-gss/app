@@ -1670,18 +1670,18 @@ Completion Date: ".$orders[0]->completion_date;
 
 
         $order_id= Request::get('order_id');
-        $data = Order::where("id", "=", $order_id)->pluck("vendor_submitted");
-        if (empty($data)) {
-              $current_data = date("m/d/Y");
-               $orderdata = [
-            'vendor_submitted' => $current_data,
-            'completion_date'       =>    $completion_date
-               ];
-        } else {
+        // $data = Order::where("id", $order_id)->pluck("vendor_submitted");
+        // if (empty($data)) {
+        //       $current_data = date("m/d/Y");
+        //        $orderdata = [
+        //     'vendor_submitted' => $current_data,
+        //     'completion_date'       =>    $completion_date
+        //        ];
+        // } else {
             $orderdata = [
             'completion_date'  => $completion_date
             ];
-        }
+        // }
 
 
         $save = Order::where('id', '=', $order_id)
