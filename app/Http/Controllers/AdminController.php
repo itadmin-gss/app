@@ -236,7 +236,7 @@ class AdminController extends Controller
                     $vendor_template = "<h2>Vendor Account has been created.</h2>
                     <h2>Email: ".$data['email']."</h2>
                     <div>
-                        Please Login and complete your profile. <a href=".$token.">Click here</a><br/>
+                        Please Login and complete your profile. <a href=email-link/vendor/".$token.">Click here</a><br/>
                     </div>";
 
 
