@@ -227,17 +227,18 @@ class AdminController extends Controller
             if ($save) {
                  //Create Token for email link
                  $token = bin2hex(openssl_random_pseudo_bytes(12));
+                 $url = env("APP_URL")."/email-link/vendor/".$token;
                  
                 //Add token to database
                 $token_save = Tokens::addToken($save, $token);
                 
                 if ($token_save)
                 {
-                    $vendor_template = "<h2>Vendor Account has been created.</h2>
-                    <h2>Email: ".$data['email']."</h2>
+                    $vendor_template = '<h2>Vendor Account has been created.</h2>
+                    <h2>Email: '.$data['email'].'</h2>
                     <div>
-                        Please Login and complete your profile. <a href=email-link/vendor/".$token.">Click here</a><br/>
-                    </div>";
+                        Please Login and complete your profile. <a href="'.$url.'">Click here</a><br/>
+                    </div>';
 
 
                     //Email New Vendor with Link to Login
@@ -287,17 +288,18 @@ class AdminController extends Controller
 
                 //Create Token for email link
                 $token = bin2hex(openssl_random_pseudo_bytes(12));
- 
-                //Add token to database
-                $token_save = Tokens::addToken($save, $token);
-
-                if ($token_save)
-                {
-                    $vendor_template = "<h2>Vendor Account has been created.</h2>
-                    <h2>Email: ".$data['email']."</h2>
-                    <div>
-                        Please Login and complete your profile. <a href=".$token.">Click here</a><br/>
-                    </div>";
+                $url = env("APP_URL")."/email-link/vendor/".$token;
+                
+               //Add token to database
+               $token_save = Tokens::addToken($save, $token);
+               
+               if ($token_save)
+               {
+                   $vendor_template = '<h2>Vendor Account has been created.</h2>
+                   <h2>Email: '.$data['email'].'</h2>
+                   <div>
+                       Please Login and complete your profile. <a href="'.$url.'">Click here</a><br/>
+                   </div>';
 
 
                     //Email New Vendor with Link to Login
