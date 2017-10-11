@@ -1,7 +1,7 @@
 @extends('layouts.onecolumn')
 @section('content')
 
-<div class="txtCenter"><img class="inLogo" width="250px" src="http://dev.devronix.com/gss/php/assets/images/GSS-Logo.jpg"></div>
+<div class="txtCenter"><img class="inLogo" width="250px" src="assets/images/GSS-Logo.jpg"></div>
 
 <style>
 .control-group label.control-label { width: 160px; margin-right: 22px; }

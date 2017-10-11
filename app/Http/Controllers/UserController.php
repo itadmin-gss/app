@@ -25,7 +25,6 @@ use JeroenDesloovere\Geolocation\Geolocation;
  * User Controller Class.
  *
  * Handles User Functionalities & redirects.
- * @copyright Copyright 2014 Devronix Technology Development Team
  * @version $Id: 1.0
  */
 

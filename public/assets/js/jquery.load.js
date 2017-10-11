@@ -1,7 +1,5 @@
 /* 
 Title: Photo Tagging
-Author: Shahrooz alam
-URL: http://www.devronix.com
 Credits: jQuery, imgAreaSelect 
 */
 

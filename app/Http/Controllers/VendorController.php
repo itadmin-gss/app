@@ -38,7 +38,6 @@ use JeroenDesloovere\Geolocation\Geolocation;
  * Vendor Controller Class.
  *
  * Handles Vendor Functionalities & redirects.
- * @copyright Copyright 2014 Devronix Technology Development Team
  * @version $Id: 1.0
  */
 
