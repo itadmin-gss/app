@@ -234,7 +234,7 @@ return [
     'upload_path' => 'assets/uploads/',
     'request_images' => 'assets/uploads/request',
     'from_email_name' => 'GSS',
-    'admin_email' => 'admin@gssreo.com',
+    'admin_email' => 'do-not-reply@gssreo.com',
     'img_dir' => 'assets/img/',
     'order_images_before' => 'assets/uploads/order/before/',
     'order_images_after' => 'assets/uploads/order/after/',
