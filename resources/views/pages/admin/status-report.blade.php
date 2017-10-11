@@ -59,14 +59,14 @@
                         @foreach ($assets_data as $asset)
                     
                         <tr>
-                            <td>{!!$asset->maintenanceRequest->asset->customerType->title!!}</td>
+                            <td>@if(isset($asset->maintenanceRequest->asset->customerType->title)) {!!$asset->maintenanceRequest->asset->customerType->title!!} @endif</td>
 
                             <td>@if(isset($asset->customer->first_name)) {!!$asset->customer->first_name!!} @endif @if(isset($asset->customer->last_name)) {!!$asset->customer->last_name!!} @endif</td>
-                            <td>{!!$asset->maintenanceRequest->asset->property_address!!} </td>
-                            <td>{!!$asset->maintenanceRequest->asset->UNIT!!} </td>
-                            <td>{!!$asset->maintenanceRequest->asset->city->name!!} </td>
-                            <td>{!!$asset->maintenanceRequest->asset->state->name!!} </td>
-                            <td>{!!$asset->maintenanceRequest->asset->zip!!} </td>
+                            <td>@if(isset($asset->maintenanceRequest->asset->property_address)) {!!$asset->maintenanceRequest->asset->property_address!!} @endif</td>
+                            <td>@if(isset($asset->maintenanceRequest->asset->UNIT)) {!!$asset->maintenanceRequest->asset->UNIT!!} @endif</td>
+                            <td>@if(isset($asset->maintenanceRequest->asset->city->name)) {!!$asset->maintenanceRequest->asset->city->name!!} @endif</td>
+                            <td>@if(isset($asset->maintenanceRequest->asset->state->name)) {!!$asset->maintenanceRequest->asset->state->name!!} @endif</td>
+                            <td>@if(isset($asset->maintenanceRequest->asset->zip)) {!!$asset->maintenanceRequest->asset->zip!!} @endif</td>
                             <?php
                             $servicedate="";
                             foreach ($asset->maintenanceRequest->requestedService as  $value) {
