@@ -396,6 +396,21 @@ class AssetController extends Controller
                     return [$asset_id, $asset_details->property_address, $d, $customer_details->first_name." ".$customer_details->last_name];
 
                 }
+            ),
+            array(
+                'db' => 'vendor_id',
+                'dt' => 4,
+                'formatter' => function($d, $row)
+                {
+                    $vendor_details = User::where('id', $d)->get()[0];
+                    $vendor_name = "";
+                    if (isset($vendor_details->first_name))
+                    {
+                        $vendor_name .= $vendor_details->first_name;
+                    }
+
+                    
+                }
             )
         );
 

@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Mail\GenericMail;
 use App\User;
+use App\SentEmail;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -30,11 +31,16 @@ class Email
 
 </div>';
 
+        //Save Email to DB
 
-        $userStatus = User::getUserByEmail($to_email);
+        if ( !isset($email_data['first_name']) || !$email_data['first_name'] || trim($email_data['first_name']) == '' )
+        {
+            $email_data['first_name'] = 'Not Set';
+        }        
+        SentEmail::add($email_data, $subject, $template);
 
-        // if ($userStatus[0]->status == 1) {
-            Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
-        // }
+        //Send Email
+        Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
+
     }
 }
