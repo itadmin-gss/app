@@ -298,21 +298,6 @@ Assigned Service Request</span></a>
 
           </li> 
 
-           <li>
-
-          <a  href="{!!URL::to('/')!!}/backup-scripting1234.php"><i class="fa-icon-file"></i><span class="hidden-tablet">Get Backup</span></a>
-
-            
-
-          </li>
-
-          <li>
-
-          <a  href="{!!URL::to('/swap-db')!!}"><i class="fa-icon-hdd"></i><span class="hidden-tablet">Swap Database</span></a>
-
-            
-
-          </li>
 
           
 

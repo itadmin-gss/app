@@ -21,6 +21,61 @@ jQuery( document ).ready(function( $ ) {
 			]
 		});
 
+		$('.summary-work-order-table').DataTable({
+			dom: 'Bfrtip',
+			"processing": true,
+			"serverSide": true,
+			"ajax": baseurl + "/summary-work-order-table",
+			"columnDefs": [
+				{"render" : function(data, type, row){return data[0];}, "targets" : 0 }, 		//Property #	
+				{"render" : function(data, type, row){return row[0][1];}, "targets" : 1 }, 		//Property Address	
+				{"render" : function(data, type, row){return row[0][2];}, "targets" : 2 }, 		//Work Order ID	
+				{"render" : function(data, type, row){return row[0][3];}, "targets" : 3 }, 		//Customer Name	
+				{"render" : function(data, type, row){return "yup";}, "targets" : 4 }, 		//Vendor Name	
+				{"render" : function(data, type, row){return "yup";}, "targets" : 5 }, 		//Service Type / Due Date	
+				{"render" : function(data, type, row){return "yup";}, "targets" : 6 }, 		//Actions		
+			],
+			"order": [[ 0, "desc" ]],
+			buttons: [
+			'copy', 'csv', 'excel', 'print'
+			]
+		});
+
+
+
+		$('.requests-history-table').DataTable({
+			dom: 'Bfrtip',
+			"processing": true,
+			"serverSide": true,
+			"ajax": baseurl + "/prop-history-table",
+			"columnDefs": [
+				{"render" : function(data, type, row){return data[0];}, "targets" : 0 }, //Client Type
+				{"render" : function(data, type, row){return row[0][1];}, "targets" : 1 }, //Customer Name
+				{"render" : function(data, type, row){return row[0][2];}, "targets" : 2 }, //Property Address
+				{"render" : function(data, type, row){return row[0][3];}, "targets" : 3 }, //Unit #
+				{"render" : function(data, type, row){return row[0][4];}, "targets" : 4 }, //City
+				{"render" : function(data, type, row){return row[0][5];}, "targets" : 5 }, //State
+				{"render" : function(data, type, row){return row[0][6];}, "targets" : 6 }, //Zip
+				{"render" : function(data, type, row){return row[0][7];}, "targets" : 7 }, //Services
+				{"render" : function(data, type, row){return row[0][8];}, "targets" : 8 }, //Order Id
+				{"render" : function(data, type, row){
+					let html = '<td class="center"> <span class="label label-'+row[0][10]+'"> '+row[0][9]+' </span> </td>';
+					
+					return html;
+				}, "targets" : 9 }, //Order Status
+				{"render" : function(data, type, row){return row[0][11];}, "targets" : 10 }, //Completed Date
+				{"render" : function(data, type, row){return row[0][12];}, "targets" : 11 }, //Vendor Name
+				{"render" : function(data, type, row){
+					let html = '<a class="btn btn-success view_asset_information"  id="'+row[15]+'" title="View Property"><i class="halflings-icon zoom-in halflings-icon"></i></a><a class="btn btn-info" href="edit-asset/'+row[15]+'" title="Edit Property"><i class="halflings-icon edit halflings-icon"></i></a>';
+					return html;
+				}, "targets" : 12 }, //Action
+				
+			],
+			"order": [[ 0, "desc" ]],
+			buttons: [
+			'copy', 'csv', 'excel', 'print'
+			]
+		});
 		$('.work-order-table').DataTable( {
 			dom: 'Bfrtip',
 			"processing" : true,

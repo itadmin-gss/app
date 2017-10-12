@@ -234,50 +234,50 @@ function modalClose(){
   
   
   
-      // $("#assetSummary").change(function() {
-      //     var assetSummary=  $(this).val();
+      $("#assetSummary").change(function() {
+          var assetSummary=  $(this).val();
   
   
-      //     var over = '<div id="overlay">' +
-      //     '<img id="loading" src="assets/img/loader.gif">' +
-      //     '</div>';
-      //     $(over).appendTo('body');
+          var over = '<div id="overlay">' +
+          '<img id="loading" src="assets/img/loader.gif">' +
+          '</div>';
+          $(over).appendTo('body');
   
-      //    if(assetSummary==1)
-      //    {
-      //        $(".datatablegrid").show();
-      //        $(".datatablegrid2").hide();
-      //        $(".datatablegrid3").hide();
-      //        $(".datatablegrid4").hide();
+         if(assetSummary==1)
+         {
+             $(".datatablegrid").show();
+             $(".datatablegrid2").hide();
+             $(".datatablegrid3").hide();
+             $(".datatablegrid4").hide();
   
-      //    }
-      //    else if(assetSummary==2)
-      //    {
-      //        $(".datatablegrid").hide();
-      //        $(".datatablegrid2").show();
-      //        $(".datatablegrid3").hide();
-      //        $(".datatablegrid4").hide();
+         }
+         else if(assetSummary==2)
+         {
+             $(".datatablegrid").hide();
+             $(".datatablegrid2").show();
+             $(".datatablegrid3").hide();
+             $(".datatablegrid4").hide();
   
-      //    }
-      //    else if(assetSummary==3)
-      //    {
-      //        $(".datatablegrid").hide();
-      //        $(".datatablegrid2").hide();
-      //        $(".datatablegrid3").show();
-      //        $(".datatablegrid4").hide();
+         }
+         else if(assetSummary==3)
+         {
+             $(".datatablegrid").hide();
+             $(".datatablegrid2").hide();
+             $(".datatablegrid3").show();
+             $(".datatablegrid4").hide();
   
-      //    }
-      //    else if(assetSummary==4)
-      //    {
-      //        $(".datatablegrid").hide();
-      //        $(".datatablegrid2").hide();
-      //        $(".datatablegrid3").hide();
-      //        $(".datatablegrid4").show();
+         }
+         else if(assetSummary==4)
+         {
+             $(".datatablegrid").hide();
+             $(".datatablegrid2").hide();
+             $(".datatablegrid3").hide();
+             $(".datatablegrid4").show();
   
-      //    }
-      //      $('#overlay').remove();
+         }
+           $('#overlay').remove();
   
-      // });
+      });
   
   
       setTimeout(function(){ $('#dashboardclick').click();}, 2000);
@@ -763,8 +763,9 @@ function modalClose(){
           }
       });
   });
-  
-  $('.view_asset_information').click(function() {
+
+
+  $('body').on('click', '.view_asset_information', function(){
       var asset_id = this.id;
   
   

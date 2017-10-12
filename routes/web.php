@@ -222,8 +222,12 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     //Access Level Controller
     Route::match(['GET', 'POST'], 'edit-access-level/{role_id}', ['uses' => 'AccessLevelController@editAccessLevel']);
     
-    //Work Order Controller
+    //Work Order Datable Ajax Controller
     Route::get('work-order-table', 'WorkOrderController@index');
+
+    //Property History (Summary) Datatable Ajax Controllers
+    Route::get('prop-history-table', 'AssetController@propHistoryTable');  
+    Route::get('summary-work-order-table', 'AssetController@summaryWorkOrderTable');
 });
 
 

@@ -6,12 +6,15 @@ use App\Asset;
 use App\City;
 use App\CustomerType;
 use App\Helpers\FlashMessage;
+use App\Helpers\SSP;
 use App\Order;
 use App\Recurring;
 use App\Service;
 use App\ServiceCategory;
 use App\State;
 use App\User;
+use App\MaintenanceRequest;
+use App\RequestedService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
@@ -238,6 +241,7 @@ class AssetController extends Controller
         return view('pages.view_assets')->with('assets_data', $assets_data);  // set assets_data to view to show list of assets
     }
 
+
     public function addAdminAsset($id = 0)
     {
 
@@ -371,13 +375,189 @@ class AssetController extends Controller
         'assets_data' => $assets]);
     }
 
+    public function summaryWorkOrderTable()
+    {
+        //Database Table
+        $table = 'orders';
+
+        //DB Primary key
+        $primaryKey = 'id';
+
+        $columns = array(
+            array(
+                'db' => 'request_id',
+                'dt' => 0,
+                'formatter' => function($d, $row)
+                {
+                    $request_details = MaintenanceRequest::where('id', $d)->get()[0];
+                    $asset_id        = $request_details->asset_id;
+                    $asset_details   = Asset::where('id', $asset_id)->get()[0];
+                    $customer_details = User::where('id', $asset_details->customer_id)->get()[0];
+                    return [$asset_id, $asset_details->property_address, $d, $customer_details->first_name." ".$customer_details->last_name];
+
+                }
+            )
+        );
+
+        $sql_details = array(
+            'user' => env('DB_USERNAME'),
+            'pass' => env('DB_PASSWORD'),
+            'db' => env('DB_DATABASE'),
+            'host' => env('DB_HOST')
+        );
+
+        return SSP::simple(Request::all(), $sql_details, $table, $primaryKey, $columns);
+
+    }
+    public function propHistoryTable()
+    {
+        //Database Table
+        $table = 'maintenance_requests';
+
+        //DB Primary Key
+        $primaryKey = 'id';
+
+        $columns = array(
+            
+            //Fake Out script to pull more fields
+            array('db' => 'customer_id', 'dt' => 14),
+            array('db' => 'asset_id', 'dt' => 15),
+            
+
+            //Row 0 - Customer Information / Customer Type / Property Address
+            
+            array(
+                'db' => 'id',
+                'dt' => 0,
+                'formatter' => function($d, $row)
+                {
+                    //Get Asset Information or Request
+                    $asset_details = Asset::where('id', $row['asset_id'])->get()[0];
+
+                    //Get Requested Services
+                    $requested_services = RequestedService::where('request_id', $d)->get();
+
+                    //Get City Information
+                    $city = City::where('id', $asset_details->city_id)->get(['name'])[0]->name;
+
+                    //get State Information
+                    $state = State::where('id', $asset_details->state_id)->get(['name'])[0]->name;
+
+                    //get Order information
+                    $order_details = Order::where('request_id', $d)->get();
+
+                    if (isset($order_details[0]->id))
+                    {
+                        $order_id = $order_details[0]->id;
+                        $order_status_text = $order_details[0]->status_text;
+                        $order_status_color = $order_details[0]->status_class;
+                        $order_completion_date = $order_details[0]->completion_date;
+                        $vendor_details = User::where('id', $order_details[0]->vendor_id)->get()[0];
+                        $vendor_name = "";
+                        if (isset($vendor_details->first_name))
+                        {
+                            $vendor_name .= $vendor_details->first_name." ";
+                        }
+                        if (isset($vendor_details->last_name))
+                        {
+                            $vendor_name .= $vendor_details->last_name;
+                        }
+                        
+                    }
+                    else
+                    {
+                        $order_id = "NA";
+                        $order_status_text = "NA";
+                        $order_status_color = "white";
+                        $order_completion_date = "NA";
+                        $vendor_name = "NA";
+                    }
+
+                    //Put together Services column
+                    $services = "";
+                    foreach($requested_services as $r_service)
+                    {
+                        $service_title = Service::where('id', $r_service->service_id)->get()[0]->title;
+                        $services .= $service_title;
+                        $services .= "<br>".$r_service->due_date."<br>";
+                    }
+
+                    //Property Address
+                    $property_address = $asset_details->property_address;
+
+                    //Unit 
+                    $unit = $asset_details->UNIT;
+
+                    //Zip
+                    $zip = $asset_details->zip;
+                    
+                    //Get Customer Type
+                    if (isset($asset_details->customer_type))
+                    {
+                        $customer_type = CustomerType::where('id', $asset_details->customer_type)->get(['title'])[0]->title;
+                    }
+                    else
+                    {
+                        $customer_type = "Not Set";
+                    }
+                    //Get Customer Information
+                    if (isset($asset_details->customer_id))
+                    {
+                        $customer_details = User::where('id', $asset_details->customer_id)->get()[0];
+                        $customer_name = "";
+                        if (isset($customer_details->first_name))
+                        {
+                            $customer_name .= $customer_details->first_name." ";
+                        }
+
+                        if (isset($customer_details->last_name))
+                        {
+                            $customer_name .= $customer_details->last_name;
+                        }
+
+                        
+                    } 
+                    else
+                    {
+                        $customer_name = "";
+                    }
+
+                    return [
+                        $customer_type, 
+                        trim($customer_name), 
+                        $property_address, 
+                        $unit, 
+                        $city, 
+                        $state, 
+                        $zip, 
+                        $services, 
+                        $order_id, 
+                        $order_status_text, 
+                        $order_status_color, 
+                        $order_completion_date,
+                        $vendor_name
+                    ];
+                }
+            ),
+
+
+
+        );
+
+        $sql_details = array(
+            'user' => env('DB_USERNAME'),
+            'pass' => env('DB_PASSWORD'),
+            'db' => env('DB_DATABASE'),
+            'host' => env('DB_HOST')
+        );
+
+        return SSP::simple(Request::all(), $sql_details, $table, $primaryKey, $columns);
+    }
+
     public function listAdminAssetsSummary()
     {
-        $assets = Asset::orderBy('id', 'desc')->get();
-
-        return view('pages.admin.list-assets-summary')
-        ->with([
-        'assets_data' => $assets]);
+    
+        return view('pages.admin.list-assets-summary');
     }
     public function propertyReport()
     {
