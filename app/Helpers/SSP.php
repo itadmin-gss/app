@@ -193,6 +193,8 @@ class SSP {
 	 */
 	static function simple ( $request, $conn, $table, $primaryKey, $columns )
 	{
+
+		
 		$bindings = array();
 		$db = self::db( $conn );
 		// Build the SQL query string from the request
@@ -223,6 +225,13 @@ class SSP {
 		/*
 		 * Output
 		 */
+
+		return "SELECT `".implode("`, `", self::pluck($columns, 'db'))."`
+		FROM `$table`
+		$where
+		$order
+		$limit";
+		
 		return array(
 			"draw"            => isset ( $request['draw'] ) ?
 				intval( $request['draw'] ) :

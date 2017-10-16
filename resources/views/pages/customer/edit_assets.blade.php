@@ -19,8 +19,7 @@
                 @endif
 
 
-
-                {{-- */$url='edit-customer-asset/'.$asset_data->id;/* --}}
+                <?php   $url='edit-customer-asset/'.$asset_data->id; ?>
                 {!! Form::open(array('url' => $url, 'class'=>'form-horizontal')) !!}
                 <fieldset class="fieldBox">
                     <div class="box-header" data-original-title>

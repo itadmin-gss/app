@@ -17,7 +17,7 @@
             @endforeach
         @endif
         <?php //echo "<pre>";print_r($service);exit;  ?>
-        {{-- */$url='edit-service/'.$service->id;/* --}}
+        {!! $url='edit-service/'.$service->id !!}
         {!! Form::open(array('url' => $url, 'class' => 'form-horizontal', 'method' => 'post')) !!}
         <fieldset>
           <div class="row-fluid">

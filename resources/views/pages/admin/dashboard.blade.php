@@ -95,8 +95,7 @@
          @endif
 
 
-
- @if($access_roles['Summary Grid']['view'] == 1)
+ @if( isset($access_roles['Summary Grid']['view']) && $access_roles['Summary Grid']['view'] == 1)
                   <div class="row-fluid">
                      <div class="box span12">
                             <div class="box-header">
@@ -378,7 +377,7 @@ $servicedate="";
 
 
 
-                     @if($access_roles['Work Order in Proces']['view'] == 1)
+                     @if( isset($access_roles['Work Order in Proces']['view']) && $access_roles['Work Order in Proces']['view'] == 1)
                           <div class="row-fluid">
                         <div class="box span12">
                             <div class="box-header">
@@ -422,7 +421,7 @@ $servicedate="";
                           @endif
 
 
-                            @if($access_roles['Work Order Approval']['view'] == 1)
+                            @if( isset($access_roles['Work Order Approval']['view']) && $access_roles['Work Order Approval']['view'] == 1)
                                <div class="row-fluid">
                         <div class="box span12">
                             <div class="box-header">
