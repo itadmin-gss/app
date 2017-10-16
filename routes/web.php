@@ -254,6 +254,11 @@ Route::get('edit-customer-asset/{id}', ['uses' => 'AssetController@editAsset']);
 /* Vendor Account -> First Time Login / Setup */
 Route::get('email-link/vendor/{token}', 'VendorController@emailLink');
 
+/* Pruvan Endpoints */
+Route::post('pruv/validate', 'PruvanController@validateApp');
+Route::post('pruv/getWorkOrders', 'PruvanController@getWorkOrders');
+Route::post('pruv/uploadPictures', 'PruvanController@uploadPictures');
+Route::post('pruv/status', 'PruvanController@status');
 
 
 
