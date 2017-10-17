@@ -33,7 +33,7 @@ class Email
 
         //Save Email to DB
 
-        $block = ['admin@gssreo.com', 'accounting@gssreo.com'];
+        $block = ['admin@gssreo.com', 'accounting@gssreo.com', 'mrfixor@gssreo.com', 'officemgr@gssreo.com', 'sales@gssreo.com'];
         if (!in_array($to_send, $block))
         {
             if ( !isset($email_data['first_name']) || !$email_data['first_name'] || trim($email_data['first_name']) == '' )
