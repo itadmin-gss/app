@@ -5,12 +5,19 @@
 
 
 <div id="content" class="span11">
+    <div class='table-padding'>
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Maintenance Requests</li>
+        </ol>
+    </div>
+    <div class='table-padding add-service-button-div'>
+          <a class="btn btn-info accBtn" href="{!!URL::to('admin-add-new-service-request')!!}">Add Service Request </a>
+    </div>
 
-  <div class="clearfix">
 
-      <a class="btn btn-info accBtn" href="{!!URL::to('admin-add-new-service-request')!!}">Add Service Request </a>
-
-  </div>
 
 
 
@@ -18,11 +25,7 @@
 
   <div class="row-fluid">
 
-    <div class="box span12">
-
-      <div class="box-header" data-original-title>
-
-        <h2><i class="halflings-icon th-list"></i><span class="break"></span>Service Request List</h2>
+    <div class="box span12 table-padding">
 
         <div class="box-icon"> <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a> </div>
 
@@ -39,8 +42,9 @@
         <div class="box-content admtable">
 
         <div class="admtableInr">
-
-        <table class="table table-striped table-bordered bootstrap-datatable datatabledashboard">
+        <div class='table-container'>
+        <div class='table-responsive'>
+        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id="maintenance_datatable">
 
           <thead>
 
@@ -236,21 +240,13 @@ $due_date="";
 
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
 
-            @if($rm->status==1)
+            @if($rm->status==1 || $rm->status == 2 || $rm->status == 3)
 
-            <span class="label label-green">New Request</span>
-
-            @elseif($rm->status==2)
-
-            <span class="label label-warning">New Request</span>
-
-            @elseif($rm->status==3)
-
-            <span class="label label-warning">New Request</span>
+            <span class="badge badge-summary badge-success">New Request</span>
 
             @elseif($rm->status==4)
 
-            <span class="label label-important">Cancelled</span>
+            <span class="badge badge-summary badge-danger">Cancelled</span>
 
             @endif
 
@@ -261,14 +257,21 @@ $due_date="";
 
 
             <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif>
+            <div class='action-button-group-3-wide'>
 
-            <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>
+              <a class="btn btn-success btn-xs action-button"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> 
+                  <i class="fa fa-search-plus" aria-hidden="true"></i>                              
+              </a>
 
-            <a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to cancel?')"> <i class="halflings-icon trash halflings-icon"></i> </a>
+              <a class="btn btn-danger btn-xs action-button" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to cancel?')"> 
+                  <i class="fa fa-trash" aria-hidden="true"></i> 
+              </a>
 
-<!--             <a class="btn btn-danger" href="delete-maintenance-request/{!! $rm->id !!}" title="Delete"> <i class="halflings-icon remove halflings-icon"></i> </a> -->
+              <a class="btn btn-info btn-xs action-button"  @if($rm->status==4) disabled='disabled' @else href="{!!URL::to('admin-edit-service-request')!!}/{!! $rm->id !!}" @endif title="Edit"> 
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </a>
 
-            <a class="btn btn-info"  @if($rm->status==4) disabled='disabled' @else href="{!!URL::to('admin-edit-service-request')!!}/{!! $rm->id !!}" @endif title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a>
+            </div>
 
 
 
@@ -413,8 +416,6 @@ $due_date="";
               @else
               {!!" "!!}
             @endif </td>
-          <!--   <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;!!} </td> -->
-
            <?php
 
 $servicedate="";
@@ -473,11 +474,11 @@ $due_date="";
 
              @if($rm->status==4)
 
-            <span class="label label-important">Cancelled</span>
+            <span class="badge badge-summary badge-danger">Cancelled</span>
 
             @else
 
-             <span class="label label-grey" style="background-color: #4472C4;">Assigned</span>
+             <span class="badge badge-summary" style="background-color: #4472C4;">Assigned</span>
 
             @endif
 
@@ -505,7 +506,8 @@ $due_date="";
 
         </table>
 
-
+      </div>
+      </div>
 
       </div>
 

@@ -6,7 +6,12 @@
 
 
 /* GSS Specific Customizations */
-
+.accBtn{
+  float:right;
+}
+.add-service-button-div{
+  min-height:50px;
+}
 #alertsDropDownWindow{
   min-width:330px !important; 
 }
@@ -45,6 +50,9 @@
 }
 .action-button-group{
   min-width:90px !important;
+}
+.action-button-group-3-wide{
+  min-width:110px !important;
 }
 .add-new-vendor,
 .add-new-property{
@@ -100,12 +108,14 @@ a.nav-link{
 
 #dataTable > tbody > tr > td,
 #approved_grid > tbody > tr > td,
-#completion_grid > tbody > tr > td{
+#completion_grid > tbody > tr > td,
+#maintenance_datatable > tbody > tr > td{
   font-size:13px;
 }
 #dataTable > thead > tr > th,
 #approved_grid > thead > tr > th,
-#completion_grid > thead > tr > th{
+#completion_grid > thead > tr > th,
+#maintenance_datatable > thead > tr > th{
   font-size:14px !important;
 }
 

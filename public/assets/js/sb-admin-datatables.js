@@ -113,7 +113,7 @@ $('.work-order-table').DataTable( {
 
 
 $('.datatabledashboard').DataTable( {
-  dom: 'Bfrtip',
+  dom: 'B<"clear">frtip',
   "responsive" : true,
   "order": [[ 0, "desc" ]],
   buttons: [
