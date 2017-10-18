@@ -1,14 +1,18 @@
-<table class="table table-striped table-bordered bootstrap-datatable datatabledashboard"  id="completion_grid">
+ <div class='table-container'>
+    <div class='table-responsive'>
+      <h4>Completed</h4>
+
+<table class="table table-striped table-sm table-bordered bootstrap-datatable datatabledashboard"  id="completion_grid">
 
                       <thead>
 
                         <tr>
                           
                          <th>Order ID</th>
-                         <th> Additional Service </th>
+                         <th>Additl Service </th>
                          <th>Submitted</th>
-                         <th> Customer Name</th>
-                         <th> Client Type</th>
+                         <th>Customer Name</th>
+                         <th>Client Type</th>
                          <th>Property ID</th>
                          <th>Loan Number</th>
                          <th>Property Address</th>
@@ -69,14 +73,33 @@
 
                         @if($order['request_status']==4)
 
-                        <td class="center"> <span class="label label-important">Cancelled</span> </td>
+                        <td class="center"> <span class="badge badge-summary badge-important">Cancelled</span> </td>
 
 
 
                         @else
-
-                        <td class="center"> <span class="label label-{!! $order['status_class'] !!}">{!! $order['status_text'] !!}</span> </td>
-
+                        <?php 
+                        switch ($order['status_class'])
+                        {
+                          case "black":
+                            $status_class = "default";
+                          break;
+                          case "blue":
+                            $status_class = "primary";
+                          break;
+                          case "green":
+                            $status_class = "success";
+                          break;
+                          case "important":
+                            $status_class = "danger";
+                          break;
+                          case "warning":                          
+                          case "yellow":
+                            $status_class = "warning";
+                          break;
+                        }
+                        ?>
+                        <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
 
 
                         @endif
@@ -106,16 +129,30 @@
 
 
                         @if($order['request_status']==4)
-<!-- <a class="btn btn-success" disabled="disabled" href="#" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> -->
-                        <td class="center"> <a class="btn btn-info" disabled="disabled" href="#"> <i class="halflings-icon edit halflings-icon"></i> </a>
-                        <a class="btn btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> <i class="halflings-icon file halflings-icon"></i> </a></td>
+                        <td class="center"> 
+                        <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
+                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                        </a></td>
 
 
 
                         @else
 
-                        <td class="center"><!-- <a class="btn btn-success" href="view-order/{!!$order['order_id']!!}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>  --><a class="btn btn-info" href="edit-order/{!!$order['order_id']!!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a>
-                        <a class="btn btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> <i class="halflings-icon file halflings-icon"></i> </a></td>
+                        <td class="center">
+       
+                  
+                          <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          </a>
+                                
+                          <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
+                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                          </a>
+
+                        </td>
 
 
 
@@ -154,13 +191,33 @@
 
                         @if($order['request_status']==4)
 
-                        <td class="center"> <span class="label label-important">Cancelled</span> </td>
+                        <td class="center"> <span class="badge badge-summary badge-danger">Cancelled</span> </td>
 
 
 
                         @else
-
-                        <td class="center"> <span class="label label-{!! $order['status_class'] !!}">{!! $order['status_text'] !!}</span> </td>
+                        <?php 
+                        switch ($order['status_class'])
+                        {
+                          case "black":
+                            $status_class = "default";
+                          break;
+                          case "blue":
+                            $status_class = "primary";
+                          break;
+                          case "green":
+                            $status_class = "success";
+                          break;
+                          case "important":
+                            $status_class = "danger";
+                          break;
+                          case "warning":                          
+                          case "yellow":
+                            $status_class = "warning";
+                          break;
+                        }
+                        ?>
+                        <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
 
 
 
@@ -192,17 +249,29 @@
 
                         @if($order['request_status']==4)
 
-                        <td class="center"><!-- <a class="btn btn-success" disabled="disabled" href="#" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> --> <a class="btn btn-info" disabled="disabled" href="#"> <i class="halflings-icon edit halflings-icon"></i> </a>
-                        <a class="btn btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> <i class="halflings-icon file halflings-icon"></i> </a></td>
-
+                        <td class="center"> 
+                        <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
+                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                        </a></td>
 
 
                         @else
 
-                        <td class="center"><!-- <a class="btn btn-success" href="view-order/{!!$order['order_id']!!}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>  --><a class="btn btn-info" href="edit-order/{!!$order['order_id']!!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a>
-                        <a class="btn btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> <i class="halflings-icon file halflings-icon"></i> </a></td>
+                        <td class="center">
+       
+                  
+                          <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          </a>
+                                
+                          <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
+                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                          </a>
 
-
+                        </td>
 
                         @endif
 
@@ -222,9 +291,9 @@
                    
 <script>
 
-var j = jQuery.noConflict();
 
-        var table =  j('#completion_grid').DataTable( {
+
+        var table =  $('#completion_grid').DataTable( {
                       dom: 'Bfrtip',
                       "order": [[ 0, "desc" ]],
                       buttons: [
@@ -235,7 +304,7 @@ var j = jQuery.noConflict();
              
              if(buttonApi.text()== "Excel"){
              //console.log(buttonApi.text());
-        j.ajax({
+        $.ajax({
       url: baseurl + "completed-grid-export",
       cache: false,
       success: function(data){

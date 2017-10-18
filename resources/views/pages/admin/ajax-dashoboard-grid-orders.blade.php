@@ -1,6 +1,8 @@
 
-
-<table class="table table-striped table-bordered bootstrap-datatable datatabledashboard"> 
+ <div class='table-container'>
+    <div class='table-responsive'>
+      <h4>Under Review</h4>
+<table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='dataTable'> 
 
                       <thead>
 
@@ -78,18 +80,38 @@
                         <td class="center">{!! $order['service_name'] !!}</td>
 
 
-<td class="center">{!! $order['billing_note'] !!}</td>
+                        <td class="center">{!! $order['billing_note'] !!}</td>
 
 
                         @if($order['request_status']==4)
 
-                        <td class="center"> <span class="label label-important">Cancelled</span> </td>
+                        <td class="center"> <span class="badge badge-summary badge-danger">Cancelled</span> </td>
 
 
 
                         @else
-
-                        <td class="center"> <span class="label label-{!! $order['status_class'] !!}">{!! $order['status_text'] !!}</span> </td>
+                        <?php 
+                        switch ($order['status_class'])
+                        {
+                          case "black":
+                            $status_class = "default";
+                          break;
+                          case "blue":
+                            $status_class = "primary";
+                          break;
+                          case "green":
+                            $status_class = "success";
+                          break;
+                          case "important":
+                            $status_class = "danger";
+                          break;
+                          case "warning":                          
+                          case "yellow":
+                            $status_class = "warning";
+                          break;
+                        }
+                        ?>
+                        <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
 
 
 
@@ -99,14 +121,27 @@
 
                         @if($order['request_status']==4)
 
-                        <td class="center"><a class="btn btn-success" disabled="disabled" href="#" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" disabled="disabled" href="#"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
-
-
+                            <td class="center">
+                              <a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"> 
+                                  <i class="fa fa-search-plus" aria-hidden="true"></i>                              
+                              </a> 
+                              <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
+                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              </a>
+                              </td>
 
                         @else
 
-                        <td class="center"><a class="btn btn-success" href="view-order/{!!$order['order_id']!!}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{!!$order['order_id']!!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
-
+                            <td class="center">
+                              <div class='action-button-group'>
+                                <a class="btn btn-success btn-xs action-button" href="view-order/{!!$order['order_id']!!}" title="View"> 
+                                  <i class="fa fa-search-plus" aria-hidden="true"></i>
+                                </a> 
+                                <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
+                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                              </div>
+                            </td>
 
 
                         @endif
@@ -150,13 +185,34 @@
 
                             @if($order['request_status']==4)
 
-                            <td class="center"> <span class="label label-important">Cancelled</span> </td>
+                            <td class="center"> <span class="badge badge-summary badge-danger">Cancelled</span> </td>
 
 
 
                             @else
 
-                            <td class="center"> <span class="label label-{!! $order['status_class'] !!}">{!! $order['status_text'] !!}</span> </td>
+                            <?php 
+                            switch ($order['status_class'])
+                            {
+                              case "black":
+                                $status_class = "default";
+                              break;
+                              case "blue":
+                                $status_class = "primary";
+                              break;
+                              case "green":
+                                $status_class = "success";
+                              break;
+                              case "important":
+                                $status_class = "danger";
+                              break;
+                              case "warning":                          
+                              case "yellow":
+                                $status_class = "warning";
+                              break;
+                            }
+                            ?>
+                            <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
 
 
 
@@ -166,13 +222,28 @@
 
                             @if($order['request_status']==4)
 
-                            <td class="center"><a class="btn btn-success" disabled="disabled" href="#" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" disabled="disabled" href="#"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                            <td class="center">
+                              <a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"> 
+                                  <i class="fa fa-search-plus" aria-hidden="true"></i>                              </a> 
+                              <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
+                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              </a>
+                              </td>
 
 
 
                             @else
 
-                            <td class="center"><a class="btn btn-success" href="view-order/{!!$order['order_id']!!}" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/{!!$order['order_id']!!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a></td>
+                            <td class="center">
+                              <div class='action-button-group'>
+                                <a class="btn btn-success btn-xs action-button" href="view-order/{!!$order['order_id']!!}" title="View"> 
+                                  <i class="fa fa-search-plus" aria-hidden="true"></i>
+                                </a> 
+                                <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
+                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                              </div>
+                            </td>
 
 
 
@@ -194,8 +265,7 @@
                   <script type="text/javascript">
 
 
-var j = jQuery.noConflict();
-j('.datatabledashboard').DataTable( {
+$('.datatabledashboard').DataTable( {
       dom: 'Bfrtip',
       "order": [[ 0, "desc" ]],
       buttons: [

@@ -3,89 +3,120 @@
 
 <div id="content" class="span11">
 
-      <div class="row-fluid">
 
-                <div class="box span12 main-title">
-                  @if(Auth::user()->type_id==1)
-
-                  <h1>Admin Dashboard</h1>
-                  @elseif(Auth::user()->user_role_id==6)
-                    <h1>Coordinator Dashboard</h1>
-                  @elseif(Auth::user()->user_role_id==4)
-                    <h1>Manager Dashboard</h1>
-                  @endif
-                </div><!--/span-->
-
-            </div><!--/row-->
-<style type="text/css">
-  .span2 {width: 18% !important;}
-  .span2 h1{font-size: 22px !important;}
-</style>
 
   <?php
   $unassigned=0;
   $assigned=0;
   $i=1;
   foreach ($requests as $rm) {
-
-           $request_service_ids=array();
-             foreach ($rm->assignRequest as $rqdata) {
-                $request_service_ids[] = $rqdata->status;
-            }
-
-
-
-          if($numberofrequestids['requested_services_count'][$rm->id]!=$numberofrequestids['assigned_services_count'][$rm->id])
-          {
-            if($rm->status==2)
+    $request_service_ids=array();
+    foreach ($rm->assignRequest as $rqdata) {
+        $request_service_ids[] = $rqdata->status;
+    }
+    if($numberofrequestids['requested_services_count'][$rm->id]!=$numberofrequestids['assigned_services_count'][$rm->id])
+    {
+        if($rm->status==2)
             $unassigned++;
 
-          }
-          else{
+        } else{
 
-                 if($rm->status==0 && in_array(1,$request_service_ids) )
-                $assigned++;
+        if($rm->status==0 && in_array(1,$request_service_ids) )
+        $assigned++;
 
-            }
+    }
 
-         }
+}
 
           ?>
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">My Dashboard</li>
+    </ol>
 
-              <div class="row-fluid adminTab">
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="mr-5">
+              @if (isset($orderCounterDashboard['1']))
+                {!! $orderCounterDashboard['1']." In-Process" !!}
+              @else
+                {!! "0 In-Process" !!}
+             @endif
+            
+            </div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('1', 'inprocess')">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="mr-5">
+                @if (isset($orderCounterDashboard['3']))
+                    {!! $orderCounterDashboard['3']." Under Review" !!}
+                @else
+                    {!! "0 Under Review" !!}
+                @endif
+              </div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('3', 'underreview')">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
 
-                <!-- <div class="box span2 main-title" style="background-color:#ED7D31;cursor:pointer;" onclick="ajaxDashoboardGridRequests('2','unassigned')">
-                <h1>Unassigned “{!!$unassigned!!}”</h1>
-                </div> -->
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card o-hidden text-white bg-success h-100">
+              <div class="card-body">
 
-                    <!--  <div class="box span2 main-title" style="margin-left:10px !important;background-color:#4472C4;cursor:pointer;" onclick="ajaxDashoboardGridOrders('0','new_work_order')">
-                <h1>New Work Order
-                “<?php if(isset($orderCounterDashboard['0'])) {?> {!!$orderCounterDashboard['0']!!}  <?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
-                </div>  -->
-                <div class="box span2 main-title" style="margin-left:10px !important;background-color:#FFC000; cursor:pointer;" onclick="ajaxDashoboardGridOrders('1','inprocess')">
-                <h1>In-Process <?php if(isset($orderCounterDashboard['1'])) {?>“{!!$orderCounterDashboard['1']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
+                <div class="mr-5">
+                    @if (isset($orderCounterDashboard['4']))
+                        {!! $orderCounterDashboard['4']." Approved" !!}
+                    @else
+                        {!! "0 Approved" !!}
+                    @endif
                 </div>
-
-
-
-                <div class="box span2 main-title" style="margin-left:10px !important;background-color:red; cursor:pointer;" onclick="ajaxDashoboardGridOrders('3','underreview')">
-                <h1>Under Review <?php if(isset($orderCounterDashboard['3'])) {?>“{!!$orderCounterDashboard['3']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
-                 </div>
-                <div class="box span2 main-title" style="margin-left:10px !important;background-color:#000000; cursor:pointer;" onclick="ajaxDashoboardGridOrders('2','complete')">
-                <h1>Complete “<?php if(isset($orderCounterDashboard['2'])) {?>“{!!$orderCounterDashboard['2']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
-                 </div>
-
-                  <div class="box span2 main-title" style="margin-left:10px !important;background-color:#A5A5A5; cursor:pointer;" onclick="ajaxDashoboardGridOrders('4','approved')">
-                  <h1>Approved “<?php if(isset($orderCounterDashboard['4'])) {?>“{!!$orderCounterDashboard['4']!!}”<?php }else { ?> {!!"0"!!} <?php } ?>”</h1>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('4', 'approved')">
+                <span class="float-left">View Details</span>
+                <span class="float-right">
+                  <i class="fa fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card  o-hidden h-100">
+                <div class="card-body">
+                  <div class="mr-5">
+                    @if (isset($orderCounterDashboard['2']))
+                        {!! $orderCounterDashboard['2']." Completed" !!}
+                    @else
+                        {!! "0 Completed" !!}
+                    @endif
                   </div>
-
-
-
-
-
-            </div><!--/row-->
-
-
+                </div>
+                <a class="card-footer clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('2', 'complete')">
+                  <span class="float-left">View Details</span>
+                  <span class="float-right">
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+      </div>
 
             <div class="row-fluid">
 
@@ -95,22 +126,19 @@
          @endif
 
 
- @if( isset($access_roles['Summary Grid']['view']) && $access_roles['Summary Grid']['view'] == 1)
+        @if( isset($access_roles['Summary Grid']['view']) && $access_roles['Summary Grid']['view'] == 1)
                   <div class="row-fluid">
-                     <div class="box span12">
-                            <div class="box-header">
-                                <h2>Summary</h2>
-                                <div class="box-icon">
-                                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                                </div>
-                            </div>
 
-                             <div class="box-content admtable" >
+                   
+
                               <div class="admtableInr" id="datatabledashboard">
 
 
-
-                                 <table class="table table-striped table-bordered bootstrap-datatable datatabledashboard" >
+                                <div class='table-container'>
+                                 
+                                <div class='table-responsive'>
+                                <h4>Summary</h4>
+                                 <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard"  id='dataTable' width='100%' cellspacing='0' >
 
 
           <thead>
@@ -121,13 +149,11 @@
               <th>Request Date</th>
               <th>Client Type</th>
 
-              <th>Submitted By</th>
+              <th>Submitter</th>
 
-              <th>Customer Name</th>
+              <th>Customer</th>
 
-              <th>Customer Email</th>
-
-            <!--  <th>Vendor Name</th> -->
+              <th>Email</th>
 
               <th>Property Address</th>
 
@@ -212,7 +238,7 @@ $due_date="";
                 {
                 $style='style="background-color:yellow;"';
                 }
-                         $due_date .= "<br><p ".$style."> ". $value->due_date . '</p> <br>';
+                         $due_date .= "<span ".$style."> ". $value->due_date . '</span> <br>';
             }
             else
             {
@@ -237,22 +263,26 @@ $due_date="";
 
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
             @if($rm->status==1)
-            <span class="label label-green">New Request</span>
+            <span class="badge badge-success badge-summary">New Request</span>
             @elseif($rm->status==2)
-            <span class="label label-warning">Un Assigned</span>
+            <span class="badge badge-warning badge-summary">Un Assigned</span>
             @elseif($rm->status==3)
-            <span class="label label-warning">Un Assigned</span>
+            <span class="badge badge-warning badge-summary">Un Assigned</span>
             @elseif($rm->status==4)
-            <span class="label label-important">Cancelled</span>
+            <span class="badge badge-danger badge-summary">Cancelled</span>
             @endif
 
            </td>
 
             <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-            <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a>
-            <a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to cancel?')"> <i class="halflings-icon trash halflings-icon"></i> </a>
-
-<!--             <a class="btn btn-danger" href="delete-maintenance-request/{!! $rm->id !!}" title="Delete" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon remove halflings-icon"></i> </a> -->
+                <div class='action-button-group'>
+                    <a class="btn btn-xs btn-success action-button"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> 
+                        <i class="fa fa-search-plus" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-xs btn-danger action-button" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> 
+                        <i class='fa fa-trash' aria-hidden='true'></i>
+                    </a>
+                </div>
             </td>
           </tr>
 
@@ -348,13 +378,20 @@ $servicedate="";
           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
              @if($rm->status==4)
-            <span class="label label-important">Cancelled</span>
+            <span class="badge badge-danger badge-summary">Cancelled</span>
             @else
-             <span class="label label-grey">Assigned</span>
+             <span class="badge badge-default badge-summary">Assigned</span>
             @endif
            </td>
 
-            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif><a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a><a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif>
+                <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> 
+                    <i class="fa fa-search-plus" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> 
+                    <i class='fa fa-trash' aria-hidden='true'></i>
+                </a>
+            </td>
           </tr>
 
 
@@ -364,7 +401,7 @@ $servicedate="";
             </tbody>
 
         </table>
-
+        </div>
                                  </div>
                             </div>
                         </div><!--/span-->
@@ -381,13 +418,13 @@ $servicedate="";
                           <div class="row-fluid">
                         <div class="box span12">
                             <div class="box-header">
-                                <h2>Work Order in Process</h2>
+                                <h4>Work Order in Process</h4>
                                 <div class="box-icon">
                                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
                                 </div>
                             </div>
                             <div class="box-content">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-bordered">
                                       <thead>
                                           <tr>
                                               <th>Sr#</th>
@@ -425,13 +462,13 @@ $servicedate="";
                                <div class="row-fluid">
                         <div class="box span12">
                             <div class="box-header">
-                                <h2>Work Order Approval Request</h2>
+                                <h4>Work Order Approval Request</h4>
                                 <div class="box-icon">
                                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
                                 </div>
                             </div>
                             <div class="box-content">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-bordered">
                                       <thead>
                                           <tr>
                                               <th>Sr#</th>
@@ -472,13 +509,13 @@ $servicedate="";
      @if((@isset($access_roles['Recent Workorders']['view'])) && ($access_roles['Recent Workorders']['view'] == 1))
                         <div class="box span6">
                             <div class="box-header">
-                                <h2>Recent Work Orders</h2>
+                                <h4>Recent Work Orders</h4>
                                 <div class="box-icon">
                                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
                                 </div>
                             </div>
                             <div class="box-content">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-bordered">
                                       <thead>
                                           <tr>
                                               <th>Req No</th>
@@ -517,13 +554,13 @@ $servicedate="";
                @if((@isset($access_roles['Recent Properties']['view'])) && ($access_roles['Recent Properties']['view'] == 1))
                         <div class="box span6">
                             <div class="box-header">
-                                <h2>Recent Properties</h2>
+                                <h4>Recent Properties</h4>
                                 <div class="box-icon">
                                     <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
                                 </div>
                             </div>
                             <div class="box-content">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-bordered">
                                       <thead>
                                           <tr>
                                               <th>Req No</th>

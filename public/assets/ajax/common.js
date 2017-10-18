@@ -1430,7 +1430,7 @@ function modalClose(){
           }
       };
   
-      $('#password').pwstrength(options);
+    //   $('#password').pwstrength(options);
   
   
   });
@@ -3127,7 +3127,7 @@ function modalClose(){
   
   
   
-  function ajaxDashoboardGridRequests(id,statusshow)
+  function ajaxDashboardGridRequests(id,statusshow)
   {
       var over = '<div id="overlay">' +
       '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
@@ -3149,7 +3149,7 @@ function modalClose(){
     });
   }
   
-  function ajaxDashoboardGridOrders(id,statusshow)
+  function ajaxDashboardGridOrders(id,statusshow)
   {
       var over = '<div id="overlay">' +
       '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
@@ -3166,8 +3166,7 @@ function modalClose(){
           success: function(response) {
   
             $('#datatabledashboard').html(response);
-           
-            $('#overlay').remove();
+            document.getElementById('overlay').remove();
         }
     });
   }

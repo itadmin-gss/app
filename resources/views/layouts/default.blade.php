@@ -5,13 +5,11 @@
 @include('common.head')
 </head>
 
-<body style="background-image: none !important;">
-<!-- start: Header -->
-<div class="navbar"> @include('common.header') </div>
-<!-- start: Header -->
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
-<div class="container-fluid">
-  <div class="row-fluid">
+<div class='content-wrapper'>
+  <div class="container-fluid">
+    <div class="row-fluid">
 
     <!-- start: Main Menu -->
     <div id="sidebar-left" class="span1">
@@ -36,8 +34,9 @@
     </noscript>
     <div id="addcontenthere"> @yield('content') </div>
   </div>
-  @include('common.widgets')
-  <a id="widgets-area-button" class="hidden-tablet hidden-phone open"><i class="fa-icon-reorder"></i></a> </div>
+  {{--  @include('common.widgets')
+  <a id="widgets-area-button" class="hidden-tablet hidden-phone open"><i class="fa-icon-reorder"></i></a>   --}}
+  </div>
 <!--/fluid-row-->
 
 <div class="modal hide fade modelForm"  id="before">
@@ -100,6 +99,7 @@
 </div>
 <div class="clearfix"></div>
 <footer> @include('common.footer') </footer>
+</div>
 </div>
 <!--/.fluid-container-->
 
