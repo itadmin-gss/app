@@ -29,14 +29,16 @@
 }
 
           ?>
-    <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-        <a href="#">Dashboard</a>
-    </li>
-    <li class="breadcrumb-item active">My Dashboard</li>
-    </ol>
+    <div class='table-padding'>
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">My Dashboard</li>
+        </ol>
+    </div>
 
-    <div class="row">
+    <div class="row table-padding">
         <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-warning o-hidden h-100">
             <div class="card-body">
@@ -137,7 +139,10 @@
                                 <div class='table-container'>
                                  
                                 <div class='table-responsive'>
-                                <h4>Summary</h4>
+                                <div class='table-padding table-heading'>
+                                    <h4>Summary</h4>
+                                </div>
+                                
                                  <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard"  id='dataTable' width='100%' cellspacing='0' >
 
 
@@ -416,7 +421,7 @@ $servicedate="";
 
                      @if( isset($access_roles['Work Order in Proces']['view']) && $access_roles['Work Order in Proces']['view'] == 1)
                           <div class="row-fluid">
-                        <div class="box span12">
+                        <div class="box span12 table-padding">
                             <div class="box-header">
                                 <h4>Work Order in Process</h4>
                                 <div class="box-icon">
@@ -424,6 +429,7 @@ $servicedate="";
                                 </div>
                             </div>
                             <div class="box-content">
+                                
                                 <table class="table table-condensed table-bordered">
                                       <thead>
                                           <tr>
@@ -460,7 +466,7 @@ $servicedate="";
 
                             @if( isset($access_roles['Work Order Approval']['view']) && $access_roles['Work Order Approval']['view'] == 1)
                                <div class="row-fluid">
-                        <div class="box span12">
+                        <div class="box span12 table-padding">
                             <div class="box-header">
                                 <h4>Work Order Approval Request</h4>
                                 <div class="box-icon">
@@ -507,7 +513,7 @@ $servicedate="";
 
                     <div class="row-fluid">
      @if((@isset($access_roles['Recent Workorders']['view'])) && ($access_roles['Recent Workorders']['view'] == 1))
-                        <div class="box span6">
+                        <div class="box span6 table-padding">
                             <div class="box-header">
                                 <h4>Recent Work Orders</h4>
                                 <div class="box-icon">
@@ -552,7 +558,7 @@ $servicedate="";
 
 
                @if((@isset($access_roles['Recent Properties']['view'])) && ($access_roles['Recent Properties']['view'] == 1))
-                        <div class="box span6">
+                        <div class="box span6 table-padding">
                             <div class="box-header">
                                 <h4>Recent Properties</h4>
                                 <div class="box-icon">

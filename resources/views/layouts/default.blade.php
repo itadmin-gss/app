@@ -9,7 +9,7 @@
 
 <div class='content-wrapper'>
   <div class="container-fluid">
-    <div class="row-fluid">
+
 
     <!-- start: Main Menu -->
     <div id="sidebar-left" class="span1">

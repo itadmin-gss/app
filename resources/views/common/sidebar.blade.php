@@ -95,7 +95,12 @@
               <span class="nav-link-text">Properties</span>
             </a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item">
+          <a class="nav-link" href="edit-profile">
+            <i class='fa fa-fw fa-user'></i>Profile
+          </a>
+        </li>
+        {{--  <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-fw fa-envelope"></i>
             <span class="d-lg-none">Messages
@@ -128,54 +133,63 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item small" href="#">View all messages</a>
           </div>
-        </li>
+        </li>  --}}
+        @if(Auth::check())
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-fw fa-bell"></i>
             <span class="d-lg-none">Alerts
-              <span class="badge badge-pill badge-warning">6 New</span>
+              <span class="badge badge-pill badge-warning">              
+                @if($unreadnotifications>0)
+                {!!$unreadnotifications !!} New
+                @else
+                0 New
+                @endif
+              </span>
             </span>
             <span class="indicator text-warning d-none d-lg-block">
               <i class="fa fa-fw fa-circle"></i>
             </span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+          <div class="dropdown-menu" aria-labelledby="alertsDropdown" id='alertsDropDownWindow'>
             <h6 class="dropdown-header">New Alerts:</h6>
             <div class="dropdown-divider"></div>
+            @foreach($get_notifications as $notification)
+            <?php 
+              	$to_time = strtotime(date("Y-m-d H:i:s") );
+                $from_time = strtotime($notification->created_at);
+                $totalMinutes=round((abs($to_time - $from_time) / 60),2);
+                $totalHours=round((abs($to_time - $from_time) / 60)/60,2);
+
+                $time= $totalMinutes. " min";
+
+                if($totalMinutes>60)
+                {
+                  if($totalHours>1)
+                    $time= round((abs($to_time - $from_time) / 60)/60,2). " hours";
+                    else
+                    $time= round((abs($to_time - $from_time) / 60)/60,2). " hour";
+                }
+              ?>
+            
             <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+              <span class="small float-right text-muted">{!! $time !!}</span>
+              <div class="dropdown-message small">
+                {!! $notification->message!!}
+              </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-danger">
-                <strong>
-                  <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-              </span>
-              <span class="small float-right text-muted">11:21 AM</span>
-              <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item small" href="#">View all alerts</a>
+            @endforeach
+            <a class="dropdown-item small" href="{!! URL::to('list-work-notification-url') !!}">View all alerts</a>
+            <a class='dropdown-item small' href="{!! URL::to('clear-notifications') !!}">Clear Alerts</a> 
           </div>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+          <a class="nav-link" href="logout">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
+        @endif
       </ul>
     </div>
   </nav>

@@ -28,7 +28,7 @@
 							</a>
 							<ul class="dropdown-menu notifications">
 								<li>
-									<span class="dropdown-menu-title">You have {!!$unreadnotifications!!} unread notifications</span>
+	<span class="dropdown-menu-title">You have {!!$unreadnotifications!!} unread notifications</span>
 								</li>	
 								@foreach($get_notifications as $notificatioData)
 								<?php

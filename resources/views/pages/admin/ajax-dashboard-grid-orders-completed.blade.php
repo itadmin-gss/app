@@ -1,8 +1,9 @@
  <div class='table-container'>
     <div class='table-responsive'>
-      <h4>Completed</h4>
-
-<table class="table table-striped table-sm table-bordered bootstrap-datatable datatabledashboard"  id="completion_grid">
+       <div class='table-padding table-heading'>
+          <h4>Completed</h4>
+      </div>   
+      <table class="table table-striped table-sm table-bordered bootstrap-datatable datatabledashboard"  id="completion_grid">
 
                       <thead>
 
