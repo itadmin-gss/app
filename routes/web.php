@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
 
     // Admin Controller
     Route::get('admin', ['uses' => 'AdminController@index']);
+    Route::get('admins/{id}/{grid}', 'AdminController@indexPickGrid');
     Route::match(['GET', 'POST'], 'approved-pagination', ['uses' => 'AdminController@ajaxDashoboardGridOrdersPagination']);
     Route::match(['GET', 'POST'], 'list-vendor-summary', ['uses' => 'AdminController@listVendorsSummary']);
     Route::match(['GET', 'POST'], 'list-bid-services', ['uses' => 'AdminController@listBidServices']);

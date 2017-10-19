@@ -38,88 +38,6 @@
         </ol>
     </div>
 
-    <div class="row table-padding">
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-warning o-hidden h-100">
-            <div class="card-body">
-              <div class="mr-5">
-              @if (isset($orderCounterDashboard['1']))
-                {!! $orderCounterDashboard['1']." In-Process" !!}
-              @else
-                {!! "0 In-Process" !!}
-             @endif
-            
-            </div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('1', 'inprocess')">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-danger o-hidden h-100">
-            <div class="card-body">
-              <div class="mr-5">
-                @if (isset($orderCounterDashboard['3']))
-                    {!! $orderCounterDashboard['3']." Under Review" !!}
-                @else
-                    {!! "0 Under Review" !!}
-                @endif
-              </div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('3', 'underreview')">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card o-hidden text-white bg-success h-100">
-              <div class="card-body">
-
-                <div class="mr-5">
-                    @if (isset($orderCounterDashboard['4']))
-                        {!! $orderCounterDashboard['4']." Approved" !!}
-                    @else
-                        {!! "0 Approved" !!}
-                    @endif
-                </div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('4', 'approved')">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card  o-hidden h-100">
-                <div class="card-body">
-                  <div class="mr-5">
-                    @if (isset($orderCounterDashboard['2']))
-                        {!! $orderCounterDashboard['2']." Completed" !!}
-                    @else
-                        {!! "0 Completed" !!}
-                    @endif
-                  </div>
-                </div>
-                <a class="card-footer clearfix small z-1" href="#" onclick="ajaxDashboardGridOrders('2', 'complete')">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fa fa-angle-right"></i>
-                  </span>
-                </a>
-              </div>
-            </div>
-      </div>
-
             <div class="row-fluid">
 
         <div class="span">
@@ -144,7 +62,7 @@
                                 </div>
                                 
                                  <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard"  id='dataTable' width='100%' cellspacing='0' >
-
+        
 
           <thead>
             <tr>
@@ -184,6 +102,7 @@
 
           </thead>
           <tbody>
+          @if (!isset($grid))
 
           @foreach ($requestsNew as $rm)
 
@@ -404,7 +323,7 @@ $servicedate="";
           @endif
           @endforeach
             </tbody>
-
+        @endif
         </table>
         </div>
                                  </div>
@@ -606,4 +525,5 @@ $servicedate="";
       </div><!--/row-->
 
       </div>
+
 @stop

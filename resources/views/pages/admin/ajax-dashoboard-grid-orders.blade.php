@@ -1,7 +1,8 @@
 
  <div class='table-container'>
     <div class='table-responsive'>
-      <h4>Under Review</h4>
+      <div class='table-padding table-heading'>
+        <h4>Under Review</h4>
 <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='dataTable'> 
 
                       <thead>

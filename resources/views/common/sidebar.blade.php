@@ -1,5 +1,19 @@
+<?php
+        
+        
+        $orderCounterDashboard = [];
+        $work_orders_count = DB::table('orders')
+            ->select(DB::raw('count(id) as numbers, status'))
+            ->groupBy('status')
+            ->get();
+
+        foreach ($work_orders_count as $datacounter) {
+            $orderCounterDashboard[$datacounter->status] = $datacounter->numbers;
+        }
+
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="{!!URL::to('admin')!!}"><img class='brand-image' src='assets/images/GSS-Logo.png'></a>
+    <a class="navbar-brand" href="{!!URL::to('admin')!!}"><img class='brand-image' src='{!! URL::asset("assets/images/GSS-Logo.png") !!}'></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -64,7 +78,7 @@
 
 
   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-      <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+      <a class="nav-link " href="javascript:void(0)" >
       <i class="fa fa-fw fa-2x fa-table"></i>
       <p class="nav-link-text">Reports</p>
       </a>
@@ -82,7 +96,55 @@
   </li>
 
       </ul>
+      <ul class='navbar-nav'>
+        <li class='nav-item' style='float:left;'>
+            <a class='navbar-table-link' href='{!! URL::to("admins/1/inprocess") !!}'>
+              <div class='nav-badge badge-warning text-white'>
+                @if (isset($orderCounterDashboard['1']))
+                  {!! $orderCounterDashboard['1']." In-Process" !!}
+                @else
+                  {!! "0 In-Process" !!}
+              @endif
+            </div>
+            </a>          
+        </li>
+        <li class='nav-item' style='float:left;'>
+            <a class='navbar-table-link' href="{!! URL::to('admins/3/underreview') !!}">
+              <div class='nav-badge badge-danger'>
+                @if (isset($orderCounterDashboard['3']))
+                    {!! $orderCounterDashboard['3']." Under Review" !!}
+                @else
+                    {!! "0 Under Review" !!}
+                @endif
+            </div>
+            </a>
+        </li>
+        <li class='nav-item' style='float:left;'>
+            <a class='navbar-table-link' href="{!! URL::to('admins/4/approved') !!}">            
+              <div class='nav-badge badge-success'>
+                    @if (isset($orderCounterDashboard['4']))
+                        {!! $orderCounterDashboard['4']." Approved" !!}
+                    @else
+                        {!! "0 Approved" !!}
+                    @endif
+   
+              </div>
+            </a>          
+        </li>
+        <li class='nav-item' style='float:left;'>
+            <a class='navbar-table-link' href="{!! URL::to('admins/2/completed') !!}">
+              <div class='nav-badge badge-white'>
+                    @if (isset($orderCounterDashboard['2']))
+                        {!! $orderCounterDashboard['2']." Completed" !!}
+                    @else
+                        {!! "0 Completed" !!}
+                    @endif
+              </div>
+            </a>
+        </li>
+      </ul>
       <ul class="navbar-nav ml-auto">
+        
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">
             <a class="nav-link" href="javascript:void(0)">
               <i class="fa fa-fw fa-users"></i>

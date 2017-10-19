@@ -1,7 +1,7 @@
  <div class='table-container'>
     <div class='table-responsive'>
       <div class='table-padding table-heading'>
-          <h4>Under Review</h4>
+          <h4>Approved</h4>
       </div>
         <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboardapproved" id="approved_grid" width='100%' cellspacing='0' >
                       <thead>

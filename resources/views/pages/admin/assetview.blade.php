@@ -1,10 +1,4 @@
-<div class="modal-dialog">
-        		<div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">x</button>
-                        <h1>Property Detail</h1>
-                    </div>
-                    <div class="modal-body">
+
                         
                         <div class="row-fluid">
                           <div class="box span12 noMarginTop">
@@ -13,10 +7,7 @@
                                 <fieldset>
                                   <div class="row-fluid">
                                     <div class="span6">
-                                      <!-- <div class="control-group row-sep">
-                                        <label class="control-label" for="typeahead">Property Number:</label>
-                                        <label class="control-label" for="typeahead">{!!$asset->asset_number!!}</label>
-                                      </div> -->
+
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Property Address:</label>
                                         <label class="control-label" for="typeahead">{!!$asset->property_address!!} </label>
@@ -37,24 +28,13 @@
                                         <label class="control-label" for="typeahead">Lockbox </label>
                                         <label class="control-label" for="typeahead">{!!$asset->lock_box!!} </label>
                                       </div>
-                                 <!--      <div class="control-group row-sep">
-                                        <label class="control-label" for="typeahead">Customer: </label>
-                                        <label class="control-label" for="typeahead">{!!$asset->user->first_name." ".$asset->user->last_name!!} </label>
-                                      </div> -->
+
                                       <div class="control-group row-sep">
                                         <label class="control-label" for="typeahead">Get / Access Code: </label>
                                         <label class="control-label" for="typeahead">{!!$asset->access_code!!} </label>
                                       </div>
-                                     <!--  <div class="control-group row-sep">
-                                        <label class="control-label" for="typeahead">Property Status: </label>
-                                        <label class="control-label" for="typeahead">{!! $asset->property_status!!}</label>
-                                      </div> -->
-                                      <!-- <div class="control-group row-sep">
-                                        <label class="control-label" for="typeahead">Customer Email Adress: </label>
-                                        <label class="control-label" for="typeahead">{!!$asset->user->email!!} </label>
-                                      </div> -->
+
                                     </div>
-                                    <!--/span-6-->
                                     
                                     <div class="span6">
                                       <div class="control-group row-sep">
@@ -119,7 +99,7 @@ function log(str){
                                   
                                   
                                   <br>
-                                  <div class="control-group">
+                                  <div class="form-group">
                                     <label class="control-label">Outbuilding / Shed *</label>
                                     <label class="control-label">{!!$asset->outbuilding_shed==1? 'Yes' : 'No';!!}</label>
                                     <div style="clear:both"></div>
@@ -180,11 +160,4 @@ function log(str){
                         </div>
                         <!--/row-->
                         
-                    </div>
-                    <div class="modal-footer">
-                        <div class="text-right">
-                          <button type="button" class="btn btn-large btn-inverse" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-             	</div>
-             </div>   
+                   

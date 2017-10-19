@@ -10,7 +10,7 @@
                         <tr>
                           
                          <th>Order ID</th>
-                         <th>Additl Service </th>
+                         <th>Addt'l Service </th>
                          <th>Submitted</th>
                          <th>Customer Name</th>
                          <th>Client Type</th>

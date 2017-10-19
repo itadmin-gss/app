@@ -1,14 +1,3 @@
-<style>
-  .modal-header {
-    border-bottom: 0 solid #eee !important;
-    padding: 0 !important;
-  }
-  .redcross
-  {
-    color:
-  }
- </style>
-
 <script type="text/javascript">
 
  jQuery('#vendor_id_chossen').on('change', function(evt, params) {
@@ -23,23 +12,15 @@
    }
  });
 
-</script>
-<!--<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
-<script>
-
     var baseurl = "{!!Config::get('app.url')!!}";
 
 </script>
+
 
 <script src="{!! URL::asset('assets/js/jquery.chosen.min.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/custom.js') !!}"></script>
 
 
-<div class="modal-header">
-
-
-</div>
-<div class="modal-body" style="min-height:400px !important;">
   <div class="row-fluid">
 
     {!! Form::open(array('url' => 'assign-service-request','id'=>'assignRequest')) !!}
@@ -108,8 +89,7 @@
      <td class="center">
        <div class="controls"  style="width: 380px">
 
-             <select name="vendor_id" class="span7 typeahead" id="vendor_id_chossen" style='width: 520px;'>
-      <!--  <select name="vendor_id" class="span7 typeahead" id="vendor_id_chossen" data-rel='chosen' style='width: 520px;'> -->
+             <select name="vendor_id" class="span7 typeahead" id="vendor_id_chossen">
    
   
         <?php
@@ -181,8 +161,3 @@ if($techDatalatitude[$vendor->id]==1)
 
 
 
-</div>
-<div class="modal-footer">
-  <a href="#" class="btn" data-dismiss="modal">Close</a>
-  <a href="#" class="btn btn-primary" onclick="assign_request()">Save</a>
-</div>

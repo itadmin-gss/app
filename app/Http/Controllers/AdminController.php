@@ -63,29 +63,14 @@ class AdminController extends Controller
      * @params none
      * @return redirects admin to admin dashboard.
      */
-    public function index()
+    public function indexPickGrid($id, $grid)
     {
-
         $requestsNew = MaintenanceRequest::where('status', '=', 1)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
-
         $requests = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
-
-
         $orders_process = Order::where('status', '=', 0)->take(5)->get();
         $orders_completed = Order::where('status', '=', 1)->take(5)->get();
         $recent_orders = Order::take(5)->get();
         $recent_assets = Asset::take(5)->get();
-        $orderCounterDashboard = [];
-
-
-        $work_orders_count = DB::table('orders')
-            ->select(DB::raw('count(id) as numbers, status'))
-            ->groupBy('status')
-            ->get();
-
-        foreach ($work_orders_count as $datacounter) {
-            $orderCounterDashboard[$datacounter->status] = $datacounter->numbers;
-        }
         $request_ids = [];
         $request_service_ids = [];
         $assigned_request_ids = [];
@@ -118,7 +103,56 @@ class AdminController extends Controller
                 'orders_completed' => $orders_completed,
                 'recent_orders' => $recent_orders,
                 'recent_assets' => $recent_assets,
-                'orderCounterDashboard' => $orderCounterDashboard,
+                'numberofrequestids' => $numberofrequestids,
+                'grid' => $grid,
+                'id' => $id
+            ]
+        );
+
+    }
+    public function index()
+    {
+
+        $requestsNew = MaintenanceRequest::where('status', '=', 1)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
+        $requests = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
+
+
+        $orders_process = Order::where('status', '=', 0)->take(5)->get();
+        $orders_completed = Order::where('status', '=', 1)->take(5)->get();
+        $recent_orders = Order::take(5)->get();
+        $recent_assets = Asset::take(5)->get();
+        $request_ids = [];
+        $request_service_ids = [];
+        $assigned_request_ids = [];
+        $numberofrequestids = [];
+        foreach ($requests as $mdata) {
+            $request_service_ids = [];
+            $request_ids[] = $mdata->id;
+            foreach ($mdata->requestedService as $rqdata) {
+                $request_service_ids[] = $rqdata->id;
+            }
+            $assigned_request_ids = [];
+            $assign_requests = AssignRequest::where('request_id', '=', $mdata->id)
+                ->where('status', "!=", 2)
+                ->select('request_id')->get();
+
+            foreach ($assign_requests as $adata) {
+                $assigned_request_ids[] = $adata->request_id;
+            }
+
+            $numberofrequestids['requested_services_count'][$mdata->id] = count($request_service_ids);
+            $numberofrequestids['assigned_services_count'][$mdata->id] = count($assigned_request_ids);
+        }
+
+
+        return view('pages.admin.dashboard')->with(
+            [
+                'requests' => $requests,
+                'requestsNew' => $requestsNew,
+                'orders_process' => $orders_process,
+                'orders_completed' => $orders_completed,
+                'recent_orders' => $recent_orders,
+                'recent_assets' => $recent_assets,
                 'numberofrequestids' => $numberofrequestids
             ]
         );

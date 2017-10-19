@@ -2,55 +2,62 @@
 @section('content')
 
 <div id="content" class="span11">
+  <div class='table-padding'>
+      <ol class="breadcrumb ">
+          <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">View Maintenance Request</li>
+      </ol>
+  </div>
 <?php if($request_maintenance->asset->property_dead_status==1){?>
 <div class ="disableProperty"><span>Property Closed</span></div>
 <?php }?>
 <p id="message" style="display:none">Saved...</p>
   <div class="row-fluid">
-    <div class="box span12">
-
-        <div class="box-header" data-original-title>
-						<h2>Service Request Details</h2>
-					</div>
-      					@if(Session::has('message'))
-                            {!!Session::get('message')!!}
-                        @endif
-      <div class="box-content">
-        <table class="table">
+    <div class='card table-margin'>
+      <div class='card-header'>
+						<h4>Service Request Details</h4>
+      </div>
+      <div class='card-body'>
+          @if(Session::has('message'))
+            {!!Session::get('message')!!}
+          @endif
+          <table class="table">
 							  <tbody>
 								<tr>
-									<td class="center span3"><h2>Request ID:</h2></td>
-									<td class="center span3"><h2>{!! $request_maintenance->id !!}</h2></td>
-									<td class="center span3"><h2>Request Date:</h2></td>
-									<td class="center span3"><h2>{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</h2></td>
+									<td class="center span3"><h5>Request ID:</h5></td>
+									<td class="center span3"><p>{!! $request_maintenance->id !!}</p></td>
+									<td class="center span3"><h5>Request Date:</h5></td>
+									<td class="center span3"><p>{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</p></td>
 								</tr>
 								<tr>
-									<td class="center span3"><h2>Asset #:</h2></td>
-									<td class="center span3"><h2>{!! $request_maintenance->asset->asset_number !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button></h2> </td>
+									<td class="center span3"><h5>Asset #:</h5></td>
+									<td class="center span3"><p>{!! $request_maintenance->asset->asset_number !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button></p> </td>
 
-									<td class="center span3"><h2>Customer Name:</h2></td>
-									<td class="center span3"><h2>@if(isset($request_maintenance->user->first_name)) {!! $request_maintenance->user->first_name!!} @endif  @if(isset($request_maintenance->user->last_name)){!!$request_maintenance->user->last_name !!} @endif</h2></td>
+									<td class="center span3"><h5>Customer Name:</h5></td>
+									<td class="center span3"><p>@if(isset($request_maintenance->user->first_name)) {!! $request_maintenance->user->first_name!!} @endif  @if(isset($request_maintenance->user->last_name)){!!$request_maintenance->user->last_name !!} @endif</p></td>
 								   </tr>
 								<tr>
 
-                  <td class="center span3"><h2>Property Address:</h2></td>
-                  <td class="center span3"><h2>{!! $request_maintenance->asset->property_address !!}</h2></td>
+                  <td class="center span3"><h5>Property Address:</h5></td>
+                  <td class="center span3"><p>{!! $request_maintenance->asset->property_address !!}</p></td>
 
-									<td class="center span3"><h2>State:</h2></td>
-									<td class="center span3"><h2>{!! $request_maintenance->asset->state->name !!}</h2></td>
+									<td class="center span3"><h5>State:</h5></td>
+									<td class="center span3"><p>{!! $request_maintenance->asset->state->name !!}</p></td>
 								</tr>
 								<tr>
-									<td class="center span3"><h2>Zip:</h2></td>
-									<td class="center span3"><h2>{!! $request_maintenance->asset->zip !!}</h2></td>
-									<td class="center span3"><h2>Email:</h2></td>
+									<td class="center span3"><h5>Zip:</h5></td>
+									<td class="center span3"><p>{!! $request_maintenance->asset->zip !!}</p></td>
+									<td class="center span3"><h5>Email:</h5></td>
 
-									<td class="center span3"><h2>@if(isset( $request_maintenance->user->email)){!! $request_maintenance->user->email!!} @endif</h2></td>
+									<td class="center span3"><p>@if(isset( $request_maintenance->user->email)){!! $request_maintenance->user->email!!} @endif</p></td>
 								                                    </tr>
 								<tr>
-                <td class="center span3"><h2>City:</h2></td>
-                  <td class="center span3"><h2>{!! $request_maintenance->asset->city->name !!}</h2></td>
+                <td class="center span3"><h5>City:</h5></td>
+                  <td class="center span3"><p>{!! $request_maintenance->asset->city->name !!}</p></td>
 
-                  	<td class="center span3"><h2>Admin Notes:</h2></td>
+                  	<td class="center span3"><h5>Admin Notes:</h5></td>
 									<td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'span12 typeahead', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))!!} </td>
 
 								</tr>
@@ -61,32 +68,30 @@
 						 </table>
       </div>
     </div>
-    <!--/span-->
 
-    <span><h1 class="text-center">Service Request Details</h1></span>
-			<button data-toggle="modal" data-target="#assign" class="btn btn-large btn-success" onclick="showMaintenanceServices('{!! $request_maintenance->id !!}')">Assign Vendor</button>
-<?php
-$totalPriceCustomer=0;
-$totalPriceVendor=0;
+    <span><h3 class="text-center">Vendor Details</h3></span>
+    <div class='table-padding'>
+    			<button data-toggle="modal" data-target="#assign" class="btn btn-large btn-success assign-vendor" onclick="showMaintenanceServices('{!! $request_maintenance->id !!}')">Assign Vendor</button>
+    </div>
+        <?php
+        $totalPriceCustomer=0;
+        $totalPriceVendor=0;
 
-?>
+        ?>
 		@foreach ($request_maintenance->requestedService as $services)
 
 
                 <div class="row-fluid">
-				<div class="box span12">
-					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h2>
-						<div class="box-icon">
+				<div class="card table-margin">
+					<div class="card-header" data-original-title>
+						<div class='float-left'><h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h2></div>
+						<div class="card-price">
 						 <?php
   $priceData=\App\SpecialPrice::getSpecialCustomerPrice($request_maintenance->user->id,$services->service->id);
    $servicePrice="";
 
     if(!empty($priceData) )
     {
-
-
-
 
            if($services->quantity=="" || $services->quantity==0)
          	{
@@ -100,15 +105,8 @@ $totalPriceVendor=0;
 
              }
 
-
-
-
-
     }
     else {
-
-
-
 
             if($services->quantity=="" || $services->quantity==0)
          	{
@@ -122,16 +120,7 @@ $totalPriceVendor=0;
 
              }
 
-
-
-
-
-
-
-
-
          }
-
 
          $vendorPrice=0;
 
@@ -151,7 +140,7 @@ $totalPriceVendor=0;
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 						</div>
 					</div>
-					<div class="box-content">
+					<div class="card-body">
 
 						<table>
                 <tr><td> {!!$services->service->desc!!}</td></tr>
@@ -166,10 +155,6 @@ $totalPriceVendor=0;
                 </tr>
 								<tr>
 									<div class="row-fluid browse-sec">
-
-
-
-
                               @if(count($services->serviceImages)!=0)<h2>Images</h2>@endif
 
 
@@ -384,25 +369,52 @@ $totalPriceVendor=0;
 
 
 						 </table>
-					</div>
-				</div><!--/span-->
+					{{--  </div>  --}}
+				{{--  </div>--}}
 
-			</div><!--/row-->
+			<!--/row-->
                 @endforeach
 
 
 
-
-  <div style="float:right;"><h2>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!} </h2>
+  <div class='card-footer'>
+    <div style="float:right;"><h5>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!} </h5>
+  </div>
+  </div>
+</div>
     </div>
 
   </div>
+</div>
+<div class="modal fade" id="showVendorList" tabindex='-1' role='dialog' aria-hidden='true'>
+  <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+      <div class="modal-body" style="min-height:400px !important;"></div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn btn-primary" onclick="assign_request()">Save</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div class="modal  hide fade modelForm larg-model"  id="showVendorList">
-
-                 </div>
-
-<div class="modal hide fade modelForm larg-model"  id="showServiceid"></div>
+<div class="modal fade" id="showServiceid" tabindex='-1' role='dialog' aria-hidden='true'>
+          <div class="modal-dialog" role="document">
+        		<div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" data-target="#showServiceid" aria-label="Close">x</button>
+                        <h1>Property Detail</h1>
+                    </div>
+                    <div class="modal-body">
+                     </div>
+                    <div class="modal-footer">
+                        <div class="text-right">
+                          <button type="button" class="btn btn-large btn-inverse" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+             	</div>
+             </div>   
+</div>
 
 
 

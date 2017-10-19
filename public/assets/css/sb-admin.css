@@ -9,6 +9,24 @@
 .accBtn{
   float:right;
 }
+.card{
+  margin-bottom:10px !important;
+}
+.dt-buttons{
+  float:right !important;
+  margin-left:50px;
+}
+.dt-button{
+  background-color:green !important;
+  color:white !important;
+  background-image:none !important;
+}
+.dt-button:hover{
+  background-color:green !important;
+  color:white !important;
+  background-image:none !important;
+  box-shadow:0px 1px 12px 2px green;
+}
 .add-service-button-div{
   min-height:50px;
 }
@@ -63,6 +81,10 @@
 .add-new-button-div{
   height:60px;
 }
+
+.assign-vendor{
+  margin-bottom:20px;
+}
 .brand-image {
   width:137px !important;
 }
@@ -77,6 +99,9 @@
   margin-top:15px !important;
 }
 
+.card-price{
+  float:right;
+}
 .dropdown-menu{
   left: -190px !important;
 }
@@ -86,7 +111,20 @@
 .float-right{
   float:right;
 }
+.float-left{
+  float:left;
+}
 
+.nav-badge{
+  font-size: 14px;
+  height: 30px;
+  padding: 4px 8px 4px 8px;
+  margin-right: 15px;
+  margin-top:10px;
+}
+.badge-white{
+  background-color:white;
+}
 p.nav-link-text{
   margin-bottom:0px !important;
 }
@@ -95,6 +133,13 @@ a.nav-link{
   text-align:center;
 }
 
+#showVendorList .modal-dialog{
+  min-width:900px;
+}
+.table-margin{
+  margin-left:25px !important;
+  margin-right:25px !important;
+}
 .table-heading{
   margin-bottom:-10px !important;
 }

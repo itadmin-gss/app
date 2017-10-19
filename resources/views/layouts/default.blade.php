@@ -109,6 +109,9 @@
 </html>
 <script>
     $(document).ready(function() {
+      @if (isset($grid))
+        ajaxDashboardGridOrders("{!! $id !!}", "{!! $grid !!}");
+      @endif
         $('#submenuDashboard').click(function() {
             $.ajax({
                 type: "GET",

@@ -1669,10 +1669,8 @@ function modalClose(){
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
           success: function(data) {
-              $('#showServiceid').empty();
-              $('#showServiceid').modal('show')
-  
-              $('#showServiceid').html(data);
+              $('#showServiceid').modal('toggle');
+              $('#showServiceid .modal-body').html(data);
               return false;
           }
       });
@@ -1694,13 +1692,10 @@ function modalClose(){
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-      success: function(data) {
-  
+      success: function(data) {  
         $('#overlay').remove();
-        $('#showVendorList').html('');
-        $('#showVendorList').modal('show')
-  
-        $('#showVendorList').html(data);
+        $('#showVendorList').modal('toggle');
+        $('#showVendorList .modal-body').html(data);
         return false;
     }
   })
@@ -3129,10 +3124,7 @@ function modalClose(){
   
   function ajaxDashboardGridRequests(id,statusshow)
   {
-      var over = '<div id="overlay">' +
-      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
-      '</div>';
-      $(over).appendTo('body');
+    
   
       $.ajax({
           type: 'Post',
@@ -3151,6 +3143,8 @@ function modalClose(){
   
   function ajaxDashboardGridOrders(id,statusshow)
   {
+
+
       var over = '<div id="overlay">' +
       '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
       '</div>';
