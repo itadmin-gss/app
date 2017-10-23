@@ -1,5 +1,4 @@
 	<meta charset="utf-8">
-	<title>GSS ENTERPRISE APP</title>
 	<meta name="description" content="ACME Dashboard Bootstrap Admin Template.">
 	<meta name="author" content="Scott Tharp">
 	<meta name="keyword" content="ACME, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">

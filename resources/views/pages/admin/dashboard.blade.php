@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
+<title>GSS - Dashboard</title>
 <div id="content" class="span11">
 
 
@@ -29,14 +30,6 @@
 }
 
           ?>
-    <div class='table-padding'>
-        <ol class="breadcrumb ">
-            <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">My Dashboard</li>
-        </ol>
-    </div>
 
             <div class="row-fluid">
 

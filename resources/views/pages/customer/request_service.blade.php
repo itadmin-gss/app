@@ -12,6 +12,7 @@ else
 @extends($layout)
 @section('content')
 
+<title>GSS - Add Service Request</title>
 <div id="content" class="span11">
     <div class="row-fluid">
         <div class="box span12 noMarginTop">

@@ -3,16 +3,9 @@
 @section('content')
 
 
-
+<title>Maintenance Requests</title>
 <div id="content" class="span11">
-    <div class='table-padding'>
-        <ol class="breadcrumb ">
-            <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Maintenance Requests</li>
-        </ol>
-    </div>
+
     <div class='table-padding add-service-button-div'>
           <a class="btn btn-info accBtn" href="{!!URL::to('admin-add-new-service-request')!!}">Add Service Request </a>
     </div>

@@ -1,15 +1,8 @@
 @extends('layouts.default')
 @section('content')
 
+<title>GSS - Maintenance Request #{!! $request_maintenance->id !!}</title>
 <div id="content" class="span11">
-  <div class='table-padding'>
-      <ol class="breadcrumb ">
-          <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">View Maintenance Request</li>
-      </ol>
-  </div>
 <?php if($request_maintenance->asset->property_dead_status==1){?>
 <div class ="disableProperty"><span>Property Closed</span></div>
 <?php }?>
