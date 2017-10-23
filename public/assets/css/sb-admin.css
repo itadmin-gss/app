@@ -6,6 +6,27 @@
 
 
 /* GSS Specific Customizations */
+.login-box{
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:70px;
+  text-align:center;
+  width:25%;
+  background-color:#f1f1f1;
+  box-shadow: 5px 6px 1px black;
+  padding:25px;
+}
+
+.remember{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.remember input{
+  margin-right:5px;
+}
+.dark-bg{
+  background-color:#424242;
+}
 .accBtn{
   float:right;
 }

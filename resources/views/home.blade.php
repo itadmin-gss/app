@@ -1,17 +1,15 @@
 @include('common.head')
 
-<body>
-
-
+<body class='dark-bg'>
     <div class="container-fluid">
 
         <div class="row-fluid"> 
 
-		<div class="txtCenter"><img class="inLogo" width="250px" src="{!!URL::to('/')!!}/assets/images/GSS-Logo.jpg"></div>
 
             <div class="row-fluid">
 
                 <div class="login-box">
+		            <img class="inLogo" width="250px" src="{!!URL::to('/assets/images/GSS-Logo.jpg') !!}">
 
                     <div class="icons">
 
@@ -21,7 +19,7 @@
 
                     </div>
 
-                    <h2>Login to your account</h2>
+                    <h3>Login to your account</h3
 
                     {!! Form::open(array('url' => 'login', 'class' => 'form-horizontal', 'method' => 'post')) !!}
 
@@ -29,13 +27,13 @@
 
 
 
-                        <div class="input-prepend" title="Username">
+                        <div class="form-group" title="Username">
 
                             <span class="add-on"><i class="halflings-icon user"></i></span>
 
 
 
-                            {!! Form::text('username', '', array('placeholder'=>'Username', 'class' => 'nput-large span10')) !!}
+                            {!! Form::text('username', '', array('placeholder'=>'Username', 'class' => 'form-control')) !!}
 
 
 
@@ -49,7 +47,7 @@
 
                             <span class="add-on"><i class="halflings-icon lock"></i></span>
 
-                            {!! Form::password('password', array('placeholder'=>'Password', 'class' => 'nput-large span10')) !!}
+                            {!! Form::password('password', array('placeholder'=>'Password', 'class' => 'form-control')) !!}
 
                      
 
@@ -77,19 +75,8 @@
 
                         </div>
 
-                        <div class="clearfix"></div>
-
                         </form>
 
-                        <hr>
-
-                       
-
-                      <!--   <p>
-
-                            <a href="<?php //echo URL::to('forgot-password'); ?>">Forgot username or password?</a> 
-
-                       </p> -->
 
 
 
@@ -119,6 +106,13 @@
 
     </div><!--/.fluid-container-->
 
-    <footer class='absolute-position'> >@include('common.footer') </footer>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <footer class="sticky-footer" style='width:100% !important;'>
+        <div class="container">
+            <div class="text-center">
+            <small>Copyright © <a href='admin'>Good Scents Services</a> {!! date('Y') !!}</small>
+            </div>
+        </div>
+    </footer>
 
     @include('common.footerbottom')
