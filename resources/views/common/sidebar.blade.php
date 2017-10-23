@@ -248,7 +248,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="logout">
+          <a class="nav-link" href="{!! URL::to('/logout') !!}">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
         @endif
