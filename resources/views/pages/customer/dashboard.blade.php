@@ -2,9 +2,6 @@
 @section('content')
 <style>
 .main-button .quick-button.reqstBtn {   color: #005580; border: 1px solid #005580; background: #F2FBFF; }
- @if($clientTypeSession=="")
-#sidebar-left {display: none;}
-@endif
 </style>
 <div id="content"  @if($clientTypeSession!="") class="span11" @endif>
 

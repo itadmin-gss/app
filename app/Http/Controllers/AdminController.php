@@ -67,10 +67,10 @@ class AdminController extends Controller
     {
         $requestsNew = MaintenanceRequest::where('status', '=', 1)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
         $requests = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
-        $orders_process = Order::where('status', '=', 0)->take(5)->get();
-        $orders_completed = Order::where('status', '=', 1)->take(5)->get();
-        $recent_orders = Order::take(5)->get();
-        $recent_assets = Asset::take(5)->get();
+        // $orders_process = Order::where('status', '=', 0)->take(5)->get();
+        // $orders_completed = Order::where('status', '=', 1)->take(5)->get();
+        // $recent_orders = Order::take(5)->get();
+        // $recent_assets = Asset::take(5)->get();
         $request_ids = [];
         $request_service_ids = [];
         $assigned_request_ids = [];
@@ -99,10 +99,10 @@ class AdminController extends Controller
             [
                 'requests' => $requests,
                 'requestsNew' => $requestsNew,
-                'orders_process' => $orders_process,
-                'orders_completed' => $orders_completed,
-                'recent_orders' => $recent_orders,
-                'recent_assets' => $recent_assets,
+                // 'orders_process' => $orders_process,
+                // 'orders_completed' => $orders_completed,
+                // 'recent_orders' => $recent_orders,
+                // 'recent_assets' => $recent_assets,
                 'numberofrequestids' => $numberofrequestids,
                 'grid' => $grid,
                 'id' => $id
@@ -117,10 +117,10 @@ class AdminController extends Controller
         $requests = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
 
 
-        $orders_process = Order::where('status', '=', 0)->take(5)->get();
-        $orders_completed = Order::where('status', '=', 1)->take(5)->get();
-        $recent_orders = Order::take(5)->get();
-        $recent_assets = Asset::take(5)->get();
+        // $orders_process = Order::where('status', '=', 0)->take(5)->get();
+        // $orders_completed = Order::where('status', '=', 1)->take(5)->get();
+        // $recent_orders = Order::take(5)->get();
+        // $recent_assets = Asset::take(5)->get();
         $request_ids = [];
         $request_service_ids = [];
         $assigned_request_ids = [];
@@ -149,10 +149,10 @@ class AdminController extends Controller
             [
                 'requests' => $requests,
                 'requestsNew' => $requestsNew,
-                'orders_process' => $orders_process,
-                'orders_completed' => $orders_completed,
-                'recent_orders' => $recent_orders,
-                'recent_assets' => $recent_assets,
+                // 'orders_process' => $orders_process,
+                // 'orders_completed' => $orders_completed,
+                // 'recent_orders' => $recent_orders,
+                // 'recent_assets' => $recent_assets,
                 'numberofrequestids' => $numberofrequestids
             ]
         );
