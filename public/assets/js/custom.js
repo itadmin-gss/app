@@ -1,7 +1,16 @@
 //$.noConflict();
 $(document).ready(function(){
 	
-		
+	$("#asset_number").on("change", function(){
+		$(".step-1").hide();
+		$(".step-2").show();
+	});
+
+	$("#job_type").on("change", function(){
+		$(".step-2").hide();
+		$(".step-3").show();
+	});
+	$(".chosen").chosen();
 	$('body').delegate( ".viewBtn", "click", function() {
 		$('.reviewimagespopup').fadeIn('fast');
 	});

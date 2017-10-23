@@ -6,6 +6,67 @@
 
 
 /* GSS Specific Customizations */
+.new-service-request .card-header{
+  background-color:green !important;
+  color:white !important;
+}
+
+.step-2,
+.step-3,
+.step-4{
+  display:none;
+}
+
+#job_type{
+  width:25% !important;
+}
+
+.badge-disable{
+  background-color:#e6e8ea;
+  color:white;
+  text-decoration:none !important;
+}
+.badge-disable:hover{
+  cursor:default;
+  color:white !important;
+}
+
+
+.form-control-no-group{
+  width: 100%;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+
+.new-service-request .card-body .step-list{
+  list-style-type:none;
+  display:inline-block;
+  text-align:center;
+  width:100%;  
+}
+.new-service-request .card-body .property-list{
+  list-style-type:none;
+  display:inline-block;
+  width:100%;
+}
+.new-service-request .card-body .property-list > li{
+  display:inline;
+}
+
+.new-service-request .card-body .step-list > li,
+.new-service-request .card-body .step-list > li > h4{
+  margin-right:40px;
+  display:inline;
+}
 .login-box{
   margin-left:auto;
   margin-right:auto;
@@ -116,6 +177,7 @@
 .badge-default{
   background-color: #636c72 !important;
 }
+
 .badge-summary{
   font-size:100% !important;
 }

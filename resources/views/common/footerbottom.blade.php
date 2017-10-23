@@ -13,6 +13,8 @@
 <script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
 
+<script src="{!! URL::asset('assets/js/chosen.jquery.min.js') !!}"></script>
+
 <script src="{!! URL::asset('assets/js/jquery.easing.min.js') !!}"></script>
 {{--  <script src="{!! URL::asset('assets/js/Chart.min.js') !!}"></script>  --}}
 {{--  <script src="{!! URL::asset('assets/js/sb-admin-charts.js') !!}"></script>  --}}
