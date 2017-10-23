@@ -9,8 +9,7 @@
 
 .step-4 table { width:100%; margin:0 0 30px; }
 .step-4 table tr td,
-.step-4 table tr th { text-align: left; padding:10px 20px; border:3px solid #0088CC; background: #D5F1FF; font-size: 14px; color:#000; width: 50%; }
-.step-4 table tr th { color: #fff; background: #08C; }
+.step-4 table tr th { text-align: left; padding:10px 20px; border:1px solid #DDD; font-size: 14px; color:#000; width: 50%; }
 .step-4 .edtBtn, .bnchBtn .rgstrBtn { display:inline-block; min-width: 100px; padding:10px 20px; text-align: center; font-size: 15px; border-radius:5px; }
 .step-4 .sbmtBtn { display:inline-block; min-width: 100px; padding:10px 20px; text-align: center; font-size: 15px; border-radius:5px; }
 .step-4 .cnclBtn { display:inline-block; min-width: 100px; padding:10px 20px; text-align: center; font-size: 15px; border-radius:5px; }
@@ -23,20 +22,44 @@
   margin-top:40px;
 }
 
+.addSt{
+  font-size:12px;
+  font-style:italic;
+  color:green;
+}
+
 .new-service-request .card-body{
   width: 86%;
   margin-right:auto;
   margin-left:auto;
 }
 .new-service-request .card-header{
-  background-color:green !important;
-  color:white !important;
+  /* background-color:green !important;
+  color:white !important; */
 }
 
 .step-2,
 .step-3,
 .step-4{
   display:none;
+}
+
+.step-2,
+.step-3{
+  text-align:center;
+}
+.step-2 #job_type,
+.step-3 #service_ids{
+  margin-right:auto;
+  margin-left:auto;
+}
+.added-margins{
+  margin:0px 12px 0px 12px
+}
+
+
+.request-badges{
+  font-size:15px !important;
 }
 .service-description{
   font-size:13px !important;
@@ -78,6 +101,7 @@
   width:100%;  
 }
 .new-service-request .card-body .property-list{
+  text-align:center;
   list-style-type:none;
   display:inline-block;
   width:100%;
@@ -87,7 +111,7 @@
 }
 
 .new-service-request .card-body .step-list > li,
-.new-service-request .card-body .step-list > li > h4{
+.new-service-request .card-body .step-list > li > div{
   margin-right:40px;
   display:inline;
 }

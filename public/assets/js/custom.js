@@ -6,7 +6,7 @@ $(document).ready(function(){
 		$(".request-step-1 a").removeClass('badge-info').addClass('badge-disable');
 		$(".request-step-2 a").removeClass('badge-disable').addClass("badge-info");
 		$(".step-1").hide();
-		$(".step-2").show();
+		$(".step-2").fadeIn('fast');
 	});
 
 	//Event Handler -> Job Type on Service Request Page
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		$(".request-step-2 a").removeClass('badge-info').addClass('badge-disable');
 		$(".request-step-3 a").removeClass('badge-disable').addClass("badge-info");
 		$(".step-2").hide();
-		$(".step-3").show();
+		$(".step-3").fadeIn('fast');
 		setTimeout(function(){
 			$(".hidden-chosen").chosen();
 		},300);
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		$(".request-step-3 a").removeClass('badge-info').addClass('badge-disable');
 		$(".request-step-4 a").removeClass('badge-disable').addClass("badge-info");
 		$(".step-3").hide();
-		$(".step-4").show();
+		$(".step-4").fadeIn('fast');
 	});
 
 	/// Enable jQuery Chosen Plugin on .chosen class ///

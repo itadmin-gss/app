@@ -32,43 +32,42 @@ else
 
                     <div class='card new-service-request'>
                         <div class='card-header'>
-                            <h3>Service Request</h3>
+                            Service Request
                         </div>
                         <div class='card-body'>
                             <ul class='step-list'>
-                                <li class='request-step-1'>
-                                    <h4>
+                                <li>
+                                    <div class='request-badges request-step-1'>
                                         <a href="javascript:void(0);" class="badge badge-info">
                                             Step 1: Choose Property
                                         </a>
-                                    </h4>
+                                    </div>
                                 </li>
                                 <li>
-                                    <h4 class='request-step-2'>
+                                    <div class='request-badges request-step-2'>
                                         <a href="javascript:void(0);" class='badge badge-disable'>
                                             Step 2: Select Job Type
                                         </a>
-                                    </h4>
+                                    </div>
                                 </li>
                                 <li>
-                                    <h4 class='request-step-3'>
+                                    <div class='request-badges request-step-3'>
                                         <a href="javascript:void(0);" class='badge badge-disable'>
                                             Step 3: Select Services
                                         </a>
-                                    </h4>
+                                    </div>
                                 </li>
                                 <li>
-                                    <h4 class='request-step-4'>
+                                    <div class='request-badges request-step-4'>
                                         <a href="javascript:void(0);" class='badge badge-disable'>
                                             Step 4: Submit
                                         </a>
-                                    </h4>
+                                    </div>
                                 </li>
                             </ul>
 
                             <div class='step-1'>
                                 <ul class='property-list'>
-                                    <li>Property #: </li>
                                     <li>
                                         
                                         <?php
@@ -78,18 +77,14 @@ else
                                             }
                                         ?>
                                         {!! Form::select('asset_number',  $assets_data, '', array('class'=>'form-control-no-group chosen','id'=>'asset_number', 'data-rel'=>'chosen','style'=>'width:200px;'))!!}
-                                        
-                                    </li>
-                                    <li>
-                                        
-                                        <span> OR</span>
+                                        <span class='added-margins'> OR</span>
                                         @if(Auth::user()->type_id==1 || Auth::user()->type_id == 4)
-                                        <a href="{!!URL::to('add-asset')!!}/1" class="btn btn-small btn-success" style="cursor: pointer;" >Add Property</a>
+                                        <a href="{!!URL::to('add-asset')!!}/1" class="btn btn-sm btn-success" style="cursor: pointer;" >Add Property</a>
                                         @else
-                                        <a href="{!!URL::to('add-new-customer-asset')!!}/1" class="btn btn-small btn-success" style="cursor: pointer;" >Add Property</a>
+                                        <a href="{!!URL::to('add-new-customer-asset')!!}/1" class="btn btn-sm btn-success" style="cursor: pointer;" >Add Property</a>
                                         @endif
-                                    
                                     </li>
+
                                 </ul>
                                 {!! Form::hidden('bid_dropdown_hidden', '', array('class'=>'span7 typeahead','id'=>'bid_dropdown_hidden'))!!}
                             </div>
@@ -131,14 +126,6 @@ else
                                                 <div class="controls">
                                                     <div class="input-append"> 
                                                         {!! Form::text('service_code', '', array('class' => 'input-xlarge focused','id' => 'service_code')) !!}                                                     
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="control-group" > {!! Form::label('typeahead', 'Title: *', array('class' => 'control-label')) !!}
-                                                <div class="controls">
-                                                    <div class="input-append"> 
-                                                        {!! Form::text('title', '', array('class' => 'input-xlarge focused', 'id' => 'title')) !!} 
                                                     </div>
                                                 </div>
                                             </div>
