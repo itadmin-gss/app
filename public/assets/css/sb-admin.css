@@ -31,6 +31,9 @@
   color:green;
 }
 
+.navbar-table-link{
+  text-decoration:none !important;
+}
 .new-service-request .card-body{
   width: 86%;
   margin-right:auto;

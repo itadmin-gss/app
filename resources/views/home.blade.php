@@ -107,12 +107,6 @@
     </div><!--/.fluid-container-->
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <footer class="sticky-footer" style='width:100% !important;'>
-        <div class="container">
-            <div class="text-center">
-            <small>Copyright © <a href='admin'>Good Scents Services</a> {!! date('Y') !!}</small>
-            </div>
-        </div>
-    </footer>
+
 
     @include('common.footerbottom')
