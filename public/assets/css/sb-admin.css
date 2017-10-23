@@ -17,6 +17,10 @@
   padding:25px;
 }
 
+.login-box .alert{
+  margin-top:20px;
+}
+
 .remember{
   margin-top: 10px;
   margin-bottom: 10px;

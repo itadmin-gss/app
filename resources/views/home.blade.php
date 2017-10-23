@@ -19,7 +19,7 @@
 
                     </div>
 
-                    <h3>Login to your account</h3
+                    <h3>Login to your account</h3>
 
                     {!! Form::open(array('url' => 'login', 'class' => 'form-horizontal', 'method' => 'post')) !!}
 
@@ -75,7 +75,7 @@
 
                         </div>
 
-                        </form>
+                        {!! Form::close() !!}
 
 
 
