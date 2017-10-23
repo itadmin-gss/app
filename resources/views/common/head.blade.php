@@ -17,6 +17,7 @@
 	<link href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.dataTables.min.css" rel="stylesheet">
 	<link href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css" rel="stylesheet">
 	<link href="{!! URL::asset('assets/css/chosen.css') !!}" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" rel="stylesheet">
 	<!-- end: CSS -->
 
 	<!-- start: Favicon and Touch Icons -->

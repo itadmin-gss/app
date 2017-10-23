@@ -813,10 +813,7 @@ function modalClose(){
   
        {
           $('select#service_ids').on('change', function(event, params) {
-  
-              //$('#tabCntrl3').find('.nxtStep').trigger('click');
-  
-  
+
               if (params.selected)
   
               {
@@ -864,7 +861,7 @@ function modalClose(){
                                   backdrop: 'static',
                                   keyboard: true
                               });
-                              $('#' + current_service).modal('show');
+                              $('#' + current_service).modal('toggle');
                               $('.datepicker').datepicker();
                           }
                       }

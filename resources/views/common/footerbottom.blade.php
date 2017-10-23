@@ -15,6 +15,8 @@
 
 <script src="{!! URL::asset('assets/js/chosen.jquery.min.js') !!}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+
 <script src="{!! URL::asset('assets/js/jquery.easing.min.js') !!}"></script>
 {{--  <script src="{!! URL::asset('assets/js/Chart.min.js') !!}"></script>  --}}
 {{--  <script src="{!! URL::asset('assets/js/sb-admin-charts.js') !!}"></script>  --}}

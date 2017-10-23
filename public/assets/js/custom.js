@@ -1,16 +1,40 @@
 //$.noConflict();
 $(document).ready(function(){
 	
+	//Event Handler -> Property Select on Service Request Page
 	$("#asset_number").on("change", function(){
+		$(".request-step-1 a").removeClass('badge-info').addClass('badge-disable');
+		$(".request-step-2 a").removeClass('badge-disable').addClass("badge-info");
 		$(".step-1").hide();
 		$(".step-2").show();
 	});
 
+	//Event Handler -> Job Type on Service Request Page
 	$("#job_type").on("change", function(){
+		$(".request-step-2 a").removeClass('badge-info').addClass('badge-disable');
+		$(".request-step-3 a").removeClass('badge-disable').addClass("badge-info");
 		$(".step-2").hide();
 		$(".step-3").show();
+		setTimeout(function(){
+			$(".hidden-chosen").chosen();
+		},300);
 	});
+
+	$(".review-service-order").on("click", function(){
+		$(".request-step-3 a").removeClass('badge-info').addClass('badge-disable');
+		$(".request-step-4 a").removeClass('badge-disable').addClass("badge-info");
+		$(".step-3").hide();
+		$(".step-4").show();
+	});
+
+	/// Enable jQuery Chosen Plugin on .chosen class ///
 	$(".chosen").chosen();
+
+	$(document).on("shown.bs.modal", ".service-information-modal", function(){
+		console.log("fired");
+		$(".datepicker2").datepicker();
+	})
+
 	$('body').delegate( ".viewBtn", "click", function() {
 		$('.reviewimagespopup').fadeIn('fast');
 	});
@@ -35,8 +59,6 @@ $(document).ready(function(){
   });
 
 	$('body').delegate('.serviceReqst .box-header','click',function(){
-		//alert('ok');
-		//$(this).closest('.requestServices').children('.serviceReqst .box-content').slideUp();
 		$(this).next('.box-content').slideToggle();
 	});
 

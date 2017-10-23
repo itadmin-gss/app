@@ -213,7 +213,7 @@
               <i class="fa fa-fw fa-circle"></i>
             </span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="alertsDropdown" id='alertsDropDownWindow'>
+          <div class="dropdown-menu dropdown-menu2" aria-labelledby="alertsDropdown" id='alertsDropDownWindow'>
             <h6 class="dropdown-header">New Alerts:</h6>
             <div class="dropdown-divider"></div>
             @foreach($get_notifications as $notification)
