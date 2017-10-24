@@ -9,25 +9,22 @@
 
                         <tr>
                           
-                         <th>Order ID</th>
-                         <th>Addt'l Service </th>
+                         <th>ID #</th>
                          <th>Submitted</th>
-                         <th>Customer Name</th>
+                         <th>Customer</th>
                          <th>Client Type</th>
                          <th>Property ID</th>
-                         <th>Loan Number</th>
+                         <th>Loan</th>
                          <th>Property Address</th>
-                         <th>Unit #</th>
                          <th>City</th>
                          <th>State</th>
                          <th>Zip</th>
-                         <th>Completion Date</th>
+                         <th>Completed</th>
                          <th>Status</th>
                          <th>Job Type</th>
                          <th>Service Type</th>
-                         <th>Due Date</th>
-                         <th>Vendor Name</th>
-                         <th>Vendor Company Name</th>
+                         <th>Due</th>
+                         <th>Vendor</th>
                          <th>Vendor Price</th>
                          <th>Customer Price</th>
                          <th>Billing Comment</th>
@@ -48,7 +45,7 @@
                       <tr>
 
                         <td >{!! $order['order_id']!!}</td>
-                        <td>Not-Set</td>
+
                         <td >{!! $order['updated_at']!!}</td>
 
                         <td >{!! $order['customer_name']!!}</td>
@@ -59,10 +56,13 @@
 
                         <td class="center">{!!$order['loan_numbers']!!}</td>
 
-                        <td class="center">{!!$order['property_address']!!}</td>
+                        <td class="center">
+                          {!!$order['property_address']!!}
+                          @if ($order['units'])
+                          #{!!$order['units']!!}
+                          @endif
+                        </td>
                         
-                        <td class="center">{!!$order['units']!!}</td>
-
                         <td class="center">{!! $order['city'] !!}</td>
 
                         <td class="center">{!! $order['state'] !!}</td>
@@ -110,13 +110,9 @@
 
                         <td class="center">{!! $order['service_name'] !!}</td>
 
-
-
-                        <td class="center">{!! $order['vendor_name'] !!}</td>
-
-                        
-                        <td class="center">{!! $order['vendor_company'] !!}</td>
-
+                        <td class="center">              
+                          {!! $order['vendor_name'] !!} @ {!! $order['vendor_company'] !!}
+                        </td>
                         
                         <td class="center">{!! $order['vendor_price'] !!}</td>
                         <td class="center">{!! $order['customer_price'] !!}</td>
@@ -166,7 +162,6 @@
                       <tr>
 
                         <td >{!! $index!!}</td>
-                        <td>{!!$addl_service!!}</td>
                         <td >{!! $order['updated_at']!!}</td>
 
                         <td >{!! $order['customer_name']!!}</td>
@@ -177,9 +172,12 @@
 
                         <td class="center">{!!$order['loan_numbers']!!}</td>
 
-                        <td class="center">{!!$order['property_address']!!}</td>
-                        
-                        <td class="center">{!!$order['units']!!}</td>
+                        <td class="center">
+                          {!!$order['property_address']!!}
+                          @if ($order['units'])
+                          #{!!$order['units']!!}
+                          @endif
+                        </td>
 
                         <td class="center">{!! $order['city'] !!}</td>
 
@@ -231,10 +229,9 @@
 
 
 
-                        <td class="center">{!! $order['vendor_name'] !!}</td>
-
-                        
-                        <td class="center">{!! $order['vendor_company'] !!}</td>
+                        <td class="center">              
+                          {!! $order['vendor_name'] !!} @ {!! $order['vendor_company'] !!}
+                        </td>
 
                         
                         <td class="center">{!! $addl_itemz_rate[$index] !!}</td>
