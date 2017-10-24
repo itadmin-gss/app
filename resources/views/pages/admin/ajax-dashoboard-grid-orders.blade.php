@@ -11,7 +11,7 @@
                 echo "<h4>Under Review</h4>";
               break;
               case 1:
-                echo "<h4>In Process<h4>";
+                echo "<h4>In Process</h4>";
               break;
             }
           }
@@ -22,17 +22,15 @@
 
                         <tr>
 
-                         <th>Order ID</th>
+                         <th>ID #</th>
 
-                         <th> Additional Service </th>
+                         <th>Created</th>
 
-                         <th>Created At</th>
-
-                         <th>Submitted By</th>
+                         <th>Submitter</th>
 
                          <th>Client Type</th>
 
-                         <th> Customer Name</th>
+                         <th>Customer Name</th>
 
                          <th>Property Address</th>
 
@@ -48,7 +46,7 @@
 
                          <th>Service Type</th>
 
-                         <th>Due Date</th>
+                         <th>Due</th>
                          <th>Billing Comment</th>
 
                          <th>Status</th>
@@ -68,7 +66,6 @@
                       <tr>
 
                         <td>{!! $order['order_id']!!}</td>
-                        <td>Not-Set</td>
                         <td >{!! $order['order_date']!!}</td>
 
                         <td >{!! $order['submited_by']!!}</td>
@@ -161,14 +158,12 @@
                         @endif
 
                       </tr>
-
                       @foreach($addl_itemz as $key => $value)
                         @if($key == $order['order_id'])
                           @foreach($value as $index => $addl_service)
                           <tr>
 
                             <td >{!! $index !!}</td>
-                            <td >{!! $addl_service !!}</td>
                             <td >{!! $order['order_date']!!}</td>
 
                             <td >{!! $order['submited_by']!!}</td>

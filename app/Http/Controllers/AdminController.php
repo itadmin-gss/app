@@ -2734,8 +2734,40 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
             $list_orders[$i]['status_class'] = ($order->status == 1) ? "warning" : $order->status_class;
             $list_orders[$i]['status_text'] = ($order->status == 1) ? "In-Process" : $order->status_text;
             $list_orders[$i]['submited_by'] = "";
-            if (isset($order->maintenanceRequest->user2->first_name) && isset($order->maintenanceRequest->user2->last_name)) {
-                $list_orders[$i]['submited_by'] = $order->maintenanceRequest->user2->first_name . " " . $order->maintenanceRequest->user2->last_name;
+            
+            if (isset($order->maintenanceRequest->user2->first_name))
+            {
+                $first_name = $order->maintenanceRequest->user2->first_name;
+            }
+            else
+            {
+                $first_name = false;
+            }
+
+            if (isset($order->maintenanceRequest->user2->last_name))
+            {
+                $last_name = $order->maintenanceRequest->user2->last_name;
+            }
+            else
+            {
+                $last_name = false;
+            }
+
+            if ($first_name && $last_name)
+            {
+                $list_orders[$i]['submited_by'] = $first_name." ".substr($last_name, 0,1).".";
+            } 
+            else if ($first_name)
+            {
+                $list_orders[$i]['submited_by'] = $first_name;
+            }
+            else if ($last_name)
+            {
+                $list_orders[$i]['submited_by'] = $last_name;
+            }
+            else
+            {
+                $list_orders[$i]['submited_by'] = "Not Set";
             }
 
             foreach ($order_details as $order_detail) {
@@ -2814,9 +2846,7 @@ Step 1: “Submit Bid to Customer”: This will submit a BID to the Customer. So
                 ->with('orders', $list_orders)
                 ->with('id', $input['id'])
                 ->with('db_table', 'orders')
-                ->with('addl_itemz', $addl_itemz)
-                ->with('addl_itemz_service_type', $addl_itemz_service_type)
-                ->with('addl_itemz_customerPrice', $addl_itemz_customerPrice);
+                ->with('addl_itemz', $addl_itemz);
         }
     }
 
