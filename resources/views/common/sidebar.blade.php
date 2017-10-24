@@ -99,7 +99,7 @@
       <ul class='navbar-nav'>
         <li class='nav-item' style='float:left;'>
             <a class='navbar-table-link' href='{!! URL::to("admins/1/inprocess") !!}'>
-              <div class='nav-badge badge-warning text-white'>
+              <div class='nav-badge badge-warning badge-warning-enhance text-white'>
                 @if (isset($orderCounterDashboard['1']))
                   {!! $orderCounterDashboard['1']." In-Process" !!}
                 @else
@@ -110,7 +110,7 @@
         </li>
         <li class='nav-item' style='float:left;'>
             <a class='navbar-table-link' href="{!! URL::to('admins/3/underreview') !!}">
-              <div class='nav-badge badge-danger'>
+              <div class='nav-badge badge-danger badge-danger-enhance'>
                 @if (isset($orderCounterDashboard['3']))
                     {!! $orderCounterDashboard['3']." Under Review" !!}
                 @else
@@ -121,7 +121,7 @@
         </li>
         <li class='nav-item' style='float:left;'>
             <a class='navbar-table-link' href="{!! URL::to('admins/4/approved') !!}">            
-              <div class='nav-badge badge-success'>
+              <div class='nav-badge badge-success badge-success-enhance'>
                     @if (isset($orderCounterDashboard['4']))
                         {!! $orderCounterDashboard['4']." Approved" !!}
                     @else
@@ -133,7 +133,7 @@
         </li>
         <li class='nav-item' style='float:left;'>
             <a class='navbar-table-link' href="{!! URL::to('admins/2/completed') !!}">
-              <div class='nav-badge badge-white'>
+              <div class='nav-badge badge-white badge-white-enhance'>
                     @if (isset($orderCounterDashboard['2']))
                         {!! $orderCounterDashboard['2']." Completed" !!}
                     @else

@@ -28,6 +28,45 @@
   margin-top:40px;
 }
 
+.badge-warning-enhance,
+.badge-danger-enhance,
+.badge-success-enhance,
+.badge-white-enhance{
+  border-radius:3px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+}
+
+.badge-warning-enhance{
+  box-shadow: 0px 2px 0px 1px #a9a986;  
+}
+.badge-danger-enhance{
+  box-shadow: 0px 2px 0px 1px #ab0d1c;
+}
+.badge-success-enhance{
+  box-shadow: 0px 2px 0px 1px green;
+}
+.badge-white-enhance{
+  box-shadow: 0px 2px 0px 1px #DDD;
+}
+
+.badge-warning-enhance:hover{
+  background-color:#b99321
+}
+.badge-danger-enhance:hover{
+  background-color: #ad0a1a;
+}
+.badge-success-enhance:hover{
+  background-color: green;
+}
+.badge-white-enhance:hover{
+  color:green;
+  background-color: #DDD;
+}
+
 .addSt{
   font-size:12px;
   font-style:italic;
