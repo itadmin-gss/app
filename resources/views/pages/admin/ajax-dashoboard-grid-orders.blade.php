@@ -2,8 +2,21 @@
  <div class='table-container'>
     <div class='table-responsive'>
       <div class='table-padding table-heading'>
-        <h4>Under Review</h4>
-<table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='dataTable'> 
+        <?php
+
+          if (isset($id))
+          {
+            switch ($id){
+              case 3:
+                echo "<h4>Under Review</h4>";
+              break;
+              case 1:
+                echo "<h4>In Process<h4>";
+              break;
+            }
+          }
+        ?>
+        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='dataTable'> 
 
                       <thead>
 
