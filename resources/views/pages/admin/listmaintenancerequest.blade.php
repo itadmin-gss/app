@@ -43,15 +43,11 @@
 
             <tr>
 
-              <th>Request ID</th>
+              <th>ID #</th>
 
-              <th>Submitted By</th>
+              <th>Submitter</th>
               <th>Client Type</th>
               <th>Customer Name</th>
-
-              <th>Customer Email</th>
-
-
               <th>Property Address</th>
 
               <th>City</th>
@@ -64,7 +60,7 @@
 
               <th>Services Type</th>
 
-              <th>Due Date</th>
+              <th>Due</th>
 
               <th>Status</th>
 
@@ -108,15 +104,11 @@
 
             <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->last_name)) {!! $rm->user2->last_name !!} @endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if (isset($rm->user2->first_name)) {!! $rm->user2->first_name !!} @endif @if(isset($rm->user2->last_name)) {!! substr($rm->user2->last_name,0,1)."." !!} @endif</td>
             <td @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title )) {!! $rm->asset->customerType->title  !!} @endif </td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user->first_name)) {!! $rm->user->first_name !!} @endif   @if(isset($rm->user->last_name)) {!! $rm->user->last_name !!}@endif</td>
 
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->user->email)) {!! $rm->user->email !!} @endif </td>
-
-
-
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->property_address)) {!!  $rm->asset->property_address !!} @endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->property_address)) {!!  $rm->asset->property_address !!} @endif @if (isset($rm->asset->unit)) {!! $rm->asset->unit !!} @endif</td>
 
 
 
