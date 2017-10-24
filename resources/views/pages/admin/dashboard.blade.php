@@ -60,16 +60,14 @@
           <thead>
             <tr>
 
-              <th>Request ID</th>
+              <th>ID #</th>
 
-              <th>Request Date</th>
+              <th>Requested</th>
               <th>Client Type</th>
 
               <th>Submitter</th>
 
               <th>Customer</th>
-
-              <th>Email</th>
 
               <th>Property Address</th>
 
@@ -83,7 +81,7 @@
 
               <th>Services Type</th>
 
-              <th>Due Date</th>
+              <th>Due</th>
 
               <th>Status</th>
 
@@ -98,7 +96,7 @@
           @if (!isset($grid))
 
           @foreach ($requestsNew as $rm)
-
+            
           @if($numberofrequestids['requested_services_count'][$rm->id]!=$numberofrequestids['assigned_services_count'][$rm->id])
 
         <tr>
@@ -106,16 +104,15 @@
             
 
             <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y h:i:s A',strtotime( $rm->created_at )) ;!!} </td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y',strtotime( $rm->created_at )) !!}<br>{!!date('h:i:s A', strtotime($rm->created_at )) !!}</td>
 
                       <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title)) {!!  $rm->asset->customerType->title !!} @endif</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->last_name !!} @endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->first_name !!} {!! substr($rm->user2->last_name,0,1)."." !!} @endif</td>
 
              <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user->first_name)) {!! $rm->user->first_name !!} @endif   @if(isset($rm->user->last_name)) {!! $rm->user->last_name !!}@endif</td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->user->email)) {!! $rm->user->email !!} @endif  </td>
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->asset->property_addresss)) {!! $rm->asset->property_address !!} @endif </td>
+           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->asset->property_address)) {!! $rm->asset->property_address !!} @endif @if (isset($rm->asset->unit)) #{!! $rm->asset->unit !!}@endif</td>
 
 
 
