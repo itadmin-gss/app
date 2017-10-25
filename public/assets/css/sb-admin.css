@@ -254,6 +254,10 @@
 .action-button-group-3-wide{
   min-width:110px !important;
 }
+
+.action-button-with-login{
+  min-width:130px !important;
+}
 .add-new-vendor,
 .add-new-property{
   display:none;
@@ -333,13 +337,23 @@ a.nav-link{
 .text-green{
   color:green;
 }
+.ovrScroll{
+  max-height: 100px;
+  overflow-y: scroll;
+}
+.btn-login{
+  height: 23px !important;
+  padding: 2px 9px 0px 9px !important;
+}
 
+#vendor-list-table > tbody > tr > td,
 #dataTable > tbody > tr > td,
 #approved_grid > tbody > tr > td,
 #completion_grid > tbody > tr > td,
 #maintenance_datatable > tbody > tr > td{
   font-size:13px;
 }
+#vendor-list-table > thead > tr > th,
 #dataTable > thead > tr > th,
 #approved_grid > thead > tr > th,
 #completion_grid > thead > tr > th,
