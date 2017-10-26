@@ -16,6 +16,7 @@
             }
           }
         ?>
+      </div>
         <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='dataTable'> 
 
                       <thead>

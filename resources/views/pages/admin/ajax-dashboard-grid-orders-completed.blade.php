@@ -3,7 +3,7 @@
        <div class='table-padding table-heading'>
           <h4>Completed</h4>
       </div>   
-      <table class="table table-striped table-sm table-bordered bootstrap-datatable datatabledashboard"  id="completion_grid">
+      <table class="table table-striped table-sm table-bordered dt-responsive datatabledashboard" width='100%' cellspacing='0' id="completion_grid">
 
                       <thead>
 
