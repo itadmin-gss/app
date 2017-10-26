@@ -3,7 +3,7 @@
 @section('content')
 
 
-<title>Maintenance Requests</title>
+<title>GSS - Maintenance Requests</title>
 <div id="content" class="span11">
     <div class='table-padding'>
       <h4 style='float:left;'>Maintenance Requests</h4>

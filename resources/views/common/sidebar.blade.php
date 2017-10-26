@@ -39,7 +39,7 @@
         <!-- Properties Link -->
         @if($access_roles['Asset']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">
-          <a class="nav-link" href="javascript:void(0)">
+          <a class="nav-link" href="{!!URL::TO('list-assets')!!}">
             <i class="fa fa-fw fa-2x fa-home"></i>
             <p class="nav-link-text">Properties</p>
           </a>

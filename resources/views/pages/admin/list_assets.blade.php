@@ -1,38 +1,21 @@
 @extends('layouts.default')
 
 @section('content')
-
+<title>GSS - Properties</title>
 <div id="content" class="span11">
 
-  <div class="clearfix">
+  <div class='table-padding'>
+    <h4 class='float:left;'>Properties</h4>
+  </div>
+  <div class='table-padding add-service-button-div'>
 
     <a class="btn btn-info accBtn" href="{!!URL::to('add-asset')!!}"> Add Property </a>
 
   </div>
 
-  <div class="row-fluid">
+  <div class='table-container'>
+  <div class='table-responsive'>
 
-    <div class="box span12">
-
-      <div class="box-header" data-original-title>
-
-        <h2><i class="halflings-icon th-list"></i><span class="break"></span>Properties</h2>
-
-        <div class="box-icon">
-
-          <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-
-          <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-
-          <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
-
-        </div>
-
-      </div>
-
-      <div class="box-content admtable">
-         <h4 class="alert alert-danger" id="assetFlash" style="display: none;">Deleted Successfully!</h4>
-        <div class="admtableInr">
 
           @if(Session::has('message'))
 
@@ -42,7 +25,7 @@
 
 
 
-          <table class="table table-striped table-bordered bootstrap-datatable datatable">
+          <table class="table table-striped table-sm table-bordered datatable" width='100%' cellspacing='0' id='list-assets-table'>
 
 
 
@@ -86,28 +69,27 @@
 
              <td class="center">
 
-                <a class="btn btn-success view_asset_information"  id="{!!$asset->id!!}" title="View">
+                <div class='action-button-4-wide'>
+                  <a class="btn btn-xs btn-success action-button view_asset_information"  id="{!!$asset->id!!}" title="View">
+                    <i class="fa fa-search-plus" aria-hidden='true'></i>
+                  </a>
 
-                  <i class="halflings-icon zoom-in halflings-icon"></i>
+                  <a class="btn btn-info btn-xs action-button" href="edit-asset/{!!$asset->id!!}" title="Edit"> 
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </a>
 
-                </a>
+                  <a class="btn btn-warning btn-xs action-button" onclick="" href="delete-customer-asset/{!!$asset->id!!}" title="Close">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                  </a>
 
-                <a class="btn btn-info" href="edit-asset/{!!$asset->id!!}" title="Edit">
+                  <a class="btn btn-danger btn-xs action-button" onclick='deleteSelectedAsset({!!$asset->id!!})' href="#" title="Delete">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </div>
 
-                  <i class="halflings-icon edit halflings-icon"></i>
 
-                </a>
 
-                                <a class="btn btn-warning" onclick="" href="delete-customer-asset/{!!$asset->id!!}" title="Close">
 
-                                                                    <i class="halflings-icon refresh halflings-icon"></i>
-
-                                                                  </a>
-                                <a class="btn btn-danger" onclick='deleteSelectedAsset({!!$asset->id!!})' href="#" title="Delete">
-
-                                                                    <i class="halflings-icon trash halflings-icon"></i>
-
-                                                                  </a>
 
                                                                 </td>
 

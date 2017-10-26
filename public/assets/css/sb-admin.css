@@ -263,6 +263,9 @@
 .action-button-group-3-wide{
   min-width:110px !important;
 }
+.action-button-4-wide{
+min-width:130px !important;
+}
 
 .action-button-with-login{
   min-width:130px !important;
@@ -355,6 +358,7 @@ a.nav-link{
   padding: 2px 9px 0px 9px !important;
 }
 
+#list-assets-table > tbody > tr > td,
 #vendor-list-table > tbody > tr > td,
 #dataTable > tbody > tr > td,
 #approved_grid > tbody > tr > td,
@@ -362,6 +366,7 @@ a.nav-link{
 #maintenance_datatable > tbody > tr > td{
   font-size:13px;
 }
+#list-assets-table > thead > tr > th,
 #vendor-list-table > thead > tr > th,
 #dataTable > thead > tr > th,
 #approved_grid > thead > tr > th,
