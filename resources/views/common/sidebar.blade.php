@@ -59,7 +59,7 @@
         <!-- Work Orders Link -->
         @if($access_roles['Order']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Work Orders">
-          <a class="nav-link" href="javascript:void(0)">
+          <a class="nav-link" href="{!!URL::to('list-work-order-admin')!!}">
             <i class="fa fa-fw fa-2x fa-exchange"></i>
             <p class="nav-link-text">Work Orders</p>
           </a>

@@ -358,6 +358,11 @@ a.nav-link{
   padding: 2px 9px 0px 9px !important;
 }
 
+#work-order-table > tbody > tr > td > .action-button-group > a{
+  margin-right:4px !important;
+}
+
+#work-order-table > tbody > tr > td,
 #list-assets-table > tbody > tr > td,
 #vendor-list-table > tbody > tr > td,
 #dataTable > tbody > tr > td,
@@ -366,6 +371,7 @@ a.nav-link{
 #maintenance_datatable > tbody > tr > td{
   font-size:13px;
 }
+#work-order-table > thead > tr > th,
 #list-assets-table > thead > tr > th,
 #vendor-list-table > thead > tr > th,
 #dataTable > thead > tr > th,

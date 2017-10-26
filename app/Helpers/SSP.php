@@ -226,11 +226,11 @@ class SSP {
 		 * Output
 		 */
 
-		return "SELECT `".implode("`, `", self::pluck($columns, 'db'))."`
-		FROM `$table`
-		$where
-		$order
-		$limit";
+		// return "SELECT `".implode("`, `", self::pluck($columns, 'db'))."`
+		// FROM `$table`
+		// $where
+		// $order
+		// $limit";
 		
 		return array(
 			"draw"            => isset ( $request['draw'] ) ?

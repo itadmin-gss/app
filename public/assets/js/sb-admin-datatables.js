@@ -92,13 +92,13 @@ $('.work-order-table').DataTable( {
         var status = row[13][0];
         if (status == 4)
         {
-          return '<td class="center"><a class="btn btn-success" disabled="disabled" href="#" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" disabled="disabled" href="#"> <i class="halflings-icon edit halflings-icon"></i> </a></td>';
+          return '<td class="center"><div class="action-button-group"><a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"><i class="fa fa-search-plus" aria-hidden="true"></i></i></a><a class="btn btn-xs btn-info action-button" disabled="disabled" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></div></td>';
           
         }
         else
         {
-          return '<td class="center"><a class="btn btn-success" href="view-order/'+row[0][0]+'" title="View"> <i class="halflings-icon zoom-in halflings-icon"></i> </a> <a class="btn btn-info" href="edit-order/'+row[0][0]+'" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a></td>';
-          
+          return '<td class="center"><div class="action-button-group"><a class="btn btn-success btn-xs action-button" href="view-order/'+row[0][0]+'" title="View"><i class="fa fa-search-plus" aria-hidden="true"></i></i></a><a class="btn btn-xs btn-info action-button"  href="edit-order/'+row[0][0]+'" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></div></td>';
+                    
         }
       }, 
       "targets" : 14}, //Action Column
