@@ -1,6 +1,9 @@
 @extends('layouts.default')
 @section('content')
 <div id="content" class="span11">
+    <div class='table-padding'>
+      <h4 style='float:left;'>Vendors</h4>
+    </div>
     <div class='table-padding add-service-button-div'>
       <a class="btn btn-info accBtn" href="{!!URL::to('show-add-vendor')!!}"> Add Vendor </a>
     </div>
@@ -27,7 +30,6 @@
 
         <div class='table-container'>
         <div class='table-responsive'>
-        <div class='table-padding table-heading'>
         <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='vendor-list-table'>
 
           <thead>

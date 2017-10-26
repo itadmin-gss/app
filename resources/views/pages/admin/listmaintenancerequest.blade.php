@@ -5,7 +5,9 @@
 
 <title>Maintenance Requests</title>
 <div id="content" class="span11">
-
+    <div class='table-padding'>
+      <h4 style='float:left;'>Maintenance Requests</h4>
+    </div>
     <div class='table-padding add-service-button-div'>
           <a class="btn btn-info accBtn" href="{!!URL::to('admin-add-new-service-request')!!}">Add Service Request </a>
     </div>
