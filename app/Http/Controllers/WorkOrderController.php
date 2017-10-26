@@ -201,11 +201,32 @@ class WorkOrderController extends Controller
                 {
                     if ($d == 4)
                     {
-                        return [$d, "<td class='center'><span class='label label-important'>Cancelled</span></td>"];
+                        return [$d, "<td class='center'><span class='badge badge-summary badge-danger'>Cancelled</span></td>"];
                     }
                     else
                     {
-                        return [$d, "<td class='center'><span class='label label-".$row[4]."'>".$row[5]."</span></td>"];
+                        
+                        switch ($row[4]){
+                            case "black":
+                                $status_class = "default";
+                            break;
+                            case "blue":
+                                $status_class = "primary";
+                            break;
+                            case "green":
+                                $status_class = "success";
+                            break;
+                            case "important":
+                                $status_class = "danger";
+                            break;
+                            case "warning":                          
+                            case "yellow":
+                                $status_class = "warning";
+                            break;
+                            default:
+                                $status_class = "default";
+                        }
+                        return [$d, "<td class='center'><span class='badge badge-summary badge-".$status_class."'>".$row[5]."</span></td>"];
                     }
                 }
             )
