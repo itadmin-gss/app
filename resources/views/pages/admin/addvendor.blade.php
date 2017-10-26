@@ -6,7 +6,7 @@
     <div class="row-fluid ">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2><span class="break"></span>Add Vendor</h2>
+                
             </div>
             <div class="box-content custome-form">
                 
@@ -21,43 +21,36 @@
                     
                 </div>
                 
-                {!! Form::open(array('url' => 'admin-create-vendor', 'id'=>'addVendorForm' , 'class'=>'form-horizontal')) !!}
-                    <fieldset>
-                        <div class="row-fluid">
-                            <div class="span6 offset3 centered">
-                                
-                                <div class="control-group">
+
+                        <div class='row'>
+                            <div class='col-md-4 col-lg-3'></div>
+                            
+                            <div class="form-group col-md-4 col-sm-12 col-lg-3">
+                                <h4>Add Vendor</h4>
+                                    {!! Form::open(array('url' => 'admin-create-vendor', 'id'=>'addVendorForm' , 'class'=>'form-horizontal')) !!}
                                     {!!Form::label('firstName', 'First Name *:', array('class' => 'control-label'))!!}
                                     <div class="controls">
-                                        {!! Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'span10 typeahead','id'=>'firstName'))!!}
+                                        {!! Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'form-control','id'=>'firstName'))!!}
                                     </div>
-                                </div>
                                 
-                                <div class="control-group">
                                     {!!Form::label('lastName', 'Last Name *:', array('class' => 'control-label'))!!}
                                     <div class="controls">
-                                        {!! Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'span10 typeahead','id'=>'lastName'))!!}
+                                        {!! Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'form-control','id'=>'lastName'))!!}
                                     </div>
-                                </div>
                                 
-                                <div class="control-group">
+                               
                                     {!!Form::label('email', 'Email *:', array('class' => 'control-label'))!!}
                                     <div class="controls">
-                                        {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'span10 typeahead','id'=>'email'))!!}
+                                        {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'form-control','id'=>'email'))!!}
                                     </div>
-                                </div>
-
+                                
+                                    {!! Form::submit('Create', array('class'=>'btn btn-large btn-success text-left','id'=>'createVendorSaveButton'))!!}
+                                    {!! Form::button('Cancel', array('class'=>'btn btn-large btn-info text-right','id'=>'createVendorCancelButton'))!!}
                             </div>
 
                             </div>
-                        </div>
-                        <div class="form-actions">
-                            <div class="pull-right">
-                                {!! Form::submit('Create', array('class'=>'btn btn-large btn-success text-left','id'=>'createVendorSaveButton'))!!}
-                                {!! Form::button('Cancel', array('class'=>'btn btn-large btn-info text-right','id'=>'createVendorCancelButton'))!!}
-                            </div>
-                        </div>   
-                    </fieldset>
+                        </div> 
+               
                 </form>
             </div>
         </div>

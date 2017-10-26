@@ -1198,13 +1198,8 @@ function modalClose(){
   
   
   {
-      $("#addVendorForm").on('submit', (function(e) {
-  
-         var over = '<div id="overlay">' +
-         '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
-         '</div>';
-         $(over).appendTo('body');
-  
+      $("#addVendorForm").on('submit', (function(e) {  
+
   
          e.preventDefault();
          $.ajax(
@@ -1222,16 +1217,10 @@ function modalClose(){
           {
               if (data.indexOf("Successfully ! Vendor Created!") > -1)
               {
-                  window.location="/list-vendors";
-                  $('#addVendorValidationErrorMessage').slideUp('slow')
-                  $('#addVendorSuccessMessage').html(data).hide();
-                  $('#addVendorSuccessMessage').slideDown('slow');
-  
+                  window.location.href="/list-vendors";  
               }
               else
               {
-                  $("#overlay").remove();
-                  $('#addVendorSuccessMessage').slideUp('slow')
                   $('#addVendorValidationErrorMessage').html(data).hide();
                   $('#addVendorValidationErrorMessage').slideDown('slow');
               }

@@ -81,15 +81,24 @@
   margin-right:auto;
   margin-left:auto;
 }
-.new-service-request .card-header{
-  /* background-color:green !important;
-  color:white !important; */
-}
+
 
 .step-2,
 .step-3,
 .step-4{
   display:none;
+}
+
+.hide{
+  display:none;
+}
+
+#addVendorValidationErrorMessage{
+ color:red !important;
+}
+#addVendorValidationErrorMessage > h4{
+  font-size:15px !important;
+  
 }
 
 .step-2,

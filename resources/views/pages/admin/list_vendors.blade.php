@@ -1,11 +1,12 @@
 @extends('layouts.default')
 @section('content')
+<title>Vendors</title>
 <div id="content" class="span11">
     <div class='table-padding'>
       <h4 style='float:left;'>Vendors</h4>
     </div>
     <div class='table-padding add-service-button-div'>
-      <a class="btn btn-info accBtn" href="{!!URL::to('show-add-vendor')!!}"> Add Vendor </a>
+      <a class="btn btn-info accBtn" href="#" data-target='#add-vendor-modal' data-toggle='modal'> Add Vendor </a>
     </div>
 
 
@@ -84,7 +85,6 @@
               <div class="activate">
                     @if($vendor->status == 1)
                     <span onclick="changeStatus(this,'vendor',0, {!!$vendor->id!!},'{!!$db_table!!}' )" class="badge badge-summary badge-success">Active</span>
-                    {{--  <span onclick="changeStatus(this,'vendor',0, {!!$vendor->id!!},'{!!$db_table!!}' )" class="label label-success">Active</span>  --}}
                     @else
                     <span onclick="changeStatus(this,'vendor',1, {!!$vendor->id!!},'{!!$db_table!!}' )" class="badge badge-summary badge-warning">In-Active</span>
                     @endif
@@ -118,6 +118,49 @@
  	</script>
   </div>
   <!--/row-->
+</div>
+
+<div class='modal fade' id='add-vendor-modal'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>        
+        <h4 class='modal-title'>Add Vendor</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class='modal-body'>
+        <div class="form-group ">
+                {!! Form::open(array('url' => 'admin-create-vendor', 'id'=>'addVendorForm' , 'class'=>'form-horizontal')) !!}
+                {!!Form::label('firstName', 'First Name *:', array('class' => 'control-label'))!!}
+                <div class="controls">
+                    {!! Form::text('first_name',  isset($user_data['first_name']) ? $user_data['first_name'] : '' , array('class'=>'form-control','id'=>'firstName'))!!}
+                </div>
+            
+                {!!Form::label('lastName', 'Last Name *:', array('class' => 'control-label'))!!}
+                <div class="controls">
+                    {!! Form::text('last_name',  isset($user_data['last_name']) ? $user_data['last_name'] : '' , array('class'=>'form-control','id'=>'lastName'))!!}
+                </div>
+            
+            
+                {!!Form::label('email', 'Email *:', array('class' => 'control-label'))!!}
+                <div class="controls">
+                    {!! Form::email('email',  isset($user_data['email']) ? $user_data['email'] : '' , array('class'=>'form-control','id'=>'email'))!!}
+                </div>
+            
+
+        </div>
+          <div id="addVendorSuccessMessage" class="">                        
+          </div>
+          <div id="addVendorValidationErrorMessage" class="">
+          </div>
+      </div>
+      <div class='modal-footer'>
+        {!! Form::submit('Create', array('class'=>'btn btn-large btn-success text-left','id'=>'createVendorSaveButton'))!!}
+      </div>
+    </div>
+  </div>
 </div>
 @parent
 @include('common.delete_alert')
