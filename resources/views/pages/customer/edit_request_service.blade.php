@@ -10,6 +10,7 @@ else
 
 @extends($layout)
 @section('content')
+<title>GSS - Edit Service Request</title>
 <div id="content" class="span11">
     <h4>Edit Service Request</h4>
 
@@ -25,7 +26,7 @@ else
                 {!! Form::open(array('url' => 'edit-service-request', 'class'=>'form-horizontal request-services')) !!}
             </div>
             <div class="alert alert-error" style="display:none;" id="add_asset_alert"></div>
-            <div class="row">
+            <div class="row small-left-margin">
                 <div class="col-md-4 col-lg-4 col-sm-12">
                 
                     <div class="form-inline">
@@ -114,7 +115,7 @@ else
 
 <div class="row">
 
-    <div id="services_list_{!!$data['service_id']!!}" class="col-md-8 col-lg-8 col-sm-12 small-left-margin">
+    <div id="services_list_{!!$data['service_id']!!}" class="col-md-4 col-lg-4 col-sm-12 small-left-margin">
         <div class="card">
             <div class="card-header card-header-thin card-header-inline">
                 <p>{!!$RequestedServiceDATA->service->title!!}</p>
@@ -138,6 +139,13 @@ else
 }
 ?>
 
+<div class="row">
+    <div class="col-md-4 col-lg-4 col-sm-12">
+        {!!Form::hidden('request_id', $RequestedService->id)!!}
+        {!!Form::submit('Request', array('name'=>'request', 'class'=>'btn btn-large btn-success'))!!}
+        <a href="{!!URL::to('list-customer-requested-services')!!}" > <button type="button" class="btn btn-large btn-inverse">Cancel</button></a>
+    </div>
+</div>
      <div class="row-fluid sortable requestServices" id='list_of_services'>
                         <div class="box offset1 span10">
 
@@ -148,9 +156,7 @@ else
                     </div>
                     <div class="row-fluid">
                         <div class="form-actions text-center">
-                            {!!Form::hidden('request_id', $RequestedService->id)!!}
-                            {!!Form::submit('Request', array('name'=>'request', 'class'=>'btn btn-large btn-success'))!!}
-                                                                    	<a href="{!!URL::to('list-customer-requested-services')!!}" > <button type="button" class="btn btn-large btn-inverse">Cancel</button></a>
+
                         </div>
                     </div>
                 </fieldset>
