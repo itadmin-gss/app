@@ -155,10 +155,9 @@
 
             <label>Service Zipcodes(Comma seprated)</label>
             {!! Form::textarea('available_zipcodes', isset($user_data['available_zipcodes']) ? $user_data['available_zipcodes'] : '' , array('class'=>'form-control','id'=>'available_zipcodes'))!!}
-                            <div class="form-actions text-right clearfix">
-                                {!! Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'profileSaveButton'))!!}
-                                {!! Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>'profileCancelButton'
-                ,'onClick' => 'location.href="'.URL::to('admin').'"'))!!}
+            <div class="form-actions text-right top-margin-15">
+                {!! Form::submit('Save', array('class'=>'btn btn-large btn-success text-left','id'=>'profileSaveButton'))!!}
+                {!! Form::button('Cancel', array('class'=>'btn btn-large btn-inverse text-right','id'=>'profileCancelButton' ,'onClick' => 'location.href="'.URL::to('admin').'"'))!!}
             </div>
 
         </div>

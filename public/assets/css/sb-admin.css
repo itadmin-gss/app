@@ -17,6 +17,9 @@
 .bnchBtn { margin:20px 0; text-align: center; }
 .bnchBtn a.rgstrBtn { min-width: 200px; padding: 15px 20px; }
 
+.top-margin-15{
+  margin-top:15px !important;
+}
 #addcontenthere{
   overflow: hidden !important;
 }
