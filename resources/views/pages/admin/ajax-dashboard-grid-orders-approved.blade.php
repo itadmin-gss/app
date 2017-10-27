@@ -1,3 +1,4 @@
+<title>GSS - Approved Orders</title>
  <div class='table-container'>
     <div class='table-responsive'>
       <div class='table-padding table-heading'>

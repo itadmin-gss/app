@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-<title>GSS - Dashboard</title>
+
 <div id="content" class="span11">
 
 
@@ -39,13 +39,16 @@
 
         @if( isset($access_roles['Summary Grid']['view']) && $access_roles['Summary Grid']['view'] == 1)
 
-                                 
-                                <div class='table-responsive'>
-                                <div class='table-padding table-heading'>
-                                    <h4>Summary</h4>
-                                </div>
-                                
-                                 <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" style='width:100%;'  id='dataTable' width='100%' cellspacing='0' >
+
+        <div class="row">
+            <div id="datatabledashboard">
+                    <title>GSS - Summary</title>
+        <div class='table-padding table-heading'>
+            <h4>Summary</h4>
+        </div>
+
+            <div class='table-responsive'>
+            <table class="table table-striped table-bordered table-sm datatabledashboard" id='dataTable' cellspacing='0' >
         
 
           <thead>
@@ -306,6 +309,8 @@ $servicedate="";
             </tbody>
         @endif
         </table>
+                   </div>
+        </div>
         </div>
                                  </div>
                             </div>

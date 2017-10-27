@@ -378,6 +378,13 @@ a.nav-link{
   margin-left:25px !important;
   margin-right:25px !important;
 }
+
+
+.table-responsive,
+.datatabledashboard,
+.container-fluid{
+  width:100% !important;
+}
 .table-heading{
   margin-bottom:-10px !important;
 }

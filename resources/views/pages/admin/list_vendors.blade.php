@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-<title>Vendors</title>
+<title>GSS - Vendors</title>
 <div id="content" class="span11">
     <div class='table-padding'>
       <h4 style='float:left;'>Vendors</h4>

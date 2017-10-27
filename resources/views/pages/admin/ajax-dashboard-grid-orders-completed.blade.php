@@ -1,3 +1,4 @@
+<title>GSS - Completed Orders</title>
  <div class='table-container'>
     <div class='table-responsive'>
        <div class='table-padding table-heading'>
@@ -127,12 +128,15 @@
 
                         @if($order['request_status']==4)
                         <td class="center"> 
-                        <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
-                        <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
-                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                        </a></td>
+                          <div class='action-button-group'>
+                            <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
+                                <i class="fa fa-file-o" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </td>
 
 
 

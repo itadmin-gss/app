@@ -8,10 +8,10 @@
           {
             switch ($id){
               case 3:
-                echo "<h4>Under Review</h4>";
+                echo "<h4>Under Review</h4><title>GSS - Under Review Orders</title>";
               break;
               case 1:
-                echo "<h4>In Process</h4>";
+                echo "<h4>In Process</h4><title>GSS - In Process Orders</title>";
               break;
             }
           }

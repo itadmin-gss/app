@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-<title>GSS - Work Order List</title>
+<title>GSS - Work Orders</title>
 <div id="content" class="span11">
     <div class='table-padding'>
       <h4 style='float:left;'>Work Orders</h4>
