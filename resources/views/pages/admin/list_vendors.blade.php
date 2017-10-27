@@ -31,7 +31,7 @@
 
         <div class='table-container'>
         <div class='table-responsive'>
-        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='vendor-list-table'>
+        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard2" width='100%' cellspacing='0' id='vendor-list-table'>
 
           <thead>
             <tr>

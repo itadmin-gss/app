@@ -121,6 +121,16 @@ $('.datatabledashboard').DataTable( {
   ]
 } );
 
+$('.datatabledashboard2').DataTable( {
+  dom: 'B<"clear">frtip',
+  "responsive" : true,
+  buttons: [
+  'copy', 'csv', 'excel', 'print'
+  ]
+} );
+
+
+
 $('.datatabledashboardapproved').DataTable( {
   dom: 'Bfrtip',
   "responsive" : true,

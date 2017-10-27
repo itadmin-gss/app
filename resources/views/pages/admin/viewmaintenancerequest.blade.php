@@ -51,7 +51,7 @@
                   <td class="center span3"><p>{!! $request_maintenance->asset->city->name !!}</p></td>
 
                   	<td class="center span3"><h5>Admin Notes:</h5></td>
-									<td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'span12 typeahead', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))!!} </td>
+									<td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'form-control', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))!!} </td>
 
 								</tr>
 
@@ -142,7 +142,7 @@
 								</tr>
                  <tr>
                  <td class="center span3"><h2>Note for Vendor:</h2>
-                 {!!Form::textarea('public_notes',isset($services->public_notes) ? $services->public_notes : '' , array('class'=>'span12 typeahead', 'id'=>'public_notes','onChange'=>'publicNotes(this,"'.$services->id.'")'))!!}
+                 {!!Form::textarea('public_notes',isset($services->public_notes) ? $services->public_notes : '' , array('class'=>'form-control', 'id'=>'public_notes','onChange'=>'publicNotes(this,"'.$services->id.'")'))!!}
                  </td>
 
                 </tr>

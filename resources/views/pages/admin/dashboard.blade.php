@@ -32,7 +32,7 @@
           ?>
 
 
-                 @if(Session::has('message'))
+        @if(Session::has('message'))
             {!!Session::get('message')!!}
          @endif
 
