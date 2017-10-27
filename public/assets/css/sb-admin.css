@@ -35,6 +35,29 @@
 #add-asset-form select{
   width:50%;
 }
+.span-inline{
+  display:inherit !important;
+}
+.span-inline .chosen{
+  width:50% !important;
+  margin-right:4px !important;
+  margin-left:4px !important;
+}
+.small-left-margin{
+  margin-left:13px !important;
+}
+.card-header-thin{
+  padding: 3px !important;
+}
+.card-header-thin > p{
+  margin-bottom:0 !important;
+}
+.card-header-inline > p{
+  float:left;
+}
+.card-header-inline > a{
+  float:right;
+}
 
 .badge-warning-enhance,
 .badge-danger-enhance,
