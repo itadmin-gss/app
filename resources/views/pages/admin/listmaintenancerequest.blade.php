@@ -39,7 +39,7 @@
         <div class="admtableInr">
         <div class='table-container'>
         <div class='table-responsive'>
-        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id="maintenance_datatable">
+        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" style='width:100%;' width='100%' cellspacing='0' id="maintenance_datatable">
 
           <thead>
 

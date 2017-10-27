@@ -17,7 +17,7 @@
           }
         ?>
       </div>
-        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0' id='dataTable'> 
+        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' style='width:100%;' cellspacing='0' id='dataTable'> 
 
                       <thead>
 
@@ -92,7 +92,7 @@
                         <td class="center">{!! $order['service_name'] !!}</td>
 
 
-                        <td class="center">{!! $order['billing_note'] !!}</td>
+                        <td class="center small-column">{!! $order['billing_note'] !!}</td>
 
 
                         @if($order['request_status']==4)

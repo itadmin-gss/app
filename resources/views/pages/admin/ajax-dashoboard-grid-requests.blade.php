@@ -4,7 +4,7 @@
       <div class='table-padding table-heading'>
         <h4>In Process</h4>
       </div>
-<table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' cellspacing='0'>
+<table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" style='width:100%;' width='100%' cellspacing='0'>
      
 
           

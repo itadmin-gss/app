@@ -8,7 +8,7 @@
     </div>
 
 
-                    <table class="table table-striped table-bordered table-sm dt-responsive work-order-table" width='100%' cellspacing='0' id="work-order-table">
+                    <table class="table table-striped table-bordered table-sm dt-responsive work-order-table" width='100%' style='width:100%;' cellspacing='0' id="work-order-table">
 
 
 

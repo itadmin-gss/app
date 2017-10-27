@@ -97,7 +97,7 @@
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </a>
 
-                  <a class="btn btn-danger btn-xs action-button"onclick="modalButtonOnClick({!!$vendor->id!!},'{!!$db_table!!}','vendor')" data-confirm="Are you sure you want to delete?" title="Delete Vendor"> 
+                  <a class="btn btn-danger btn-xs action-button" onclick="modalButtonOnClick({!!$vendor->id!!},'{!!$db_table!!}','vendor')" data-confirm="Are you sure you want to delete?" title="Delete Vendor"> 
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a> 
 

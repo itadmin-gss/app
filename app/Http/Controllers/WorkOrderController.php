@@ -73,8 +73,10 @@ class WorkOrderController extends Controller
                         $submitter_name['first_name'] = $customer2_details['first_name'];
                     }
 
-                    if (isset($customer2_details['last_name']))
+                    if (isset($customer2_details['last_name']) && isset($customer2_details['first_name']))
                     {
+                        $submitter_name['last_name'] = substr($customer2_details['last_name'], 0, 1).".";
+                    } else if (isset($customer2_details['last_name'])){
                         $submitter_name['last_name'] = $customer2_details['last_name'];
                     }
 

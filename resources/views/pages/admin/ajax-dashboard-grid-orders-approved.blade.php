@@ -3,7 +3,7 @@
       <div class='table-padding table-heading'>
           <h4>Approved</h4>
       </div>
-        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboardapproved" id="approved_grid" width='100%' cellspacing='0' >
+        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboardapproved" style='width:100%;' id="approved_grid" width='100%' cellspacing='0' >
                       <thead>
 
                         <tr>

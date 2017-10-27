@@ -31,30 +31,21 @@
 
           ?>
 
-            <div class="row-fluid">
 
-        <div class="span">
                  @if(Session::has('message'))
             {!!Session::get('message')!!}
          @endif
 
 
         @if( isset($access_roles['Summary Grid']['view']) && $access_roles['Summary Grid']['view'] == 1)
-                  <div class="row-fluid">
 
-                   
-
-                              <div class="admtableInr" id="datatabledashboard">
-
-
-                                <div class='table-container'>
                                  
                                 <div class='table-responsive'>
                                 <div class='table-padding table-heading'>
                                     <h4>Summary</h4>
                                 </div>
                                 
-                                 <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard"  id='dataTable' width='100%' cellspacing='0' >
+                                 <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" style='width:100%;'  id='dataTable' width='100%' cellspacing='0' >
         
 
           <thead>

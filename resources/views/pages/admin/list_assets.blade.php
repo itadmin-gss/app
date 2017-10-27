@@ -25,7 +25,7 @@
 
 
 
-          <table class="table table-striped table-sm table-bordered datatable" width='100%' cellspacing='0' id='list-assets-table'>
+          <table class="table table-striped table-sm table-bordered datatable" width='100%' style='width:100%;' cellspacing='0' id='list-assets-table'>
 
 
 

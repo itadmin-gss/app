@@ -239,6 +239,11 @@
   z-index: 1000;
   min-height: 2000px;
 }
+
+#UserEditForm label{
+  margin-top:25px !important;
+}
+
 #loading {
   width: 50px;
   height: 57px;
@@ -248,6 +253,9 @@
   margin: auto;
   bottom: 0;
   right: 0;
+}
+.small-column{
+  width:50px !important;
 }
 .fa-2x{
   font-size:1.6em !important;
@@ -357,7 +365,9 @@ a.nav-link{
   height: 23px !important;
   padding: 2px 9px 0px 9px !important;
 }
-
+.left-margin-10{
+  margin-left:10px !important;
+}
 #work-order-table > tbody > tr > td > .action-button-group > a{
   margin-right:4px !important;
 }
