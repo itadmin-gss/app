@@ -32,7 +32,8 @@
 
             <div class='row'>
                 <div class='col-md-4 col-lg-4 col-sm-12'>
-                        {!!Form::label('asset_number', 'Property ID: *', array('class'=>'control-label'))!!}
+                
+                    {!!Form::label('asset_number', 'Property ID: *', array('class'=>'control-label'))!!}
                     <div class='form-group'>
                         {!!Form::text('asset_number', '', array('class'=>'form-control', 'id'=>'asset_number' ))!!}
                         {!!Form::hidden('one_column','no')!!}

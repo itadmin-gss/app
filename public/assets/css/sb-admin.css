@@ -31,6 +31,8 @@
   margin-top:40px;
 }
 
+#edit-asset-form input,
+#edit-asset-form select,
 #add-asset-form input,
 #add-asset-form select{
   width:50%;
