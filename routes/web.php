@@ -170,7 +170,7 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
 
     //Asset Controller
     Route::match(['GET', 'POST'], 'add-asset', ['uses' => 'AssetController@addAdminAsset']);
-    Route::match(['GET', 'POST'], 'add-asset/{id}', ['uses' => 'AssetController@addAdminAsset']);
+    // Route::match(['GET', 'POST'], 'add-asset/{id}', ['uses' => 'AssetController@addAdminAsset']);
     Route::match(['GET', 'POST'], 'list-assets', ['uses' => 'AssetController@listAdminAssets']);
     Route::match(['GET', 'POST'], 'list-assets-summary', ['uses' => 'AssetController@listAdminAssetsSummary']);
     Route::match(['GET', 'POST'], 'property-report', ['uses' => 'AssetController@propertyReport']);    

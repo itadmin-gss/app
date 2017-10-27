@@ -1,16 +1,8 @@
-<div class="modal-dialog">
 
-    <div class="modal-content">
 
-        <div class="modal-header">
 
-            <button type="button" class="close" data-dismiss="modal">x</button>
 
-            <h1>Property Detail</h1>
 
-        </div>
-
-        <div class="modal-body">
 
             <div class="row-fluid">
 
@@ -27,7 +19,7 @@
                                     <div class="span6">
 
                                         <div class="control-group row-sep">
-<input type="hidden" id="client_type_unic" value="{!!$asset_information->customer_type!!}">
+                                            <input type="hidden" id="client_type_unic" value="{!!$asset_information->customer_type!!}">
                                             <label class="control-label" for="typeahead">Property Number: </label>
 
                                             <label class="control-label" for="typeahead">{!!$asset_information->asset_number!!}</label>
@@ -378,6 +370,3 @@ function log(str){
 
                                 </div>
 
-                                </div>
-
-                                </div>

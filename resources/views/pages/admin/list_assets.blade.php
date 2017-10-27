@@ -109,7 +109,18 @@
 
                                                     </div><!--/span-->
 
-                                                    <div id="asset_information" class="modal  hide fade modelForm larg-model"></div>
+                                                    <div id="asset_information" class="modal fade">
+                                                      <div class="modal-dialog" role="document">
+                                                         <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">x</button>
+                                                                <h1>Property Detail</h1>
+                                                            </div>
+                                                            <div class="modal-body"></div>
+
+                                                        </div>
+                                                      </div>
+                                                    </div>
 
                                                   </div><!--/row-->
 

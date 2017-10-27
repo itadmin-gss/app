@@ -780,11 +780,11 @@ function modalClose(){
           },
           cache: false,
           success: function(response) {
-              $('#asset_information').html(response);
+              $('#asset_information .modal-body').html(response);
           }
       });
   
-      $('#asset_information').modal('show');
+      $('#asset_information').modal('toggle');
   });
   
   
