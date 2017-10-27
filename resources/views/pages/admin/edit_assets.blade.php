@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+<title>GSS - Edit Property</title>
 <div id="content" class="span11">
     <h4>Edit Property</h4>
 
