@@ -11,11 +11,11 @@
 
 
           {{--  <div id="access-error" class="hide">
-              <h4 class="alert alert-error">Warning! Access Denied</h4>
+              <div class="alert alert-error">Warning! Access Denied</h4>
           </div>  --}}
            @if(Session::has('message'))
              <div id="access-success">
-              <h4 class="alert alert-success">
+              <div class="alert alert-success">
 
                  {!!Session::get('message')!!}
 
@@ -23,10 +23,10 @@
              </div>
            @endif
           {{--  <div id="delete-success" class="hide">
-              <h4 class="alert alert-success">Success! Delete Successful</h4>
+              <div class="alert alert-success">Success! Delete Successful</h4>
           </div>
           <div id="delete-error" class="hide">
-              <h4 class="alert alert-error">Warning! Access Denied</h4>
+              <div class="alert alert-error">Warning! Access Denied</h4>
           </div>  --}}
 
         <div class='table-container'>

@@ -9,7 +9,7 @@ class FlashMessage
 
     public static function DisplayAlert($message, $type)
     {
-        return "<h4 class='alert alert-" . $type . "'>" . $message . "</h4>";
+        return "<div class='alert alert-" . $type . "'>" . $message . "</div>";
     }
 
 // End the DisplayAlert Function

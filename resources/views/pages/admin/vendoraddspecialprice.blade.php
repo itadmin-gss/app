@@ -14,7 +14,7 @@
                     <div id="addSpecialPriceValidationErrorMessage" class="">
                     </div>
                     <div id="addSpecialPriceErrorMessage" class="hide">
-                        <h4 class="alert alert-error">Can not Add Special Price</h4>
+                        <div class="alert alert-error">Can not Add Special Price</h4>
                     </div>
                     
                 </div>

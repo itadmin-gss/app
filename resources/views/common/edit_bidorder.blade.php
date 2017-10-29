@@ -239,10 +239,10 @@ Customer Price:${!!$order_detail->requestedService->customer_price*$order_detail
             
             <div class="box-content">
                 <div id="vendor-note-empty-error-{!!$order_detail->id!!}" class="hide">
-                    <h4 class="alert alert-error">Vendor Note Can not be Empty</h4>
+                    <div class="alert alert-error">Vendor Note Can not be Empty</h4>
                 </div>
                 <div id="vendor-note-empty-success-{!!$order_detail->id!!}" class="hide">
-                    <h4 class="alert alert-success">Saved Successful</h4>
+                    <div class="alert alert-success">Saved Successful</h4>
                 </div>
                 <table class="table"> 
                   

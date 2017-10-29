@@ -16,16 +16,16 @@
             <div class="box-content admtable">
                 <div class="admtableInr">
                 <div id="access-error" class="hide">
-                    <h4 class="alert alert-error">Warning! Access Denied</h4>
+                    <div class="alert alert-error">Warning! Access Denied</h4>
                 </div>
                 <div id="access-success" class="hide">
-                    <h4 class="alert alert-success">Success! Action Successful</h4>
+                    <div class="alert alert-success">Success! Action Successful</h4>
                 </div>
                 <div id="delete-success" class="hide">
-                    <h4 class="alert alert-success">Success! Delete Successful</h4>
+                    <div class="alert alert-success">Success! Delete Successful</h4>
                 </div>
                 <div id="delete-error" class="hide">
-                    <h4 class="alert alert-error">Warning! Access Denied</h4>
+                    <div class="alert alert-error">Warning! Access Denied</h4>
                 </div>
                 <table class="table table-striped table-bordered bootstrap-datatable datatable">
                     <!--          <label> Select Date Range </label>

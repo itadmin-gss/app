@@ -6,49 +6,46 @@
 <?php if($request_maintenance->asset->property_dead_status==1){?>
 <div class ="disableProperty"><span>Property Closed</span></div>
 <?php }?>
-<p id="message" style="display:none">Saved...</p>
+<p id="message" style="display:none">Saved...
   <div class="row-fluid">
-    <div class='card table-margin'>
-      <div class='card-header'>
-						<h4>Service Request Details</h4>
-      </div>
-      <div class='card-body'>
+  	<h4 class="small-bottom-margin">Service Request Details</h4>
+
           @if(Session::has('message'))
             {!!Session::get('message')!!}
           @endif
-          <table class="table">
+          <table class="table table-sm" id="request-details-table">
 							  <tbody>
 								<tr>
 									<td class="center span3"><h5>Request ID:</h5></td>
-									<td class="center span3"><p>{!! $request_maintenance->id !!}</p></td>
+									<td class="center span3">{!! $request_maintenance->id !!}</td>
 									<td class="center span3"><h5>Request Date:</h5></td>
-									<td class="center span3"><p>{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</p></td>
+									<td class="center span3">{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</td>
 								</tr>
 								<tr>
 									<td class="center span3"><h5>Asset #:</h5></td>
-									<td class="center span3"><p>{!! $request_maintenance->asset->asset_number !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button></p> </td>
+									<td class="center span3">{!! $request_maintenance->asset->asset_number !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button> </td>
 
 									<td class="center span3"><h5>Customer Name:</h5></td>
-									<td class="center span3"><p>@if(isset($request_maintenance->user->first_name)) {!! $request_maintenance->user->first_name!!} @endif  @if(isset($request_maintenance->user->last_name)){!!$request_maintenance->user->last_name !!} @endif</p></td>
+									<td class="center span3">@if(isset($request_maintenance->user->first_name)) {!! $request_maintenance->user->first_name!!} @endif  @if(isset($request_maintenance->user->last_name)){!!$request_maintenance->user->last_name !!} @endif</td>
 								   </tr>
 								<tr>
 
                   <td class="center span3"><h5>Property Address:</h5></td>
-                  <td class="center span3"><p>{!! $request_maintenance->asset->property_address !!}</p></td>
+                  <td class="center span3">{!! $request_maintenance->asset->property_address !!}</td>
 
 									<td class="center span3"><h5>State:</h5></td>
-									<td class="center span3"><p>{!! $request_maintenance->asset->state->name !!}</p></td>
+									<td class="center span3">{!! $request_maintenance->asset->state->name !!}</td>
 								</tr>
 								<tr>
 									<td class="center span3"><h5>Zip:</h5></td>
-									<td class="center span3"><p>{!! $request_maintenance->asset->zip !!}</p></td>
+									<td class="center span3">{!! $request_maintenance->asset->zip !!}</td>
 									<td class="center span3"><h5>Email:</h5></td>
 
-									<td class="center span3"><p>@if(isset( $request_maintenance->user->email)){!! $request_maintenance->user->email!!} @endif</p></td>
+									<td class="center span3">@if(isset( $request_maintenance->user->email)){!! $request_maintenance->user->email!!} @endif</td>
 								                                    </tr>
 								<tr>
                 <td class="center span3"><h5>City:</h5></td>
-                  <td class="center span3"><p>{!! $request_maintenance->asset->city->name !!}</p></td>
+                  <td class="center span3">{!! $request_maintenance->asset->city->name !!}</td>
 
                   	<td class="center span3"><h5>Admin Notes:</h5></td>
 									<td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'form-control', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))!!} </td>
@@ -62,7 +59,8 @@
       </div>
     </div>
 
-    <span><h3 class="text-center">Vendor Details</h3></span>
+    <span><h4>Vendor Details</h4></span>
+    <hr>
     <div class='table-padding'>
     			<button data-toggle="modal" data-target="#assign" class="btn btn-large btn-success assign-vendor" onclick="showMaintenanceServices('{!! $request_maintenance->id !!}')">Assign Vendor</button>
     </div>
@@ -77,7 +75,7 @@
                 <div class="row-fluid">
 				<div class="card table-margin">
 					<div class="card-header" data-original-title>
-						<div class='float-left'><h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h2></div>
+						<div class='float-left'><h4><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h4></div>
 						<div class="card-price">
 						 <?php
   $priceData=\App\SpecialPrice::getSpecialCustomerPrice($request_maintenance->user->id,$services->service->id);
@@ -138,10 +136,10 @@
 						<table>
                 <tr><td> {!!$services->service->desc!!}</td></tr>
 								<tr>
-									<td class="center"><h2>Customer Note:</h2>{!!$services->service_note!!}</td>
+									<td class="center"><h5>Customer Note:</h5>{!!$services->service_note!!}</td>
 								</tr>
                  <tr>
-                 <td class="center span3"><h2>Note for Vendor:</h2>
+                 <td class="center span3"><h5>Note for Vendor:</h5>
                  {!!Form::textarea('public_notes',isset($services->public_notes) ? $services->public_notes : '' , array('class'=>'form-control', 'id'=>'public_notes','onChange'=>'publicNotes(this,"'.$services->id.'")'))!!}
                  </td>
 
@@ -369,7 +367,7 @@
                 @endforeach
 
 
-
+  </div>
   <div class='card-footer'>
     <div style="float:right;"><h5>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!} </h5>
   </div>

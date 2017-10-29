@@ -15,10 +15,10 @@
             @endif
             <div class="box-content">
                 <div id="access-error" class="hide">
-                    <h4 class="alert alert-error">Warning! Access Denied</h4>
+                    <div class="alert alert-error">Warning! Access Denied</h4>
                 </div>
                 <div id="access-success" class="hide">
-                    <h4 class="alert alert-success">Success! Action Successful</h4>
+                    <div class="alert alert-success">Success! Action Successful</h4>
                 </div>
                  <div class="box-content admtable">
                               <div class="admtableInr">

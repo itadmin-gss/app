@@ -12,16 +12,16 @@
      
       <div class="box-content">
           <div id="access-error" class="hide">
-              <h4 class="alert alert-error">Warning! Access Denied</h4>
+              <div class="alert alert-error">Warning! Access Denied</h4>
           </div>
           <div id="delete-success" class="hide">
-              <h4 class="alert alert-success">Success! Delete Successful
+              <div class="alert alert-success">Success! Delete Successful
               @if(Session::has('message'))
                             {!!Session::get('message')!!}
                         @endif</h4>
           </div>
           <div id="delete-error" class="hide">
-              <h4 class="alert alert-error">Warning! Access Denied</h4>
+              <div class="alert alert-error">Warning! Access Denied</h4>
           </div>
            <div class="box-content admtable listCstm">
             <div class="admtableInr">

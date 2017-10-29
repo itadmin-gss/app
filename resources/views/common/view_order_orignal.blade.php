@@ -9,7 +9,7 @@
 @if($message == "")
 
      @else
-   <h4 class="alert alert-success">
+   <div class="alert alert-success">
         {!!$message!!}
     </h4>
      @endif
@@ -738,13 +738,13 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                 <div id="vendor-note-empty-error-{!!$order_detail->id!!}" class="hide">
 
-                    <h4 class="alert alert-error">Vendor Note Can not be Empty</h4>
+                    <div class="alert alert-error">Vendor Note Can not be Empty</h4>
 
                 </div>
 
                 <div id="vendor-note-empty-success-{!!$order_detail->id!!}" class="hide">
 
-                    <h4 class="alert alert-success">Saved Successful</h4>
+                    <div class="alert alert-success">Saved Successful</h4>
 
                 </div>
 

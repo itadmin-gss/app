@@ -7,7 +7,7 @@
         <div id="profileValidationErrorMessage" class="">
         </div>
         <div id="profileErrorMessage" class="hide">
-            <h4 class="alert alert-error">Can not Updated Profile</h4>
+            <div class="alert alert-error">Can not Updated Profile</h4>
         </div>
 
         </div>

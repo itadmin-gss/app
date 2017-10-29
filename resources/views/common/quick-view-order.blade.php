@@ -651,16 +651,16 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
 
 <div class="box-content">
     <div id="vendor-note-empty-error-{!!$order_detail->id!!}" class="hide">
-        <h4 class="alert alert-error">Vendor Note Can not be Empty</h4>
+        <div class="alert alert-error">Vendor Note Can not be Empty</h4>
     </div>
     <div id="vendor-note-empty-success-{!!$order_detail->id!!}" class="hide">
-        <h4 class="alert alert-success">Saved Successful</h4>
+        <div class="alert alert-success">Saved Successful</h4>
     </div>
      <div id="billing-note-empty-success" class="hide">
-        <h4 class="alert alert-success">Saved Successful</h4>
+        <div class="alert alert-success">Saved Successful</h4>
                                                                 </div>
                                                                  <div id="billing-note-empty-error" class="hide">
-                                                                    <h4 class="alert alert-success">Billing Note Can not be Empty</h4>
+                                                                    <div class="alert alert-success">Billing Note Can not be Empty</h4>
                                                                 </div>
     <table class="table">
 
@@ -1014,8 +1014,8 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
                                                 <div class="well text-center"><h1>Edit Requested Service </h1></div>
 
                                                 <div class="row-fluid">
-                                                  <h4 class="alert alert-success" id="flash_modal" style="display: none;">Added Successfully</h4>
-                          <h4 class="alert alert-danger" id="additional_flash_danger" style="display: none;">
+                                                  <div class="alert alert-success" id="flash_modal" style="display: none;">Added Successfully</h4>
+                          <div class="alert alert-danger" id="additional_flash_danger" style="display: none;">
                             Please Fill All the Fields!
                           </h4>
                                                 <?php if (Auth::user()->type_id==1 || Auth::user()->type_id==4){ ?>
@@ -1211,10 +1211,10 @@ if ( $custom->customer_price != 0){ ?>
 
                                                 <tr>
                                                  <!--  <div id="vendor-additional-note-empty-error-{!!$item->id!!}" class="hide">
-                                                    <h4 class="alert alert-error">Vendor Note Can not be Empty</h4>
+                                                    <div class="alert alert-error">Vendor Note Can not be Empty</h4>
                                                   </div>
                                                   <div id="vendor-additional-note-empty-success-{!!$item->id!!}" class="hide">
-                                                    <h4 class="alert alert-success">Saved Successful</h4>
+                                                    <div class="alert alert-success">Saved Successful</h4>
                                                   </div> -->
                                                 <!--   <td colspan="2" class="center"><h2>Vendor Note:</h2>
                                                     @if($item->additional_vendors_notes != "")
@@ -1385,8 +1385,8 @@ if ( $custom->customer_price != 0){ ?>
 <div role="dialog" class="modal modelForm"  id="edit_additional_item_{!!$item->id!!}">
 <div class="imageviewPop">
     <div class="well text-center"><h1>Edit Additional Service</h1></div>
-    <h4 class="alert alert-danger" id="additional_flash_modal_dan" style="display: none;">ERROR! Please check all the fields</h4>
-    <h4 class="alert alert-success" id="additional_flash_modal" style="display: none;">Updated Successfully</h4>
+    <div class="alert alert-danger" id="additional_flash_modal_dan" style="display: none;">ERROR! Please check all the fields</h4>
+    <div class="alert alert-success" id="additional_flash_modal" style="display: none;">Updated Successfully</h4>
     <div class="row-fluid">
 
         {!!Form::label('description', 'Description')!!}
@@ -1438,8 +1438,8 @@ $total =  array_sum($total_rate);
 </div><!--/span-->
 
 </div>
-<h4 class="alert alert-success" id="additional_flash" style="display: none;">Added Successfully</h4>
-<h4 class="alert alert-danger" id="additional_flash_dan" style="display: none;">
+<div class="alert alert-success" id="additional_flash" style="display: none;">Added Successfully</h4>
+<div class="alert alert-danger" id="additional_flash_dan" style="display: none;">
   Please Fill All the Fields!
 </h4>
 <?php if (isset($order->maintenanceRequest->asset->id) && isset($order->maintenanceRequest->jobType->id)): ?>

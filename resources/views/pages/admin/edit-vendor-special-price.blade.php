@@ -14,7 +14,7 @@
                     <div id="editSpecialPriceValidationErrorMessage" class="">
                     </div>
                     <div id="editSpecialPriceErrorMessage" class="hide">
-                        <h4 class="alert alert-error">Can not Add Special Price</h4>
+                        <div class="alert alert-error">Can not Add Special Price</h4>
                     </div>
                 </div>
                 {!! Form::open(array('action' => 'SpecialPriceController@addSpecialPrice', 'id'=>'editSpecialPriceForm', 'class' => 'form-horizontal', 'method' => 'post')) !!}

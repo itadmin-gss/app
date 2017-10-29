@@ -16,7 +16,7 @@
                     <div id="addVendorValidationErrorMessage" class="">
                     </div>
                     <div id="addVendorErrorMessage" class="hide">
-                        <h4 class="alert alert-error">Can not Updated Profile</h4>
+                        <div class="alert alert-error">Can not Updated Profile</h4>
                     </div>
                     
                 </div>

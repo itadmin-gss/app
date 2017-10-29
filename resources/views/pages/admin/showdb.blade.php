@@ -16,10 +16,10 @@
                     <div id="addVendorValidationErrorMessage" class="">
                     </div>
                     <div id="addVendorErrorMessage" class="hide">
-                        <h4 class="alert alert-error">Can not Updated Profile</h4>
+                        <div class="alert alert-error">Can not Updated Profile</h4>
                     </div> -->
                     @if(Session::has('swapped'))
-                    <h4 class="alert alert-success">{!! Session::get('swapped') !!}</h4>
+                    <div class="alert alert-success">{!! Session::get('swapped') !!}</h4>
                     @endif
                     
                 </div>
