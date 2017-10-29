@@ -146,10 +146,14 @@
 
                             <td class="center">
                               <div class='action-button-group'>
-                                <a class="btn btn-success btn-xs action-button" href="view-order/{!!$order['order_id']!!}" title="View"> 
+                              <?php 
+                                $view_url = "view-order/".$order['order_id']; 
+                                $edit_url = "edit-order/".$order['order_id'];
+                              ?>
+                                <a class="btn btn-success btn-xs action-button" href="{!!URL::to($view_url)!!}" title="View"> 
                                   <i class="fa fa-search-plus" aria-hidden="true"></i>
                                 </a> 
-                                <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
+                                <a class="btn btn-info btn-xs action-button" href="{!!URL::to($edit_url)!!}" title="Edit"> 
                                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 </a>
                               </div>
