@@ -73,23 +73,22 @@ $('.work-order-table').DataTable( {
   "ajax" : baseurl + "/work-order-table",
   "columnDefs" : [
     {"render" : function(data, type, row){return data[0];},"targets" : 0}, //Order ID Column
-    {"render" : function(data, type, row){return data;}, "targets" : 1}, //Created At Column
-    {"render" : function(data, type, row){return row[0][2];}, "targets" : 2}, //Submitted By Column
-    {"render" : function(data, type, row){return row[0][1];}, "targets" : 3}, //Client Type Column
-    {"render" : function(data, type, row){return data;}, "targets" : 4}, //Customer Name Column
-    {"render" : function(data, type, row){return row[0][3];}, "targets" : 5}, //Property Address Column
-    {"render" : function(data, type, row){return row[0][4];}, "targets" : 6}, //City Column
-    {"render" : function(data, type, row){return row[0][5];}, "targets" : 7}, //State Column
-    {"render" : function(data, type, row){return row[0][6];}, "targets" : 8}, //Zip Address Column
-    {"render" : function(data, type, row){return data;}, "targets" : 9}, //Vendor Name Column
-    {"render" : function(data, type, row){return row[0][7];}, "targets" : 10}, //Job Types
-    {"render" : function(data, type, row){return row[0][9];}, "targets" : 11}, //Service Type Column
-    {"render" : function(data, type, row){return row[0][8];}, "targets" : 12}, //Due Date Column
-    {"render" : function(data, type, row){return data[1];}, "targets" : 13}, //Status Column
+    {"render" : function(data, type, row){return row[0][2];}, "targets" : 1}, //Submitted By Column
+    {"render" : function(data, type, row){return row[0][1];}, "targets" : 2}, //Client Type Column
+    {"render" : function(data, type, row){return data;}, "targets" : 3}, //Customer Name Column
+    {"render" : function(data, type, row){return row[0][3];}, "targets" : 4}, //Property Address Column
+    {"render" : function(data, type, row){return row[0][4];}, "targets" : 5}, //City Column
+    {"render" : function(data, type, row){return row[0][5];}, "targets" : 6}, //State Column
+    {"render" : function(data, type, row){return row[0][6];}, "targets" : 7}, //Zip Address Column
+    {"render" : function(data, type, row){return data;}, "targets" : 8}, //Vendor Name Column
+    {"render" : function(data, type, row){return row[0][7];}, "targets" : 9}, //Job Types
+    {"render" : function(data, type, row){return row[0][9];}, "targets" : 10}, //Service Type Column
+    {"render" : function(data, type, row){return row[0][8];}, "targets" : 11}, //Due Date Column
+    {"render" : function(data, type, row){return data[1];}, "targets" : 12}, //Status Column
     {
       "render" : function(data, type, row)
       {
-        var status = row[13][0];
+        var status = row[12][0];
         if (status == 4)
         {
           return '<td class="center"><div class="action-button-group"><a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"><i class="fa fa-search-plus" aria-hidden="true"></i></i></a><a class="btn btn-xs btn-info action-button" disabled="disabled" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></div></td>';
@@ -101,7 +100,7 @@ $('.work-order-table').DataTable( {
                     
         }
       }, 
-      "targets" : 14}, //Action Column
+      "targets" : 13}, //Action Column
     
 
   ],

@@ -17,9 +17,6 @@
                         <tr>
 
                          <th>ID #</th>
-
-                         <th>Created</th>
-
                          <th>Submitter</th>
                          <th>Client Type</th>
 

@@ -161,20 +161,11 @@ class WorkOrderController extends Controller
                 }
             ),
 
-            //Row 1 -> Created At Date
-            array(
-                'db' => 'created_at', 
-                'dt' => 1, 
-                'formatter' => function($d, $row)
-                {
-                    return date('m/d/Y h:i:s A', strtotime($d));
-                }
-            ),
 
-            // Row 4 -> Customer Details
+            // Row 3 -> Customer Details
             array(
                 'db' => 'customer_id', 
-                'dt' => 4, 
+                'dt' => 3, 
                 'formatter' => function($d, $row)
                 {
                     $customer_details = User::getUserNameArray($d);
@@ -182,10 +173,10 @@ class WorkOrderController extends Controller
                 }
             ),
 
-            // Row 9 -> Vendor Details
+            // Row 8 -> Vendor Details
             array(
                 'db' => 'vendor_id',
-                'dt' => 9,
+                'dt' => 8,
                 'formatter' => function($d, $row)
                 {
                     $vendor_details = User::getUserNameArray($d);
@@ -194,11 +185,11 @@ class WorkOrderController extends Controller
             ),
 
             //Row 11 & 12 -> Dummy Entries to grab status_class and status_text for status
-            array('db' => 'status_class', 'dt' => 12),
-            array('db' => 'status_text', 'dt' => 11),
+            array('db' => 'status_class', 'dt' => 11),
+            array('db' => 'status_text', 'dt' => 10),
             array(
                 'db' => 'status',
-                'dt' => 13,
+                'dt' => 12,
                 'formatter' => function($d, $row)
                 {
                     if ($d == 4)
@@ -208,7 +199,7 @@ class WorkOrderController extends Controller
                     else
                     {
                         
-                        switch ($row[4]){
+                        switch ($row[3]){
                             case "black":
                                 $status_class = "default";
                             break;
@@ -228,7 +219,8 @@ class WorkOrderController extends Controller
                             default:
                                 $status_class = "default";
                         }
-                        return [$d, "<td class='center'><span class='badge badge-summary badge-".$status_class."'>".$row[5]."</span></td>"];
+
+                        return [$d, "<td class='center'><span class='badge badge-summary badge-".$status_class."'>".$row[4]."</span></td>"];
                     }
                 }
             )
