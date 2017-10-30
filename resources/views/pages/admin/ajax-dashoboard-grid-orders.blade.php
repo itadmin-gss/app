@@ -25,8 +25,6 @@
 
                          <th>ID #</th>
 
-                         <th>Created</th>
-
                          <th>Submitter</th>
 
                          <th>Client Type</th>
@@ -67,8 +65,6 @@
                       <tr>
 
                         <td>{!! $order['order_id']!!}</td>
-                        <td >{!! $order['order_date']!!}</td>
-
                         <td >{!! $order['submited_by']!!}</td>
                         <td >{!! $order['customer_type']!!}</td>
                         
@@ -169,7 +165,6 @@
                           <tr>
 
                             <td >{!! $index !!}</td>
-                            <td >{!! $order['order_date']!!}</td>
 
                             <td >{!! $order['submited_by']!!}</td>
                             <td >{!! $order['customer_type']!!}</td>

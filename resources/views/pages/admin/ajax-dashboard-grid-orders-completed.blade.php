@@ -14,8 +14,6 @@
                          <th>Submitted</th>
                          <th>Customer</th>
                          <th>Client Type</th>
-                         <th>Property ID</th>
-                         <th>Loan</th>
                          <th>Property Address</th>
                          <th>City</th>
                          <th>State</th>
@@ -52,10 +50,6 @@
                         <td >{!! $order['customer_name']!!}</td>
 
                         <td >{!! $order['customer_type']!!}</td>
-                        
-                        <td class="center">{!!$order['asset_number']!!}</td>
-
-                        <td class="center">{!!$order['loan_numbers']!!}</td>
 
                         <td class="center">
                           {!!$order['property_address']!!}
@@ -144,8 +138,10 @@
 
                         <td class="center">
        
-                  
-                          <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
+                              <?php 
+                                $edit_url = "edit-order/".$order['order_id'];
+                              ?>
+                          <a class="btn btn-info btn-xs action-button" href="{!!URL::to($edit_url) !!}" title="Edit"> 
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                           </a>
                                 
@@ -171,10 +167,6 @@
                         <td >{!! $order['customer_name']!!}</td>
 
                         <td >{!! $order['customer_type']!!}</td>
-                        
-                        <td class="center">{!!$order['asset_number']!!}</td>
-
-                        <td class="center">{!!$order['loan_numbers']!!}</td>
 
                         <td class="center">
                           {!!$order['property_address']!!}
@@ -265,7 +257,10 @@
                         <td class="center">
        
                   
-                          <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
+                          <?php 
+                            $edit_url = "edit-order/".$order['order_id'];
+                          ?>
+                          <a class="btn btn-info btn-xs action-button" href="{!!URL::to($edit_url) !!}" title="Edit"> 
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                           </a>
                                 
@@ -289,7 +284,21 @@
                     </tbody>
 
                   </table>
-                        
+
+                  <div class='modal fade' id="quick-view-modal">
+                    <div class='modal-dialog' role='dialog'>
+                      <div class='modal-content'>
+                        <div class='modal-header'>
+                          <span class='pull-right'>
+                            <a href="javascript:void(0)" data-dismiss="modal">
+                            &times;
+                            </a>
+                          </span>
+                        </div>
+                        <div class='modal-body'></div>
+                      </div>
+                    </div>
+                  </div>    
                    
 <script>
 

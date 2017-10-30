@@ -9,7 +9,7 @@
             max-height: 500px;
             overflow: auto;
         }
-        #recurringpopup h2 {
+        #recurringpopup h5 {
             font-weight: 500;
         }
     </style>
@@ -35,7 +35,7 @@ if($order->maintenanceRequest->asset->property_dead_status==1){?>
         <!-- <p><strong>Good Scents Services, LP </strong> 118 National Dr <br>Rockwall TX 75032</p> -->
     </div>
 
-    <h2>Property Address:  </h2> <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <br>
+    <h5>Property Address:  </h5> <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <br>
     <div id="printdata1">
     </div>
 
@@ -49,7 +49,7 @@ if(Auth::user()->type_id==1 || Auth::user()->type_id==4)
 {
     ?>
     <div id="vendorChangeMsg" style="display:none;" class="alert alert-success"></div>
-    Vendor: <select name="vendorsAssigned" id="vendorsAssigned" >
+    Vendor: <select name="vendorsAssigned" class='chosen' >
     <?php
 
     foreach ($vendorsDATA as $key => $value) {
@@ -136,13 +136,13 @@ if(Auth::user()->type_id==3)
         <table class="table table-bordered customeTable">
             <tbody>
                 <tr>
-                    <td class="center span3"><h2><span>Property #:</span>{!!$order->maintenanceRequest->asset->asset_number!!}</h2></td>
-                    <td class="center span3"><h2><span>Order #:</span>{!!$order->id!!}</h2></td>
-                    <td class="center span3"><h2><span>Recurring:</span> No</h2></td>
-                    <td class="center span3"><h2><span>Status:</span> @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</h2></td>
+                    <td class="center span3"><h5><span>Property #:</span>{!!$order->maintenanceRequest->asset->asset_number!!}</h5></td>
+                    <td class="center span3"><h5><span>Order #:</span>{!!$order->id!!}</h5></td>
+                    <td class="center span3"><h5><span>Recurring:</span> No</h5></td>
+                    <td class="center span3"><h5><span>Status:</span> @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</h5></td>
                     <td class="center span3">
 
-                        <h2>
+                        <h5>
                             @foreach($order_details as $order_detail)
                             <span style="font-size: 13px !important;font-weight: normal;">@if($order_detail->requestedService->service->title) {!!$order_detail->requestedService->service->title!!}  @endif <?php if(isset($order_detail->requestedService->due_date)&&$order_detail->requestedService->due_date!="") { echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));} else { echo 'Due Date: Not Assigned'; } ?></span><span id="changeButton" style="display:none;"><input type="text" class="datepicker" name="duedatechange" id="duedatechange" /><button onclick="SaveDueDate('{!!$order_detail->requestedService->id!!}')">Save</button></span><?php if(Auth::user()->type_id==1||Auth::user()->type_id==4) { ?><button class="btn" onclick="changeDueDate('{!!$order->id!!}')">Update</button><?php }?>
 
@@ -150,7 +150,7 @@ if(Auth::user()->type_id==3)
 
 
 
-                        </h2>
+                        </h5>
                     </td>
 
                 </tr>
@@ -164,35 +164,35 @@ if( Auth::user()->type_id != 3 ) {
     <div class="row-fluid">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2>Customer Details</h2>
+                <h5>Customer Details</h5>
             </div>
             <div class="box-content">
                 <table class="table">
                     <tbody>
                         <tr>
                         @if(empty($order->maintenanceRequest->user->first_name))
-                            <td class="center span3"><h2>Customer First Name: <span ></span></h2></td>
+                            <td class="center span3"><h5>Customer First Name: <span ></span></h5></td>
                         @else
-                            <td class="center span3"><h2>Customer First Name: <span >{!!$order->maintenanceRequest->user->first_name!!}</span></h2></td>
+                            <td class="center span3"><h5>Customer First Name: <span >{!!$order->maintenanceRequest->user->first_name!!}</span></h5></td>
                         @endif
                         @if(empty($order->maintenanceRequest->user->last_name))
-                            <td class="center span3"><h2>Customer First Name: <span > </span></h2></td>
+                            <td class="center span3"><h5>Customer First Name: <span > </span></h5></td>
                         @else
-                            <td class="center span3"><h2>Customer Last Name: <span >{!!$order->maintenanceRequest->user->last_name!!}</span></h2></td>
+                            <td class="center span3"><h5>Customer Last Name: <span >{!!$order->maintenanceRequest->user->last_name!!}</span></h5></td>
                         @endif
 
                         </tr>
                         @if(Auth::user()->type_id!=3)
                         <tr>
                           @if(empty($order->maintenanceRequest->user->company))
-                            <td class="center span3"><h2>Company: <span ></span></h2></td>
+                            <td class="center span3"><h5>Company: <span ></span></h5></td>
                           @else
-                            <td class="center span3"><h2>Company: <span >{!!$order->maintenanceRequest->user->company!!}</span></h2></td>
+                            <td class="center span3"><h5>Company: <span >{!!$order->maintenanceRequest->user->company!!}</span></h5></td>
                           @endif
                           @if(empty($order->maintenanceRequest->user->email))
-                         <td class="center span3"><h2>Email: <span ></span></h2></td>
+                         <td class="center span3"><h5>Email: <span ></span></h5></td>
                           @else
-                            <td class="center span3"><h2>Email: <span> {!!$order->maintenanceRequest->user->email!!}</span></h2></td>
+                            <td class="center span3"><h5>Email: <span> {!!$order->maintenanceRequest->user->email!!}</span></h5></td>
 
                           @endif
                           </tr>
@@ -208,29 +208,29 @@ if( Auth::user()->type_id != 3 ) {
     <div class="row-fluid">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2>Property Details</h2>
+                <h5>Property Details</h5>
             </div>
             <div class="box-content">
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td class="center span3"><h2>Property Address: <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h2></td>
+                            <td class="center span3"><h5>Property Address: <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h5></td>
                             <?php if (isset($order->maintenanceRequest->asset->city->name)): ?>
-                              <td class="center span3"><h2>City: <span >{!!$order->maintenanceRequest->asset->city->name!!} </span></h2></td>
+                              <td class="center span3"><h5>City: <span >{!!$order->maintenanceRequest->asset->city->name!!} </span></h5></td>
                             <?php else: ?>
-                              <td class="center span3"><h2>City: <span ></span></h2></td>
+                              <td class="center span3"><h5>City: <span ></span></h5></td>
                             <?php endif ?>
 
 
                         </tr>
                         <tr>
-                          <td class="center span3"><h2>State: <span >{!!$order->maintenanceRequest->asset->state->name!!}</span></h2></td>
-                          <td class="center span3"><h2>Zip: <span > {!!$order->maintenanceRequest->asset->zip!!}</span> </h2></td>
+                          <td class="center span3"><h5>State: <span >{!!$order->maintenanceRequest->asset->state->name!!}</span></h5></td>
+                          <td class="center span3"><h5>Zip: <span > {!!$order->maintenanceRequest->asset->zip!!}</span> </h5></td>
 
                       </tr>
                       <tr>
-                        <td class="center span3"><h2>Lockbox: <span >{!!$order->maintenanceRequest->asset->lock_box!!}</span></h2></td>
-                        <td class="center span3"><h2>Gate / Access Code: <span >{!!$order->maintenanceRequest->asset->access_code!!}</span></h2></td>
+                        <td class="center span3"><h5>Lockbox: <span >{!!$order->maintenanceRequest->asset->lock_box!!}</span></h5></td>
+                        <td class="center span3"><h5>Gate / Access Code: <span >{!!$order->maintenanceRequest->asset->access_code!!}</span></h5></td>
                     </tr>
 
                 </tbody>
@@ -258,12 +258,12 @@ if( Auth::user()->type_id != 3 ) {
     <div class="row-fluid">
         <div class="box span12" id="comehere">
             <div class="box-header" data-original-title>
-                <h2>
+                <h5>
                 <?php if(Auth::user()->type_id==1 || Auth::user()->type_id==4){ ?>
                   <button data-toggle="modal" data-target="#edit_request_service" data-backdrop="static" ><i class="halflings-icon edit" ></i> Edit Service</button>
                 <?php }elseif($order_detail->requestedService->service->vendor_edit == 1){ ?>
                   <button data-toggle="modal" data-target="#edit_request_service" data-backdrop="static" ><i class="halflings-icon edit" ></i> Edit Service</button>
-                <?php } else{ ?><i class="halflings-icon edit" ></i> <?php } ?><span class="break"></span>{!!$order_detail->requestedService->service->title!!}</h2>
+                <?php } else{ ?><i class="halflings-icon edit" ></i> <?php } ?><span class="break"></span>{!!$order_detail->requestedService->service->title!!}</h5>
                 <div class="box-icon">
                     <?php
                     if($order_detail->requestedService->recurring==1)
@@ -648,25 +648,25 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
         if( Auth::user()->type_id == 1 || Auth::user()->type_id == 4) {
             ?>               <tr>
             @if(isset($custom->customers_notes))
-            <td colspan="2" class="center"><h2>Customer Note:</h2>{!!$custom->customers_notes!!}   </td>
+            <td colspan="2" class="center"><h5>Customer Note:</h5>{!!$custom->customers_notes!!}   </td>
             @else
-            <td colspan="2" class="center"><h2>Customer Note:</h2>{!!$order_detail->requestedService->customer_note!!}   </td>
+            <td colspan="2" class="center"><h5>Customer Note:</h5>{!!$order_detail->requestedService->customer_note!!}   </td>
             @endif
         </tr>
         <tr>
            @if(isset($custom->notes_for_vendors))
-           <td colspan="2" class="center"><h2>Note for Vendor:</h2>{!!$custom->notes_for_vendors!!}</td>
+           <td colspan="2" class="center"><h5>Note for Vendor:</h5>{!!$custom->notes_for_vendors!!}</td>
 
            @else
-           <td colspan="2" class="center"><h2>Note for Vendor:</h2>{!!$order_detail->requestedService->public_notes!!}
+           <td colspan="2" class="center"><h5>Note for Vendor:</h5>{!!$order_detail->requestedService->public_notes!!}
 
            </td>  @endif
        </tr>
        <tr>
         @if(isset($custom->vendors_notes))
-        <td colspan="2" class="center"><h2>Vendor Note:</h2>{!!$custom->vendors_notes!!}</td>
+        <td colspan="2" class="center"><h5>Vendor Note:</h5>{!!$custom->vendors_notes!!}</td>
         @else
-        <td colspan="2" class="center"><h2>Vendor Note:</h2>{!!$order_detail->requestedService->vendor_note!!}
+        <td colspan="2" class="center"><h5>Vendor Note:</h5>{!!$order_detail->requestedService->vendor_note!!}
         </td>  @endif
     </tr>
     <?php }elseif( Auth::user()->type_id == 3 ) {
@@ -674,7 +674,7 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
 
 
      <tr>
-        <td colspan="2" class="center"><h2>Note for Vendor:</h2>
+        <td colspan="2" class="center"><h5>Note for Vendor:</h5>
 
             @if(isset($custom->notes_for_vendors))
             <span>{!!$custom->notes_for_vendors!!}</span >
@@ -725,7 +725,7 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
                   if( Auth::user()->type_id == 3 ) {
                     ?>
                     <tr>
-                        <td colspan="2" class="center"><h2>Vendor Note:</h2>
+                        <td colspan="2" class="center"><h5>Vendor Note:</h5>
                             @if($order_detail->requestedService->vendor_note)
                             <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!$order_detail->requestedService->vendor_note!!}<br><button class="btn btn-primary" id="edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})"> Edit Note </button> </span >
                                 <span class="hide" id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('vendor_note', $order_detail->requestedService->vendor_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
@@ -739,7 +739,7 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
 
                                 </tr>
                                   <td colspan="2" class="center">
-                                  <h2>Admin Note:</h2>
+                                  <h5>Admin Note:</h5>
                                   @if($order_detail->requestedService->admin_note)
                                                             <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!$order_detail->requestedService->admin_note!!}<br><!-- <button class="btn btn-primary" id="edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})"> Edit Note </button> --> </span >
                                                                 <span class="hide" id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('admin_note', $order_detail->requestedService->admin_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
@@ -755,7 +755,7 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
                                     ?>
 
                                     <tr>
-                                        <td colspan="2" class="center"><h2>Customers Note:</h2>
+                                        <td colspan="2" class="center"><h5>Customers Note:</h5>
                                             @if($order_detail->requestedService->customer_note)
                                             <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!$order_detail->requestedService->custumer_note!!}<br><button class="btn btn-primary" id="edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})"> Edit Note </button> </span >
                                                 <span class="hide" id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('custumer_note', $order_detail->requestedService->customer_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
@@ -773,7 +773,7 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
                                                     ?>
 
                                                     <tr>
-                                                        <td colspan="2" class="center"><h2>Admin Note:</h2>
+                                                        <td colspan="2" class="center"><h5>Admin Note:</h5>
                                                             @if($order_detail->requestedService->admin_note)
                                                             <span id="show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!$order_detail->requestedService->admin_note!!}<br><button class="btn btn-primary" id="edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}" onclick="editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})"> Edit Note </button> </span >
                                                                 <span class="hide" id="textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}">{!!Form::textarea('admin_note', $order_detail->requestedService->admin_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>
@@ -794,7 +794,7 @@ Vendor Price:${!!$order_detail->requestedService->service->vendor_price*$order_d
                                                                 <tr>
 
 
-                                                        <td colspan="2" class="center"><h2>Billing Note:</h2>
+                                                        <td colspan="2" class="center"><h5>Billing Note:</h5>
                                                             @if($order->billing_note)
                                                                 <span id="show-billing-note-{!!$order->id!!}">{!!$order->billing_note!!}<br>
                                                                   <button class="btn btn-primary" id="edit-billing-note-button-{!!$order->id!!}" onclick="editBillingNoteButton({!!$order->id!!})"> Edit Note </button>
@@ -1144,10 +1144,10 @@ if ( $custom->customer_price != 0){ ?>
 
 
                                                 <div class="box-header" data-original-title="">
-                                                    <h2>
+                                                    <h5>
                                                     <?php if (Auth::user()->type_id==1 || Auth::user()->type_id==3 || Auth::user()->type_id==4){ ?>
                                                       <button data-toggle="modal" data-target="#edit_additional_item_{!!$item->id!!}" data-backdrop="static" ><i class="halflings-icon edit" ></i> Edit Service</button>
-                                                    <?php }else{ ?><i class="halflings-icon edit" ></i> <?php } ?><span class="break"></span>{!!$item->title!!}</h2>
+                                                    <?php }else{ ?><i class="halflings-icon edit" ></i> <?php } ?><span class="break"></span>{!!$item->title!!}</h5>
                                                     <div class="box-icon">
                                                       <?php if (Auth::user()->type_id==1 || Auth::user()->type_id==2){ ?>
                                                         @if(isset($item->customer_price))
@@ -1199,7 +1199,7 @@ if ( $custom->customer_price != 0){ ?>
                                                   <div id="vendor-additional-note-empty-success-{!!$item->id!!}" class="hide">
                                                     <div class="alert alert-success">Saved Successful</h4>
                                                   </div> -->
-                                                <!--   <td colspan="2" class="center"><h2>Vendor Note:</h2>
+                                                <!--   <td colspan="2" class="center"><h5>Vendor Note:</h5>
                                                     @if($item->additional_vendors_notes != "")
                                                     <span id="show-additional-vendor-note-{!!$item->id!!}">{!!$item->additional_vendors_notes!!}<br><button class="btn btn-primary" id="edit-additional-vendor-note-button-{!!$item->id!!}" onclick="editAdditionalVendorNoteButton({!!$item->id!!})"> Edit Note </button> </span >
                                                       <span style="display:none;" id="textarea-additional-vendor-note-{!!$item->id!!}">{!!Form::textarea('vendor_note', $item->additional_vendors_notes ,array('class'=>'span','id'=>'vendor-additional-note-'.$item->id))!!}</span></td> -->
@@ -1219,7 +1219,7 @@ if ( $custom->customer_price != 0){ ?>
 
                                                   @else
                                                   <tr>
-                                                   <!--  <td colspan="2" class="center"><h2>Vendor Note:</h2>{!!$item->additional_vendors_notes!!}</td>  -->
+                                                   <!--  <td colspan="2" class="center"><h5>Vendor Note:</h5>{!!$item->additional_vendors_notes!!}</td>  -->
                                                   </tr>
                                                   @endif
 
@@ -1764,12 +1764,12 @@ $total =  array_sum($total_rate);
 
 if(Auth::user()->type_id==3) {?>
 <?php $totalPriceVendorFinal =$totalPriceVendor+$totalPrice+$total; ?>
-<div style="float:right;"><h2>Total Price: ${!!$totalPriceVendorFinal!!} </h2>
+<div style="float:right;"><h5>Total Price: ${!!$totalPriceVendorFinal!!} </h5>
 </div>
 
 <?php }elseif (Auth::user()->type_id==2) { ?>
 <?php $FinalTotalCustomer =$totalPriceCustomerFinal+$totalPrice; ?>
-<div style="float:right;"><h2>Total Price: ${!!$FinalTotalCustomer!!} </h2>
+<div style="float:right;"><h5>Total Price: ${!!$FinalTotalCustomer!!} </h5>
 </div>
 <?php } else { ?>
 
@@ -1780,7 +1780,7 @@ if(Auth::user()->type_id==3) {?>
 
 
 
-  <h2>Total Customer Price: ${!!$FinalTotalCustomer!!} Total Vendor Price: ${!!$totalPriceVendorFinal!!} </h2>
+  <h5>Total Customer Price: ${!!$FinalTotalCustomer!!} Total Vendor Price: ${!!$totalPriceVendorFinal!!} </h5>
 </div>
 
 <?php } ?>
@@ -2031,7 +2031,7 @@ function log(str){
 <div class="row-fluid">
     <div class="box span12">
         <div class="box-header" data-original-title>
-            <h2><i class="halflings-icon edit"></i><span class="break"></span>Order Status</h2>
+            <h5><i class="halflings-icon edit"></i><span class="break"></span>Order Status</h5>
         </div>
         <div class="box-content frZindex">
 
@@ -2141,7 +2141,7 @@ function log(str){
 <div style="padding: 10px;max-height: 500px;overflow: auto;" class="modal hide fade modelForm"  id="recurringpopup">
     <div class="row-fluid dragImage">
         <div>
-            <h2>Recurring Reminder</h2>
+            <h5>Recurring Reminder</h5>
             This is recurring service</div>
             <br/>
             <button class="btn btn-large btn-success" data-dismiss="modal"> Close</button>

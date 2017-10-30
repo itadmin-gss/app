@@ -31,6 +31,9 @@
   margin-top:40px;
 }
 
+#quick-view-modal .modal-dialog{
+  max-width:1200px;
+}
 #edit-asset-form input,
 #edit-asset-form select,
 #add-asset-form input,

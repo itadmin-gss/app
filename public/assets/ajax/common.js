@@ -23,6 +23,9 @@ function modalClose(){
       console.log("Downloading...");
   }
   function showQuickWorkOrderPage(order_id){
+    if ($("#quick-view-modal").hasClass('show')){
+        $("#quick-view-modal").modal("toggle");
+    }
      var over = '<div id="overlay">' +
           '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
           '</div>';
@@ -34,19 +37,15 @@ function modalClose(){
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
         success: function(data){
-          $("#overlay").remove();
-           // alert(data);
-  
-          // $('#popup1').show();
-          $(function() {
-          $("body").on(".click", ".datepicker", function(){
-            $(this).datepicker();
-            });
-          });
-          // $('.datepicker').datepicker();
-          $('.popUpOvrlay').fadeIn("slow");
-          $('#popup1 .popup').html(data).addClass("zoomIn");
-          $("#popup1 .popup").removeClass("zoomOut");
+            $("#overlay").remove();
+
+        //   $(function() {
+        //   $("body").on(".click", ".datepicker", function(){
+        //     $(this).datepicker();
+        //     });
+        //   });
+            $("#quick-view-modal .modal-body").html(data);
+            $("#quick-view-modal").modal('toggle');
          
       } 
   });
