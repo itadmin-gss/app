@@ -20,7 +20,7 @@
                          <th>Submitter</th>
                          <th>Client Type</th>
 
-                         <th>Customer Name</th>
+                         <th>Customer</th>
 
                          <th>Property Address</th>
 
@@ -30,9 +30,7 @@
 
                          <th>Zip</th>
 
-                         <th>Vendor Name</th>
-
-                         <th>Job Types</th>
+                         <th>Vendor Name @ Vendor Company</th>
 
                          <th>Service Type</th>
 

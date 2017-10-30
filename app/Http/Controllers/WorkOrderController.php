@@ -185,11 +185,11 @@ class WorkOrderController extends Controller
             ),
 
             //Row 11 & 12 -> Dummy Entries to grab status_class and status_text for status
-            array('db' => 'status_class', 'dt' => 11),
-            array('db' => 'status_text', 'dt' => 10),
+            array('db' => 'status_class', 'dt' => 10),
+            array('db' => 'status_text', 'dt' => 9),
             array(
                 'db' => 'status',
-                'dt' => 12,
+                'dt' => 11,
                 'formatter' => function($d, $row)
                 {
                     if ($d == 4)

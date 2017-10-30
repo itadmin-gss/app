@@ -55,30 +55,17 @@
             <tr>
 
               <th>ID #</th>
-
-              <th>Requested</th>
-              <th>Client Type</th>
-
               <th>Submitter</th>
-
+              <th>Client Type</th>
               <th>Customer</th>
-
               <th>Property Address</th>
-
               <th>City</th>
-
               <th>State</th>
-
               <th>Zip</th>
-
-              <th>Job Types</th>
-
-              <th>Services Type</th>
-
+              <th>Service(s)</th>
+              <th>Requested</th>
               <th>Due</th>
-
               <th>Status</th>
-
               <th>Action</th>
 
 
@@ -98,11 +85,8 @@
             
 
             <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y',strtotime( $rm->created_at )) !!}<br>{!!date('h:i:s A', strtotime($rm->created_at )) !!}</td>
-
-                      <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title)) {!!  $rm->asset->customerType->title !!} @endif</td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->first_name !!} {!! substr($rm->user2->last_name,0,1)."." !!} @endif</td>
-
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title)) {!!  $rm->asset->customerType->title !!} @endif</td>
              <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user->first_name)) {!! $rm->user->first_name !!} @endif   @if(isset($rm->user->last_name)) {!! $rm->user->last_name !!}@endif</td>
 
 
@@ -160,13 +144,10 @@ $due_date="";
 
             }
             ?>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-            @if(isset($rm->jobType->id))
-                {!!$rm->jobType->title!!}
 
-            @endif
-            </td>
   <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
+             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y',strtotime( $rm->created_at )) !!}<br>{!!date('h:i:s A', strtotime($rm->created_at )) !!}</td>
+
    <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $due_date !!} </td>
 
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>

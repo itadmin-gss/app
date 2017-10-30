@@ -49,7 +49,7 @@
 
               <th>Submitter</th>
               <th>Client Type</th>
-              <th>Customer Name</th>
+              <th>Customer</th>
               <th>Property Address</th>
 
               <th>City</th>
@@ -58,9 +58,8 @@
 
               <th>Zip</th>
 
-              <th>Job Type</th>
 
-              <th>Services Type</th>
+              <th>Service(s)</th>
 
               <th>Due</th>
 
@@ -156,12 +155,7 @@
 
 
            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->asset->zip)) {!!  $rm->asset->zip !!} @endif</td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-            @if(isset($rm->jobType->id))
-                {!!$rm->jobType->title!!}
-              @else
-              {!!" "!!}
-            @endif </td>
+
 
 
 
@@ -397,12 +391,7 @@ $due_date="";
            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->state->name !!}</td>
 
            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->zip !!}</td>
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-            @if(isset($rm->jobType->id))
-                {!!$rm->jobType->title!!}
-              @else
-              {!!" "!!}
-            @endif </td>
+
            <?php
 
 $servicedate="";

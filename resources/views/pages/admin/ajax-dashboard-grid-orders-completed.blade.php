@@ -11,9 +11,11 @@
                         <tr>
                           
                          <th>ID #</th>
-                         <th>Submitted</th>
-                         <th>Customer</th>
+                         <th>Submitter</th>
                          <th>Client Type</th>
+                         <th>Property ID</th>
+                         <th>Loan ID</th>
+                         <th>Customer</th>
                          <th>Property Address</th>
                          <th>City</th>
                          <th>State</th>
@@ -45,11 +47,21 @@
 
                         <td >{!! $order['order_id']!!}</td>
 
-                        <td >{!! $order['updated_at']!!}</td>
+                        <td >{!! $order['submited_by']!!}</td>
+                        <td >{!! $order['customer_type']!!}</td>
+                        <td>
+                        <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Property ID: {!! $order['asset_number'] !!}">
+                          View
+                        </a>
+                        </td>
+                        <td>
+                        <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Loan ID: {!! $order['loan_numbers'] !!}">
+                          View
+                        </a>
+                        </td>
 
                         <td >{!! $order['customer_name']!!}</td>
 
-                        <td >{!! $order['customer_type']!!}</td>
 
                         <td class="center">
                           {!!$order['property_address']!!}
@@ -111,7 +123,18 @@
                         
                         <td class="center">{!! $order['vendor_price'] !!}</td>
                         <td class="center">{!! $order['customer_price'] !!}</td>
-                         <td class="center">{!! $order['billing_note'] !!}</td>
+                         <td class="center">
+
+                    
+                          <?php
+                            if (strlen($order['billing_note']) > 20)
+                            {
+                              echo "<span style='width:87px !important;opacity:1 !important;' class='tooltip' data-toggle='tooltip' data-placement='top' title='".$order['billing_note']."'>".substr($order['billing_note'],0,19)."...</span>";
+                            } else {
+                              echo $order['billing_note'];
+                            }
+                          ?>
+                         </td>
 
 
 
@@ -162,11 +185,20 @@
                       <tr>
 
                         <td >{!! $index!!}</td>
-                        <td >{!! $order['updated_at']!!}</td>
-
+                        <td >{!! $order['submited_by']!!}</td>
+                        <td >{!! $order['customer_type']!!}</td>
+                        <td>
+                        <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Property ID: {!! $order['asset_number'] !!}">
+                          View
+                        </a>
+                        </td>
+                        <td>
+                        <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Loan ID: {!! $order['loan_numbers'] !!}">
+                          View
+                        </a>
+                        </td>
                         <td >{!! $order['customer_name']!!}</td>
 
-                        <td >{!! $order['customer_type']!!}</td>
 
                         <td class="center">
                           {!!$order['property_address']!!}
@@ -233,7 +265,18 @@
                         <td class="center">{!! $addl_itemz_rate[$index] !!}</td>
                         <td class="center">{!! $addl_itemz_customerPrice[$index] !!}</td>
 
-                          <td class="center">{!! $order['billing_note'] !!}</td>
+                         <td class="center">
+
+                    
+                          <?php
+                            if (strlen($order['billing_note']) > 20)
+                            {
+                              echo "<span style='width:87px !important;opacity:1 !important;' class='tooltip' data-toggle='tooltip' data-placement='top' title='".$order['billing_note']."'>".substr($order['billing_note'],0,19)."...</span>";
+                            } else {
+                              echo $order['billing_note'];
+                            }
+                          ?>
+                         </td>
 
 
 

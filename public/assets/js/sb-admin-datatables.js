@@ -81,14 +81,13 @@ $('.work-order-table').DataTable( {
     {"render" : function(data, type, row){return row[0][5];}, "targets" : 6}, //State Column
     {"render" : function(data, type, row){return row[0][6];}, "targets" : 7}, //Zip Address Column
     {"render" : function(data, type, row){return data;}, "targets" : 8}, //Vendor Name Column
-    {"render" : function(data, type, row){return row[0][7];}, "targets" : 9}, //Job Types
-    {"render" : function(data, type, row){return row[0][9];}, "targets" : 10}, //Service Type Column
-    {"render" : function(data, type, row){return row[0][8];}, "targets" : 11}, //Due Date Column
-    {"render" : function(data, type, row){return data[1];}, "targets" : 12}, //Status Column
+    {"render" : function(data, type, row){return row[0][9];}, "targets" : 9}, //Service Type Column
+    {"render" : function(data, type, row){return row[0][8];}, "targets" : 10}, //Due Date Column
+    {"render" : function(data, type, row){return data[1];}, "targets" : 11}, //Status Column
     {
       "render" : function(data, type, row)
       {
-        var status = row[12][0];
+        var status = row[11][0];
         if (status == 4)
         {
           return '<td class="center"><div class="action-button-group"><a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"><i class="fa fa-search-plus" aria-hidden="true"></i></i></a><a class="btn btn-xs btn-info action-button" disabled="disabled" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></div></td>';
@@ -100,7 +99,7 @@ $('.work-order-table').DataTable( {
                     
         }
       }, 
-      "targets" : 13}, //Action Column
+      "targets" : 12}, //Action Column
     
 
   ],

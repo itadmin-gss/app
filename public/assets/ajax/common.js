@@ -3122,6 +3122,7 @@ function modalClose(){
   
             $('#datatabledashboard').html(response);
             $('#overlay').remove();
+            
         }
     });
   }
@@ -3146,6 +3147,8 @@ function modalClose(){
   
             $('#datatabledashboard').html(response);
             document.getElementById('overlay').remove();
+            $('.tooltip').tooltip();
+            
         }
     });
   }

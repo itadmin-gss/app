@@ -28,7 +28,7 @@
                     <div id="delete-error" class="hide">
                         <div class="alert alert-error">Warning! Access Denied</h4>
                     </div>  --}}
-                    <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                    <table class="table table-striped table-bordered table-sm datatable">
                         <!--<label> Select Date Range </label>
                         <div style="display: inline-block; background: none repeat scroll 0% 0% rgb(255, 255, 255); cursor: pointer; padding: 5px 10px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px;" class="btn" id="reportrange2"> <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>August 3, 2014 - September 1, 2014</span> <b class="caret"></b> </div>-->
                         <thead>
@@ -57,9 +57,6 @@
                                     </div>
                                 </td>
                                 <td class="center">
-                                    <a class="btn action-button btn-info" href="edit-access-level/{!! $userRole->id !!}" title="Edit"> 
-                                        <i class="fa fa-pencil-square-o"></i> 
-                                    </a> 
                                     <a class="btn action-button btn-danger"  onclick="modalButtonOnClick({!!$userRole->id!!},'{!!$db_table!!}','access_level')" data-confirm="Are you sure you want to delete?" title="Delete"> 
                                         <i class="fa fa-trash"></i>
                                     </a>
