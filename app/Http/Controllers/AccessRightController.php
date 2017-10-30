@@ -30,6 +30,8 @@ class AccessRightController extends Controller
     public function index()
     {
         $access_roles = UserRole::listRoles();
+        $role_obj = new UserRole();
+        $db_table = $role_obj->getTable();
         $role_functions = RoleFunction::listRoleFunctions();
         $specific_role_functions = RoleFunction::all();
         $access_functions = AccessFunction::all();
@@ -44,10 +46,11 @@ class AccessRightController extends Controller
             $data[$roles->access_function_id][$roles->role_function] = $results;
         }
 
-        return view('pages.admin.access_rights')
+        return view('pages.admin.list_permissions')
             ->with([
                     'role_id' => 1,
                     'userRoles' => $access_roles,
+                    'db_table' => $db_table,                    
                     'roleFunctions' => $data]);
     }
 

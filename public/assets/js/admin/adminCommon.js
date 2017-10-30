@@ -43,7 +43,7 @@ jQuery(document).ready(function($){
 	 * @return Updates the status html.
 	 */
 
-	 $('.access-roles').click(function(){
+	 $(document).on('click','.access-roles',function(){
 		var role_radio_button = $(this);
 		var role_id = $(this).attr('role-id');
 		$.ajax({
@@ -54,12 +54,12 @@ jQuery(document).ready(function($){
 					  },
 					data : {role_id : role_id},
 					beforeSend : function(data){
-						$('.span8 .box-content').html('');
+						$('.permission-table-contents').html('');
 						 $("#loader").show();
 					},
 					success : function(data){
 						 setTimeout(function() {$("#loader").hide();
-						 $('.span8 .box-content').html(data);}, 2000);
+						 $('.permission-table-contents').html(data);}, 2000);
 					}
 				},"json");
 	});
@@ -100,7 +100,7 @@ jQuery(document).ready(function($){
 
 
 	// hack for making the Bootstrap checkboxes work uploaded via ajax.
-	$(document).on('click','.checker .switch-input',function(){
+	$(document).on('click','.switch-input',function(){
 		console.log(this);
 		var checked = $(this).parents('span:first').hasClass('checked');
 		var classs = $(this).parents('span:first').attr('class');

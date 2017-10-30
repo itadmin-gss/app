@@ -802,6 +802,9 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
   margin-right:4px !important;
   margin-left:4px !important;
 }
+.small-left-padding{
+  padding-left:20px !important;
+}
 .small-left-margin{
   margin-left:13px !important;
 }

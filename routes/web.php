@@ -166,7 +166,8 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     Route::get('login-as/{user_id}', ['uses' => 'UserController@doLoginAsUser']);
 
     //Access Rights Controller
-    Route::get('access-rights', ['uses' => 'AccessRightController@index']);
+    Route::get('list-permissions', 'AccessRightController@index');    
+    // Route::get('access-rights', ['uses' => 'AccessRightController@index']);
 
     //Asset Controller
     Route::match(['GET', 'POST'], 'add-asset', ['uses' => 'AssetController@addAdminAsset']);

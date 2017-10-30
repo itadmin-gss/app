@@ -69,7 +69,7 @@
         <!-- Permissions Link -->
         @if($access_roles['Access Level']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Permissions">
-          <a class="nav-link" href="javascript:void(0)">
+          <a class="nav-link" href="{!!URL::to('list-permissions')!!}">
             <i class="fa fa-fw fa-2x fa-key"></i>
             <p class="nav-link-text">Permissions</p>
           </a>
