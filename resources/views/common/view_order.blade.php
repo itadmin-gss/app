@@ -28,7 +28,7 @@
 
 <?php }?>
 <?php }?>
-    <h1 class="text-center">Work Order</h1>
+    <h4 class="text-center">Work Order</h1>
 
 
 
@@ -42,23 +42,23 @@
 
                     <tr>
 
-                        <td class="center span3"><h2><span>Property #:</span>{!!$order->maintenanceRequest->asset->asset_number!!}</h2></td>
+                        <td class="center span3"><h4><span>Property #:</span>{!!$order->maintenanceRequest->asset->asset_number!!}</h4></td>
 
-                        <td class="center span3"><h2><span>Order #:</span>{!!$order->id!!}</h2></td>
+                        <td class="center span3"><h4><span>Order #:</span>{!!$order->id!!}</h4></td>
 
-                        <td class="center span3"><h2><span>Recurring:</span> No</h2></td>
+                        <td class="center span3"><h4><span>Recurring:</span> No</h4></td>
 
                         <td class="center span3">
 
-                            <h2><span>Status:</span>
+                            <h4><span>Status:</span>
 
                                @if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif
 
-                            </h2></td>
+                            </h4></td>
 
                         <td class="center span3">
 
-                        	  <h2>
+                        	  <h4>
 
                         	  @foreach($order_details as $order_detail)
 
@@ -74,7 +74,7 @@
 
 
 
-                        </h2>
+                        </h4>
 
 
 
@@ -100,7 +100,7 @@
 
             <div class="box-header" data-original-title>
 
-                <h2>Customer Details</h2>
+                <h4>Customer Details</h4>
 
             </div>
 
@@ -112,9 +112,9 @@
 
                         <tr>
 
-                           <td class="center span3"><h2>Customer First Name: <span >@if(isset($order->maintenanceRequest->asset->user->first_name)){!!$order->maintenanceRequest->asset->user->first_name!!}@else Not-Set @endif</span></h2></td>
+                           <td class="center span3"><h4>Customer First Name: <span >@if(isset($order->maintenanceRequest->asset->user->first_name)){!!$order->maintenanceRequest->asset->user->first_name!!}@else Not-Set @endif</span></h4></td>
 
-                            <td class="center span3"><h2>Customer Last Name: <span >@if(isset($order->maintenanceRequest->asset->user->last_name)){!!$order->maintenanceRequest->asset->user->last_name!!}@else Not-Set @endif</span></h2></td>
+                            <td class="center span3"><h4>Customer Last Name: <span >@if(isset($order->maintenanceRequest->asset->user->last_name)){!!$order->maintenanceRequest->asset->user->last_name!!}@else Not-Set @endif</span></h4></td>
 
 
                         </tr>
@@ -141,7 +141,7 @@
 
             <div class="box-header" data-original-title>
 
-                <h2>Property Details</h2>
+                <h4>Property Details</h4>
 
             </div>
 
@@ -153,19 +153,9 @@
 
                         <tr>
 
-                            <td class="center span3"><h2>Property Address: <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h2></td>
+                            <td class="center span3"><h4>Property Address: <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h4></td>
 
-                            <td class="center span3"><h2>City: <span >{!!$order->maintenanceRequest->asset->city->name!!} </span></h2></td>
-
-
-
-                        </tr>
-
-                        <tr>
-
-                             <td class="center span3"><h2>State: <span >{!!$order->maintenanceRequest->asset->state->name!!}</span></h2></td>
-
-                             <td class="center span3"><h2>Zip: <span > {!!$order->maintenanceRequest->asset->zip!!}</span> </h2></td>
+                            <td class="center span3"><h4>City: <span >{!!$order->maintenanceRequest->asset->city->name!!} </span></h4></td>
 
 
 
@@ -173,11 +163,21 @@
 
                         <tr>
 
+                             <td class="center span3"><h4>State: <span >{!!$order->maintenanceRequest->asset->state->name!!}</span></h4></td>
+
+                             <td class="center span3"><h4>Zip: <span > {!!$order->maintenanceRequest->asset->zip!!}</span> </h4></td>
 
 
-                       <td class="center span3"><h2>Lockbox: <span >{!!$order->maintenanceRequest->asset->lock_box!!}</span></h2></td>
 
-                       <td class="center span3"><h2>Gate / Access Code: <span >{!!$order->maintenanceRequest->asset->access_code!!}</span></h2></td>
+                        </tr>
+
+                        <tr>
+
+
+
+                       <td class="center span3"><h4>Lockbox: <span >{!!$order->maintenanceRequest->asset->lock_box!!}</span></h4></td>
+
+                       <td class="center span3"><h4>Gate / Access Code: <span >{!!$order->maintenanceRequest->asset->access_code!!}</span></h4></td>
 
                         </tr>
 
@@ -221,7 +221,7 @@ $totalRequestedServices=0;
 
             <div class="box-header" data-original-title>
 
-                <h2><i class="halflings-icon edit"></i><span class="break"></span>{!!$order_detail->requestedService->service->title!!}</h2>
+                <h4><i class="halflings-icon edit"></i><span class="break"></span>{!!$order_detail->requestedService->service->title!!}</h4>
 
 
 
@@ -771,19 +771,19 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                     ?>               <tr>
 
-                        <td colspan="2" class="center"><h2>Customer Note:</h2>{!!$order_detail->requestedService->customer_note!!}   </td>
+                        <td colspan="2" class="center"><h4>Customer Note:</h4>{!!$order_detail->requestedService->customer_note!!}   </td>
 
                     </tr>
 
                       <tr>
 
-                        <td colspan="2" class="center"><h2>Note for Vendor:</h2>{!!$order_detail->requestedService->public_notes!!}   </td>
+                        <td colspan="2" class="center"><h4>Note for Vendor:</h4>{!!$order_detail->requestedService->public_notes!!}   </td>
 
                     </tr>
 
                     <tr>
 
-                       <td colspan="2" class="center"><h2>Vendor Note:</h2>{!!$order_detail->requestedService->vendor_note!!}   </td>
+                       <td colspan="2" class="center"><h4>Vendor Note:</h4>{!!$order_detail->requestedService->vendor_note!!}   </td>
 
                    </tr>
 
@@ -797,7 +797,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                       <tr>
 
-                        <td colspan="2" class="center"><h2>Note for Vendor:</h2>
+                        <td colspan="2" class="center"><h4>Note for Vendor:</h4>
 
                             @if($order_detail->requestedService->public_notes)
 
@@ -819,7 +819,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
    <tr>
 
-                        <td colspan="2" class="center"><h2>Customer Note:</h2>{!!$order_detail->requestedService->customer_note!!}   {!!$order_detail->id!!}</td>
+                        <td colspan="2" class="center"><h4>Customer Note:</h4>{!!$order_detail->requestedService->customer_note!!}   {!!$order_detail->id!!}</td>
 
                     </tr>
 
@@ -863,7 +863,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                     <tr>
 
-                        <td colspan="2" class="center"><h2>Vendor Note:</h2>
+                        <td colspan="2" class="center"><h4>Vendor Note:</h4>
 
                             @if($order_detail->requestedService->vendor_note)
 
@@ -879,7 +879,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
                       <tr>
 
-                        <td colspan="2" class="center"><h2>Note for Vendor:</h2>
+                        <td colspan="2" class="center"><h4>Note for Vendor:</h4>
 
                             @if($order_detail->requestedService->public_notes)
 
@@ -1349,7 +1349,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
 
 
-         <div style="float:right;"><h2>Total Price: ${!!$totalPrice!!} </h2>
+         <div style="float:right;"><h4>Total Price: ${!!$totalPrice!!} </h4>
 
     </div>
 
@@ -1359,7 +1359,7 @@ $totalPriceVendor+=$order_detail->requestedService->service->vendor_price*$order
 
 
 
-  <div style="float:right;"><h2>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!}  Total Bid Price :${!! $totalBidPrice !!}</h2>
+  <div style="float:right;"><h4>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!}  Total Bid Price :${!! $totalBidPrice !!}</h4>
 
     </div>
 
@@ -1813,7 +1813,7 @@ function log(str){
 
             <div class="box-header" data-original-title>
 
-                <h2><i class="halflings-icon edit"></i><span class="break"></span>Order Status</h2>
+                <h4><i class="halflings-icon edit"></i><span class="break"></span>Order Status</h4>
 
             </div>
 
@@ -1823,9 +1823,9 @@ function log(str){
 
 
 
-        <td class="right"><span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif"><h2> @if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif
+        <td class="right"><span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif"><h4> @if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif
 
-        </h2></span></td>
+        </h4></span></td>
 
 
 
