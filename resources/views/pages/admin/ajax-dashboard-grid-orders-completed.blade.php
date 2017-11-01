@@ -1,3 +1,7 @@
+@extends('layouts.default')
+@section('content')
+
+<div id="content" class="span11">
 <title>GSS - Completed Orders</title>
  <div class='table-container'>
     <div class='table-responsive'>
@@ -196,8 +200,17 @@
                         <div class='modal-body'></div>
                       </div>
                     </div>
-                  </div>    
-                   
+                  </div>
+    </div>
+
+ </div><!--/span-->
+
+</div><!--/row-->
+
+</div>
+
+
+
 <script>
 
 
@@ -223,4 +236,4 @@
 }
 } );
                   </script>
-                
+@stop

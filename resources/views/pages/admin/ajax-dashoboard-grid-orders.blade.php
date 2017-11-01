@@ -1,4 +1,7 @@
+@extends('layouts.default')
+@section('content')
 
+    <div id="content" class="span11">
  <div class='table-container'>
     <div class='table-responsive'>
       <div class='table-padding table-heading'>
@@ -136,7 +139,13 @@
                     </tbody>
 
                   </table>
+    </div>
 
+ </div><!--/span-->
+
+    </div><!--/row-->
+
+    </div>
                   <script type="text/javascript">
 
 
@@ -149,3 +158,4 @@ $('.datatabledashboard').DataTable( {
     } );
 </script>
 
+@stop

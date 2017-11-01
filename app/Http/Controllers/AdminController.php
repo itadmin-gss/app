@@ -102,17 +102,14 @@ class AdminController extends Controller
         );
 
     }
-    public function index()
+
+
+    public function getMaintRequest()
     {
 
         $requestsNew = MaintenanceRequest::where('status', '=', 1)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
         $requests = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
 
-
-        // $orders_process = Order::where('status', '=', 0)->take(5)->get();
-        // $orders_completed = Order::where('status', '=', 1)->take(5)->get();
-        // $recent_orders = Order::take(5)->get();
-        // $recent_assets = Asset::take(5)->get();
         $request_ids = [];
         $request_service_ids = [];
         $assigned_request_ids = [];
@@ -136,16 +133,362 @@ class AdminController extends Controller
             $numberofrequestids['assigned_services_count'][$mdata->id] = count($assigned_request_ids);
         }
 
+        return [$requests, $requestsNew, $numberofrequestids];
+    }
+
+    public function underReview()
+    {
+        $data = self::getWorkOrders(3);
+        return view('pages.admin.ajax-dashoboard-grid-orders')
+            ->with('orders', $data[0])
+            ->with('id', 3)
+            ->with('db_table', 'orders')
+            ->with('addl_itemz', $data[1]);
+    }
+
+    public function completed()
+    {
+        $data = self::getWorkOrders(2);
+
+        return view('pages.admin.ajax-dashboard-grid-orders-completed')
+            ->with('orders', $data[0])
+            ->with('db_table', 'orders')
+            ->with('addl_itemz', $data[1])
+            ->with('addl_itemz_rate', $data[2])
+            ->with('addl_itemz_service_type', $data[3])
+            ->with('addl_itemz_customerPrice', $data[4]);
+    }
+
+    public function inProcess()
+    {
+
+            $data = self::getWorkOrders(1);
+            return view('pages.admin.ajax-dashoboard-grid-orders')
+                ->with('orders', $data[0])
+                ->with('id', 1)
+                ->with('db_table', 'orders')
+                ->with('addl_itemz', $data[1]);
+
+    }
+    public function getWorkOrders($id)
+    {
+        if ($id == 4) {
+            $work_orders = Order::where("status", "=", $id)->orderBy('id', 'desc')->take(10)->get();
+            // ->take(10)
+        } else {
+            $work_orders = Order::orderBy('id', 'desc')
+                ->where("status", "=", $id)
+                ->get();
+        }
+
+        $list_orders = [];
+        $i = 0;
+        $additional_count = 1;
+        $addl_itemz = [];
+        $addl_itemz_rate = [];
+        $addl_itemz_customerPrice = [];
+        $addl_itemz_service_type = [];
+
+        //echo " <pre>";
+        foreach ($work_orders as $order) {
+            $order_details = ($order->orderDetail);
+            // Property Address, City, State, Zip fields
+
+            $customerfirstname = "";
+            if (isset($order->customer->first_name)) {
+                $customerfirstname = $order->customer->first_name;
+            }
+
+            $customerlastname = "";
+            if (isset($order->customer->last_name)) {
+                $customerlastname = $order->customer->last_name;
+            }
+
+            $customertype = "";
+
+            if (isset($order->maintenanceRequest->asset->customerTitle->title)) {
+                $customertype = $order->maintenanceRequest->asset->customerTitle->title;
+            } else {
+                $customertype = "";
+            }
+
+
+            $vendorfirstname = "";
+            if (isset($order->vendor->first_name)) {
+                $vendorfirstname = $order->vendor->first_name;
+            }
+
+            $vendorlastname = "";
+            if (isset($order->vendor->last_name)) {
+                $vendorlastname = $order->vendor->last_name;
+            }
+            $vendorcompany = "";
+            if (isset($order->vendor->last_name)) {
+                $vendorcompany = $order->vendor->company;
+            } else {
+                $vendorcompany = "";
+            }
+            $vendorprice = "";
+            $customerprice = "";
+            foreach ($order_details as $requestedServiceData) {
+                if (!empty($requestedServiceData->requestedService->service->id)) {
+                    $SpecialPriceVendor = SpecialPrice::where('service_id', '=', $requestedServiceData->requestedService->service->id)
+                        ->where('customer_id', '=', $order->vendor_id)
+                        ->where('type_id', '=', 3)
+                        ->get();
+                } else {
+                    $SpecialPriceVendor = null;
+                }
+                if (!empty($SpecialPriceVendor[0])) {
+                    if ($requestedServiceData->requestedService->quantity > 0) {
+                        $vendorprice = $SpecialPriceVendor[0]->special_price * $requestedServiceData->requestedService->quantity;
+                    } else {
+                        $vendorprice = $SpecialPriceVendor[0]->special_price;
+                    }
+                } else {
+                    if (isset($requestedServiceData->requestedService->service->vendor_price)) {
+                        $vendorprice = $requestedServiceData->requestedService->service->vendor_price;
+                    } else {
+                        $vendorprice = "";
+                    }
+                }
+
+
+                if (isset($requestedServiceData->requestedService->service->id)) {
+                    $SpecialPriceCustomer = SpecialPrice::where('service_id', '=', $requestedServiceData->requestedService->service->id)
+                        ->where('customer_id', '=', $order->customer_id)
+                        ->where('type_id', '=', 2)
+                        ->get();
+                } else {
+                    $SpecialPriceCustomer = "";
+                }
+                if (!empty($SpecialPriceCustomer[0])) {
+                    if ($requestedServiceData->requestedService->quantity > 0) {
+                        $customerprice = $SpecialPriceCustomer[0]->special_price * $requestedServiceData->requestedService->quantity;
+                    } else {
+                        $customerprice = $SpecialPriceCustomer[0]->special_price;
+                    }
+                } else {
+                    if (isset($requestedServiceData->requestedService->service->customer_price)) {
+                        $customerprice = $requestedServiceData->requestedService->service->customer_price;
+                    } else {
+                        $customerprice = "";
+                    }
+                }
+                if (isset($order->maintenanceRequest->jobType->title)) {
+                    $jobtype = $order->maintenanceRequest->jobType->title;
+                } else {
+                    $jobtype = "";
+                }
+
+            }
+
+
+            $additional_service_items = AdditionalServiceItem::where('order_id', '=', $order->id)->orderBy('id', 'desc')->get();
+
+            $vendorsCustomdata = OrderCustomData::where('order_id', $order->id)->get();
+            $customerCustomdata = OrderCustomData::where('order_id', '=', $order->id)->get();
+            $quantityCustom = OrderCustomData::where('order_id', '=', $order->id)->pluck('quantity');
+            $adminQuantityCustom = OrderCustomData::where('order_id', '=', $order->id)->pluck('quantity');
+            $list_orders[$i]['order_id'] = $order->id;
+            $list_orders[$i]['customer_name'] = $customerfirstname . ' ' . $customerlastname;
+            $list_orders[$i]['customer_type'] = $customertype;
+
+            $list_orders[$i]['vendor_name'] = $vendorfirstname . ' ' . $vendorlastname;
+            $list_orders[$i]['vendor_company'] = $vendorcompany;
+
+            if (isset($vendorsCustomdata->vendors_price)) {
+                $list_orders[$i]['vendor_price'] = $vendorsCustomdata->vendors_price * $quantityCustom;
+            } else {
+                $list_orders[$i]['vendor_price'] = $vendorprice;
+            }
+
+            if (isset($customerCustomdata->customer_price)) {
+                $list_orders[$i]['customer_price'] = $customerCustomdata->customer_price * $adminQuantityCustom;
+            } else {
+                $list_orders[$i]['customer_price'] = $customerprice;
+            }
+            $list_orders[$i]['vendor_submitted'] = $order->vendor_submitted;
+
+            if (isset($order->maintenanceRequest->asset->asset_number))
+            {
+                $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
+            }
+            else
+            {
+                $list_orders[$i]['asset_number'] = "";
+            }
+
+
+            $list_orders[$i]['job_type'] = $jobtype;
+            $list_orders[$i]['order_date'] = date('m/d/Y h:i:s A', strtotime($order->created_at));
+            $list_orders[$i]['updated_at'] = date('m/d/Y h:i:s A', strtotime($order->updated_at));
+            $list_orders[$i]['service_name'] = '';
+
+            if (isset($order->maintenanceRequest->asset->id))
+            {
+                $list_orders[$i]['property_id'] = $order->maintenanceRequest->asset->id;
+            }
+            else
+            {
+                $list_orders[$i]['propert_id'] = '';
+            }
+
+            if (isset($order->maintenanceRequest->asset->property_address))
+            {
+                $list_orders[$i]['property_address'] = $order->maintenanceRequest->asset->property_address;
+            }
+            else
+            {
+                $list_orders[$i]['property_address'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->city->name)) {
+                $list_orders[$i]['city'] = $order->maintenanceRequest->asset->city->name;
+            } else {
+                $list_orders[$i]['city'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->state->name)) {
+                $list_orders[$i]['state'] = $order->maintenanceRequest->asset->state->name;
+            } else {
+                $list_orders[$i]['state'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->zip))
+            {
+                $list_orders[$i]['zipcode'] = $order->maintenanceRequest->asset->zip;
+            }
+            else
+            {
+                $list_orders[$i]['zipcode'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->UNIT))
+            {
+                $list_orders[$i]['units'] = $order->maintenanceRequest->asset->UNIT;
+            }
+            else
+            {
+                $list_orders[$i]['units'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->loan_number))
+            {
+                $list_orders[$i]['loan_numbers'] = $order->maintenanceRequest->asset->loan_number;
+            }
+            else
+            {
+                $list_orders[$i]['loan_numbers'] = "";
+            }
+
+            $list_orders[$i]['completion_date'] = $order->completion_date;
+
+            if (isset($order->maintenanceRequest->status))
+            {
+                $list_orders[$i]['request_status'] = $order->maintenanceRequest->status;
+            }
+            else
+            {
+                $list_orders[$i]['request_status'] = "";
+            }
+            $list_orders[$i]['status'] = $order->status;
+            $list_orders[$i]['billing_note'] = $order->billing_note;
+            $list_orders[$i]['status_class'] = ($order->status == 1) ? "warning" : $order->status_class;
+            $list_orders[$i]['status_text'] = ($order->status == 1) ? "In-Process" : $order->status_text;
+            $list_orders[$i]['submited_by'] = "";
+
+            if (isset($order->maintenanceRequest->user2->first_name))
+            {
+                $first_name = $order->maintenanceRequest->user2->first_name;
+            }
+            else
+            {
+                $first_name = false;
+            }
+
+            if (isset($order->maintenanceRequest->user2->last_name))
+            {
+                $last_name = $order->maintenanceRequest->user2->last_name;
+            }
+            else
+            {
+                $last_name = false;
+            }
+
+            if ($first_name && $last_name)
+            {
+                $list_orders[$i]['submited_by'] = $first_name." ".substr($last_name, 0,1).".";
+            }
+            else if ($first_name)
+            {
+                $list_orders[$i]['submited_by'] = $first_name;
+            }
+            else if ($last_name)
+            {
+                $list_orders[$i]['submited_by'] = $last_name;
+            }
+            else
+            {
+                $list_orders[$i]['submited_by'] = "Not Set";
+            }
+
+            foreach ($order_details as $order_detail) {
+                if (isset($order_detail->requestedService->due_date) && ($order_detail->requestedService->due_date != "")) {
+                    $style = "";
+                    if ((strtotime(date('m/d/Y')) > strtotime($order_detail->requestedService->due_date))) {
+                        $style = 'style="background-color:yellow;"';
+                    }
+
+                    $due_date = "<p " . $style . " >" . date('m/d/Y', strtotime($order_detail->requestedService->due_date)) . "</p>";
+                } else {
+                    $due_date = "Not Set";
+                }
+                if (isset($order_detail->requestedService->service->title)) {
+                    $list_orders[$i]['service_name'] .= $due_date . ' <br>';
+                }
+            }
+
+            $list_orders[$i]['service_type'] = "";
+
+            foreach ($order_details as $order_detail) {
+                if (isset($order_detail->requestedService->service->title)) {
+                    $list_orders[$i]['service_type'] .= $order_detail->requestedService->service->title . '<br>';
+                }
+            }
+            if (!empty($additional_service_items)) {
+                foreach ($additional_service_items as $item) {
+
+                    $addl_itemz[$order->id][$order->id . "-" . $additional_count] = $item->title;
+                    $addl_itemz_rate[$order->id . "-" . $additional_count] = $item->rate * $item->quantity;
+                    $addl_itemz_customerPrice[$order->id . "-" . $additional_count] = $item->customer_price * $item->quantity;
+                    $addl_itemz_service_type[$order->id . "-" . $additional_count] = $item->title;
+
+
+                    $additional_count++;
+                }
+                $additional_count = 1;
+            }
+
+            $i++;
+        }
+
+        return [$list_orders, $addl_itemz, $addl_itemz_rate, $addl_itemz_service_type, $addl_itemz_customerPrice];
+
+    }
+
+
+    public function index()
+    {
+
+        $data = self::getMaintRequest();
+
 
         return view('pages.admin.dashboard')->with(
             [
-                'requests' => $requests,
-                'requestsNew' => $requestsNew,
-                // 'orders_process' => $orders_process,
-                // 'orders_completed' => $orders_completed,
-                // 'recent_orders' => $recent_orders,
-                // 'recent_assets' => $recent_assets,
-                'numberofrequestids' => $numberofrequestids
+                'requests' => $data[0],
+                'requestsNew' => $data[1],
+                'numberofrequestids' => $data[2]
             ]
         );
     }

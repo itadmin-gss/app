@@ -1,6 +1,8 @@
 <?php
         
         use App\Notification;
+        use App\MaintenanceRequest;
+        use App\AssignRequest;
         $get_notifications = Notification::getNotifications(Auth::user()->id);
         $unreadnotifications = Notification::where('recepient_id', '=', Auth::user()->id)
             ->where('is_read', '=', 1)
@@ -8,6 +10,65 @@
             ->take(5)
             ->count();
         $orderCounterDashboard = [];
+
+        $requestsNew = MaintenanceRequest::where('status', '=', 1)->get();
+        $requests = MaintenanceRequest::get();
+
+        $request_ids = [];
+        $request_service_ids = [];
+        $assigned_request_ids = [];
+        $numberofrequestids = [];
+        foreach ($requests as $mdata) {
+            $request_service_ids = [];
+            $request_ids[] = $mdata->id;
+            foreach ($mdata->requestedService as $rqdata) {
+                $request_service_ids[] = $rqdata->id;
+            }
+            $assigned_request_ids = [];
+            $assign_requests = AssignRequest::where('request_id', '=', $mdata->id)
+                ->where('status', "!=", 2)
+                ->select('request_id')->get();
+
+            foreach ($assign_requests as $adata) {
+                $assigned_request_ids[] = $adata->request_id;
+            }
+
+            $numberofrequestids['requested_services_count'][$mdata->id] = count($request_service_ids);
+            $numberofrequestids['assigned_services_count'][$mdata->id] = count($assigned_request_ids);
+        }
+        $unassigned=0;
+        $assigned=0;
+        $i=1;
+        foreach ($requests as $rm) {
+            $request_service_ids=array();
+            foreach ($rm->assignRequest as $rqdata) {
+                $request_service_ids[] = $rqdata->status;
+            }
+            if($numberofrequestids['requested_services_count'][$rm->id]!=$numberofrequestids['assigned_services_count'][$rm->id])
+            {
+                if($rm->status==2)
+                    $unassigned++;
+
+            } else{
+
+                if($rm->status==0 && in_array(1,$request_service_ids) )
+                    $assigned++;
+
+            }
+
+        }
+
+        $summary_count = 0;
+        foreach($requestsNew as $rm)
+        {
+            if($numberofrequestids['requested_services_count'][$rm->id]!=$numberofrequestids['assigned_services_count'][$rm->id])
+            {
+                $summary_count++;
+            }
+        }
+
+
+
         $work_orders_count = DB::table('orders')
             ->select(DB::raw('count(id) as numbers, status'))
             ->groupBy('status')
@@ -85,9 +146,21 @@
 
       </ul>
       <ul class='navbar-nav'>
+          <li class='nav-item' style='float:left;'>
+              <a class='navbar-table-link' href="{!! URL::to('admins/4/approved') !!}">
+                  <div class='nav-badge badge-blue-1 badge-success-enhance'>
+                      @if (isset($summary_count))
+                          {!! $summary_count." New Requests (Summary)" !!}
+                      @else
+                          {!! "0 New Requests (Summary)" !!}
+                      @endif
+
+                  </div>
+              </a>
+          </li>
         <li class='nav-item' style='float:left;'>
-            <a class='navbar-table-link' href='{!! URL::to("admins/1/inprocess") !!}'>
-              <div class='nav-badge badge-warning badge-warning-enhance text-white'>
+            <a class='navbar-table-link' href='{!! URL::to("in-process") !!}'>
+              <div class='nav-badge badge-blue-2 badge-warning-enhance text-white'>
                 @if (isset($orderCounterDashboard['1']))
                   {!! $orderCounterDashboard['1']." In-Process" !!}
                 @else
@@ -97,8 +170,8 @@
             </a>          
         </li>
         <li class='nav-item' style='float:left;'>
-            <a class='navbar-table-link' href="{!! URL::to('admins/3/underreview') !!}">
-              <div class='nav-badge badge-danger badge-danger-enhance'>
+            <a class='navbar-table-link' href="{!! URL::to('under-review') !!}">
+              <div class='nav-badge badge-blue-3 badge-danger-enhance'>
                 @if (isset($orderCounterDashboard['3']))
                     {!! $orderCounterDashboard['3']." Under Review" !!}
                 @else
@@ -108,20 +181,8 @@
             </a>
         </li>
         <li class='nav-item' style='float:left;'>
-            <a class='navbar-table-link' href="{!! URL::to('admins/4/approved') !!}">            
-              <div class='nav-badge badge-success badge-success-enhance'>
-                    @if (isset($orderCounterDashboard['4']))
-                        {!! $orderCounterDashboard['4']." Approved" !!}
-                    @else
-                        {!! "0 Approved" !!}
-                    @endif
-   
-              </div>
-            </a>          
-        </li>
-        <li class='nav-item' style='float:left;'>
-            <a class='navbar-table-link' href="{!! URL::to('admins/2/completed') !!}">
-              <div class='nav-badge badge-white badge-white-enhance'>
+            <a class='navbar-table-link' href="{!! URL::to('completed') !!}">
+              <div class='nav-badge badge-blue-4 badge-white-enhance'>
                     @if (isset($orderCounterDashboard['2']))
                         {!! $orderCounterDashboard['2']." Completed" !!}
                     @else

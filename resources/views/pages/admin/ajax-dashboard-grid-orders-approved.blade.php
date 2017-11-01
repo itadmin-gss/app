@@ -21,15 +21,11 @@
                          <th>Zip</th>
                          <th>Completed</th>
                          <th>Vendor Submitted</th>
-                         <th>Status</th>
-                         <th>Job Type</th>
                          <th>Service Type</th>
-                         <th>Due Date</th>
+                         <th>Due</th>
                          <th>Vendor</th>
                          <th>Vendor Price</th>
-                         <th>Customer Price</th>
-                         <th>Billing Comment</th>
-                         <th>Action</th>
+
 
                        </tr>
 
@@ -40,16 +36,27 @@
 
                       <tr>
 
-                        <td >{!! $order['order_id']!!}</td>
+                        <td >
+                            <a href="view-order/{!!$order['order_id']!!}" title="View">
+                                {!! $order['order_id']!!}
+                            </a>
+                        </td>
                         <td >{!! $order['updated_at']!!}</td>
 
                         <td >{!! $order['customer_name']!!}</td>
 
                         <td >{!! $order['customer_type']!!}</td>
-                        
-                        <td class="center">{!!$order['asset_number']!!}</td>
 
-                        <td class="center">{!!$order['loan_numbers']!!}</td>
+                          <td>
+                              <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Property ID: {!! $order['asset_number'] !!}">
+                                  View
+                              </a>
+                          </td>
+                          <td>
+                              <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Loan ID: {!! $order['loan_numbers'] !!}">
+                                  View
+                              </a>
+                          </td>
 
                         <td class="center">
                           {!!$order['property_address']!!}
@@ -67,43 +74,7 @@
                         <td class="center">{!! $order['completion_date'] !!}</td>
 
                         <td class="center">{!! $order['vendor_submitted'] !!}</td>
-
-                        @if($order['request_status']==4)
-
-                        <td class="center"> <span class="badge badge-danger badge-summary">Cancelled</span> </td>
-
-
-
-                        @else
-                            <?php 
-                            switch ($order['status_class'])
-                            {
-                              case "black":
-                                $status_class = "default";
-                              break;
-                              case "blue":
-                                $status_class = "primary";
-                              break;
-                              case "green":
-                                $status_class = "success";
-                              break;
-                              case "important":
-                                $status_class = "danger";
-                              break;
-                              case "warning":                          
-                              case "yellow":
-                                $status_class = "warning";
-                              break;
-                            }
-                            ?>
-                            <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
-
-
-
-
-                        @endif
                         
-                        <td class="center">{!! $order['job_type'] !!}</td>
                         <td class="center">{!! $order['service_type'] !!}</td>
 
                         <td class="center">{!! $order['service_name'] !!}</td>
@@ -115,42 +86,6 @@
                         
                         <td class="center">{!! $order['vendor_price'] !!}</td>
                         <td class="center">{!! $order['customer_price'] !!}</td>
-                        <td class="center">{!! $order['billing_note'] !!}</td>
-
-
-
-
-                        
-
-
-
-                        @if($order['request_status']==4)
-
-                            <td class="center">
-                              <a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"> 
-                                  <i class="fa fa-search-plus" aria-hidden="true"></i>                              </a> 
-                              <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
-                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                              </a>
-                              </td>
-
-                        @else
-
-
-                            <td class="center">
-                              <div class='action-button-group'>
-                                <a class="btn btn-success btn-xs action-button" href="view-order/{!!$order['order_id']!!}" title="View"> 
-                                  <i class="fa fa-search-plus" aria-hidden="true"></i>
-                                </a> 
-                                <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
-                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </a>
-                              </div>
-                            </td>
-
-
-
-                        @endif
 
                       </tr>
 
