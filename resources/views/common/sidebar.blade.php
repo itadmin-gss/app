@@ -52,7 +52,7 @@
           </a>
         </li>
         @endif
-          
+
 
         <!-- Permissions Link -->
         @if($access_roles['Access Level']['view'] == 1)

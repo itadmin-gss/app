@@ -65,8 +65,6 @@
               <th>Service(s)</th>
               <th>Requested</th>
               <th>Due</th>
-              <th>Status</th>
-              <th>Action</th>
 
 
 
@@ -84,7 +82,9 @@
 
             
 
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
+            <td @if($rm->emergency_request==1) style="background-color:red;" @endif>
+                <a @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View">{!! $rm->id !!}</a>
+            </td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->first_name !!} {!! substr($rm->user2->last_name,0,1)."." !!} @endif</td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title)) {!!  $rm->asset->customerType->title !!} @endif</td>
              <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user->first_name)) {!! $rm->user->first_name !!} @endif   @if(isset($rm->user->last_name)) {!! $rm->user->last_name !!}@endif</td>
@@ -150,29 +150,8 @@ $due_date="";
 
    <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $due_date !!} </td>
 
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-            @if($rm->status==1)
-            <span class="badge badge-success badge-summary">New Request</span>
-            @elseif($rm->status==2)
-            <span class="badge badge-warning badge-summary">Un Assigned</span>
-            @elseif($rm->status==3)
-            <span class="badge badge-warning badge-summary">Un Assigned</span>
-            @elseif($rm->status==4)
-            <span class="badge badge-danger badge-summary">Cancelled</span>
-            @endif
 
-           </td>
 
-            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-                <div class='action-button-group'>
-                    <a class="btn btn-xs btn-success action-button"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> 
-                        <i class="fa fa-search-plus" aria-hidden="true"></i>
-                    </a>
-                    <a class="btn btn-xs btn-danger action-button" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> 
-                        <i class='fa fa-trash' aria-hidden='true'></i>
-                    </a>
-                </div>
-            </td>
           </tr>
 
 
@@ -181,7 +160,9 @@ $due_date="";
             <tr>
 
 
-            <td @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $rm->id !!}</td>
+                <td @if($rm->emergency_request==1) style="background-color:red;" @endif>
+                    <a @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View">{!! $rm->id !!}</a>
+                </td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->last_name !!} @endif</td>
             <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!! $rm->user->first_name !!} {!! $rm->user->last_name !!}</td>
 
@@ -265,22 +246,9 @@ $servicedate="";
             @endif
             </td>
           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
-            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-             @if($rm->status==4)
-            <span class="badge badge-danger badge-summary">Cancelled</span>
-            @else
-             <span class="badge badge-default badge-summary">Assigned</span>
-            @endif
-           </td>
 
-            <td class="center popover-examples" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-                <a class="btn btn-success"  @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View"> 
-                    <i class="fa fa-search-plus" aria-hidden="true"></i>
-                </a>
-                <a class="btn btn-danger" href="cancel-maintenance-request/{!! $rm->id !!}" title="Cancel" onclick="return confirm('Are you sure you want to delete?')"> 
-                    <i class='fa fa-trash' aria-hidden='true'></i>
-                </a>
-            </td>
+
+
           </tr>
 
 
