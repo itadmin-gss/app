@@ -1264,10 +1264,6 @@ Delete Request @param id
             ]);
     }
 
-    public function listWorkOrder()
-    {
-        return view('pages.admin.list_work_order');
-    }
 
 //exported
     public function listExportedWorkOrder()

@@ -54,24 +54,15 @@
         @endif
 
         <!-- Maintenance/Service Request Link -->
-        @if($access_roles['Service Request']['view'] == 1)
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Maintenance Requests">
-          <a class="nav-link" href="{!!URL::to('list-maintenance-request')!!}">
-            <i class="fa fa-fw fa-2x fa-wrench"></i>
-            <p class="nav-link-text">Maintenance Requests</p>
-          </a>
-        </li>
-        @endif
-
-        <!-- Work Orders Link -->
-        @if($access_roles['Order']['view'] == 1)
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Work Orders">
-          <a class="nav-link" href="{!!URL::to('list-work-order-admin')!!}">
-            <i class="fa fa-fw fa-2x fa-exchange"></i>
-            <p class="nav-link-text">Work Orders</p>
-          </a>
-        </li>
-        @endif
+        {{--@if($access_roles['Service Request']['view'] == 1)--}}
+        {{--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Maintenance Requests">--}}
+          {{--<a class="nav-link" href="{!!URL::to('list-maintenance-request')!!}">--}}
+            {{--<i class="fa fa-fw fa-2x fa-wrench"></i>--}}
+            {{--<p class="nav-link-text">Maintenance Requests</p>--}}
+          {{--</a>--}}
+        {{--</li>--}}
+        {{--@endif--}}
+          
 
         <!-- Permissions Link -->
         @if($access_roles['Access Level']['view'] == 1)

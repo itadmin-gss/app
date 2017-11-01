@@ -21,23 +21,7 @@
 
  */
 
-// leave this commented out in a production environment. This will display the MySQL connection credentials. 
-//
-//
-// Route::get('work-order-info', function () {
 
-//     echo "<pre>";
-//     echo "Host:" . " " . DB::connection()->getConfig("host");
-//     echo "<br>";
-//     echo "Database Name:" . " " . DB::connection()->getConfig("database");
-//     echo "<br>";
-//     echo "Username:" . " " . DB::connection()->getConfig("username");
-//     echo "<br>";
-//     echo "Password:" . " " . DB::connection()->getConfig("password");
-//     echo "<br>";
-// });
-//
-//
 
 Route::get('test-email-sending', 'AdminController@testEmail');
 
@@ -128,7 +112,6 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     Route::match(['GET', 'POST'], 'view-bidding-request/{id}/{service_id}', ['uses' => 'AdminController@viewBiddingRequest']);
     Route::match(['GET', 'POST'], 'view-bidding-request/{id}', ['uses' => 'AdminController@viewBiddingRequest']);
     Route::get('list-exported-workorder', ['uses' => 'AdminController@listExportedWorkOrder']);
-    Route::get('list-work-order-admin', ['uses' => 'AdminController@listWorkOrder']);
     Route::get('list-work-order-admin1', ['uses' => 'AdminController@viewonly']);
     Route::get('list-work-order-admin-grid', ['uses' => 'AdminController@listWorkOrderGrid']);
     Route::get('admin-list-completed-order', ['uses' => 'AdminController@listCompletedOrders']);
