@@ -45,11 +45,6 @@
 
                          <th>Due</th>
 
-                         <th>Billing Comment</th>
-
-                         <th>Status</th>
-
-                         <th>Action</th>
 
                        </tr>
 
@@ -57,13 +52,19 @@
 
                      <tbody>
 
-                  
 
                       @foreach ($orders as $order)
 
                       <tr>
 
-                        <td>{!! $order['order_id']!!}</td>
+                        <td>
+                            <?php
+                            $view_url = "view-order/".$order['order_id'];
+                            ?>
+                            <a href="{!!URL::to($view_url)!!}" title="View">
+                                {!! $order['order_id']!!}
+                            </a>
+                        </td>
                         <td >{!! $order['submited_by']!!}</td>
                         <td >{!! $order['customer_type']!!}</td>
                         
@@ -88,85 +89,20 @@
 
                         
                         <td class="center">{!! $order['service_name'] !!}</td>
-
-
-                        <td class="center small-column">{!! $order['billing_note'] !!}</td>
-
-
-                        @if($order['request_status']==4)
-
-                        <td class="center"> <span class="badge badge-summary badge-danger">Cancelled</span> </td>
-
-
-
-                        @else
-                        <?php 
-                        switch ($order['status_class'])
-                        {
-                          case "black":
-                            $status_class = "default";
-                          break;
-                          case "blue":
-                            $status_class = "primary";
-                          break;
-                          case "green":
-                            $status_class = "success";
-                          break;
-                          case "important":
-                            $status_class = "danger";
-                          break;
-                          case "warning":                          
-                          case "yellow":
-                            $status_class = "warning";
-                          break;
-                        }
-                        ?>
-                        <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
-
-
-
-                        @endif
-
-
-
-                        @if($order['request_status']==4)
-
-                            <td class="center">
-                              <a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"> 
-                                  <i class="fa fa-search-plus" aria-hidden="true"></i>                              
-                              </a> 
-                              <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
-                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                              </a>
-                              </td>
-
-                        @else
-
-                            <td class="center">
-                              <div class='action-button-group'>
-                              <?php 
-                                $view_url = "view-order/".$order['order_id']; 
-                                $edit_url = "edit-order/".$order['order_id'];
-                              ?>
-                                <a class="btn btn-success btn-xs action-button" href="{!!URL::to($view_url)!!}" title="View"> 
-                                  <i class="fa fa-search-plus" aria-hidden="true"></i>
-                                </a> 
-                                <a class="btn btn-info btn-xs action-button" href="{!!URL::to($edit_url)!!}" title="Edit"> 
-                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </a>
-                              </div>
-                            </td>
-
-
-                        @endif
-
                       </tr>
                       @foreach($addl_itemz as $key => $value)
                         @if($key == $order['order_id'])
                           @foreach($value as $index => $addl_service)
                           <tr>
 
-                            <td >{!! $index !!}</td>
+                              <td>
+                                  <?php
+                                  $view_url = "view-order/".$order['order_id'];
+                                  ?>
+                                  <a href="{!!URL::to($view_url)!!}" title="View">
+                                      {!! $index !!}
+                                  </a>
+                              </td>
 
                             <td >{!! $order['submited_by']!!}</td>
                             <td >{!! $order['customer_type']!!}</td>
@@ -187,76 +123,6 @@
 
                             
                             <td class="center">{!! $order['service_name'] !!}</td>
-
-                            <td class="center">{!! $order['billing_note'] !!}</td>
-
-
-
-                            @if($order['request_status']==4)
-
-                            <td class="center"> <span class="badge badge-summary badge-danger">Cancelled</span> </td>
-
-
-
-                            @else
-
-                            <?php 
-                            switch ($order['status_class'])
-                            {
-                              case "black":
-                                $status_class = "default";
-                              break;
-                              case "blue":
-                                $status_class = "primary";
-                              break;
-                              case "green":
-                                $status_class = "success";
-                              break;
-                              case "important":
-                                $status_class = "danger";
-                              break;
-                              case "warning":                          
-                              case "yellow":
-                                $status_class = "warning";
-                              break;
-                            }
-                            ?>
-                            <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
-
-
-
-                            @endif
-
-
-
-                            @if($order['request_status']==4)
-
-                            <td class="center">
-                              <a class="btn btn-success btn-xs action-button" disabled="disabled" href="#" title="View"> 
-                                  <i class="fa fa-search-plus" aria-hidden="true"></i>                              </a> 
-                              <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
-                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                              </a>
-                              </td>
-
-
-
-                            @else
-
-                            <td class="center">
-                              <div class='action-button-group'>
-                                <a class="btn btn-success btn-xs action-button" href="view-order/{!!$order['order_id']!!}" title="View"> 
-                                  <i class="fa fa-search-plus" aria-hidden="true"></i>
-                                </a> 
-                                <a class="btn btn-info btn-xs action-button" href="edit-order/{!!$order['order_id']!!}" title="Edit"> 
-                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </a>
-                              </div>
-                            </td>
-
-
-
-                            @endif
 
                           </tr>
                           @endforeach
