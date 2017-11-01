@@ -254,8 +254,6 @@ class Response
      * compliant with RFC 2616. Most of the changes are based on
      * the Request that is "associated" with this Response.
      *
-     * @param Request $request A Request instance
-     *
      * @return $this
      */
     public function prepare(Request $request)
@@ -614,6 +612,8 @@ class Response
      * @param bool $immutable enables or disables the immutable directive
      *
      * @return $this
+     *
+     * @final
      */
     public function setImmutable($immutable = true)
     {
@@ -630,6 +630,8 @@ class Response
      * Returns true if the response is marked as "immutable".
      *
      * @return bool returns true if the response is marked as "immutable"; otherwise false
+     *
+     * @final
      */
     public function isImmutable()
     {
@@ -669,8 +671,6 @@ class Response
 
     /**
      * Sets the Date header.
-     *
-     * @param \DateTime $date A \DateTime instance
      *
      * @return $this
      *
@@ -1087,8 +1087,6 @@ class Response
      *
      * If the Response is not modified, it sets the status code to 304 and
      * removes the actual content by calling the setNotModified() method.
-     *
-     * @param Request $request A Request instance
      *
      * @return bool true if the Response validators match the Request, false otherwise
      *

@@ -8,8 +8,9 @@
 /public/assets/images/uploads
 Homestead.json
 Homestead.yaml
-/public/storage
 npm-debug.log
 yarn-error.log
 .env
 .env.orig
+.ide_helper.php
+/tests

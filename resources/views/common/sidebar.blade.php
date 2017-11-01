@@ -1,6 +1,12 @@
 <?php
         
-        
+        use App\Notification;
+        $get_notifications = Notification::getNotifications(Auth::user()->id);
+        $unreadnotifications = Notification::where('recepient_id', '=', Auth::user()->id)
+            ->where('is_read', '=', 1)
+            ->skip(0)
+            ->take(5)
+            ->count();
         $orderCounterDashboard = [];
         $work_orders_count = DB::table('orders')
             ->select(DB::raw('count(id) as numbers, status'))
@@ -10,6 +16,7 @@
         foreach ($work_orders_count as $datacounter) {
             $orderCounterDashboard[$datacounter->status] = $datacounter->numbers;
         }
+
 
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">

@@ -64,13 +64,15 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
 
     private $projectDir;
     private $warmupDir;
+    private $requestStackSize = 0;
+    private $resetServices = false;
 
-    const VERSION = '3.4.0-BETA1';
+    const VERSION = '3.4.0-BETA2';
     const VERSION_ID = 30400;
     const MAJOR_VERSION = 3;
     const MINOR_VERSION = 4;
     const RELEASE_VERSION = 0;
-    const EXTRA_VERSION = 'BETA1';
+    const EXTRA_VERSION = 'BETA2';
 
     const END_OF_MAINTENANCE = '11/2020';
     const END_OF_LIFE = '11/2021';
@@ -99,6 +101,8 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
 
         $this->booted = false;
         $this->container = null;
+        $this->requestStackSize = 0;
+        $this->resetServices = false;
     }
 
     /**
@@ -107,7 +111,19 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     public function boot()
     {
         if (true === $this->booted) {
+            if (!$this->requestStackSize && $this->resetServices) {
+                if ($this->container->has('services_resetter')) {
+                    $this->container->get('services_resetter')->reset();
+                }
+                $this->resetServices = false;
+            }
+
             return;
+        }
+        if ($this->debug && !isset($_SERVER['SHELL_VERBOSITY'])) {
+            putenv('SHELL_VERBOSITY=3');
+            $_ENV['SHELL_VERBOSITY'] = 3;
+            $_SERVER['SHELL_VERBOSITY'] = 3;
         }
 
         if ($this->loadClassCache) {
@@ -169,6 +185,8 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         }
 
         $this->container = null;
+        $this->requestStackSize = 0;
+        $this->resetServices = false;
     }
 
     /**
@@ -176,17 +194,15 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
      */
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
-        if (false === $this->booted) {
-            if ($this->debug && !isset($_SERVER['SHELL_VERBOSITY'])) {
-                putenv('SHELL_VERBOSITY=3');
-                $_ENV['SHELL_VERBOSITY'] = 3;
-                $_SERVER['SHELL_VERBOSITY'] = 3;
-            }
+        $this->boot();
+        ++$this->requestStackSize;
+        $this->resetServices = true;
 
-            $this->boot();
+        try {
+            return $this->getHttpKernel()->handle($request, $type, $catch);
+        } finally {
+            --$this->requestStackSize;
         }
-
-        return $this->getHttpKernel()->handle($request, $type, $catch);
     }
 
     /**
@@ -736,8 +752,6 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
 
     /**
      * Prepares the ContainerBuilder before it is compiled.
-     *
-     * @param ContainerBuilder $container A ContainerBuilder instance
      */
     protected function prepareContainer(ContainerBuilder $container)
     {
@@ -822,8 +836,6 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
 
     /**
      * Returns a loader for the container.
-     *
-     * @param ContainerInterface $container The service container
      *
      * @return DelegatingLoader The loader
      */
