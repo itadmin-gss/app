@@ -52,16 +52,6 @@
           </a>
         </li>
         @endif
-
-        <!-- Maintenance/Service Request Link -->
-        {{--@if($access_roles['Service Request']['view'] == 1)--}}
-        {{--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Maintenance Requests">--}}
-          {{--<a class="nav-link" href="{!!URL::to('list-maintenance-request')!!}">--}}
-            {{--<i class="fa fa-fw fa-2x fa-wrench"></i>--}}
-            {{--<p class="nav-link-text">Maintenance Requests</p>--}}
-          {{--</a>--}}
-        {{--</li>--}}
-        {{--@endif--}}
           
 
         <!-- Permissions Link -->

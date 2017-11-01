@@ -855,54 +855,7 @@ class AdminController extends Controller
      *
      */
 
-    public function listMaintenanceRequest()
-    {
 
-        $request_maintenance = MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')
-            ->where('status', '!=', 5)->get();
-
-        $request_ids = [];
-        $request_service_ids = [];
-        $assigned_request_ids = [];
-        $numberofrequestids = [];
-        foreach ($request_maintenance as $mdata) {
-            $request_service_ids = [];
-            $request_ids[] = $mdata->id;
-            foreach ($mdata->requestedService as $rqdata) {
-                $request_service_ids[] = $rqdata->id;
-            }
-            $assigned_request_ids = [];
-            $assign_requests = AssignRequest::where('request_id', '=', $mdata->id)
-                ->where('status', "!=", 2)
-                ->select('request_id')->get();
-
-            foreach ($assign_requests as $adata) {
-                $assigned_request_ids[] = $adata->request_id;
-            }
-
-            $numberofrequestids['requested_services_count'][$mdata->id] = count($request_service_ids);
-            $numberofrequestids['assigned_services_count'][$mdata->id] = count($assigned_request_ids);
-        }
-
-
-        $request_maintenance_obj = new MaintenanceRequest();
-        $db_table = $request_maintenance_obj->getTable();
-
-        return view('pages.admin.listmaintenancerequest')
-            ->with([
-                'request_maintenance' => $request_maintenance,
-                'numberofrequestids' => $numberofrequestids,
-                'db_table' => $db_table
-            ]);
-    }
-
-
-    /*
-   * Function Name : listMaintenanceRequest
-   * @param:none
-   * @description: This function is begin used for listing all over the requests of maintenance in admin
-   *
-   */
 
     public function listBidRequest()
     {
