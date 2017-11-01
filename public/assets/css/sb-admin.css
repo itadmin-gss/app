@@ -20,6 +20,10 @@
 .top-margin-15{
   margin-top:15px !important;
 }
+
+.modal{
+  z-index:999999999999999 !important;
+}
 #addcontenthere{
   overflow: hidden !important;
 }

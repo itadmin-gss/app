@@ -21,15 +21,13 @@
                          <th>State</th>
                          <th>Zip</th>
                          <th>Completed</th>
-                         <th>Status</th>
                          <th>Job Type</th>
                          <th>Service Type</th>
                          <th>Due</th>
                          <th>Vendor</th>
                          <th>Vendor Price</th>
                          <th>Customer Price</th>
-                         <th>Billing Comment</th>
-                         <th>Action</th>
+
 
                        </tr>
 
@@ -45,7 +43,11 @@
 
                       <tr>
 
-                        <td >{!! $order['order_id']!!}</td>
+                        <td >
+                            <a href="javascript:void(0)" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})">
+                                {!! $order['order_id']!!}
+                            </a>
+                        </td>
 
                         <td >{!! $order['submited_by']!!}</td>
                         <td >{!! $order['customer_type']!!}</td>
@@ -78,40 +80,6 @@
 
                         <td class="center">{!! $order['completion_date'] !!}</td>
 
-
-                        @if($order['request_status']==4)
-
-                        <td class="center"> <span class="badge badge-summary badge-important">Cancelled</span> </td>
-
-
-
-                        @else
-                        <?php 
-                        switch ($order['status_class'])
-                        {
-                          case "black":
-                            $status_class = "default";
-                          break;
-                          case "blue":
-                            $status_class = "primary";
-                          break;
-                          case "green":
-                            $status_class = "success";
-                          break;
-                          case "important":
-                            $status_class = "danger";
-                          break;
-                          case "warning":                          
-                          case "yellow":
-                            $status_class = "warning";
-                          break;
-                        }
-                        ?>
-                        <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
-
-
-                        @endif
-                        
                         <td class="center">{!! $order['job_type'] !!}</td>
                         <td class="center">{!! $order['service_type'] !!}</td>
 
@@ -123,18 +91,7 @@
                         
                         <td class="center">{!! $order['vendor_price'] !!}</td>
                         <td class="center">{!! $order['customer_price'] !!}</td>
-                         <td class="center">
 
-                    
-                          <?php
-                            if (strlen($order['billing_note']) > 20)
-                            {
-                              echo "<span style='width:87px !important;opacity:1 !important;' class='tooltip' data-toggle='tooltip' data-placement='top' title='".$order['billing_note']."'>".substr($order['billing_note'],0,19)."...</span>";
-                            } else {
-                              echo $order['billing_note'];
-                            }
-                          ?>
-                         </td>
 
 
 
@@ -143,48 +100,18 @@
 
 
 
-                        @if($order['request_status']==4)
-                        <td class="center"> 
-                          <div class='action-button-group'>
-                            <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </a>
-                            <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
-                                <i class="fa fa-file-o" aria-hidden="true"></i>
-                            </a>
-                          </div>
-                        </td>
-
-
-
-                        @else
-
-                        <td class="center">
-       
-                              <?php 
-                                $edit_url = "edit-order/".$order['order_id'];
-                              ?>
-                          <a class="btn btn-info btn-xs action-button" href="{!!URL::to($edit_url) !!}" title="Edit"> 
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                          </a>
-                                
-                          <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
-                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                          </a>
-
-                        </td>
-
-
-
-                        @endif
 
                       </tr>
                       @foreach($addl_itemz as $key => $value)
                       @if($key == $order['order_id'])
                       @foreach($value as $index => $addl_service)
                       <tr>
+                          <td >
+                              <a title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!}")>
+                                  {!! $index!!}
+                              </a>
+                          </td>
 
-                        <td >{!! $index!!}</td>
                         <td >{!! $order['submited_by']!!}</td>
                         <td >{!! $order['customer_type']!!}</td>
                         <td>
@@ -216,39 +143,7 @@
                         <td class="center">{!! $order['completion_date'] !!}</td>
 
 
-                        @if($order['request_status']==4)
 
-                        <td class="center"> <span class="badge badge-summary badge-danger">Cancelled</span> </td>
-
-
-
-                        @else
-                        <?php 
-                        switch ($order['status_class'])
-                        {
-                          case "black":
-                            $status_class = "default";
-                          break;
-                          case "blue":
-                            $status_class = "primary";
-                          break;
-                          case "green":
-                            $status_class = "success";
-                          break;
-                          case "important":
-                            $status_class = "danger";
-                          break;
-                          case "warning":                          
-                          case "yellow":
-                            $status_class = "warning";
-                          break;
-                        }
-                        ?>
-                        <td class="center"> <span class="badge badge-summary badge-{!! $status_class !!}">{!! $order['status_text'] !!}</span> </td>
-
-
-
-                        @endif
                         
                         <td class="center">{!! $order['job_type'] !!}</td>
                         <td class="center">{!! $addl_itemz_service_type[$index] !!}</td>
@@ -265,18 +160,7 @@
                         <td class="center">{!! $addl_itemz_rate[$index] !!}</td>
                         <td class="center">{!! $addl_itemz_customerPrice[$index] !!}</td>
 
-                         <td class="center">
 
-                    
-                          <?php
-                            if (strlen($order['billing_note']) > 20)
-                            {
-                              echo "<span style='width:87px !important;opacity:1 !important;' class='tooltip' data-toggle='tooltip' data-placement='top' title='".$order['billing_note']."'>".substr($order['billing_note'],0,19)."...</span>";
-                            } else {
-                              echo $order['billing_note'];
-                            }
-                          ?>
-                         </td>
 
 
 
@@ -284,36 +168,7 @@
 
 
 
-                        @if($order['request_status']==4)
 
-                        <td class="center"> 
-                        <a class="btn btn-info btn-xs action-button" disabled="disabled" href="#"> 
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
-                        <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
-                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                        </a></td>
-
-
-                        @else
-
-                        <td class="center">
-       
-                  
-                          <?php 
-                            $edit_url = "edit-order/".$order['order_id'];
-                          ?>
-                          <a class="btn btn-info btn-xs action-button" href="{!!URL::to($edit_url) !!}" title="Edit"> 
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                          </a>
-                                
-                          <a class="btn btn-xs action-button btn-primary" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})"> 
-                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                          </a>
-
-                        </td>
-
-                        @endif
 
                       </tr>
                       @endforeach
