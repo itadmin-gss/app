@@ -11,10 +11,15 @@
           {
             switch ($id){
               case 3:
-                echo "<h4>Under Review</h4><title>GSS - Under Review Orders</title>";
+                echo "<div class='card blue-3'>
+                        <div class='card-body'>
+                            <span>Under Review</span>
+                        </div>
+                      </div>
+                      <title>GSS - Under Review Orders</title>";
               break;
               case 1:
-                echo "<h4>In Process</h4><title>GSS - In Process Orders</title>";
+                echo "<div class='card blue-2'><div class='card-body'><span>In Process</span></div></div><title>GSS - In Process Orders</title>";
               break;
             }
           }

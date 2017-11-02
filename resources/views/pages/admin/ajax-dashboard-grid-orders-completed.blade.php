@@ -6,8 +6,11 @@
  <div class='table-container'>
     <div class='table-responsive'>
        <div class='table-padding table-heading'>
-          <h4>Completed</h4>
-      </div>   
+           <div class="card blue-4">
+               <div class="card-body">
+                   <span>Completed</span>
+               </div>
+            </div>
       <table class="table table-striped table-sm table-bordered dt-responsive datatabledashboard" style='width:100%;' width='100%' cellspacing='0' id="completion_grid">
 
                       <thead>

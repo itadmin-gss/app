@@ -44,7 +44,11 @@
             <div id="datatabledashboard">
                     <title>GSS - Summary</title>
         <div class='table-padding table-heading'>
-            <h4>Summary</h4>
+            <div class="card blue-1">
+                <div class="card-body">
+                    <span>Summary</span>
+                </div>
+            </div>
         </div>
 
             <div class='table-responsive'>

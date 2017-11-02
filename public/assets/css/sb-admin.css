@@ -83,6 +83,44 @@
 }
 
 
+.blue-1 .card-body,
+.blue-2 .card-body,
+.blue-3 .card-body,
+.blue-4 .card-body{
+  padding-top:4px !important;
+  padding-bottom:4px !important;
+}
+.blue-1{
+  background-color:#396afc !important;
+  color:white;
+  margin-bottom:40px !important;
+  margin-top:-10px !important;
+}
+
+.blue-2{
+  background-color:#2948ff !important;
+  color:white;
+  margin-bottom:40px !important;
+  margin-top:-10px !important;
+
+}
+
+.blue-3{
+  background-color:blue !important;
+  color:white;
+  margin-bottom:40px !important;
+  margin-top:-10px !important;
+
+}
+
+.blue-4{
+  background-color:#0000bd !important;
+  color:white;
+  margin-bottom:40px !important;
+  margin-top:-10px !important;
+
+}
+
 .badge-blue-1{
   background-color:#396afc;
   box-shadow: 1px 2px 0px 1px #2948ff;
@@ -252,9 +290,7 @@
 .accBtn{
   float:right;
 }
-.card{
-  margin-bottom:10px !important;
-}
+
 .dt-buttons{
   float:right !important;
   margin-left:50px;
