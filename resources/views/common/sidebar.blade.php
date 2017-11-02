@@ -11,8 +11,8 @@
             ->count();
         $orderCounterDashboard = [];
 
-        $requestsNew = MaintenanceRequest::where('status', '=', 1)->get();
-        $requests = MaintenanceRequest::get();
+        $requestsNew = MaintenanceRequest::where('status', '=', 1)->select('id')->get();
+        $requests = MaintenanceRequest::select('id')->get();
 
         $request_ids = [];
         $request_service_ids = [];
@@ -147,8 +147,8 @@
       </ul>
       <ul class='navbar-nav'>
           <li class='nav-item' style='float:left;'>
-              <a class='navbar-table-link' href="{!! URL::to('admins/4/approved') !!}">
-                  <div class='nav-badge badge-blue-1 badge-success-enhance'>
+              <a class='navbar-table-link' href="{!! URL::to('admin') !!}">
+                  <div class='nav-badge badge-blue-1 text-white'>
                       @if (isset($summary_count))
                           {!! $summary_count." New Requests (Summary)" !!}
                       @else
@@ -160,7 +160,7 @@
           </li>
         <li class='nav-item' style='float:left;'>
             <a class='navbar-table-link' href='{!! URL::to("in-process") !!}'>
-              <div class='nav-badge badge-blue-2 badge-warning-enhance text-white'>
+              <div class='nav-badge badge-blue-2 text-white'>
                 @if (isset($orderCounterDashboard['1']))
                   {!! $orderCounterDashboard['1']." In-Process" !!}
                 @else
@@ -171,7 +171,7 @@
         </li>
         <li class='nav-item' style='float:left;'>
             <a class='navbar-table-link' href="{!! URL::to('under-review') !!}">
-              <div class='nav-badge badge-blue-3 badge-danger-enhance'>
+              <div class='nav-badge badge-blue-3 text-white'>
                 @if (isset($orderCounterDashboard['3']))
                     {!! $orderCounterDashboard['3']." Under Review" !!}
                 @else
@@ -182,7 +182,7 @@
         </li>
         <li class='nav-item' style='float:left;'>
             <a class='navbar-table-link' href="{!! URL::to('completed') !!}">
-              <div class='nav-badge badge-blue-4 badge-white-enhance'>
+              <div class='nav-badge badge-blue-4 text-white'>
                     @if (isset($orderCounterDashboard['2']))
                         {!! $orderCounterDashboard['2']." Completed" !!}
                     @else

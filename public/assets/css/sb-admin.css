@@ -82,46 +82,41 @@
   color:white;
 }
 
-.badge-warning-enhance {
-  box-shadow: 0px 2px 0px 1px #56ace2;
-}
-.badge-danger-enhance{
-  box-shadow: 0px 2px 0px 1px #1670ce;
-}
-.badge-success-enhance{
-  box-shadow: 0px 2px 0px 1px blue;
-}
-.badge-white-enhance{
-  box-shadow: 0px 2px 0px 1px #083fa2;
-}
 
 .badge-blue-1{
-  background-color:#56ace2;
+  background-color:#396afc;
+  box-shadow: 1px 2px 0px 1px #2948ff;
 }
 
 .badge-blue-2{
-  background-color:#1670ce;
+  background-color:#2948ff;
+  box-shadow: 1px 2px 0px 1px blue;
+
 }
 
 .badge-blue-3{
   background-color:blue;
+  box-shadow: 1px 2px 0px 1px #0000bd;
+
 }
 
 .badge-blue-4{
-  background-color:#083fa2;
+  background-color:#0000bd;
+  box-shadow: 1px 2px 0px 1px #00006b;
+
 }
 
-.badge-warning-enhance:hover{
-  background-color:#b99321
+.badge-blue-1:hover{
+  background-color:blue;
 }
-.badge-danger-enhance:hover{
-  background-color: #ad0a1a;
+.badge-blue-2:hover{
+  background-color: blue;
 }
-.badge-success-enhance:hover{
-  background-color: green;
+.badge-blue-3:hover{
+  background-color: #0000bd;
 }
-.badge-white-enhance:hover{
-  background-color: #DDD;
+.badge-blue-4:hover{
+  background-color: blue;
 }
 
 .addSt{
