@@ -41,16 +41,25 @@ class AssetController extends Controller
             exit;
         }
 
+        //Get Customer Information
+        $customer_details = User::where('id', $property_details[0]->customer_id)->get();
+
         //Get City/State Information
         $city = City::where('id', $property_details[0]->city_id)->get()[0]->name;
         $state = State::where('id', $property_details[0]->state_id)->get()[0]->name;
 
-        echo $city;
-        echo $state;
-        exit;
+        //Get Requests
+        $requests = MaintenanceRequest::where('asset_id', $property_details[0]->id)->get();
+
+
+
 
         return view('pages.admin.asset-details')
-            ->with('id', $property_details);
+            ->with('property_details', $property_details[0])
+            ->with('city', $city)
+            ->with('state', $state)
+            ->with('customer_info', $customer_details[0])
+            ->with('requests', $requests);
     }
 
     public function showAddAsset()
