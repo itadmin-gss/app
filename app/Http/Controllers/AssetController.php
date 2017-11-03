@@ -30,9 +30,12 @@ class AssetController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        //Get Asset Information
+
+        return view('pages.admin.asset-details')
+            ->with('id', $id);
     }
 
     public function showAddAsset()

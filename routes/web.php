@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     Route::get('under-review', 'AdminController@underReview');
     Route::get('completed', 'AdminController@completed');
 
-
+    Route::get('asset/{id}', 'AssetController@index');
     Route::match(['GET', 'POST'], 'approved-pagination', ['uses' => 'AdminController@ajaxDashoboardGridOrdersPagination']);
     Route::match(['GET', 'POST'], 'list-vendor-summary', ['uses' => 'AdminController@listVendorsSummary']);
     Route::match(['GET', 'POST'], 'list-bid-services', ['uses' => 'AdminController@listBidServices']);
