@@ -84,11 +84,15 @@
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
                 <h5>Work Orders</h5>
-                <table class="table table-striped table-small dt-responsive datatable" style="width:100%;">
+                <table class="table table-striped table-small dt-responsive datatabledashboard" style="width:100%;">
                     <thead>
                         <th>ID #</th>
                         <th>Vendor Name</th>
                         <th>Vendor Company</th>
+                        <th>Service(s)</th>
+                        <th>Status</th>
+                        <th>Completed</th>
+                        <th>Approved</th>
 
 
                     </thead>
@@ -97,8 +101,16 @@
                             @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                 <tr>
                                     <td>{!! $id !!}</td>
-                                    <td>@if (isset($order_details["vendor_name"])) {!! $order_detail["vendor_name"] !!} @else Not Set @endif</td>
-                                    <td>@if (isset($order_details["vendor_company"])) {!! $order_detail["vendor_company"] !!} @else Not Set @endif</td>
+                                    <td>@if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @else Not Set @endif</td>
+                                    <td>@if (isset($order_detail["vendor_company"])) {!! $order_detail["vendor_company"] !!} @else Not Set @endif</td>
+                                    <td>
+                                        @foreach($order_detail["requested_services"] as $services)
+                                            {!! $services->title !!} <br>
+                                        @endforeach
+                                    </td>
+                                    <td>{!! $order_detail["status"] !!}</td>
+                                    <td>{!! $order_detail["completed"] !!}</td>
+                                    <td>{!! $order_detail["approved"] !!}</td>
                                 </tr>
                             @endforeach
                         @endforeach

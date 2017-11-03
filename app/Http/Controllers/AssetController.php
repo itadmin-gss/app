@@ -64,9 +64,20 @@ class AssetController extends Controller
                 $od = OrderDetail::where('order_id', $dt->id)->get()[0];
 
                 $vendor_details = User::where('id', $dt->vendor_id)->get();
-                if (count($vendor_details) > 1)
+
+
+                if (count($vendor_details) > 0)
                 {
-                    $orderDetails[$request->id]["order_details"][$dt->id]["vendor_name"] = $vendor_details[0]->first_name." ".$vendor_details->last_name;
+                    $vendor_name = "";
+                    if (isset($vendor_details[0]->first_name)){
+                        $vendor_name .= $vendor_details[0]->first_name;
+                    }
+
+                    if (isset($vendor_details[0]->last_name))
+                    {
+                        $vendor_name .= " ".$vendor_details[0]->last_name;
+                    }
+                    $orderDetails[$request->id]["order_details"][$dt->id]["vendor_name"] = trim($vendor_name);
                     $orderDetails[$request->id]["order_details"][$dt->id]["vendor_company"] = $vendor_details[0]->company;
                 }
 
@@ -75,14 +86,15 @@ class AssetController extends Controller
                 $orderDetails[$request->id]["order_details"][$dt->id]["approved"] = $od->approved_date;
                 $orderDetails[$request->id]["order_details"][$dt->id]["created"] = $od->created_at;
                 $svc = RequestedService::where('id', $od->requested_service_id)->get();
-                $orderDetails[$request->id]["order_details"][$dt->id]['requested_service'] = $svc;
+                foreach($svc as $service)
+                {
+                    $service_details = Service::where('id', $service->service_id)->get()[0];
+                    $orderDetails[$request->id]["order_details"][$dt->id]['requested_services'][] = $service_details;
+                }
             }
 
         }
 
-//
-//        var_dump($orderDetails);
-//        exit;
 
         return view('pages.admin.asset-details')
             ->with('property_details', $property_details[0])
