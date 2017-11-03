@@ -76,27 +76,34 @@
                         <div class="col-md-1 col-lg-1 col-sm-12"></div>
                         <div class="col-md-5 col-lg-5 col-sm-12">
                             <h5>Property Photo</h5>
-                            <table class="table table-small">
-                                <tbody>
-                                    <tr></tr>
-                                </tbody>
-                            </table>
+
                         </div>
                 </div> <!-- end .row -->
             </div>
         </div>
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <h5>Work Orders</h5>
-                    <table class="table table-striped table-small dt-responsive datatable" style="width:100%;">
-                        <thead>
-                            <th>ID #</th>
-                        </thead>
-                        <tbody>
-                            <td>Fake ID</td>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <h5>Work Orders</h5>
+                <table class="table table-striped table-small dt-responsive datatable" style="width:100%;">
+                    <thead>
+                        <th>ID #</th>
+                        <th>Vendor Name</th>
+                        <th>Vendor Company</th>
+
+
+                    </thead>
+                    <tbody>
+                        @foreach($order_details as $key => $detail)
+                            @foreach($order_details[$key]["order_details"] as $id => $order_detail)
+                                <tr>
+                                    <td>{!! $id !!}</td>
+                                    <td>@if (isset($order_details["vendor_name"])) {!! $order_detail["vendor_name"] !!} @else Not Set @endif</td>
+                                    <td>@if (isset($order_details["vendor_company"])) {!! $order_detail["vendor_company"] !!} @else Not Set @endif</td>
+                                </tr>
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

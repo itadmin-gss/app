@@ -8,6 +8,7 @@ use App\CustomerType;
 use App\Helpers\FlashMessage;
 use App\Helpers\SSP;
 use App\Order;
+use App\OrderDetail;
 use App\Recurring;
 use App\Service;
 use App\ServiceCategory;
@@ -51,14 +52,44 @@ class AssetController extends Controller
         //Get Requests
         $requests = MaintenanceRequest::where('asset_id', $property_details[0]->id)->get();
 
+        //Get Order Details / Request Details
+        $orderDetails = [];
+        $requestDetails = [];
+        foreach($requests as $request)
+        {
+            $orderDetails[$request->id]['status'] = $request->status;
+            $data = Order::where('request_id', $request->id)->get();
+            foreach($data as $dt)
+            {
+                $od = OrderDetail::where('order_id', $dt->id)->get()[0];
 
+                $vendor_details = User::where('id', $dt->vendor_id)->get();
+                if (count($vendor_details) > 1)
+                {
+                    $orderDetails[$request->id]["order_details"][$dt->id]["vendor_name"] = $vendor_details[0]->first_name." ".$vendor_details->last_name;
+                    $orderDetails[$request->id]["order_details"][$dt->id]["vendor_company"] = $vendor_details[0]->company;
+                }
 
+                $orderDetails[$request->id]["order_details"][$dt->id]["status"] = $od->status;
+                $orderDetails[$request->id]["order_details"][$dt->id]["completed"] = $od->completion_date;
+                $orderDetails[$request->id]["order_details"][$dt->id]["approved"] = $od->approved_date;
+                $orderDetails[$request->id]["order_details"][$dt->id]["created"] = $od->created_at;
+                $svc = RequestedService::where('id', $od->requested_service_id)->get();
+                $orderDetails[$request->id]["order_details"][$dt->id]['requested_service'] = $svc;
+            }
+
+        }
+
+//
+//        var_dump($orderDetails);
+//        exit;
 
         return view('pages.admin.asset-details')
             ->with('property_details', $property_details[0])
             ->with('city', $city)
             ->with('state', $state)
             ->with('customer_info', $customer_details[0])
+            ->with('order_details', $orderDetails)
             ->with('requests', $requests);
     }
 
