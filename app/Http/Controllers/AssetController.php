@@ -33,9 +33,24 @@ class AssetController extends Controller
     public function index($id)
     {
         //Get Asset Information
+        $property_details =  Asset::where('id', $id)->get();
+
+        if (count($property_details) < 1)
+        {
+            throw new \Exception ("Could not find Asset");
+            exit;
+        }
+
+        //Get City/State Information
+        $city = City::where('id', $property_details[0]->city_id)->get()[0]->name;
+        $state = State::where('id', $property_details[0]->state_id)->get()[0]->name;
+
+        echo $city;
+        echo $state;
+        exit;
 
         return view('pages.admin.asset-details')
-            ->with('id', $id);
+            ->with('id', $property_details);
     }
 
     public function showAddAsset()
