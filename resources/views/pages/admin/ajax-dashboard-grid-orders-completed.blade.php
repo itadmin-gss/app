@@ -5,12 +5,13 @@
 <title>GSS - Completed Orders</title>
  <div class='table-container'>
     <div class='table-responsive'>
-       <div class='table-padding table-heading'>
+       <div class='table-heading'>
            <div class="card blue-4">
                <div class="card-body">
                    <span>Completed</span>
                </div>
             </div>
+
       <table class="table table-striped table-sm table-bordered dt-responsive datatabledashboard" style='width:100%;' width='100%' cellspacing='0' id="completion_grid">
 
                       <thead>
