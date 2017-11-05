@@ -4,15 +4,27 @@
         use App\MaintenanceRequest;
         use App\AssignRequest;
         $get_notifications = Notification::getNotifications(Auth::user()->id);
-        $unreadnotifications = Notification::where('recepient_id', '=', Auth::user()->id)
-            ->where('is_read', '=', 1)
-            ->skip(0)
-            ->take(5)
-            ->count();
+        $unreadnotifications = 0;
+        foreach($get_notifications as $get)
+            {
+                if ($get->is_read == 1)
+                    {
+                        $unreadnotifications++;
+                    }
+            }
+
         $orderCounterDashboard = [];
 
-        $requestsNew = MaintenanceRequest::where('status', '=', 1)->select('id')->get();
-        $requests = MaintenanceRequest::select('id')->get();
+        $work_orders_count = DB::table('orders')
+            ->select(DB::raw('count(id) as numbers, status'))
+            ->groupBy('status')
+            ->get();
+
+        foreach ($work_orders_count as $datacounter) {
+            $orderCounterDashboard[$datacounter->status] = $datacounter->numbers;
+        }
+
+        $requests = MaintenanceRequest::select('id', 'status')->get();
 
         $request_ids = [];
         $request_service_ids = [];
@@ -36,9 +48,10 @@
             $numberofrequestids['requested_services_count'][$mdata->id] = count($request_service_ids);
             $numberofrequestids['assigned_services_count'][$mdata->id] = count($assigned_request_ids);
         }
-        $unassigned=0;
-        $assigned=0;
-        $i=1;
+        $unassigned     = 0;
+        $assigned       = 0;
+        $i              = 1;
+        $summary_count  = 0;
         foreach ($requests as $rm) {
             $request_service_ids=array();
             foreach ($rm->assignRequest as $rqdata) {
@@ -55,30 +68,16 @@
                     $assigned++;
 
             }
-
-        }
-
-        $summary_count = 0;
-        foreach($requestsNew as $rm)
-        {
-            if($numberofrequestids['requested_services_count'][$rm->id]!=$numberofrequestids['assigned_services_count'][$rm->id])
+            if ($rm->status == 1)
             {
-                $summary_count++;
+                if($numberofrequestids['requested_services_count'][$rm->id]!=$numberofrequestids['assigned_services_count'][$rm->id])
+                {
+                    $summary_count++;
+                }
             }
+
         }
-
-
-
-        $work_orders_count = DB::table('orders')
-            ->select(DB::raw('count(id) as numbers, status'))
-            ->groupBy('status')
-            ->get();
-
-        foreach ($work_orders_count as $datacounter) {
-            $orderCounterDashboard[$datacounter->status] = $datacounter->numbers;
-        }
-
-
+        
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="{!!URL::to('admin')!!}"><img class='brand-image' src='{!! URL::asset("assets/images/GSS-Logo.png") !!}'></a>
