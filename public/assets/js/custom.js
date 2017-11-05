@@ -27,7 +27,11 @@ $(document).ready(function(){
 				$(".delete-error").fadeIn("fast");
 			}
 		});
-	})
+	});
+
+	$(document).on("click", "#vendor-modal-close", function(){
+		window.location.href=baseurl+"/list-vendors";
+	});
 	//Event Handler -> Property Select on Service Request Page
 	$("#asset_number").on("change", function(){
 		$(".request-step-1 a").removeClass('badge-info').addClass('badge-disable');

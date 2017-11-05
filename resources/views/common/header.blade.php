@@ -1,3 +1,16 @@
+<?php
+use App\Notification;
+$get_notifications = Notification::getNotifications(Auth::user()->id);
+$unreadnotifications = 0;
+foreach($get_notifications as $get)
+{
+    if ($get->is_read == 1)
+    {
+        $unreadnotifications++;
+    }
+}
+
+
 <div class="navbar-inner">
 			<div class="container-fluid">
 

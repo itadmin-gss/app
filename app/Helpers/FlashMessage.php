@@ -28,7 +28,7 @@ class FlashMessage
                 'user_deleted' => 'Success! User has been deleted successfully.',
                 'user_role_updated' => 'Success! User role has been updated successfully.',
                 'user_role_update_error' => 'Error! User role Could not be updated.',
-                'vendor_add_success' => 'Successfully ! Vendor Created!',
+                'vendor_add_success' => 'Vendor Created!',
                 'vendor_add_error' => 'Error! Vendor Could Not Created!',
                 'service_price_success' => 'Successfully ! Assigned Price!',
                 'service_price_error' => 'Error! Price Not Assigned!',

@@ -139,7 +139,7 @@
                 <div class="delete-message hide">
                     <p>Vendor Deleted!</p>
                     <div class="pull-right">
-                        <button class="btn btn-info" id="vendor-modal-close" aria-label="Close">Ok</button>
+                        <button class="btn btn-info" id="vendor-modal-close"  aria-label="Close">Ok</button>
                     </div>
                 </div>
             </div>
