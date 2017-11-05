@@ -9,7 +9,7 @@ foreach($get_notifications as $get)
         $unreadnotifications++;
     }
 }
-
+?>
 
 <div class="navbar-inner">
 			<div class="container-fluid">
