@@ -1806,6 +1806,7 @@ function modalClose(){
   
   
   }
+
   function deleteOrderAllImages(order_id, before_image)
   {
       $.ajax({

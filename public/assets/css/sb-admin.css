@@ -21,7 +21,16 @@
   margin-top:15px !important;
 }
 
+#vendor-delete-modal.show{
+    display: flex !important;
+    height:100%;
+}
 
+
+
+#vendor-delete-modal.show .modal-dialog{
+    margin:auto !important;
+}
 .modal{
   z-index:999999999999999 !important;
 }

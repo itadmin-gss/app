@@ -97,7 +97,7 @@
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                   </a>
 
-                  <a class="btn btn-danger btn-xs action-button" onclick="modalButtonOnClick({!!$vendor->id!!},'{!!$db_table!!}','vendor')" data-confirm="Are you sure you want to delete?" title="Delete Vendor"> 
+                  <a href="javascript:void(0)" id="confirm-vendor-delete" class="btn btn-danger btn-xs action-button" data-vendor-id="{!!$vendor->id!!}" data-table="{!!$db_table!!}">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a> 
 
@@ -113,13 +113,39 @@
       </div>
     </div>
     <!--/span-->
-    <script>
-	var db_table = "{!! $db_table !!}";
- 	</script>
+
   </div>
   <!--/row-->
 </div>
 
+<div class="modal fade" id="vendor-delete-modal">
+    <input type="hidden" id="vendor-delete-id" value="">
+    <input type="hidden" id="vendor-delete-table" value="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="delete-confirm">
+                    <p>Are you sure you want to delete this vendor?</p>
+                    <div class="pull-right">
+                        <button class="btn btn-info" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                        <button class="btn btn-danger" id="vendor-delete-button">Delete</button>
+                    </div>
+                </div>
+                <div class="delete-error hide">
+                    <p>An error has occured. Please contact IT.</p>
+                    <button class="btn btn-info" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                </div>
+                <div class="delete-message hide">
+                    <p>Vendor Deleted!</p>
+                    <div class="pull-right">
+                        <button class="btn btn-info" id="vendor-modal-close" aria-label="Close">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class='modal fade' id='add-vendor-modal'>
   <div class='modal-dialog'>
     <div class='modal-content'>

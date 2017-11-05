@@ -1,6 +1,33 @@
 //$.noConflict();
 $(document).ready(function(){
-	
+
+	//Event Handler -> confirm vendor delete modal
+	$(document).on("click", "#confirm-vendor-delete", function(){
+		$("#vendor-delete-id").val($(this).data('vendor-id'));
+		$("#vendor-delete-table").val($(this).data('table'));
+		$("#vendor-delete-modal").modal("toggle");
+	});
+
+	//Even Handler -> Delete Vendor Button
+	$(document).on("click", "#vendor-delete-button", function(){
+		$.ajax({
+			url: baseurl + "/delete-record",
+			type: "get",
+			data: {type: "vendor", db_table : $("#vendor-delete-table").val(), id : $("#vendor-delete-id").val()},
+
+		}).done(function(cb){
+			if (cb == 1)
+			{
+				$(".delete-confirm").hide();
+				$(".delete-message").fadeIn("fast");
+			}
+			else
+			{
+				$(".delete-confirm").hide();
+				$(".delete-error").fadeIn("fast");
+			}
+		});
+	})
 	//Event Handler -> Property Select on Service Request Page
 	$("#asset_number").on("change", function(){
 		$(".request-step-1 a").removeClass('badge-info').addClass('badge-disable');
