@@ -380,7 +380,7 @@ min-width:135px !important;
   margin-bottom:20px;
 }
 .brand-image {
-  width:137px !important;
+  width:125px !important;
 }
 .badge-default{
   background-color: #636c72 !important;
@@ -606,7 +606,7 @@ body.fixed-nav {
       -webkit-flex-direction: column;
       -ms-flex-direction: column;
       flex-direction: column;
-      margin-top: 77px; 
+      margin-top: 72px;
       border-top: 1px solid #DDD}
       #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
         width: 130px;

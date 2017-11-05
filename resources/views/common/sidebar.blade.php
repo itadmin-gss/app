@@ -77,7 +77,7 @@
             }
 
         }
-        
+
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="{!!URL::to('admin')!!}"><img class='brand-image' src='{!! URL::asset("assets/images/GSS-Logo.png") !!}'></a>
