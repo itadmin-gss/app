@@ -33,19 +33,19 @@ class Email
 
         //Save Email to DB
 
-        // $block = ['admin@gssreo.com', 'accounting@gssreo.com'];
-        // if (!in_array($to_send, $block))
-        // {
-        //     if ( !isset($email_data['first_name']) || !$email_data['first_name'] || trim($email_data['first_name']) == '' )
-        //     {
-        //         $email_data['first_name'] = 'Not Set';
-        //     }        
-        //     SentEmail::add($email_data, $subject, $template);
+         $block = ['admin@gssreo.com', 'accounting@gssreo.com'];
+         if (!in_array($to_email, $block))
+         {
+             if ( !isset($email_data['first_name']) || !$email_data['first_name'] || trim($email_data['first_name']) == '' )
+             {
+                 $email_data['first_name'] = 'Not Set';
+             }
+             SentEmail::add($email_data, $subject, $template);
     
-        //     //Send Email
-        //     Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
+             //Send Email
+             Mail::to($to_email)->send(new GenericMail($subject, $template, $email_data));
     
-        // }
+         }
 
     }
 }
