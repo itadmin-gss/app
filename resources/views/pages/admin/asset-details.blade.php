@@ -84,6 +84,10 @@
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
                 <h5>Work Orders</h5>
+                <hr>
+                <a href="{!! URL::to('/admin-add-new-service-request') !!}">
+                    <button type="button" class="btn btn-success">Add Work Order</button>
+                </a>
                 <table class="table table-striped table-small dt-responsive datatabledashboard" style="width:100%;">
                     <thead>
                         <th>ID #</th>
