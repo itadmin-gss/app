@@ -1214,7 +1214,7 @@ function modalClose(){
           processData: false,
           success: function(data)
           {
-              if (data.indexOf("Successfully ! Vendor Created!") > -1)
+              if (data.indexOf("Vendor Created!") > -1)
               {
                   window.location.href="/list-vendors";  
               }

@@ -683,9 +683,11 @@ class AdminController extends Controller
 
                     //Return success message
                     Session::flash('message', $vendor_add_message);
-                    return FlashMessage::displayAlert($vendor_add_message . $token, 'success');
+                    return "Vendor Created!";
     
-                }
+                } else {
+                   return "Something failed";
+               }
 
             }
         }
