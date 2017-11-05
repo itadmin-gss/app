@@ -93,36 +93,38 @@ foreach ($requests as $rm) {
                 </a>
             </li>
 
-            <!-- Vendor Link -->
-            @if($access_roles['Vendor']['view'] == 1)
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">
-                    <a class="nav-link" href="{!!URL::to('list-vendors') !!}">
-                        <i class="fa fa-fw fa-2x fa-users"></i>
-                        <p class="nav-link-text">Vendors</p>
-                    </a>
-                </li>
-            @endif
+            {{--<!-- Vendor Link -->--}}
+            {{--@if (isset($access_roles['Vendor']['view']))--}}
+                {{--@if($access_roles['Vendor']['view'] == 1)--}}
+                    {{--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">--}}
+                        {{--<a class="nav-link" href="{!!URL::to('list-vendors') !!}">--}}
+                            {{--<i class="fa fa-fw fa-2x fa-users"></i>--}}
+                            {{--<p class="nav-link-text">Vendors</p>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--@endif--}}
+            {{--@endif--}}
 
-        <!-- Properties Link -->
-            @if($access_roles['Asset']['view'] == 1)
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">
-                    <a class="nav-link" href="{!!URL::TO('list-assets')!!}">
-                        <i class="fa fa-fw fa-2x fa-home"></i>
-                        <p class="nav-link-text">Properties</p>
-                    </a>
-                </li>
-            @endif
+        {{--<!-- Properties Link -->--}}
+            {{--@if($access_roles['Asset']['view'] == 1)--}}
+                {{--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">--}}
+                    {{--<a class="nav-link" href="{!!URL::TO('list-assets')!!}">--}}
+                        {{--<i class="fa fa-fw fa-2x fa-home"></i>--}}
+                        {{--<p class="nav-link-text">Properties</p>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--@endif--}}
 
 
-        <!-- Permissions Link -->
-            @if($access_roles['Access Level']['view'] == 1)
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Permissions">
-                    <a class="nav-link" href="{!!URL::to('list-permissions')!!}">
-                        <i class="fa fa-fw fa-2x fa-key"></i>
-                        <p class="nav-link-text">Permissions</p>
-                    </a>
-                </li>
-            @endif
+        {{--<!-- Permissions Link -->--}}
+            {{--@if($access_roles['Access Level']['view'] == 1)--}}
+                {{--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Permissions">--}}
+                    {{--<a class="nav-link" href="{!!URL::to('list-permissions')!!}">--}}
+                        {{--<i class="fa fa-fw fa-2x fa-key"></i>--}}
+                        {{--<p class="nav-link-text">Permissions</p>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--@endif--}}
 
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
@@ -144,67 +146,67 @@ foreach ($requests as $rm) {
             </li>
 
         </ul>
-        <ul class='navbar-nav'>
-            <li class='nav-item' style='float:left;'>
-                <a class='navbar-table-link' href="{!! URL::to('admin') !!}">
-                    <div class='nav-badge badge-blue-1 text-white'>
-                        @if (isset($summary_count))
-                            {!! $summary_count." New Requests (Summary)" !!}
-                        @else
-                            {!! "0 New Requests (Summary)" !!}
-                        @endif
+        {{--<ul class='navbar-nav'>--}}
+            {{--<li class='nav-item' style='float:left;'>--}}
+                {{--<a class='navbar-table-link' href="{!! URL::to('admin') !!}">--}}
+                    {{--<div class='nav-badge badge-blue-1 text-white'>--}}
+                        {{--@if (isset($summary_count))--}}
+                            {{--{!! $summary_count." New Requests (Summary)" !!}--}}
+                        {{--@else--}}
+                            {{--{!! "0 New Requests (Summary)" !!}--}}
+                        {{--@endif--}}
 
-                    </div>
-                </a>
-            </li>
-            <li class='nav-item' style='float:left;'>
-                <a class='navbar-table-link' href='{!! URL::to("in-process") !!}'>
-                    <div class='nav-badge badge-blue-2 text-white'>
-                        @if (isset($orderCounterDashboard['1']))
-                            {!! $orderCounterDashboard['1']." In-Process" !!}
-                        @else
-                            {!! "0 In-Process" !!}
-                        @endif
-                    </div>
-                </a>
-            </li>
-            <li class='nav-item' style='float:left;'>
-                <a class='navbar-table-link' href="{!! URL::to('under-review') !!}">
-                    <div class='nav-badge badge-blue-3 text-white'>
-                        @if (isset($orderCounterDashboard['3']))
-                            {!! $orderCounterDashboard['3']." Under Review" !!}
-                        @else
-                            {!! "0 Under Review" !!}
-                        @endif
-                    </div>
-                </a>
-            </li>
-            <li class='nav-item' style='float:left;'>
-                <a class='navbar-table-link' href="{!! URL::to('completed') !!}">
-                    <div class='nav-badge badge-blue-4 text-white'>
-                        @if (isset($orderCounterDashboard['2']))
-                            {!! $orderCounterDashboard['2']." Completed" !!}
-                        @else
-                            {!! "0 Completed" !!}
-                        @endif
-                    </div>
-                </a>
-            </li>
-        </ul>
+                    {{--</div>--}}
+                {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class='nav-item' style='float:left;'>--}}
+                {{--<a class='navbar-table-link' href='{!! URL::to("in-process") !!}'>--}}
+                    {{--<div class='nav-badge badge-blue-2 text-white'>--}}
+                        {{--@if (isset($orderCounterDashboard['1']))--}}
+                            {{--{!! $orderCounterDashboard['1']." In-Process" !!}--}}
+                        {{--@else--}}
+                            {{--{!! "0 In-Process" !!}--}}
+                        {{--@endif--}}
+                    {{--</div>--}}
+                {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class='nav-item' style='float:left;'>--}}
+                {{--<a class='navbar-table-link' href="{!! URL::to('under-review') !!}">--}}
+                    {{--<div class='nav-badge badge-blue-3 text-white'>--}}
+                        {{--@if (isset($orderCounterDashboard['3']))--}}
+                            {{--{!! $orderCounterDashboard['3']." Under Review" !!}--}}
+                        {{--@else--}}
+                            {{--{!! "0 Under Review" !!}--}}
+                        {{--@endif--}}
+                    {{--</div>--}}
+                {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class='nav-item' style='float:left;'>--}}
+                {{--<a class='navbar-table-link' href="{!! URL::to('completed') !!}">--}}
+                    {{--<div class='nav-badge badge-blue-4 text-white'>--}}
+                        {{--@if (isset($orderCounterDashboard['2']))--}}
+                            {{--{!! $orderCounterDashboard['2']." Completed" !!}--}}
+                        {{--@else--}}
+                            {{--{!! "0 Completed" !!}--}}
+                        {{--@endif--}}
+                    {{--</div>--}}
+                {{--</a>--}}
+            {{--</li>--}}
+        {{--</ul>--}}
         <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">
-                <a class="nav-link" href="{!!URL::to('list-vendors') !!}">
-                    <i class="fa fa-fw fa-users"></i>
-                    <span class="nav-link-text">Vendors</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">
-                <a class="nav-link" href="{!!URL::to('list-assets') !!}">
-                    <i class="fa fa-fw fa-home"></i>
-                    <span class="nav-link-text">Properties</span>
-                </a>
-            </li>
+            {{--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">--}}
+                {{--<a class="nav-link" href="{!!URL::to('list-vendors') !!}">--}}
+                    {{--<i class="fa fa-fw fa-users"></i>--}}
+                    {{--<span class="nav-link-text">Vendors</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">--}}
+                {{--<a class="nav-link" href="{!!URL::to('list-assets') !!}">--}}
+                    {{--<i class="fa fa-fw fa-home"></i>--}}
+                    {{--<span class="nav-link-text">Properties</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
             <li class="nav-item">
                 <a class="nav-link" href="edit-profile">
                     <i class='fa fa-fw fa-user'></i>Profile
