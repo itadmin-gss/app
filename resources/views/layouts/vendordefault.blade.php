@@ -5,11 +5,7 @@
     </head>
 
     <body style="background-image: none !important;">
-        <!-- start: Header -->
-        <div class="navbar">
-            @include('common.header')	
-        </div>
-        <!-- start: Header -->
+
 
         <div class="container-fluid">
             <div class="row-fluid">
