@@ -12,6 +12,15 @@
                            <h5 class="">Property Information</h5>
                            <table class="table table-small">
                                <tbody>
+
+                                   <tr>
+                                       <td>Property Number:</td>
+                                       <td>
+                                           @if (isset($property_details->asset_number)) {!! $property_details->asset_number !!} @endif
+                                           <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
+                                       </td>
+                                   </tr>
+
                                    <tr>
                                       <td>Property Address:</td>
                                       <td>
@@ -20,53 +29,71 @@
                                           <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                       </td>
                                    </tr>
+
+                                   <tr>
+                                       <td>Property Type:</td>
+                                       <td>
+                                           @if (isset($property_details->property_type)) {!! $property_details->property_type !!} @endif
+                                           <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
+                                       </td>
+                                   </tr>
                                    <tr>
                                        <td>Customer:</td>
                                        <td>
-                                           {!! $customer_info->first_name !!} {!! $customer_info->last_name !!}
+                                           @if (isset($customer_info->first_name)) {!! $customer_info->first_name !!} @endif @if (isset($customer_info->last_name)){!! $customer_info->last_name !!} @endif
                                            <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                        </td>
                                    </tr>
 
-                                   @if (isset($customer_info->email))
+
                                        <tr>
                                            <td>Customer Email:</td>
                                            <td>
-                                               {!! $customer_info->email !!}
+                                               @if (isset($customer_info->email)) {!! $customer_info->email !!} @endif
                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
-                                   @endif
 
-                                   @if (isset($customer_info->company))
                                        <tr>
                                            <td>Customer Company:</td>
                                            <td>
-                                               {!! $customer_info->company !!}
+                                               @if (isset($customer_info->company)) {!! $customer_info->company !!} @endif
                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
-                                   @endif
 
-                                   @if (isset($property_details->lock_box) && $property_details->lock_box !== '')
+
                                        <tr>
                                            <td>Lock Box:</td>
                                            <td>
-                                               {!! $property_details->lock_box !!}
+                                               @if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif
                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
-                                   @endif
 
-                                   @if (isset($property_details->access_code) && $property_details->access_code !== '')
                                        <tr>
                                            <td>Access Code:</td>
                                            <td>
-                                               {!! $property_details->access_code !!}
+                                               @if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif
                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
-                                   @endif
+
+                                        <tr>
+                                            <td>Loan Number:</td>
+                                            <td>
+                                                @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
+                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Property Status</td>
+                                            <td>
+                                                @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
+                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
+                                            </td>
+                                        </tr>
 
 
                                 </tbody>
