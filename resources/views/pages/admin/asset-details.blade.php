@@ -2,13 +2,21 @@
 @section('content')
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
     <div id="content">
-        <h4 class="text-center">Details for {!! $property_details->property_address !!}</h4>
+        <h4>{!! $property_details->property_address !!} {!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}</h4>
         <hr>
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
 
                 <div class="row">
+                    <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="property-photo">
+
+                        </div>
+                    </div>
                        <div class="col-md-5 col-lg-5 col-sm-12">
+
+
+
                            <h5 class="">Property Information</h5>
                            <table class="table table-small">
                                <tbody>
@@ -26,7 +34,6 @@
                                       <td>
                                           {!! $property_details->property_address !!}
                                           <br>{!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}
-                                          <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                       </td>
                                    </tr>
 
@@ -34,14 +41,12 @@
                                        <td>Property Type:</td>
                                        <td>
                                            @if (isset($property_details->property_type)) {!! $property_details->property_type !!} @endif
-                                           <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                        </td>
                                    </tr>
                                    <tr>
                                        <td>Customer:</td>
                                        <td>
                                            @if (isset($customer_info->first_name)) {!! $customer_info->first_name !!} @endif @if (isset($customer_info->last_name)){!! $customer_info->last_name !!} @endif
-                                           <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                        </td>
                                    </tr>
 
@@ -50,7 +55,6 @@
                                            <td>Customer Email:</td>
                                            <td>
                                                @if (isset($customer_info->email)) {!! $customer_info->email !!} @endif
-                                               <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
 
@@ -58,7 +62,6 @@
                                            <td>Customer Company:</td>
                                            <td>
                                                @if (isset($customer_info->company)) {!! $customer_info->company !!} @endif
-                                               <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
 
@@ -67,7 +70,6 @@
                                            <td>Lock Box:</td>
                                            <td>
                                                @if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif
-                                               <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
 
@@ -75,7 +77,6 @@
                                            <td>Access Code:</td>
                                            <td>
                                                @if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif
-                                               <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                            </td>
                                        </tr>
 
@@ -83,7 +84,6 @@
                                             <td>Loan Number:</td>
                                             <td>
                                                 @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
-                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                             </td>
                                         </tr>
 
@@ -91,7 +91,6 @@
                                             <td>Property Status</td>
                                             <td>
                                                 @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
-                                                <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
                                             </td>
                                         </tr>
 
@@ -101,10 +100,7 @@
 
                        </div>
                         <div class="col-md-1 col-lg-1 col-sm-12"></div>
-                        <div class="col-md-5 col-lg-5 col-sm-12">
-                            <h5>Property Photo</h5>
 
-                        </div>
                 </div> <!-- end .row -->
             </div>
         </div>

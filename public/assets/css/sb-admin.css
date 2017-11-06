@@ -26,7 +26,19 @@
     height:100%;
 }
 
+.property-photo{
+  border:3px dashed #ddd;
+  height:400px;
+  width:100%;
+}
 
+@media (max-width:1350px) and (min-width:992px){
+  .nav-badge{
+    font-size:13px !important;
+    height:49px !important;
+    margin-top:4px !important;
+  }
+}
 
 #vendor-delete-modal.show .modal-dialog{
     margin:auto !important;
