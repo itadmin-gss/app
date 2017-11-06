@@ -8,6 +8,15 @@ $(document).ready(function(){
 		$("#vendor-delete-modal").modal("toggle");
 	});
 
+	//Event Handler -> Property Photo Upload
+	$("#property-photo-upload").on("click", function(){
+		$("#photo-upload-modal").modal("toggle");
+	});
+
+	$("#photo-upload-select-files").on("click", function(){
+		$("#photo-upload-input").click();
+	})
+
 	//Even Handler -> Delete Vendor Button
 	$(document).on("click", "#vendor-delete-button", function(){
 		$.ajax({

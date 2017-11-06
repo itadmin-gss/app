@@ -26,12 +26,35 @@
     height:100%;
 }
 
+.photo-button-group{
+  margin-top:15px;
+}
 .property-photo{
   border:3px dashed #ddd;
   height:400px;
   width:100%;
+  position:relative !important;
 }
 
+.photo-preview{
+  border:3px dashed #ddd;
+  height:200px;
+  width:100%;
+}
+.no-photo{
+  color:#DDD;
+}
+.property-photo .fa-photo{
+  color:#DDD;
+  font-size:60px !important;
+}
+
+.vertical-center{
+  position:absolute;
+  top:37%;
+  left:25%;
+  right:25%;
+}
 @media (max-width:1350px) and (min-width:992px){
   .nav-badge{
     font-size:13px !important;
@@ -40,6 +63,12 @@
   }
 }
 
+#photo-upload-modal .modal-content{
+  min-height:300px;
+}
+#photo-upload-modal .modal-dialog{
+  max-width: 500px !important;
+}
 #vendor-delete-modal.show .modal-dialog{
     margin:auto !important;
 }

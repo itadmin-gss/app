@@ -9,14 +9,20 @@
 
                 <div class="row">
                     <div class="col-md-5 col-lg-5 col-sm-12">
-                        <div class="property-photo">
-
+                        <div class="property-photo text-center">
+                            <div class="vertical-center">
+                                <div class="house-photo-brand">
+                                    <i class="fa fa-photo"></i>
+                                    <p class="no-photo">No Property Photo Selected</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="photo-button-group">
+                            <button type="button" class="btn btn-success" id="property-photo-upload">Upload</button>
+                            <button type="button" class="btn btn-info" id="property-photo-select">Select From Available Photos</button>
                         </div>
                     </div>
                        <div class="col-md-5 col-lg-5 col-sm-12">
-
-
-
                            <h5 class="">Property Information</h5>
                            <table class="table table-small">
                                <tbody>
@@ -93,8 +99,6 @@
                                                 @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
                                             </td>
                                         </tr>
-
-
                                 </tbody>
                            </table>
 
@@ -120,8 +124,6 @@
                         <th>Status</th>
                         <th>Completed</th>
                         <th>Approved</th>
-
-
                     </thead>
                     <tbody>
                         @foreach($order_details as $key => $detail)
@@ -143,6 +145,28 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+        </div> <!-- End Row -->
+
+        <!-- Upload Photo Modal -->
+        <div class="modal fade" id="photo-upload-modal">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Upload Photos
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    <button type="button" class="btn btn-info" id="photo-upload-select-files">Select Files</button>
+                                    <input type="file" class="hide" id="photo-upload-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
