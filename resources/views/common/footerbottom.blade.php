@@ -3,6 +3,7 @@
 </script>
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="{!! URL::asset('assets/js/dropzone.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/popper.min.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/bootstrap.min.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/tether.min.js') !!}"></script>

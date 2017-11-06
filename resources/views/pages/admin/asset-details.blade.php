@@ -2,7 +2,7 @@
 @section('content')
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
     <div id="content">
-        <h4>{!! $property_details->property_address !!} {!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}</h4>
+        <h4>{!! $property_details->property_address !!}, {!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}</h4>
         <hr>
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
@@ -158,11 +158,12 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <div class="pull-right">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                    <button type="button" class="btn btn-info" id="photo-upload-select-files">Select Files</button>
-                                    <input type="file" class="hide" id="photo-upload-input">
-                                </div>
+                                <form action="{!! URL::to('/property-photo-upload') !!}" id="dropzone-upload" class="dropzone"></form>
+                                {{--<div class="pull-right">--}}
+                                    {{--<button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>--}}
+                                    {{--<button type="button" class="btn btn-info" id="photo-upload-select-files">Select Files</button>--}}
+                                    {{--<input type="file" class="hide" id="photo-upload-input">--}}
+                                {{--</div>--}}
                             </div>
                         </div>
                     </div>
