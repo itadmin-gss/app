@@ -122,17 +122,16 @@
         <div class="row">
             <div class="col-md-5 col-lg-5 col-sm-12 static-height">
                 <h2>Vendor Profile Completion - Step 3</h2>
+
+                {!! Form::label('vendor_services', 'Vendor Services') !!}
+                <select class="chosen-hidden" id="vendor_services" data-rel="chosen" multiple="true" name="vendor_services[]" >
+                    {!! $vendor_services !!}
+                </select>
+
                 <div class="form-group">
                     {!! Form::label('zip_list', 'Service Zip Codes (Comma Seperated)') !!}
                     {!! Form::textarea('zip_list', '', array('class' => 'form-control', 'id' => 'zip_list')) !!}
                 </div>
-
-
-
-                {!! Form::label('vendor_services', 'Vendor Services') !!}
-                <select class="chosen-hidden" id="vendor_services" data-rel="chosen" multiple="true" name="vendor_services[]" >
-                   {!! $vendor_services !!}
-                </select>
 
                 <div class="form-group pull-right">
                     <button type="button" class="btn btn-info" id="vendor-step-3-back">Back</button>
@@ -140,6 +139,66 @@
                 </div>
 
 
+            </div>
+        </div>
+    </div>
+
+    <div class="complete-profile-review">
+        <div class="row">
+            <div class="col-md-5 col-lg-5 col-sm-12">
+                <h2>Vendor Profile Completion - Review</h2>
+                <table class="table table-bordered table-small">
+                    <tbody>
+                        <tr>
+                            <td>Username</td>
+                            <td class="review-username"></td>
+                        </tr>
+                        <tr>
+                            <td>Address 1</td>
+                            <td class="review-address-1"></td>
+                        </tr>
+                        <tr>
+                            <td>Address 2</td>
+                            <td class="review-address-2"></td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td class="review-city"></td>
+                        </tr>
+                        <tr>
+                            <td>State</td>
+                            <td class="review-state"></td>
+                        </tr>
+                        <tr>
+                            <td>Zip</td>
+                            <td class="review-zip"></td>
+                        </tr>
+                        <tr>
+                            <td>Company</td>
+                            <td class="review-company"></td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td class="review-phone"></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td class="review-email">{!! isset($user_detail['email']) ? $user_detail['email'] : '' !!}</td>
+                        </tr>
+                        <tr>
+                            <td>Vendor Service(s)</td>
+                            <td class="review-services"></td>
+                        </tr>
+                        <tr>
+                            <td>Service Zipcode(s)</td>
+                            <td class="review-ziplist"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group pull-right">
+                    <button type="button" class="btn btn-info" id="vendor-step-4-back">Back</button>
+                    <button type="submit" class="btn btn-success" id="vendor-complete-profile">Submit</button>
+                </div>
             </div>
         </div>
     </div>

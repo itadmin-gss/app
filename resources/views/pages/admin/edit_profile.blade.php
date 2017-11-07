@@ -1,21 +1,7 @@
 @extends('layouts.default')
 @section('content')
 <div id="content" class="span11">
-{{--  
-        <div id="profileSuccessMessage" class="">
-        </div>
-        <div id="profileValidationErrorMessage" class="">
-        </div>
-        <div id="profileErrorMessage" class="hide">
-            <div class="alert alert-error">Can not Updated Profile</h4>
-        </div>
 
-        </div>
-        @if($errors->any())
-        @foreach ($errors->all() as $error)
-        <div class="alert alert-error">{!! $error !!}</div>
-        @endforeach
-        @endif  --}}
 
 
     <h4>Edit Profile</h4>

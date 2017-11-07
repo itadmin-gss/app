@@ -33,7 +33,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * Vendor Controller Class.
@@ -353,11 +352,9 @@ class VendorController extends Controller
     {
         if (Auth::check()) {
             $id = Auth::user()->id;
-            if (Request::get('save_continue')) {
-                $redirect = 'vendor-profile-service';
-            } elseif (Request::get('save_exit')) {
-                $redirect = 'vendors';
-            }
+
+            $redirect = 'vendors';
+
             if (Request::get('create_by_admin') == 'yes') {
                 $username = Request::get('username');
                 $rules = [
@@ -381,28 +378,20 @@ class VendorController extends Controller
                     ];
             }
 
-            $validator = Validator::make(Request::all(), $rules);
 
-            if ($validator->fails()) {
-                return redirect('vendor-profile-complete')
-                ->withErrors($validator)
-                ->withInput(Request::except('profile_picture'));
-            } else {
-                $street = '';
-                $streetNumber = '';
                 $city_id = Request::get('city_id');
                 $city = City::find($city_id)->name;
                 $zip = Request::get('zipcode');
-                $country = 'United States';
-             //   $result = Geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
                 $property_address= Request::get('address_1');
                 $state_id = Request::get('state_id');
                 $state = State::find($state_id)->name;
                 $result  =  Asset::getLatLong($property_address.$zip, $city, $state);
                 $data = Request::all();
-                $data['latitude'] = $result['lat'];
-                $data['longitude'] = $result['lng'];
+                $data['latitude'] = 0;
+                $data['longitude'] = 0;
                 $data['password']  = Hash::make(Request::get('password'));
+                $data['available_zipcodes'] = Request::get('zip_list');
+
 
 
                  //User Notification Email for profile completeness
@@ -424,11 +413,17 @@ class VendorController extends Controller
                 } else {
                     $data['profile_picture'] = Auth::user()->profile_picture;
                 }
+
+                foreach(Request::get('vendor_services') as $srv)
+                {
+                    VendorService::addVendorServices(array('vendor_id' => $id, 'service_id' => $srv, 'status' => 1));
+                }
+
                 $save = User::profile($data, $id);
                 if ($save) {
                     return redirect($redirect);
                 }
-            }
+
         } else {
             return redirect('/');
         }

@@ -70,6 +70,38 @@ $(document).ready(function(){
 
 	});
 
+
+	$("#vendor-step-4-back").on("click", function(){
+		$(".complete-profile-review").hide();
+		$(".complete-profile-step-3").fadeIn("fast");
+	});
+
+	//Event Handler -> Vendor Profile Completion - Step 3 -> Step 4 (Next Button)
+	$("#vendor-step-3-next").on("click", function(){
+
+		$(".review-username").text($("#username").val());
+		$(".review-address-1").text($("#address_1").val());
+		$(".review-address-2").text($("#address_2").val());
+		$(".review-city").text($("#city_id option:selected").text());
+		$(".review-state").text($("#state_id option:selected").text());
+		$(".review-zip").text($("#zipcode").val());
+		$(".review-company").text($("#company").val());
+		$(".review-phone").text($("#phone").val());
+
+		var services = "";
+		$("#vendor_services option:selected").each(function(){
+			var $this = $(this);
+			services += $this.text()+"<br>";
+		});
+
+		$(".review-services").html(services);
+		$(".review-ziplist").text($("#zip_list").val());
+
+        $(".complete-profile-step-3").hide();
+        $(".complete-profile-review").fadeIn("fast");
+
+	});
+
 	//Enable pwstrength password meter
 	$(".complete-profile-step-1 #password").pwstrength();
 

@@ -235,7 +235,8 @@
 .step-3,
 .step-4,
 .complete-profile-step-2,
-.complete-profile-step-3{
+.complete-profile-step-3,
+.complete-profile-review{
   display:none;
 }
 

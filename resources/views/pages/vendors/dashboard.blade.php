@@ -13,14 +13,6 @@
 @endif
 
 
-<!-- start: Content -->
-
-
-
-
-
-
-
 
     <div class="row-fluid">
 
@@ -40,997 +32,810 @@
 
 
 
-    </div><!--/row-->
+    {{--</div><!--/row-->--}}
 
 
 
 
+    {{--<div class="row-fluid">--}}
 
 
 
 
-    <div class="row-fluid">
 
+        {{--<div class="span">--}}
 
 
 
 
-        <div class="span">
 
+            {{--<div class="row-fluid">--}}
 
 
+                {{--<div class="box span12">--}}
 
 
-            <div class="row-fluid">
 
 
-                <div class="box span12">
 
+                    {{--<h1>Quick View</h1>--}}
 
 
 
 
-                    <h1>Quick View</h1>
 
+                    {{--<div class="box-content main-button">--}}
 
 
 
 
-                    <div class="box-content main-button">
 
+                        {{--<a href="{!!URL::to('vendor-bid-requests')!!}" class="quick-button span4">--}}
 
 
+                            {{--<i class="fa-icon-briefcase"></i>--}}
 
 
-                        <a href="{!!URL::to('vendor-bid-requests')!!}" class="quick-button span4">
+                            {{--<p>OSR</p>--}}
 
 
-                            <i class="fa-icon-briefcase"></i>
+                        {{--</a>--}}
 
 
-                            <p>OSR</p>
+                        {{--<a href="{!!URL::to('vendor-list-orders')!!}" class="quick-button span4">--}}
 
 
-                        </a>
+                            {{--<i class="fa-icon-cog"></i>--}}
 
 
-                        <a href="{!!URL::to('vendor-list-orders')!!}" class="quick-button span4">
+                            {{--<p>Work Orders</p>--}}
 
 
-                            <i class="fa-icon-cog"></i>
+                        {{--</a>--}}
 
 
-                            <p>Work Orders</p>
+                        {{--<a href="{!!URL::to('vendor-list-invoice')!!}" class="quick-button span4">--}}
 
 
-                        </a>
+                            {{--<i class="fa-icon-tasks"></i>--}}
 
 
-                        <a href="{!!URL::to('vendor-list-invoice')!!}" class="quick-button span4">
+                            {{--<p>Invoices</p>--}}
 
 
-                            <i class="fa-icon-tasks"></i>
+                        {{--</a>--}}
 
 
-                            <p>Invoices</p>
 
 
-                        </a>
 
+                        {{--<div class="clearfix"></div>--}}
 
 
+                    {{--</div>--}}
 
 
-                        <div class="clearfix"></div>
+                {{--</div>--}}
 
 
-                    </div>
+            {{--</div>--}}
+            {{----}}
 
+        {{--</div><!--/span-->--}}
 
-                </div>
 
 
-            </div>
 
 
-<!-- <div class="row-fluid">
+    {{--</div><!--/row-->--}}
 
 
-        <div class="box span12">
+                        {{--<div class="row-fluid">--}}
 
 
-            <div class="box-header" data-original-title>
 
 
-                <h2><i class="halflings-icon th-list"></i><span class="break"></span>Summary</h2>
 
+                        {{--<div class="box span6">--}}
 
 
+                            {{--<div class="box-header">--}}
 
 
-            </div>
+                                {{--<h2>Recent Service Requests <a class="btn btn-info" href="{!!URL::to('vendor-assigned-requests')!!}" title="View All">View All</a></h2>--}}
 
 
-            <div class="box-content">
+                                {{--<div class="box-icon">--}}
 
 
-                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                                    {{--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--}}
 
 
+                                {{--</div>--}}
 
 
+                            {{--</div>--}}
 
-                    <thead>
 
+                            {{--<div class="box-content">--}}
 
 
+                                {{--<table class="table table-condensed">--}}
 
 
-                            <tr>
+                                      {{--<thead>--}}
 
 
-                                              <th id="dashboardclick">Req No</th>
+                                          {{--<tr>--}}
 
 
-                                              <th>Property #</th>
+                                              {{--<th>Request ID</th>--}}
 
 
-                                              <th>Property Address </th>
+                                              {{--<th> Property Address</th>--}}
 
 
-                                              <th>Request Date</th>
+                                              {{--<th>Services/Due Date</th>--}}
 
 
-                                              <th>No. of Services</th>
 
 
-                                              <th>Service </th>
 
+                                          {{--</tr>--}}
 
 
+                                      {{--</thead>--}}
 
 
-                                              <th>Work Order #</th>
+                                      {{--<tbody>--}}
 
 
+                                        {{--<tr>--}}
 
 
 
-                                              <th>Invoice#</th>
 
 
-                                              <th>Vendor Price</th>
+                                        {{--</tr>--}}
 
 
 
 
 
-                                              <th>Action</th>
+                                         {{--@foreach ($assign_requests as $assign_request)--}}
 
 
+                                        {{--<tr>--}}
 
 
+                                            {{--<td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_id'] !!}</td>--}}
 
 
+                                            {{--<td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['property_address'] !!}</td>--}}
 
 
-                                          </tr>
 
 
-                    </thead>
 
+                                             {{--<td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['service_name'] !!}</td>--}}
 
-                    <tbody>
 
 
 
 
 
-                        @foreach ($assign_requests as $assign_request)
 
 
-                        <tr>
+                                        {{--</tr>--}}
 
 
 
 
 
-                           <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_id'] !!}</td>
+                                        {{--@endforeach--}}
 
 
-                           <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['asset_number'] !!}</td>
+                                      {{--</tbody>--}}
 
 
-                                                        <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['property_address'] !!}</td>                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_date'] !!}</td>
+                                 {{--</table>--}}
 
 
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['no_of_services'] !!}</td>
+                            {{--</div>--}}
 
 
+                        {{--</div>--}}
 
 
 
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['service_name'] !!}</td>
 
 
 
 
 
-                             <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['order_id'] !!}</td>
 
 
 
+                        {{--<div class="box span6">--}}
 
 
-                            <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['invoiceNo'] !!}</td>
+                            {{--<div class="box-header">--}}
 
 
-                           <td class="center" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif> {!! $assign_request['vendor_price'] !!}
+                                {{--<h2>Recent Work Orders  <a class="btn btn-info" href="{!!URL::to('vendor-list-orders')!!}" title="View All">View All</a> </h2>--}}
 
 
-            </td>
+                                {{--<div class="box-icon">--}}
 
 
-                            <td class="center popover-examples" @if($assign_request['emergency_request']==1) style="background-color:red;" @endif><a class="btn btn-success" href="view-vendor-maintenance-request/{!!  $assign_request['request_id'] !!}"> <i class="halflings-icon zoom-in halflings-icon"></i> </a></td>
+                                    {{--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--}}
 
 
-                        </tr>
+                                {{--</div>--}}
 
 
+                            {{--</div>--}}
 
 
+                            {{--<div class="box-content">--}}
 
-                        @endforeach
 
+                                {{--<table class="table table-condensed">--}}
 
 
+                                      {{--<thead>--}}
 
 
-                    </tbody>
+                                          {{--<tr>--}}
 
 
-                </table>
+                                              {{--<th>Order ID</th>--}}
 
 
-            </div>
+                                              {{--<th> Property Address</th>--}}
 
 
-        </div><!--/span
+                                              {{--<th>Services/Due Date</th>--}}
 
 
+                                              {{--<th>Status</th>--}}
 
 
+                                          {{--</tr>--}}
 
-    </div> -->
 
+                                      {{--</thead>--}}
 
 
+                                      {{--<tbody>--}}
 
 
+                                        {{--<tr>--}}
 
 
 
 
 
+                                        {{--</tr>--}}
 
 
 
 
-        </div><!--/span-->
 
+                                        {{--@foreach ($recent_orders as $order)--}}
 
 
+                                        {{--<tr>--}}
 
 
-    </div><!--/row-->
+                                            {{--<td>{!! $order->id !!}</td>--}}
 
 
-                        <div class="row-fluid">
+                                            {{--<td>{!! isset($order->maintenanceRequest->asset->property_address) ?  $order->maintenanceRequest->asset->property_address : '' !!}</td>--}}
 
 
+                                             {{--<?php--}}
 
 
+                                              {{--$service_name = '';--}}
 
-                        <div class="box span6">
 
+                                              {{--$order_details = ($order->orderDetail);--}}
 
-                            <div class="box-header">
 
+                                              {{--foreach ($order_details as $order_detail) {--}}
 
-                                <h2>Recent Service Requests <a class="btn btn-info" href="{!!URL::to('vendor-assigned-requests')!!}" title="View All">View All</a></h2>
 
 
-                                <div class="box-icon">
 
 
-                                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                                                {{--if($order_detail->requestedService->due_date!=""){--}}
 
 
-                                </div>
+                                               {{--$service_name.=$order_detail->requestedService->service->title ." /". $order_detail->requestedService->due_date. ', <br>';--}}
 
 
-                            </div>
+                                             {{--}--}}
 
 
-                            <div class="box-content">
+                                             {{--else--}}
 
 
-                                <table class="table table-condensed">
+                                             {{--{--}}
 
 
-                                      <thead>
+                                               {{--$service_name.=$order_detail->requestedService->service->title ." / Not Set " . ', <br>';--}}
 
 
-                                          <tr>
 
 
-                                              <th>Request ID</th>
 
+                                             {{--}--}}
 
-                                              <th> Property Address</th>
 
 
-                                              <th>Services/Due Date</th>
 
 
+                                             {{--}--}}
 
 
 
-                                          </tr>
 
 
-                                      </thead>
+                                             {{--?>--}}
 
 
-                                      <tbody>
+                                             {{--<td>{!! $service_name!!}</td>--}}
 
 
-                                        <tr>
 
 
 
+                                            {{--<td>--}}
 
 
-                                        </tr>
+                                             {{--<span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif">@if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif</span>--}}
 
 
 
 
 
-                                         @foreach ($assign_requests as $assign_request)
+                                            {{--</td>--}}
 
 
-                                        <tr>
+                                        {{--</tr>--}}
 
 
-                                            <td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['request_id'] !!}</td>
 
 
-                                            <td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['property_address'] !!}</td>
 
+                                        {{--@endforeach--}}
 
 
+                                      {{--</tbody>--}}
 
 
-                                             <td @if($assign_request['emergency_request']==1) style="background-color:red;" @endif>{!! $assign_request['service_name'] !!}</td>
+                                 {{--</table>--}}
 
 
+                            {{--</div>--}}
 
 
+                        {{--</div>--}}
 
 
 
 
-                                        </tr>
 
 
 
 
 
-                                        @endforeach
 
 
-                                      </tbody>
 
 
-                                 </table>
 
+                              {{--<div class="box span6" style="margin-left: 0px;">--}}
 
-                            </div>
 
+                            {{--<div class="box-header">--}}
 
-                        </div>
 
+                                {{--<h2>Recent Invoices  <a class="btn btn-info" href="{!!URL::to('vendor-list-invoice')!!}" title="View All">View All</a></h2>--}}
 
 
+                                {{--<div class="box-icon">--}}
 
 
+                                    {{--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--}}
 
 
+                                {{--</div>--}}
 
 
+                            {{--</div>--}}
 
 
-                        <div class="box span6">
+                            {{--<div class="box-content">--}}
 
 
-                            <div class="box-header">
+                                {{--<table class="table table-condensed">--}}
 
 
-                                <h2>Recent Work Orders  <a class="btn btn-info" href="{!!URL::to('vendor-list-orders')!!}" title="View All">View All</a> </h2>
+                                      {{--<thead>--}}
 
 
-                                <div class="box-icon">
+                                          {{--<tr>--}}
 
 
-                                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                                              {{--<th>Order ID</th>--}}
 
 
-                                </div>
+                                              {{--<th>Service</th>--}}
 
 
-                            </div>
+                                              {{--<th>Status</th>--}}
 
 
-                            <div class="box-content">
+                                              {{--<th>Price</th>--}}
 
 
-                                <table class="table table-condensed">
+                                          {{--</tr>--}}
 
 
-                                      <thead>
+                                      {{--</thead>--}}
 
 
-                                          <tr>
+                                      {{--<tbody>--}}
 
 
-                                              <th>Order ID</th>
+                                        {{--<tr>--}}
 
 
-                                              <th> Property Address</th>
 
 
-                                              <th>Services/Due Date</th>
 
+                                        {{--</tr>--}}
 
-                                              <th>Status</th>
 
 
-                                          </tr>
 
 
-                                      </thead>
+                                      {{--@foreach ($list_orders as $order)--}}
 
 
-                                      <tbody>
 
 
-                                        <tr>
 
+                                     {{--<tr>--}}
 
 
+                                            {{--<td>{!! $order['order_id'] !!}</td>--}}
 
 
-                                        </tr>
+                                       {{--<td>{!! $order['service_name'] !!}</td>--}}
 
 
+                                         {{--<td class="center"> <span class="label label-gray">@if($order['status']==1) Approved @else Deactive @endif </span> </td>--}}
 
 
+                                             {{--<td>{!! $order['price'] !!}</td>--}}
 
-                                        @foreach ($recent_orders as $order)
 
 
-                                        <tr>
 
 
-                                            <td>{!! $order->id !!}</td>
 
 
-                                            <td>{!! isset($order->maintenanceRequest->asset->property_address) ?  $order->maintenanceRequest->asset->property_address : '' !!}</td>
 
+                                        {{--</tr>--}}
 
-                                             <?php
 
 
-                                              $service_name = '';
 
 
-                                              $order_details = ($order->orderDetail);
+                                        {{--@endforeach--}}
 
 
-                                              foreach ($order_details as $order_detail) {
+                                      {{--</tbody>--}}
 
 
+                                 {{--</table>--}}
 
 
+                            {{--</div>--}}
 
-                                                if($order_detail->requestedService->due_date!=""){
 
+                        {{--</div>--}}
 
-                                               $service_name.=$order_detail->requestedService->service->title ." /". $order_detail->requestedService->due_date. ', <br>';
 
 
-                                             }
 
 
-                                             else
 
 
-                                             {
 
+     {{--<div class="box span6">--}}
 
-                                               $service_name.=$order_detail->requestedService->service->title ." / Not Set " . ', <br>';
 
+                            {{--<div class="box-header">--}}
 
 
+                                {{--<h2>Recent Bids  <a class="btn btn-info" href="{!!URL::to('vendor-bid-requests')!!}" title="View All">View All</a></h2>--}}
 
 
-                                             }
+                                {{--<div class="box-icon">--}}
 
 
+                                    {{--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--}}
 
 
+                                {{--</div>--}}
 
-                                             }
 
+                            {{--</div>--}}
 
 
+                            {{--<div class="box-content">--}}
 
 
-                                             ?>
+                                {{--<table class="table table-condensed">--}}
 
 
-                                             <td>{!! $service_name!!}</td>
+                                      {{--<thead>--}}
 
 
+                                          {{--<tr>--}}
 
 
+                                              {{--<th>Bid ID</th>--}}
 
-                                            <td>
 
+                                              {{--<th> Property Address</th>--}}
 
-                                             <span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif">@if($order->status==1) In-Progress @else {!!$order->status_text!!} @endif</span>
 
+                                              {{--<th>Services</th>--}}
 
 
 
 
-                                            </td>
 
+                                          {{--</tr>--}}
 
-                                        </tr>
 
+                                      {{--</thead>--}}
 
 
+                                      {{--<tbody>--}}
 
 
-                                        @endforeach
+                                        {{--<tr>--}}
 
 
-                                      </tbody>
 
 
-                                 </table>
 
+                                        {{--</tr>--}}
 
-                            </div>
 
 
-                        </div>
 
 
+                                     {{--@foreach ($assign_requests_bids as $assign_request)--}}
 
 
 
 
 
+                                       {{--<tr>--}}
 
 
+                                            {{--<td>{!! $assign_request['request_id'] !!}</td>--}}
 
 
+                                            {{--<td>{!! $assign_request['property_address'] !!}</td>--}}
 
 
 
-                              <div class="box span6" style="margin-left: 0px;">
 
 
-                            <div class="box-header">
+                                             {{--<td>{!! $assign_request['service_name'] !!}</td>--}}
 
 
-                                <h2>Recent Invoices  <a class="btn btn-info" href="{!!URL::to('vendor-list-invoice')!!}" title="View All">View All</a></h2>
 
 
-                                <div class="box-icon">
 
 
-                                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 
 
-                                </div>
+                                        {{--</tr>--}}
 
 
-                            </div>
 
 
-                            <div class="box-content">
 
+                                        {{--@endforeach--}}
 
-                                <table class="table table-condensed">
 
+                                      {{--</tbody>--}}
 
-                                      <thead>
 
+                                 {{--</table>--}}
 
-                                          <tr>
 
+                            {{--</div>--}}
 
-                                              <th>Order ID</th>
 
+                        {{--</div>--}}
 
-                                              <th>Service</th>
 
+                        {{--<div class="box span6">--}}
 
-                                              <th>Status</th>
 
+                            {{--<div class="box-header">--}}
 
-                                              <th>Price</th>
 
+                                {{--<h2>Recent New Work Orders  <a class="btn btn-info" href="{!!URL::to('vendor-list-orders')!!}" title="View All">View All</a> </h2>--}}
 
-                                          </tr>
 
+                                {{--<div class="box-icon">--}}
 
-                                      </thead>
 
+                                    {{--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--}}
 
-                                      <tbody>
 
+                                {{--</div>--}}
 
-                                        <tr>
 
+                            {{--</div>--}}
 
 
+                            {{--<div class="box-content">--}}
 
 
-                                        </tr>
+                                {{--<table class="table table-condensed">--}}
 
 
+                                      {{--<thead>--}}
 
 
+                                          {{--<tr>--}}
 
-                                      @foreach ($list_orders as $order)
 
+                                              {{--<th>Order ID</th>--}}
 
 
+                                              {{--<th> Property Address</th>--}}
 
 
-                                     <tr>
+                                              {{--<th>Services/Due Date</th>--}}
 
 
-                                            <td>{!! $order['order_id'] !!}</td>
+                                              {{--<th>Status</th>--}}
 
 
-                                       <td>{!! $order['service_name'] !!}</td>
+                                          {{--</tr>--}}
 
 
-                                         <td class="center"> <span class="label label-gray">@if($order['status']==1) Approved @else Deactive @endif </span> </td>
+                                      {{--</thead>--}}
 
 
-                                             <td>{!! $order['price'] !!}</td>
+                                      {{--<tbody>--}}
 
 
+                                        {{--<tr>--}}
 
 
 
 
 
+                                        {{--</tr>--}}
 
-                                        </tr>
 
 
 
 
+                                        {{--@foreach ($new_work_orders as $order)--}}
 
-                                        @endforeach
 
+                                        {{--<tr>--}}
 
-                                      </tbody>
 
+                                            {{--<td>{!! $order->id !!}</td>--}}
 
-                                 </table>
 
+                                            {{--<td>{!! isset($order->maintenanceRequest->asset->property_address) ?  $order->maintenanceRequest->asset->property_address : '' !!}</td>--}}
 
-                            </div>
 
+                                             {{--<?php--}}
 
-                        </div>
 
+                                              {{--$service_name = '';--}}
 
 
+                                              {{--$order_details = ($order->orderDetail);--}}
 
 
+                                              {{--foreach ($order_details as $order_detail) {--}}
 
 
 
-     <div class="box span6">
 
 
-                            <div class="box-header">
+                                                {{--if($order_detail->requestedService->due_date!=""){--}}
 
 
-                                <h2>Recent Bids  <a class="btn btn-info" href="{!!URL::to('vendor-bid-requests')!!}" title="View All">View All</a></h2>
+                                               {{--$service_name.=$order_detail->requestedService->service->title ." /". $order_detail->requestedService->due_date. ', <br>';--}}
 
 
-                                <div class="box-icon">
+                                             {{--}--}}
 
 
-                                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                                             {{--else--}}
 
 
-                                </div>
+                                             {{--{--}}
 
 
-                            </div>
+                                               {{--$service_name.=$order_detail->requestedService->service->title ." / Not Set " . ', <br>';--}}
 
 
-                            <div class="box-content">
 
 
-                                <table class="table table-condensed">
 
+                                             {{--}--}}
 
-                                      <thead>
 
 
-                                          <tr>
 
 
-                                              <th>Bid ID</th>
+                                             {{--}--}}
 
 
-                                              <th> Property Address</th>
 
 
-                                              <th>Services</th>
 
+                                             {{--?>--}}
 
 
+                                             {{--<td>{!! $service_name!!}</td>--}}
 
 
-                                          </tr>
 
 
-                                      </thead>
 
+                                            {{--<td>--}}
 
-                                      <tbody>
 
+                                             {{--<span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif">@if($order->status==0) New Work Order @endif</span>--}}
 
-                                        <tr>
 
 
 
 
+                                            {{--</td>--}}
 
-                                        </tr>
 
+                                        {{--</tr>--}}
 
 
 
 
-                                     @foreach ($assign_requests_bids as $assign_request)
 
+                                        {{--@endforeach--}}
 
 
+                                      {{--</tbody>--}}
 
 
-                                       <tr>
+                                 {{--</table>--}}
 
 
-                                            <td>{!! $assign_request['request_id'] !!}</td>
+                            {{--</div>--}}
 
 
-                                            <td>{!! $assign_request['property_address'] !!}</td>
-
-
-
-
-
-                                             <td>{!! $assign_request['service_name'] !!}</td>
-
-
-
-
-
-
-
-
-                                        </tr>
-
-
-
-
-
-                                        @endforeach
-
-
-                                      </tbody>
-
-
-                                 </table>
-
-
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="box span6">
-
-
-                            <div class="box-header">
-
-
-                                <h2>Recent New Work Orders  <a class="btn btn-info" href="{!!URL::to('vendor-list-orders')!!}" title="View All">View All</a> </h2>
-
-
-                                <div class="box-icon">
-
-
-                                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-
-
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="box-content">
-
-
-                                <table class="table table-condensed">
-
-
-                                      <thead>
-
-
-                                          <tr>
-
-
-                                              <th>Order ID</th>
-
-
-                                              <th> Property Address</th>
-
-
-                                              <th>Services/Due Date</th>
-
-
-                                              <th>Status</th>
-
-
-                                          </tr>
-
-
-                                      </thead>
-
-
-                                      <tbody>
-
-
-                                        <tr>
-
-
-
-
-
-                                        </tr>
-
-
-
-
-
-                                        @foreach ($new_work_orders as $order)
-
-
-                                        <tr>
-
-
-                                            <td>{!! $order->id !!}</td>
-
-
-                                            <td>{!! isset($order->maintenanceRequest->asset->property_address) ?  $order->maintenanceRequest->asset->property_address : '' !!}</td>
-
-
-                                             <?php
-
-
-                                              $service_name = '';
-
-
-                                              $order_details = ($order->orderDetail);
-
-
-                                              foreach ($order_details as $order_detail) {
-
-
-
-
-
-                                                if($order_detail->requestedService->due_date!=""){
-
-
-                                               $service_name.=$order_detail->requestedService->service->title ." /". $order_detail->requestedService->due_date. ', <br>';
-
-
-                                             }
-
-
-                                             else
-
-
-                                             {
-
-
-                                               $service_name.=$order_detail->requestedService->service->title ." / Not Set " . ', <br>';
-
-
-
-
-
-                                             }
-
-
-
-
-
-                                             }
-
-
-
-
-
-                                             ?>
-
-
-                                             <td>{!! $service_name!!}</td>
-
-
-
-
-
-                                            <td>
-
-
-                                             <span class="label label-@if($order->status==1){!!'warning'!!}@else{!!$order->status_class!!}@endif">@if($order->status==0) New Work Order @endif</span>
-
-
-
-
-
-                                            </td>
-
-
-                                        </tr>
-
-
-
-
-
-                                        @endforeach
-
-
-                                      </tbody>
-
-
-                                 </table>
-
-
-                            </div>
-
-
-                        </div>
+                        {{--</div>--}}
 
 
 
