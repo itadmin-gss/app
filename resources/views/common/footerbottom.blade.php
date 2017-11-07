@@ -6,6 +6,7 @@
 <script src="{!! URL::asset('assets/js/dropzone.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/popper.min.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/bootstrap.min.js') !!}"></script>
+<script src="{!! URL::asset('assets/js/pwstrength-bootstrap.min.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/tether.min.js') !!}"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>

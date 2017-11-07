@@ -17,6 +17,26 @@ $(document).ready(function(){
 		$("#photo-upload-input").click();
 	})
 
+	//Event Handler -> Vendor Profile Completion - Step 1 -> Step 2
+	$("#vendor-step-1-next").on("click", function(){
+		if ($("#username").val().length < 2){
+			alert("A valid username is required");
+		}
+		if ($("#password").val().length < 4){
+			alert("Password must be 5 or more characters");
+		} else {
+            $(".complete-profile-step-1").hide();
+            $(".complete-profile-step-2").fadeIn("fast");
+		}
+	});
+
+	//Event Handler -> Vendor Profile Completion - Step 2 -> Step 1 (Back Button)
+	$("#vendor-step-2-back").on("click", function(){
+        $(".complete-profile-step-2").hide();
+        $(".complete-profile-step-1").fadeIn("fast");
+	});
+
+	$(".complete-profile-step-1 #password").pwstrength();
 	//Even Handler -> Delete Vendor Button
 	$(document).on("click", "#vendor-delete-button", function(){
 		$.ajax({

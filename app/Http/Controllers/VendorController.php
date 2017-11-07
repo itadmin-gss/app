@@ -10,6 +10,7 @@ use App\BidRequest;
 use App\BidRequestedService;
 use App\BidServiceImage;
 use App\City;
+use App\CustomerType;
 use App\EmailNotification;
 use App\Helpers\Email;
 use App\Helpers\FlashMessage;
@@ -25,6 +26,7 @@ use App\Service;
 use App\State;
 use App\User;
 use App\Tokens;
+use App\VendorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -306,11 +308,34 @@ class VendorController extends Controller
         if (Auth::check()) {
             $id = Auth::user()->id;
             $profile_status = Auth::user()->profile_status;
+            $clientType=CustomerType::get();
+            $vendor_services = VendorService::getAllVendorServices();
+            $VendorServiceArray=[];
+            foreach ($vendor_services as $value) {
+                $VendorServiceArray[]=$value->service_id;
+            }
+
+            $servicesDATAoption='';
+            foreach ($clientType as $clientTypeData) {
+                $servicesDATAoption.="<optgroup label='".$clientTypeData->title."'>";
+                $getserviceBycustomerType=Service::where("customer_type_id", "=", $clientTypeData->id)->get();
+                foreach ($getserviceBycustomerType as $getserviceBycustomerTypeDATA) {
+                    if (in_array($getserviceBycustomerTypeDATA->id, $VendorServiceArray)) {
+                        $servicesDATAoption.="<option value='".$getserviceBycustomerTypeDATA->id."' selected=\"selected\">".$getserviceBycustomerTypeDATA->title."</option>";
+                    } else {
+                        $servicesDATAoption.="<option value='".$getserviceBycustomerTypeDATA->id."' >".$getserviceBycustomerTypeDATA->title."</option>";
+                    }
+                }
+
+
+
+                $servicesDATAoption.="</optgroup>";
+            }
             if ($profile_status < 1) {
                 $user_detail = User::find($id);
                 $cities = City::getAllCities();
                 $states = State::getAllStates();
-                return view('pages.vendors.vendor_profile_complete')->with('cities', $cities)->with('states', $states)->with('user_detail', $user_detail);
+                return view('pages.vendors.vendor_profile_complete')->with('vendor_services', $servicesDATAoption)->with('cities', $cities)->with('states', $states)->with('user_detail', $user_detail);
             } else {
                 return redirect('edit-profile');
             }

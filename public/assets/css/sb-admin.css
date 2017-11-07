@@ -225,7 +225,9 @@
 
 .step-2,
 .step-3,
-.step-4{
+.step-4,
+.complete-profile-step-2,
+.complete-profile-step-3{
   display:none;
 }
 

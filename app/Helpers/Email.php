@@ -40,6 +40,7 @@ class Email
              {
                  $email_data['first_name'] = 'Not Set';
              }
+             $email_data['email'] = $to_email;
              SentEmail::add($email_data, $subject, $template);
     
              //Send Email
