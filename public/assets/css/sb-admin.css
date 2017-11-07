@@ -26,6 +26,14 @@
     height:100%;
 }
 
+.complete-profile-step-2 h2{
+  margin-bottom:20px;
+}
+
+.static-height{
+  height:500px;
+}
+
 .photo-button-group{
   margin-top:15px;
 }

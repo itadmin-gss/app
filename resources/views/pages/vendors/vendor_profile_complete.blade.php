@@ -3,7 +3,7 @@
 <title>GSS - Complete Profile - Step 1</title>
 <div id="content">
 
-    {!! Form::open(array('url' => 'vendor-profile-add', 'files'=>true,  'class'=>'form-horizontal')) !!}
+    {!! Form::open(array('url' => 'vendor-profile-add', 'class'=>'form-horizontal')) !!}
 
     <div class="complete-profile-step-1">
         <div class="row">
@@ -120,20 +120,25 @@
 
     <div class="complete-profile-step-3">
         <div class="row">
-            <div class="col-md-5 col-lg-5 col-sm-12">
+            <div class="col-md-5 col-lg-5 col-sm-12 static-height">
                 <h2>Vendor Profile Completion - Step 3</h2>
                 <div class="form-group">
                     {!! Form::label('zip_list', 'Service Zip Codes (Comma Seperated)') !!}
-                    {!! Form::text('zip_list', '', array('class' => 'form-control', 'id' => 'zip_list')) !!}
+                    {!! Form::textarea('zip_list', '', array('class' => 'form-control', 'id' => 'zip_list')) !!}
                 </div>
 
 
-                <div class="form-group">
-                    {!! Form::label('vendor_services', 'Vendor Services') !!}
-                    <select class="chosen" id="vendor_services" data-rel="chosen" multiple="true" name="vendor_services[]" >
-                        {!! $vendor_services !!}
-                    </select>
+
+                {!! Form::label('vendor_services', 'Vendor Services') !!}
+                <select class="chosen-hidden" id="vendor_services" data-rel="chosen" multiple="true" name="vendor_services[]" >
+                   {!! $vendor_services !!}
+                </select>
+
+                <div class="form-group pull-right">
+                    <button type="button" class="btn btn-info" id="vendor-step-3-back">Back</button>
+                    <button type="button" class="btn btn-success" id="vendor-step-3-next">Review</button>
                 </div>
+
 
             </div>
         </div>

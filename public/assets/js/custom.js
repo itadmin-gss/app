@@ -21,6 +21,7 @@ $(document).ready(function(){
 	$("#vendor-step-1-next").on("click", function(){
 		if ($("#username").val().length < 2){
 			alert("A valid username is required");
+			return false;
 		}
 		if ($("#password").val().length < 4){
 			alert("Password must be 5 or more characters");
@@ -36,7 +37,42 @@ $(document).ready(function(){
         $(".complete-profile-step-1").fadeIn("fast");
 	});
 
+	//Event Handler -> Vendor Profile Completion - Step 2 -> Step 3 (Next Button)
+	$("#vendor-step-2-next").on("click", function(){
+		if ($("#address_1").val().length < 5){
+			alert("Address must be at least 5 characters long");
+			return false;
+		}
+
+		if ($("#state_id").val() === "0"){
+			alert("Please select a state");
+			return false;
+		}
+
+		if ($("#city_id").val() === "0"){
+			alert("Please select a city");
+			return false;
+		}
+
+		if ($("#zipcode").val().length < 5){
+			alert("Please enter a zip code");
+			return false;
+		}
+
+		if ($("#phone").val().length < 7){
+			alert("Please enter a valid phone number");
+			return false;
+		}
+
+        $(".complete-profile-step-2").hide();
+        $(".complete-profile-step-3").fadeIn("fast");
+		$(".chosen-hidden").chosen();
+
+	});
+
+	//Enable pwstrength password meter
 	$(".complete-profile-step-1 #password").pwstrength();
+
 	//Even Handler -> Delete Vendor Button
 	$(document).on("click", "#vendor-delete-button", function(){
 		$.ajax({
