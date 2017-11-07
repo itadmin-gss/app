@@ -23,12 +23,21 @@ $(document).ready(function(){
 			alert("A valid username is required");
 			return false;
 		}
+
+		if ($("#password").val() !== $("#password_2").val())
+		{
+			alert("Passwords do not match");
+			return false;
+		}
+
 		if ($("#password").val().length < 4){
 			alert("Password must be 5 or more characters");
-		} else {
-            $(".complete-profile-step-1").hide();
-            $(".complete-profile-step-2").fadeIn("fast");
+			return false;
 		}
+
+		$(".complete-profile-step-1").hide();
+        $(".complete-profile-step-2").fadeIn("fast");
+
 	});
 
 	//Event Handler -> Vendor Profile Completion - Step 2 -> Step 1 (Back Button)

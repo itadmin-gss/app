@@ -40,6 +40,11 @@
                             {!! Form::password('password',  array('class'=>'form-control','id'=>'password'))!!}
                         </div>
 
+                        {!! Form::label('password_confirm', 'Confirm Password', array('for' => 'password_2')) !!}
+                        <div class="form-group">
+                            {!! Form::password('password_2', array('class' => 'form-control', 'id' => 'password_2')) !!}
+                        </div>
+
                         <div class="form-group">
                             <button type="button" class="btn btn-success pull-right" id="vendor-step-1-next">Next</button>
                         </div>
