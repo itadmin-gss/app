@@ -13,6 +13,7 @@
 	<link href="{!! URL::asset('assets/css/bootstrap.min.css') !!}" rel="stylesheet">
 	<link href="{!! URL::asset('assets/css/dataTables.bootstrap4.css') !!}" rel='stylesheet'>
 	<link href="{!! URL::asset('assets/css/font-awesome.min.css') !!}" rel="stylesheet">
+	<link href="{!! URL::asset('assets/css/dropzone.css') !!}" rel="stylesheet">
 	<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<link href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.dataTables.min.css" rel="stylesheet">
 	<link href="https://cdn.datatables.net/responsive/2.2.0/js/responsive.bootstrap.min.js" rel="stylesheet">

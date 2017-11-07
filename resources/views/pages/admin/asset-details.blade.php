@@ -154,16 +154,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         Upload Photos
+                        <span class="pull-right" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></span>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
-                                <form action="{!! URL::to('/property-photo-upload') !!}" id="dropzone-upload" class="dropzone"></form>
-                                {{--<div class="pull-right">--}}
-                                    {{--<button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>--}}
-                                    {{--<button type="button" class="btn btn-info" id="photo-upload-select-files">Select Files</button>--}}
-                                    {{--<input type="file" class="hide" id="photo-upload-input">--}}
-                                {{--</div>--}}
+                                <div id="tpl" class="dropzone-previews">
+
+                                </div>
+                                <form id="dropzone-upload" class="dropzone"></form>
+                                <div class="dropzone-control-buttons text-center">
+                                    <button type="button" class="btn btn-danger" id="dropzone-cancel">Cancel</button>
+                                    <button type="button" class="btn btn-success" id="dropzone-process-upload">Save Photo</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -171,4 +174,16 @@
             </div>
         </div>
     </div>
+
+    <div style="display:none;" id="dropzone-preview-template">
+        <div class="dz-preview dz-file-preview">
+            <div class="dz-details">
+                <img data-dz-thumbnail />
+                {{--<div class="dz-filename">Filename: <span data-dz-name></span></div>--}}
+            </div>
+            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+        </div>
+    </div>
+
 @stop

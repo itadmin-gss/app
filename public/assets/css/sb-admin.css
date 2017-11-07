@@ -30,6 +30,10 @@
   margin-bottom:20px;
 }
 
+#photo-upload-modal img[data-dz-thumbnail]{
+  width:100% !important;
+  height:auto !important;
+}
 .static-height{
   height:500px;
 }
@@ -236,7 +240,8 @@
 .step-4,
 .complete-profile-step-2,
 .complete-profile-step-3,
-.complete-profile-review{
+.complete-profile-review,
+.dropzone-control-buttons{
   display:none;
 }
 
