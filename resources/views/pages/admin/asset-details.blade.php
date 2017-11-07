@@ -185,5 +185,5 @@
             <div class="dz-error-message"><span data-dz-errormessage></span></div>
         </div>
     </div>
-
+    <input type="hidden" id="property_id" value="{!! $property_details->id !!}">
 @stop

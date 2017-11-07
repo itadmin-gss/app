@@ -330,6 +330,7 @@ Route::post('ajax-approve-bid-request', ['uses' => 'MaintenanceRequestController
 
 Route::post('ajax-decline-bid-request', ['uses' => 'MaintenanceRequestController@declineBidRequest']);
 
+Route::post('property-photo-upload', 'AssetController@uploadPhoto');
 
 //Ajax Route end
 
@@ -337,11 +338,12 @@ Route::post('ajax-decline-bid-request', ['uses' => 'MaintenanceRequestController
 
 Route::group(['middleware' => ['auth', 'vendorCheck']], function () {
 
+
     Route::get('vendors', ['uses' => 'VendorController@index']);
 
     Route::get('vendor-profile-complete', ['uses' => 'VendorController@showCompleteProfile']);
 
-    Route::post('vendor-profile-add', ['uses' => 'VendorController@completeProfile']);
+    Route::post('vendor-profile-add/{id}', ['uses' => 'VendorController@completeProfile']);
 
     Route::get('vendor-profile-service', ['uses' => 'ServiceController@index']);
 

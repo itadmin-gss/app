@@ -19,6 +19,8 @@ $(document).ready(function(){
 		}
 	};
 
+
+
 	$("#dropzone-cancel").on("click", function(){
 		$(".dropzone-control-buttons").hide();
 		$("#dropzone-upload").fadeIn("fast");
@@ -39,6 +41,9 @@ $(document).ready(function(){
         myDropZone.on("addedfile", function(file){
             $("#dropzone-upload").hide();
             $(".dropzone-control-buttons").fadeIn("fast");
+        });
+        myDropZone.on('sending', function(file, xhr, formData){
+            formData.append('property_id', $("#property_id").val());
         });
 	});
 

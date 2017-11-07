@@ -17,15 +17,48 @@ use App\User;
 use App\MaintenanceRequest;
 use App\RequestedService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
+
 class AssetController extends Controller
 {
 
 //protected $layout = 'layouts.default';
+
+    public function uploadPhoto()
+    {
+
+
+        $file = Request::file('file');
+        if ($file)
+        {
+            $user_id = Auth::user()->id;
+            $property_id = Request::get('property_id');
+
+            $file_ext = $file->extension();
+            $file_name = date("Ymdhis").rand(100,999);
+            $file->move(Config::get('app.upload_path'), $file_name.".".$file_ext);
+
+            $asset = Asset::find($property_id);
+            $asset->property_photo = $file_name.".".$file_ext;
+
+
+        }
+//        $directory = path('public').'uploads/'.sha1(time());
+//        $filename = sha1(time().time()).".{$extension}";
+//
+//        $upload_success = Request::store('file', $directory, $filename);
+//
+//        if( $upload_success ) {
+//            return Response::json('success', 200);
+//        } else {
+//            return Response::json('error', 400);
+//        }
+    }
     /**
      * Display a listing of the resource.
      *
