@@ -41,11 +41,32 @@
 .photo-button-group{
   margin-top:15px;
 }
-.property-photo{
-  border:3px dashed #ddd;
+
+.property-photo-placeholder{
+    border:3px dashed #ddd;
+}
+.property-photo,
+.property-photo-placeholder{
   height:400px;
   width:100%;
   position:relative !important;
+}
+
+.property-photo img{
+    width:100%;
+}
+
+#addt-photo-modal .p-2{
+    width:400px !important;
+    height:300px !important;
+}
+
+#addt-photo-modal .modal-dialog{
+    max-width:1300px;
+}
+.inner-padding{
+    padding:5px 4px 5px 4px;
+    border:1px solid #ddd;
 }
 
 .photo-preview{
@@ -56,7 +77,7 @@
 .no-photo{
   color:#DDD;
 }
-.property-photo .fa-photo{
+.property-photo-placeholder .fa-photo{
   color:#DDD;
   font-size:60px !important;
 }
@@ -183,40 +204,42 @@
 
 }
 
+
+
 .badge-blue-1{
-  background-color:#48b5ec;
-  box-shadow: 1px 2px 0px 1px #2948ff;
+    background-color:#48b5ec;
+    box-shadow: 1px 2px 0px 1px #48b5ec;
 }
 
 .badge-blue-2{
-  background-color:#1499c6;
-  box-shadow: 1px 2px 0px 1px blue;
+    background-color:#1499c6;
+    box-shadow: 1px 2px 0px 1px #1499c6;
 
 }
 
 .badge-blue-3{
-  background-color:#0f6fb9;
-  box-shadow: 1px 2px 0px 1px #0000bd;
+    background-color:#0f6fb9;
+    box-shadow: 1px 2px 0px 1px #0f6fb9;
 
 }
 
 .badge-blue-4{
-  background-color:#096191;
-  box-shadow: 1px 2px 0px 1px #00006b;
+    background-color:#096191;
+    box-shadow: 1px 2px 0px 1px #096191;
 
 }
 
 .badge-blue-1:hover{
-  background-color:blue;
+    background-color:#74cbf7;
 }
 .badge-blue-2:hover{
-  background-color: blue;
+    background-color:#74cbf7;
 }
 .badge-blue-3:hover{
-  background-color: #0000bd;
+    background-color:#74cbf7;
 }
 .badge-blue-4:hover{
-  background-color: blue;
+    background-color:#74cbf7;
 }
 
 .addSt{

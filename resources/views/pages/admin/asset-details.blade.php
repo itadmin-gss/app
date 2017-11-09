@@ -9,7 +9,15 @@
 
                 <div class="row">
                     <div class="col-md-5 col-lg-5 col-sm-12">
-                        <div class="property-photo text-center">
+                        @if (isset($property_details->property_photo))
+                            <div class="property-photo">
+                                <img src="{!! URL::to(\Illuminate\Support\Facades\Config::get('app.upload_path').$property_details->property_photo) !!}">
+                            </div>
+                        @else
+                            <div class="property-photo" style="display:none;">
+                                <img>
+                            </div>
+                        <div class="property-photo-placeholder text-center">
                             <div class="vertical-center">
                                 <div class="house-photo-brand">
                                     <i class="fa fa-photo"></i>
@@ -17,6 +25,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="photo-button-group">
                             <button type="button" class="btn btn-success" id="property-photo-upload">Upload</button>
                             <button type="button" class="btn btn-info" id="property-photo-select">Select From Available Photos</button>
@@ -148,6 +157,22 @@
             </div>
         </div> <!-- End Row -->
 
+        <!-- Select Existing Photos Modal -->
+        <div class="modal fade" id="addt-photo-modal">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Select Photo
+                        <span class="pull-right" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex flex-wrap addt-photos">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Upload Photo Modal -->
         <div class="modal fade" id="photo-upload-modal">
             <div class="modal-dialog" role="dialog">

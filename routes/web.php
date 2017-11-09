@@ -332,6 +332,7 @@ Route::post('ajax-decline-bid-request', ['uses' => 'MaintenanceRequestController
 
 Route::post('property-photo-upload', 'AssetController@uploadPhoto');
 
+Route::post('available-property-photos', 'AssetController@getAllAvailablePhotos');
 //Ajax Route end
 
 ################################## Vendor Routes #############################################

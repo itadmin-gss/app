@@ -45,6 +45,43 @@ $(document).ready(function(){
         myDropZone.on('sending', function(file, xhr, formData){
             formData.append('property_id', $("#property_id").val());
         });
+
+        myDropZone.on("complete", function(test){
+			var response = test.xhr.responseText;
+			response = JSON.parse(response);
+
+			if (response.error)
+			{
+				alert("there was an error uploading the photo");
+			}
+			else
+			{
+				$(".property-photo img").attr("src", response.file);
+				$(".property-photo-placeholder").hide();
+				$(".property-photo").show();
+				$("#photo-upload-modal").modal("toggle");
+			}
+		});
+	});
+
+	$("#property-photo-select").on("click", function(){
+		$.ajax({
+			url: baseurl + "/available-property-photos",
+			type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+			data: {property_id : $("#property_id").val()}
+		}).done(function(cb){
+			var cb = JSON.parse(cb);
+			var html = "";
+			for(var i= 0;i<cb.length;i++){
+				html += "<div class='p-2'><div class='inner-padding'><img src='"+cb[i]+"'></div></div>";
+			}
+
+			$(".addt-photos").html(html);
+			$("#addt-photo-modal").modal("toggle");
+		});
 	});
 
 	$("#photo-upload-modal").on("hidden.bs.modal", function(){

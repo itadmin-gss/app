@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\AdditionalServiceItem;
+use App\AdditionalServiceItemImage;
 use App\Asset;
 use App\City;
 use App\CustomerType;
@@ -9,6 +11,7 @@ use App\Helpers\FlashMessage;
 use App\Helpers\SSP;
 use App\Order;
 use App\OrderDetail;
+use App\OrderImage;
 use App\Recurring;
 use App\Service;
 use App\ServiceCategory;
@@ -22,6 +25,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\URL;
 
 
 class AssetController extends Controller
@@ -36,7 +40,6 @@ class AssetController extends Controller
         $file = Request::file('file');
         if ($file)
         {
-            $user_id = Auth::user()->id;
             $property_id = Request::get('property_id');
 
             $file_ext = $file->extension();
@@ -44,20 +47,99 @@ class AssetController extends Controller
             $file->move(Config::get('app.upload_path'), $file_name.".".$file_ext);
 
             $asset = Asset::find($property_id);
+
+
             $asset->property_photo = $file_name.".".$file_ext;
+            $asset->save();
 
-
+            return json_encode(["error" => false, "file" => URL::to(Config::get('app.upload_path').$file_name.".".$file_ext)]);
         }
-//        $directory = path('public').'uploads/'.sha1(time());
-//        $filename = sha1(time().time()).".{$extension}";
-//
-//        $upload_success = Request::store('file', $directory, $filename);
-//
-//        if( $upload_success ) {
-//            return Response::json('success', 200);
-//        } else {
-//            return Response::json('error', 400);
-//        }
+
+        throw new \Exception ("Could not upload property photo");
+
+    }
+
+    public function getAllAvailablePhotos()
+    {
+        $photos = [];
+        $property_id = Request::get('property_id');
+
+        //Get Maintenance Requests for Property
+        $requests = MaintenanceRequest::select('id')->where("asset_id", $property_id)->get();
+
+        foreach($requests as $request)
+        {
+
+            $request_id = $request->id;
+
+            //Get Orders
+            $orders = Order::select('id')->where('request_id', $request_id)->get();
+
+            foreach($orders as $order)
+            {
+
+                $order_id = $order->id;
+
+                //Get Order Images
+                $order_photos = OrderImage::where('order_id', $order_id)->get();
+                foreach($order_photos as $o_photo)
+                {
+                    switch ($o_photo->type)
+                    {
+                        case "after":
+                            $app_path="order_additional_images_after";
+                            break;
+
+                        case "before":
+                            $app_path="order_additional_images_before";
+                            break;
+
+                        case "during":
+                            $app_path="order_additional_images_during";
+                            break;
+                    }
+
+                    $filecheck=  config('app.'.$app_path).$o_photo->address;
+//                    if (file_exists($filecheck)) {
+                        $photos[] = config('app.url').'/'.config('app.'.$app_path).$o_photo->address;
+//                    }
+                }
+
+
+                //Check additional items
+                $addt_items = AdditionalServiceItem::where('order_id', $order_id)->get();
+                foreach($addt_items as $addt)
+                {
+                    $addt_photos = AdditionalServiceItemImage::where('additional_service_id', $addt->id)->get();
+                    foreach($addt_photos as $a_photo)
+                    {
+                        switch ($a_photo->type)
+                        {
+                            case "after":
+                                $app_path="order_additional_images_after";
+                                break;
+
+                            case "before":
+                                $app_path="order_additional_images_before";
+                                break;
+
+                            case "during":
+                                $app_path="order_additional_images_during";
+                                break;
+                        }
+
+                        $filecheck=  config('app.'.$app_path).$a_photo->address;
+//                        if (file_exists($filecheck)) {
+                            $photos[] = config('app.url').'/'.config('app.'.$app_path).$a_photo->address;
+//                        }
+                    }
+                }
+            }
+        }
+
+        return json_encode($photos);
+
+
     }
     /**
      * Display a listing of the resource.
