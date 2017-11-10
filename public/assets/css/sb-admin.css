@@ -45,9 +45,10 @@
 .property-photo-placeholder{
     border:3px dashed #ddd;
 }
+
 .property-photo,
 .property-photo-placeholder{
-  height:400px;
+  min-height:400px;
   width:100%;
   position:relative !important;
 }
@@ -68,7 +69,13 @@
     padding:5px 4px 5px 4px;
     border:1px solid #ddd;
 }
+.addt-photos img{
+    width:100%;
+}
 
+.selected-available-photo{
+    box-shadow: 1px 2px 4px 3px green;
+}
 .photo-preview{
   border:3px dashed #ddd;
   height:200px;
@@ -257,6 +264,9 @@
   margin-left:auto;
 }
 
+#save_asset_changes{
+  margin-top:10px;
+}
 
 .step-2,
 .step-3,
@@ -264,7 +274,8 @@
 .complete-profile-step-2,
 .complete-profile-step-3,
 .complete-profile-review,
-.dropzone-control-buttons{
+.dropzone-control-buttons,
+.asset-details-inputs{
   display:none;
 }
 

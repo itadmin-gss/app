@@ -708,10 +708,7 @@ function modalClose(){
   
   $('#state_id').change(function() {
           //e.preventDefault();
-          var over = '<div id="overlay">' +
-          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
-          '</div>';
-          $(over).appendTo('body');
+
   
           var state_id = this.value;
           var options = '';
@@ -733,7 +730,6 @@ function modalClose(){
                   $("#city_id").html(options);
   
                   $('#city_id').trigger('liszt:updated');
-                  $('#overlay').remove();
               }
           });
       });

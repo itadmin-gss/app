@@ -39,29 +39,107 @@
                                    <tr>
                                        <td>Property Number:</td>
                                        <td>
-                                           @if (isset($property_details->asset_number)) {!! $property_details->asset_number !!} @endif
-                                           <span class="pull-right"><button class="btn btn-success btn-sm">Edit</button></span>
+                                           <span class="asset-details-values" id="property_number_value">
+                                             @if (isset($property_details->asset_number)) {!! $property_details->asset_number !!} @endif
+                                           </span>
+
+                                           <span class="asset-details-inputs">
+                                               <input type="text" class="form-control" id="asset_number" value="@if (isset($property_details->asset_number)) {!! $property_details->asset_number !!}@endif">
+                                           </span>
+
+                                           <span class="pull-right asset-details-values"><button class="btn btn-success btn-sm" id="edit-property-details">Edit Details</button></span>
                                        </td>
                                    </tr>
 
-                                   <tr>
+                                   <tr class="asset-details-values">
                                       <td>Property Address:</td>
-                                      <td>
-                                          {!! $property_details->property_address !!}
-                                          <br>{!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}
+                                      <td id="property_address_value">
+                                              {!! $property_details->property_address !!}
+                                              <br>{!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}
+
                                       </td>
+                                   </tr>
+
+                                   <tr class="asset-details-inputs">
+                                       <td>Property Address</td>
+                                       <td>
+                                           <input type="text" class="form-control" id="property_address" value="{!! $property_details->property_address !!}">
+                                       </td>
+                                   </tr>
+
+                                   <tr class="asset-details-inputs">
+                                       <td>Property State</td>
+                                       <td>
+                                           <?php
+
+                                           $states_data = array('' => 'Select State');
+                                           foreach ($states as $state) {
+                                               $states_data[$state['id']] = $state['name'];
+                                           }
+                                           ?>
+                                           {!! Form::select('state_id',  $states_data , '', array('class'=>'form-control','id'=>'state_id', 'data-rel'=>'chosen'))!!}
+                                       </td>
+
+                                   </tr>
+
+                                   <tr class="asset-details-inputs">
+                                       <td>Property City</td>
+                                       <td>
+                                           <?php
+
+                                           $cities_data = array('' => 'Select City');
+                                           $cities = \App\City::getCitiesByStateId(Request::old('state_id'));
+                                           foreach ($cities as $city) {
+                                               $cities_data[$city['id']] = $city['name'];
+                                           }
+
+                                           ?>
+                                           {!! Form::select('city_id',  $cities_data ,  '',array('class'=>'form-control','id'=>'city_id', 'data-rel'=>'chosen'))!!}
+
+                                       </td>
+                                   </tr>
+
+
+
+                                   <tr class="asset-details-inputs">
+                                       <td>Property Zip Code</td>
+                                       <td>
+                                           <input type="text" class="form-control" id="property_zip" value="{!! $property_details->zip !!}">
+
+                                       </td>
                                    </tr>
 
                                    <tr>
                                        <td>Property Type:</td>
                                        <td>
-                                           @if (isset($property_details->property_type)) {!! $property_details->property_type !!} @endif
+                                           <span class="asset-details-values">
+                                                @if (isset($property_details->property_type)) {!! $property_details->property_type !!} @endif
+                                           </span>
+
+                                           <span class="asset-details-inputs">
+                                               <select id="property_type" class="form-control" id="property_type_value">
+                                                   <option>Property Types</option>
+                                               </select>
+                                           </span>
                                        </td>
                                    </tr>
-                                   <tr>
+                                   <tr class="asset-details-values">
                                        <td>Customer:</td>
-                                       <td>
+                                       <td id="property_customer_value">
                                            @if (isset($customer_info->first_name)) {!! $customer_info->first_name !!} @endif @if (isset($customer_info->last_name)){!! $customer_info->last_name !!} @endif
+                                       </td>
+                                   </tr>
+                                   <tr class="asset-details-inputs">
+                                       <td>Customer First Name:</td>
+                                       <td>
+                                           <input type="text" class="form-control" id="first_name" value="@if (isset($customer_info->first_name)) {!! $customer_info->first_name !!} @endif">
+                                       </td>
+                                   </tr>
+
+                                   <tr class="asset-details-inputs">
+                                       <td>Customer Last Name:</td>
+                                       <td>
+                                           <input type="text" class="form-control" id="last_name" value="@if (isset($customer_info->last_name)){!! $customer_info->last_name !!} @endif">
                                        </td>
                                    </tr>
 
@@ -69,14 +147,26 @@
                                        <tr>
                                            <td>Customer Email:</td>
                                            <td>
-                                               @if (isset($customer_info->email)) {!! $customer_info->email !!} @endif
+                                               <span class="asset-details-values" id="property_email_value">
+                                                   @if (isset($customer_info->email)) {!! $customer_info->email !!} @endif
+                                               </span>
+
+                                               <span class="asset-details-inputs">
+                                                   <input type="email" class="form-control" id="email" value="@if (isset($customer_info->email)) {!! $customer_info->email !!} @endif">
+                                               </span>
                                            </td>
                                        </tr>
 
                                        <tr>
                                            <td>Customer Company:</td>
                                            <td>
-                                               @if (isset($customer_info->company)) {!! $customer_info->company !!} @endif
+                                               <span class="asset-details-values" id="property_company_value">
+                                                     @if (isset($customer_info->company)) {!! $customer_info->company !!} @endif
+                                               </span>
+
+                                               <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="company" value="@if (isset($customer_info->company)) {!! $customer_info->company !!} @endif">
+                                               </span>
                                            </td>
                                        </tr>
 
@@ -84,28 +174,58 @@
                                        <tr>
                                            <td>Lock Box:</td>
                                            <td>
-                                               @if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif
+                                               <span class="asset-details-values" id="property_lock_value">
+                                                    @if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif
+                                               </span>
+
+                                               <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="lock_box" value="@if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif">
+                                               </span>
                                            </td>
                                        </tr>
 
                                        <tr>
                                            <td>Access Code:</td>
                                            <td>
-                                               @if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif
+                                               <span class="asset-details-values" id="property_access_value">
+                                                   @if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif
+                                               </span>
+
+                                               <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="access_code" value="@if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif">
+                                               </span>
                                            </td>
                                        </tr>
 
                                         <tr>
                                             <td>Loan Number:</td>
                                             <td>
-                                                @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
+                                                <span class="asset-details-values" id="property_loan_value">
+                                                    @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
+                                                </span>
+
+                                                <span class="asset-details-inputs">
+                                                    <input type="text" class="form-control" id="loan_number" value="@if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif">
+                                                </span>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>Property Status</td>
                                             <td>
-                                                @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
+                                                <span class="asset-details-values" id="property_status_value">
+                                                    @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
+                                                </span>
+
+                                                <span class="asset-details-inputs">
+                                                    <select id="property_status" class="form-control">
+                                                        <option>Property Status</option>
+                                                    </select>
+                                                    <span class="pull-right">
+                                                        <button type="button" class="btn btn-success" id="save_asset_changes">Save Changes</button>
+                                                    </span>
+                                                </span>
+
                                             </td>
                                         </tr>
                                 </tbody>
@@ -162,12 +282,15 @@
             <div class="modal-dialog" role="dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        Select Photo
+                        Select A Photo
                         <span class="pull-right" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></span>
                     </div>
                     <div class="modal-body">
-                        <div class="d-flex flex-wrap addt-photos">
+                        <div class="d-flex flex-wrap addt-photos"></div>
 
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancel</button>
+                            <button type="button" class="btn btn-success" id="save-available-photo">Save Photo</button>
                         </div>
                     </div>
                 </div>

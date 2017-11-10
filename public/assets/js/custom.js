@@ -76,12 +76,81 @@ $(document).ready(function(){
 			var cb = JSON.parse(cb);
 			var html = "";
 			for(var i= 0;i<cb.length;i++){
-				html += "<div class='p-2'><div class='inner-padding'><img src='"+cb[i]+"'></div></div>";
+				html += "<div class='p-2'><div class='inner-padding available-photo'><img src='"+cb[i]+"'></div></div>";
+				// html += "<div class='p-2'><div class='inner-padding available-photo'><img src='http://gssreskin.app/assets/uploads/20171109101755166.jpeg'></div></div>";
 			}
 
 			$(".addt-photos").html(html);
 			$("#addt-photo-modal").modal("toggle");
 		});
+	});
+
+	$("#save_asset_changes").on("click", function(){
+		var property_number = $("#asset_number").val();
+		var property_street_address = $("#property_address").val();
+		var property_city = $("#city_id").val();
+		var property_state = $("#state_id").val();
+		var property_zip = $("#property_zip").val();
+		var property_lockbox = $("#lock_box").val();
+		var property_access = $("#access_code").val();
+		var property_loan = $("#loan_number").val();
+		var property_status = $("#property_status").val();
+		var property_type = $("#property_type_value").val();
+
+		var customer_fname = $("#first_name").val();
+		var customer_lname = $("#last_name").val();
+		var customer_email = $("#email").val();
+		var customer_company = $("#company").val();
+
+
+		$("#property_number_value").text(property_number);
+		$("#property_address_value").html(property_street_address+"<br>"+property_city+", "+property_state+" "+property_zip);
+		$("#property_type").val(property_type);
+		$("#property_customer_value").text(customer_fname+" "+customer_lname);
+		$("#property_email_value").text(customer_email);
+		$("#property_company_value").text(customer_company);
+		$("#property_lock_value").text(property_lockbox);
+		$("#property_access_value").text(property_access);
+		$("#property_loan_value").text(property_loan);
+		$("#property_status_value").text(property_status);
+
+		$(".asset-details-inputs").hide();
+		$(".asset-details-values").show();
+
+	});
+	$("#edit-property-details").on("click", function(){
+		$(".asset-details-values").hide();
+		$(".asset-details-inputs").show();
+	});
+	$("#save-available-photo").on("click", function(){
+		if ($(".selected-available-photo").length === 1){
+			var imageUrl = $(".selected-available-photo > img").attr("src");
+            $.ajax({
+                url: baseurl+ "/save-available-photo",
+                type: "post",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {property_id : $("#property_id").val(), image_url : imageUrl}
+
+            }).done(function(cb){
+            	var cb = JSON.parse(cb);
+            	if (cb["error"]){
+            		return false;
+				} else {
+            		$(".property-photo img").attr("src", $(".selected-available-photo > img").attr("src"));
+                    $(".property-photo-placeholder").hide();
+                    $(".property-photo").show();
+                    $("#addt-photo-modal").modal("toggle");
+				}
+			});
+		}
+
+	});
+
+	$(document).on("click", ".available-photo", function(){
+		$(".selected-available-photo").removeClass("selected-available-photo");
+		$(this).addClass("selected-available-photo");
 	});
 
 	$("#photo-upload-modal").on("hidden.bs.modal", function(){

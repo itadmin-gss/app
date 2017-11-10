@@ -59,6 +59,35 @@ class AssetController extends Controller
 
     }
 
+    public function selectAvailablePhoto()
+    {
+        $image_url      = Request::get('image_url');
+        $property_id    = Request::get('property_id');
+
+        $string = str_replace(env('APP_URL'), "", $image_url);
+        $file_parts = pathinfo(public_path().$string);
+        $file_extension = $file_parts['extension'];
+
+        $fopen      = fopen(public_path().$string, "r");
+        $contents   = fread($fopen, filesize(public_path().$string));
+        fclose($fopen);
+
+        $file_name  = date("Ymdhis").rand(100,999).".".$file_extension;
+
+        $fopen      = fopen(public_path()."/assets/uploads/".$file_name, "w");
+        fwrite($fopen, $contents);
+        fclose($fopen);
+
+        if (file_exists(public_path()."/assets/uploads/".$file_name)){
+            $asset = Asset::find($property_id);
+            $asset->property_photo = $file_name;
+            $asset->save();
+            return json_encode(["error" => false]);
+        }
+        return json_encode(["error" => true]);
+
+    }
+
     public function getAllAvailablePhotos()
     {
         $photos = [];
@@ -100,9 +129,9 @@ class AssetController extends Controller
                     }
 
                     $filecheck=  config('app.'.$app_path).$o_photo->address;
-//                    if (file_exists($filecheck)) {
+                    if (file_exists($filecheck)) {
                         $photos[] = config('app.url').'/'.config('app.'.$app_path).$o_photo->address;
-//                    }
+                    }
                 }
 
 
@@ -129,9 +158,9 @@ class AssetController extends Controller
                         }
 
                         $filecheck=  config('app.'.$app_path).$a_photo->address;
-//                        if (file_exists($filecheck)) {
+                        if (file_exists($filecheck)) {
                             $photos[] = config('app.url').'/'.config('app.'.$app_path).$a_photo->address;
-//                        }
+                        }
                     }
                 }
             }
@@ -210,11 +239,17 @@ class AssetController extends Controller
 
         }
 
+        //Get all cities from city
+        $cities = City::getAllCities();
+        //Get all states from city
+        $states = State::getAllStates();
 
         return view('pages.admin.asset-details')
             ->with('property_details', $property_details[0])
             ->with('city', $city)
             ->with('state', $state)
+            ->with('cities', $cities)
+            ->with('states', $states)
             ->with('customer_info', $customer_details[0])
             ->with('order_details', $orderDetails)
             ->with('requests', $requests);
