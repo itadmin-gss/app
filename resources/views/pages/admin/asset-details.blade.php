@@ -245,8 +245,7 @@
                 <table class="table table-striped table-small dt-responsive datatabledashboard" style="width:100%;">
                     <thead>
                         <th>ID #</th>
-                        <th>Vendor Name</th>
-                        <th>Vendor Company</th>
+                        <th>Vendor Name @ Vendor Company</th>
                         <th>Service(s)</th>
                         <th>Status</th>
                         <th>Completed</th>
@@ -257,8 +256,12 @@
                             @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                 <tr>
                                     <td>{!! $id !!}</td>
-                                    <td>@if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @else Not Set @endif</td>
-                                    <td>@if (isset($order_detail["vendor_company"])) {!! $order_detail["vendor_company"] !!} @else Not Set @endif</td>
+                                    <td>
+                                        @if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @endif
+                                        @if (isset($order_detail["vendor_company"]))@ {!! $order_detail["vendor_company"] !!} @endif
+                                        @if (!isset($order_details['vendor_name']) && !isset($order_details['vendor_company'])) Not Set @endif
+                                    </td>
+
                                     <td>
                                         @foreach($order_detail["requested_services"] as $services)
                                             {!! $services->title !!} <br>
