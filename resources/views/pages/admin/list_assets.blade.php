@@ -70,7 +70,7 @@
              <td class="center">
 
                 <div class='action-button-4-wide'>
-                  <a class="btn btn-xs btn-success action-button view_asset_information"  id="{!!$asset->id!!}" title="View">
+                  <a class="btn btn-xs btn-success action-button" href="{!! URL::to('asset/'.$asset->id) !!}" title="View">
                     <i class="fa fa-search-plus" aria-hidden='true'></i>
                   </a>
 
