@@ -349,7 +349,7 @@ Route::group(['middleware' => ['auth', 'vendorCheck']], function () {
 
     Route::get('vendor-profile-complete', ['uses' => 'VendorController@showCompleteProfile']);
 
-    Route::post('vendor-profile-add/{id}', ['uses' => 'VendorController@completeProfile']);
+    Route::post('vendor-profile-add', ['uses' => 'VendorController@completeProfile']);
 
     Route::get('vendor-profile-service', ['uses' => 'ServiceController@index']);
 
