@@ -127,6 +127,11 @@ $('.datatabledashboard2').DataTable( {
   ]
 } );
 
+$(".datatabledashboard3").DataTable({
+    dom: 'frtip',
+    "responsive" : true
+});
+
 
 
 $('.datatabledashboardapproved').DataTable( {
