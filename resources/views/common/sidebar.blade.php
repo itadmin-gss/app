@@ -193,18 +193,7 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">
-            <a class="nav-link" href="{!!URL::to('list-vendors') !!}">
-              <i class="fa fa-fw fa-users"></i>
-              <span class="nav-link-text">Vendors</span>
-            </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">
-            <a class="nav-link" href="{!!URL::to('list-assets') !!}">
-              <i class="fa fa-fw fa-home"></i>
-              <span class="nav-link-text">Properties</span>
-            </a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="edit-profile">
             <i class='fa fa-fw fa-user'></i>Profile

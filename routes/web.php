@@ -335,6 +335,9 @@ Route::post('property-photo-upload', 'AssetController@uploadPhoto');
 Route::post('available-property-photos', 'AssetController@getAllAvailablePhotos');
 
 Route::post('save-available-photo', 'AssetController@selectAvailablePhoto');
+
+Route::post('update-asset-details', 'AssetController@updateAssetDetails');
+
 //Ajax Route end
 
 ################################## Vendor Routes #############################################

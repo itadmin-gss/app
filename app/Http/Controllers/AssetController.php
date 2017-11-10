@@ -33,6 +33,64 @@ class AssetController extends Controller
 
 //protected $layout = 'layouts.default';
 
+    public function updateAssetDetails()
+    {
+
+        $asset_data = [];
+        $customer_data = [];
+        $customer_fields = ['customer_fname', 'customer_lname', 'customer_email', 'company'];
+
+        foreach(Request::all() as $key => $request)
+        {
+            if (!in_array($key, $customer_fields))
+            {
+                if ($request === null)
+                {
+                    $asset_data[$key] = "";
+                }
+                else
+                {
+                    $asset_data[$key] = $request;
+                }
+            }
+            else
+            {
+                if ($request === null)
+                {
+                    $customer_data[$key] = "";
+                }
+                else
+                {
+                    $customer_data[$key] = $request;
+                }
+            }
+
+        }
+
+        $asset                      = Asset::findOrFail(Request::get('property_id'));
+        $customer_id                = $asset->customer_id;
+        $asset->asset_number        = $asset_data['property_number'];
+        $asset->property_address    = $asset_data['street_address'];
+        $asset->city_id             = $asset_data['property_city'];
+        $asset->state_id            = $asset_data['property_state'];
+        $asset->zip                 = $asset_data['property_zip'];
+        $asset->lock_box            = $asset_data['lockbox'];
+        $asset->access_code         = $asset_data['access_code'];
+        $asset->loan_number         = $asset_data['loan_number'];
+        $asset->status              = $asset_data['status'];
+        $asset->property_type       = $asset_data['type'];
+        $asset->save();
+
+        $customer = User::findOrFail($customer_id);
+        $customer->first_name   = $customer_data['customer_fname'];
+        $customer->last_name    = $customer_data['customer_lname'];
+        $customer->email        = $customer_data['customer_email'];
+        $customer->company      = $customer_data['company'];
+        $customer->save();
+
+        return "success";
+
+    }
     public function uploadPhoto()
     {
 

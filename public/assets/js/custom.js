@@ -95,7 +95,7 @@ $(document).ready(function(){
 		var property_access = $("#access_code").val();
 		var property_loan = $("#loan_number").val();
 		var property_status = $("#property_status").val();
-		var property_type = $("#property_type_value").val();
+		var property_type = $("#property_type").val();
 
 		var customer_fname = $("#first_name").val();
 		var customer_lname = $("#last_name").val();
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
 
 		$("#property_number_value").text(property_number);
-		$("#property_address_value").html(property_street_address+"<br>"+property_city+", "+property_state+" "+property_zip);
+		$("#property_address_value").html(property_street_address+"<br>"+$("#city_id option:selected").text()+", "+$("#state_id option:selected").text()+" "+property_zip);
 		$("#property_type").val(property_type);
 		$("#property_customer_value").text(customer_fname+" "+customer_lname);
 		$("#property_email_value").text(customer_email);
@@ -114,8 +114,38 @@ $(document).ready(function(){
 		$("#property_loan_value").text(property_loan);
 		$("#property_status_value").text(property_status);
 
-		$(".asset-details-inputs").hide();
-		$(".asset-details-values").show();
+		var sendData = {
+			"property_id" : $("#property_id").val(),
+			"property_number" : property_number,
+			"street_address" : property_street_address,
+			"property_city" : property_city,
+			"property_state" : property_state,
+			"property_zip" : property_zip,
+			"lockbox" : property_lockbox,
+			"access_code" : property_access,
+			"loan_number" : property_loan,
+			"status" : property_status,
+			"type" : property_type,
+			"customer_fname" : customer_fname,
+			"customer_lname": customer_lname,
+			"customer_email" : customer_email,
+			"company" : customer_company
+		};
+
+		$.ajax({
+			url: baseurl+"/update-asset-details",
+			type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+			data: sendData
+		}).done(function(cb){
+            $(".asset-details-inputs").hide();
+            $(".asset-details-values").show();
+            window.scrollTo(0,0);
+		});
+
+
 
 	});
 	$("#edit-property-details").on("click", function(){

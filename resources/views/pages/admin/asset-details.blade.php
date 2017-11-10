@@ -77,7 +77,7 @@
                                                $states_data[$state['id']] = $state['name'];
                                            }
                                            ?>
-                                           {!! Form::select('state_id',  $states_data , '', array('class'=>'form-control','id'=>'state_id', 'data-rel'=>'chosen'))!!}
+                                           {!! Form::select('state_id',  $states_data , $property_details->state_id, array('class'=>'form-control','id'=>'state_id', 'data-rel'=>'chosen'))!!}
                                        </td>
 
                                    </tr>
@@ -88,13 +88,13 @@
                                            <?php
 
                                            $cities_data = array('' => 'Select City');
-                                           $cities = \App\City::getCitiesByStateId(Request::old('state_id'));
+                                           $cities = \App\City::getCitiesByStateId($property_details->state_id);
                                            foreach ($cities as $city) {
                                                $cities_data[$city['id']] = $city['name'];
                                            }
 
                                            ?>
-                                           {!! Form::select('city_id',  $cities_data ,  '',array('class'=>'form-control','id'=>'city_id', 'data-rel'=>'chosen'))!!}
+                                           {!! Form::select('city_id',  $cities_data ,  $property_details->city_id ,array('class'=>'form-control','id'=>'city_id', 'data-rel'=>'chosen'))!!}
 
                                        </td>
                                    </tr>
@@ -117,9 +117,8 @@
                                            </span>
 
                                            <span class="asset-details-inputs">
-                                               <select id="property_type" class="form-control" id="property_type_value">
-                                                   <option>Property Types</option>
-                                               </select>
+                                                <?php $option_type = array('0' => 'Select Property type', 'single-family' => 'Single Family', 'condo' => 'Condo', 'multi-family' => 'Multi Family') ?>
+                                               {!! Form::select('property_type', $option_type, isset($property_details->property_type) ? $property_details->property_type : '0', array('class'=>'form-control', 'id'=>'property_type'))!!}
                                            </span>
                                        </td>
                                    </tr>
@@ -218,9 +217,8 @@
                                                 </span>
 
                                                 <span class="asset-details-inputs">
-                                                    <select id="property_status" class="form-control">
-                                                        <option>Property Status</option>
-                                                    </select>
+                                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'closed' => 'Closed', 'in-rehab' => 'In-Rehab', 'onhold' => 'On Hold') ?>
+                                                    {!! Form::select('property_status', $option, isset($property_details->property_status) ? $property_details->property_status : '', array('class'=>'form-control', 'id'=>'property_status'))!!}
                                                     <span class="pull-right">
                                                         <button type="button" class="btn btn-success" id="save_asset_changes">Save Changes</button>
                                                     </span>
