@@ -65,7 +65,7 @@ class MaintenanceRequestController extends Controller
                         ->with('jobType', $jobType);
     }
 
-    public function viewAdminRequestForm()
+    public function viewAdminRequestForm($id)
     {
         // Get all  assets to send in view
         $asset_information = Asset::where('property_status', '<>', 'closed')->get();
@@ -87,6 +87,7 @@ class MaintenanceRequestController extends Controller
         return view('pages.customer.request_service')// return to page
                       ->with('customer_assets', $asset_information)
                       ->with('services', $dataService)
+                      ->with('property_id', $id)
                       ->with('jobType', $jobType);
     }
 

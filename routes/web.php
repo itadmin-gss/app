@@ -204,7 +204,7 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     Route::match(['GET', 'POST'], 'public-notes', ['uses' => 'MaintenanceRequestController@publicNotes']);
     Route::match(['GET', 'POST'], 'public-notes-bid', ['uses' => 'MaintenanceRequestController@publicNotesBid']);
     Route::match(['GET', 'POST'], 'customer-notes-bid', ['uses' => 'MaintenanceRequestController@customerNotesBid']);
-    Route::get('admin-add-new-service-request', ['uses' => 'MaintenanceRequestController@viewAdminRequestForm']);    
+    Route::get('admin-add-new-service-request/{id}', ['uses' => 'MaintenanceRequestController@viewAdminRequestForm']);
     Route::get('admin-edit-service-request/{id}', ['uses' => 'MaintenanceRequestController@editAdminRequestForm']);
 
     //Access Level Controller

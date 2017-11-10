@@ -77,10 +77,10 @@ else
                                                 $assets_data[$asset['id']] = $asset['asset_number'].' - '.$asset['property_address'];
                                             }
                                         ?>
-                                        {!! Form::select('asset_number',  $assets_data, '', array('class'=>'form-control-no-group chosen','id'=>'asset_number', 'data-rel'=>'chosen','style'=>'width:200px;'))!!}
+                                        {!! Form::select('asset_number',  $assets_data, $property_id, array('class'=>'form-control-no-group chosen','id'=>'asset_number', 'data-rel'=>'chosen','style'=>'width:200px;'))!!}
                                         <span class='added-margins'> OR</span>
                                         @if(Auth::user()->type_id==1 || Auth::user()->type_id == 4)
-                                        <a href="{!!URL::to('add-asset')!!}/1" class="btn btn-sm btn-success" style="cursor: pointer;" >Add Property</a>
+                                        <a href="{!!URL::to('add-asset')!!}" class="btn btn-sm btn-success" style="cursor: pointer;" >Add Property</a>
                                         @else
                                         <a href="{!!URL::to('add-new-customer-asset')!!}/1" class="btn btn-sm btn-success" style="cursor: pointer;" >Add Property</a>
                                         @endif
