@@ -196,7 +196,8 @@
 
         <li class="nav-item">
           <a class="nav-link" href="edit-profile">
-            <i class='fa fa-fw fa-user'></i>Profile
+            <i class='fa fa-fw fa-user'></i>
+              {!! Auth::user()->first_name !!} {!! Auth::user()->last_name !!}
           </a>
         </li>
         {{--  <li class="nav-item dropdown">

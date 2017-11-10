@@ -1,6 +1,6 @@
- <style type="text/css">
-input,textarea {background: "#39afea !important";}
- </style>
+ {{--<style type="text/css">--}}
+{{--input,textarea {background: #39afea !important";}--}}
+ {{--</style>--}}
 
 
  <script type="text/javascript" src="{!! URL::asset('assets/js/cycle.js') !!}"> </script>
@@ -291,7 +291,7 @@ input,textarea {background: "#39afea !important";}
         @if(isset($data['service_images_'.$data['service_id']]))
        <tr>
                  <td>
-            <h2>Images</h2>
+            <label>Images</label>
             </td>
                    <td>
                    <a href="javascript:;" class="viewBtn bluBtn">View Photos</a>
@@ -324,7 +324,7 @@ input,textarea {background: "#39afea !important";}
                     {!!Form::label('Duration', 'Duration:', array('class'=>'control-label'))!!}
                  </td>
                  <td>
-                        {!!Form::text('duration_'.$data['service_id'], $data['duration_'.$data['service_id']], array('class'=> 'input-xlarge span5', 'id'=> 'duration_'.$data['service_id']))!!}
+                        {!!Form::text('duration_'.$data['service_id'], $data['duration_'.$data['service_id']], array('class'=> 'form-control', 'id'=> 'duration_'.$data['service_id']))!!}
                   </td>
                   </tr>
 
@@ -334,7 +334,7 @@ input,textarea {background: "#39afea !important";}
 
              </td>
                  <td>
-                        {!!Form::text('start_date_'.$data['service_id'], $data['start_date_'.$data['service_id']], array('class'=> 'input-xlarge span5', 'id'=> 'start_date_'.$data['service_id']))!!}
+                        {!!Form::text('start_date_'.$data['service_id'], $data['start_date_'.$data['service_id']], array('class'=> 'form-control', 'id'=> 'start_date_'.$data['service_id']))!!}
                 </td>
                   </tr>
 
@@ -344,7 +344,7 @@ input,textarea {background: "#39afea !important";}
 
                     </td>
                  <td>
-                        {!!Form::text('end_date_'.$data['service_id'], $data['end_date_'.$data['service_id']], array('class'=> 'input-xlarge span5', 'id'=> 'end_date_'.$data['service_id']))!!}
+                        {!!Form::text('end_date_'.$data['service_id'], $data['end_date_'.$data['service_id']], array('class'=> 'form-control', 'id'=> 'end_date_'.$data['service_id']))!!}
 
                 </td>
             </tr>

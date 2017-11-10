@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
     <div id="content">
         <h4>{!! $property_details->property_address !!}, {!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}</h4>
@@ -253,6 +254,7 @@
                     </thead>
                     <tbody>
                         @foreach($order_details as $key => $detail)
+                            @if (isset($order_details[$key]["order_details"]))
                             @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                 <tr>
                                     <td>{!! $id !!}</td>
@@ -272,6 +274,7 @@
                                     <td>{!! $order_detail["approved"] !!}</td>
                                 </tr>
                             @endforeach
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

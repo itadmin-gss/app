@@ -1,13 +1,39 @@
 
 <?php
 
+
+
 $layout="";
 
 if(Auth::user()->type_id==1 || Auth::user()->type_id == 4) {
     $layout="layouts.default";
 }
 else
-    { $layout="layouts.customer_dashboard";} ?>
+    { $layout="layouts.customer_dashboard";}
+
+$assets_data = array('' => 'Select Property');
+$requested_asset_found = false;
+foreach ($customer_assets as $asset) {
+
+    $assets_data[$asset['id']] = $asset['asset_number'].' - '.$asset['property_address'];
+    if ($asset['id'] == $property_id)
+    {
+
+        $requested_asset_found = true;
+        //Get City/State Information
+        $city = \App\City::where('id', $asset['city_id'])->get()[0];
+        $city_name = $city->name;
+        $state = \App\State::getStateByID($asset['state_id']);
+        $client = \App\Asset::findOrFail($property_id);
+        $client_type = $client->customer_type;
+        break;
+    }
+
+}
+
+
+
+?>
 
 @extends($layout)
 @section('content')
@@ -33,63 +59,41 @@ else
 
                     <div class='card new-service-request'>
                         <div class='card-header'>
-                            Service Request
+                            Service Request @if ($requested_asset_found) for {!! $asset['property_address'] !!}, {!! $city_name !!}, {!! $state !!} @endif
                         </div>
                         <div class='card-body'>
                             <ul class='step-list'>
-                                <li>
-                                    <div class='request-badges request-step-1'>
-                                        <a href="javascript:void(0);" class="badge badge-info">
-                                            Step 1: Choose Property
-                                        </a>
-                                    </div>
-                                </li>
+
                                 <li>
                                     <div class='request-badges request-step-2'>
-                                        <a href="javascript:void(0);" class='badge badge-disable'>
-                                            Step 2: Select Job Type
+                                        <a href="javascript:void(0);" class='badge badge-info'>
+                                            Step 1: Select Job Type
                                         </a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class='request-badges request-step-3'>
                                         <a href="javascript:void(0);" class='badge badge-disable'>
-                                            Step 3: Select Services
+                                            Step 2: Select Services
                                         </a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class='request-badges request-step-4'>
                                         <a href="javascript:void(0);" class='badge badge-disable'>
-                                            Step 4: Submit
+                                            Step 3: Submit
                                         </a>
                                     </div>
                                 </li>
                             </ul>
 
-                            <div class='step-1'>
-                                <ul class='property-list'>
-                                    <li>
-                                        
-                                        <?php
-                                            $assets_data = array('' => 'Select Property');
-                                            foreach ($customer_assets as $asset) {
-                                                $assets_data[$asset['id']] = $asset['asset_number'].' - '.$asset['property_address'];
-                                            }
-                                        ?>
-                                        {!! Form::select('asset_number',  $assets_data, $property_id, array('class'=>'form-control-no-group chosen','id'=>'asset_number', 'data-rel'=>'chosen','style'=>'width:200px;'))!!}
-                                        <span class='added-margins'> OR</span>
-                                        @if(Auth::user()->type_id==1 || Auth::user()->type_id == 4)
-                                        <a href="{!!URL::to('add-asset')!!}" class="btn btn-sm btn-success" style="cursor: pointer;" >Add Property</a>
-                                        @else
-                                        <a href="{!!URL::to('add-new-customer-asset')!!}/1" class="btn btn-sm btn-success" style="cursor: pointer;" >Add Property</a>
-                                        @endif
-                                    </li>
+                            @if (!$requested_asset_found)
+                                <h4>Asset chosen is set to 'Closed' status. Please change status before adding a work order</h4>
 
-                                </ul>
+                            @else
+                                {!! Form::select('asset_number',  $assets_data, $property_id, array('class'=>'form-control-no-group hide','id'=>'asset_number', 'data-rel'=>'chosen','style'=>'width:200px;'))!!}
                                 {!! Form::hidden('bid_dropdown_hidden', '', array('class'=>'span7 typeahead','id'=>'bid_dropdown_hidden'))!!}
-                            </div>
-
+                                {!! Form::hidden('client_type_unic', $client_type, array('id' => 'client_type_unic')) !!}
                             <div class='step-2'>
                                 <div class='form-group'>
                                     {!!Form::label('job_type', 'Job Type:', array('class'=>'no-class', 'id'=> 'asdasd'))!!}
@@ -114,7 +118,7 @@ else
                                     {!!Form::label('service_ids', 'Services Available:', array('class'=>'control-label', 'id'=> 'ssdfsdf selectError1'))!!}
 
                                     <div class="controls">
-                                        {!!Form::select('service_ids',$services, null, array('multiple'=>'true', 'id'=>'service_ids', 'class' => 'hidden-chosen', 'data-rel'=>'chosen') )!!}
+                                        {!!Form::select('service_ids_selected[]',$services, null, array('multiple'=>'true', 'id'=>'service_ids', 'class' => 'hidden-chosen', 'data-rel'=>'chosen') )!!}
                                     </div>
                                     <p class="addSt"> You can add multiple services</p>
 
@@ -176,7 +180,7 @@ else
                                                 @if(Auth::user()->type_id==2)
                                                         <a href="{!!URL::to('list-customer-requested-services')!!}" class="cnclBtn btn-success" id="cancelbuttoncustomer">Cancel</a>
                                                                 @else
-                                                            <a href="{!!URL::to('list-maintenance-request')!!}" class="cnclBtn btn-success" id="cancelbuttonadmin">Cancel</a>
+                                                            <a href="{!!URL::to('asset/'.$property_id)!!}" class="cnclBtn btn-success" id="cancelbuttonadmin">Cancel</a>
 
 
                                                                 @endif
@@ -188,7 +192,8 @@ else
 
 
                             </div>
-                           
+
+                                @endif
                         </div>
                         
                     </div>
@@ -203,50 +208,11 @@ else
 
                     </div>
                 </div>
-            </div>
-       
-           
 
 
 
-
-    </div>
-                            </div>
-
-
-                            {{--  <div id="tabCntrl4" class="control-group">
-
-                                <div class="clearfix">
-                                    <div class="clearfix emrgnGrp" style="display:none;">
-                                        {!!Form::label('emergency_request', 'Emergency Request:', array('class'=>'control-label', 'id'=> 'ssdfsdf selectError1'))!!}
-                                        <div class="controls dmcntrl">
-                                            Yes :  {!!Form::radio('emergency_request','1')!!}
-                                            No  : {!!Form::radio('emergency_request','0','1')!!}
-                                        </div>
-                                    </div>
-                                    <div style="display:none;" id="emergency_request_additional_text">
-                                        Reminder: Emergency service is to protect individual, property, or neighboring property. Work order will be handled on a rush basis.Additional fee may apply for this service.
-                                    </div>
-                                    <h3>List of Requested Services: </h3>
-                                    <fieldset>
-                                        <div class="row-fluid sortable requestServices" id='list_of_services'></div>
-                                    </fieldset>
-                                </div><!--/span-6-->
-
-                                <div class="form-actions text-center">
-
-                            </div>
-
-                        </div><!-- CLEARFIX END HERE -->
-
-                    </div>  --}}
-
-                    </fieldset>
                     {!! Form::close() !!}
-                </div>
-                    </div><!--/span-->
-                </div><!--/row-->
-            </div>
+
 
 
 

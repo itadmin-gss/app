@@ -1,23 +1,25 @@
 //$.noConflict();
-$(document).ready(function(){
+$(document).ready(function() {
 
-	var myDropZone;
+    var myDropZone;
 
-	// Dropzone -> Property Photo Upload Options
-	Dropzone.options.dropzoneUpload = {
-		dictDefaultMessage: "Drag your file or click to upload",
-		url: baseurl+ '/property-photo-upload',
-		previewTemplate: document.querySelector("#dropzone-preview-template").innerHTML,
-		previewsContainer: "#tpl",
-		acceptedFiles: ".jpg, .jpeg, .gif, .png",
-		maxFiles: 1,
-		thumbnailWidth: null,
-		thumbnailHeight: null,
-		autoProcessQueue: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	};
+    // Dropzone -> Property Photo Upload Options
+    if ($("#dropzone-preview-template").length > 0){
+        Dropzone.options.dropzoneUpload = {
+            dictDefaultMessage: "Drag your file or click to upload",
+            url: baseurl + '/property-photo-upload',
+            previewTemplate: document.querySelector("#dropzone-preview-template").innerHTML,
+            previewsContainer: "#tpl",
+            acceptedFiles: ".jpg, .jpeg, .gif, .png",
+            maxFiles: 1,
+            thumbnailWidth: null,
+            thumbnailHeight: null,
+            autoProcessQueue: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        };
+	}
 
 
 

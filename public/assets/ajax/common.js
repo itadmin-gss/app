@@ -829,7 +829,7 @@ function modalClose(){
                   //        var current_service_id=service_id[service_id.length - 1];
                   $.ajax({
                       type: 'Post',
-                      url: 'ajax-service-information-popup',
+                      url: baseurl+'/ajax-service-information-popup',
                       data: {
                           service_id: current_service,
                           asset_number: asset_number
@@ -3289,7 +3289,7 @@ function modalClose(){
   
   function loadServiceOnJobType()
   {
-      var client_type=  $("#client_type_unic").val()
+      var client_type=  $("#client_type_unic").val();
       var job_type=  $("#job_type").val()
       $('#review_order_job_type').html($('#job_type option:selected').html());
       $('#tabCntrl2').find('.nxtStep').trigger('click');

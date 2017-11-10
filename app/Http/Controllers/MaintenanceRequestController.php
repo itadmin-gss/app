@@ -608,7 +608,15 @@ class MaintenanceRequestController extends Controller
         $request['customer_id'] = Asset::find($data['asset_number'])->customer_id; // assign current logged id to request
         $request['asset_id'] = $data['asset_number']; // assign asset number to request
         $request['status'] = 1; // while generating request status would be active
-        $request['emergency_request'] =$data['emergency_request'];
+
+        if (isset($data["emergency_request"]))
+        {
+            $request['emergency_request'] =$data['emergency_request'];
+        }
+        else
+        {
+            $request['emergency_request'] = "";
+        }
         $request['job_type'] =$data['job_type'];
         $requested_selected_services=[]; // array for getting the ids of requested servcies it will be used for auto assigning the emergency request
 
@@ -838,7 +846,7 @@ class MaintenanceRequestController extends Controller
 
 
         $emergency_request_message="";
-        if ($data['emergency_request']==1) {
+        if (isset($data['emergency_request']) && $data['emergency_request']==1) {
             $assetData=Asset::where('id', '=', $data['asset_number'])->get();
 
 
@@ -968,7 +976,7 @@ Status: New Bid Request
                     FlashMessage::displayAlert($message.  $emergency_request_message, 'success');
                     return redirect('list-bidding-request') ;
                 } else {
-                      return redirect('list-maintenance-request')
+                      return redirect('dashboard')
                       ->with('message', FlashMessage::displayAlert($message.  $emergency_request_message, 'success'));
                 }
             } else {

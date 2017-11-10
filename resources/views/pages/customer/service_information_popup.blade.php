@@ -40,7 +40,7 @@
             <div class="form-group">
                 {!!Form::label('Due Date', 'Due Date:', array('class'=>'control-label'))!!}
                 <div class="controls timesection">
-                    {!!Form::text('due_date_'.$service_data->id, '', array('class'=> 'form-control datepicker2', 'id'=> 'due_date_'.$service_data->id ,'required'))!!}
+                    {!!Form::text('due_date_'.$service_data->id, date("m-d-Y"), array('class'=> 'form-control datepicker2', 'id'=> 'due_date_'.$service_data->id ,'required'))!!}
                     </div>
 
             </div>
