@@ -105,12 +105,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Customer Contact</td>
-                                <td>
-                                    {!!Form::text('agent', '', array('class'=>'form-control', 'id'=>'agent'))!!}
-                                </td>
-                            </tr>
-                            <tr>
                                 <td>Loan Number</td>
                                 <td>
                                     {!!Form::text('loan_number', '', array('class'=>'form-control', 'id'=>'loan_number'))!!}
@@ -162,6 +156,12 @@
 
                                     {!! Form::select('customer_type',   $customer_type ,  '7', array('class'=>'form-control','id'=>'customer_type', 'data-rel'=>'chosen'))!!}
 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Customer Contact</td>
+                                <td>
+                                    {!!Form::text('agent', '', array('class'=>'form-control', 'id'=>'agent'))!!}
                                 </td>
                             </tr>
                             <tr>
