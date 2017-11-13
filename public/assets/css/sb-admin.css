@@ -142,10 +142,12 @@
 #quick-view-modal .modal-dialog{
   max-width:1200px;
 }
+
+#add-asset-form td:nth-child(1){
+    font-weight: bold;
+}
 #edit-asset-form input,
-#edit-asset-form select,
-#add-asset-form input,
-#add-asset-form select{
+#edit-asset-form select{
   width:50%;
 }
 .span-inline{
@@ -170,6 +172,11 @@
 }
 .card-header-inline > a{
   float:right;
+}
+
+#generate_asset_number{
+    float:right;
+    margin-top:10px;
 }
 
 .badge-warning-enhance,
