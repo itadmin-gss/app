@@ -36,7 +36,7 @@
                     <table class="table table-small">
                         <tbody>
                             <tr>
-                                <td>Property ID</td>
+                                <td>Property ID *</td>
                                 <td>
                                     <div class='form-group'>
                                         {!!Form::text('asset_number', '', array('class'=>'form-control', 'id'=>'asset_number' ))!!}
@@ -47,7 +47,7 @@
                             </tr>
                             <tr>
 
-                                <td>Property Address</td>
+                                <td>Property Address *</td>
                                 <td>
                                     {!!Form::text('property_address', '', array('placeholder'=>'Enter full property address', 'class'=>'form-control', 'id'=>'property_address'))!!}
                                 </td>
@@ -59,7 +59,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>State</td>
+                                <td>State *</td>
                                 <td>
                                     <?php
 
@@ -72,7 +72,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>City</td>
+                                <td>City *</td>
                                 <td>
                                     <?php
 
@@ -87,13 +87,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Zip</td>
+                                <td>Zip *</td>
                                 <td>
                                     {!!Form::text('zip', '', array('class'=>'form-control', 'id'=> 'zip'))!!}
                                 </td>
                             </tr>
                             <tr>
-                                <td>Lock Box</td>
+                                <td>Lock Box *</td>
                                 <td>
                                     {!!Form::text('lock_box', '', array('class'=>'form-control', 'id'=>'lock_box'))!!}
                                 </td>
@@ -117,7 +117,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Property Type</td>
+                                <td>Property Type *</td>
                                 <td>
                                     <?php $option_type = array('single-family' => 'Single Family', 'condo' => 'Condo', 'multi-family' => 'Multi Family','modular'=>'Modular') ?>
                                     {!! Form::select('property_type', $option_type, '', array('class'=>'form-control', 'id'=>'property_type', 'data-rel'=>'chosen'))!!}
@@ -153,19 +153,19 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Customer Contact</td>
+                                <td>Customer Contact *</td>
                                 <td>
                                     {!!Form::text('agent', '', array('class'=>'form-control', 'id'=>'agent'))!!}
                                 </td>
                             </tr>
                             <tr>
-                                <td>Customer Company</td>
+                                <td>Customer Company *</td>
                                 <td>
                                     {!!Form::text('brokage', '', array('class'=>'form-control', 'id'=>'brokage'))!!}
                                 </td>
                             </tr>
                             <tr>
-                                <td>Customer Email Address</td>
+                                <td>Customer Email Address *</td>
                                 <td>
                                     {!!Form::text('customer_email_address', '', array('class'=>'form-control', 'id'=>'customer_email_address'))!!}
                                 </td>
@@ -178,7 +178,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Outbuilding / Shed</td>
+                                <td>Outbuilding / Shed *</td>
                                 <td>
                                     <div class="form-group">
                                         <label class="radio">
@@ -209,7 +209,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Property Status Note</td>
+                                <td>Property Status Note *</td>
                                 <td>
                                     {!!Form::textarea('property_status_note', '', array('class'=>'form-control', 'id'=>'property_status_note', 'rows'=>'7', 'placeholder'=>"Please enter any property status notes"))!!}
                                 </td>
@@ -221,7 +221,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Electric</td>
+                                <td>Electric *</td>
                                 <td>
                                     <div class="form-group">
                                         <label class="radio">
@@ -234,7 +234,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Water</td>
+                                <td>Water *</td>
                                 <td>
                                     <div class="form-group">
 
@@ -250,7 +250,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Gas</td>
+                                <td>Gas *</td>
                                 <td>
                                     <div class="form-group">
 
@@ -273,7 +273,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Occupancy Status</td>
+                                <td>Occupancy Status *</td>
                                 <td>
                                     <div class="form-group">
                                         <label class="radio">
