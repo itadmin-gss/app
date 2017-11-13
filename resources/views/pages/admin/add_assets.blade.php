@@ -123,13 +123,7 @@
                                     {!! Form::select('property_type', $option_type, '', array('class'=>'form-control', 'id'=>'property_type', 'data-rel'=>'chosen'))!!}
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Property Status</td>
-                                <td>
-                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'in-rehab' => 'In-Rehab') ?>
-                                    {!! Form::select('property_status', $option, '', array('class'=>'form-control', 'id'=>'property_status',  'data-rel'=>'chosen'))!!}
-                                </td>
-                            </tr>
+
                             <tr>
                                 <td>Select Customer</td>
                                 <td>
@@ -205,6 +199,13 @@
                                 <td>Outbuilding / Shed Note</td>
                                 <td>
                                     {!!Form::textarea('outbuilding_shed_note', '', array('class'=>'form-control', 'id'=>'outbuilding_shed_note', 'rows'=>'7','placeholder'=>"Notes" ))!!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Property Status</td>
+                                <td>
+                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'in-rehab' => 'In-Rehab') ?>
+                                    {!! Form::select('property_status', $option, '', array('class'=>'form-control', 'id'=>'property_status',  'data-rel'=>'chosen'))!!}
                                 </td>
                             </tr>
                             <tr>
