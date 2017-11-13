@@ -179,6 +179,10 @@
     margin-top:10px;
 }
 
+#add-asset-form .radio{
+    margin-right:25px;
+}
+
 .badge-warning-enhance,
 .badge-danger-enhance,
 .badge-success-enhance,
