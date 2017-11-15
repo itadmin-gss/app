@@ -128,7 +128,7 @@
                                 <td>Select Customer</td>
                                 <td>
                                     <?php
-                                    $customers_data = array('' => 'Select Client Type');
+                                    $customers_data = array('' => 'Select Customer');
                                     $customers = \App\User::getCustomers();
                                     foreach ($customers as $customer) {
                                         $customers_data[$customer['id']] = $customer['first_name'] . ' ' . $customer['last_name'];
