@@ -83,7 +83,7 @@
                                     }
 
                                     ?>
-                                    {!! Form::select('city_id',  $cities_data ,  '',array('class'=>'form-control','id'=>'city_id', 'data-rel'=>'chosen'))!!}
+                                    {!! Form::select('city_id',  $cities_data ,  '',array('class'=>'form-control','id'=>'city_id', 'data-rel'=>'chosen', 'autocomplete' => 'off'))!!}
                                 </td>
                             </tr>
                             <tr>

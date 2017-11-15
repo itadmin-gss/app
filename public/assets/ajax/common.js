@@ -3288,12 +3288,7 @@ function modalClose(){
       var job_type=  $("#job_type").val()
       $('#review_order_job_type').html($('#job_type option:selected').html());
       $('#tabCntrl2').find('.nxtStep').trigger('click');
-    //$(this).closest('.control-group').find('.nxtStep').trigger('click');
-  
-    var over = '<div id="overlay">' +
-    '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
-    '</div>';
-    $(over).appendTo('body');
+
     
     $.ajax({
        type: 'POST',
@@ -3304,7 +3299,6 @@ function modalClose(){
       },
        success: function(response) {
   
-        $('#overlay').remove();
         if(response=="")
         {
           alert("Selected job type does not have any service.")

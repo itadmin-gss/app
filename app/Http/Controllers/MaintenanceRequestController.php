@@ -976,7 +976,7 @@ Status: New Bid Request
                     FlashMessage::displayAlert($message.  $emergency_request_message, 'success');
                     return redirect('list-bidding-request') ;
                 } else {
-                      return redirect('dashboard')
+                      return redirect('admin')
                       ->with('message', FlashMessage::displayAlert($message.  $emergency_request_message, 'success'));
                 }
             } else {

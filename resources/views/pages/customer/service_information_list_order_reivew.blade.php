@@ -2,9 +2,14 @@
 {{--input,textarea {background: #39afea !important";}--}}
  {{--</style>--}}
 
+<style>
+    .control-label{
+        font-weight: bold;
+    }
+</style>
 
  <script type="text/javascript" src="{!! URL::asset('assets/js/cycle.js') !!}"> </script>
- <table id="revieworderservice_{!!$data['service_id']!!}">
+ <table id="revieworderservice_{!!$data['service_id']!!}" class="table table-small">
     <tbody>
         <tr>
        <th>Service Type</th>
@@ -354,7 +359,7 @@
               <td>
                 <label class="control-label autoLabel" for="textarea2">Note:</label>
               </td><td>
-                <textarea id="textarea2" rows="7" name="service_note_{!!$data['service_id']!!}" class="span10">{!!$data['service_note_'.$data['service_id']]!!}</textarea>
+                <textarea id="textarea2" rows="7" name="service_note_{!!$data['service_id']!!}" class="form-control">{!!$data['service_note_'.$data['service_id']]!!}</textarea>
                 </td>
              </tr>
 

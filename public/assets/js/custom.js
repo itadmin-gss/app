@@ -327,6 +327,16 @@ $(document).ready(function() {
 	$(document).on("click", "#vendor-modal-close", function(){
 		window.location.href=baseurl+"/list-vendors";
 	});
+
+	$(".add-service-back-step-1").on("click", function(){
+		$(".step-3").hide();
+		$(".step-2").fadeIn("fast");
+	});
+
+	$(".add-service-back-step-2").on("click", function(){
+		$(".step-4").hide();
+		$(".step-3").fadeIn('fast');
+	});
 	//Event Handler -> Property Select on Service Request Page
 	$("#asset_number").on("change", function(){
 		$(".request-step-1 a").removeClass('badge-info').addClass('badge-disable');
@@ -340,13 +350,30 @@ $(document).ready(function() {
 		$(".request-step-2 a").removeClass('badge-info').addClass('badge-disable');
 		$(".request-step-3 a").removeClass('badge-disable').addClass("badge-info");
 		$(".step-2").hide();
-		$(".step-3").fadeIn('fast');
+		$(".step-3").fadeIn('slow');
 		setTimeout(function(){
 			$(".hidden-chosen").chosen();
 		},300);
 	});
 
 	$(".review-service-order").on("click", function(){
+        var asset_id = $(this).data('asset-id');
+        $.ajax({
+            type: 'Post',
+            url: baseurl +'/ajax-get-asset-by-asset-id',
+            data: {
+                asset_id: asset_id
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false,
+            success: function(response) {
+
+                $('#showServiceid').html(response);
+
+            }
+        });
 		$(".request-step-3 a").removeClass('badge-info').addClass('badge-disable');
 		$(".request-step-4 a").removeClass('badge-disable').addClass("badge-info");
 		$(".step-3").hide();

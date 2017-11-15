@@ -40,10 +40,13 @@ foreach ($customer_assets as $asset) {
 
 <title>GSS - Add Service Request</title>
 <div id="content" class="span11">
-    <div class="row-fluid">
-        <div class="box span12 noMarginTop">
+    <h4>
+        Service Request @if ($requested_asset_found) for {!! $asset['property_address'] !!}, {!! $city_name !!}, {!! $state !!} @endif
+    </h4>
+    <div class="row">
 
-            <div class="box-content custome-form requsrForm">
+
+            <div class="col-md-8 col-lg-7 col-sm-12 custome-form ">
                 @if (Session::has('message'))
                 {!! Session::get('message') !!}
                 @endif
@@ -57,11 +60,9 @@ foreach ($customer_assets as $asset) {
                 <div class="alert alert-error" style="display:none;" id="add_asset_alert"></div>
                 <fieldset>
 
-                    <div class='card new-service-request'>
-                        <div class='card-header'>
-                            Service Request @if ($requested_asset_found) for {!! $asset['property_address'] !!}, {!! $city_name !!}, {!! $state !!} @endif
-                        </div>
-                        <div class='card-body'>
+
+
+                        <div>
                             <ul class='step-list'>
 
                                 <li>
@@ -138,7 +139,8 @@ foreach ($customer_assets as $asset) {
                                     </div>
                                 </div>
                                 <center>
-                                    <a href="javascript:void(0);" class="btn btn-success review-service-order">Review Order</a>
+                                    <a href="javascript:void(0);" class="btn btn-info add-service-back-step-1">Back</a>
+                                    <a href="javascript:void(0);" class="btn btn-success review-service-order" data-asset-id="{!! $property_id !!}">Review Order</a>
                                 </center>
 
                                 <div class="form-actions">
@@ -152,43 +154,34 @@ foreach ($customer_assets as $asset) {
 
                             </div>
                             <div class='step-4'>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <th>Property</th>
-                                            <th id="review_order_property"></th>
-                                        </tr>
-                                        <tr>
-                                            <td>Job Type </td>
-                                            <td id="review_order_job_type"> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
 
-                                <div id="order_review_serviceType">
+                                        <table>
+                                            <tbody>
+                                            <tr>
+                                                <th>Job Type</th>
+                                                <td id="review_order_job_type"> </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                <div id="order_review_serviceType"></div>
 
 
 
-                                </div>
 
-                                <table>
-                                    <tbody>
-
-                                        <tr>
-                                            <td colspan="2" class="alignCntr">
-                                                <a href="#" class="sbmtBtn btn-warning"  onclick="orderReivewsubmit()">Submit</a>
-                                                @if(Auth::user()->type_id==2)
-                                                        <a href="{!!URL::to('list-customer-requested-services')!!}" class="cnclBtn btn-success" id="cancelbuttoncustomer">Cancel</a>
-                                                                @else
-                                                            <a href="{!!URL::to('asset/'.$property_id)!!}" class="cnclBtn btn-success" id="cancelbuttonadmin">Cancel</a>
+                            <center>
+                                <a href="javascript:void(0);" class="btn btn-info add-service-back-step-2">Back</a>
+                                <a href="#" class="btn btn-warning"  onclick="orderReivewsubmit()">Submit</a>
+                                @if(Auth::user()->type_id==2)
+                                    <a href="{!!URL::to('list-customer-requested-services')!!}" class="btn btn-success" id="cancelbuttoncustomer">Cancel</a>
+                                @else
+                                    <a href="{!!URL::to('asset/'.$property_id)!!}" class="btn btn-success" id="cancelbuttonadmin">Back To Asset</a>
 
 
-                                                                @endif
+                                @endif
+                            </center>
 
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+
 
 
                             </div>
@@ -204,10 +197,8 @@ foreach ($customer_assets as $asset) {
 
 
 
-                          </div>
 
-                    </div>
-                </div>
+
 
 
 

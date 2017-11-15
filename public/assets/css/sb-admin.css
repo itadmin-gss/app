@@ -317,6 +317,9 @@
   
 }
 
+.step-3{
+    min-height:400px;
+}
 .step-2,
 .step-3{
   text-align:center;
@@ -338,7 +341,7 @@
   font-size:13px !important;
 }
 #job_type{
-  width:25% !important;
+  width:50% !important;
 }
 
 .badge-disable{
@@ -367,25 +370,25 @@
 }
 
 
-.new-service-request .card-body .step-list{
+.step-list{
   list-style-type:none;
   display:inline-block;
   text-align:center;
   width:100%;  
 }
-.new-service-request .card-body .property-list{
+.property-list{
   text-align:center;
   list-style-type:none;
   display:inline-block;
   width:100%;
 }
-.new-service-request .card-body .property-list > li{
+.property-list > li{
   display:inline;
 }
 
-.new-service-request .card-body .step-list > li,
-.new-service-request .card-body .step-list > li > div{
-  margin-right:40px;
+.step-list > li,
+.step-list > li > div{
+  margin-right:15px;
   display:inline;
 }
 .login-box{
