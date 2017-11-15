@@ -297,17 +297,24 @@ $(document).ready(function() {
 	$(".complete-profile-step-1 #password").pwstrength();
 
 	//Even Handler -> Delete Vendor Button
+
+	var vendor_id;
+	var dt;
 	$(document).on("click", "#vendor-delete-button", function(){
+		vendor_id 	= $("#vendor-delete-id").val();
+		dt 			= $("#vendor-list-table").DataTable();
 		$.ajax({
 			url: baseurl + "/delete-record",
 			type: "get",
-			data: {type: "vendor", db_table : $("#vendor-delete-table").val(), id : $("#vendor-delete-id").val()},
+			data: {type: "vendor", db_table : $("#vendor-delete-table").val(), id : vendor_id},
 
 		}).done(function(cb){
 			if (cb == 1)
 			{
-				$(".delete-confirm").hide();
-				$(".delete-message").fadeIn("fast");
+
+                $("#vendor-delete-modal").modal("toggle");
+                dt.row("#tr-"+vendor_id).remove().draw();
+
 			}
 			else
 			{
