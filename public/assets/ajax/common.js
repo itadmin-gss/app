@@ -3077,10 +3077,7 @@ function modalClose(){
   
   function populateCompany(id)
   {
-      var over = '<div id="overlay">' +
-      '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
-      '</div>';
-      $(over).appendTo('body');
+
   
       $.ajax({
           type: 'Post',
@@ -3093,9 +3090,7 @@ function modalClose(){
           success: function(response) {
   
             $('#brokage').val(response);
-  
-            $('#overlay').remove();
-  
+
   
         }
     });

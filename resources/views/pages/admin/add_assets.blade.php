@@ -133,6 +133,8 @@
                                     foreach ($customers as $customer) {
                                         $customers_data[$customer['id']] = $customer['first_name'] . ' ' . $customer['last_name'];
                                     }
+                                    sort($customers_data);
+                                    array_unshift($customers_data, 'Select Customer');
                                     ?>
                                     {!! Form::select('customer_id', $customers_data, '', array('class'=>'form-control', 'id'=>'customer_id',  'data-rel'=>'chosen', 'onchange'=>'populateCompany(this.value)'))!!}
                                 </td>
