@@ -910,7 +910,7 @@ class MaintenanceRequestController extends Controller
 
 
 
-                $notification_url="list-maintenance-request";
+                $notification_url="admin";
 
                 // $notification = NotificationController::sendNotification($recepient_id, 'New Customer has been registered.', 1, $email_data);
                 $recepient_id = User::getAdminUsersId();
@@ -1371,7 +1371,7 @@ Status: New Bid Request
         // var_dump($response);
 
         $message = FlashMessage::messages('admin.request_service_add');
-        return redirect('list-maintenance-request')
+        return redirect('admin')
                         ->with('message', FlashMessage::displayAlert($message, 'success'));
     }
 
