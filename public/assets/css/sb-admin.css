@@ -50,6 +50,21 @@
 .static-height{
   height:500px;
 }
+.add-work-order{
+  margin-left: 20px;
+  margin-bottom: 5px;
+
+}
+.work-orders-tab{
+  display: inline-block;
+  text-align: center;
+  padding: 4px 18px 6px 21px;
+  height: 38px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #DDD;
+}
 
 .photo-button-group{
   margin-top:15px;
@@ -61,7 +76,7 @@
 
 .property-photo,
 .property-photo-placeholder{
-  min-height:400px;
+  min-height:300px;
   width:100%;
   position:relative !important;
 }
@@ -271,6 +286,11 @@
 }
 .badge-blue-4:hover{
     background-color:#74cbf7;
+}
+
+#map{
+  width:100%;
+  height:300px;
 }
 
 .addSt{

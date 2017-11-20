@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\URL;
+use JeroenDesloovere\Geolocation\Geolocation;
 
 
 class AssetController extends Controller
@@ -251,6 +252,9 @@ class AssetController extends Controller
         $city = City::where('id', $property_details[0]->city_id)->get()[0]->name;
         $state = State::where('id', $property_details[0]->state_id)->get()[0]->name;
 
+        $geolocation_result = (new Geolocation)->getCoordinates($property_details[0]->property_address, '', $city, $property_details[0]->zip, 'USA');
+
+
         //Get Requests
         $requests = MaintenanceRequest::where('asset_id', $property_details[0]->id)->get();
 
@@ -302,8 +306,11 @@ class AssetController extends Controller
         //Get all states from city
         $states = State::getAllStates();
 
+
+
         return view('pages.admin.asset-details')
             ->with('property_details', $property_details[0])
+            ->with('geolocation', $geolocation_result)
             ->with('city', $city)
             ->with('state', $state)
             ->with('cities', $cities)

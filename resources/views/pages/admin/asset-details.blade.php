@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
+
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
     <div id="content">
         <h4>{!! $property_details->property_address !!}, {!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}</h4>
@@ -9,7 +10,7 @@
             <div class="col-md-12 col-lg-12 col-sm-12">
 
                 <div class="row">
-                    <div class="col-md-5 col-lg-5 col-sm-12">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
                         @if (isset($property_details->property_photo))
                             <div class="property-photo">
                                 <img src="{!! URL::to(\Illuminate\Support\Facades\Config::get('app.upload_path').$property_details->property_photo) !!}">
@@ -32,8 +33,8 @@
                             <button type="button" class="btn btn-info" id="property-photo-select">Select From Available Photos</button>
                         </div>
                     </div>
-                       <div class="col-md-5 col-lg-5 col-sm-12">
-                           <h5 class="">Property Information</h5>
+
+                       <div class="col-md-3 col-lg-3 col-sm-12">
                            <table class="table table-small">
                                <tbody>
 
@@ -123,7 +124,45 @@
                                            </span>
                                        </td>
                                    </tr>
-                                   <tr class="asset-details-values">
+
+                                   <tr>
+                                       <td>Loan Number:</td>
+                                       <td>
+                                                <span class="asset-details-values" id="property_loan_value">
+                                                    @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
+                                                </span>
+
+                                           <span class="asset-details-inputs">
+                                                    <input type="text" class="form-control" id="loan_number" value="@if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif">
+                                                </span>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td>Property Status</td>
+                                       <td>
+                                                <span class="asset-details-values" id="property_status_value">
+                                                    @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
+                                                </span>
+
+                                           <span class="asset-details-inputs">
+                                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'closed' => 'Closed', 'in-rehab' => 'In-Rehab', 'onhold' => 'On Hold') ?>
+                                               {!! Form::select('property_status', $option, isset($property_details->property_status) ? $property_details->property_status : '', array('class'=>'form-control', 'id'=>'property_status'))!!}
+                                               <span class="pull-right">
+                                                        <button type="button" class="btn btn-success" id="save_asset_changes">Save Changes</button>
+                                                    </span>
+                                                </span>
+
+                                       </td>
+                                   </tr>
+                               </tbody>
+                           </table>
+                       </div>
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                        <table class="table table-small">
+                            <tbody>
+
+
+                            <tr class="asset-details-values">
                                        <td>Customer:</td>
                                        <td id="property_customer_value">
                                            @if (isset($customer_info->first_name)) {!! $customer_info->first_name !!} @endif @if (isset($customer_info->last_name)){!! $customer_info->last_name !!} @endif
@@ -197,52 +236,30 @@
                                            </td>
                                        </tr>
 
-                                        <tr>
-                                            <td>Loan Number:</td>
-                                            <td>
-                                                <span class="asset-details-values" id="property_loan_value">
-                                                    @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
-                                                </span>
 
-                                                <span class="asset-details-inputs">
-                                                    <input type="text" class="form-control" id="loan_number" value="@if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif">
-                                                </span>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Property Status</td>
-                                            <td>
-                                                <span class="asset-details-values" id="property_status_value">
-                                                    @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
-                                                </span>
-
-                                                <span class="asset-details-inputs">
-                                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'closed' => 'Closed', 'in-rehab' => 'In-Rehab', 'onhold' => 'On Hold') ?>
-                                                    {!! Form::select('property_status', $option, isset($property_details->property_status) ? $property_details->property_status : '', array('class'=>'form-control', 'id'=>'property_status'))!!}
-                                                    <span class="pull-right">
-                                                        <button type="button" class="btn btn-success" id="save_asset_changes">Save Changes</button>
-                                                    </span>
-                                                </span>
-
-                                            </td>
-                                        </tr>
                                 </tbody>
                            </table>
 
                        </div>
-                        <div class="col-md-1 col-lg-1 col-sm-12"></div>
+                        <div class="col-md-3 col-lg-3 col-sm-12">
+                            <div id="map"></div>
+                        </div>
 
                 </div> <!-- end .row -->
             </div>
         </div>
+        <hr>
         <div class="row">
+
             <div class="col-md-12 col-lg-12 col-sm-12">
-                <h5>Work Orders</h5>
-                <hr>
-                <a href="{!! URL::to('/admin-add-new-service-request/'.$property_details->id) !!}">
-                    <button type="button" class="btn btn-success">Add Work Order</button>
-                </a>
+                <div style="width:100%;margin-top:20px;">
+                    <div class="work-orders-tab">Work Orders</div>
+                    <a href="{!! URL::to('/admin-add-new-service-request/'.$property_details->id) !!}">
+                        <button type="button" class="btn btn-success add-work-order">Add Work Order</button>
+                    </a>
+                    <hr style="margin-top:0px;">
+                </div>
+
                 <table class="table table-striped table-small dt-responsive datatabledashboard3" style="width:100%;">
                     <thead>
                         <th>ID #</th>
@@ -338,4 +355,24 @@
         </div>
     </div>
     <input type="hidden" id="property_id" value="{!! $property_details->id !!}">
+    <script>
+
+        function initMap() {
+            var lat = parseFloat('<?=$geolocation['latitude']?>');
+            var lng = parseFloat('<?=$geolocation['longitude']?>');
+            var uluru = {lat: lat, lng: lng};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 18,
+                center: uluru
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtaE4nNK7Wdb19dUeCMitdhFv4Wy7eb30&callback=initMap">
+    </script>
+
 @stop
