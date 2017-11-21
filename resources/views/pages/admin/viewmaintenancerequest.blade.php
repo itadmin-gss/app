@@ -253,377 +253,389 @@
             </div> <!-- end .row -->
         </div>
     </div>
-
-  <div class="row-fluid" style="margin-top:20px;">
-  	<h4 class="small-bottom-margin">Service Request Details</h4>
-
-          @if(Session::has('message'))
-            {!!Session::get('message')!!}
-          @endif
-          <table class="table table-sm" id="request-details-table">
-							  <tbody>
-								<tr>
-									<td class="center span3"><h5>Request ID:</h5></td>
-									<td class="center span3">{!! $request_maintenance->id !!}</td>
-									<td class="center span3"><h5>Request Date:</h5></td>
-									<td class="center span3">{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</td>
-								</tr>
-								<tr>
-									<td class="center span3"><h5>Asset #:</h5></td>
-									<td class="center span3">{!! $request_maintenance->asset->asset_number !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button> </td>
-
-									<td class="center span3"><h5>Customer Name:</h5></td>
-									<td class="center span3">@if(isset($request_maintenance->user->first_name)) {!! $request_maintenance->user->first_name!!} @endif  @if(isset($request_maintenance->user->last_name)){!!$request_maintenance->user->last_name !!} @endif</td>
-								   </tr>
-								<tr>
-
-                  <td class="center span3"><h5>Property Address:</h5></td>
-                  <td class="center span3">{!! $request_maintenance->asset->property_address !!}</td>
-
-									<td class="center span3"><h5>State:</h5></td>
-									<td class="center span3">{!! $request_maintenance->asset->state->name !!}</td>
-								</tr>
-								<tr>
-									<td class="center span3"><h5>Zip:</h5></td>
-									<td class="center span3">{!! $request_maintenance->asset->zip !!}</td>
-									<td class="center span3"><h5>Email:</h5></td>
-
-									<td class="center span3">@if(isset( $request_maintenance->user->email)){!! $request_maintenance->user->email!!} @endif</td>
-								                                    </tr>
-								<tr>
-                <td class="center span3"><h5>City:</h5></td>
-                  <td class="center span3">{!! $request_maintenance->asset->city->name !!}</td>
-
-                  	<td class="center span3"><h5>Admin Notes:</h5></td>
-									<td class="center span3"> {!!Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'form-control', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))!!} </td>
-
-								</tr>
-
-
-
-							  </tbody>
-						 </table>
-      </div>
-    </div>
-
-    <span><h4>Vendor Details</h4></span>
     <hr>
-    <div class='table-padding'>
-    			<button data-toggle="modal" data-target="#assign" class="btn btn-large btn-success assign-vendor" onclick="showMaintenanceServices('{!! $request_maintenance->id !!}')">Assign Vendor</button>
+    <div class="row-fluid">
+        <h4>Service Request Details</h4>
+
     </div>
-        <?php
-        $totalPriceCustomer=0;
-        $totalPriceVendor=0;
+    <div class="row">
+        <!-- Left Table -->
+        <div class="col-md-5 col-lg-5 col-sm-12">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Request ID</td>
+                        <td>{!! $request_maintenance->id !!}</td>
+                    </tr>
 
-        ?>
-		@foreach ($request_maintenance->requestedService as $services)
+                    <tr>
+                        <td>Asset #</td>
+                        <td>{!! $request_maintenance->asset->asset_number !!}  <button class="btn btn-small btn-success" data-target="#showServiceid"  onclick="viewAsset({!! $request_maintenance->asset->id !!})">View Property</button> </td>
+                    </tr>
 
+                    <tr>
+                        <td>Property Address</td>
+                        <td>{!! $request_maintenance->asset->property_address !!}</td>
+                    </tr>
 
-                <div class="row-fluid">
-				<div class="card table-margin">
-					<div class="card-header" data-original-title>
-						<div class='float-left'><h4><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h4></div>
-						<div class="card-price">
-						 <?php
-  $priceData=\App\SpecialPrice::getSpecialCustomerPrice($request_maintenance->user->id,$services->service->id);
-   $servicePrice="";
+                    <tr>
+                        <td>Zip</td>
+                        <td>{!! $request_maintenance->asset->zip !!}</td>
+                    </tr>
 
-    if(!empty($priceData) )
-    {
+                    <tr>
+                        <td>City</td>
+                        <td>{!! $request_maintenance->asset->city->name !!}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Right Table -->
+        <div class="col-md-5 col-lg-5 col-sm-12">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Request Date</td>
+                        <td>{!! date('m/d/Y', strtotime($request_maintenance->created_at)) !!}</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Name</td>
+                        <td>@if(isset($request_maintenance->user->first_name)) {!! $request_maintenance->user->first_name!!} @endif  @if(isset($request_maintenance->user->last_name)){!!$request_maintenance->user->last_name !!} @endif</td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>{!! $request_maintenance->asset->state->name !!}</td>
+                    </tr>
 
-           if($services->quantity=="" || $services->quantity==0)
-         	{
-          $servicePrice=$priceData->special_price;
-        $totalPriceCustomer += $priceData->special_price;
-            }
-             else
-             {
-             	      $servicePrice=$priceData->special_price*$services->quantity ;
-          $totalPriceCustomer += $priceData->special_price*$services->quantity ;
+                    <tr>
+                        <td>Email</td>
+                        <td>@if(isset( $request_maintenance->user->email)){!! $request_maintenance->user->email!!} @endif</td>
+                    </tr>
 
-             }
-
-    }
-    else {
-
-            if($services->quantity=="" || $services->quantity==0)
-         	{
-             $servicePrice=$services->service->customer_price;
-          $totalPriceCustomer += $services->service->customer_price;
-            }
-             else
-             {
-             	      $servicePrice=$services->service->customer_price*$services->quantity ;
-          $totalPriceCustomer += $services->service->customer_price*$services->quantity ;
-
-             }
-
-         }
-
-         $vendorPrice=0;
-
-         if($services->quantity=="" || $services->quantity==0)
-         	{
-             $totalPriceVendor += $services->service->vendor_price;
-                  $vendorPrice= $services->service->vendor_price;
-            }
-             else
-             {
-             	    $totalPriceVendor += $services->service->vendor_price*$services->quantity ;
-            $vendorPrice=  $services->service->vendor_price*$services->quantity ;
-             }
-
+                    <tr>
+                        <td>Admin Notes</td>
+                        <td> {!!Form::textarea('admin_notes', isset( $request_maintenance->admin_notes) ? $request_maintenance->admin_notes : '' , array('class'=>'form-control', 'id'=>'admin_notes','onChange'=>'adminNotes(this,"'.$request_maintenance->id.'")'))!!} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <h4>Vendor Details</h4>
+    </div>
+    <hr>
+    <div class="row-fluid">
+        <button data-toggle="modal" data-target="#assign" class="btn btn-large btn-success assign-vendor" onclick="showMaintenanceServices('{!! $request_maintenance->id !!}')">Assign Vendor</button>
+    </div>
+    <?php
+    $totalPriceCustomer =0;
+    $totalPriceVendor   =0;
     ?>
-               Customer Price :  ${!!$servicePrice!!} ::::: Vendor Price: ${!!$vendorPrice!!}
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-						</div>
-					</div>
-					<div class="card-body">
-
-						<table>
-                <tr><td> {!!$services->service->desc!!}</td></tr>
-								<tr>
-									<td class="center"><h5>Customer Note:</h5>{!!$services->service_note!!}</td>
-								</tr>
-                 <tr>
-                 <td class="center span3"><h5>Note for Vendor:</h5>
-                 {!!Form::textarea('public_notes',isset($services->public_notes) ? $services->public_notes : '' , array('class'=>'form-control', 'id'=>'public_notes','onChange'=>'publicNotes(this,"'.$services->id.'")'))!!}
-                 </td>
-
-                </tr>
-								<tr>
-									<div class="row-fluid browse-sec">
-                              @if(count($services->serviceImages)!=0)<h2>Images</h2>@endif
-
-
-                                                          <ul class="media-list ">
-                            @foreach($services->serviceImages as $images)
+    @foreach($request_maintenance->requestedService as $services)
+        <div class="row">
+            <div class="col-md-10 col-lg-10 col-sm-12">
+                <div class="card">
+                    <div class="card-header" data-original-title>
+                        <div class='float-left'><h4><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h4></div>
+                        <div class="card-price">
                             <?php
-                             $docType=explode(".", $images->image_name);
-                             if( $docType[1]=='jpeg'|| $docType[1]=='jpg'|| $docType[1]=='png'|| $docType[1]=='gif')
-                             {
+                            $priceData=\App\SpecialPrice::getSpecialCustomerPrice($request_maintenance->user->id,$services->service->id);
+                            $servicePrice="";
+
+                            if(!empty($priceData) )
+                            {
+
+                                if($services->quantity=="" || $services->quantity==0)
+                                {
+                                    $servicePrice=$priceData->special_price;
+                                    $totalPriceCustomer += $priceData->special_price;
+                                }
+                                else
+                                {
+                                    $servicePrice=$priceData->special_price*$services->quantity ;
+                                    $totalPriceCustomer += $priceData->special_price*$services->quantity ;
+                                }
+
+                            }
+                            else
+                            {
+
+                                if($services->quantity=="" || $services->quantity==0)
+                                {
+                                    $servicePrice=$services->service->customer_price;
+                                    $totalPriceCustomer += $services->service->customer_price;
+                                }
+                                else
+                                {
+                                    $servicePrice=$services->service->customer_price*$services->quantity ;
+                                    $totalPriceCustomer += $services->service->customer_price*$services->quantity ;
+
+                                }
+
+                            }
+
+                            $vendorPrice=0;
+
+                            if($services->quantity=="" || $services->quantity==0)
+                            {
+                                $totalPriceVendor += $services->service->vendor_price;
+                                $vendorPrice= $services->service->vendor_price;
+                            }
+                            else
+                            {
+                                $totalPriceVendor += $services->service->vendor_price*$services->quantity ;
+                                $vendorPrice=  $services->service->vendor_price*$services->quantity ;
+                            }
                             ?>
-                            <li>{!! Html::image(Config::get('app.request_images').'/'.$images->image_name) !!}</li>
+                            Customer Price :  ${!!$servicePrice!!} ::::: Vendor Price: ${!!$vendorPrice!!}
+                            <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <table>
+                            <tr><td> {!!$services->service->desc!!}</td></tr>
+                            <tr>
+                                <td class="center"><h5>Customer Note:</h5>{!!$services->service_note!!}</td>
+                            </tr>
+                            <tr>
+                                <td class="center span3"><h5>Note for Vendor:</h5>
+                                    {!!Form::textarea('public_notes',isset($services->public_notes) ? $services->public_notes : '' , array('class'=>'form-control', 'id'=>'public_notes','onChange'=>'publicNotes(this,"'.$services->id.'")'))!!}
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <div class="row-fluid browse-sec">
+                                    @if(count($services->serviceImages)!=0)<h2>Images</h2>@endif
+
+
+                                    <ul class="media-list ">
+                                        @foreach($services->serviceImages as $images)
+                                            <?php
+                                            $docType=explode(".", $images->image_name);
+                                            if( $docType[1]=='jpeg'|| $docType[1]=='jpg'|| $docType[1]=='png'|| $docType[1]=='gif')
+                                            {
+                                            ?>
+                                            <li>{!! Html::image(Config::get('app.request_images').'/'.$images->image_name) !!}</li>
+
+
+                                            <?php
+                                            }  else {
+                                            ?>
+
+                                            <li> <a  href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" target="_blank" > Download File</a></li>
+                                            <?php
+                                            }
+                                            ?>
+                                        @endforeach
+
+
+                                    </ul>
+
+                                </div>
+                            </tr>
+
+                            <tr><td>Service Details</td><td></td></tr>
+                            @if($services->required_date!="")
+                                <tr><td>Required Date</td>
+                                    <td>{!! date('m/d/Y', strtotime($services->required_date)) !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
-                             <?php
-                          }  else {
-                        	?>
+                            @if( $services->due_date!="")
+                                <tr><td>Due Date</td>
+                                    <td>
+                                        {!! date('m/d/Y', strtotime($services->due_date)) !!}
+                                    </td>
+                                </tr>
+                            @endif
 
-                        <li> <a  href="{!!URL::to('/')!!}/{!!Config::get('app.request_images').'/'.$images->image_name!!}" target="_blank" > Download File</a></li>
-                        	<?php
-                        	}
-                            ?>
-                            @endforeach
+                            @if($services->quantity!="")
+                                <tr><td>Quantity</td>
+                                    <td>{!! $services->quantity !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
-                        </ul>
 
-                                                      </div>
-								</tr>
 
-                  <tr><td>Service Details</td><td></td></tr>
-                @if($services->required_date!="")
-                <tr><td>Required Date</td>
-                <td>{!! date('m/d/Y', strtotime($services->required_date)) !!}
+                            @if($services->service_men!="")
+                                <tr><td>Service men</td>
+                                    <td>{!!$services->service_men !!}
 
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
+                            @if($services->service_note!="")
+                                <tr><td>Service note</td>
+                                    <td>{!!$services->service_note !!}
 
-                   @if( $services->due_date!="")
-                <tr><td>Due Date</td>
-                <td>
-              {!! date('m/d/Y', strtotime($services->due_date)) !!}
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
 
-                  @if($services->quantity!="")
-                <tr><td>Quantity</td>
-                <td>{!! $services->quantity !!}
+                            @if($services->verified_vacancy!="")
+                                <tr><td>Verified vacancy</td>
+                                    <td>{!!$services->verified_vacancy !!}
 
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
+                            @if($services->cash_for_keys!="")
+                                <tr><td>Cash for keys</td>
+                                    <td>{!!$services->cash_for_keys !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
+                            @if($services->cash_for_keys_trash_out!="")
+                                <tr><td>Cash for keys Trash Out</td>
+                                    <td>{!!$services->cash_for_keys_trash_out !!}
 
-                    @if($services->service_men!="")
-                <tr><td>Service men</td>
-                <td>{!!$services->service_men !!}
+                                    </td>
+                                </tr>
+                            @endif
 
-                </td>
-                </tr>
-                @endif
-                    @if($services->service_note!="")
-                <tr><td>Service note</td>
-                <td>{!!$services->service_note !!}
+                            @if($services->trash_size!="")
+                                <tr><td>trash size</td>
+                                    <td>{!!$services->trash_size !!}
 
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
 
-                    @if($services->verified_vacancy!="")
-                <tr><td>Verified vacancy</td>
-                <td>{!!$services->verified_vacancy !!}
 
-                </td>
-                </tr>
-                @endif
-                  @if($services->cash_for_keys!="")
-                <tr><td>Cash for keys</td>
-                <td>{!!$services->cash_for_keys !!}
+                            @if($services->storage_shed!="")
+                                <tr><td>storage shed</td>
+                                    <td>{!!$services->storage_shed !!}
 
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
 
-                   @if($services->cash_for_keys_trash_out!="")
-                <tr><td>Cash for keys Trash Out</td>
-                <td>{!!$services->cash_for_keys_trash_out !!}
 
-                </td>
-                </tr>
-                @endif
+                            @if($services->lot_size!="")
+                                <tr><td>lot size</td>
+                                    <td>{!!$services->lot_size !!}
 
-                   @if($services->trash_size!="")
-                <tr><td>trash size</td>
-                <td>{!!$services->trash_size !!}
+                                    </td>
+                                </tr>
+                            @endif
 
-                </td>
-                </tr>
-                @endif
+                            @if($services->set_prinkler_system_type!="")
+                                <tr><td>set prinkler system type</td>
+                                    <td>{!!$services->set_prinkler_system_type !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
-                   @if($services->storage_shed!="")
-                <tr><td>storage shed</td>
-                <td>{!!$services->storage_shed !!}
 
-                </td>
-                </tr>
-                @endif
+                            @if($services->install_temporary_system_type!="")
+                                <tr><td>install temporary system type</td>
+                                    <td>{!!$services->install_temporary_system_type !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
-                   @if($services->lot_size!="")
-                <tr><td>lot size</td>
-                <td>{!!$services->lot_size !!}
 
-                </td>
-                </tr>
-                @endif
 
-                   @if($services->set_prinkler_system_type!="")
-                <tr><td>set prinkler system type</td>
-                <td>{!!$services->set_prinkler_system_type !!}
+                            @if($services->pool_service_type!="")
+                                <tr><td>pool service type</td>
+                                    <td>{!!$services->pool_service_type !!}
 
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
 
 
-                   @if($services->install_temporary_system_type!="")
-                <tr><td>install temporary system type</td>
-                <td>{!!$services->install_temporary_system_type !!}
+                            @if($services->carpet_service_type!="")
+                                <tr><td>carpet service type</td>
+                                    <td>{!!$services->carpet_service_type !!}
 
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
 
+                            @if($services->boarding_type!="")
+                                <tr><td>boarding type</td>
+                                    <td>{!!$services->boarding_type !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
-                   @if($services->pool_service_type!="")
-                <tr><td>pool service type</td>
-                <td>{!!$services->pool_service_type !!}
 
-                </td>
-                </tr>
-                @endif
 
+                            @if($services->spruce_up_type!="")
+                                <tr><td>spruce up type</td>
+                                    <td>{!!$services->spruce_up_type !!}
 
-                   @if($services->carpet_service_type!="")
-                <tr><td>carpet service type</td>
-                <td>{!!$services->carpet_service_type !!}
+                                    </td>
+                                </tr>
+                            @endif
 
-                </td>
-                </tr>
-                @endif
 
-                 @if($services->boarding_type!="")
-                <tr><td>boarding type</td>
-                <td>{!!$services->boarding_type !!}
 
-                </td>
-                </tr>
-                @endif
+                            @if($services->constable_information_type!="")
+                                <tr><td>constable information type</td>
+                                    <td>{!!$services->constable_information_type !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
 
-                 @if($services->spruce_up_type!="")
-                <tr><td>spruce up type</td>
-                <td>{!!$services->spruce_up_type !!}
+                            @if($services->remove_carpe_type!="")
+                                <tr><td>remove carpe type</td>
+                                    <td>{!!$services->remove_carpe_type !!}
 
-                </td>
-                </tr>
-                @endif
+                                    </td>
+                                </tr>
+                            @endif
 
 
+                            @if($services->remove_blinds_type!="")
+                                <tr><td>remove blinds type</td>
+                                    <td>{!!$services->remove_blinds_type !!}
 
-                 @if($services->constable_information_type!="")
-                <tr><td>constable information type</td>
-                <td>{!!$services->constable_information_type !!}
+                                    </td>
+                                </tr>
+                            @endif
 
-                </td>
-                </tr>
-                @endif
+                            @if($services->remove_appliances_type!="")
+                                <tr><td>remove appliances type</td>
+                                    <td>{!!$services->remove_appliances_type !!}
 
+                                    </td>
+                                </tr>
+                            @endif
 
-                  @if($services->remove_carpe_type!="")
-                <tr><td>remove carpe type</td>
-                <td>{!!$services->remove_carpe_type !!}
+                        </table>
 
-                </td>
-                </tr>
-                @endif
+                        @endforeach
 
+                    </div>
+            </div>
 
-                 @if($services->remove_blinds_type!="")
-                <tr><td>remove blinds type</td>
-                <td>{!!$services->remove_blinds_type !!}
+        </div>
 
-                </td>
-                </tr>
-                @endif
-
-                    @if($services->remove_appliances_type!="")
-                <tr><td>remove appliances type</td>
-                <td>{!!$services->remove_appliances_type !!}
-
-                </td>
-                </tr>
-                @endif
-
-
-
-
-						 </table>
-					{{--  </div>  --}}
-				{{--  </div>--}}
-
-			<!--/row-->
-                @endforeach
-
-
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-lg-10 col-sm-12">
+                <hr>
+                <div class="pull-right">
+                    <h5>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!} </h5>
+                </div>
+            </div>
+        </div>
   </div>
-  <div class='card-footer'>
-    <div style="float:right;"><h5>Total Customer Price: ${!!$totalPriceCustomer!!} Total Vendor Price: ${!!$totalPriceVendor!!} </h5>
-  </div>
-  </div>
-</div>
-    </div>
 
-  </div>
-</div>
 <div class="modal fade" id="showVendorList" tabindex='-1' role='dialog' aria-hidden='true'>
   <div class='modal-dialog' role='document'>
     <div class='modal-content'>
