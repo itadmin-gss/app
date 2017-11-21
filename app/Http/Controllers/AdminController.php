@@ -1280,15 +1280,40 @@ class AdminController extends Controller
 
 
         $request_maintenance = MaintenanceRequest::find($maintenance_request_id);
+        $asset_id            = $request_maintenance->asset_id;
+        //Get Asset Information
+        $property_details =  Asset::where('id', $asset_id)->get();
 
-//Multiple Services:
-//If multiple services are requested and only 1 has been assigned, request should stay in New Request status until remaining services have been assigned. Do NOT move/change to Un Assigned status. Un Assigned status should not be active anymore.
-        // MaintenanceRequest::where('id','=',$maintenance_request_id)
-        //                       ->update(array('status'=>'2')); //Reviewed by Admin
+        if (count($property_details) < 1)
+        {
+            throw new \Exception ("Could not find Asset");
+            exit;
+        }
+
+        //Get Customer Information
+        $customer_details = User::where('id', $property_details[0]->customer_id)->get();
+
+        //Get City/State Information
+        $city = City::where('id', $property_details[0]->city_id)->get()[0]->name;
+        $state = State::where('id', $property_details[0]->state_id)->get()[0]->name;
+
+        $geolocation_result = (new Geolocation)->getCoordinates($property_details[0]->property_address, '', $city, $property_details[0]->zip, 'USA');
+
+        //Get all cities from city
+        $cities = City::getAllCities();
+        //Get all states from city
+        $states = State::getAllStates();
 
         return view('pages.admin.viewmaintenancerequest')
             ->with([
                 'request_maintenance' => $request_maintenance,
+                'property_details' => $property_details[0],
+                'geolocation' => $geolocation_result,
+                'city' => $city,
+                'state' => $state,
+                'cities' => $cities,
+                'states' => $states,
+                'customer_info' => $customer_details[0]
             ]);
     }
 
