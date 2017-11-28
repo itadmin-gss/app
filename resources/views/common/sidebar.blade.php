@@ -79,6 +79,8 @@
         }
 
 ?>
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="{!!URL::to('admin')!!}"><img class='brand-image' src='{!! URL::asset("assets/images/GSS-Logo.png") !!}'></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +94,17 @@
             <p class="nav-link-text">Dashboard</p>
           </a>
         </li>
-        
+
+          <!-- Users Link -->
+        @if(Auth::user()->email = "sales@gssreo.com" || Auth::user()->email = "jdunn82k@gmail.com")
+           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
+               <a class="nav-link" href="{!!URL::to('list-user') !!}">
+                   <i class="fa fa-fw fa-2x fa-users"></i>
+                   <p class="nav-link-text">Users</p>
+               </a>
+           </li>
+        @endif
+
         <!-- Vendor Link -->
         @if($access_roles['Vendor']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">
