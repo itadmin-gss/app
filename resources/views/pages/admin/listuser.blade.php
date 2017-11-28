@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+<title>GSS - Users</title>
 <div id="content" class="span11">
   <div class="clearfix">
     <a class="btn btn-info accBtn" href="{!!URL::to('add-user')!!}"> Add user </a>
@@ -19,24 +20,24 @@
               {!!Session::get('message')!!}
         @endif
         <div id="access-error" class="hide">
-            <div class="alert alert-error">Warning! Access Denied</h4>
+            <div class="alert alert-error">Warning! Access Denied</div>
         </div>
         <div id="access-success" class="hide">
-            <div class="alert alert-success">Success! Action Successful</h4>
+            <div class="alert alert-success">Success! Action Successful</div>
         </div>
         <div id="user-role-edit-error" class="hide">
-            <div class="alert alert-error">Warning! Access Denied</h4>
+            <div class="alert alert-error">Warning! Access Denied</div>
         </div>
         <div id="user-role-edit-success" class="hide">
-            <div class="alert alert-success">Success! Role Updated Successful</h4>
+            <div class="alert alert-success">Success! Role Updated Successful</div>
         </div>
         <div id="delete-success" class="hide">
-            <div class="alert alert-success">Success! Delete Successful</h4>
+            <div class="alert alert-success">Success! Delete Successful</div>
         </div>
         <div id="delete-error" class="hide">
-            <div class="alert alert-error">Warning! Access Denied</h4>
+            <div class="alert alert-error">Warning! Access Denied</div>
         </div>
-        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+        <table class="table table-striped table-bordered table-sm datatabledashboard" cellspacing="0" id="user-table">
           <!--<label> Select Date Range </label>
           <div style="display: inline-block; background: none repeat scroll 0% 0% rgb(255, 255, 255); cursor: pointer; padding: 5px 10px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px;" class="btn" id="reportrange2"> <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>August 3, 2014 - September 1, 2014</span> <b class="caret"></b> </div>-->
           <thead>
@@ -61,21 +62,32 @@
             <td class="center">{!! $user->last_name !!}</td>
             <td class="center">{!! $user->username !!}</td>
             <td class="center">{!! $user->email !!}</td>
-            <td class="center">{!! Form::select('role_name', $userRoles,
-            $user->user_role_id, array('class' => 'form-control role_name', 'onchange'=>'updateAccessLevel('.$user->id.',this)')) !!}
-            <span id="loader" style="display:none; float:left;width:20%;">
-       {!!Html::image('assets/img/loader.gif', '',
-       array('height' => '25', 'width' => '25'))!!}</span></td>
+            <td>
+                <div>
+                    {!! Form::select('role_name', $userRoles, $user->user_role_id, array('class' => 'form-control role_name', 'onchange'=>'updateAccessLevel('.$user->id.',this)')) !!}
+                    <span id="loader" style="display:none; float:left;width:20%;">
+                        {!!Html::image('assets/img/loader.gif', '',array('height' => '25', 'width' => '25'))!!}
+                    </span>
+                </div>
+
+            </td>
            <td class="center">
                <div class="activate">
                    @if($user->status == 1)
-                   <span onclick="changeStatus(this,'user',0, {!!$user->id!!},'{!!$db_table!!}' )" class="label label-success">Active</span>
+                   <span onclick="changeStatus(this,'user',0, {!!$user->id!!},'{!!$db_table!!}' )" style="color:green;">Active</span>
                    @else
-                   <span onclick="changeStatus(this,'user',1, {!!$user->id!!},'{!!$db_table!!}' )" class="label label-important">In-Active</span>
+                   <span onclick="changeStatus(this,'user',1, {!!$user->id!!},'{!!$db_table!!}' )" style="color:red;">In-Active</span>
                    @endif
                </div>
            </td>
-            <td class="center popover-examples"><a class="btn btn-info" href="edit-profile-admin/{!! $user->id !!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <a class="btn btn-danger"  onclick="modalButtonOnClick({!!$user->id!!},'{!!$db_table!!}','user')" data-confirm="Are you sure you want to delete?" title="Delete"> <i class="halflings-icon trash halflings-icon"></i> </a></td>
+            <td class="center popover-examples">
+                <a class="btn btn-xs action-button btn-info" href="edit-profile-admin/{!! $user->id !!}" title="Edit">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <a class="btn btn-xs action-button btn-danger"  onclick="modalButtonOnClick({!!$user->id!!},'{!!$db_table!!}','user')" data-confirm="Are you sure you want to delete?" title="Delete">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </td>
           </tr>
 
           @endforeach

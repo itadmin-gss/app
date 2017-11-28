@@ -34,6 +34,11 @@
   margin-top:15px !important;
 }
 
+.role_name{
+  height: inherit !important;
+  width: 86% !important;
+}
+
 #vendor-delete-modal.show{
     display: flex !important;
     height:100%;
@@ -617,6 +622,7 @@ a.nav-link{
   margin-right:4px !important;
 }
 
+#user-table > tbody > tr > td,
 #work-order-table > tbody > tr > td,
 #list-assets-table > tbody > tr > td,
 #vendor-list-table > tbody > tr > td,
@@ -626,6 +632,8 @@ a.nav-link{
 #maintenance_datatable > tbody > tr > td{
   font-size:13px;
 }
+
+#user-table > thead > tr > th,
 #work-order-table > thead > tr > th,
 #list-assets-table > thead > tr > th,
 #vendor-list-table > thead > tr > th,
