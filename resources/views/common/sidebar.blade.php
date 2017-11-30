@@ -90,7 +90,7 @@
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placemesnt="right" title="Dashboard">
           <a class="nav-link" href="{!!URL::to('admin')!!}">
-            <i class="fa fa-fw fa-2x fa-dashboard"></i>
+            <i class="fa fa-fw fa-lg fa-dashboard"></i>
             <p class="nav-link-text">Dashboard</p>
           </a>
         </li>
@@ -99,7 +99,7 @@
         @if(Auth::user()->email = "sales@gssreo.com" || Auth::user()->email = "jdunn82k@gmail.com")
            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
                <a class="nav-link" href="{!!URL::to('list-user') !!}">
-                   <i class="fa fa-fw fa-2x fa-users"></i>
+                   <i class="fa fa-fw fa-lg fa-users"></i>
                    <p class="nav-link-text">Users</p>
                </a>
            </li>
@@ -109,7 +109,7 @@
         @if($access_roles['Vendor']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">
           <a class="nav-link" href="{!!URL::to('list-vendors') !!}">
-            <i class="fa fa-fw fa-2x fa-users"></i>
+            <i class="fa fa-fw fa-lg fa-users"></i>
             <p class="nav-link-text">Vendors</p>
           </a>
         </li>
@@ -119,7 +119,7 @@
         @if($access_roles['Asset']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">
           <a class="nav-link" href="{!!URL::TO('list-assets')!!}">
-            <i class="fa fa-fw fa-2x fa-home"></i>
+            <i class="fa fa-fw fa-lg fa-home"></i>
             <p class="nav-link-text">Properties</p>
           </a>
         </li>
@@ -130,7 +130,7 @@
         @if($access_roles['Access Level']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Permissions">
           <a class="nav-link" href="{!!URL::to('list-permissions')!!}">
-            <i class="fa fa-fw fa-2x fa-key"></i>
+            <i class="fa fa-fw fa-lg fa-key"></i>
             <p class="nav-link-text">Permissions</p>
           </a>
         </li>
@@ -139,7 +139,7 @@
 
   <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
       <a class="nav-link " href="javascript:void(0)" >
-      <i class="fa fa-fw fa-2x fa-table"></i>
+      <i class="fa fa-fw fa-lg fa-table"></i>
       <p class="nav-link-text">Reports</p>
       </a>
       <!-- <ul class="sidenav-second-level collapse" id="collapseComponents">
