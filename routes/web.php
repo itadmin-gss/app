@@ -39,13 +39,7 @@ Route::get('swap-db', ['uses' => 'AdminController@swapDB']);
 Route::post('swap-db-admin', ['uses' => 'AdminController@swapDBNow']);
 
 
-// Common Routes
-// Route::get('hashMake', function() {
 
-//   //$password = Hash::make('johnsanchez$12');
-//   print_r($password);
-
-// });
 Route::post('show-additional-service-popup', ['uses' => 'AjaxController@getServicePopup']);
 Route::match(['GET', 'POST'], 'delete-selected-asset/{id}', ['uses' => 'AssetController@deleteSelectedAsset']);
 
@@ -60,6 +54,11 @@ Route::get('logout', function () {
     return view('home');
 });
 
+//Pruvan End Points
+Route::post('pruvan/validate', 'PruvanController@validate');
+Route::post('pruvan/getWorkOrders', 'PruvanController@getWorkOrders');
+Route::post('pruvan/uploadPictures', 'PruvanController@uploadPictures');
+Route::post('pruvan/status', 'PruvanController@status');
 
 Route::match(['GET', 'POST'], 'update-additional-service/{id}', ['uses' => 'ServiceController@updateAdditionalItem']);
 Route::match(['GET', 'POST'], 'additional-service-title-change', ['uses' => 'ServiceController@checkAddedTitle']);
