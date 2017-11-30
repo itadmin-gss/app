@@ -988,7 +988,7 @@ footer.sticky-footer {
   line-height: 55px; }
 @media (min-width: 992px) {
   footer.sticky-footer {
-    width: calc(100% - 105px); } }
+    width: calc(100% - 97px); } }
 
 @media (min-width: 992px) {
   body.sidenav-toggled footer.sticky-footer {
@@ -1014,7 +1014,7 @@ footer.sticky-footer {
   line-height: 55px; }
 @media (min-width: 992px) {
   footer.sticky-footer {
-    width: calc(100% - 105px); } }
+    width: calc(100% - 97px); } }
 
 @media (min-width: 992px) {
   body.sidenav-toggled footer.sticky-footer {
