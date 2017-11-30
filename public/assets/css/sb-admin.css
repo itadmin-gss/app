@@ -766,7 +766,7 @@ body.fixed-nav {
       margin-top: 66px;
       border-top: 1px solid #DDD}
       #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
-        width: 130px;
+        width: 120px;
         padding: 0; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
           padding: 1em; }
@@ -860,7 +860,7 @@ body.sidenav-toggled #mainNav.static-top #sidenavToggler i {
   background: white; }
   @media (min-width: 992px) {
     .content-wrapper {
-      margin-left: 130px; } }
+      margin-left: 120px; } }
 
 #sidenavToggler i {
   font-weight: 800; }
