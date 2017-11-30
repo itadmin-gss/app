@@ -255,8 +255,10 @@
     </div>
     <hr>
     <div class="row-fluid">
-        <h4>Service Request Details</h4>
-
+        <span>
+            <h4 style="float:left;">Service Request Details</h4>
+            <a style="margin-left: 33px;margin-bottom: 7px;margin-top: -4px;" href="{!! URL::to('asset/'.$property_details->id) !!}" class="btn btn-success">View All Work Orders</a>
+        </span>
     </div>
     <div class="row">
         <!-- Left Table -->
