@@ -335,8 +335,8 @@
     ?>
     @foreach($request_maintenance->requestedService as $services)
         <div class="row">
-            <div class="col-md-10 col-lg-10 col-sm-12">
-                <div class="card">
+            <div class="col-md-9 col-lg-9 col-sm-12">
+                <div class="card" style="width:100%;">
                     <div class="card-header" data-original-title>
                         <div class='float-left'><h4><i class="halflings-icon edit"></i><span class="break"></span>{!!$services->service->title!!}</h4></div>
                         <div class="card-price">
@@ -620,15 +620,19 @@
 
                         </table>
 
-                        @endforeach
-
                     </div>
+                </div>
             </div>
-
         </div>
+</div>
 
-        </div>
-        <div class="row">
+            @endforeach
+
+
+
+
+
+        <div class="row" style="margin-bottom:30px;">
             <div class="col-md-10 col-lg-10 col-sm-12">
                 <hr>
                 <div class="pull-right">
