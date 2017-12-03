@@ -19,6 +19,7 @@ use App\MaintenanceRequest;
 use App\Order;
 use App\OrderDetail;
 use App\OrderImage;
+use App\PruvanVendors;
 use App\Recurring;
 use App\Remainder;
 use App\RequestedBid;
@@ -1294,8 +1295,6 @@ Status: New Bid Request
                 $order_id = Order::addOrder($data);
 
                 //Send Work Order To Pruvan
-
-
                 $pruvan_data = [
                     'request_id' => $data['request_id'],
                     'vendor_id' => $data['vendor_id'],
