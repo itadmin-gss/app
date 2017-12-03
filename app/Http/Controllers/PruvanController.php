@@ -11,9 +11,8 @@ class PruvanController extends Controller
     public function validate()
     {
         $data = Request::all();
-        $payload = json_decode($data['payload'], true);
-        $given_pass = $payload['password'];
-        if (Pruvan::validate($given_pass))
+
+        if (Pruvan::validate($data))
         {
             return json_encode(['error' => '', 'validated' => true]);
         }
@@ -25,18 +24,36 @@ class PruvanController extends Controller
     //Send Work Orders
     public function getWorkOrders()
     {
+        $data = Request::all();
+        if (Pruvan::validate($data))
+        {
+
+        }
+        return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 
     }
 
     //Upload Photos
     public function uploadPictures()
     {
+        $data = Request::all();
+        if (Pruvan::validate($data))
+        {
+
+        }
+        return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 
     }
 
     //Status
     public function status()
     {
+        $data = Request::all();
+        if (Pruvan::validate($data))
+        {
+
+        }
+        return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 
     }
 }

@@ -12,6 +12,7 @@ use App\EmergencyRequestDetail;
 use App\Helpers\Email;
 use App\Helpers\FlashMessage;
 use App\Helpers\General;
+use App\Helpers\Pruvan;
 use App\JobType;
 use App\MaintenanceBid;
 use App\MaintenanceRequest;
@@ -1236,7 +1237,7 @@ Status: New Bid Request
     public function assignServiceRequest()
     {
 
-       
+
         $assignment_data = Request::all();
 
         $userDAta=User::find($assignment_data['vendor']);
@@ -1291,10 +1292,24 @@ Status: New Bid Request
                 $data['vendor_id'] = $assignment_data['vendor'];
                 $data['customer_id'] = MaintenanceRequest::find($assignment_data['request_id'])->asset->customer_id;
                 $order_id = Order::addOrder($data);
+
+                //Send Work Order To Pruvan
+
+
+                $pruvan_data = [
+                    'request_id' => $data['request_id'],
+                    'vendor_id' => $data['vendor_id'],
+                    'customer_id' => $data['customer_id'],
+                    'order_id' => $order_id
+
+                ];
+                $pruvan_result = Pruvan::pushWorkOrder($pruvan_data);
+                if (isset($pruvan_result['error']))
+                {
+
+                }
+
                 $workOrderId = $order_id;
-
-
-
 
                 $order_details['requested_service_id'] = $request->requested_service_id;
                 $order_details['order_id'] = $order_id;
@@ -1357,18 +1372,7 @@ Status: New Bid Request
         }
 //Ending
 
-        $url = 'https://app.gssreo.com/srv/singleWorkOrder.php';
-        $prvData = 'workOrderId='.$workOrderId.'&vendorUsername='.$vendorUsername;
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $prvData);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        $response = curl_exec($ch);
-        // var_dump($response);
 
         $message = FlashMessage::messages('admin.request_service_add');
         return redirect('admin')
