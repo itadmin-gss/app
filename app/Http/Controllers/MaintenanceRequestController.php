@@ -1296,6 +1296,7 @@ Status: New Bid Request
 
                 //Send Work Order To Pruvan
                 $pruvan_data = [
+                    'requested_service_id' => $request["requested_service_id"],
                     'request_id' => $data['request_id'],
                     'vendor_id' => $data['vendor_id'],
                     'customer_id' => $data['customer_id'],
@@ -1307,6 +1308,9 @@ Status: New Bid Request
                 {
 
                 }
+
+                var_dump($pruvan_result);
+                exit;
 
                 $workOrderId = $order_id;
 

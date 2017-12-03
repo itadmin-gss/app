@@ -8,7 +8,29 @@ use App\State;
 use App\City;
 use App\Order;
 use App\PruvanVendors;
+use App\RequestedService;
+use App\Service;
 use App\User;
+
+
+//TO-DO FOR PRUVAN//
+///
+/// Create a new database table to hold Pruvan Status information
+///
+///
+/// Push changes to server to test validation / push work order
+///
+/// create functions for updating status of a work order
+///
+/// create functions for uploaded photos
+///
+/// Fix the inconsistancies between the current 'pruvan_users' database table, the 'Users' list within Pruvan, and the missing Users from Pruvan that do not exist in Pro-Trak
+///
+/// Probably add some type of 'Pruvan Username/Email Admin' in the Users area. Currently, Pruvan does not support updating Users via pushkey.
+///
+/// Setup 'Surveys' functions
+///
+///
 
 class Pruvan
 {
@@ -61,69 +83,75 @@ class Pruvan
     //Push New Work Order to Pruvan
     public static function pushWorkOrder($data)
     {
-        //Work Order Info -> Access Code / Lock Code / Other Information Shown for Work Order Info
-        $workOrderInfo = "";
 
         //Intentionally Blank Values -> Unused In App Or Not Set At This Time. Only added for reference / Future purposes
         $address2       = "";
         $clientDueDate  = "";
+        $latitude       = "";
+        $longitude      = "";
         $startDate      = "";
         $source_work_order_id = "";
         $source_work_order_number = "";
         $source_work_order_provider = "";
         $options        = [];
 
+        //Requested Service Information
+        $requested_data = RequestedService::findOrFail($data["requested_service_id"]);
+
+        //Request Information
+        $request_data = MaintenanceRequest::findOrFail($data['request_id']);
+//
+//        //Service Information
+        $service_id     = $requested_data->service_id;
+
+        $service_data   = Service::findOrFail($service_id);
 
         //Address Information
-        $asset_id   = MaintenanceRequest::findOrFail($data['request_id'])->asset_id;
+        $asset_id   = $request_data->asset_id;
         $asset_data = Asset::findOrFail($asset_id);
+
+        //Work Order Info -> Access Code / Lock Code / Other Information Shown for Work Order Info
+        $access_code = $asset_data->access_code;
+        $lockbox     = $asset_data->lock_box;
+        $workOrderInfo = "";
+
+        if ($access_code)
+        {
+            $workOrderInfo .= "AC: ".$access_code." ";
+        }
+
+        if ($lockbox)
+        {
+            $workOrderInfo .= "LB: ".$lockbox." ";
+        }
+
         $address1   = $asset_data->property_address;
         $city       = City::find($asset_data->city_id)->name;
         $state      = State::find($asset_data->state_id)->name;
         $zip        = $asset_data->zip;
 
         //Vendor Assigned To Task
-        $vendor = PruvanVendors::findOrFail($daata['vendor_id']);
+        $vendor = PruvanVendors::findOrFail($data['vendor_id'])->email_address;
 
         //Work Order Status
         $status = "assigned";
 
-        //Set 'Description' with task price amount
-        $description = "";
+        //Set 'Description' with task price
+        $description = "$".number_format($service_data->vendor_price,2);
 
         //Set 'Reference' with Task Name
-        $reference = "";
+        $reference = $service_data->title;
 
         //Set Lat/Long
-        $latitude = "";
-        $longitude = "";
 
         //Work Order Due Date
-        $dueDate = RequestedService::findOrFail($data['request_id']);
+        $dueDate = date("Y-m-d", strtotime($requested_data->due_date))." 1200 +5";
 
         //'Services' Array
-        $services = [];
+        $services = [["service_name" => $service_data->title]];
 
-        //TO-DO FOR PRUVAN//
-        ///
-        /// Create a new database table to hold Pruvan Status information
-        ///
-        /// Finish Filling in the above variables
-        ///
-        /// Push changes to server to test validation / push work order
-        ///
-        /// create functions for updating status of a work order
-        ///
-        /// create functions for uploaded photos
-        ///
-        /// Fix the inconsistancies between the current 'pruvan_users' database table, the 'Users' list within Pruvan, and the missing Users from Pruvan that do not exist in Pro-Trak
-        ///
-        /// Probably add some type of 'Pruvan Username/Email Admin' in the Users area. Currently, Pruvan does not support updating Users via pushkey.
-        ///
-        /// Setup 'Surveys' functions
-        ///
-        ///
-
+        //'Instructions'
+        $instructions = $requested_data->public_notes;
 
 
         $send_data = json_encode(
@@ -145,8 +173,8 @@ class Pruvan
                     'clientInstructions' => $instructions,
                     'description' => $description,
                     'reference' => $reference,
-                    'gpsLatitude' => $latitude,
-                    'gpsLongitude' => $longitude,
+//                    'gpsLatitude' => $latitude,
+//                    'gpsLongitude' => $longitude,
 //                    'options' => $options,
 //                    'startDate' => $startDate,
 //                    'source_wo_id' => $source_work_order_id,
@@ -157,7 +185,10 @@ class Pruvan
             ]
         );
 
-        return true;
+
+
+        return $send_data;
+
     }
 
     //Update Work Order (Pro-Trak > Pruvan)

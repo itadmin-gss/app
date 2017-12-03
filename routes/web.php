@@ -194,7 +194,7 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     Route::get('admin-list-invoice/{id}', ['uses' => 'InvoiceController@listAdminInvoices']);
 
     //Maintenance Request Controller
-    Route::match(['GET', 'POST'], 'assign-service-request', ['uses' => 'MaintenanceRequestController@assignServiceRequest']);
+    Route::post('assign-service-request', 'MaintenanceRequestController@assignServiceRequest');
     Route::match(['GET', 'POST'], 'assign-service-bid', ['uses' => 'MaintenanceRequestController@assignServiceBid']);
     Route::match(['GET', 'POST'], 'admin-notes', ['uses' => 'MaintenanceRequestController@adminNotes']);
     Route::match(['GET', 'POST'], 'admin-notes-bid', ['uses' => 'MaintenanceRequestController@adminNotesBid']);
