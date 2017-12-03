@@ -55,7 +55,7 @@ Route::get('logout', function () {
 });
 
 //Pruvan End Points
-Route::post('pruvan/validate', 'PruvanController@validate');
+Route::post('pruvan/validate', 'PruvanController@validateApp');
 Route::post('pruvan/getWorkOrders', 'PruvanController@getWorkOrders');
 Route::post('pruvan/uploadPictures', 'PruvanController@uploadPictures');
 Route::post('pruvan/status', 'PruvanController@status');

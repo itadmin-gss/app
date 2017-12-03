@@ -7,6 +7,7 @@ use App\Asset;
 use App\State;
 use App\City;
 use App\Order;
+use App\PruvanPushKeys;
 use App\PruvanVendors;
 use App\RequestedService;
 use App\Service;
@@ -17,6 +18,7 @@ use App\User;
 ///
 /// Create a new database table to hold Pruvan Status information
 ///
+/// Adjust validate() function for user use
 ///
 /// Push changes to server to test validation / push work order
 ///
@@ -35,7 +37,27 @@ use App\User;
 class Pruvan
 {
 
-    //Validate Application
+    //Validate Application with Pruvan
+    public static function validateApp($data)
+    {
+        $payload = json_decode($data['payload'], true);
+        $given_pass = $payload['password'];
+        $pushkey    = $payload['pushkey'];
+
+        if (sha1(getenv('PRUVAN_PASS')) == $given_pass)
+        {
+            PruvanPushKeys::updateOrCreate(
+                ['vendor_id' => 0, 'application' => 1],
+                ['pushkey' => $pushkey]
+            );
+            return true;
+        }
+
+        return false;
+    }
+
+
+    //Validate Pruvan User !!!!!!!!!INCOMPLETE USE FOR VENDORS!!!!!!!!!!!!!
     public static function validate($data)
     {
         $payload = json_decode($data['payload'], true);
@@ -185,9 +207,17 @@ class Pruvan
             ]
         );
 
+        //Send Data to Pruvan via cURL
 
+        $pushkey_url = PruvanPushKeys::findOrFail(0);
 
-        return $send_data;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $pushkey_url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+
+        $response = curl_exec($ch);
+
+        return $response;
 
     }
 
@@ -205,9 +235,62 @@ class Pruvan
 
     }
 
-    //Upload Photos
-    public static function uploadPhoto()
+    //Upload Photos (Pruvan -> Pro-Trak)
+    public static function uploadPhoto($data)
     {
+        $available_fields = [
+            'username',
+            'password',
+            'token',
+            'pictureId',
+            'uuId',
+            'parentUuid',
+            'key1',
+            'key2',
+            'key3',
+            'key4',
+            'key5',
+            'attribute1',
+            'attribute2',
+            'attribute3',
+            'attribute4',
+            'attribute5',
+            'attribute6',
+            'fileExt',
+            'fileName',
+            'fileType',
+            'evidenceType',
+            'survey',
+            'template',
+            'notes',
+            'gpsAccuracy',
+            'gpsLatitude',
+            'gpsLongitude',
+            'gpsTimestamp',
+            'authenticated',
+            'locationDifference',
+            'csrCertifiedTime',
+            'csrLocationSource',
+            'csrPictureCount',
+            'csrTimeStampSource',
+            'csrCertifiedLocation',
+            'attribute7-15',
+            'attribute16-30',
+            'deviceId',
+            'phoneNumber',
+            'status',
+            'uploadVersion',
+            'batchId',
+            'workDay',
+            'timestamp',
+            'clientCode',
+            'createdBy',
+            'createdBySubUser',
+            'lastUpdatedBy',
+            'creationDate',
+            'videoUri'
+
+        ];
         return true;
 
     }
@@ -226,12 +309,6 @@ class Pruvan
 
     }
 
-    //Check for Vendor Pruvan Credentials
-    public static function findPruvanVendor()
-    {
-        return true;
-
-    }
 
 
 }

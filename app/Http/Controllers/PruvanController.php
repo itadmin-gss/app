@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use App\Helpers\Pruvan;
 
 class PruvanController extends Controller
 {
     //Validate
-    public function validate()
+    public function validateApp()
     {
         $data = Request::all();
 
-        if (Pruvan::validate($data))
+        if (Pruvan::validateApp($data))
         {
             return json_encode(['error' => '', 'validated' => true]);
         }
@@ -25,7 +25,7 @@ class PruvanController extends Controller
     public function getWorkOrders()
     {
         $data = Request::all();
-        if (Pruvan::validate($data))
+        if (Pruvan::validateApp($data))
         {
 
         }
@@ -37,9 +37,10 @@ class PruvanController extends Controller
     public function uploadPictures()
     {
         $data = Request::all();
-        if (Pruvan::validate($data))
+        if (Pruvan::validateApp($data))
         {
-
+            Pruvan::uploadPhoto($data);
+            return true;
         }
         return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 
@@ -49,7 +50,7 @@ class PruvanController extends Controller
     public function status()
     {
         $data = Request::all();
-        if (Pruvan::validate($data))
+        if (Pruvan::validateApp($data))
         {
 
         }
