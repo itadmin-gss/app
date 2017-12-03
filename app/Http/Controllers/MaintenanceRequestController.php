@@ -1296,7 +1296,8 @@ Status: New Bid Request
 
                 //Send Work Order To Pruvan
                 $check_vendor = PruvanVendors::where('vendor_id', $data['vendor_id'])->get();
-                if (count($check_vendor) > 1)
+
+                if (count($check_vendor) > 0)
                 {
                     $pruvan_data = [
                         'requested_service_id' => $request["requested_service_id"],
@@ -1309,15 +1310,12 @@ Status: New Bid Request
 
                     $pruvan_result = Pruvan::pushWorkOrder($pruvan_data);
 
-                    if (isset($pruvan_result['error']))
-                    {
-
-                    }
+//                    if (isset($pruvan_result['error']))
+//                    {
+//
+//                    }
                 }
 
-
-                var_dump($pruvan_result);
-                exit;
 
                 $workOrderId = $order_id;
 

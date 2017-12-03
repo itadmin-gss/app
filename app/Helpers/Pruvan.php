@@ -41,10 +41,10 @@ class Pruvan
     public static function validateApp($data)
     {
         $payload = json_decode($data['payload'], true);
-        $given_pass = $payload['password'];
+        $given_pass = $payload['token'];
         $pushkey    = $payload['pushkey'];
 
-        if (sha1(getenv('PRUVAN_PASS')) == $given_pass)
+        if (env('PRUVAN_PASS') == $given_pass)
         {
             PruvanPushKeys::updateOrCreate(
                 ['vendor_id' => 0, 'application' => 1],
@@ -176,44 +176,47 @@ class Pruvan
         $instructions = $requested_data->public_notes;
 
 
-        $send_data = json_encode(
 
+        $send_data =
             ["workOrders" =>
-                [
-                    'workOrderNumber' => date("Ymd-His"), //Required
-                    'workOrderInfo' => $workOrderInfo,
-                    'address1' => $address1, //Required
-//                    'address2' => $address2,
-                    'city' => $city, //Required
-                    'state' => $state, //Required
-                    'zip' => $zip, //Required
-                    'assignedTo' => $vendor,
-                    'status' => $status,
-                    'dueDate' => $dueDate,
-                    'instructions' => $instructions,
-//                    'clientDueDate' => $clientDueDate,
-                    'clientInstructions' => $instructions,
-                    'description' => $description,
-                    'reference' => $reference,
-//                    'gpsLatitude' => $latitude,
-//                    'gpsLongitude' => $longitude,
-//                    'options' => $options,
-//                    'startDate' => $startDate,
-//                    'source_wo_id' => $source_work_order_id,
-//                    'source_wo_number' => $source_work_order_number,
-//                    'source_wo_provider' => $source_work_order_provider,
-                    'services' => $services
-                ]
-            ]
-        );
+                json_encode(["workOrders" =>
+
+                        json_encode([
+                            'workOrderNumber' => date("Ymd-His"), //Required
+                            'workOrderInfo' => $workOrderInfo,
+                            'address1' => $address1, //Required
+        //                    'address2' => $address2,
+                            'city' => $city, //Required
+                            'state' => $state, //Required
+                            'zip' => $zip, //Required
+                            'assignedTo' => $vendor,
+                            'status' => $status,
+                            'dueDate' => $dueDate,
+                            'instructions' => $instructions,
+        //                    'clientDueDate' => $clientDueDate,
+                            'clientInstructions' => $instructions,
+                            'description' => $description,
+                            'reference' => $reference,
+        //                    'gpsLatitude' => $latitude,
+        //                    'gpsLongitude' => $longitude,
+        //                    'options' => $options,
+        //                    'startDate' => $startDate,
+        //                    'source_wo_id' => $source_work_order_id,
+        //                    'source_wo_number' => $source_work_order_number,
+        //                    'source_wo_provider' => $source_work_order_provider,
+                            'services' => $services
+                        ])
+                ])
+            ];
+
 
         //Send Data to Pruvan via cURL
 
-        $pushkey_url = PruvanPushKeys::findOrFail(0);
+        $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $pushkey_url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($send_data));
 
         $response = curl_exec($ch);
 
