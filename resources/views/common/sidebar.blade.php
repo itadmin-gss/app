@@ -89,7 +89,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placemesnt="right" title="Dashboard">
-          <a style="margin-left:2px;" class="nav-link" href="{!!URL::to('admin')!!}">
+          <a class="nav-link sidenav-link" href="{!!URL::to('admin')!!}">
             <i class="fa fa-fw fa-lg fa-dashboard"></i>
             <p class="nav-link-text">Dashboard</p>
           </a>
@@ -98,7 +98,7 @@
           <!-- Users Link -->
         @if(Auth::user()->email = "sales@gssreo.com" || Auth::user()->email = "jdunn82k@gmail.com")
            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
-               <a style="margin-left:10px;" class="nav-link" href="{!!URL::to('list-user') !!}">
+               <a class="nav-link sidenav-link" href="{!!URL::to('list-user') !!}">
                    <i class="fa fa-fw fa-lg fa-users"></i>
                    <p class="nav-link-text">Users</p>
                </a>
@@ -108,7 +108,7 @@
         <!-- Vendor Link -->
         @if($access_roles['Vendor']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Vendors">
-          <a style="margin-left:10px;" class="nav-link" href="{!!URL::to('list-vendors') !!}">
+          <a class="nav-link sidenav-link" href="{!!URL::to('list-vendors') !!}">
             <i class="fa fa-fw fa-lg fa-users"></i>
             <p class="nav-link-text">Vendors</p>
           </a>
@@ -118,7 +118,7 @@
         <!-- Properties Link -->
         @if($access_roles['Asset']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">
-          <a style="margin-left: 5px;" class="nav-link" href="{!!URL::TO('list-assets')!!}">
+          <a class="nav-link sidenav-link" href="{!!URL::TO('list-assets')!!}">
             <i class="fa fa-fw fa-lg fa-home"></i>
             <p class="nav-link-text">Properties</p>
           </a>
@@ -129,7 +129,7 @@
         <!-- Permissions Link -->
         @if($access_roles['Access Level']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Permissions">
-          <a style="margin-left:-3px;" class="nav-link" href="{!!URL::to('list-permissions')!!}">
+          <a class="nav-link sidenav-link" href="{!!URL::to('list-permissions')!!}">
             <i class="fa fa-fw fa-lg fa-key"></i>
             <p class="nav-link-text">Permissions</p>
           </a>

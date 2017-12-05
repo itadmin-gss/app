@@ -34,6 +34,13 @@
   margin-top:15px !important;
 }
 
+.sidenav-link{
+  margin-right:auto;
+  margin-left:auto;
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+
 .role_name{
   height: inherit !important;
   width: 86% !important;
@@ -766,8 +773,7 @@ body.fixed-nav {
       margin-top: 66px;
       border-top: 1px solid #DDD}
       #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
-        width: 105px;
-        margin-left:-8px;
+        width: 97px;
         padding: 0; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
           padding: 1em; }
