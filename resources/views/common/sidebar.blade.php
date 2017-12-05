@@ -161,9 +161,9 @@
               <a class='navbar-table-link' href="{!! URL::to('admin') !!}">
                   <div class='nav-badge badge-blue-1 text-white'>
                       @if (isset($summary_count))
-                          {!! $summary_count." New Requests (Summary)" !!}
+                          {!! $summary_count." New Requests" !!}
                       @else
-                          {!! "0 New Requests (Summary)" !!}
+                          {!! "0 New Requests" !!}
                       @endif
 
                   </div>
@@ -184,9 +184,9 @@
             <a class='navbar-table-link' href="{!! URL::to('under-review') !!}">
               <div class='nav-badge badge-blue-3 text-white'>
                 @if (isset($orderCounterDashboard['3']))
-                    {!! $orderCounterDashboard['3']." Under Review" !!}
+                    {!! $orderCounterDashboard['3']." Rework" !!}
                 @else
-                    {!! "0 Under Review" !!}
+                    {!! "0 Rework" !!}
                 @endif
             </div>
             </a>
