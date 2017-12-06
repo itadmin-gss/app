@@ -111,7 +111,7 @@ $('.work-order-table').DataTable( {
 
 
 $('.datatabledashboard').DataTable( {
-  dom: 'B<"clear">frtip',
+  dom: '<"dt-toolbar"><"clear"><fB>rtip',
   "responsive" : true,
   "order": [[ 0, "desc" ]],
   buttons: [
@@ -142,3 +142,6 @@ $('.datatabledashboardapproved').DataTable( {
   'copy', 'csv', 'excel', 'print'
   ]
 } );
+
+$("#")
+$("div.dt-toolbar").html($("#page-heading-dt").html());

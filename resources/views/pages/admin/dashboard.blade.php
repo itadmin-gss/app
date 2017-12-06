@@ -1,7 +1,11 @@
 @extends('layouts.default')
 @section('content')
 
-
+<style>
+    .summary-request{
+        display:inherit !important;
+    }
+</style>
 <div id="content" class="span11">
 
 
@@ -42,14 +46,14 @@
 
         <div class="row">
             <div id="datatabledashboard">
-                    <title>GSS - Summary</title>
-        <div class='table-padding table-heading'>
-            <div class="card blue-1">
-                <div class="card-body">
-                    <span>Summary</span>
+                <title>GSS - Summary</title>
+                <div id="page-heading-dt" style="display:none;">
+                    <div class="card blue-1 ">
+                        <div class="card-body">
+                            <span><span id="header-quantity-summary"></span> Work Orders Pending Vendor Assignment</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
             <div class='table-responsive'>
             <table class="table table-striped table-bordered table-sm datatabledashboard" id='dataTable' cellspacing='0' >

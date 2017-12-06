@@ -46,6 +46,21 @@
   width: 86% !important;
 }
 
+.header-quantity-summary{
+  text-decoration: underline;
+}
+.navitem-wrapper .fa-play{
+  display:none;
+  color: white;
+  position: absolute;
+  left: 45%;
+  transform: rotate(270deg);
+  bottom: -11px;
+}
+.navitem-wrapper{
+  position:relative;
+}
+
 #vendor-delete-modal.show{
     display: flex !important;
     height:100%;
@@ -159,7 +174,7 @@
   overflow: hidden !important;
 }
 #content{
-  margin-top:30px !important;
+  margin-top:7px !important;
   margin-bottom:30px !important;
 }
 .new-service-request{
@@ -452,10 +467,23 @@
   float:right;
 }
 
-.dt-buttons{
-  float:right !important;
-  margin-left:50px;
+
+  .dt-toolbar{
+    float:left;
+    width:calc(100% - 565px);
+    margin-bottom:-15px;
+    margin-top:8px;
+  }
+  .dt-buttons{
+    float:right !important;
+    margin-top:-4px;
+  }
+
+#dataTable_filter{
+  display:inline;
+  margin-left:20px;
 }
+
 .dt-button{
   background-color:green !important;
   color:white !important;

@@ -158,49 +158,71 @@
       </ul>
       <ul class='navbar-nav'>
           <li class='nav-item' style='float:left;'>
-              <a class='navbar-table-link' href="{!! URL::to('admin') !!}">
-                  <div class='nav-badge badge-blue-1 text-white'>
-                      @if (isset($summary_count))
-                          {!! $summary_count." New Requests" !!}
-                      @else
-                          {!! "0 New Requests" !!}
-                      @endif
+              <div class="navitem-wrapper">
+                  <a class='navbar-table-link' href="{!! URL::to('admin') !!}">
+                      <div class='nav-badge badge-blue-1 text-white'>
+                          @if (isset($summary_count))
+                              <input type="hidden" id="summary-count-value" value="{!! $summary_count !!}">
+                              {!! $summary_count." New Requests" !!}
+                          @else
+                              <input type="hidden" id="summary-count-value" value="0">
 
-                  </div>
-              </a>
+                              {!! "0 New Requests" !!}
+                          @endif
+
+                      </div>
+                  </a>
+                  <span class="fa fa-play summary-request"></span>
+              </div>
+
+
           </li>
         <li class='nav-item' style='float:left;'>
-            <a class='navbar-table-link' href='{!! URL::to("in-process") !!}'>
-              <div class='nav-badge badge-blue-2 text-white'>
-                @if (isset($orderCounterDashboard['1']))
-                  {!! $orderCounterDashboard['1']." In-Process" !!}
-                @else
-                  {!! "0 In-Process" !!}
-              @endif
+            <div class="navitem-wrapper">
+                <a class='navbar-table-link' href='{!! URL::to("in-process") !!}'>
+                    <div class='nav-badge badge-blue-2 text-white'>
+                        @if (isset($orderCounterDashboard['1']))
+                            {!! $orderCounterDashboard['1']." In-Process" !!}
+                        @else
+                            {!! "0 In-Process" !!}
+                        @endif
+                    </div>
+                </a>
+                <span class="fa fa-play in-process"></span>
             </div>
-            </a>          
+
         </li>
         <li class='nav-item' style='float:left;'>
-            <a class='navbar-table-link' href="{!! URL::to('under-review') !!}">
-              <div class='nav-badge badge-blue-3 text-white'>
-                @if (isset($orderCounterDashboard['3']))
-                    {!! $orderCounterDashboard['3']." Rework" !!}
-                @else
-                    {!! "0 Rework" !!}
-                @endif
+            <div class="navitem-wrapper">
+                <a class='navbar-table-link' href="{!! URL::to('under-review') !!}">
+                    <div class='nav-badge badge-blue-3 text-white'>
+                        @if (isset($orderCounterDashboard['3']))
+                            {!! $orderCounterDashboard['3']." Rework" !!}
+                        @else
+                            {!! "0 Rework" !!}
+                        @endif
+                    </div>
+                </a>
+                <span class="fa fa-play rework"></span>
             </div>
-            </a>
+
+
         </li>
         <li class='nav-item' style='float:left;'>
-            <a class='navbar-table-link' href="{!! URL::to('completed') !!}">
-              <div class='nav-badge badge-blue-4 text-white'>
-                    @if (isset($orderCounterDashboard['2']))
-                        {!! $orderCounterDashboard['2']." Completed" !!}
-                    @else
-                        {!! "0 Completed" !!}
-                    @endif
-              </div>
-            </a>
+            <div class="navitem-wrapper">
+                <a class='navbar-table-link' href="{!! URL::to('completed') !!}">
+                    <div class='nav-badge badge-blue-4 text-white'>
+                        @if (isset($orderCounterDashboard['2']))
+                            {!! $orderCounterDashboard['2']." Completed" !!}
+                        @else
+                            {!! "0 Completed" !!}
+                        @endif
+                    </div>
+                </a>
+                <span class="fa fa-play completed"></span>
+            </div>
+
+
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
