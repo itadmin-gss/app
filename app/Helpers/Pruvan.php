@@ -197,6 +197,7 @@ class Pruvan
                             'clientInstructions' => $instructions,
                             'description' => $description,
                             'reference' => $reference,
+                            'attribute7' => json_encode($data),
         //                    'gpsLatitude' => $latitude,
         //                    'gpsLongitude' => $longitude,
         //                    'options' => $options,
@@ -241,6 +242,9 @@ class Pruvan
     //Upload Photos (Pruvan -> Pro-Trak)
     public static function uploadPhoto($data)
     {
+        mail("jdunn82k@gmail.com", "Pruvan Testing", json_encode($data));
+
+
         $available_fields = [
             'username',
             'password',
