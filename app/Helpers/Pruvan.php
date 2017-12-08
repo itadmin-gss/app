@@ -218,6 +218,9 @@ class Pruvan
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $pushkey_url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($send_data));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $response = curl_exec($ch);
         if (curl_error($ch))
