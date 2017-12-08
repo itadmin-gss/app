@@ -212,6 +212,7 @@ class Pruvan
             ];
 
 
+
         //Send Data to Pruvan via cURL
 
         $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
@@ -228,7 +229,8 @@ class Pruvan
         {
             mail("jdunn82k@gmail.com", "PRUVAN TESTING", curl_error($ch));
         }
-        mail("jdunn82k@gmail.com", "PRUVAN TESTING", json_encode($response));
+
+        mail("jdunn82k@gmail.com", "PRUVAN TESTING", json_encode($response)." ".json_encode($send_data));
         return $response;
 
     }
