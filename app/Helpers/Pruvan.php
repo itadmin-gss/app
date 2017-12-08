@@ -220,7 +220,11 @@ class Pruvan
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($send_data));
 
         $response = curl_exec($ch);
-        mail("jdunn82k@gmail.com", "PRUVAN TESTING", $response);
+        if (curl_error($ch))
+        {
+            mail("jdunn82k@gmail.com", "PRUVAN TESTING", curl_error($ch));
+        }
+        mail("jdunn82k@gmail.com", "PRUVAN TESTING", json_encode($response));
         return $response;
 
     }
