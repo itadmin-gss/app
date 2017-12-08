@@ -175,11 +175,7 @@ class Pruvan
         //'Instructions'
         $instructions = $requested_data->public_notes;
 
-        $data_string =
-
-                json_encode(
-                    ["workOrders" =>
-
+        $data_string["workOrders"][] =
 
                             [
                                 'workOrderNumber' => date("Ymd-His"), //Required
@@ -206,10 +202,8 @@ class Pruvan
             //                    'source_wo_number' => $source_work_order_number,
             //                    'source_wo_provider' => $source_work_order_provider,
                                 'services' => $services
-                            ]
+                            ];
 
-                    ]
-                );
 
 
 
@@ -219,7 +213,7 @@ class Pruvan
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $pushkey_url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => json_encode($data_string)));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
