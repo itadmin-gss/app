@@ -176,42 +176,63 @@ class Pruvan
         $instructions = $requested_data->public_notes;
 
 
-
-        $send_data["workOrders"] =
-
-                json_encode(
-                    ["workOrders" =>
-
-
-                            [
-                                'workOrderNumber' => date("Ymd-His"), //Required
-                                'workOrderInfo' => $workOrderInfo,
-                                'address1' => $address1, //Required
-            //                    'address2' => $address2,
-                                'city' => $city, //Required
-                                'state' => $state, //Required
-                                'zip' => $zip, //Required
-                                'assignedTo' => $vendor,
-                                'status' => $status,
-                                'dueDate' => $dueDate,
-                                'instructions' => $instructions,
-            //                    'clientDueDate' => $clientDueDate,
-                                'clientInstructions' => $instructions,
-                                'description' => $description,
-                                'reference' => $reference,
-                                'attribute7' => json_encode($data),
-            //                    'gpsLatitude' => $latitude,
-            //                    'gpsLongitude' => $longitude,
-            //                    'options' => $options,
-            //                    'startDate' => $startDate,
-            //                    'source_wo_id' => $source_work_order_id,
-            //                    'source_wo_number' => $source_work_order_number,
-            //                    'source_wo_provider' => $source_work_order_provider,
-                                'services' => $services
+        $send_data["workOrders"] = "{\"workOrders\":[
+                              {
+                                \"workOrderNumber\" : date(\"Ymd-His\"), 
+                                \"workOrderInfo\" : $workOrderInfo,
+                                \"address1\" : $address1, 
+                                \"city\" : $city, 
+                                \"state\" : $state, 
+                                \"zip\" : $zip, 
+                                \"assignedTo\" : $vendor,
+                                \"status\" : $status,
+                                \"dueDate\" : $dueDate,
+                                \"instructions\" : $instructions,
+                                \"clientInstructions\" : $instructions,
+                                \"description\" : $description,
+                                \"reference\" : $reference,
+                                \"attribute7\" : json_encode($data),
+                                \"services\" : $services
+                              }
                             ]
-
-                    ]
-                );
+                           }
+        
+        ";
+//        $send_data["workOrders"] =
+//
+//                json_encode(
+//                    ["workOrders" =>
+//
+//
+//                            [
+//                                'workOrderNumber' => date("Ymd-His"), //Required
+//                                'workOrderInfo' => $workOrderInfo,
+//                                'address1' => $address1, //Required
+//            //                    'address2' => $address2,
+//                                'city' => $city, //Required
+//                                'state' => $state, //Required
+//                                'zip' => $zip, //Required
+//                                'assignedTo' => $vendor,
+//                                'status' => $status,
+//                                'dueDate' => $dueDate,
+//                                'instructions' => $instructions,
+//            //                    'clientDueDate' => $clientDueDate,
+//                                'clientInstructions' => $instructions,
+//                                'description' => $description,
+//                                'reference' => $reference,
+//                                'attribute7' => json_encode($data),
+//            //                    'gpsLatitude' => $latitude,
+//            //                    'gpsLongitude' => $longitude,
+//            //                    'options' => $options,
+//            //                    'startDate' => $startDate,
+//            //                    'source_wo_id' => $source_work_order_id,
+//            //                    'source_wo_number' => $source_work_order_number,
+//            //                    'source_wo_provider' => $source_work_order_provider,
+//                                'services' => $services
+//                            ]
+//
+//                    ]
+//                );
 
 
 
