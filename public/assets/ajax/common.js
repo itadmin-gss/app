@@ -1661,19 +1661,13 @@ function modalClose(){
   
   function showMaintenanceServices(maintenance_request_id)
   {
-  
-     var over = '<div id="overlay">' +
-     '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
-     '</div>';
-     $(over).appendTo('body');
-  
      $.ajax({
       type: "GET",
       url: baseurl +"/show-maintenance-services/" + maintenance_request_id,
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-      success: function(data) {  
+      success: function(data) {
         $('#overlay').remove();
         $('#showVendorList').modal('toggle');
         $('#showVendorList .modal-body').html(data);

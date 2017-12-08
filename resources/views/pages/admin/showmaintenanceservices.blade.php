@@ -97,6 +97,8 @@
         $firstVendorCounter=0;
         $totalCounter=0;
         $vendor_data = array('' => 'Select Vendor');
+
+
         foreach ($vendors as $vendor) {
 
 

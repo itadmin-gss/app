@@ -6,7 +6,12 @@
   });
 
 
-  $("#header-quantity-summary").html($("#summary-count-value").val());
+
+  $("#header-quantity-summary").html("<u>("+$("#summary-count-value").val()+)" New Requests</u> | ");
+
+
+  $("div.dt-toolbar").html($("#page-heading-dt").html());
+
   // Toggle the side navigation
   $("#sidenavToggler").click(function(e) {
     e.preventDefault();

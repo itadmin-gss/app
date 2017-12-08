@@ -109,7 +109,6 @@ $('.work-order-table').DataTable( {
   ]
 });
 
-
 $('.datatabledashboard').DataTable( {
   dom: '<"dt-toolbar"><"clear"><fB>rtip',
   "responsive" : true,
@@ -143,5 +142,3 @@ $('.datatabledashboardapproved').DataTable( {
   ]
 } );
 
-$("#")
-$("div.dt-toolbar").html($("#page-heading-dt").html());
