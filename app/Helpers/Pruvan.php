@@ -191,7 +191,7 @@ class Pruvan
                                 \"clientInstructions\" : $instructions,
                                 \"description\" : $description,
                                 \"reference\" : $reference,
-                                \"attribute7\" : json_encode($data),
+                                \"attribute7\" : ".json_encode($data).",
                                 \"services\" : $services
                               }
                             ]
