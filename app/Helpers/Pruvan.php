@@ -211,9 +211,22 @@ class Pruvan
 
         $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
 
+        $teststring = "{
+\"workOrders\": [{
+\"workOrderNumber\": \"Simple\",
+\"address1\": \"110 East Main Street\",
+\"city\": \"Round Rock\",
+\"state\": \"TX\",
+\"zip\": \"78664\",
+\"services\": [{
+\"serviceName\": \"Task\"
+}]
+}]
+}";
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $pushkey_url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => json_encode($data_string)));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $teststring));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
