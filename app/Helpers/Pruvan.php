@@ -178,7 +178,7 @@ class Pruvan
         $data_string["workOrders"][] =
 
                             [
-                                'workOrderNumber' => date("Ymd-His"), //Required
+                                'workOrderNumber' => "1234", //Required
                                 'workOrderInfo' => $workOrderInfo,
                                 'address1' => $address1, //Required
             //                    'address2' => $address2,
