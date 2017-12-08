@@ -181,7 +181,7 @@ class Pruvan
             ["workOrders" =>
                 json_encode(["workOrders" =>
 
-                        json_encode([
+                        [
                             'workOrderNumber' => date("Ymd-His"), //Required
                             'workOrderInfo' => $workOrderInfo,
                             'address1' => $address1, //Required
@@ -206,7 +206,7 @@ class Pruvan
         //                    'source_wo_number' => $source_work_order_number,
         //                    'source_wo_provider' => $source_work_order_provider,
                             'services' => $services
-                        ])
+                        ]
                 ])
             ];
 
