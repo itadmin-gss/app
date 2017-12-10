@@ -192,7 +192,7 @@ class Pruvan
                                 'status' => $status,
                                 'dueDate' => $dueDate,
                                 'instructions' => $instructions,
-                                'clientStatus' => $customer_type,
+                                'clientStatus' => $customer_type->type,
             //                    'clientDueDate' => $clientDueDate,
                                 'clientInstructions' => $instructions,
                                 'description' => $description,
