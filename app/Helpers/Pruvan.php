@@ -153,7 +153,7 @@ class Pruvan
         $zip        = $asset_data->zip;
 
         //Vendor Assigned To Task
-        $vendor = PruvanVendors::findOrFail($data['vendor_id'])->email_address;
+        $vendor = PruvanVendors::findOrFail($data['vendor_id'])->username;
 
         //Work Order Status
         $status = "assigned";
