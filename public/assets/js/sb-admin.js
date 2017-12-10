@@ -7,7 +7,7 @@
 
 
 
-  $("#header-quantity-summary").html("<u>("+$("#summary-count-value").val()+)" New Requests</u> | ");
+  $("#header-quantity-summary").html("<u>("+$("#summary-count-value").val()+" New Requests</u> | ");
 
 
   $("div.dt-toolbar").html($("#page-heading-dt").html());

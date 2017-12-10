@@ -15,25 +15,6 @@ use App\Service;
 use App\User;
 
 
-//TO-DO FOR PRUVAN//
-///
-/// Create a new database table to hold Pruvan Status information
-///
-/// Adjust validate() function for user use
-///
-/// Push changes to server to test validation / push work order
-///
-/// create functions for updating status of a work order
-///
-/// create functions for uploaded photos
-///
-/// Fix the inconsistancies between the current 'pruvan_users' database table, the 'Users' list within Pruvan, and the missing Users from Pruvan that do not exist in Pro-Trak
-///
-/// Probably add some type of 'Pruvan Username/Email Admin' in the Users area. Currently, Pruvan does not support updating Users via pushkey.
-///
-/// Setup 'Surveys' functions
-///
-///
 
 class Pruvan
 {
@@ -212,22 +193,9 @@ class Pruvan
 
 
         //Send Data to Pruvan via cURL
-
         $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
 
         $data_string = "{\"workOrders\": [".json_encode($data_array)."]}";
-//        $teststring = "{
-//            \"workOrders\": [{
-//            \"workOrderNumber\": \"Simple\",
-//            \"address1\": \"110 East Main Street\",
-//            \"city\": \"Round Rock\",
-//            \"state\": \"TX\",
-//            \"zip\": \"78664\",
-//            \"services\": [{
-//            \"serviceName\": \"Task\"
-//            }]
-//            }]
-//        }";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $pushkey_url);
@@ -242,8 +210,6 @@ class Pruvan
             mail("jdunn82k@gmail.com", "PRUVAN TESTING", curl_error($ch));
         }
 
-        mail("jdunn82k@gmail.com", "PRUVAN TESTING", json_encode($response));
-        mail("jdunn82k@gmail.com", "PRUVAN STRING", $data_string);
         return $response;
 
     }
@@ -322,6 +288,11 @@ class Pruvan
 
         ];
         return true;
+
+    }
+
+    public static function setStatus($data)
+    {
 
     }
 
