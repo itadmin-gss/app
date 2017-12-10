@@ -175,7 +175,7 @@ class Pruvan
         //'Instructions'
         $instructions = $requested_data->public_notes;
 
-        $data_string["workOrders"][] =
+        $data_array =
 
                             [
                                 'workOrderNumber' => "1234", //Required
@@ -211,22 +211,23 @@ class Pruvan
 
         $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
 
-        $teststring = "{
-\"workOrders\": [{
-\"workOrderNumber\": \"Simple\",
-\"address1\": \"110 East Main Street\",
-\"city\": \"Round Rock\",
-\"state\": \"TX\",
-\"zip\": \"78664\",
-\"services\": [{
-\"serviceName\": \"Task\"
-}]
-}]
-}";
+        $data_string = "{\"workOrders\": ".json_encode($data_array)."}";
+//        $teststring = "{
+//            \"workOrders\": [{
+//            \"workOrderNumber\": \"Simple\",
+//            \"address1\": \"110 East Main Street\",
+//            \"city\": \"Round Rock\",
+//            \"state\": \"TX\",
+//            \"zip\": \"78664\",
+//            \"services\": [{
+//            \"serviceName\": \"Task\"
+//            }]
+//            }]
+//        }";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $pushkey_url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $teststring));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
