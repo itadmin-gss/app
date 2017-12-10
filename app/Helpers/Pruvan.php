@@ -211,7 +211,7 @@ class Pruvan
 
         $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
 
-        $data_string = "{\"workOrders\": ".json_encode($data_array)."}";
+        $data_string = "{\"workOrders\": [".json_encode($data_array)."]}";
 //        $teststring = "{
 //            \"workOrders\": [{
 //            \"workOrderNumber\": \"Simple\",
@@ -239,6 +239,7 @@ class Pruvan
         }
 
         mail("jdunn82k@gmail.com", "PRUVAN TESTING", json_encode($response));
+        mail("jdunn82k@gmail.com", "PRUVAN STRING", $data_string);
         return $response;
 
     }
