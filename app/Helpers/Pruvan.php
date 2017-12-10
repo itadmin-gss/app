@@ -181,7 +181,7 @@ class Pruvan
         $data_array =
 
                             [
-                                'workOrderNumber' => "1234", //Required
+                                'workOrderNumber' => date("Ymdhis"), //Required
                                 'workOrderInfo' => $workOrderInfo,
                                 'address1' => $address1, //Required
             //                    'address2' => $address2,
@@ -192,7 +192,7 @@ class Pruvan
                                 'status' => $status,
                                 'dueDate' => $dueDate,
                                 'instructions' => $instructions,
-                                'clientStatus' => $customer_type->type,
+                                'clientStatus' => $customer_type->title,
             //                    'clientDueDate' => $clientDueDate,
                                 'clientInstructions' => $instructions,
                                 'description' => $description,
