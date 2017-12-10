@@ -6,6 +6,7 @@ use App\MaintenanceRequest;
 use App\Asset;
 use App\State;
 use App\City;
+use App\CustomerType;
 use App\Order;
 use App\PruvanPushKeys;
 use App\PruvanVendors;
@@ -152,6 +153,8 @@ class Pruvan
         $state      = State::find($asset_data->state_id)->name;
         $zip        = $asset_data->zip;
 
+        $customer_type = CustomerType::findOrFail($asset_data->customer_type);
+
         //Vendor Assigned To Task
         $vendor = PruvanVendors::findOrFail($data['vendor_id'])->username;
 
@@ -189,6 +192,7 @@ class Pruvan
                                 'status' => $status,
                                 'dueDate' => $dueDate,
                                 'instructions' => $instructions,
+                                'clientStatus' => $customer_type,
             //                    'clientDueDate' => $clientDueDate,
                                 'clientInstructions' => $instructions,
                                 'description' => $description,
