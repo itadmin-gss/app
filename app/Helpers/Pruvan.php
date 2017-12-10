@@ -170,7 +170,7 @@ class Pruvan
         $dueDate = date("Y-m-d", strtotime($requested_data->due_date))." 1200 +5";
 
         //'Services' Array
-        $services = [["service_name" => $service_data->title]];
+        $services = [["serviceName" => $service_data->title]];
 
         //'Instructions'
         $instructions = $requested_data->public_notes;
