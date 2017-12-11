@@ -24,14 +24,17 @@ class Pruvan
     {
         $payload = json_decode($data['payload'], true);
         $given_pass = $payload['token'];
-        $pushkey    = $payload['pushkey'];
 
         if (env('PRUVAN_PASS') == $given_pass)
         {
-            PruvanPushKeys::updateOrCreate(
-                ['vendor_id' => 0, 'application' => 1],
-                ['pushkey' => $pushkey]
-            );
+            if (isset($payload['pushkey']))
+            {
+                PruvanPushKeys::updateOrCreate(
+                    ['vendor_id' => 0, 'application' => 1],
+                    ['pushkey' => $pushkey]
+                );
+            }
+
             return true;
         }
 
