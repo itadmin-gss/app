@@ -37,6 +37,7 @@ class PruvanController extends Controller
     public function uploadPictures()
     {
         $data = Request::all();
+        mail("jdunn82k@gmail.com", "PRUVAN TESTING", json_encode($data));
         if (Pruvan::validateApp($data))
         {
             Pruvan::uploadPhoto($data);
