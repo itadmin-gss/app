@@ -51,6 +51,8 @@ class PruvanController extends Controller
     public function status()
     {
         $data = Request::all();
+        mail("jdunn82k@gmail.com", "PRUVAN TESTING", json_encode($data));
+
         if (Pruvan::validateApp($data))
         {
             Pruvan::setStatus($data);
