@@ -190,7 +190,7 @@ class Pruvan
             //                    'gpsLongitude' => $longitude,
             //                    'options' => $options,
             //                    'startDate' => $startDate,
-            //                    'source_wo_id' => $source_work_order_id,
+                                'source_wo_id' => $data['order_id'],
             //                    'source_wo_number' => $source_work_order_number,
             //                    'source_wo_provider' => $source_work_order_provider,
                                 'services' => $services
@@ -288,7 +288,7 @@ class Pruvan
 
     public static function setStatus($data)
     {
-
+        $payload = json_decode($data['payload'], true);
     }
 
     //Add Pruvan Credentials to database
