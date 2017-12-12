@@ -72,7 +72,7 @@ class PruvanController extends Controller
 
             if (!$upload_path)
             {
-                return true;
+                return json_encode(['error' => 'Missing Path']);
             }
 
             $file->move($upload_path, $filename);
