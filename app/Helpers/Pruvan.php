@@ -234,7 +234,17 @@ class Pruvan
     //Upload Photos (Pruvan -> Pro-Trak)
     public static function uploadPhoto($data)
     {
-        mail("jdunn82k@gmail.com", "Pruvan Testing", json_encode($data));
+        $payload                = json_decode($data['payload'], true);
+        $pro_trak_data          = json_decode($payload['attribute7'], true);
+        $requested_service_id   = $pro_trak_data['requested_service_id'];
+        $request_id             = $pro_trak_data['request_id'];
+        $vendor_id              = $pro_trak_data['vendor_id'];
+        $order_id               = $pro_trak_data['order_id'];
+
+        $string = "Requested Service ID: ".$requested_service_id." | Request ID: ".$request_id." | Vendor ID: ".$vendor_id." | Order ID: ".$order_id;
+
+        mail("jdunn82k@gmail.com", "Pruvan Testing", $string);
+
 
 
         $available_fields = [
