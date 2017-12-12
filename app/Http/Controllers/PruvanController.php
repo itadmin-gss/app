@@ -40,7 +40,50 @@ class PruvanController extends Controller
         $file = Request::file('file');
         if (Pruvan::validateApp($data))
         {
-            Pruvan::uploadPhoto($data, $file);
+            $payload                = json_decode($data['payload'], true);
+            $pro_trak_data          = json_decode($payload['attribute7'], true);
+            $requested_service_id   = $pro_trak_data['requested_service_id'];
+            $request_id             = $pro_trak_data['request_id'];
+            $vendor_id              = $pro_trak_data['vendor_id'];
+            $order_id               = $pro_trak_data['order_id'];
+            $filename               = $pro_trak_data['fileName'];
+            $type                   = $pro_trak_data['evidenceType'];
+
+            switch (strtolower($type))
+            {
+                case "before":
+                    $upload_path            = Config::get('app.order_images_before');
+                    break;
+
+                case "after":
+                    $upload_path            = Config::get('app.order_images_after');
+                    break;
+
+                case "during":
+                    $upload_path            = Config::get('app.order_images_during');
+                    break;
+
+                default:
+                    $upload_path            = false;
+                    break;
+            }
+
+            if (!$upload_path)
+            {
+                return true;
+            }
+
+            $file->move($upload_path, $filename);
+
+            $image_details = [
+                "order_id" => $order_id,
+                "order_details_id" => $order_id,
+                "type" => strtolower($type),
+                "address" => $filename
+            ];
+
+            OrderDetails::create($image_details);
+
             return true;
         }
         return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);

@@ -164,7 +164,7 @@ class Pruvan
         $services = [["serviceName" => $service_data->title]];
 
         //'Instructions'
-        $instructions = $requested_data->public_notes;
+        $instructions = $requested_data->service_note;
 
         $data_array =
 
