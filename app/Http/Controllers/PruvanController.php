@@ -86,7 +86,7 @@ class PruvanController extends Controller
 //
 //            OrderDetails::create($image_details);
 
-            return true;
+            return json_encode(['error' => '']);
         }
         return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 

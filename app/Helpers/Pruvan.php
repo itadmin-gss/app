@@ -282,7 +282,6 @@ class Pruvan
 
         OrderDetails::create($image_details);
 
-        return true;
 
     }
 
