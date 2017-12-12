@@ -48,8 +48,8 @@ class PruvanController extends Controller
             $request_id             = $pro_trak_data['request_id'];
             $vendor_id              = $pro_trak_data['vendor_id'];
             $order_id               = $pro_trak_data['order_id'];
-            $filename               = $pro_trak_data['fileName'];
-            $type                   = $pro_trak_data['evidenceType'];
+            $filename               = $payload['fileName'];
+            $type                   = $payload['evidenceType'];
 
             switch (strtolower($type))
             {
