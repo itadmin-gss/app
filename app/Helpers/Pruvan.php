@@ -31,7 +31,7 @@ class Pruvan
             {
                 PruvanPushKeys::updateOrCreate(
                     ['vendor_id' => 0, 'application' => 1],
-                    ['pushkey' => $pushkey]
+                    ['pushkey' => $payload['pushkey']]
                 );
             }
 
