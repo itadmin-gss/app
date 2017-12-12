@@ -37,9 +37,10 @@ class PruvanController extends Controller
     public function uploadPictures()
     {
         $data = Request::all();
+        $file = Request::file('file');
         if (Pruvan::validateApp($data))
         {
-            Pruvan::uploadPhoto($data);
+            Pruvan::uploadPhoto($data, $file);
             return true;
         }
         return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);

@@ -8,11 +8,15 @@ use App\State;
 use App\City;
 use App\CustomerType;
 use App\Order;
+use App\OrderImage;
 use App\PruvanPushKeys;
 use App\PruvanVendors;
 use App\RequestedService;
 use App\Service;
 use App\User;
+
+use Illuminate\Support\Facades\Config;
+
 
 
 
@@ -232,7 +236,7 @@ class Pruvan
     }
 
     //Upload Photos (Pruvan -> Pro-Trak)
-    public static function uploadPhoto($data)
+    public static function uploadPhoto($data, $file)
     {
         $payload                = json_decode($data['payload'], true);
         $pro_trak_data          = json_decode($payload['attribute7'], true);
@@ -240,66 +244,44 @@ class Pruvan
         $request_id             = $pro_trak_data['request_id'];
         $vendor_id              = $pro_trak_data['vendor_id'];
         $order_id               = $pro_trak_data['order_id'];
+        $filename               = $pro_trak_data['fileName'];
+        $type                   = $pro_trak_data['evidenceType'];
 
-        $string = "Requested Service ID: ".$requested_service_id." | Request ID: ".$request_id." | Vendor ID: ".$vendor_id." | Order ID: ".$order_id;
+        switch (strtolower($type))
+        {
+            case "before":
+                $upload_path            = Config::get('app.order_images_before');
+                break;
 
-        mail("jdunn82k@gmail.com", "Pruvan Testing", $string);
+            case "after":
+                $upload_path            = Config::get('app.order_images_after');
+                break;
 
+            case "during":
+                $upload_path            = Config::get('app.order_images_during');
+                break;
 
+            default:
+                $upload_path            = false;
+                break;
+        }
 
-        $available_fields = [
-            'username',
-            'password',
-            'token',
-            'pictureId',
-            'uuId',
-            'parentUuid',
-            'key1',
-            'key2',
-            'key3',
-            'key4',
-            'key5',
-            'attribute1',
-            'attribute2',
-            'attribute3',
-            'attribute4',
-            'attribute5',
-            'attribute6',
-            'fileExt',
-            'fileName',
-            'fileType',
-            'evidenceType',
-            'survey',
-            'template',
-            'notes',
-            'gpsAccuracy',
-            'gpsLatitude',
-            'gpsLongitude',
-            'gpsTimestamp',
-            'authenticated',
-            'locationDifference',
-            'csrCertifiedTime',
-            'csrLocationSource',
-            'csrPictureCount',
-            'csrTimeStampSource',
-            'csrCertifiedLocation',
-            'attribute7-15',
-            'attribute16-30',
-            'deviceId',
-            'phoneNumber',
-            'status',
-            'uploadVersion',
-            'batchId',
-            'workDay',
-            'timestamp',
-            'clientCode',
-            'createdBy',
-            'createdBySubUser',
-            'lastUpdatedBy',
-            'creationDate',
-            'videoUri'
+        if (!$upload_path)
+        {
+            return true;
+        }
 
+        $file->move($upload_path, $filename);
+
+        $image_details = [
+            "order_id" => $order_id,
+            "order_details_id" => $order_id,
+            "type" => strtolower($type),
+            "address" => $filename
         ];
+
+        OrderDetails::create($image_details);
+
         return true;
 
     }
