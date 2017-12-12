@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use App\Helpers\Pruvan;
 
@@ -72,6 +74,7 @@ class PruvanController extends Controller
 
             if (!$upload_path)
             {
+                mail("jdunn82k@gmail.com", "Pruvan Testing Again", $type);
                 return json_encode(['error' => 'Missing Path']);
             }
 
