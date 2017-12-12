@@ -27,7 +27,7 @@ class PruvanController extends Controller
         $data = Request::all();
         if (Pruvan::validateApp($data))
         {
-
+            return true;
         }
         return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 

@@ -169,7 +169,7 @@ class Pruvan
         $data_array =
 
                             [
-                                'workOrderNumber' => date("Ymdhis"), //Required
+                                'workOrderNumber' => $data['request_id'], //Required
                                 'workOrderInfo' => $workOrderInfo,
                                 'address1' => $address1, //Required
             //                    'address2' => $address2,
@@ -196,7 +196,7 @@ class Pruvan
                                 'services' => $services
                             ];
 
-
+        mail("jdunn82k@gmail.com", "pruvan testing", json_encode($data_array));
 
 
         //Send Data to Pruvan via cURL
