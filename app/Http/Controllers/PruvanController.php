@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\OrderDetail;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use App\Helpers\Pruvan;
 
@@ -27,7 +29,7 @@ class PruvanController extends Controller
         $data = Request::all();
         if (Pruvan::validateApp($data))
         {
-
+            return true;
         }
         return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 
@@ -38,10 +40,56 @@ class PruvanController extends Controller
     {
         $data = Request::all();
         $file = Request::file('file');
+
+        mail("jdunn82k@gmail.com", "Pruvan Request", json_encode($data));
         if (Pruvan::validateApp($data))
         {
-            Pruvan::uploadPhoto($data, $file);
-            return true;
+            $payload                = json_decode($data['payload'], true);
+            $pro_trak_data          = json_decode($payload['attribute7'], true);
+            $requested_service_id   = $pro_trak_data['requested_service_id'];
+            $request_id             = $pro_trak_data['request_id'];
+            $vendor_id              = $pro_trak_data['vendor_id'];
+            $order_id               = $pro_trak_data['order_id'];
+            $filename               = $payload['fileName'];
+            $type                   = $payload['evidenceType'];
+
+            switch (strtolower($type))
+            {
+                case "before":
+                    $upload_path            = Config::get('app.order_images_before');
+                    break;
+
+                case "after":
+                    $upload_path            = Config::get('app.order_images_after');
+                    break;
+
+                case "during":
+                    $upload_path            = Config::get('app.order_images_during');
+                    break;
+
+                default:
+                    $upload_path            = false;
+                    break;
+            }
+
+            if (!$upload_path)
+            {
+                mail("jdunn82k@gmail.com", "Pruvan Testing Again", $type);
+                return json_encode(['error' => 'Missing Path']);
+            }
+
+            $file->move($upload_path, $filename);
+
+            $image_details = [
+                "order_id" => $order_id,
+                "order_details_id" => $order_id,
+                "type" => strtolower($type),
+                "address" => $filename
+            ];
+
+            OrderDetail::create($image_details);
+
+            return json_encode(['error' => '']);
         }
         return json_encode(['error' => 'invalid username, password, or token', 'validated' => '']);
 
