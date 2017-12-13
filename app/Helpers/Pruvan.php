@@ -271,6 +271,7 @@ class Pruvan
             return true;
         }
 
+
         $file->move($upload_path, $filename);
 
         $image_details = [
@@ -280,7 +281,7 @@ class Pruvan
             "address" => $filename
         ];
 
-        OrderDetails::create($image_details);
+        OrderImage::create($image_details);
 
         return true;
 
@@ -289,6 +290,22 @@ class Pruvan
     public static function setStatus($data)
     {
         $payload = json_decode($data['payload'], true);
+        $work_orders = json_decode($payload['workOrders'], true);
+        foreach($work_orders as $order)
+        {
+            $status = $order['fieldStatus'];
+            if (strtolower($status) == "completed")
+            {
+                $request_id = $order['workOrderNumber'];
+                $order_model = Order::find($request_id);
+                $order_modal->status = 2;
+                $order_modal->status_class = "black";
+                $order_modal->status_text = "Completed";
+                $order_model->save();
+            }
+
+
+        }
     }
 
     //Add Pruvan Credentials to database
