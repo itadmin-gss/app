@@ -1,9 +1,4 @@
-<style type="text/css">
 
-                                              label{color:#000;}
-
-span{color: #000;}
-</style>
 <?php if (!empty( $previous)): ?>
     <button class="btn btn-primary btn-sm left" href="#"onclick="showQuickWorkOrderPage({!! $previous !!})">« Previous</button>
 <?php else: ?>
@@ -20,17 +15,15 @@ span{color: #000;}
 
 <?php endif ?>
 <!-- start: Content -->
-<style type="text/css">
-        #recurringpopup {
-            background-color: rgb(255,0,0);
-            padding: 10px;
-            max-height: 500px;
-            overflow: auto;
-        }
-        #recurringpopup h5 {
-            font-weight: 500;
-        }
-    </style>
+<div id="content">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="pull-left">
+                <a class="btn btn-info" href="#" onclick="printDiv('content')" style="float: right;position: relative;z-index: 999;"> Print  </a>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="content" class="span11">
 <?php if(Auth::user()->type_id==3){
 if(isset($order->maintenanceRequest->asset->property_dead_status) && $order->maintenanceRequest->asset->property_dead_status==1){?>
