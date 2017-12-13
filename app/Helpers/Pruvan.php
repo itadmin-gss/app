@@ -244,7 +244,7 @@ class Pruvan
             $status = $order['fieldStatus'];
             if (strtolower($status) == "complete")
             {
-                $request_id = $order['workOrderNumber'];
+                $request_id = $order['source_wo_id'];
                 $order_model = Order::find($request_id);
                 $order_model->status = 2;
                 $order_model->status_class = "black";
