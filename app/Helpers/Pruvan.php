@@ -242,7 +242,7 @@ class Pruvan
         foreach($payload['workOrders'] as $order)
         {
             $status = $order['fieldStatus'];
-            if (strtolower($status) == "completed")
+            if (strtolower($status) == "complete")
             {
                 $request_id = $order['workOrderNumber'];
                 $order_model = Order::find($request_id);
