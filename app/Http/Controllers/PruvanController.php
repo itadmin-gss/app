@@ -41,7 +41,6 @@ class PruvanController extends Controller
         $data = Request::all();
         $file = Request::file('file');
 
-        mail("jdunn82k@gmail.com", "Pruvan Request", json_encode($data));
         if (Pruvan::validateApp($data))
         {
             $payload                = json_decode($data['payload'], true);
@@ -87,7 +86,7 @@ class PruvanController extends Controller
                 "address" => $filename
             ];
 
-            OrderDetail::create($image_details);
+            OrderImage::create($image_details);
 
             return json_encode(['error' => '']);
         }
