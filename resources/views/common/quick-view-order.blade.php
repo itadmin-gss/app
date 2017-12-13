@@ -1,468 +1,460 @@
-
-<?php if (!empty( $previous)): ?>
-    <button class="btn btn-primary btn-sm left" href="#"onclick="showQuickWorkOrderPage({!! $previous !!})">« Previous</button>
-<?php else: ?>
-     <button class="btn btn-primary btn-sm left pull-left" disabled="disabled" href="#" onclick="showQuickWorkOrderPage({!! $previous !!})" >« Previous</button>
-<?php endif ?>
-
-<?php if (!empty($next)): ?>
-
-<button class="btn btn-primary right pull-right" href="#"onclick="showQuickWorkOrderPage({!!  $next !!})">Next »</button>
-
-<?php else: ?>
-
-    <button class="btn btn-primary right" disabled="disabled" href="#"onclick="showQuickWorkOrderPage({!!  $next !!})">Next »</button>
-
-<?php endif ?>
 <!-- start: Content -->
 <div id="content">
+
     <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="pull-left">
                 <a class="btn btn-info" href="#" onclick="printDiv('content')" style="float: right;position: relative;z-index: 999;"> Print  </a>
             </div>
+            <div class="pull-right">
+                @if (!empty($previous))
+                    <button class="btn btn-primary btn-sm left" href="#"onclick="showQuickWorkOrderPage({!! $previous !!})">« Previous</button>
+                @else
+                    <button class="btn btn-primary btn-sm left" disabled="disabled" href="#" onclick="showQuickWorkOrderPage({!! $previous !!})" >« Previous</button>
+                @endif
+
+                @if (!empty($next))
+                    <button class="btn btn-primary btn-sm right" href="#"onclick="showQuickWorkOrderPage({!!  $next !!})">Next »</button>
+                @else
+                    <button class="btn btn-primary btn-sm right" disabled="disabled" href="#"onclick="showQuickWorkOrderPage({!!  $next !!})">Next »</button>
+                @endif
+
+            </div>
         </div>
     </div>
-</div>
-<div id="content" class="span11">
-<?php if(Auth::user()->type_id==3){
-if(isset($order->maintenanceRequest->asset->property_dead_status) && $order->maintenanceRequest->asset->property_dead_status==1){?>
 
-<div class ="disableProperty"><span>Property Closed</span></div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <?php if(Auth::user()->type_id==3){
+                if(isset($order->maintenanceRequest->asset->property_dead_status) && $order->maintenanceRequest->asset->property_dead_status==1){?>
 
-<?php
-  }else if($order->status==5){ ?>
+                <div class ="disableProperty"><span>Property Closed</span></div>
 
-<div class ="disableOrder"><span>Order Cancelled</span></div>
+                <?php
+                }else if($order->status==5){ ?>
 
-<?php  }
+                <div class ="disableOrder"><span>Order Cancelled</span></div>
 
-  }
-?>
+                <?php  }
 
+                }
+            ?>
 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <h1 class="text-center">Work Order</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            @if (Auth::user()->type_id == 1 || Auth::user()->type_id == 4)
+                <label for="vendorAssigned">Vendor:</label>
+                <select name="vendorAssigned" id="vendorAssigned">
+                @foreach($vendorsDATA as $key => $value)
+                    <option value="<?php echo $value->id;?>"  <?php if($order->vendor_id==$value->id) { echo "selected=selected";} ?> ><?php echo $value->first_name;?> <?php echo $value->last_name;?> <?php echo $value->company;?></option>
+                @endforeach
+                </select>
+                <a class="btn btn-info" href="#" onclick="changeVendorOrder()" > Change Vendor  </a>
+            @endif
 
-    <div id="printdata" class="clearfix"  style="display:none;  @page { size: landscape; }" >
-
-     <div class="leftPnl" >
-        <img class="inLogo" width="250px" src="{!!URL::to('/')!!}/assets/images/GSS-Logo.jpg">
-        <!-- <p><strong>Good Scents Services, LP </strong> 118 National Dr <br>Rockwall TX 75032</p> -->
+        </div>
     </div>
 
-    <h5>Property Address:  </h5> <span >@if(isset($order->maintenanceRequest->asset->property_address)) {!!$order->maintenanceRequest->asset->property_address!!}@endif</span> <br>
-    <div id="printdata1">
-    </div>
-
-
-
-
-</div>
-<?php
-
-if(Auth::user()->type_id==1 || Auth::user()->type_id==4)
-{
-    ?>
-    <div id="vendorChangeMsg" style="display:none;" class="alert alert-success"></div>
-    Vendor: <select name="vendorsAssigned" id="vendorsAssigned" >
-    <?php
-
-    foreach ($vendorsDATA as $key => $value) {
-     ?>
-     <option value="<?php echo $value->id;?>"  <?php if($order->vendor_id==$value->id) { echo "selected=selected";} ?> ><?php echo $value->first_name;?> <?php echo $value->last_name;?> <?php echo $value->company;?></option>
-     <?php
- }?>
-
-</select>
-
-<a class="btn btn-info" href="#" onclick="changeVendorOrder()" > Change Vendor  </a>
-<?php } ?>
-<a class="btn btn-info" href="#" onclick="printDiv('content')" style="float: right;position: relative;z-index: 999;"> Print  </a>
-
-<?php
-
-if(Auth::user()->type_id==1||Auth::user()->type_id==3)
-{
-
- if(isset($order->maintenanceRequest->asset->property_dead_status) && $order->maintenanceRequest->asset->property_dead_status==1 && $order->close_property_status==0){?>
- <div style="background: red;color: #fff;padding: 12px;float: left;">
-    <span>Property Closed</span>
-    <br/>
-    @if(isset($order->maintenanceRequest->asset->close->first_name))
-    <span>User:{!!$order->maintenanceRequest->asset->close->first_name!!} {!!$order->maintenanceRequest->asset->close->last_name!!}</span>
-    @endif
-    <br/>
-    <span>Date Time:{!!$order->maintenanceRequest->asset->property_dead_date!!}</span>
-</div>
-<div>
-    <input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','0')" type="checkbox" value="0" @if($order->close_property_status==0) checked @endif/>  Continue with Workorder
-    <input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','1')" type="checkbox" value="1"  @if($order->close_property_status==1) checked @endif/>  Stop Workorder
-</div>
-<!-- <div class ="disableProperty"><span>Property Closed</span></div> -->
-<?php }elseif (isset($order->maintenanceRequest->asset->property_dead_status) && $order->maintenanceRequest->asset->property_dead_status==1 && $order->close_property_status==1) {
-    ?>
-    <div style="z-index: 100000;position: relative;">
-        <input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','0')" type="checkbox" value="0" @if($order->close_property_status==0) checked @endif/>  Continue with Workorder
-        <input name="close_property_status" onclick="closeWorkOrderOrContinue('{!!$order->id!!}','1')" type="checkbox" value="1"  @if($order->close_property_status==1) checked @endif/>  Stop Workorder
-    </div>
-    <div class ="disableProperty">
-        <span>Property Closed</span>
-        <br/>
-        @if(isset($order->maintenanceRequest->asset->close->first_name))
-        <span>User:{!!$order->maintenanceRequest->asset->close->first_name!!} {!!$order->maintenanceRequest->asset->close->last_name!!}</span>
-        @endif
-        <br/>
-        <span>Date Time:{!!$order->maintenanceRequest->asset->property_dead_date!!}</span>
-        <span></span>
-    </div>
-    <?php
-}
-
-}elseif(isset($order->maintenanceRequest->asset->property_dead_status) && $order->maintenanceRequest->asset->property_dead_status==1){?>
-<div class ="disableProperty">
-    <span>Property Closed</span>
-    <br/>
-    @if(isset($order->maintenanceRequest->asset->close->first_name))
-    <span>User:{!!$order->maintenanceRequest->asset->close->first_name!!} {!!$order->maintenanceRequest->asset->close->last_name!!}</span>
-    @endif
-    <br/>
-    <span>Date Time:{!!$order->maintenanceRequest->asset->property_dead_date!!}</span>
-</div>
-<?php }?>
-
-
-<?php
-
-if(Auth::user()->type_id==3)
-{
-    ?>
-   <!--  <a class="btn btn-info" style="background: #FF90A3;" href="{!!URL::to('add-bid-request')!!}/{!!$order->id!!}" style="float:right" >
-     Add OSR
- </a> -->
- <?php
-}
-
-?>
-
-<h1 class="text-center">Work Order</h1>
-{!! Form::hidden('order_image_id', "",array("id"=>"order_image_id"))!!}
-<div class="row-fluid">
-    <div class="box span12">
-        <table class="table table-bordered customeTable">
-            <tbody>
-                <tr>
-                    <td class="center span3"><h5><span>Property #:</span>@if(isset($order->maintenanceRequest->asset->asset_number)) {!!$order->maintenanceRequest->asset->asset_number!!} @endif</h5></td>
-                    <td class="center span3"><h5><span>Order #:</span>{!!$order->id!!}</h5></td>
-                    <td class="center span3"><h5><span>Recurring:</span> No</h5></td>
-                    <td class="center span3"><h5><span>Status:</span> @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</h5></td>
-                    <td class="center span3">
-
-                        <h5>
-                            @foreach($order_details as $order_detail)
-                            <span style="font-size: 13px !important;font-weight: normal;">@if($order_detail->requestedService->service->title) {!!$order_detail->requestedService->service->title!!}  @endif <?php if(isset($order_detail->requestedService->due_date)&&$order_detail->requestedService->due_date!="") { echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));} else { echo 'Due Date: Not Assigned'; } ?></span><span id="changeButton" style="display:none;"><input type="text" class="datepicker" name="duedatechange" id="duedatechange" /><button onclick="SaveDueDate('{!!$order_detail->requestedService->id!!}')">Save</button></span><?php if(Auth::user()->type_id==1||Auth::user()->type_id==4) { ?><button class="btn" onclick="changeDueDate('{!!$order->id!!}')">Update</button><?php }?>
-
-                            @endforeach
-
-
-
-                        </h5>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <table class="table table-bordered quick-view-table">
+                <tbody>
+                    <td>
+                        <label class="table-label">Property #: </label>
+                        <span>
+                        @if(isset($order->maintenanceRequest->asset->asset_number))
+                            {!!$order->maintenanceRequest->asset->asset_number!!}
+                        @endif
+                        </span>
                     </td>
 
-                </tr>
-            </tbody>
-        </table>
-    </div><!--/span-->
-</div><!--/row-->
-<?php
-if( Auth::user()->type_id != 3 ) {
-    ?>
-    <div class="row-fluid">
-        <div class="box span12">
-            <div class="box-header" data-original-title>
-                <h5>Customer Details</h5>
-            </div>
-            <div class="box-content">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                        @if(empty($order->maintenanceRequest->user->first_name))
-                            <td class="center span3"><h5>Customer First Name: <span ></span></h5></td>
-                        @else
-                            <td class="center span3"><h5>Customer First Name: <span >{!!$order->maintenanceRequest->user->first_name!!}</span></h5></td>
-                        @endif
-                        @if(empty($order->maintenanceRequest->user->last_name))
-                            <td class="center span3"><h5>Customer First Name: <span > </span></h5></td>
-                        @else
-                            <td class="center span3"><h5>Customer Last Name: <span >{!!$order->maintenanceRequest->user->last_name!!}</span></h5></td>
-                        @endif
+                    <td>
+                        <label class="table-label">Order #: </label>
+                        <span>
+                            {!! $order->id !!}
+                        </span>
+                    </td>
 
-                        </tr>
-                        @if(Auth::user()->type_id!=3)
-                        <tr>
-                          @if(empty($order->maintenanceRequest->user->company))
-                            <td class="center span3"><h5>Company: <span ></span></h5></td>
-                          @else
-                            <td class="center span3"><h5>Company: <span >{!!$order->maintenanceRequest->user->company!!}</span></h5></td>
-                          @endif
-                          @if(empty($order->maintenanceRequest->user->email))
-                         <td class="center span3"><h5>Email: <span ></span></h5></td>
-                          @else
-                            <td class="center span3"><h5>Email: <span> {!!$order->maintenanceRequest->user->email!!}</span></h5></td>
+                    <td>
+                        <label class="table-label">Status: </label>
+                        <span>
+                            @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif
+                        </span>
 
-                          @endif
-                          </tr>
-                        @endif
-                    </tbody>
-                </table>
-            </div>
+                    </td>
 
-        </div><!--/span-->
-    </div><!--/row-->
-    <?php } ?>
-
-    <div class="row-fluid">
-        <div class="box span12">
-            <div class="box-header" data-original-title>
-                <h5>Property Details</h5>
-            </div>
-            <div class="box-content">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="center span3"><h5>Property Address: <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <button class="btn btn-small btn-success" data-target="#showAsset" data-toggle="modal">View Property</button></h5></td>
-                            <?php if (isset($order->maintenanceRequest->asset->city->name)): ?>
-                              <td class="center span3"><h5>City: <span >{!!$order->maintenanceRequest->asset->city->name!!} </span></h5></td>
-                            <?php else: ?>
-                              <td class="center span3"><h5>City: <span ></span></h5></td>
-                            <?php endif ?>
+                    <td>
+                        @foreach($order_details as $order_detail)
+                            <label class="table-label">
+                                @if($order_detail->requestedService->service->title)
+                                    {!!$order_detail->requestedService->service->title!!}
+                                @endif
+                            </label>
+                            <span>
 
 
-                        </tr>
-                        <tr>
-                          <td class="center span3"><h5>State: <span >{!!$order->maintenanceRequest->asset->state->name!!}</span></h5></td>
-                          <td class="center span3"><h5>Zip: <span > {!!$order->maintenanceRequest->asset->zip!!}</span> </h5></td>
+                                <?php if(isset($order_detail->requestedService->due_date)&&$order_detail->requestedService->due_date!="")
+                                {
+                                    echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));
+                                }
+                                else
+                                    {
+                                        echo 'Due Date: Not Assigned';
+                                    }
+                                    ?>
+                            </span>
+                            <span id="changeButton" style="display:none;">
+                                <input type="text" class="datepicker" name="duedatechange" id="duedatechange" />
+                                <button onclick="SaveDueDate('{!!$order_detail->requestedService->id!!}')">Save</button>
+                            </span>
 
-                      </tr>
-                      <tr>
-                        <td class="center span3"><h5>Lockbox: <span >{!!$order->maintenanceRequest->asset->lock_box!!}</span></h5></td>
-                        <td class="center span3"><h5>Gate / Access Code: <span >{!!$order->maintenanceRequest->asset->access_code!!}</span></h5></td>
-                    </tr>
+                            <?php if(Auth::user()->type_id==1||Auth::user()->type_id==4) { ?>
+                                <button class="btn" onclick="changeDueDate('{!!$order->id!!}')">Update</button>
+                            <?php }?>
+
+                        @endforeach
+                    </td>
 
                 </tbody>
             </table>
         </div>
+    </div>
 
-    </div><!--/span-->
-</div><!--/row-->
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <label class="table-label">Customer Details</label>
+            <table class="table table-bordered quick-view-table">
+                <tbody>
+                <tr>
+                    <td>
+                        <label class="table-label">First Name: </label>
+                        @if(!empty($order->maintenanceRequest->user->first_name))
+                            <span>
+                                {!! $order->maintenanceRequest->user->first_name !!}
+                            </span>
+                        @endif
+                    </td>
+                    <td>
+                        <label class="table-label">Last Name: </label>
+                        @if(!empty($order->maintenanceRequest->user->last_name))
+                            <span>
+                                {!! $order->maintenanceRequest->user->last_name !!}
+                            </span>
+                        @endif
+                    </td>
+                </tr>
+                @if(Auth::user()->type_id!=3)
+                    <tr>
+                        <td>
+                            <label class="table-label">Company: </label>
+                            @if(!empty($order->maintenanceRequest->user->company))
+                                <span>
+                                {!! $order->maintenanceRequest->user->company !!}
+                            </span>
+                            @endif
+                        </td>
+                        <td>
+                            <label class="table-label">Email: </label>
+                            @if(!empty($order->maintenanceRequest->user->email))
+                                <span>
+                                {!! $order->maintenanceRequest->user->email !!}
+                            </span>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <label class="table-label">Property Details</label>
+            <table class="table table-bordered quick-view-table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <label class="table-label">Property Address: </label>
+                            <span>
+                                {!!$order->maintenanceRequest->asset->property_address!!}
+                            </span>
+                        </td>
 
+                        <td>
+                            <label class="table-label">City: </label>
+                            <span>
+                                @if (isset($order->maintenanceRequest->asset->city->name))
+                                    {!! $order->maintenanceRequest->asset->city->name !!}
+                                @endif
+                            </span>
+                        </td>
+                    </tr>
 
-<span><h1 class="text-center">Requested Services</h1></span>
+                    <tr>
+                        <td>
+                            <label class="table-label">State: </label>
+                            <span>
+                                {!!$order->maintenanceRequest->asset->state->name!!}
+                            </span>
+                        </td>
 
-    <?php //echo $before_image; die;
+                        <td>
+                            <label class="table-label">Zip: </label>
+                            <span>
+                                {!!$order->maintenanceRequest->asset->zip!!}
+                            </span>
+                        </td>
+                    </tr>
 
-    $totalPriceCustomer=0;
-    $total = 0;
-    $totalPriceVendor=0;
-    $totalPrice=0;
-    $totalRequestedServices=0;
-    $RecurringFlag=0;
+                    <tr>
+                        <td>
+                            <label class="table-label">Lockbox: </label>
+                            <span>
+                                {!! $order->maintenanceRequest->asset->lock_box !!}
+                            </span>
+                        </td>
+                        <td>
+                            <label class="table-label">Gate / Access Code: </label>
+                            <span>
+                                {!! $order->maintenanceRequest->asset->access_code !!}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <h1 class="text-center">Requested Services</h1>
+        </div>
+    </div>
+    <?php
+
+        $totalPriceCustomer=0;
+        $total = 0;
+        $totalPriceVendor=0;
+        $totalPrice=0;
+        $totalRequestedServices=0;
+        $RecurringFlag=0;
     ?>
+
     @foreach($order_details as $order_detail)
-    @foreach($customData as $custom)
-    @if(!isset($order_detail->requestedService->service->title))
-    <?php continue?>
-    @endif
-    <div class="row-fluid">
-        <div class="box span12" id="comehere">
-            <div class="box-header" data-original-title>
-                <h5>
-
-                  <button data-toggle="modal" class="myBtnImg"  data-target="#edit_request_service" data-backdrop="static" >
-                  <i class="halflings-icon edit myBtnImg" ></i>
-                  Edit Service</button>
-
-                <span class="break"></span>{!!$order_detail->requestedService->service->title!!}</h5>
-                <div class="box-icon">
-                    <?php
-                    
-                    if($order_detail->requestedService->recurring !== null && $order_detail->requestedService->recurring==1)
-                    {
-                        $RecurringFlag=1;
-                    }
-
-                    
-                    $totalRequestedServices++;
-                    if($order_detail->requestedService->quantity !== null && ($order_detail->requestedService->quantity=="" || $order_detail->requestedService->quantity==0))
-                    {
-
-                     if( Auth::user()->type_id==3) {
-                      $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
-                      ->where('customer_id','=',Auth::user()->id)
-                      ->where('type_id','=',3)
-                      ->get();
-
-                      $vendor_priceFIND="";
-                      
-                      if(!empty($SpecialPriceVendor[0]))
-                      {
-                          if(isset($custom->vendors_price) && isset($custom->quantity)){ ?>
-
-                          <?php $vendor_priceFIND+=$custom->vendors_price*$custom->quantity; ?>
-
-                           Vendor Price:${!!$custom->vendors_price * $custom->quantity!!}
-
-                          <?php }else{
-                          $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
-                          ?>
-
-                          Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
-
-                          <?php }
+        @foreach($customData as $custom)
+            @if(isset($order_detail->requestedService->service->title))
 
 
-                      }else{
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <label class="table-label">{!! $order_details->requestedService->service->title !!}</label>
+                            <button data-toggle="modal" class="myBtnImg"  data-target="#edit_request_service" data-backdrop="static" >
+                                <i class="halflings-icon edit myBtnImg" ></i>
+                                Edit Service</button>
+                        </div>
 
-                       if ($custom->vendors_price !== null && $custom->quantity !== null) {?>
+                        <div class="card-body">
 
-                        <?php  $vendor_priceFIND+=$custom->vendors_price*$custom->quantity; ?>
+                            <?php
+
+                            if($order_detail->requestedService->recurring !== null && $order_detail->requestedService->recurring==1)
+                            {
+                                $RecurringFlag=1;
+                            }
 
 
-                        Vendor Price:${!!$custom->vendors_price*$custom->quantity!!}
-                        <?php  }else{
-                        $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
+                            $totalRequestedServices++;
+                            if($order_detail->requestedService->quantity !== null && ($order_detail->requestedService->quantity=="" || $order_detail->requestedService->quantity==0))
+                            {
+
+                            if( Auth::user()->type_id==3) {
+                            $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
+                                ->where('customer_id','=',Auth::user()->id)
+                                ->where('type_id','=',3)
+                                ->get();
+
+                            $vendor_priceFIND="";
+
+                            if(!empty($SpecialPriceVendor[0]))
+                            {
+                            if(isset($custom->vendors_price) && isset($custom->quantity)){ ?>
+
+                            <?php $vendor_priceFIND+=$custom->vendors_price*$custom->quantity; ?>
+
+                            Vendor Price:${!!$custom->vendors_price * $custom->quantity!!}
+
+                            <?php }else{
+                            $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
+                            ?>
+
+                            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
+
+                            <?php }
 
 
-                        ?>
-                         Vendor Price: ${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
+                            }else{
 
+                            if ($custom->vendors_price !== null && $custom->quantity !== null) {?>
+
+                            <?php  $vendor_priceFIND+=$custom->vendors_price*$custom->quantity; ?>
+
+
+                            Vendor Price:${!!$custom->vendors_price*$custom->quantity!!}
+                            <?php  }else{
+                            $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
+
+
+                            ?>
+                            Vendor Price: ${!!$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity!!}
+
+                            <?php
+                            }
+                            }
+                            ?>
+
+
+
+                            <?php
+                            $totalPrice+=$vendor_priceFIND;
+
+                            ?>
+                            <?php }else if( Auth::user()->type_id==2) {
+                            $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
+                                ->where('customer_id','=',Auth::user()->id)
+                                ->where('type_id','=',2)
+                                ->get();
+
+                            $vendor_priceFIND="";
+                            if(!empty($SpecialPriceVendor[0]))
+                            {
+                            if ($custom->vendors_price !== null && $custom->quantity !== null) {
+                            $vendor_priceFIND=$custom->vendors_price * $custom->quantity;
+                            ?>
+
+                            Price : ${!!$custom->vendors_price * $custom->quantity!!}
+                            <?php }else{
+                            $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
+                            ?>
+
+                            Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
+                            <?php } ?>
+
+
+                            <?php
+
+
+                            }else{
+                            if ( $custom->vendors_price !== null && $custom->quantity !== null ) {
+                            $vendor_priceFIND=$custom->vendors_price*$custom->quantity;
+                            ?>
+                            Price : ${!!$custom->vendors_price*$custom->quantity!!}
+                            <?php }else{
+                            $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
+                            ?>
+                            Price : ${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!}
+
+                            <?php
+                            }
+                            }
+                            ?>
+
+
+                            <?php
+                            $totalPrice+=$vendor_priceFIND;
+
+                            ?>
+                            <?php }else {
+
+
+                            $SpecialPriceCustomer=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
+                                ->where('customer_id','=',$order->customer->id)
+                                ->where('type_id','=',2)
+                                ->get();
+                            $customer_priceFIND="";
+                            if(!empty($SpecialPriceCustomer[0]))
+                            {
+                            if (!empty($custom->customer_price)) {
+                            $totalPriceCustomer+=$custom->customer_price * $custom->admin_quantity;?>
+                            Customer Price:${!!$custom->customer_price * $custom->admin_quantity!!}
+                            <?php }else{
+                            $totalPriceCustomer+=$SpecialPriceCustomer[0]->special_price;
+                            ?>
+                            Customer Price:${!!$SpecialPriceCustomer[0]->special_price!!}
+                            <?php
+                            }
+                            }else {
+                            if (!empty($custom->customer_price) && $custom->customer_price !== null) {
+                            $totalPriceCustomer+=$custom->customer_price * $custom->admin_quantity;?>
+                            Customer Price:${!!$custom->customer_price * $custom->admin_quantity!!}
+                            <?php }else{
+                            $totalPriceCustomer+=$order_detail->requestedService->service->customer_price;
+                            ?>
+                            Customer Price:${!!$order_detail->requestedService->service->customer_price!!}
+                            <?php
+                            }
+                            }
+
+                            $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
+                                ->where('customer_id','=',$order->vendor->id)
+                                ->where('type_id','=',3)
+                                ->get();
+                            if(!empty($SpecialPriceVendor[0]))
+                            {
+                            if ($custom->vendors_price !== null && $custom->quantity !== null ) {
+                            $totalPriceVendor+=$custom->vendors_price*$custom->quantity;
+                            ?>
+                            Vendor Price:${!!$custom->vendors_price*$custom->quantity!!}
+                            <?php
+                            }else{
+                            $totalPriceVendor+=$SpecialPriceVendor[0]->special_price;
+                            ?>
+                            Vendor Price:${!!$SpecialPriceVendor[0]->special_price!!}
+                            <?php
+                            }
+                            }
+                            else{
+                            ?>
+                            <?php if ($custom->vendors_price !== null && $custom->quantity !== null  ) {
+                            $totalPriceVendor+=$custom->vendors_price*$custom->quantity;
+                            ?>
+                            Vendor Price:${!!$custom->vendors_price*$custom->quantity!!}
+                            <?php
+                            }else{ ?>
+                            Vendor Price:${!!$order_detail->requestedService->service->vendor_price!!}
                         <?php
-                    }
-                }
-                ?>
- 
-
-
-                <?php
-                $totalPrice+=$vendor_priceFIND;
-
-                ?>
-                <?php }else if( Auth::user()->type_id==2) {
-                    $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
-                    ->where('customer_id','=',Auth::user()->id)
-                    ->where('type_id','=',2)
-                    ->get();
-
-                    $vendor_priceFIND="";
-                    if(!empty($SpecialPriceVendor[0]))
-                    {
-                        if ($custom->vendors_price !== null && $custom->quantity !== null) {
-                          $vendor_priceFIND=$custom->vendors_price * $custom->quantity;
-                      ?>
-
-                      Price : ${!!$custom->vendors_price * $custom->quantity!!}
-                        <?php }else{
-                           $vendor_priceFIND=$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity;
-                      ?>
-
-                      Price : ${!!$SpecialPriceVendor[0]->special_price*$order_detail->requestedService->quantity!!}
-                         <?php } ?>
-
-
-                      <?php
-
-
-                  }else{
-                    if ( $custom->vendors_price !== null && $custom->quantity !== null ) {
-                      $vendor_priceFIND=$custom->vendors_price*$custom->quantity;
-                     ?>
-                     Price : ${!!$custom->vendors_price*$custom->quantity!!}
-                   <?php }else{
-                     $vendor_priceFIND=$order_detail->requestedService->service->vendor_price*$order_detail->requestedService->quantity;
-                     ?>
-                     Price : ${!!$order_detail->requestedService->service->customer_price*$order_detail->requestedService->quantity!!}
-
-                     <?php
-                   }
-                 }
-                 ?>
-
-
-                 <?php
-                 $totalPrice+=$vendor_priceFIND;
-
-                 ?>
-                 <?php }else {
-
-
-                   $SpecialPriceCustomer=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
-                   ->where('customer_id','=',$order->customer->id)
-                   ->where('type_id','=',2)
-                   ->get();
-                   $customer_priceFIND="";
-                   if(!empty($SpecialPriceCustomer[0]))
-                   {
-                    if (!empty($custom->customer_price)) {
-                      $totalPriceCustomer+=$custom->customer_price * $custom->admin_quantity;?>
-                      Customer Price:${!!$custom->customer_price * $custom->admin_quantity!!}
-                      <?php }else{
-                        $totalPriceCustomer+=$SpecialPriceCustomer[0]->special_price;
-                        ?>
-                        Customer Price:${!!$SpecialPriceCustomer[0]->special_price!!}
-                        <?php
-                    }
-                }else {
-                    if (!empty($custom->customer_price) && $custom->customer_price !== null) {
-                     $totalPriceCustomer+=$custom->customer_price * $custom->admin_quantity;?>
-                     Customer Price:${!!$custom->customer_price * $custom->admin_quantity!!}
-                     <?php }else{
-                      $totalPriceCustomer+=$order_detail->requestedService->service->customer_price;
-                      ?>
-                      Customer Price:${!!$order_detail->requestedService->service->customer_price!!}
-                      <?php
-                  }
-              }
-
-              $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
-              ->where('customer_id','=',$order->vendor->id)
-              ->where('type_id','=',3)
-              ->get();
-              if(!empty($SpecialPriceVendor[0]))
-              {
-                if ($custom->vendors_price !== null && $custom->quantity !== null ) {
-                 $totalPriceVendor+=$custom->vendors_price*$custom->quantity;
-                 ?>
-                 Vendor Price:${!!$custom->vendors_price*$custom->quantity!!}
-                 <?php
-             }else{
-                $totalPriceVendor+=$SpecialPriceVendor[0]->special_price;
-                ?>
-                Vendor Price:${!!$SpecialPriceVendor[0]->special_price!!}
-                <?php
-            }
-        }
-        else{
-            ?>
-            <?php if ($custom->vendors_price !== null && $custom->quantity !== null  ) {
-             $totalPriceVendor+=$custom->vendors_price*$custom->quantity;
-             ?>
-             Vendor Price:${!!$custom->vendors_price*$custom->quantity!!}
-             <?php
-         }else{ ?>
-         Vendor Price:${!!$order_detail->requestedService->service->vendor_price!!}
-         <?php
          $totalPriceVendor+=$order_detail->requestedService->service->vendor_price;
      }
 
  }
- ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+        @endforeach
+    @endforeach
 
- <?php exit; ?>
+</div>
 
- <?php
-}
-}
-else
-{
+{!! Form::hidden('order_image_id', "",array("id"=>"order_image_id"))!!}
+
+
+
+    <div class="row-fluid">
+        <div class="box span12" id="comehere">
+
+
+
+<?
 
  if( Auth::user()->type_id==3) {
 

@@ -73,8 +73,7 @@ class PruvanController extends Controller
 
             if (!$upload_path)
             {
-                mail("jdunn82k@gmail.com", "Pruvan Testing Again", $type);
-                return json_encode(['error' => 'Missing Path']);
+                return json_encode(["status" => true, "error" => null]);
             }
 
             $file->move($upload_path, $filename);
