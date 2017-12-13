@@ -239,8 +239,7 @@ class Pruvan
     public static function setStatus($data)
     {
         $payload = json_decode($data['payload'], true);
-        $work_orders = json_decode($payload['workOrders'], true);
-        foreach($work_orders as $order)
+        foreach($payload['workOrders'] as $order)
         {
             $status = $order['fieldStatus'];
             if (strtolower($status) == "completed")
