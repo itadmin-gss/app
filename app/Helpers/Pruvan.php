@@ -246,9 +246,9 @@ class Pruvan
             {
                 $request_id = $order['workOrderNumber'];
                 $order_model = Order::find($request_id);
-                $order_modal->status = 2;
-                $order_modal->status_class = "black";
-                $order_modal->status_text = "Completed";
+                $order_model->status = 2;
+                $order_model->status_class = "black";
+                $order_model->status_text = "Completed";
                 $order_model->save();
             }
 
