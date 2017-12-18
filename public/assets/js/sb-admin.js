@@ -8,6 +8,9 @@
 
 
   $("#header-quantity-summary").html("<u>("+$("#summary-count-value").val()+") New Requests</u> | ");
+  $("#header-quantity-complete").html("<u>("+$("#complete-count-value").val() + ") Complete</u> | ");
+  $("#header-quantity-inprocess").html("<u>("+$("#inprocess-count-value").val() + ") In-Process</u> | ");
+  $("#header-quantity-rework").html("<u>("+$("#rework-count-value").val() + ") Rework</u> | ");
 
 
   $("div.dt-toolbar").html($("#page-heading-dt").html());

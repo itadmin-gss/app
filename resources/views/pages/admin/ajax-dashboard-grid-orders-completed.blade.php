@@ -3,14 +3,16 @@
 
 <div id="content" class="span11">
 <title>GSS - Completed Orders</title>
- <div class='table-container'>
-    <div class='table-responsive'>
-       <div class='table-heading'>
-           <div class="card blue-4">
-               <div class="card-body">
-                   <span>Completed</span>
-               </div>
+    <div id="datatabledashboard">
+        <div id="page-heading-dt" style="display:none;">
+            <div class="card blue-4 ">
+                <div class="card-body">
+                    <span><span id="header-quantity-complete"></span> Work Orders Completed & Verified by GSS Admins. Ready for Vendor Payment</span>
+                </div>
             </div>
+        </div>
+        <div class='table-responsive'>
+
 
       <table class="table table-striped table-sm table-bordered dt-responsive datatabledashboard" style='width:100%;' width='100%' cellspacing='0' id="completion_grid">
 
@@ -211,33 +213,4 @@
 
 </div><!--/row-->
 
-</div>
-
-
-
-<script>
-
-
-
-        var table =  $('#completion_grid').DataTable( {
-                      dom: 'Bfrtip',
-                      "order": [[ 0, "desc" ]],
-                      buttons: [
-                      'copy', 'csv', 'excel', 'print'
-                      ]
-                    } );
-             table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
-             
-             if(buttonApi.text()== "Excel"){
-             //console.log(buttonApi.text());
-        $.ajax({
-      url: baseurl + "completed-grid-export",
-      cache: false,
-      success: function(data){
-        alert(data);
-    } 
-});
-}
-} );
-                  </script>
 @stop

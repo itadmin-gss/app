@@ -182,8 +182,11 @@
                 <a class='navbar-table-link' href='{!! URL::to("in-process") !!}'>
                     <div class='nav-badge badge-blue-2 text-white'>
                         @if (isset($orderCounterDashboard['1']))
+                            <input type="hidden" id="inprocess-count-value" value="{!! $orderCounterDashboard['1'] !!}">
+
                             {!! $orderCounterDashboard['1']." In-Process" !!}
                         @else
+                            <input type="hidden" id="inprocess-count-value" value="0">
                             {!! "0 In-Process" !!}
                         @endif
                     </div>
@@ -197,8 +200,11 @@
                 <a class='navbar-table-link' href="{!! URL::to('under-review') !!}">
                     <div class='nav-badge badge-blue-3 text-white'>
                         @if (isset($orderCounterDashboard['3']))
+                            <input type="hidden" id="rework-count-value" value="{!! $orderCounterDashboard['3'] !!}">
+
                             {!! $orderCounterDashboard['3']." Rework" !!}
                         @else
+                            <input type="hidden" id="rework-count-value" value="0">
                             {!! "0 Rework" !!}
                         @endif
                     </div>
@@ -213,8 +219,11 @@
                 <a class='navbar-table-link' href="{!! URL::to('completed') !!}">
                     <div class='nav-badge badge-blue-4 text-white'>
                         @if (isset($orderCounterDashboard['2']))
+                            <input type="hidden" id="complete-count-value" value="{!! $orderCounterDashboard['2'] !!}">
+
                             {!! $orderCounterDashboard['2']." Completed" !!}
                         @else
+                            <input type="hidden" id="complete-count-value" value="0">
                             {!! "0 Completed" !!}
                         @endif
                     </div>

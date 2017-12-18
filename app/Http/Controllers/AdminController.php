@@ -230,6 +230,7 @@ class AdminController extends Controller
             }
             $vendorprice = "";
             $customerprice = "";
+            $jobtype = "";
             foreach ($order_details as $requestedServiceData) {
                 if (!empty($requestedServiceData->requestedService->service->id)) {
                     $SpecialPriceVendor = SpecialPrice::where('service_id', '=', $requestedServiceData->requestedService->service->id)
@@ -433,6 +434,7 @@ class AdminController extends Controller
                 $list_orders[$i]['submited_by'] = "Not Set";
             }
 
+            $order_count = 0;
             foreach ($order_details as $order_detail) {
                 if (isset($order_detail->requestedService->due_date) && ($order_detail->requestedService->due_date != "")) {
                     $style = "";
@@ -445,15 +447,24 @@ class AdminController extends Controller
                     $due_date = "Not Set";
                 }
                 if (isset($order_detail->requestedService->service->title)) {
-                    $list_orders[$i]['service_name'] .= $due_date . ' <br>';
+                    if ($order_count > 0)
+                    {
+                        $list_orders[$i]['service_name'] .= "<br>";
+                    }
+                    $list_orders[$i]['service_name'] .= $due_date;
                 }
+                $order_count++;
             }
 
             $list_orders[$i]['service_type'] = "";
 
+            $type_count = 0;
             foreach ($order_details as $order_detail) {
                 if (isset($order_detail->requestedService->service->title)) {
-                    $list_orders[$i]['service_type'] .= $order_detail->requestedService->service->title . '<br>';
+                    if ($type_count > 0){
+                        $list_orders[$i]['service_type'] .= "<br>";
+                    }
+                    $list_orders[$i]['service_type'] .= $order_detail->requestedService->service->title;
                 }
             }
             if (!empty($additional_service_items)) {

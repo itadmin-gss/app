@@ -54,7 +54,8 @@
   width: 86% !important;
 }
 
-.header-quantity-summary{
+.header-quantity-summary,
+.header-quantity-complete{
   text-decoration: underline;
 }
 .navitem-wrapper .fa-play{
@@ -487,7 +488,7 @@
     margin-top:-4px;
   }
 
-#dataTable_filter{
+.dataTables_filter{
   display:inline;
   margin-left:20px;
 }

@@ -1,29 +1,39 @@
 @extends('layouts.default')
 @section('content')
 
-    <div id="content" class="span11">
- <div class='table-container'>
-    <div class='table-responsive'>
-      <div class='table-padding table-heading'>
+    <div id="content" style="margin-top:15px !important">
+        <div class="row">
+    <div id="datatabledashboard">
         <?php
 
-          if (isset($id))
-          {
+        if (isset($id))
+        {
             switch ($id){
-              case 3:
-                echo "<div class='card blue-3'>
+                case 3:
+                    echo "<div id='page-heading-dt' style='display:none;'>
+                    <div class='card blue-1 '>
                         <div class='card-body'>
-                            <span>Under Review</span>
+                            <span><span id='header-quantity-rework'></span> Awaiting Vendor to Re-work Request</span>
                         </div>
-                      </div>
-                      <title>GSS - Under Review Orders</title>";
-              break;
-              case 1:
-                echo "<div class='card blue-2'><div class='card-body'><span>In Process</span></div></div><title>GSS - In Process Orders</title>";
-              break;
+                    </div>
+                </div>
+                      <title>GSS - Rework Orders</title>";
+                    break;
+                case 1:
+                    echo "<div id='page-heading-dt' style='display:none;'>
+                    <div class='card blue-1 '>
+                        <div class='card-body'>
+                            <span><span id='header-quantity-inprocess'></span> Assigned to Vendor, awaiting Vendor Completion</span>
+                        </div>
+                    </div>
+                </div><title>GSS - In Process Orders</title>";
+                    break;
             }
-          }
+        }
         ?>
+    <div class='table-responsive'>
+      <div class='table-padding table-heading'>
+
       </div>
         <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' style='width:100%;' cellspacing='0' id='dataTable'> 
 
@@ -87,9 +97,9 @@
                         <td class="center">{!! $order['zipcode'] !!}</td>
 
                         <td class="center">
-                        {!! $order['vendor_name'] !!}
+                            <span>{!! trim($order['vendor_name']) !!}</span>
                         @if (isset($order['vendor_company']))
-                          @  {!! $order['vendor_company'] !!}
+                                <span>@  {!! trim($order['vendor_company']) !!}</span>
                         @endif
                         </td>
 
@@ -125,7 +135,7 @@
 
                             <td class="center">{!! $order['zipcode'] !!}</td>
 
-                            <td class="center">{!! $order['vendor_name'] !!}</td>
+                            <td class="center">{!! trim($order['vendor_name']) !!}</td>
 
                             <td class="center">{!! $addl_service !!}</td>
 
