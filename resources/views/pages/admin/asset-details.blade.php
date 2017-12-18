@@ -1,6 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
+    <?php
+        use App\CustomerType;
+        ?>
 
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
     <div id="content">
@@ -35,7 +38,7 @@
                     </div>
 
                        <div class="col-md-3 col-lg-3 col-sm-12">
-                           <table class="table table-small">
+                           <table class="table table-sm">
                                <tbody>
 
                                    <tr>
@@ -49,7 +52,11 @@
                                                <input type="text" class="form-control" id="asset_number" value="@if (isset($property_details->asset_number)) {!! $property_details->asset_number !!}@endif">
                                            </span>
 
-                                           <span class="pull-right asset-details-values"><button class="btn btn-success btn-sm" id="edit-property-details">Edit Details</button></span>
+                                           <span class="pull-right asset-details-values">
+                                               <span id="edit-property-details">
+                                                   <i class="fa fa-edit"></i>
+                                               </span>
+                                           </span>
                                        </td>
                                    </tr>
 
@@ -125,43 +132,30 @@
                                        </td>
                                    </tr>
 
-                                   <tr>
-                                       <td>Loan Number:</td>
-                                       <td>
-                                                <span class="asset-details-values" id="property_loan_value">
-                                                    @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
-                                                </span>
 
-                                           <span class="asset-details-inputs">
-                                                    <input type="text" class="form-control" id="loan_number" value="@if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif">
-                                                </span>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>Property Status</td>
-                                       <td>
-                                                <span class="asset-details-values" id="property_status_value">
-                                                    @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
-                                                </span>
-
-                                           <span class="asset-details-inputs">
-                                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'closed' => 'Closed', 'in-rehab' => 'In-Rehab', 'onhold' => 'On Hold') ?>
-                                               {!! Form::select('property_status', $option, isset($property_details->property_status) ? $property_details->property_status : '', array('class'=>'form-control', 'id'=>'property_status'))!!}
-                                               <span class="pull-right">
-                                                        <button type="button" class="btn btn-success" id="save_asset_changes">Save Changes</button>
-                                                    </span>
-                                                </span>
-
-                                       </td>
-                                   </tr>
+                                    <tr>
+                                        <td>Google Map</td>
+                                        <td><a href="javascript:void(0)" data-target="#gmap-modal" data-toggle="modal">Click here for Map</a></td>
+                                    </tr>
                                </tbody>
                            </table>
                        </div>
                     <div class="col-md-3 col-lg-3 col-sm-12">
-                        <table class="table table-small">
+                        <table class="table table-sm">
                             <tbody>
 
+                            <tr>
+                                <td>Loan Number:</td>
+                                <td>
+                                                <span class="asset-details-values" id="property_loan_value">
+                                                    @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
+                                                </span>
 
+                                    <span class="asset-details-inputs">
+                                                    <input type="text" class="form-control" id="loan_number" value="@if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif">
+                                                </span>
+                                </td>
+                            </tr>
                             <tr class="asset-details-values">
                                        <td>Customer:</td>
                                        <td id="property_customer_value">
@@ -210,31 +204,6 @@
                                        </tr>
 
 
-                                       <tr>
-                                           <td>Lock Box:</td>
-                                           <td>
-                                               <span class="asset-details-values" id="property_lock_value">
-                                                    @if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif
-                                               </span>
-
-                                               <span class="asset-details-inputs">
-                                                   <input type="text" class="form-control" id="lock_box" value="@if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif">
-                                               </span>
-                                           </td>
-                                       </tr>
-
-                                       <tr>
-                                           <td>Access Code:</td>
-                                           <td>
-                                               <span class="asset-details-values" id="property_access_value">
-                                                   @if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif
-                                               </span>
-
-                                               <span class="asset-details-inputs">
-                                                   <input type="text" class="form-control" id="access_code" value="@if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif">
-                                               </span>
-                                           </td>
-                                       </tr>
 
 
                                 </tbody>
@@ -242,7 +211,54 @@
 
                        </div>
                         <div class="col-md-3 col-lg-3 col-sm-12">
-                            <div id="map"></div>
+                            <table class="table table-sm">
+                                <tbody>
+                                <tr>
+                                    <td>Lock Box:</td>
+                                    <td>
+                                               <span class="asset-details-values" id="property_lock_value">
+                                                    @if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif
+                                               </span>
+
+                                        <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="lock_box" value="@if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif">
+                                               </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Access Code:</td>
+                                    <td>
+                                               <span class="asset-details-values" id="property_access_value">
+                                                   @if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif
+                                               </span>
+
+                                        <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="access_code" value="@if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif">
+                                               </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Property Status</td>
+                                    <td>
+                                                <span class="asset-details-values" id="property_status_value">
+                                                    @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
+                                                </span>
+
+                                        <span class="asset-details-inputs">
+                                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'closed' => 'Closed', 'in-rehab' => 'In-Rehab', 'onhold' => 'On Hold') ?>
+                                            {!! Form::select('property_status', $option, isset($property_details->property_status) ? $property_details->property_status : '', array('class'=>'form-control', 'id'=>'property_status'))!!}
+                                            <span class="pull-right">
+                                                        <button type="button" class="btn btn-success" id="save_asset_changes">Save Changes</button>
+                                                    </span>
+                                                </span>
+
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
                         </div>
 
                 </div> <!-- end .row -->
@@ -263,11 +279,11 @@
                 <table class="table table-striped table-small dt-responsive datatabledashboard3" style="width:100%;">
                     <thead>
                         <th>ID #</th>
+                        <th>Client Type</th>
                         <th>Vendor Name @ Vendor Company</th>
                         <th>Service(s)</th>
                         <th>Status</th>
-                        <th>Completed</th>
-                        <th>Approved</th>
+
                     </thead>
                     <tbody>
                         @foreach($order_details as $key => $detail)
@@ -275,6 +291,7 @@
                             @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                 <tr>
                                     <td>{!! $id !!}</td>
+                                    <td>{!! CustomerType::find($customer_info->customer_type_id)->title !!}</td>
                                     <td>
                                         @if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @endif
                                         @if (isset($order_detail["vendor_company"]))@ {!! $order_detail["vendor_company"] !!} @endif
@@ -287,8 +304,6 @@
                                         @endforeach
                                     </td>
                                     <td>{!! $order_detail["status"] !!}</td>
-                                    <td>{!! $order_detail["completed"] !!}</td>
-                                    <td>{!! $order_detail["approved"] !!}</td>
                                 </tr>
                             @endforeach
                             @endif
@@ -298,6 +313,19 @@
             </div>
         </div> <!-- End Row -->
 
+        <div class="modal fade" id="gmap-modal">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="pull-right" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></span>
+                    </div>
+
+                    <div class="modal-body">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Select Existing Photos Modal -->
         <div class="modal fade" id="addt-photo-modal">
             <div class="modal-dialog" role="dialog">
@@ -372,7 +400,7 @@
         }
     </script>
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtaE4nNK7Wdb19dUeCMitdhFv4Wy7eb30&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtaE4nNK7Wdb19dUeCMitdhFv4Wy7eb30">
     </script>
 
 @stop

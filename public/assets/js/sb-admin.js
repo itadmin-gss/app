@@ -12,6 +12,9 @@
   $("#header-quantity-inprocess").html("<u>("+$("#inprocess-count-value").val() + ") In-Process</u> | ");
   $("#header-quantity-rework").html("<u>("+$("#rework-count-value").val() + ") Rework</u> | ");
 
+  $("#gmap-modal").on("shown.bs.modal", function(){
+      initMap();
+  });
 
   $("div.dt-toolbar").html($("#page-heading-dt").html());
 

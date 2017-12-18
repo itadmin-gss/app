@@ -248,6 +248,7 @@ class AssetController extends Controller
         //Get Customer Information
         $customer_details = User::where('id', $property_details[0]->customer_id)->get();
 
+
         //Get City/State Information
         $city = City::where('id', $property_details[0]->city_id)->get()[0]->name;
         $state = State::where('id', $property_details[0]->state_id)->get()[0]->name;
@@ -287,7 +288,7 @@ class AssetController extends Controller
                     $orderDetails[$request->id]["order_details"][$dt->id]["vendor_company"] = $vendor_details[0]->company;
                 }
 
-                $orderDetails[$request->id]["order_details"][$dt->id]["status"] = $od->status;
+                $orderDetails[$request->id]["order_details"][$dt->id]["status"] = $dt->status_text;
                 $orderDetails[$request->id]["order_details"][$dt->id]["completed"] = $od->completion_date;
                 $orderDetails[$request->id]["order_details"][$dt->id]["approved"] = $od->approved_date;
                 $orderDetails[$request->id]["order_details"][$dt->id]["created"] = $od->created_at;
