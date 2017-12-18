@@ -386,17 +386,20 @@
     <script>
 
         function initMap() {
-            var lat = parseFloat('<?=$geolocation['latitude']?>');
-            var lng = parseFloat('<?=$geolocation['longitude']?>');
-            var uluru = {lat: lat, lng: lng};
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 18,
-                center: uluru
-            });
-            var marker = new google.maps.Marker({
-                position: uluru,
-                map: map
-            });
+            setTimeout(function(){
+                var lat = parseFloat('<?=$geolocation['latitude']?>');
+                var lng = parseFloat('<?=$geolocation['longitude']?>');
+                var uluru = {lat: lat, lng: lng};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 18,
+                    center: uluru
+                });
+                var marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }, 300);
+;
         }
     </script>
     <script async defer
