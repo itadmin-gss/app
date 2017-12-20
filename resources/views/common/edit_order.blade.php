@@ -497,25 +497,25 @@
                                             <td class="center" colspan="2">
                                                       <span class="pull-left">
 
-                                                       <a href="#"  onclick="popModalExport({!!$order->id!!}, {!!$order_detail->id!!}, 'before')" > <button @if(Auth::user()->type_id==3
+                                                       <a href="#"  onclick="popModalExport({!!$order->id!!}, {!!$order->id!!}, 'before')" > <button @if(Auth::user()->type_id==3
                                                         && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" data-target="#export_view_images" id="exportImages" class="btn btn-large btn-warning pull-right myBtnImg" style=" margin: 0 15px 0 0; border-radius: 2px; font-size: 18px;"> Export Images
                                                        </button></a>
                                                    </span>
 
                                                                                     <span class="pull-left">
-                                                  <!--   <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#before_{!!$order_detail->id!!}" class="myBtnImg btn btn-large btn-success">Upload Before Images</button> -->
-                                                      <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{!!$order_detail->id!!}" onclick="popModal({!!$order->id!!}, {!!$order_detail->id!!}, 'before')" class="myBtnImg btn">View Before Images</button>
+                                                  <!--   <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#before_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload Before Images</button> -->
+                                                      <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'before')" class="myBtnImg btn">View Before Images</button>
                                                 </span>
 
 
                                                                                     <span class="pull-during">
-                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static"  disabled="disabled" data-target="#during_{!!$order_detail->id!!}" class="myBtnImg btn btn-large btn-success">Upload During Images</button> -->
-                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_view_image_{!!$order_detail->id!!}" onclick="popModal({!!$order->id!!}, {!!$order_detail->id!!}, 'during')" class="myBtnImg btn">View During Images</button>
+                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static"  disabled="disabled" data-target="#during_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload During Images</button> -->
+                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'during')" class="myBtnImg btn">View During Images</button>
                                                 </span>
 
                                                                                     <span class="pull-right">
-                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#after_{!!$order_detail->id!!}" class="myBtnImg btn btn-large btn-success">Upload After Images</button> -->
-                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{!!$order_detail->id!!}" onclick="popModal({!!$order->id!!}, {!!$order_detail->id!!}, 'after')" class="myBtnImg btn">View After Images</button>
+                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#after_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload After Images</button> -->
+                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'after')" class="myBtnImg btn">View After Images</button>
 
                                                 </span>
 
