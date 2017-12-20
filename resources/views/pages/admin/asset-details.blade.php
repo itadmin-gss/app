@@ -291,7 +291,19 @@
                             @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                 <tr>
                                     <td>{!! $id !!}</td>
-                                    <td>{!! CustomerType::find($customer_info->customer_type_id)->title !!}</td>
+                                    <td>
+                                        <?php
+                                            $customer_details = CustomerType::find($customer_info->customer_type_id);
+                                            if (count($customer_details) > 0)
+                                            {
+                                                echo $customer_details->title;
+                                            }
+                                            else
+                                            {
+                                                echo "N/A";
+                                            }
+                                        ?>
+                                    </td>
                                     <td>
                                         @if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @endif
                                         @if (isset($order_detail["vendor_company"]))@ {!! $order_detail["vendor_company"] !!} @endif

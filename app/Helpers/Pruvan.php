@@ -101,7 +101,6 @@ class Pruvan
         $latitude       = "";
         $longitude      = "";
         $startDate      = "";
-        $source_work_order_id = "";
         $source_work_order_number = "";
         $source_work_order_provider = "";
         $options        = [];
@@ -196,8 +195,6 @@ class Pruvan
                                 'services' => $services
                             ];
 
-        mail("jdunn82k@gmail.com", "pruvan testing", json_encode($data_array));
-
 
         //Send Data to Pruvan via cURL
         $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
@@ -212,10 +209,6 @@ class Pruvan
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $response = curl_exec($ch);
-        if (curl_error($ch))
-        {
-            mail("jdunn82k@gmail.com", "PRUVAN TESTING", curl_error($ch));
-        }
 
         return $response;
 

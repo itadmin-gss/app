@@ -268,7 +268,15 @@ class AssetController extends Controller
             $data = Order::where('request_id', $request->id)->get();
             foreach($data as $dt)
             {
-                $od = OrderDetail::where('order_id', $dt->id)->get()[0];
+                $od = OrderDetail::where('order_id', $dt->id)->get();
+                if (count($od) > 0)
+                {
+                    $od = $od[0];
+                }
+                else
+                {
+                    break;
+                }
 
                 $vendor_details = User::where('id', $dt->vendor_id)->get();
 

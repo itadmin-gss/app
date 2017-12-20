@@ -36,10 +36,16 @@ class OrderController extends Controller
     {
 
 
+        $data = Order::getOrderByID($order_id);
 
-
-        if (!Auth::check()) {
-            return redirect('');
+        $order_details = $data->orderDetail;
+        $vendorsDATA=User::where('type_id', '=', 3)->get();
+        $items = AdditionalServiceItem::where('order_id', '=', $order_id)->get();
+        $OrderReviewNote=OrderReviewNote::where('order_id', '=', $order_id)->get();
+        if (OrderCustomData::where('order_id', '=', $order_id)->count() > 0) {
+            $customData = OrderCustomData::where('order_id', '=', $order_id)->get();
+        } else {
+            $customData[1] = "lol";
         }
         $order_req = Order::where('id', '=', $order_id)->pluck('request_id');
         $services_asset_id= MaintenanceRequest::where('id', '=', $order_req)->pluck('asset_id');
@@ -48,79 +54,21 @@ class OrderController extends Controller
         //$job_type =MaintenanceRequest::where('id','=',$order_req)->pluck('job_type');
 
         $client_id = Asset::getAssetInformationById($services_asset_id);
-       // print_r($services_asset_id);
-       // exit("asdl");
-
-        if (isset($client_id->customer_type))
-        {
-            $allservices = Service::getServicesByClientId($client_id->customer_type);            
-        }
-        else
-        {
-            $allservices = [];
-        }
-                // echo "<pre>";
-                // print_r($allservices);
-
-           $orderFLAG = Order::getOrderByID($order_id);
-
-        $vendorsDATA=User::where('type_id', '=', 3)->get();
-        $OrderReviewNote=OrderReviewNote::where('order_id', '=', $order_id)->get();
-
-        if ($orderFLAG->status==0 && Auth::user()->type_id==3) {
-            Order::where('id', $order_id)
-            ->update(['status' => 1,'status_text' => "In-Process",'status_class'=>"warning"]);
-        }
-        //Show dashboard of customer
-        $submitted = Request::get('submitted');
-        if ($submitted) {
+        if (isset($client_id->customer_type)) {
+            $allservices = Service::getServicesByClientId($client_id->customer_type);
         } else {
-            $order = Order::getOrderByID($order_id);
+            $allservices = Service::getAllServices();
+        }
 
-            $order_details = $order->orderDetail;
-
-            $before_image_flag=OrderImage::where('order_id', '=', $order_id)->where('type', '=', 'before')->first();
-
-            if ($before_image_flag) {
-                $before_image=1;
-            } else {
-                $before_image=0;
-            }
-
-            $edit_order="edit_order";
-
-            if ($order->bid_flag==1) {
-                      $edit_order="edit_bidorder";
-            }
-            // $testvariable = User::where("id","=",$order->customer_id)->pluck('id');
-
-            // $service_ids = RequestedService::where('id','=',$testvariable)->pluck('service_id');
-            // $service_titles = Service::where('id','=',$service_ids)->pluck("title");
-            // print_r($testvariable);
-            // exit();
-
-
-            $items = AdditionalServiceItem::where('order_id', '=', $order_id)->get();
-
-            if (OrderCustomData::where('order_id', '=', $order_id)->count() > 0) {
-                $customData = OrderCustomData::where('order_id', '=', $order_id)->get();
-            } else {
-                $customData[1] = "lol";
-            }
-
-
-                // print_r($edit_order);
-            //$allservices = Service::getAllServices();
-            return view('common.'. $edit_order)
-            ->with('order', $order)
+        return view('common.edit_order')
             ->with('order_details', $order_details)
-            ->with('before_image', $before_image)
             ->with('vendorsDATA', $vendorsDATA)
-            ->with('OrderReviewNote', $OrderReviewNote)
+            ->with('order', $data)
             ->with('items', $items)
+            ->with('OrderReviewNote', $OrderReviewNote)
             ->with('allservices', $allservices)
             ->with('customData', $customData);
-        }
+
     }
 
 

@@ -54,7 +54,7 @@
                       <tr>
 
                         <td >
-                            <a href="javascript:void(0)" title="Quick-View" onclick="showQuickWorkOrderPage({!! $order['order_id'] !!})">
+                            <a href="{!! URL::to('edit-order/'.$order['order_id']) !!}" title="Edit Order" >
                                 {!! $order['order_id']!!}
                             </a>
                         </td>
