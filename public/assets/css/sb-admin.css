@@ -49,6 +49,13 @@
   padding-right:0 !important;
 }
 
+#fancybox-wrap{
+  z-index: 9000000150 !important;
+}
+#fancybox-overlay{
+  z-index: 9000000149 !important;
+}
+
 .role_name{
   height: inherit !important;
   width: 86% !important;
