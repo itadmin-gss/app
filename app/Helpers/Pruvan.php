@@ -168,7 +168,7 @@ class Pruvan
         $data_array =
 
                             [
-                                'workOrderNumber' => $data['request_id'], //Required
+                                'workOrderNumber' => $data['order_id'], //Required
                                 'workOrderInfo' => $workOrderInfo,
                                 'address1' => $address1, //Required
             //                    'address2' => $address2,
@@ -228,7 +228,89 @@ class Pruvan
 
     }
 
+    public static function updatePruvanStatus($data)
+    {
+        $order_id = $data['order_id'];
+        $status_id = $data['orderstatusid'];
 
+        switch ($status_id)
+        {
+            case 1:
+                $status = "assigned";
+                break;
+
+            case 2:
+                $status = "complete";
+                break;
+
+            case 3:
+                $status = "rework";
+                break;
+            case 4:
+                $status = "complete";
+                break;
+            case 5:
+                $status = "canceled";
+                break;
+            default:
+                return "no status";
+                break;
+        }
+
+        $data_array =
+
+            [
+                'workOrderNumber' => $data['order_id'], //Required
+                'status' => $status
+            ];
+
+
+        //Send Data to Pruvan via cURL
+        $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
+
+        $data_string = "{\"workOrders\": [".json_encode($data_array)."]}";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $pushkey_url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+
+        return $response;
+    }
+
+    public function updatePruvanVendor($data)
+    {
+        //Vendor Assigned To Task
+        $vendor = PruvanVendors::findOrFail($data['vendor_id'])->username;
+
+        $data_array =
+
+            [
+                'workOrderNumber' => $data['order_id'], //Required
+                'assignedTo' => $vendor
+            ];
+
+
+        //Send Data to Pruvan via cURL
+        $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
+
+        $data_string = "{\"workOrders\": [".json_encode($data_array)."]}";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $pushkey_url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+
+        return $response;
+    }
     public static function setStatus($data)
     {
         $payload = json_decode($data['payload'], true);

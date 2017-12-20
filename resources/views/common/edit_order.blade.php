@@ -398,7 +398,7 @@
                                                 else
                                                 {
                                                     $totalPriceVendor += $SpecialPriceVendor[0]->special_price;
-                                                    echo " | Vendor Price: $".$SpecialPriceVendor[0]->special_price;
+                                                    echo " | Vendor Pri mystatusclassce: $".$SpecialPriceVendor[0]->special_price;
                                                 }
                                             }
                                             else
@@ -800,91 +800,90 @@
         @endforeach
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
-                <div class="box span12">
-                    <div class="box-header" data-original-title>
-                        <h5><i class="halflings-icon edit"></i><span class="break"></span>Order Status</h5>
+                <h1 class="text-center">Order Status</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="mystatusclass"  id="btn-group-unique-mobile">
+                    <label class="table-label">Current Status: </label>
+                    <div class="form-group">
+                        @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</button>
                     </div>
-                    <div class="box-content frZindex">
+                </div>
 
-                        <div >
-                            Completion date {!!Form::text('completion_date', $order->completion_date, array('class'=> 'datepicker', 'id'=> 'completion_date' ))!!}
-                            <button id="completion_date_div" style="display:none" class="btn btn-small" onclick="completionDate()" >Save</button>
+                <div>
+                    <label class="table-label">Completion Date: </label>
+                    <div class="form-group">
+                        {!!Form::text('completion_date', $order->completion_date, array('class'=> 'datepicker', 'id'=> 'completion_date' ))!!}
+                        <button id="completion_date_div" class="btn btn-small" onclick="completionDate()" >Save</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="table-label">Change Status: </label>
+                    <div class="form-group">
+                        <button class="dropdown-toggle" data-toggle="dropdown">Status Options <span class="caret"></span></button>
+                        <ul class="dropdown-menu"  @if(Auth::user()->type_id==3 && $order->status==4) style="display:none;padding:1px;" @endif  >
+                            <li><a href="javascript:void(0)" class="completion-status-dropdown">In-Process</a></li>
 
-                            <br/>
-                        </div>
+                            <li><a href="javascript:void(0)" class="completion-status-dropdown">Completed</a></li>
 
-                        <tr>
+                            @if(Auth::user()->type_id==4||Auth::user()->type_id==1||Auth::user()->type_id==2)
+                                <li><a href="javascript:void(0)" class="completion-status-dropdown">Approved</a></li>
+                                <li><a href="javascript:void(0)" class="underreview completion-status-dropdown">Under Review</a></li>
 
-
-                            <p id="errorMessage" style="display:none; margin-top:10px;"></p>
-                            <div class="btn-group"  id="btn-group-unique" >      >
-                                <button class="btn btn-large orderstatus">@if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</button>
-                                <button class="btn btn-large dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                <ul class="dropdown-menu mystatusclass"  @if(Auth::user()->type_id==3 && $order->status==4) style="display:none;" @endif  >
-                                    <li><a href="#">In-Process</a></li>
-
-                                    <li><a href="#">Completed</a></li>
-
-                                    @if(Auth::user()->type_id==4||Auth::user()->type_id==1||Auth::user()->type_id==2)
-                                        <li><a href="#">Approved</a></li>
-                                        <li><a href="#" class="underreview">Under Review</a></li>
-
-                                        <li><a href="#">Cancelled</a></li>
+                                <li><a href="javascript:void(0)" class="completion-status-dropdown">Cancelled</a></li>
 
 
-                                    @endif
+                            @endif
 
-                                </ul>
-                            </div>
-                            <?php
+                        </ul>
+                    </div>
+                </div>
+
+                <?php
 
 
-                            if($RecurringFlag==1)
-                            {
-                            ?>
+                if($RecurringFlag==1)
+                {
+                ?>
 
-                            {!! Form::hidden('recurring_id', $RecurringFlag,array("id"=>"recurring_id"))!!}
-                            <?php
-                            }
-                            ?>
-                            <div class="mystatusclass"  id="btn-group-unique-mobile">
-                                Current Status  <button class="btn btn-large label-{!! $order->status_class !!}" style="color:#ffffff;" >@if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</button>
+                {!! Form::hidden('recurring_id', $RecurringFlag,array("id"=>"recurring_id"))!!}
+                <?php
+                }
+                ?>
 
-                                <ul class=""  @if(Auth::user()->type_id==3 && $order->status==4) style="display:none;" @endif  >
-                                    <li class="btn label-warning"><a href="#" style="color:#ffffff;">In-Process</a></li>
 
-                                    <li class="btn " style="background: #000000;"><a href="#" style="color:#ffffff;">Completed</a></li>
 
-                                    @if(Auth::user()->type_id==4||Auth::user()->type_id==1||Auth::user()->type_id==2)
-                                        <li class="btn " style="background: gray;color:#ffffff;"><a href="#" style="color:#ffffff;">Approved</a></li>
-                                        <li class="btn underreview" style="background: gray;color:#ffffff;"><a href="#" style="color:#ffffff;">Under Review</a></li>
 
-                                        <li class="btn " style="background: gray;color:#ffffff;"><a href="#" style="color:#ffffff;">Cancelled</a></li>
 
-                                    @endif
 
-                                </ul>
-                            </div>
+
                             <div style="display:none;" id="under_review_notes_section">
-                                {!! Form::hidden('lol', "$order->vendor_id",array("id"=>"vendor_id"))!!}
-                                {!!Form::textarea('under_review_notes', '' ,array('class'=>'span','id'=>'under_review_notes'))!!}
-                                <a class="btn btn-info" href="#" onclick="under_review_notes('<?php echo $order->vendor_id;?>')" > Save</a>
-
+                                <label class="table-label">Under Review Notes:</label>
+                                <div class="form-group">
+                                    {!! Form::hidden('lol', "$order->vendor_id",array("id"=>"vendor_id"))!!}
+                                    {!!Form::textarea('under_review_notes', '' ,array('class'=>'span','id'=>'under_review_notes'))!!}
+                                    <a class="btn btn-info" href="#" onclick="under_review_notes('<?php echo $order->vendor_id;?>')" > Save</a>
+                                </div>
                             </div>
                             @if((Auth::user()->type_id==3||Auth::user()->type_id==1||Auth::user()->type_id==4||Auth::user()->type_id==5||Auth::user()->type_id==6) &&(count($OrderReviewNote))>0)
 
                                 <div class="reviews_note_history">
 
-                                    <h3>Under Review Notes History</h3>
-                                    <ul>
-                                        <?php
-                                        foreach ($OrderReviewNote as  $value) {
-                                        ?>
-                                        <li><?php echo $value->review_notes."---".date('m/d/Y h:i:s A',strtotime( $value->created_at )) ;?></li>
-                                        <?php
-                                        }
-                                        ?>
-                                    </ul>
+                                    <label class="table-label">Under Review Notes History</label>
+                                    <div>
+                                        <ul>
+                                            <?php
+                                            foreach ($OrderReviewNote as  $value) {
+                                            ?>
+                                            <li><?php echo $value->review_notes."---".date('m/d/Y h:i:s A',strtotime( $value->created_at )) ;?></li>
+                                            <?php
+                                            }
+                                            ?>
+                                        </ul>
+                                    </div>
+
                                 </div>
                             @endif
 

@@ -6,6 +6,7 @@ use App\AdditionalServiceItem;
 use App\AdditionalServiceItemImage;
 use App\Asset;
 use App\Helpers\Email;
+use App\Helpers\Pruvan;
 use App\Invoice;
 use App\MaintenanceRequest;
 use App\Order;
@@ -14,6 +15,7 @@ use App\OrderDetail;
 use App\OrderImage;
 use App\OrderImagesPosition;
 use App\OrderReviewNote;
+use App\PruvanVendors;
 use App\RequestedService;
 use App\Service;
 use App\SpecialPrice;
@@ -1433,7 +1435,9 @@ $(".example6").fancybox({
                 die;
             }
         }
-          $data = Order::where("id", "=", $order_id)->pluck("approved_date");
+
+        $data = Order::where("id", "=", $order_id)->pluck("approved_date");
+
         if (empty($data)) {
               $current_data = date("m/d/Y");
                $orderdata = [
@@ -1604,6 +1608,14 @@ Completion Date: ".$orders[0]->completion_date;
           //End comments
         }
 
+        //Send to Pruvan
+        $pruvan_data =
+            [
+                "order_id" => Request::get('order_id'),
+                "order_status" => Request::get('orderstatusid')
+            ];
+        Pruvan::updatePruvanStatus($pruvan_data);
+
         if (Request::get('orderstatusid')==2) {
             echo "Your work order has been completed! We will now process your order for approval. Once approved, an invoice will be generated on your behalf." ;
         } elseif (Request::get('orderstatusid')==4) {
@@ -1661,6 +1673,11 @@ Completion Date: ".$orders[0]->completion_date;
         $vname=Order::where("id", $order_id)
         ->update($data);
 
+        $check_vendor = PruvanVendors::where('vendor_id', $data['vendor_id'])->get();
+        if (count($check_vendor) > 0)
+        {
+            Pruvan::updatePruvanVendor(["order_id" => $order_id, "vendor_id" => $vendorid]);
+        }
 
         echo "Vender has been updated for the work order.";
     }

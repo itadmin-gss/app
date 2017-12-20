@@ -378,14 +378,9 @@ function modalClose(){
          $('.request-services').submit();
      });
   
-      $('body').on('click', '.mystatusclass li > a', function(e){
+      $('body').on('click', '.completion-status-dropdown', function(e){
   
-  
-          var over = '<div id="overlay">' +
-          '<img id="loading" src="'+baseurl+'/assets/img/loader.gif">' +
-          '</div>';
-          $(over).appendTo('body');
-  
+
   
   
           var order_id=$("#order_id_custom").val();
@@ -419,6 +414,10 @@ function modalClose(){
                        $.ajax({
               type: 'Post',
               url:  'change-status',
+
+                           headers: {
+                               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                           },
   
               data: {
                   order_id: order_id,
