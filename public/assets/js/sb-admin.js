@@ -5,7 +5,7 @@
     template: '<div class="tooltip navbar-sidenav-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
   });
 
-
+  $(".datepicker").datepicker();
 
   $("#header-quantity-summary").html("<u>("+$("#summary-count-value").val()+") New Requests</u> | ");
   $("#header-quantity-complete").html("<u>("+$("#complete-count-value").val() + ") Complete</u> | ");
