@@ -1170,7 +1170,7 @@
             <div class="modal-content">
                 <div class="container">
                     <div class="well text-center"><h1>View Before Image</h1></div>
-                    <div class="row-fluid" id="before_view_modal_image_{!!$order_detail->id!!}">
+                    <div class="row-fluid" id="before_view_modal_image_{!!$order->id!!}">
                     </div>
                     <div class="row-fluid">
                         <button data-dismiss="modal" style="margin:40px 0 25px 0;" class="btn btn-large btn-success">Close</button>
@@ -1192,7 +1192,7 @@
             <div class="modal-content">
                 <div class="container">
                     <div class="well text-center"><h1>View During Image</h1></div>
-                    <div class="row-fluid" id="during_view_modal_image_{!!$order_detail->id!!}">
+                    <div class="row-fluid" id="during_view_modal_image_{!!$order->id!!}">
                     </div>
                     <div class="row-fluid">
                         <button data-dismiss="modal" style="margin: 40px 0 25px 0;" class="btn btn-large btn-success">Close</button>
@@ -1212,7 +1212,7 @@
             <div class="modal-content">
                 <div class="container">
                     <div class="well text-center"><h1>View After Image</h1></div>
-                    <div class="row-fluid" id="after_view_modal_image_{!!$order_detail->id!!}">
+                    <div class="row-fluid" id="after_view_modal_image_{!!$order->id!!}">
                     </div>
                     <div class="row-fluid">
                         <button data-dismiss="modal" style="margin: 40px 0 25px 0;" class="btn btn-large btn-success">Close</button>
