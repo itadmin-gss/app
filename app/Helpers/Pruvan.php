@@ -282,7 +282,7 @@ class Pruvan
         return $response;
     }
 
-    public function updatePruvanVendor($data)
+    public static function updatePruvanVendor($data)
     {
         //Vendor Assigned To Task
         $vendor = PruvanVendors::findOrFail($data['vendor_id'])->username;
