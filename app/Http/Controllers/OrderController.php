@@ -1247,7 +1247,7 @@ $(".example6").fancybox({
                    $app_path="order_images_during";
         }
 
-        $images=OrderImage::where('order_id', '=', $order_id)->where('order_details_id', '=', $order_details_id)->where('type', '=', $type)->get();
+        $images=OrderImage::where('order_id', '=', $order_id)->where('type', '=', $type)->get();
 
 
         $tag_counter = 1;
