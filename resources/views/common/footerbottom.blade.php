@@ -4,6 +4,7 @@
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="{!! URL::asset('assets/js/jquery.browser.min.js') !!}"></script>
+<script src="{!! URL::asset('assets/lightbox/fancybox/jquery.fancybox-1.3.4.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/dropzone.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/popper.min.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/bootstrap.min.js') !!}"></script>
