@@ -1065,7 +1065,7 @@
     </div>
 
     {!! Form::hidden('order_image_id', "",array("id"=>"order_image_id"))!!}
-    <div class="modal fade"  id="before_{!!$order_detail->id!!}">
+    <div class="modal fade"  id="before_{!!$order->id!!}">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="container">
@@ -1086,7 +1086,7 @@
 
     <!--/   Modal-Section Start   -->
     <!--/   Modal-Section Add Before Images Start   -->
-    <div class="modal fade"  id="during_{!!$order_detail->id!!}">
+    <div class="modal fade"  id="during_{!!$order->id!!}">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="container">
@@ -1118,7 +1118,7 @@
 
 
     <!--/   Modal-Section Add After Images Start   -->
-    <div class="modal fade"  id="after_{!!$order_detail->id!!}">
+    <div class="modal fade"  id="after_{!!$order->id!!}">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="container">
@@ -1165,7 +1165,7 @@
 
 
     <!--/   Modal-Section Show Before Images Start   -->
-    <div class="modal fade" id="before_view_image_{!!$order_detail->id!!}">
+    <div class="modal fade" id="before_view_image_{!!$order->id!!}">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="container">
@@ -1187,7 +1187,7 @@
 
 
     <!--/   Modal-Section Show During Images Start   -->
-    <div class="modal fade" id="during_view_image_{!!$order_detail->id!!}">
+    <div class="modal fade" id="during_view_image_{!!$order->id!!}">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="container">
@@ -1207,7 +1207,7 @@
 
 
     <!--/   Modal-Section Show After Images Start   -->
-    <div class="modal fade"  id="after_view_image_{!!$order_detail->id!!}">
+    <div class="modal fade"  id="after_view_image_{!!$order->id!!}">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
                 <div class="container">
