@@ -2030,16 +2030,16 @@ function modalClose(){
               {
                   if (type == 'before')
                   {
-                      $('#before_view_modal_image_' + order_detail_id).html(data);
+                      $('#before_view_modal_image_' + order_id).html(data);
                   }
                   else if(type == 'during')
                   {
-                      $('#during_view_modal_image_' + order_detail_id).html(data);
+                      $('#during_view_modal_image_' + order__id).html(data);
                   }
   
                   else
                   {
-                      $('#after_view_modal_image_' + order_detail_id).html(data);
+                      $('#after_view_modal_image_' + order__id).html(data);
                   }
   
               }
@@ -2047,11 +2047,11 @@ function modalClose(){
               {
                   if (type == 'before')
                   {
-                      $('#before_view_modal_image_' + order_detail_id).html('<h1>There is No Images</h1>');
+                      $('#before_view_modal_image_' + order__id).html('<h1>There is No Images</h1>');
                   }
                   else
                   {
-                      $('#after_view_modal_image_' + order_detail_id).html('<h1>There is No Images</h1>');
+                      $('#after_view_modal_image_' + order__id).html('<h1>There is No Images</h1>');
                   }
   
               }

@@ -819,6 +819,7 @@ $(".example6").fancybox({
 
            $tag_counter = 1;
 
+
            $output="";
            $popDiv.= '<div class="table exportArea">
         <ul class="tabTgr">
