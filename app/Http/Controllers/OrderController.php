@@ -1576,6 +1576,73 @@ Completion Date: ".$orders[0]->completion_date;
                ];
 
                Email::send($userDAta->email, 'Subject - '.$order_id .' marked Completed', 'emails.customer_registered', $email_data);
+
+               //Check if recurring order and schedule new order if applicable
+                $order_detail = OrderDetail::where('order_id', $order_id)->get();
+                if (count($order_detail) > 0)
+                {
+                    $od = $order_detail[0];
+                    $requested_service_id = $od->requested_service_id;
+                    $requested_service = RequestedService::where('id', $requested_service_id);
+                    if (isset($requested_service[0]->recurring) && $requested_service[0]->recurring == 1)
+                    {
+                        $duration = $requested_service[0]->duration;
+                        $dt1 = new \DateTime($requested_service[0]->recurring_start_date);
+                        $dt2 = new \DateTime($requested_service[0]->recurring_end_date);
+                        $dt3 = new \DateTime($order_detail[0]->completion_date);
+                        $dt4 = new \DateTime();
+
+                        $next_date = new \DateTime($requested_service[0]->completion_date);
+                        $next_date->add(new \DateInterval('P'.$duration.'D'));
+
+                        if ($dt4 >= $dt1 && $next_date <= $dt2)
+                        {
+
+                            //Schedule New Request/Order
+                            $new_order = [
+                                "request_id" => $orders[0]->request_id,
+                                "vendor_id" => $orders[0]->vendor_id,
+                                "total_amount" => $orders[0]->total_amount,
+                                "status" => $orders[0]->status,
+                                "status_class" => $orders[0]->status_class,
+                                "status_text" => $orders[0]->status_text,
+                                "customer_id" => $orders[0]->customer_id,
+                                "close_property_status" => $orders[0]->close_property_status
+                            ];
+
+                            $new_id = Order::addOrder($new_order);
+
+                            OrderDetail::addOrderDetails([
+                                'requested_service_id' => $requested_service_id,
+                                'order_id' => $new_id,
+                                'status' => 1
+                            ]);
+
+                            //Send Work Order To Pruvan
+                            $check_vendor = PruvanVendors::where('vendor_id', $orders[0]->vendor_id)->get();
+
+                            if (count($check_vendor) > 0)
+                            {
+                                $pruvan_data = [
+                                    'requested_service_id' => $requested_service_id,
+                                    'request_id' => $orders[0]->request_id,
+                                    'vendor_id' => $orders[0]->vendor_id,
+                                    'customer_id' => $orders[0]->customer_id,
+                                    'order_id' => $new_id
+
+                                ];
+
+                                $pruvan_result = Pruvan::pushWorkOrder($pruvan_data);
+
+                            }
+
+                        }
+
+                    }
+                }
+
+
+
         }
 
         if (Auth::user()->type_id==3) {
@@ -1614,6 +1681,7 @@ Completion Date: ".$orders[0]->completion_date;
                 "order_id" => Request::get('order_id'),
                 "order_status" => Request::get('orderstatusid')
             ];
+
         Pruvan::updatePruvanStatus($pruvan_data);
 
         if (Request::get('orderstatusid')==2) {

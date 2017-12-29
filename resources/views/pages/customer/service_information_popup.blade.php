@@ -12,7 +12,7 @@
             <div class="form-group">
             @if($service_data->req_date == 1)
 
-                {!!Form::label('Service Required Date', 'Services Required Date:', array('class'=>'form-control'))!!}
+                {!!Form::label('Service Required Date', 'Services Required Date:', array('class'=>'control-label'))!!}
                 
                     {!!Form::text('service_required_date_'.$service_data->id, '', array('class'=> 'datepicker form-control', 'id'=> 'service_required_date_'.$service_data->id ))!!}
                     <?php
@@ -20,112 +20,56 @@
                         $time_hours[$i] = $i;
                     }
                     ?>
-                    {!!Form::select('time_hours_'.$service_data->id,  $time_hours, array('class'=>'span2','id'=>'time_hours'))!!}
+                    {!!Form::select('time_hours_'.$service_data->id,  $time_hours, array('class'=>'form-control','id'=>'time_hours'))!!}
                     <?php
                     for ($i = 0; $i <= 60; $i++) {
                         $number = sprintf("%02s", $i);
                         $time_minutes[$number] = $number;
                     }
                     ?>
-                    {!!Form::select('time_minutes_'.$service_data->id,  $time_minutes, array('class'=>'span2','id'=>'time_minutes'))!!}
+                    {!!Form::select('time_minutes_'.$service_data->id,  $time_minutes, array('class'=>'form-control','id'=>'time_minutes'))!!}
 
 
                     <?php $meridiem = array('AM' => 'AM', 'PM' => 'PM'); ?>
-                    {!!Form::select('time_meridiem_'.$service_data->id,  $meridiem, array('class'=>'span2','id'=>'time_meridiem'))!!}
-    
+                    {!!Form::select('time_meridiem_'.$service_data->id,  $meridiem, array('class'=>'form-control','id'=>'time_meridiem'))!!}
+            </div>
+        </div>
             @endif
 
-              <div class="row-fluid">
+
             @if($service_data->due_date == 1)
+        <div class="row-fluid">
             <div class="form-group">
                 {!!Form::label('Due Date', 'Due Date:', array('class'=>'control-label'))!!}
                 <div class="controls timesection">
                     {!!Form::text('due_date_'.$service_data->id, date("m-d-Y"), array('class'=> 'form-control datepicker2', 'id'=> 'due_date_'.$service_data->id ,'required'))!!}
-                    </div>
+                </div>
 
             </div>
+        </div>
             @endif
 
               @if($service_data->emergency == 1)
-
-                {!!Form::label('Emergency', 'Emergency Request:', array('class'=>''))!!}
-                <div class="controls timesection">
-                    {!!Form::checkbox('emergency_'.$service_data->id,1, '', array('class'=> 'form-control', 'id'=> 'emergency_'.$service_data->id))!!}
+                <div class="row-fluid">
+                    <div class="form-group">
+                        {!!Form::label('Emergency', 'Emergency Request:', array('class'=>''))!!}
+                        <div class="col-md-1 col-lg-1 col-sm-12">
+                            <div class="controls timesection">
+                                {!!Form::checkbox('emergency_'.$service_data->id,1, '', array('id'=> 'emergency_'.$service_data->id))!!}
+                            </div>
+                        </div>
                     </div>
-
-      
+                </div>
             @endif
 
             @if($service_data->number_of_men == 1)
-
-    
-
-                <div class="span6">
+                <div class="row-fluid">
                     {!!Form::label('number_of_men', 'Number of Men:', array('class'=>'control-label'))!!}
-                    <div class="controls">
-                    @if($serviceTypeArray['number_of_men']=="text")
+                    <div class="form-group">
                         {!!Form::text('number_of_men_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'number_of_men_'.$service_data->id))!!}
-                    @elseif($serviceTypeArray['number_of_men']=="select")
-                    <?php
-                    $selectData=array();
-                    $variable  = explode(",",$serviceValueArray['number_of_men']);
-                    foreach ($variable as $key => $value) {
-                        $selectData[$value]=$value;
-                    }
-                    ?>
-                    {!!Form::select('number_of_men_'.$service_data->id,$selectData, '', array('class'=> 'form-control', 'id'=> 'number_of_men_'.$service_data->id))!!}
-                    
-                    @elseif($serviceTypeArray['number_of_men']=="radio")
-
-                    <?php
-                   $radioDATA= explode(",",$serviceValueArray['number_of_men']);
-                   foreach ($radioDATA as $key => $value) {
-                    
-                    ?>
-                    <table style="width: 111px;">
-                   <tr> 
-                   <td style="width: 50%"> 
-                  {!!$value!!}     
-                    </td>
-                  <td style="width: 50%">
-                   {!!Form::radio('number_of_men',$value, '', array("onClick"=>"replicateValues('number_of_men_$service_data->id',this)" ,'class'=> 'form-control', 'id'=> $key.$service_data->id))!!}
-                   </td>
-                  
-                  </tr>
-                  </table>
-                    <?php
-                    }
-
-                    ?>
-                    {!!Form::hidden('number_of_men_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'number_of_men_'.$service_data->id))!!}
-                    @elseif($serviceTypeArray['number_of_men']=="checkbox")
-
-
-                    <?php
-                   $checkboxDATA= explode(",",$serviceValueArray['number_of_men']);
-                   foreach ($checkboxDATA as $key => $value) {
-                    
-                    ?>
-                    <table style="width: 111px;">
-                   <tr> 
-                   <td style="width: 50%">   {!!$value!!} </td>
-                   <td style="width: 50%"> {!!Form::checkbox('number_of_men',$value, '', array("onClick"=>"appendValues('number_of_men_$service_data->id',this)" ,'class'=> 'form-control', 'id'=> $key.$service_data->id))!!}
-                   </td>
-                    </tr>
-                    </table>
-                   <?php
-                    }
-
-                    ?>
-                    {!!Form::hidden('number_of_men_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'number_of_men_'.$service_data->id))!!}
-
-
-                    @endif
-
                     </div>
                 </div>
-
-         
+            {!!Form::hidden('number_of_men_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'number_of_men_'.$service_data->id))!!}
             @endif
 
             @if($service_data->verified_vacancy == 1)
@@ -499,72 +443,70 @@
             @endif
 
             @if($service_data->lot_size == 1)
+                <div class="row-fluid">
+                    <td class="form-group">
 
-                <div class="span6">
                     {!!Form::label('lot_size', 'Lot size:', array('class'=>'control-label'))!!}
-                    <div class="controls">
-                       @if($serviceTypeArray['lot_size']=="text")
-                        {!!Form::text('lot_size_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'lot_size_'.$service_data->id))!!}
-                     @elseif($serviceTypeArray['lot_size']=="select")
-                    <?php
-                    $selectData=array();
-                    $variable  = explode(",",$serviceValueArray['lot_size']);
-                    foreach ($variable as $key => $value) {
-                        $selectData[$value]=$value;
-                    }
-                    ?>
-                    {!!Form::select('lot_size_'.$service_data->id,$selectData, '', array('class'=> 'form-control', 'id'=> 'lot_size_'.$service_data->id))!!}
-                    
-                    @elseif($serviceTypeArray['lot_size']=="radio")
+                        @if($serviceTypeArray['lot_size']=="text")
+                            {!!Form::text('lot_size_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'lot_size_'.$service_data->id))!!}
+                        @elseif($serviceTypeArray['lot_size']=="select")
+                            <?php
+                                $selectData=array();
+                                $variable  = explode(",",$serviceValueArray['lot_size']);
+                                foreach ($variable as $key => $value) {
+                                    $selectData[$value]=$value;
+                                }
+                            ?>
+                            {!!Form::select('lot_size_'.$service_data->id,$selectData, '', array('class'=> 'form-control', 'id'=> 'lot_size_'.$service_data->id))!!}
 
-                    <?php
-                   $radioDATA= explode(",",$serviceValueArray['lot_size']);
-                   foreach ($radioDATA as $key => $value) {
-                    
-                    ?>
-                    <table style="width: 111px;">
-                   <tr> 
-                   <td style="width: 50%"> 
-                  {!!$value!!}     
-                    </td>
-                  <td style="width: 50%">
-                   {!!Form::radio('lot_size',$value, '', array("onClick"=>"replicateValues('lot_size_$service_data->id',this)" ,'class'=> 'form-control', 'id'=> $key.$service_data->id))!!}
-                   </td>
-                  
-                  </tr>
-                  </table>
-                    <?php
-                    }
+                        @elseif($serviceTypeArray['lot_size']=="radio")
+                            <table class="table table-bordered">
+                                <tbody>
+                            <?php
+                                $radioDATA= explode(",",$serviceValueArray['lot_size']);
+                                foreach ($radioDATA as $key => $value) {
+                            ?>
+                                <tr>
+                                    <td>
+                                        {!!$value!!}
+                                    </td>
+                                    <td>
+                                        {!!Form::radio('lot_size',$value, '', array("onClick"=>"replicateValues('lot_size_$service_data->id',this)" ,'class'=> 'form-control', 'id'=> $key.$service_data->id))!!}
+                                    </td>
+                                </tr>
+                                <?php
+                                }
 
-                    ?>
-                    {!!Form::hidden('lot_size_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'lot_size_'.$service_data->id))!!}
-                    @elseif($serviceTypeArray['lot_size']=="checkbox")
+                                ?>
+                                </tbody>
+                            </table>
+                        @elseif($serviceTypeArray['lot_size']=="checkbox")
 
 
-                    <?php
-                   $checkboxDATA= explode(",",$serviceValueArray['lot_size']);
-                   foreach ($checkboxDATA as $key => $value) {
-                    
-                    ?>
-                    <table style="width: 111px;">
-                   <tr> 
-                   <td style="width: 50%">   {!!$value!!} </td>
-                   <td style="width: 50%"> {!!Form::checkbox('lot_size',$value, '', array("onClick"=>"appendValues('lot_size_$service_data->id',this)" ,'class'=> 'form-control', 'id'=> $key.$service_data->id))!!}
-                   </td>
-                    </tr>
-                    </table>
-                   <?php
-                    }
+                            <?php
+                            $checkboxDATA= explode(",",$serviceValueArray['lot_size']);
+                            foreach ($checkboxDATA as $key => $value) {
+                            ?>
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-2">
+                                        {!!$value!!}
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-1">
+                                        {!!Form::checkbox('lot_size',$value, '', array("onClick"=>"appendValues('lot_size_$service_data->id',this)" ,'class'=> 'form-control', 'id'=> $key.$service_data->id))!!}                                </div>
+                                </div>
+                            <?php
+                            }
 
-                    ?>
-                    {!!Form::hidden('lot_size_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'lot_size_'.$service_data->id))!!}
+                            ?>
+                            {!!Form::hidden('lot_size_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'lot_size_'.$service_data->id))!!}
 
 
-                    @endif
-
+                        @endif
 
                     </div>
+
                 </div>
+
 
 
             @endif
@@ -1291,50 +1233,48 @@
             @endif 
 
 
+            <div class="row-fluid">
+                <div class="form-group">
+                    <div class="span6">
+                        {!!Form::label('Upload_image'.$service_data->id, 'Upload Image:', array('class'=>'control-label'))!!}
 
-                <div class="span6">
-                    {!!Form::label('Upload_image'.$service_data->id, 'Upload Image:', array('class'=>'control-label'))!!}
-
-                    <div class="controls">
-                        {!!Form::file('service_image_'.$service_data->id.'[]', array('multiple'=>true, 'id'=>'service_image_'.$service_data->id))!!}
+                        <div class="controls">
+                            {!!Form::file('service_image_'.$service_data->id.'[]', array('multiple'=>true, 'id'=>'service_image_'.$service_data->id))!!}
+                        </div>
                     </div>
                 </div>
+            </div>
+
 
              @if($service_data->recurring == 1)
-            <div class="form-control" style="float: left;width: 520px;">
+                 <div class="row-fluid">
+                     <div class="form-group">
+                         {!!Form::label('recurring', 'Recurring:', array('class'=>'control-label'))!!}
+                         <div class="controls">
+                             {!! Form::checkbox('recurring_'.$service_data->id, '' ,false,['onClick' => "openFields(this,'$service_data->id')"] ) !!}
+                         </div>
+                     </div>
+                 </div>
 
-               
-                    {!!Form::label('recurring', 'Recurring:', array('class'=>'control-label'))!!}
-                    <div class="controls">
-                      {!! Form::checkbox('recurring_'.$service_data->id, '' ,false,['onClick' => "openFields(this,'$service_data->id')"] ) !!} 
-                      </div>
-              
-                <div style="display:none;" id="recurring_fields_{!!$service_data->id!!}" >
-                 <div class="form-control" >
-                    {!!Form::label('Duration', 'Duration:', array('class'=>'control-label'))!!}
-                  
-                    <div class="controls">
-                        {!!Form::text('duration_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'duration_'.$service_data->id))!!}
-                      <span>(Days)<span>
+                <div class="row-fluid">
+                    <div style="display:none;" class="form-group" id="recurring_fields_{!!$service_data->id!!}" >
+                        {!!Form::label('Duration', 'Duration:', array('class'=>'control-label'))!!}
+
+                        <div class="controls">
+                            {!!Form::text('duration_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'duration_'.$service_data->id))!!}
+                            <span>(Days)<span>
+                        </div>
+                        {!!Form::label('Starting Date', 'Starting Date:', array('class'=>'control-label'))!!}
+                        <div class="controls timesection">
+                            {!!Form::text('start_date_'.$service_data->id, '', array('class'=> 'form-control datepicker', 'id'=> 'start_date_'.$service_data->id ))!!}
+                        </div>
+
+                        {!!Form::label('End Date', 'End Date:', array('class'=>'control-label'))!!}
+                        <div class="controls timesection">
+                            {!!Form::text('end_date_'.$service_data->id, '', array('class'=> 'form-control datepicker', 'id'=> 'end_date_'.$service_data->id ))!!}
+                        </div>
                     </div>
                 </div>
-                <div class="form-control">
-                {!!Form::label('Starting Date', 'Starting Date:', array('class'=>'control-label'))!!}
-                <div class="controls timesection">
-                    {!!Form::text('start_date_'.$service_data->id, '', array('class'=> 'form-control datepicker', 'id'=> 'start_date_'.$service_data->id ))!!}
-                </div>
-
-                </div>
-                  <div class="form-control">
-                {!!Form::label('End Date', 'End Date:', array('class'=>'control-label'))!!}
-                <div class="controls timesection">
-                    {!!Form::text('end_date_'.$service_data->id, '', array('class'=> 'form-control datepicker', 'id'=> 'end_date_'.$service_data->id ))!!}
-                </div>
-
-                </div>
-                </div>
-
-            </div>
 
             @endif
 
