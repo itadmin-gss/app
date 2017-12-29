@@ -587,8 +587,8 @@
                                             <td colspan="2" class="center"><label class="table-label">Billing Note:</label>
                                                 @if($order->billing_note)
                                                     <span id="show-billing-note-{!!$order->id!!}">{!!$order->billing_note!!}<br>
-                                                                  <button class="btn btn-primary" id="edit-billing-note-button-{!!$order->id!!}" onclick="editBillingNoteButton({!!$order->id!!})"> Edit Note </button>
-                                                            </span >
+                                                        <button class="btn btn-primary" id="edit-billing-note-button-{!!$order->id!!}" onclick="editBillingNoteButton({!!$order->id!!})"> Edit Note </button>
+                                                    </span >
                                                     <span class="hide" id="textarea-billing-note-{!!$order->id!!}">{!!Form::textarea('admin_note', $order->billing_note ,array('class'=>'span','id'=>'billing-note-'.$order->id))!!}
                                                         <button class="btn btn-large btn-warning pull-right " id="bill-btn" onclick="saveBillingNote({!!$order->id!!})">Save Billing Note</button></span>
                                             </td>

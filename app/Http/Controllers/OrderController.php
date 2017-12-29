@@ -1589,7 +1589,6 @@ Completion Date: ".$orders[0]->completion_date;
                         $duration = $requested_service[0]->duration;
                         $dt1 = new \DateTime($requested_service[0]->recurring_start_date);
                         $dt2 = new \DateTime($requested_service[0]->recurring_end_date);
-                        $dt3 = new \DateTime($order_detail[0]->completion_date);
                         $dt4 = new \DateTime();
 
                         $next_date = new \DateTime($requested_service[0]->completion_date);
