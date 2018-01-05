@@ -1297,11 +1297,9 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6">
-                                <button class="btn btn-primary pull-left view_image_prev"><span class="fa fa-arrow-left"></span> Prev.</button>
+                            <div class="col-md-6 image_prev_div">
                             </div>
-                            <div class="col-md-6">
-                                <button class="btn btn-primary pull-right view_image_next"> Next <span class="fa fa-arrow-right"></span></button>
+                            <div class="col-md-6 image_next_div">
                             </div>
 
                         </div>
