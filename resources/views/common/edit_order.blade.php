@@ -491,7 +491,68 @@
                                             ?>
 
 
-             <?php }?>
+                                        <?php }?>
+                                            <tr>
+                                                <td colspan="9">
+                                                    <label class="table-label">Order Images:</label>
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-lg-4 col-sm-12">
+                                                            <div class="order-photo-div">
+                                                                <?php
+                                                                    $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'before')->get();
+                                                                    foreach($images as $image)
+                                                                    {
+                                                                        $check = config('app.order_images_before').$image->address;
+                                                                        if (file_exists($check))
+                                                                        {
+                                                                            echo '<div class="order-photo-item"><img data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
+                                                                        }
+                                                                     }
+                                                                ?>
+                                                            </div>
+                                                            <div class="center-div">
+                                                                <label class="table-label">Before Images</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-lg-4 col-sm-12">
+                                                            <div class="order-photo-div">
+                                                                <?php
+                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'during')->get();
+                                                                foreach($images as $image)
+                                                                {
+                                                                    $check = config('app.order_images_during').$image->address;
+                                                                    if (file_exists($check))
+                                                                    {
+                                                                        echo '<div class="order-photo-item"><img class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                            <div class="center-div">
+                                                                <label class="table-label">During Images</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-lg-4 col-sm-12">
+                                                            <div class="order-photo-div">
+                                                                <?php
+                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'after')->get();
+                                                                foreach($images as $image)
+                                                                {
+                                                                    $check = config('app.order_images_after').$image->address;
+                                                                    if (file_exists($check))
+                                                                    {
+                                                                        echo '<div class="order-photo-item"><img class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                            <div class="center-div">
+                                                                <label class="table-label">After Images</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
                                         <tr>
                                             <td class="center" colspan="2">
@@ -588,7 +649,7 @@
                                                 @if($order->billing_note)
                                                     <span id="show-billing-note-{!!$order->id!!}">{!!$order->billing_note!!}<br>
                                                         <button class="btn btn-primary" id="edit-billing-note-button-{!!$order->id!!}" onclick="editBillingNoteButton({!!$order->id!!})"> Edit Note </button>
-                                                    </span >
+                                                            </span >
                                                     <span class="hide" id="textarea-billing-note-{!!$order->id!!}">{!!Form::textarea('admin_note', $order->billing_note ,array('class'=>'span','id'=>'billing-note-'.$order->id))!!}
                                                         <button class="btn btn-large btn-warning pull-right " id="bill-btn" onclick="saveBillingNote({!!$order->id!!})">Save Billing Note</button></span>
                                             </td>
@@ -1240,6 +1301,22 @@
             overflow: auto;
         }
     </style>
+
+    <div class="modal fade" id="view_image">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="view_image_div">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--/   Modal-Section Show Export Images Start   -->
     <div class="modal fade" id="export_view_images">

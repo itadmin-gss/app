@@ -293,6 +293,23 @@
 
 }
 
+.center-div{
+  text-align:center;
+}
+
+.order-photo-div{
+  cursor:pointer;
+  display:flex;
+  flex-wrap:wrap;
+  height: 600px;
+  overflow: scroll;
+}
+
+.order-photo-item > img{
+  width:200px;
+  height:auto;
+  padding:1px;
+}
 
 
 .badge-blue-1{
