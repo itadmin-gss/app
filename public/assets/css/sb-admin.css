@@ -305,6 +305,16 @@
   overflow: scroll;
 }
 
+ #view_image_div{
+   margin-top:40px;
+ }
+#view_image .modal-dialog{
+  max-width: 1200px;
+}
+#view_image #view_image_div > img {
+  width:100%;
+}
+
 .order-photo-item > img{
   width:200px;
   height:auto;

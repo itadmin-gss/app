@@ -563,22 +563,6 @@
                                                        </button></a>
                                                    </span>
 
-                                                                                    <span class="pull-left">
-                                                  <!--   <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#before_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload Before Images</button> -->
-                                                      <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'before')" class="myBtnImg btn">View Before Images</button>
-                                                </span>
-
-
-                                                                                    <span class="pull-during">
-                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static"  disabled="disabled" data-target="#during_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload During Images</button> -->
-                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'during')" class="myBtnImg btn">View During Images</button>
-                                                </span>
-
-                                                                                    <span class="pull-right">
-                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#after_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload After Images</button> -->
-                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'after')" class="myBtnImg btn">View After Images</button>
-
-                                                </span>
 
                                             </td>
                                         </tr>
@@ -1305,11 +1289,27 @@
     <div class="modal fade" id="view_image">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="view_image_div">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary pull-left view_image_prev"><span class="fa fa-arrow-left"></span> Prev.</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary pull-right view_image_next"> Next <span class="fa fa-arrow-right"></span></button>
+                            </div>
 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="view_image_div">
+
+                                </div>
                             </div>
                         </div>
                     </div>
