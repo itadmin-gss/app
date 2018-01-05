@@ -18,7 +18,7 @@
 
   $(".order-photo-img").on("click", function(){
     var src = $(this).attr("src");
-    $("#view_image_div").html("<img src='+src+'>");
+    $("#view_image_div").html("<img src='"+src+"'>");
     $("#view_image").modal("toggle");
   });
 
