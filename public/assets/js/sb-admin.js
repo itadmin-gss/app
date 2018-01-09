@@ -7,6 +7,47 @@
 
   $(".datepicker").datepicker();
 
+  $(".work-orders-tab").on("click", function(){
+
+      if ($(this).hasClass("work-orders-tab-active")){
+          return false;
+      }
+
+      $(".work-orders-tab").removeClass("work-orders-tab-active");
+      $(this).addClass("work-orders-tab-active");
+
+      switch ($(this).data("id")){
+          case 1:
+              $("#property_map").fadeOut("fast");
+              $("#property_vendors").fadeOut("fast");
+              $("#property_invoicing").fadeOut("fast");
+              $("#property_work_orders").fadeIn("slow");
+              break;
+          case 2:
+              $("#property_work_orders").fadeOut("fast");
+              $("#property_vendors").fadeOut("fast");
+              $("#property_invoicing").fadeOut("fast");
+              $("#property_map").fadeIn("slow");
+              break;
+          case 3:
+              $("#property_work_orders").fadeOut("fast");
+              $("#property_map").fadeOut("fast");
+              $("#property_invoicing").fadeOut("fast");
+              $("#property_vendors").fadeIn("slow");
+              break;
+          case 4:
+              $("#property_work_orders").fadeOut("fast");
+              $("#property_map").fadeOut("fast");
+              $("#property_vendors").fadeOut("fast");
+              $("#property_invoicing").fadeIn("slow");
+
+              break;
+      }
+
+      console.log("fired");
+
+  });
+
   var newSize       = $(".property-header-info").height() + 31;
   $(".property-photo img").css({height: $(".property-header-info").height()+"px", width: "auto"});
   var newImageSize  = $(".property-photo-placeholder").width() - 50;

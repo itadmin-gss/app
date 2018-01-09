@@ -42,6 +42,8 @@
   font-size:18px;
 }
 
+
+
 .sidenav-link{
   margin-right:auto;
   margin-left:auto;
@@ -98,15 +100,24 @@
   margin-bottom: 5px;
 
 }
+
+.work-orders-tab-active{
+  background-color: #FFF !important;
+  cursor: default !important;
+}
 .work-orders-tab{
   display: inline-block;
+  border: 1px solid black;
+  border-radius: 4px;
   text-align: center;
-  padding: 4px 18px 6px 21px;
+  padding: 1px 18px 6px 21px;
+  margin-top: 5px;
   height: 38px;
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1px;
   background-color: #DDD;
+  cursor:pointer;
 }
 
 .photo-button-group{
@@ -116,7 +127,7 @@
 
 .property-header{
   padding: 0 0 0 2px;
-  background-color: #113252;
+  background: linear-gradient(#1c6cb9, #113252);
   color: white;
 }
 
@@ -151,7 +162,7 @@
   margin-left: -17px !important;
   margin-bottom: 6px !important;
   position: absolute;
-  background-color: gray;
+  background-color: #9ca6b1;
 }
 
 .fa-fullsize:before{

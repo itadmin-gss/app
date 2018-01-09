@@ -262,6 +262,7 @@ class AssetController extends Controller
         //Get Order Details / Request Details
         $orderDetails = [];
         $requestDetails = [];
+        $vendorsFound = [];
         foreach($requests as $request)
         {
             $orderDetails[$request->id]['status'] = $request->status;
@@ -283,6 +284,7 @@ class AssetController extends Controller
 
                 if (count($vendor_details) > 0)
                 {
+                    $vendorsFound[$vendor_details[0]->id] = $vendor_details;
                     $vendor_name = "";
                     if (isset($vendor_details[0]->first_name)){
                         $vendor_name .= $vendor_details[0]->first_name;
@@ -326,6 +328,7 @@ class AssetController extends Controller
             ->with('states', $states)
             ->with('customer_info', $customer_details[0])
             ->with('order_details', $orderDetails)
+            ->with('vendors_found', $vendorsFound)
             ->with('requests', $requests);
     }
 

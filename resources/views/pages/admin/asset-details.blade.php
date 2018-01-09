@@ -8,11 +8,11 @@
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
     <div class="bg-underlay"></div>
     <div id="content">
-        <div class="row" style="box-shadow: 1px 1px 1px black;">
+        <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
 
 
-                <div class="row">
+                <div class="row" style="box-shadow: 1px 1px 1px black;">
                     <div class="col-md-3 col-lg-2 col-sm-12">
                         @if (isset($property_details->property_photo))
                             <div class="property-photo">
@@ -274,32 +274,80 @@
         </div>
         <div class="row">
 
+
             <div class="col-md-12 col-lg-12 col-sm-12">
+
                 <div style="width:100%;margin-top:20px;">
-                    <div class="work-orders-tab">Work Orders</div>
+                    <div class="work-orders-tab work-orders-tab-active" data-id="1">Work Orders</div>
+                    <div class="work-orders-tab" data-id="2">Map</div>
+                    <div class="work-orders-tab" data-id="3">Vendors</div>
+                    <div class="work-orders-tab" data-id="4">Invoicing</div>
                     <a href="{!! URL::to('/admin-add-new-service-request/'.$property_details->id) !!}">
                         <button type="button" class="btn btn-success add-work-order">Add Work Order</button>
                     </a>
                     <hr style="margin-top:0px;">
                 </div>
 
-                <table class="table table-striped table-small dt-responsive datatabledashboard3" style="width:100%;">
-                    <thead>
-                        <th>ID #</th>
-                        <th>Client Type</th>
-                        <th>Vendor Name @ Vendor Company</th>
-                        <th>Service(s)</th>
-                        <th>Status</th>
+                <div id="property_map" class="hide">
+                    <p>Map</p>
+                </div>
 
-                    </thead>
-                    <tbody>
+                <div id="property_vendors" class="hide">
+                    <table class="table table-striped dt-responsive datatabledashboard">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Company</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Zip</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                                foreach($vendors_found as $vendor)
+                                    {
+                                        echo "<tr>";
+                                        echo "<td>".$vendor[0]->id."</td>";
+                                        echo "<td>".$vendor[0]->first_name."</td>";
+                                        echo "<td>".$vendor[0]->last_name."</td>";
+                                        echo "<td>".$vendor[0]->company."</td>";
+                                        echo "<td>".$vendor[0]->address_1."<br>".$vendor[0]->address_2."</td>";
+                                        echo "<td>".$vendor[0]->city_id."</td>";
+                                        echo "<td>".$vendor[0]->state_id."</td>";
+                                        echo "<td>".$vendor[0]->zip."</td>";
+                                        echo "</tr>";
+                                    }
+                            ?>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="property_invoicing" class="hide">
+                    <table class="table table-striped dt-responsive datatabledashboard">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Client Type</th>
+                                <th>Vendor Name @ Vendor Company</th>
+                                <th>Service(s)</th>
+                                <th>Approved Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         @foreach($order_details as $key => $detail)
                             @if (isset($order_details[$key]["order_details"]))
-                            @foreach($order_details[$key]["order_details"] as $id => $order_detail)
-                                <tr>
-                                    <td>{!! $id !!}</td>
-                                    <td>
-                                        <?php
+                                @foreach($order_details[$key]["order_details"] as $id => $order_detail)
+                                    @if (strtolower($order_detail['status']) == 'approved' || strtolower($order_detail['status']) == 'exported')
+                                    <tr>
+                                        <td><a href="#">{!! $id !!}</a></td>
+                                        <td>
+                                            <?php
                                             $customer_details = CustomerType::find($customer_info->customer_type_id);
                                             if (isset($customer_details->title))
                                             {
@@ -309,26 +357,78 @@
                                             {
                                                 echo "N/A";
                                             }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        @if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @endif
-                                        @if (isset($order_detail["vendor_company"]))@ {!! $order_detail["vendor_company"] !!} @endif
-                                        @if (!isset($order_details['vendor_name']) && !isset($order_details['vendor_company'])) Not Set @endif
-                                    </td>
+                                            ?>
+                                        </td>
+                                        <td>
+                                            @if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @endif
+                                            @if (isset($order_detail["vendor_company"]))@ {!! $order_detail["vendor_company"] !!} @endif
+                                            @if (!isset($order_details['vendor_name']) && !isset($order_details['vendor_company'])) Not Set @endif
+                                        </td>
 
-                                    <td>
-                                        @foreach($order_detail["requested_services"] as $services)
-                                            {!! $services->title !!} <br>
-                                        @endforeach
-                                    </td>
-                                    <td>{!! $order_detail["status"] !!}</td>
-                                </tr>
-                            @endforeach
+                                        <td>
+                                            @foreach($order_detail["requested_services"] as $services)
+                                                {!! $services->title !!} <br>
+                                            @endforeach
+                                        </td>
+                                        <td>{!! $order_detail["approved"] !!}</td>
+                                    </tr>
+                                    @endif
+                                @endforeach
                             @endif
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div id="property_work_orders">
+                    <table class="table table-striped table-small dt-responsive datatabledashboard3" style="width:100%;">
+                        <thead>
+                        <th>ID #</th>
+                        <th>Client Type</th>
+                        <th>Vendor Name @ Vendor Company</th>
+                        <th>Service(s)</th>
+                        <th>Status</th>
+
+                        </thead>
+                        <tbody>
+                        @foreach($order_details as $key => $detail)
+                            @if (isset($order_details[$key]["order_details"]))
+                                @foreach($order_details[$key]["order_details"] as $id => $order_detail)
+                                    <tr>
+                                        <td>{!! $id !!}</td>
+                                        <td>
+                                            <?php
+                                            $customer_details = CustomerType::find($customer_info->customer_type_id);
+                                            if (isset($customer_details->title))
+                                            {
+                                                echo $customer_details->title;
+                                            }
+                                            else
+                                            {
+                                                echo "N/A";
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            @if (isset($order_detail["vendor_name"])) {!! $order_detail["vendor_name"] !!} @endif
+                                            @if (isset($order_detail["vendor_company"]))@ {!! $order_detail["vendor_company"] !!} @endif
+                                            @if (!isset($order_details['vendor_name']) && !isset($order_details['vendor_company'])) Not Set @endif
+                                        </td>
+
+                                        <td>
+                                            @foreach($order_detail["requested_services"] as $services)
+                                                {!! $services->title !!} <br>
+                                            @endforeach
+                                        </td>
+                                        <td>{!! $order_detail["status"] !!}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div> <!-- End Row -->
 
