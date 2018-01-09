@@ -7,6 +7,36 @@
 
   $(".datepicker").datepicker();
 
+  var newSize       = $(".property-header-info").height() + 31;
+  var newImageSize  = $(".property-photo-placeholder").width() - 50;
+  var imageElement  = $(".fa-fullsize");
+
+  if (newImageSize > $(".property-photo-placeholder").height() ){
+    newImageSize = $(".property-photo-placeholder").height();
+  }
+
+  imageElement.attr('style', 'font-size: '+newImageSize+'px !important');
+
+  $(".property-photo, .property-photo-placeholder").css({height: $(".property-header-info").height()});
+  $(".bg-underlay").css({height: newSize+"px"});
+
+  $(window).on("resize", function(){
+      var newSize       = $(".property-header-info").height() + 31;
+      var newImageSize  = $(".property-photo-placeholder").width() - 50;
+      if (newImageSize > $(".property-photo-placeholder").height() ){
+          newImageSize = $(".property-photo-placeholder").height();
+      }
+      var imageElement  = $(".fa-fullsize");
+
+      imageElement.attr('style', 'font-size: '+newImageSize+'px !important');
+
+      $(".property-photo, .property-photo-placeholder").css({height: "10px"});
+      $(".property-photo, .property-photo-placeholder").css({height: $(".property-header-info").height()});
+      $(".bg-underlay").css({height: newSize+"px"});
+  });
+
+
+
   $("#header-quantity-summary").html("<u>("+$("#summary-count-value").val()+") New Requests</u> | ");
   $("#header-quantity-complete").html("<u>("+$("#complete-count-value").val() + ") Complete</u> | ");
   $("#header-quantity-inprocess").html("<u>("+$("#inprocess-count-value").val() + ") In-Process</u> | ");

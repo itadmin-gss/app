@@ -1575,7 +1575,7 @@ Completion Date: ".$orders[0]->completion_date;
                'user_email_template'=>$EmailDATA
                ];
 
-               Email::send($userDAta->email, 'Subject - '.$order_id .' marked Completed', 'emails.customer_registered', $email_data);
+//               Email::send($userDAta->email, 'Subject - '.$order_id .' marked Completed', 'emails.customer_registered', $email_data);
 
                //Check if recurring order and schedule new order if applicable
                 $order_detail = OrderDetail::where('order_id', $order_id)->get();

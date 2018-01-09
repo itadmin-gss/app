@@ -113,15 +113,54 @@
   margin-top:15px;
 }
 
-.property-photo-placeholder{
-    border:3px dashed #ddd;
+
+.property-header{
+  padding: 0 0 0 2px;
+  background-color: #113252;
+  color: white;
 }
 
+.property-header-info table{
+  font-size: 13px !important;
+}
+.property-header-info{
+  margin-left: -15px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  background-color: white;
+}
+
+.property-photo-select{
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+.property-photo-upload{
+  position: absolute;
+  bottom:0;
+  left:0;
+}
+
+.bg-underlay{
+  width: 100%;
+  margin-top: -7px !important;
+  margin-left: -17px !important;
+  margin-bottom: 6px !important;
+  position: absolute;
+  background-color: gray;
+}
+
+.fa-fullsize:before{
+  width:100%;
+  height:auto;
+}
 .property-photo,
 .property-photo-placeholder{
-  min-height:300px;
   width:100%;
+  height:100%;
   position:relative !important;
+  background-color:white;
+  border-right:none !important;
 }
 
 .property-photo img{
