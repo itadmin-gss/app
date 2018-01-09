@@ -491,7 +491,68 @@
                                             ?>
 
 
-             <?php }?>
+                                        <?php }?>
+                                            <tr>
+                                                <td colspan="9">
+                                                    <label class="table-label">Order Images:</label>
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-lg-4 col-sm-12">
+                                                            <div class="order-photo-div">
+                                                                <?php
+                                                                    $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'before')->get();
+                                                                    foreach($images as $image)
+                                                                    {
+                                                                        $check = config('app.order_images_before').$image->address;
+                                                                        if (file_exists($check))
+                                                                        {
+                                                                            echo '<div class="order-photo-item"><img data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
+                                                                        }
+                                                                     }
+                                                                ?>
+                                                            </div>
+                                                            <div class="center-div">
+                                                                <label class="table-label">Before Images</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-lg-4 col-sm-12">
+                                                            <div class="order-photo-div">
+                                                                <?php
+                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'during')->get();
+                                                                foreach($images as $image)
+                                                                {
+                                                                    $check = config('app.order_images_during').$image->address;
+                                                                    if (file_exists($check))
+                                                                    {
+                                                                        echo '<div class="order-photo-item"><img class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                            <div class="center-div">
+                                                                <label class="table-label">During Images</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-lg-4 col-sm-12">
+                                                            <div class="order-photo-div">
+                                                                <?php
+                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'after')->get();
+                                                                foreach($images as $image)
+                                                                {
+                                                                    $check = config('app.order_images_after').$image->address;
+                                                                    if (file_exists($check))
+                                                                    {
+                                                                        echo '<div class="order-photo-item"><img class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                            <div class="center-div">
+                                                                <label class="table-label">After Images</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
                                         <tr>
                                             <td class="center" colspan="2">
@@ -502,22 +563,6 @@
                                                        </button></a>
                                                    </span>
 
-                                                                                    <span class="pull-left">
-                                                  <!--   <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#before_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload Before Images</button> -->
-                                                      <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#before_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'before')" class="myBtnImg btn">View Before Images</button>
-                                                </span>
-
-
-                                                                                    <span class="pull-during">
-                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static"  disabled="disabled" data-target="#during_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload During Images</button> -->
-                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#during_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'during')" class="myBtnImg btn">View During Images</button>
-                                                </span>
-
-                                                                                    <span class="pull-right">
-                                                   <!--  <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" disabled="disabled" data-target="#after_{!!$order->id!!}" class="myBtnImg btn btn-large btn-success">Upload After Images</button> -->
-                                                       <button  @if(Auth::user()->type_id==3 && $order->status==4) disabled="disabled"@endif data-toggle="modal" data-backdrop="static" data-target="#after_view_image_{!!$order->id!!}" onclick="popModal({!!$order->id!!}, {!!$order->id!!}, 'after')" class="myBtnImg btn">View After Images</button>
-
-                                                </span>
 
                                             </td>
                                         </tr>
@@ -587,7 +632,7 @@
                                             <td colspan="2" class="center"><label class="table-label">Billing Note:</label>
                                                 @if($order->billing_note)
                                                     <span id="show-billing-note-{!!$order->id!!}">{!!$order->billing_note!!}<br>
-                                                                  <button class="btn btn-primary" id="edit-billing-note-button-{!!$order->id!!}" onclick="editBillingNoteButton({!!$order->id!!})"> Edit Note </button>
+                                                        <button class="btn btn-primary" id="edit-billing-note-button-{!!$order->id!!}" onclick="editBillingNoteButton({!!$order->id!!})"> Edit Note </button>
                                                             </span >
                                                     <span class="hide" id="textarea-billing-note-{!!$order->id!!}">{!!Form::textarea('admin_note', $order->billing_note ,array('class'=>'span','id'=>'billing-note-'.$order->id))!!}
                                                         <button class="btn btn-large btn-warning pull-right " id="bill-btn" onclick="saveBillingNote({!!$order->id!!})">Save Billing Note</button></span>
@@ -1240,6 +1285,36 @@
             overflow: auto;
         }
     </style>
+
+    <div class="modal fade" id="view_image">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 image_prev_div">
+                            </div>
+                            <div class="col-md-6 image_next_div">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="view_image_div">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--/   Modal-Section Show Export Images Start   -->
     <div class="modal fade" id="export_view_images">

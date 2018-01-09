@@ -332,6 +332,33 @@
 
 }
 
+.center-div{
+  text-align:center;
+}
+
+.order-photo-div{
+  cursor:pointer;
+  display:flex;
+  flex-wrap:wrap;
+  height: 600px;
+  overflow: scroll;
+}
+
+ #view_image_div{
+   margin-top:40px;
+ }
+#view_image .modal-dialog{
+  max-width: 1200px;
+}
+#view_image #view_image_div > img {
+  width:100%;
+}
+
+.order-photo-item > img{
+  width:200px;
+  height:auto;
+  padding:1px;
+}
 
 
 .badge-blue-1{

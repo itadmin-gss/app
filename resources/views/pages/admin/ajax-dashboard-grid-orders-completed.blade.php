@@ -23,15 +23,11 @@
                          <th>ID #</th>
                          <th>Submitter</th>
                          <th>Client Type</th>
-                         <th>Property ID</th>
-                         <th>Loan ID</th>
                          <th>Customer</th>
                          <th>Property Address</th>
                          <th>City</th>
                          <th>State</th>
-                         <th>Zip</th>
                          <th>Completed</th>
-                         <th>Job Type</th>
                          <th>Service Type</th>
                          <th>Due</th>
                          <th>Vendor</th>
@@ -61,16 +57,6 @@
 
                         <td >{!! $order['submited_by']!!}</td>
                         <td >{!! $order['customer_type']!!}</td>
-                        <td>
-                        <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Property ID: {!! $order['asset_number'] !!}">
-                          View
-                        </a>
-                        </td>
-                        <td>
-                        <a style="opacity:1 !important;" href="javascript:void(0)" class='tooltip'  data-toggle="tooltip" data-placement="top" title="Loan ID: {!! $order['loan_numbers'] !!}">
-                          View
-                        </a>
-                        </td>
 
                         <td >{!! $order['customer_name']!!}</td>
 
@@ -86,11 +72,8 @@
 
                         <td class="center">{!! $order['state'] !!}</td>
 
-                        <td class="center">{!! $order['zipcode'] !!}</td>
-
                         <td class="center">{!! $order['completion_date'] !!}</td>
 
-                        <td class="center">{!! $order['job_type'] !!}</td>
                         <td class="center">{!! $order['service_type'] !!}</td>
 
                         <td class="center">{!! $order['service_name'] !!}</td>
