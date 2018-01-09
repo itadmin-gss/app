@@ -131,11 +131,15 @@
 }
 
 .property-photo-select{
+  border-radius:0px !important;
+  opacity:0.6;
   position:absolute;
   bottom:0;
   right:0;
 }
 .property-photo-upload{
+  border-radius:0px !important;
+  opacity:0.6;
   position: absolute;
   bottom:0;
   left:0;
@@ -163,8 +167,11 @@
   border-right:none !important;
 }
 
+.property-photo{
+  text-align:center;
+}
 .property-photo img{
-    width:100%;
+    width:1%;
 }
 
 #addt-photo-modal .p-2{

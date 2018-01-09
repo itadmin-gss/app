@@ -8,7 +8,7 @@
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
     <div class="bg-underlay"></div>
     <div id="content">
-        <div class="row">
+        <div class="row" style="box-shadow: 1px 1px 1px black;">
             <div class="col-md-12 col-lg-12 col-sm-12">
 
 
@@ -17,16 +17,20 @@
                         @if (isset($property_details->property_photo))
                             <div class="property-photo">
                                 <img src="{!! URL::to(\Illuminate\Support\Facades\Config::get('app.upload_path').$property_details->property_photo) !!}">
+                                <button type="button" data-title="Upload Image" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-upload" id="property-photo-upload"><i class="fa fa-upload"></i></button>
+                                <button type="button" data-title="Select Primary Photo" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-select" id="property-photo-select"><i class="fa fa-edit"></i></button>
                             </div>
                         @else
                             <div class="property-photo" style="display:none;">
                                 <img>
+                                <button type="button" data-title="Upload Image" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-upload" id="property-photo-upload"><i class="fa fa-upload"></i></button>
+                                <button type="button" data-title="Select Primary Photo" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-select" id="property-photo-select"><i class="fa fa-edit"></i></button>
                             </div>
                         <div class="property-photo-placeholder text-center">
                             <i class="fa fa-photo fa-fullsize"></i>
 
-                                <button type="button" class="property-photo-upload" id="property-photo-upload"><i class="fa fa-upload"></i></button>
-                                <button type="button" class="property-photo-select" id="property-photo-select"><i class="fa fa-edit"></i></button>
+                                <button type="button" data-title="Upload Image" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-upload" id="property-photo-upload"><i class="fa fa-upload"></i></button>
+                                <button type="button" data-title="Select Primary Photo" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-select" id="property-photo-select"><i class="fa fa-edit"></i></button>
 
                         </div>
                         @endif

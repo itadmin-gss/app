@@ -8,6 +8,7 @@
   $(".datepicker").datepicker();
 
   var newSize       = $(".property-header-info").height() + 31;
+  $(".property-photo img").css({height: $(".property-header-info").height()+"px", width: "auto"});
   var newImageSize  = $(".property-photo-placeholder").width() - 50;
   var imageElement  = $(".fa-fullsize");
 
@@ -27,6 +28,7 @@
           newImageSize = $(".property-photo-placeholder").height();
       }
       var imageElement  = $(".fa-fullsize");
+      $(".property-photo img").css({height: $(".property-header-info").height()+"px", width: "auto"});
 
       imageElement.attr('style', 'font-size: '+newImageSize+'px !important');
 
