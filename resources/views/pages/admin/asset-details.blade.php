@@ -370,8 +370,8 @@
                                                 {!! $services->title !!} <br>
                                             @endforeach
                                         </td>
-                                        <td>{!! $order_detail["approved"] !!}</td>
-                                    </tr>
+
+                                        <td>{!! $order_detail['approved'] !!}</td>
                                     @endif
                                 @endforeach
                             @endif

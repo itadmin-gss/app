@@ -9,6 +9,7 @@ use App\City;
 use App\CustomerType;
 use App\Helpers\FlashMessage;
 use App\Helpers\SSP;
+use App\Invoice;
 use App\Order;
 use App\OrderDetail;
 use App\OrderImage;
@@ -263,6 +264,7 @@ class AssetController extends Controller
         $orderDetails = [];
         $requestDetails = [];
         $vendorsFound = [];
+        $invoices = [];
         foreach($requests as $request)
         {
             $orderDetails[$request->id]['status'] = $request->status;
@@ -270,9 +272,15 @@ class AssetController extends Controller
             foreach($data as $dt)
             {
                 $od = OrderDetail::where('order_id', $dt->id)->get();
+                $inv = Invoice::where('order_id', $dt->id)->get();
+                if ($inv && count($inv) > 0)
+                {
+                    $invoices[$dt->id] = $inv;
+                }
                 if (count($od) > 0)
                 {
                     $od = $od[0];
+                    $inv_orders[$dt->id] = $od;
                 }
                 else
                 {
@@ -321,6 +329,8 @@ class AssetController extends Controller
 
         return view('pages.admin.asset-details')
             ->with('property_details', $property_details[0])
+            ->with('invoices', $invoices)
+            ->with('inv_orders', $inv_orders)
             ->with('geolocation', $geolocation_result)
             ->with('city', $city)
             ->with('state', $state)

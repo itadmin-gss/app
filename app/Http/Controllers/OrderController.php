@@ -114,11 +114,8 @@ class OrderController extends Controller
         $order = Order::getOrderByID($order_id);
         $order_details = $order->orderDetail;
 
-        $before_image_flag=OrderImage::where('order_id', '=', $order_id)->first();
          $view_order="view_order";
-        if ($order->bid_flag==1) {
-                    $view_order="view_bidorder";
-        }
+
         return view('common.'.$view_order)->with('order', $order)->with('order_details', $order_details)
         ->with('message', $view_message);
     }
