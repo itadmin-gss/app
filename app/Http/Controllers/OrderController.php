@@ -51,6 +51,7 @@ class OrderController extends Controller
         }
         $order_req = Order::where('id', '=', $order_id)->pluck('request_id');
         $services_asset_id= MaintenanceRequest::where('id', '=', $order_req)->pluck('asset_id');
+        $property_details =  Asset::where('id', $services_asset_id)->get();
 
 
         //$job_type =MaintenanceRequest::where('id','=',$order_req)->pluck('job_type');
@@ -64,6 +65,7 @@ class OrderController extends Controller
 
         return view('common.edit_order')
             ->with('order_details', $order_details)
+            ->with('property_details', $property_details)
             ->with('vendorsDATA', $vendorsDATA)
             ->with('order', $data)
             ->with('items', $items)

@@ -171,14 +171,15 @@ foreach ($customer_assets as $asset) {
 
                             <center>
                                 <a href="javascript:void(0);" class="btn btn-info add-service-back-step-2">Back</a>
-                                <a href="#" class="btn btn-warning"  onclick="orderReivewsubmit()">Submit</a>
                                 @if(Auth::user()->type_id==2)
                                     <a href="{!!URL::to('list-customer-requested-services')!!}" class="btn btn-success" id="cancelbuttoncustomer">Cancel</a>
                                 @else
-                                    <a href="{!!URL::to('asset/'.$property_id)!!}" class="btn btn-success" id="cancelbuttonadmin">Back To Asset</a>
+                                    <a href="{!!URL::to('asset/'.$property_id)!!}" class="btn btn-warning" id="cancelbuttonadmin">Back To Asset</a>
 
 
                                 @endif
+                                <a href="#" class="btn btn-success"  onclick="orderReivewsubmit()">Submit</a>
+
                             </center>
 
 

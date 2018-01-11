@@ -5,226 +5,274 @@
 
     <!-- start: Content -->
     <title>GSS - Edit Work Order</title>
+    <div class="bg-underlay"></div>
     <div id="content">
 
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
-                <div class="pull-left">
-                    <a class="btn btn-info" href="#" onclick="printDiv('content')" style="float: right;position: relative;z-index: 999;"> Print  </a>
-                </div>
 
+
+                <div class="row" style="box-shadow: 1px 1px 1px black;">
+                    <div class="col-md-3 col-lg-2 col-sm-12">
+                        @if (isset($property_details->property_photo))
+                            <div class="property-photo">
+                                <img src="{!! URL::to(\Illuminate\Support\Facades\Config::get('app.upload_path').$property_details->property_photo) !!}">
+                                <button type="button" data-title="Upload Image" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-upload" id="property-photo-upload"><i class="fa fa-upload"></i></button>
+                                <button type="button" data-title="Select Primary Photo" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-select" id="property-photo-select"><i class="fa fa-edit"></i></button>
+                            </div>
+                        @else
+                            <div class="property-photo" style="display:none;">
+                                <img>
+                                <button type="button" data-title="Upload Image" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-upload" id="property-photo-upload"><i class="fa fa-upload"></i></button>
+                                <button type="button" data-title="Select Primary Photo" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-select" id="property-photo-select"><i class="fa fa-edit"></i></button>
+                            </div>
+                            <div class="property-photo-placeholder text-center">
+                                <i class="fa fa-photo fa-fullsize"></i>
+
+                                <button type="button" data-title="Upload Image" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-upload" id="property-photo-upload"><i class="fa fa-upload"></i></button>
+                                <button type="button" data-title="Select Primary Photo" data-toggle='tooltip' class="btn btn-primary btn-sm property-photo-select" id="property-photo-select"><i class="fa fa-edit"></i></button>
+
+                            </div>
+                        @endif
+
+                    </div>
+                    <div class="col-md-9 col-lg-10 col-sm-12 property-header-info">
+                        <div class="property-header">
+                            <p style="margin-bottom: 0px !important;">{!! $property_details->property_address !!}, {!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}</p>
+                        </div>
+                        <div class="row" style="margin-left:0px !important;">
+                            <div class="col-md-4 col-lg-4 col-sm-12">
+                                <table class="table table-sm">
+                                    <tbody>
+
+                                    <tr>
+                                        <td>Property Number:</td>
+                                        <td>
+                                           <span class="asset-details-values" id="property_number_value">
+                                             @if (isset($property_details->asset_number)) {!! $property_details->asset_number !!} @endif
+                                           </span>
+
+                                            <span class="asset-details-inputs">
+                                               <input type="text" class="form-control" id="asset_number" value="@if (isset($property_details->asset_number)) {!! $property_details->asset_number !!}@endif">
+                                           </span>
+
+                                            <span class="pull-right asset-details-values">
+                                               <span id="edit-property-details">
+                                                   <i class="fa fa-edit"></i>
+                                               </span>
+                                           </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="asset-details-values">
+                                        <td>Property Address:</td>
+                                        <td id="property_address_value">
+                                            {!! $property_details->property_address !!}
+                                            <br>{!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}
+
+                                        </td>
+                                    </tr>
+
+                                    <tr class="asset-details-inputs">
+                                        <td>Property Address</td>
+                                        <td>
+                                            <input type="text" class="form-control" id="property_address" value="{!! $property_details->property_address !!}">
+                                        </td>
+                                    </tr>
+
+                                    <tr class="asset-details-inputs">
+                                        <td>Property State</td>
+                                        <td>
+                                            <?php
+
+                                            $states_data = array('' => 'Select State');
+                                            foreach ($states as $state) {
+                                                $states_data[$state['id']] = $state['name'];
+                                            }
+                                            ?>
+                                            {!! Form::select('state_id',  $states_data , $property_details->state_id, array('class'=>'form-control','id'=>'state_id', 'data-rel'=>'chosen'))!!}
+                                        </td>
+
+                                    </tr>
+
+                                    <tr class="asset-details-inputs">
+                                        <td>Property City</td>
+                                        <td>
+                                            <?php
+
+                                            $cities_data = array('' => 'Select City');
+                                            $cities = \App\City::getCitiesByStateId($property_details->state_id);
+                                            foreach ($cities as $city) {
+                                                $cities_data[$city['id']] = $city['name'];
+                                            }
+
+                                            ?>
+                                            {!! Form::select('city_id',  $cities_data ,  $property_details->city_id ,array('class'=>'form-control','id'=>'city_id', 'data-rel'=>'chosen'))!!}
+
+                                        </td>
+                                    </tr>
+
+
+
+                                    <tr class="asset-details-inputs">
+                                        <td>Property Zip Code</td>
+                                        <td>
+                                            <input type="text" class="form-control" id="property_zip" value="{!! $property_details->zip !!}">
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Property Type:</td>
+                                        <td>
+                                           <span class="asset-details-values">
+                                                @if (isset($property_details->property_type)) {!! $property_details->property_type !!} @endif
+                                           </span>
+
+                                            <span class="asset-details-inputs">
+                                                <?php $option_type = array('0' => 'Select Property type', 'single-family' => 'Single Family', 'condo' => 'Condo', 'multi-family' => 'Multi Family') ?>
+                                                {!! Form::select('property_type', $option_type, isset($property_details->property_type) ? $property_details->property_type : '0', array('class'=>'form-control', 'id'=>'property_type'))!!}
+                                           </span>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Google Map</td>
+                                        <td><a href="javascript:void(0)" data-target="#gmap-modal" data-toggle="modal">Click here for Map</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-12">
+                                <table class="table table-sm">
+                                    <tbody>
+
+                                    <tr>
+                                        <td>Loan Number:</td>
+                                        <td>
+                                                <span class="asset-details-values" id="property_loan_value">
+                                                    @if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif
+                                                </span>
+
+                                            <span class="asset-details-inputs">
+                                                    <input type="text" class="form-control" id="loan_number" value="@if (isset($property_details->loan_number)) {!! $property_details->loan_number !!} @endif">
+                                                </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="asset-details-values">
+                                        <td>Customer:</td>
+                                        <td id="property_customer_value">
+                                            @if (isset($customer_info->first_name)) {!! $customer_info->first_name !!} @endif @if (isset($customer_info->last_name)){!! $customer_info->last_name !!} @endif
+                                        </td>
+                                    </tr>
+                                    <tr class="asset-details-inputs">
+                                        <td>Customer First Name:</td>
+                                        <td>
+                                            <input type="text" class="form-control" id="first_name" value="@if (isset($customer_info->first_name)) {!! $customer_info->first_name !!} @endif">
+                                        </td>
+                                    </tr>
+
+                                    <tr class="asset-details-inputs">
+                                        <td>Customer Last Name:</td>
+                                        <td>
+                                            <input type="text" class="form-control" id="last_name" value="@if (isset($customer_info->last_name)){!! $customer_info->last_name !!} @endif">
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Customer Email:</td>
+                                        <td>
+                                               <span class="asset-details-values" id="property_email_value">
+                                                   @if (isset($customer_info->email)) {!! $customer_info->email !!} @endif
+                                               </span>
+
+                                            <span class="asset-details-inputs">
+                                                   <input type="email" class="form-control" id="email" value="@if (isset($customer_info->email)) {!! $customer_info->email !!} @endif">
+                                               </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Customer Company:</td>
+                                        <td>
+                                               <span class="asset-details-values" id="property_company_value">
+                                                     @if (isset($customer_info->company)) {!! $customer_info->company !!} @endif
+                                               </span>
+
+                                            <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="company" value="@if (isset($customer_info->company)) {!! $customer_info->company !!} @endif">
+                                               </span>
+                                        </td>
+                                    </tr>
+
+
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-12">
+                                <table class="table table-sm">
+                                    <tbody>
+                                    <tr>
+                                        <td>Lock Box:</td>
+                                        <td>
+                                               <span class="asset-details-values" id="property_lock_value">
+                                                    @if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif
+                                               </span>
+
+                                            <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="lock_box" value="@if (isset($property_details->lock_box)) {!! $property_details->lock_box !!} @endif">
+                                               </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Access Code:</td>
+                                        <td>
+                                               <span class="asset-details-values" id="property_access_value">
+                                                   @if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif
+                                               </span>
+
+                                            <span class="asset-details-inputs">
+                                                   <input type="text" class="form-control" id="access_code" value="@if (isset($property_details->access_code)) {!! $property_details->access_code !!} @endif">
+                                               </span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Property Status</td>
+                                        <td>
+                                                <span class="asset-details-values" id="property_status_value">
+                                                    @if (isset($property_details->property_status)) {!! ucwords($property_details->property_status) !!} @endif
+                                                </span>
+
+                                            <span class="asset-details-inputs">
+                                                    <?php $option = array('active' => 'Active', 'inactive' => 'Inactive', 'closed' => 'Closed', 'in-rehab' => 'In-Rehab', 'onhold' => 'On Hold') ?>
+                                                {!! Form::select('property_status', $option, isset($property_details->property_status) ? $property_details->property_status : '', array('class'=>'form-control', 'id'=>'property_status'))!!}
+                                                <span class="pull-right">
+                                                        <button type="button" class="btn btn-success" id="save_asset_changes">Save Changes</button>
+                                                    </span>
+                                                </span>
+
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div> <!-- end .row -->
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                <?php if(Auth::user()->type_id==3){
-                if(isset($order->maintenanceRequest->asset->property_dead_status) && $order->maintenanceRequest->asset->property_dead_status==1){?>
-
-                <div class ="disableProperty"><span>Property Closed</span></div>
-
-                <?php
-                }else if($order->status==5){ ?>
-
-                <div class ="disableOrder"><span>Order Cancelled</span></div>
-
-                <?php  }
-
-                }
-                ?>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                <h1 class="text-center">Edit Work Order</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                @if (Auth::user()->type_id == 1 || Auth::user()->type_id == 4)
-                    <label for="vendorAssigned">Vendor:</label>
-                    <select name="vendorAssigned" id="vendorAssigned">
-                        @foreach($vendorsDATA as $key => $value)
-                            <option value="<?php echo $value->id;?>"  <?php if($order->vendor_id==$value->id) { echo "selected=selected";} ?> ><?php echo $value->first_name;?> <?php echo $value->last_name;?> <?php echo $value->company;?></option>
-                        @endforeach
-                    </select>
-                    <a class="btn btn-info" href="#" onclick="changeVendorOrder()" > Change Vendor  </a>
-                @endif
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                <table class="table table-bordered quick-view-table">
-                    <tbody>
-                    <td>
-                        <label class="table-label">Property #: </label>
-                        <span>
-                        @if(isset($order->maintenanceRequest->asset->asset_number))
-                                {!!$order->maintenanceRequest->asset->asset_number!!}
-                            @endif
-                        </span>
-                    </td>
-
-                    <td>
-                        <label class="table-label">Order #: </label>
-                        <span>
-                            {!! $order->id !!}
-                        </span>
-                    </td>
-
-                    <td>
-                        <label class="table-label">Status: </label>
-                        <span>
-                            @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif
-                        </span>
-
-                    </td>
-
-                    <td>
-                        @foreach($order_details as $order_detail)
-                            <label class="table-label">
-                                @if($order_detail->requestedService->service->title)
-                                    {!!$order_detail->requestedService->service->title!!}
-                                @endif
-                            </label>
-                            <span>
-
-
-                                <?php if(isset($order_detail->requestedService->due_date)&&$order_detail->requestedService->due_date!="")
-                                {
-                                    echo 'Due Date: '. date('m/d/Y', strtotime($order_detail->requestedService->due_date));
-                                }
-                                else
-                                {
-                                    echo 'Due Date: Not Assigned';
-                                }
-                                ?>
-                            </span>
-                            <span id="changeButton" style="display:none;">
-                                <input type="text" class="datepicker" name="duedatechange" id="duedatechange" />
-                                <button onclick="SaveDueDate('{!!$order_detail->requestedService->id!!}')">Save</button>
-                            </span>
-
-                            <?php if(Auth::user()->type_id==1||Auth::user()->type_id==4) { ?>
-                            <button class="btn" onclick="changeDueDate('{!!$order->id!!}')">Update</button>
-                            <?php }?>
-
-                        @endforeach
-                    </td>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                <label class="table-label">Customer Details</label>
-                <table class="table table-bordered quick-view-table">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <label class="table-label">First Name: </label>
-                            @if(!empty($order->maintenanceRequest->user->first_name))
-                                <span>
-                                {!! $order->maintenanceRequest->user->first_name !!}
-                            </span>
-                            @endif
-                        </td>
-                        <td>
-                            <label class="table-label">Last Name: </label>
-                            @if(!empty($order->maintenanceRequest->user->last_name))
-                                <span>
-                                {!! $order->maintenanceRequest->user->last_name !!}
-                            </span>
-                            @endif
-                        </td>
-                    </tr>
-                    @if(Auth::user()->type_id!=3)
-                        <tr>
-                            <td>
-                                <label class="table-label">Company: </label>
-                                @if(!empty($order->maintenanceRequest->user->company))
-                                    <span>
-                                {!! $order->maintenanceRequest->user->company !!}
-                            </span>
-                                @endif
-                            </td>
-                            <td>
-                                <label class="table-label">Email: </label>
-                                @if(!empty($order->maintenanceRequest->user->email))
-                                    <span>
-                                {!! $order->maintenanceRequest->user->email !!}
-                            </span>
-                                @endif
-                            </td>
-                        </tr>
-                    @endif
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                <label class="table-label">Property Details</label>
-                <table class="table table-bordered quick-view-table">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <label class="table-label">Property Address: </label>
-                            <span>
-                                {!!$order->maintenanceRequest->asset->property_address!!}
-                            </span>
-                        </td>
-
-                        <td>
-                            <label class="table-label">City: </label>
-                            <span>
-                                @if (isset($order->maintenanceRequest->asset->city->name))
-                                    {!! $order->maintenanceRequest->asset->city->name !!}
-                                @endif
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <label class="table-label">State: </label>
-                            <span>
-                                {!!$order->maintenanceRequest->asset->state->name!!}
-                            </span>
-                        </td>
-
-                        <td>
-                            <label class="table-label">Zip: </label>
-                            <span>
-                                {!!$order->maintenanceRequest->asset->zip!!}
-                            </span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <label class="table-label">Lockbox: </label>
-                            <span>
-                                {!! $order->maintenanceRequest->asset->lock_box !!}
-                            </span>
-                        </td>
-                        <td>
-                            <label class="table-label">Gate / Access Code: </label>
-                            <span>
-                                {!! $order->maintenanceRequest->asset->access_code !!}
-                            </span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
                 <h1 class="text-center">Requested Services</h1>
