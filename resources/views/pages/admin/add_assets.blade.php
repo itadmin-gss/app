@@ -128,7 +128,7 @@
                                 <td>Select Customer</td>
                                 <td>
                                     <?php
-                                    $customers_data = array('' => 'Select Customer');
+                                    $customers_data = array();
                                     $customers = \App\User::getCustomers();
                                     foreach ($customers as $customer) {
                                         $customers_data[$customer['id']] = $customer['first_name'] . ' ' . $customer['last_name'];
@@ -136,7 +136,18 @@
                                     sort($customers_data);
                                     array_unshift($customers_data, 'Select Customer');
                                     ?>
-                                    {!! Form::select('customer_id', $customers_data, '', array('class'=>'form-control', 'id'=>'customer_id',  'data-rel'=>'chosen', 'onchange'=>'populateCompany(this.value)'))!!}
+                                    <select id="customer_id" class="form-control">
+                                        <option></option>
+                                        <option class="add-user-option" value="add-new-customer">Add New Customer</option>
+                                        <option disabled>-----------------------------------------------------------</option>
+                                        <?php
+                                            foreach($customers as $customer)
+                                                {
+                                                    echo "<option value='".$customer['id']."'>".$customer['first_name'] . ' ' . $customer['last_name']."</option>";
+                                                }
+                                        ?>
+                                    </select>
+                                    {{--{!! Form::select('customer_id', $customers_data, '', array('class'=>'form-control', 'id'=>'customer_id',  'data-rel'=>'chosen', 'onchange'=>'populateCompany(this.value)'))!!}--}}
                                 </td>
                             </tr>
                             <tr>
@@ -318,8 +329,68 @@
 
     </div><!--/span-->
 
+    <div class="modal fade" id="add-customer-modal">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class='pull-right fa fa-times' data-dismiss="modal" aria-label="Close"></span>
+                </div>
+
+                <div class="modal-body">
+
+                    <fieldset>
+
+                        <div class="control-group">
+                            {!! Form::label('typeahead', 'First Name: *', array('class' => 'control-label')) !!}
+                            <div class="controls">
+                                <div class="input-append">
+                                    {!! Form::text('first_name', '', array('class' => 'form-control',
+                                     'id' => 'first_name')) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            {!! Form::label('typeahead', 'Last Name: *', array('class' => 'control-label')) !!}
+                            <div class="controls">
+                                <div class="input-append">
+                                    {!! Form::text('last_name', '', array('class' => 'form-control',
+                                     'id' => 'last_name')) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            {!! Form::label('typeahead', 'Email Address: *', array('class' => 'control-label')) !!}
+                            <div class="controls">
+                                <div class="input-append">
+                                    {!! Form::text('email', '', array('id' => 'email',
+                                     'class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
 
 
-</div>
+                        <div class="control-group">
+                            {!! Form::label('typeahead', 'Password *', array('class' => 'control-label')) !!}
+                            <div class="controls">
+                                <div class="input-append">
+                                    {!! Form::text('password', '', array('id' => 'password','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top:5px;">
+
+                            <div class="pull-right">
+                                <button class="btn btn-large btn-success" id="add-customer-button">Add User</button>
+                                <button class="btn btn-large btn-info" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 @stop

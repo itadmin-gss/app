@@ -837,6 +837,35 @@ class AdminController extends Controller
      * @params data from the add new user form.
      * @return redirects with appropriate message of success or error.
      */
+
+    public function addNewUserFromModal()
+    {
+        $first_name = Request::get('first_name');
+        $last_name = Request::get('last_name');
+        $email = Request::get('email');
+        $user_role_id = Request::get('role_id');
+        $password = Request::get('password');
+
+            $user = new User();
+            $user->first_name = $first_name;
+            $user->last_name = $last_name;
+            $user->email = $email;
+            $user_type_id = UserType::where('title', '=', 'user')->first();
+            $user->type_id = $user_type_id->id; // for admin users
+            // $password = rand(); //Get random password to send user
+
+
+            $user->password = Hash::make($password);
+            $user->user_role_id = $user_role_id;
+            $user->status = 1;
+            $user_data = Request::all();
+
+            $user_data['password'] = $password;
+
+            $user->save();
+
+            return $user;
+    }
     public function addNewUser()
     {
 
@@ -871,6 +900,10 @@ class AdminController extends Controller
             $user->type_id = $user_type_id->id; // for admin users
             // $password = rand(); //Get random password to send user
 
+            if (Request::get('customer_type_id'))
+            {
+                $user->customer_type_id = Request::get('customer_type_id');
+            }
 
             $user->password = Hash::make($password);
             $user->user_role_id = $user_role_id;
@@ -882,8 +915,8 @@ class AdminController extends Controller
 
             $user->save();
 
-            Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
-            Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+//            Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+//            Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
 
             $message = FlashMessage::messages('admin.user_created');
 

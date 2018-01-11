@@ -21,6 +21,54 @@ $(document).ready(function() {
         };
 	}
 
+    $("#add-customer-button").on("click", function(){
+    	$this = $(this);
+		$this.attr("disabled", true);
+		var first_name = $("#first_name").val(),
+			last_name = $("#last_name").val(),
+			email = $("#email").val(),
+			password = $("#password").val();
+
+		if (first_name.length === 0 || last_name.length === 0 || email.length === 0 || password.length === 0)
+		{
+			alert("All fields required");
+			$this.attr("disabled", false);
+			return false;
+		}
+
+        var data = {
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            password: password,
+            role_id: 2,
+        };
+
+        $.ajax({
+            url: baseurl+"/addUserFromModal",
+			type:"post",
+			data: data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }).done(function(cb){
+            if (typeof cb.id !== 'undefined') {
+				var option_string = "<option value='"+cb.id+"' selected='selected'>";
+				if (typeof cb.first_name !== 'undefined' && cb.first_name.length !== 0){
+					option_string += cb.first_name+" ";
+				}
+
+				if (typeof cb.last_name !== 'undefined' && cb.last_name.length !== 0){
+					option_string += cb.last_name;
+				}
+
+				option_string += "</option>";
+            	$("#customer_id").append(option_string);
+            	$("#add-customer-modal").modal("toggle");
+            }
+
+		});
+    });
 
 
 	$("#dropzone-cancel").on("click", function(){

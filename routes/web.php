@@ -96,6 +96,7 @@ Route::group(['middleware' => ['auth', 'adminCheck', 'adminRightsCheck']], funct
     Route::get('add-job-type', ['uses' => 'AdminController@addJobType']);
     Route::get('add-customer-type', ['uses' => 'AdminController@addCustomerType']);
     Route::post('addUser', ['uses' => 'AdminController@addNewUser']);
+    Route::post('addUserFromModal', 'AdminController@addNewUserFromModal');
     Route::post('addServiceCat', ['uses' => 'AdminController@addNewServiceCategory']);
     Route::post('addJobType', ['uses' => 'AdminController@addNewJobType']);
     Route::post('addCustomerType', ['uses' => 'AdminController@addNewCustomerType']);

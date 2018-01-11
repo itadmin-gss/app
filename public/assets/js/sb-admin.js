@@ -5,6 +5,13 @@
     template: '<div class="tooltip navbar-sidenav-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
   });
 
+  $("select#customer_id").on("change", function(){
+      if ($(this).val() === "add-new-customer"){
+          $("#add-customer-modal").modal("toggle");
+      }
+  });
+
+
   $(".datepicker").datepicker();
 
   $(".work-orders-tab").on("click", function(){
