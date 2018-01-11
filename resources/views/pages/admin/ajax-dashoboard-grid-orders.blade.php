@@ -17,7 +17,12 @@
                         </div>
                     </div>
                 </div>
+                <style>
+                    .rework{display:inherit !important;}
+
+                </style>
                       <title>GSS - Rework Orders</title>";
+
                     break;
                 case 1:
                     echo "<div id='page-heading-dt' style='display:none;'>
@@ -26,7 +31,10 @@
                             <span><span id='header-quantity-inprocess'></span> Assigned to Vendor, awaiting Vendor Completion</span>
                         </div>
                     </div>
-                </div><title>GSS - In Process Orders</title>";
+                </div>                <style>
+                    .in-process{display:inherit !important;}
+
+                </style><title>GSS - In Process Orders</title>";
                     break;
             }
         }
@@ -164,13 +172,7 @@
                   <script type="text/javascript">
 
 
-$('.datatabledashboard').DataTable( {
-      dom: 'Bfrtip',
-      "order": [[ 0, "desc" ]],
-      buttons: [
-      'copy', 'csv', 'excel', 'print'
-      ]
-    } );
+
 </script>
 
 @stop

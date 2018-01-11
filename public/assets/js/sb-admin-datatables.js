@@ -109,6 +109,14 @@ $('.work-order-table').DataTable( {
   ]
 });
 
+// $('.datatabledashboard').DataTable( {
+//     dom: 'Bfrtip',
+//     "order": [[ 0, "desc" ]],
+//     buttons: [
+//         'copy', 'csv', 'excel', 'print'
+//     ]
+// } );
+
 $('.datatabledashboard').DataTable( {
   dom: '<"dt-toolbar"><"clear"><fB>rtip',
   "responsive" : true,

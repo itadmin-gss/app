@@ -68,7 +68,7 @@
                                 </div>
                             </div>
 
-                    <div class="form-actions">
+                    <div class="form-actions" style="margin-top:5px;">
 
                         <div class="pull-right">
             				 {!! Form::submit('Add User', array('class' => 'btn btn-large btn-success')) !!}

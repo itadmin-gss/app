@@ -3,6 +3,10 @@
 
 <div id="content" class="span11">
 <title>GSS - Completed Orders</title>
+    <style>
+        .completed{display:inherit !important;}
+
+    </style>
     <div id="datatabledashboard">
         <div id="page-heading-dt" style="display:none;">
             <div class="card blue-4 ">
