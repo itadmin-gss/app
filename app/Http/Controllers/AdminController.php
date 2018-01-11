@@ -864,7 +864,11 @@ class AdminController extends Controller
 
             $user->save();
 
-            return $user;
+        Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+        Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+
+
+        return $user;
     }
     public function addNewUser()
     {
@@ -915,8 +919,8 @@ class AdminController extends Controller
 
             $user->save();
 
-//            Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
-//            Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+            Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+            Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
 
             $message = FlashMessage::messages('admin.user_created');
 
