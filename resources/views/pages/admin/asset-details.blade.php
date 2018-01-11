@@ -345,7 +345,7 @@
                                 @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                     @if (strtolower($order_detail['status']) == 'approved' || strtolower($order_detail['status']) == 'exported')
                                     <tr>
-                                        <td><a href="#">{!! $id !!}</a></td>
+                                        <td><a href="{!! URL::to("edit-order/".$id) !!}">{!! $id !!}</a></td>
                                         <td>
                                             <?php
                                             $customer_details = CustomerType::find($customer_info->customer_type_id);
@@ -395,7 +395,7 @@
                             @if (isset($order_details[$key]["order_details"]))
                                 @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                     <tr>
-                                        <td>{!! $id !!}</td>
+                                        <td><a href="{!! URL::to("edit-order/".$id) !!}">{!! $id !!}</a></td>
                                         <td>
                                             <?php
                                             $customer_details = CustomerType::find($customer_info->customer_type_id);
