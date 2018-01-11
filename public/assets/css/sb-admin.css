@@ -129,6 +129,7 @@
   padding: 0 0 0 2px;
   background: linear-gradient(#1c6cb9, #113252);
   color: white;
+  margin-left:15px !important;
 }
 
 .property-header-info table{
