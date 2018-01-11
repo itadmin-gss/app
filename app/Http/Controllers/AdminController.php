@@ -857,16 +857,17 @@ class AdminController extends Controller
 
             $user->password = Hash::make($password);
             $user->user_role_id = $user_role_id;
+            $user->user_type_id = 2;
             $user->status = 1;
             $user_data = Request::all();
 
             $user_data['password'] = $password;
 
             $user->save();
-//
-//        Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
-//        Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
-//
+
+        Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+        Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+
 
         return $user;
     }
