@@ -310,6 +310,15 @@ class AdminController extends Controller
             {
                 $list_orders[$i]['asset_number'] = "";
             }
+            if (isset($order->maintenanceRequest->asset->id))
+            {
+                $list_orders[$i]['asset_id'] = $order->maintenanceRequest->asset->id;
+            }
+            else
+            {
+                $list_orders[$i]['asset_id'] = "";
+
+            }
 
 
             $list_orders[$i]['job_type'] = $jobtype;
