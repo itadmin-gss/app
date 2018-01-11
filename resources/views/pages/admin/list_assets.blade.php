@@ -60,7 +60,11 @@
                @if(isset($asset->customerType->title))    <td>{!!$asset->customerType->title!!}</td> @else   <td> </td> @endif
               <td>{!!$asset->asset_number!!}</td>
               <td>{!!$asset->loan_number!!}</td>
-              <td>{!!$asset->property_address!!}</td>
+              <td>
+                       <a href="{!! URL::to('asset/'.$asset->id) !!}">
+                           {!!$asset->property_address!!}
+                       </a>
+              </td>
               <td>{!!$asset->property_status!!}</td>
               @if(isset($asset->city->name))   <td class="center">{!!$asset->city->name!!}</td> @else   <td> </td> @endif
               @if(isset($asset->state->name))   <td class="center">{!!$asset->state->name!!}</td> @else   <td> </td> @endif
@@ -69,31 +73,12 @@
 
              <td class="center">
 
-                <div class='action-button-4-wide'>
-                  <a class="btn btn-xs btn-success action-button" href="{!! URL::to('asset/'.$asset->id) !!}" title="View">
-                    <i class="fa fa-search-plus" aria-hidden='true'></i>
-                  </a>
-
-                  <a class="btn btn-info btn-xs action-button" href="edit-asset/{!!$asset->id!!}" title="Edit"> 
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                  </a>
-
-                  <a class="btn btn-warning btn-xs action-button" onclick="" href="delete-customer-asset/{!!$asset->id!!}" title="Close">
-                    <i class="fa fa-refresh" aria-hidden="true"></i>
-                  </a>
-
                   <a class="btn btn-danger btn-xs action-button" onclick='deleteSelectedAsset({!!$asset->id!!})' href="#" title="Delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </a>
-                </div>
+             </td>
 
-
-
-
-
-                                                                </td>
-
-                                                              </tr>
+            </tr>
 
                                                               <?php $i++; ?>
 

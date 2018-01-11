@@ -863,10 +863,10 @@ class AdminController extends Controller
             $user_data['password'] = $password;
 
             $user->save();
-
-        Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
-        Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
-
+//
+//        Mail::to(Request::get('email'), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+//        Mail::to(User::getEmail(Auth::user()->id), Request::get('first_name') . ' ' . Request::get('last_name'))->send(new AdminCustomerCreated($user_data));
+//
 
         return $user;
     }
@@ -1865,6 +1865,7 @@ class AdminController extends Controller
             $list_orders[$i]['vendor_price'] = $vendorprice;
             $list_orders[$i]['customer_price'] = $customerprice;
             $list_orders[$i]['asset_number'] = $order->maintenanceRequest->asset->asset_number;
+            $list_orders[$i]['asset_id'] = $order->maintenanceRequest->asset->id;
             $list_orders[$i]['job_type'] = $jobtype;
             $list_orders[$i]['order_date'] = date('m/d/Y h:i:s A', strtotime($order->created_at));
             $list_orders[$i]['updated_at'] = date('m/d/Y h:i:s A', strtotime($order->updated_at));
@@ -2087,6 +2088,11 @@ class AdminController extends Controller
             else
             {
                 $list_orders[$i]['asset_number'] = "";
+            }
+
+            if (isset($order->maintenanceRequest->asset->id))
+            {
+                $list_orders[$i]['asset_id'] = $order->maintenanceRequest->asset->id;
             }
 
 

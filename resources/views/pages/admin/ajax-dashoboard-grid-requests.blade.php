@@ -92,7 +92,7 @@
 
 
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif><a href="{!! URL::to("asset/".$rm->asset->id) !!}">{!!  $rm->asset->property_address !!}</a></td>
 
   
 
@@ -340,7 +340,7 @@ $servicedate="";
 
             <td  @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!$assignedUsers!!}</td>
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->property_address !!}</td>
+                <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif><a href="{!! URL::to("asset/".$rm->asset->id) !!}">{!!  $rm->asset->property_address !!}</a></td>
 
            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>{!!  $rm->asset->city->name !!}</td>
 

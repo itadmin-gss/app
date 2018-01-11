@@ -85,7 +85,9 @@ $(document).ready(function() {
 	});
 
 	//Event Handler -> Property Photo Upload
-	$("#property-photo-upload").on("click", function(){
+	$(".property-photo-upload").on("click", function(){
+
+		console.log("test");
 		$("#photo-upload-modal").modal("toggle");
         myDropZone = Dropzone.forElement("#dropzone-upload");
         myDropZone.on("addedfile", function(file){
@@ -114,7 +116,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#property-photo-select").on("click", function(){
+	$(".property-photo-select").on("click", function(){
 		$.ajax({
 			url: baseurl + "/available-property-photos",
 			type: "post",

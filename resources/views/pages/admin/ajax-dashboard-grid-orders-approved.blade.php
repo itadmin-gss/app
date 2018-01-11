@@ -59,10 +59,12 @@
                           </td>
 
                         <td class="center">
+                            <a href="{!! URL::to("asset/".$order['asset_id']) !!}">
                           {!!$order['property_address']!!}
                           @if ($order['units'])
                           #{!!$order['units']!!}
                           @endif
+                            </a>
                         </td>
 
                         <td class="center">{!! $order['city'] !!}</td>

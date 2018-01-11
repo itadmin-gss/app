@@ -98,7 +98,7 @@
              <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user->first_name)) {!! $rm->user->first_name !!} @endif   @if(isset($rm->user->last_name)) {!! $rm->user->last_name !!}@endif</td>
 
 
-           <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->asset->property_address)) {!! $rm->asset->property_address !!} @endif @if (isset($rm->asset->unit)) #{!! $rm->asset->unit !!}@endif</td>
+            <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->asset->property_address)) <a href="{!! URL::to("asset/".$rm->asset->id) !!}">{!! $rm->asset->property_address !!}</a> @endif @if (isset($rm->asset->unit)) #{!! $rm->asset->unit !!}@endif</td>
 
 
 

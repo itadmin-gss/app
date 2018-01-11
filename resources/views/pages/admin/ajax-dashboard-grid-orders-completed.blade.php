@@ -11,7 +11,7 @@
         <div id="page-heading-dt" style="display:none;">
             <div class="card blue-4 ">
                 <div class="card-body">
-                    <span><span id="header-quantity-complete"></span> Work Orders Completed & Verified by GSS Admins. Ready for Vendor Payment</span>
+                    <span><span id="header-quantity-complete"></span> Work Orders Completed & Needs To Be verified by GSS Admins</span>
                 </div>
             </div>
         </div>
@@ -66,7 +66,9 @@
 
 
                         <td class="center">
-                          {!!$order['property_address']!!}
+                            <a href="{!! URL::to("asset/".$order['asset_id'])!!}">
+                                {!!$order['property_address']!!}
+                            </a>
                           @if ($order['units'])
                           #{!!$order['units']!!}
                           @endif

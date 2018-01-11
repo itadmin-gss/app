@@ -40,7 +40,7 @@
                         <div class="property-header">
                             <p style="margin-bottom: 0px !important;">{!! $property_details->property_address !!}, {!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}</p>
                         </div>
-                        <div class="row">
+                        <div class="row" style="margin-left:0px !important;">
                             <div class="col-md-4 col-lg-4 col-sm-12">
                                 <table class="table table-sm">
                                     <tbody>

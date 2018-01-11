@@ -136,7 +136,7 @@
                                     sort($customers_data);
                                     array_unshift($customers_data, 'Select Customer');
                                     ?>
-                                    <select id="customer_id" class="form-control">
+                                    <select id="customer_id"  name="customer_id" class="form-control">
                                         <option></option>
                                         <option class="add-user-option" value="add-new-customer">Add New Customer</option>
                                         <option disabled>-----------------------------------------------------------</option>
