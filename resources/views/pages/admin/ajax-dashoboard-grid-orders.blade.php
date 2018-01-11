@@ -96,7 +96,7 @@
                         
                         <td class="center">{!!$order['customer_name']!!}</td>
 
-                        <td class="center">{!! $order['property_address'] !!}</td>
+                          <td class="center"><a href="{!! URL::to("asset/".$order['asset_id']) !!}">{!! $order['property_address'] !!}</a></td>
 
                         <td class="center">{!! $order['city'] !!}</td>
 
