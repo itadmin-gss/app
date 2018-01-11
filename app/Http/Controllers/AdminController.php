@@ -857,7 +857,7 @@ class AdminController extends Controller
 
             $user->password = Hash::make($password);
             $user->user_role_id = $user_role_id;
-            $user->user_type_id = 2;
+            $user->type_id = 2;
             $user->status = 1;
             $user_data = Request::all();
 
