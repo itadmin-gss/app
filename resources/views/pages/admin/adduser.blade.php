@@ -6,12 +6,11 @@
 
 
     <div class="row-fluid">
-        <div class="box span12">
-            <div class="box-header" data-original-title>
-                <h2><span class="break"></span>Add User</h2>
-            </div>
 
-            <div class="box-content custome-form">
+        <h2><span class="break"></span>Add User</h2>
+
+
+            <div class="custome-form col-md-6">
                 @if (Session::has('message'))
                 {!! Session::get('message') !!}
                 @endif
@@ -23,13 +22,12 @@
                 @endif
                 {!! Form::open(array('url' => 'addUser', 'class' => 'form-horizontal', 'method' => 'post')) !!}
                 <fieldset>
-                    <div class="row-fluid">
-                        <div class="span6 offset3 centered">
+
                             <div class="control-group">
                                 {!! Form::label('typeahead', 'First Name: *', array('class' => 'control-label')) !!}
                                 <div class="controls">
                                     <div class="input-append">
-                                        {!! Form::text('first_name', '', array('class' => 'input-xlarge focused',
+                                        {!! Form::text('first_name', '', array('class' => 'form-control',
                                          'id' => 'focusedInput')) !!}
                                     </div>
                                 </div>
@@ -38,7 +36,7 @@
                                 {!! Form::label('typeahead', 'Last Name: *', array('class' => 'control-label')) !!}
                                 <div class="controls">
                                     <div class="input-append">
-                                        {!! Form::text('last_name', '', array('class' => 'input-xlarge focused',
+                                        {!! Form::text('last_name', '', array('class' => 'form-control',
                                          'id' => 'focusedInput')) !!}
                                     </div>
                                 </div>
@@ -48,16 +46,16 @@
                                 <div class="controls">
                                     <div class="input-append">
                                         {!! Form::text('email', '', array('id' => 'focusedInput',
-                                         'class' => 'input-xlarge focused')) !!}
+                                         'class' => 'form-control')) !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="control-group">
-                                {!! Form::label('user_role', 'User Role *', array('class' => 'control-label')) !!}
+                                {!! Form::label('user_role', 'User Role *', array('class' => '')) !!}
 
                                 <div class="controls">
                                     {!! Form::select('role_id', $user_roles, '01',
-                                    array('data-rel' => 'chosen')); !!}
+                                    array('class' => 'form-control')); !!}
                                 </div>
                             </div>
 
@@ -65,12 +63,11 @@
                                 {!! Form::label('typeahead', 'Password *', array('class' => 'control-label')) !!}
                                 <div class="controls">
                                     <div class="input-append">
-                                        {!! Form::text('password', '', array('id' => 'password','class' => 'input-xlarge focused')) !!}
+                                        {!! Form::text('password', '', array('id' => 'password','class' => 'form-control')) !!}
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+
                     <div class="form-actions">
 
                         <div class="pull-right">

@@ -262,8 +262,8 @@ class AssetController extends Controller
 
         //Get Order Details / Request Details
         $orderDetails = [];
-        $requestDetails = [];
         $vendorsFound = [];
+        $inv_orders = [];
         $invoices = [];
         foreach($requests as $request)
         {
