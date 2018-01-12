@@ -114,6 +114,11 @@
                         </td>
 
                           <td class="center">
+
+                              <?php
+                                  var_dump($order);
+                              ?>
+
                               @if ($order['recurring'] === 1)
                                   <i class="fa fa-recycle" style="color:blue !important;"></i>
                                   @endif
