@@ -116,7 +116,7 @@
                           <td class="center">
 
                               @if ($order['recurring'] == 1)
-                                  <i class="fa fa-recycle" style="color:blue !important;"></i>
+                                  <i class="fa fa-2x fa-recycle" style="color:blue !important; vertical-align:middle;"></i>
                                   @endif
                           </td>
 
