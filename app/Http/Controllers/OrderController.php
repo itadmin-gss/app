@@ -65,7 +65,7 @@ class OrderController extends Controller
 
         return view('common.edit_order')
             ->with('order_details', $order_details)
-            ->with('property_details', $property_details)
+            ->with('property_details', $property_details[0])
             ->with('vendorsDATA', $vendorsDATA)
             ->with('order', $data)
             ->with('items', $items)
