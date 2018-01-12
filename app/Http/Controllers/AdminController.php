@@ -460,10 +460,11 @@ class AdminController extends Controller
                 $list_orders[$i]['recurring'] = "";
                 if (isset($order_detail->requestedService->recurring))
                 {
-                    if ($order_detail->requestedService->recurring === 1)
-                    {
-                        $list_orders[$i]['recurring'] = 1;
-                    }
+                    $list_orders[$i]['recurring'] = $order_detail->requestedService->recurring;
+                }
+                else
+                {
+                    $list_orders[$i]['recurring'] = "not found";
                 }
                 $order_count++;
             }
