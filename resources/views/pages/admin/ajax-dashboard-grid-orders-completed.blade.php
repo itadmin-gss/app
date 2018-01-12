@@ -32,6 +32,7 @@
                          <th>City</th>
                          <th>State</th>
                          <th>Completed</th>
+                            <th></th>
                          <th>Service Type</th>
                          <th>Due</th>
                          <th>Vendor</th>
@@ -79,6 +80,13 @@
                         <td class="center">{!! $order['state'] !!}</td>
 
                         <td class="center">{!! $order['completion_date'] !!}</td>
+
+                          <td class="center">
+
+                              @if ($order['recurring'] == 1)
+                                  <i class="fa fa-2x fa-recycle" style="color:blue !important; vertical-align:middle;"></i>
+                              @endif
+                          </td>
 
                         <td class="center">{!! $order['service_type'] !!}</td>
 
