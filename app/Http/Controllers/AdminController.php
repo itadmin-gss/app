@@ -395,14 +395,7 @@ class AdminController extends Controller
                 $list_orders[$i]['request_status'] = "";
             }
 
-            $list_orders[$i]['recurring'] = "";
-            if (isset($order->maintenanceRequest->recurring))
-            {
-                if ($order->maintenanceRequest->recurring === 1)
-                {
-                    $list_orders[$i]['recurring'] = 1;
-                }
-            }
+
             $list_orders[$i]['status'] = $order->status;
             $list_orders[$i]['billing_note'] = $order->billing_note;
             $list_orders[$i]['status_class'] = ($order->status == 1) ? "warning" : $order->status_class;
@@ -462,6 +455,15 @@ class AdminController extends Controller
                         $list_orders[$i]['service_name'] .= "<br>";
                     }
                     $list_orders[$i]['service_name'] .= $due_date;
+                }
+
+                $list_orders[$i]['recurring'] = "";
+                if (isset($order_detail->requestedService->recurring))
+                {
+                    if ($order_detail->requestedService->recurring === 1)
+                    {
+                        $list_orders[$i]['recurring'] = 1;
+                    }
                 }
                 $order_count++;
             }
