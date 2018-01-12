@@ -295,7 +295,7 @@
 
                                     <div class="form-inline">
 
-                                        {!! Form::select('state_id', $states_data , isset($user_data['state_id']) ? $user_data['state_id'] : '0', array('class'=>'form-control,'id'=>'state_id', 'data-rel'=>'chosen'))!!}
+                                        {!! Form::select('state_id', $states_data , isset($user_data['state_id']) ? $user_data['state_id'] : '0', array('class'=>'form-control','id'=>'state_id', 'data-rel'=>'chosen'))!!}
 
                                     </div>
 
