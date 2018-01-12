@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+    <title>GSS - Edit Profile (Admin)</title>
 <div id="content" class="span11">
 
 

@@ -67,6 +67,8 @@
 
                          <th>Vendor Name @ Vendor Company</th>
 
+                         <th></th>
+
                          <th>Service(s)</th>
 
                          <th>Due</th>
@@ -110,6 +112,12 @@
                                 <span>@  {!! trim($order['vendor_company']) !!}</span>
                         @endif
                         </td>
+
+                          <td class="center">
+                              @if ($order['recurring'] === 1)
+                                  <i class="fa fa-recycle" style="color:blue !important;"></i>
+                                  @endif
+                          </td>
 
                         <td class="center">{!! $order['service_type'] !!}</td>
 
