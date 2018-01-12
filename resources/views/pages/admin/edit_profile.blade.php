@@ -117,6 +117,18 @@
                 {!! Form::button('Edit', array('class'=>'btn btn-small btn-success','id'=>'editEmail'))!!}
             </div>
 
+            <label for="pruvan_user">Pruvan Username</label>
+            <div class="form-inline">
+                {!! Form::text('pruvan_user', isset($pruvan_creds->username) ? $pruvan_creds->username : "", array('class' => 'form-control', 'id' => 'pruvan_user', 'readonly'=>'true')) !!}
+                {!! Form::button('Edit', array('class' => 'btn btn-small btn-success', 'id' => 'editPruvanUser')) !!}
+            </div>
+
+            <label for="pruvan_email">Pruvan Email</label>
+            <div class="form-inline">
+                {!! Form::email('pruvan_email', isset($pruvan_creds->email_address) ? $pruvan_creds->email_address : "", array('class' => 'form-control', 'id' => 'pruvan_email', 'readonly'=>'true')) !!}
+                {!! Form::button('Edit', array('class' => 'btn btn-small btn-success', 'id' => 'editPruvanEmail')) !!}
+            </div>
+
             <div>
                 {!!Form::label('fileInput', 'File', array('class' => 'control-label'))!!} 
                 <span class="form-inline">

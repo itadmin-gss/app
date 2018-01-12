@@ -85,7 +85,7 @@
 
                         <td>
                             <?php
-                            $view_url = "view-order/".$order['order_id'];
+                            $view_url = "edit-order/".$order['order_id'];
                             ?>
                             <a href="{!!URL::to($view_url)!!}" title="View">
                                 {!! $order['order_id']!!}

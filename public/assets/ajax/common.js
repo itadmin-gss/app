@@ -1016,9 +1016,17 @@ function modalClose(){
                   $('#changePasswordControll').slideUp();
               }
           });
-          $('#editPruvanUsername').click(function() {
-              $('#pruvanUsername').removeAttr('readonly');
-          })
+
+
+          $("#editPruvanUser").on("click", function(){
+             $("#pruvan_user").removeAttr("readonly");
+          });
+
+          $("#editPruvanEmail").on("click", function(){
+              $("#pruvan_email").removeAttr("readonly");
+          });
+
+
           $('#editEmail').click(function() {
               $('#editEmail').removeAttr('readonly');
           })

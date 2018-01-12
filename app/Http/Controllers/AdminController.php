@@ -15,6 +15,7 @@ use App\Mail\AdminCustomerCreated;
 use App\MaintenanceRequest;
 use App\Order;
 use App\OrderCustomData;
+use App\PruvanVendors;
 use App\RequestedService;
 use App\RoleDetail;
 use App\RoleFunction;
@@ -1520,12 +1521,15 @@ class AdminController extends Controller
             $servicesDATAoption .= "</optgroup>";
         }
 
+        $pruvan_creds = PruvanVendors::find($id);
+
 
         $CustomerType = CustomerType::get();
 
         return view('pages.admin.edit_profile')
             ->with('cities', $cities)
             ->with('states', $states)
+            ->with('pruvan_creds', $pruvan_creds)
             ->with('user_data', $user_data)
             ->with('user_type', $user_type)
             ->with('services', $services)
@@ -1625,7 +1629,7 @@ class AdminController extends Controller
                 'email' => 'required|email|unique:users,email,' . $id,
                 'first_name' => 'required|min:2|max:80|alpha',
                 'last_name' => 'required|min:2|max:80|alpha',
-                'phone' => 'required|numeric',
+                'phone' => 'required',
                 'address_1' => 'required|min:8|max:100',
                 'zipcode' => 'required',
                 'state_id' => 'required',
@@ -1639,7 +1643,7 @@ class AdminController extends Controller
                 'email' => 'required|email|unique:users,email,' . $id,
                 'first_name' => 'required|min:2|max:80|alpha',
                 'last_name' => 'required|min:2|max:80|alpha',
-                'phone' => 'required|numeric',
+                'phone' => 'required',
                 'address_1' => 'required|min:8|max:100',
                 'zipcode' => 'required',
                 'state_id' => 'required',
@@ -1659,6 +1663,19 @@ class AdminController extends Controller
 
             return $profile_error_messages;
         } else {
+
+
+            $pruvan_user = Request::get('pruvan_user');
+            $pruvan_email = Request::get("pruvan_email");
+
+            if ($pruvan_user){
+                PruvanVendors::updateOrCreate(["vendor_id" => $id], ['username' => $pruvan_user]);
+            }
+
+            if ($pruvan_email){
+                PruvanVendors::updateOrCreate(["vendor_id" => $id], ['email_address' => $pruvan_email]);
+            }
+
             $street = '';
             $streetNumber = '';
             $city_id = Request::get('city_id');
