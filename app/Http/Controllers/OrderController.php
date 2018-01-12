@@ -63,8 +63,14 @@ class OrderController extends Controller
             $allservices = Service::getAllServices();
         }
 
+        //Get City/State Information
+        $city = City::where('id', $property_details[0]->city_id)->get()[0]->name;
+        $state = State::where('id', $property_details[0]->state_id)->get()[0]->name;
+
         return view('common.edit_order')
             ->with('order_details', $order_details)
+            ->with('city', $city)
+            ->with('state', $state)
             ->with('property_details', $property_details[0])
             ->with('vendorsDATA', $vendorsDATA)
             ->with('order', $data)
