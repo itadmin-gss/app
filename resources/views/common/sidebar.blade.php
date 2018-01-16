@@ -125,8 +125,18 @@
         </li>
         @endif
 
+        <!-- Services Link -->
+        @if($access_roles['Service']['view'] == 1)
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Services">
+            <a class="nav-link sidenav-link" href="{!! URL::to('list-services') !!}">
+                <i class="fa fa-fw fa-lg fa-wrench"></i>
+                <p class="nav-link-text">Services</p>
+            </a>
+        </li>
+        @endif
 
-        <!-- Permissions Link -->
+
+              <!-- Permissions Link -->
         @if($access_roles['Access Level']['view'] == 1)
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Permissions">
           <a class="nav-link sidenav-link" href="{!!URL::to('list-permissions')!!}">

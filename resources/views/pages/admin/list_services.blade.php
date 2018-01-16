@@ -6,7 +6,7 @@
 </a>
     <div class="row-fluid">
 
-                <h2>Services</h2>
+                <h2 style="margin-bottom:30px;">Services</h2>
 
             @if(Session::has('message'))
             {!!Session::get('message')!!}
@@ -42,15 +42,13 @@
 
                             <th>Status</th>
 
-                            <th>Action</th>
-
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach ($services as $service)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td><a href="edit-service/{!! $service->id !!}">{{ $loop->iteration }}</a></td>
                             <td>{!! $service->service_code !!}</td>
                             <td>@if(isset($service->serviceCategory->title)){!! $service->serviceCategory->title  !!}@endif</td>
                             <td class="center">{!! $service->title !!}</td>
@@ -80,7 +78,6 @@
                                     @endif
                                 </div>
                             </td>
-                            <td class="center"><a class="btn btn-info btn-sm" href="edit-service/{!! $service->id !!}" title="Edit"> <i class="fa fa-edit"></i> </a> <!--<a class="btn btn-danger" href="#"> <i class="halflings-icon trash halflings-icon"></i> </a>--></td>
                         </tr>
 
                         @endforeach
