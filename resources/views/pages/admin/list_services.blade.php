@@ -5,24 +5,21 @@
  Add Service
 </a>
     <div class="row-fluid">
-        <div class="box span12">
-            <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon th-list"></i><span class="break"></span>Services</h2>
-                <div class="box-icon"> <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a> </div>
-            </div>
+
+                <h2>Services</h2>
+
             @if(Session::has('message'))
             {!!Session::get('message')!!}
             @endif
-            <div class="box-content">
+
                 <div id="access-error" class="hide">
-                    <div class="alert alert-error">Warning! Access Denied</h4>
+                    <div class="alert alert-error">Warning! Access Denied</div>
                 </div>
                 <div id="access-success" class="hide">
-                    <div class="alert alert-success">Success! Action Successful</h4>
+                    <div class="alert alert-success">Success! Action Successful</div>
                 </div>
-                 <div class="box-content admtable">
-                              <div class="admtableInr">
-                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+
+                <table class="table table-striped table-condensed table-bordered datatabledashboard">
                     <!--<label> Select Date Range </label>
                     <div style="display: inline-block; background: none repeat scroll 0% 0% rgb(255, 255, 255); cursor: pointer; padding: 5px 10px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px;" class="btn" id="reportrange2"> <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>August 3, 2014 - September 1, 2014</span> <b class="caret"></b> </div>-->
                     <thead>
@@ -83,7 +80,7 @@
                                     @endif
                                 </div>
                             </td>
-              <td class="center"><a class="btn btn-info" href="edit-service/{!! $service->id !!}" title="Edit"> <i class="halflings-icon edit halflings-icon"></i> </a> <!--<a class="btn btn-danger" href="#"> <i class="halflings-icon trash halflings-icon"></i> </a>--></td>
+                            <td class="center"><a class="btn btn-info btn-sm" href="edit-service/{!! $service->id !!}" title="Edit"> <i class="fa fa-edit"></i> </a> <!--<a class="btn btn-danger" href="#"> <i class="halflings-icon trash halflings-icon"></i> </a>--></td>
                         </tr>
 
                         @endforeach
