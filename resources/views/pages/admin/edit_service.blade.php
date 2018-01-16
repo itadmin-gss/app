@@ -1,38 +1,34 @@
 @extends('layouts.default')
 @section('content')
 <div id="content" class="span11">
-  <div class="row-fluid">
-    <div class="box span12">
-      <div class="box-header" data-original-title>
-        <h2><span class="break"></span>Add Service</h2>
-      </div>
-      <div class="box-content custome-form"> 
+    <h2>Add Service</h2>
+  <div class="row">
+        <div class="col-md-5">
+
       	@if (Session::has('message'))
         	{!! Session::get('message') !!}
         @endif
-        
+
         @if(!$errors->isEmpty())
             @foreach ($errors->all() as $error)
             	<div class="alert alert-error">{!! $error !!}</div>
             @endforeach
         @endif
-        <?php //echo "<pre>";print_r($service);exit;  ?>
-        {!! $url='edit-service/'.$service->id !!}
-        {!! Form::open(array('url' => $url, 'class' => 'form-horizontal', 'method' => 'post')) !!}
+
+        {!! Form::open(array('url' => 'edit-service/'.$service->id, 'class' => 'form-horizontal', 'method' => 'post')) !!}
         <fieldset>
-          <div class="row-fluid">
-            <div class="span6 offset3 centered">
-              <div class="control-group"> {!! Form::label('typeahead', 'Service Code: *', array('class' => 'control-label')) !!}
+
+              <div class="form-group"> {!! Form::label('typeahead', 'Service Code: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append"> {!! Form::text('service_code', $service->service_code, array('class' => 'input-xlarge focused',
+                  <div class="input-append"> {!! Form::text('service_code', $service->service_code, array('class' => 'form-control',
                     'id' => 'focusedInput')) !!} </div>
                 </div>
               </div>
 
-                 <div class="control-group" style="float: right;width: 72px;"> {!! Form::label('typeahead', 'Service Type: ', array('class' => 'control-label')) !!}
+                 <div class="form-group" > {!! Form::label('typeahead', 'Service Type: ', array('class' => 'control-label')) !!}
                 <div class="controls">
                   <div class="input-append"> 
-                      <select name="service_type" id="service_type">
+                      <select name="service_type" id="service_type" class="form-control">
                       <option value="0" @if($service->service_type==0) selected="selected" @endif>Standard</option>
                       <option value="1" @if($service->service_type==1) selected="selected" @endif>OSR</option>
                       </select>
@@ -41,9 +37,9 @@
                 </div>
               </div>
 
-                <div class="control-group"> {!! Form::label('typeahead', 'Service Category: *', array('class' => 'control-label')) !!}
+                <div class="form-group"> {!! Form::label('typeahead', 'Service Category: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append">  <select name="service_cat_id" id="service_cat_id">
+                  <div class="input-append">  <select name="service_cat_id" id="service_cat_id" class="form-control">
          <?php
               
                 foreach($ServiceCategory as $scat)
@@ -60,9 +56,9 @@
               </div>
 
 
-                <div class="control-group"> {!! Form::label('typeahead', 'Client Type: *', array('class' => 'control-label')) !!}
+                <div class="form-group"> {!! Form::label('typeahead', 'Client Type: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append">  <select name="customer_type_id" id="customer_type_id">
+                  <div class="input-append">  <select name="customer_type_id" id="customer_type_id" class="form-control">
          <?php
               
                 foreach($CustomerType as $scat)
@@ -81,9 +77,9 @@
 
 
 
-                <div class="control-group"> {!! Form::label('typeahead', 'Job Type: *', array('class' => 'control-label')) !!}
+                <div class="form-group"> {!! Form::label('typeahead', 'Job Type: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append">  <select name="job_type_id" id="job_type_id">
+                  <div class="input-append">  <select name="job_type_id" id="job_type_id" class="form-control">
          <?php
               
                 foreach($JobType as $scat)
@@ -102,36 +98,36 @@
 
 
                   
-              <div class="control-group"> {!! Form::label('typeahead', 'Title: *', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('typeahead', 'Title: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append"> {!! Form::text('title', $service->title, array('class' => 'input-xlarge focused',
+                  <div class="input-append"> {!! Form::text('title', $service->title, array('class' => 'form-control',
                     'id' => 'focusedInput')) !!} </div>
                 </div>
               </div>
-              <div class="control-group"> {!! Form::label('customer_price', 'Customer Price: *', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('customer_price', 'Customer Price: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append"> {!! Form::text('customer_price', $service->customer_price, array('class' => 'input-xlarge focused',
+                  <div class="input-append"> {!! Form::text('customer_price', $service->customer_price, array('class' => 'form-control',
                     'id' => 'focusedInput')) !!} </div>
                 </div>
               </div>
-              <div class="control-group"> {!! Form::label('vendor_price', 'Vendot Price: *', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('vendor_price', 'Vendot Price: *', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append"> {!! Form::text('vendor_price', $service->vendor_price, array('class' => 'input-xlarge focused',
+                  <div class="input-append"> {!! Form::text('vendor_price', $service->vendor_price, array('class' => 'form-control',
                     'id' => 'focusedInput')) !!} </div>
                 </div>
               </div>
-              <div class="control-group"> {!! Form::label('desc', 'Description: ', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('desc', 'Description: ', array('class' => 'control-label')) !!}
                 <div class="controls">
-                  <div class="input-append"> {!! Form::textarea('desc', $service->desc, array('class' => 'input-xlarge focused',
+                  <div class="input-append"> {!! Form::textarea('desc', $service->desc, array('class' => 'form-control',
                     'id' => 'focusedInput')) !!} </div>
                 </div>
               </div>
-              <div class="control-group"> {!! Form::label('desc', 'Due Date: ', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('desc', 'Due Date: ', array('class' => 'control-label')) !!}
                  <div class="controls">
-                   <div class="input-append"> {!!Form::text('due_date_val', $service->due_date_val, array('class'=> 'input-xlarge focused datepicker', 'id'=> 'due_date_val' ))!!} </div>
+                   <div class="input-append"> {!!Form::text('due_date_val', $service->due_date_val, array('class'=> 'form-control datepicker', 'id'=> 'due_date_val' ))!!} </div>
                  </div>
               </div>
-<div class="control-group"> {!! Form::label('vendorCheckLabel', 'Vendor Edit:', array('class' => 'control-label')) !!}
+<div class="form-group"> {!! Form::label('vendorCheckLabel', 'Vendor Edit:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->vendor_edit) 
@@ -143,7 +139,7 @@
                   {!! Form::checkbox('vendor_edit', '1', $attribute_array) !!}
                 </div>
               </div>
- <div class="control-group"> {!! Form::label('recurring', 'Recurring :', array('class' => 'control-label')) !!}
+ <div class="form-group"> {!! Form::label('recurring', 'Recurring :', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->recurring) 
@@ -156,7 +152,7 @@
                 </div>
               </div>
               
-              <div class="control-group"> {!! Form::label('emergency', 'EMERGENCY :', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('emergency', 'EMERGENCY :', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
 					if($service->emergency) 
@@ -168,7 +164,7 @@
                   {!! Form::checkbox('emergency', '1', $attribute_array) !!}
                 </div>
               </div>
-              <div class="control-group"> {!! Form::label('req_date', 'Show Request Date:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('req_date', 'Show Request Date:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
 					if($service->req_date) 
@@ -181,7 +177,7 @@
                 </div>
               </div>
 
-              <div class="control-group"> {!! Form::label('due_date', 'Due Date:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('due_date', 'Due Date:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->due_date) 
@@ -196,7 +192,7 @@
 
 
 
-              <div class="control-group"> {!! Form::label('number_of_men', 'Number Of Men:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('number_of_men', 'Number Of Men:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
 					if($service->number_of_men) 
@@ -216,7 +212,7 @@
         
                
               <!--
-               <div class="control-group"> {!! Form::label('cash_for_keys_trash_out', 'Cash For keys Trash Out:', array('class' => 'control-label')) !!}
+               <div class="form-group"> {!! Form::label('cash_for_keys_trash_out', 'Cash For keys Trash Out:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
 					if($service->cash_for_keys_trash_out) 
@@ -233,7 +229,7 @@
                 </div>
               </div> '
               -->
-              <div class="control-group"> {!! Form::label('trash_size', 'Trash Size:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('trash_size', 'Trash Size:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
 					if($service->trash_size) 
@@ -250,7 +246,7 @@
                 </div>
               </div> 
               <!--
-              <div class="control-group"> {!! Form::label('storage_shed', 'Storage Shed:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('storage_shed', 'Storage Shed:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
 					if($service->storage_shed) 
@@ -266,7 +262,7 @@
                   </div>
                 </div>
               </div> -->
-              <div class="control-group"> {!! Form::label('lot_size', 'Lot Size:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('lot_size', 'Lot Size:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
 					if($service->lot_size) 
@@ -288,7 +284,7 @@
 
 
 
-                      <div class="control-group"> {!! Form::label('set_prinkler_system_type', 'Set Sprinkler System Type:', array('class' => 'control-label')) !!}
+                      <div class="form-group"> {!! Form::label('set_prinkler_system_type', 'Set Sprinkler System Type:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->set_prinkler_system_type) 
@@ -306,7 +302,7 @@
               </div>
 
 
-                  <div class="control-group"> {!! Form::label('install_temporary_system_type', 'Install Temporary System Type:', array('class' => 'control-label')) !!}
+                  <div class="form-group"> {!! Form::label('install_temporary_system_type', 'Install Temporary System Type:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->install_temporary_system_type) 
@@ -325,7 +321,7 @@
 
 
 
-                 <div class="control-group"> {!! Form::label('carpet_service_type', 'Carpet Service Type:', array('class' => 'control-label')) !!}
+                 <div class="form-group"> {!! Form::label('carpet_service_type', 'Carpet Service Type:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->carpet_service_type) 
@@ -344,7 +340,7 @@
 
 
 
-               <div class="control-group"> {!! Form::label('pool_service_type', 'Pool Service Type:', array('class' => 'control-label')) !!}
+               <div class="form-group"> {!! Form::label('pool_service_type', 'Pool Service Type:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->pool_service_type) 
@@ -362,7 +358,7 @@
               </div>
 
 
-               <div class="control-group"> {!! Form::label('boarding_type', 'Boarding Type:', array('class' => 'control-label')) !!}
+               <div class="form-group"> {!! Form::label('boarding_type', 'Boarding Type:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->boarding_type) 
@@ -380,7 +376,7 @@
               </div>
 
 
-               <div class="control-group"> {!! Form::label('spruce_up_type', 'Spruce Up Type:', array('class' => 'control-label')) !!}
+               <div class="form-group"> {!! Form::label('spruce_up_type', 'Spruce Up Type:', array('class' => 'control-label')) !!}
                 <div class="controls">
                 <?php 
           if($service->spruce_up_type) 
@@ -397,7 +393,7 @@
                 </div>
               </div>
 
-              <div class="control-group"> {!! Form::label('constable_information_type', 'Constable Information Type:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('constable_information_type', 'Constable Information Type:', array('class' => 'control-label')) !!}
                
                 <div class="controls">
                 <?php 
@@ -415,7 +411,7 @@
                 </div>
               </div>
 
-              <div class="control-group"> {!! Form::label('remove_carpe_type', 'Remove Carpet:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('remove_carpe_type', 'Remove Carpet:', array('class' => 'control-label')) !!}
                <div class="controls">
                 <?php 
           if($service->remove_carpe_type) 
@@ -431,7 +427,7 @@
                 </div>
               </div>
 
-              <div class="control-group"> {!! Form::label('remove_blinds_type', 'Remove Blinds:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('remove_blinds_type', 'Remove Blinds:', array('class' => 'control-label')) !!}
                <div class="controls">
                 <?php 
           if($service->remove_blinds_type) 
@@ -447,7 +443,7 @@
                 </div>
               </div>
 
-              <div class="control-group"> {!! Form::label('remove_appliances_type', 'Remove Appliances:', array('class' => 'control-label')) !!}
+              <div class="form-group"> {!! Form::label('remove_appliances_type', 'Remove Appliances:', array('class' => 'control-label')) !!}
                <div class="controls">
                 <?php 
           if($service->remove_appliances_type) 
@@ -471,7 +467,7 @@
             </div>
           </div>
           <div class="form-actions">
-            <div class="pull-right">
+            <div class="pull-left" style="margin-bottom:15px;">
             	{!! Form::hidden('submitted', 1) !!}
                 {!! Form::submit('Update Service', array('class' => 'btn btn-large btn-success')) !!}
               
