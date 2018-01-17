@@ -43,7 +43,7 @@
                <th>Zip</th>
                <th>Customer Name</th>
 
-               <th>Action</th>
+               {{--<th>Action</th>--}}
 
              </tr>
 
@@ -71,12 +71,12 @@
               <td class="center">{!!$asset->zip!!}</td>
               @if(isset($asset->user->first_name))  <td>{!!$asset->user->first_name!!} {!!$asset->user->last_name!!} </td>  @else   <td> </td> @endif
 
-             <td class="center">
+             {{--<td class="center">--}}
 
-                  <a class="btn btn-danger btn-xs action-button" onclick='deleteSelectedAsset({!!$asset->id!!})' href="#" title="Delete">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                  </a>
-             </td>
+                  {{--<a class="btn btn-danger btn-xs action-button" onclick='deleteSelectedAsset({!!$asset->id!!})' href="#" title="Delete">--}}
+                    {{--<i class="fa fa-trash-o" aria-hidden="true"></i>--}}
+                  {{--</a>--}}
+             {{--</td>--}}
 
             </tr>
 
