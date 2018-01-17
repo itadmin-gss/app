@@ -357,7 +357,7 @@
 
 
                                         <td @if($rm->emergency_request==1) style="background-color:red;" @endif>
-                                            <a @if($rm->status==4) disabled='disabled' @else href="view-maintenance-request/{!! $rm->id !!}" @endif title="View">{!! $rm->id !!}</a>
+                                            <a @if($rm->status==4) disabled='disabled' @else href="{!! URL::to("view-maintenance-request/".$rm->id) !!}" @endif title="View">{!! $rm->id !!}</a>
                                         </td>
                                         <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> @if(isset($rm->user2->first_name)) {!! $rm->user2->first_name !!} {!! substr($rm->user2->last_name,0,1)."." !!} @endif</td>
                                         <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>@if(isset($rm->asset->customerType->title)) {!!  $rm->asset->customerType->title !!} @endif</td>
