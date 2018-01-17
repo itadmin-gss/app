@@ -660,9 +660,11 @@
                                         </td>
 
                                         <td>
-                                            @foreach($order_detail["requested_services"] as $services)
-                                                {!! $services->title !!} <br>
-                                            @endforeach
+                                            @if (isset($order_detail["requested_services"]))
+                                                @foreach($order_detail["requested_services"] as $services)
+                                                    {!! $services->title !!} <br>
+                                                @endforeach
+                                            @endif
                                         </td>
                                         <td>{!! $order_detail["status"] !!}</td>
                                     </tr>
