@@ -74,7 +74,11 @@
                 <?php
                 $vendorService="";
                 foreach($vendor->vendorService as $vService){
-                  $vendorService.=$vService->Services->title."<br/>";
+                    if (isset($vService->Services->title))
+                        {
+                            $vendorService.=$vService->Services->title."<br/>";
+
+                        }
 
 
                   }?>
