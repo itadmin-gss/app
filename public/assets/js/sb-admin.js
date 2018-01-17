@@ -28,25 +28,38 @@
               $("#property_map").fadeOut("fast");
               $("#property_vendors").fadeOut("fast");
               $("#property_invoicing").fadeOut("fast");
+              $("#new-requests-table").fadeOut("fast");
               $("#property_work_orders").fadeIn("slow");
               break;
           case 2:
               $("#property_work_orders").fadeOut("fast");
               $("#property_vendors").fadeOut("fast");
               $("#property_invoicing").fadeOut("fast");
+              $("#new-requests-table").fadeOut("fast");
               $("#property_map").fadeIn("slow");
               break;
           case 3:
               $("#property_work_orders").fadeOut("fast");
               $("#property_map").fadeOut("fast");
+              $("#new-requests-table").fadeOut("fast");
               $("#property_invoicing").fadeOut("fast");
               $("#property_vendors").fadeIn("slow");
               break;
           case 4:
               $("#property_work_orders").fadeOut("fast");
+              $("#new-requests-table").fadeOut("fast");
               $("#property_map").fadeOut("fast");
               $("#property_vendors").fadeOut("fast");
               $("#property_invoicing").fadeIn("slow");
+
+              break;
+
+          case 5:
+              $("#property_work_orders").fadeOut("fast");
+              $("#property_map").fadeOut("fast");
+              $("#property_vendors").fadeOut("fast");
+              $("#property_invoicing").fadeOut("slow");
+              $("#new-requests-table").fadeIn("fast");
 
               break;
       }

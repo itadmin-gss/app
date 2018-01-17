@@ -37,12 +37,15 @@ class importVendors
 
         foreach($array as $vendor)
         {
+            $first_name = "";
+            $last_name = "";
             if ($vendor[0] !== "Vendor Full Name")
             {
-                if (trim($vendor[0]) !== "")
+
+                if (strlen(trim($vendor[0])) !== 0)
                 {
                     $row++;
-                    $name_parts = explode(" ", $vendor[0]);
+                    $name_parts = explode(" ", trim($vendor[0]));
                     if (count($name_parts) == 2)
                     {
                         $first_name = $name_parts[0];
@@ -50,6 +53,11 @@ class importVendors
                     } else if (count($name_parts) == 1)
                     {
                         $first_name = $name_parts[0];
+                        $last_name = "";
+                    }
+                    else
+                    {
+                        $first_name = $vendor[0];
                         $last_name = "";
                     }
                     $current[$row] =
@@ -74,8 +82,10 @@ class importVendors
             }
         }
 
+
         foreach($current as $vendor)
         {
+
             $query = "INSERT INTO users (first_name, last_name, company, email, type_id, status, available_zipcodes)
                       VALUES (:fname, :lname, :company, :email, :type_id, :status, :zipcodes)";
             $binds =
@@ -92,6 +102,12 @@ class importVendors
             $st = self::$dbobj->prepare($query);
             $st->execute($binds);
             $id = self::$dbobj->lastInsertId();
+
+            $query = "INSERT INTO pruvan_vendors (vendor_id, username, email_address) VALUES (:vendor, :usern, :email)";
+            $binds = array(":vendor" => $id, ":usern" => trim($vendor['pruvan_user']), ":email" => trim($vendor['email']));
+
+            $st = self::$dbobj->prepare($query);
+            $st->execute($binds);
 
             foreach($vendor["services"] as $service)
             {
