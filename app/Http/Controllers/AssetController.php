@@ -313,8 +313,11 @@ class AssetController extends Controller
                 $svc = RequestedService::where('id', $od->requested_service_id)->get();
                 foreach($svc as $service)
                 {
-                    $service_details = Service::where('id', $service->service_id)->get()[0];
-                    $orderDetails[$request->id]["order_details"][$dt->id]['requested_services'][] = $service_details;
+                    $service_details = Service::where('id', $service->service_id)->get();
+                    if (isset($service_details[0]))
+                    {
+                        $orderDetails[$request->id]["order_details"][$dt->id]['requested_services'][] = $service_details;
+                    }
                 }
             }
 
