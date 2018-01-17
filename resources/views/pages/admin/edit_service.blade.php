@@ -18,12 +18,6 @@
         {!! Form::open(array('url' => 'edit-service/'.$service->id, 'class' => 'form-horizontal', 'method' => 'post')) !!}
         <fieldset>
 
-              <div class="form-group"> {!! Form::label('typeahead', 'Service Code: *', array('class' => 'control-label')) !!}
-                <div class="controls">
-                  <div class="input-append"> {!! Form::text('service_code', $service->service_code, array('class' => 'form-control',
-                    'id' => 'focusedInput')) !!} </div>
-                </div>
-              </div>
 
                  <div class="form-group" > {!! Form::label('typeahead', 'Service Type: ', array('class' => 'control-label')) !!}
                 <div class="controls">

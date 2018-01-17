@@ -249,7 +249,6 @@ class ServiceController extends Controller
 
              $rules = [
 
-                        'service_code' => 'required',
 
                         'title' => 'required',
 
@@ -626,8 +625,6 @@ class ServiceController extends Controller
 
 
              $rules = [
-
-                        'service_code' => 'required',
 
                         'title' => 'required',
 
