@@ -316,7 +316,7 @@ class AssetController extends Controller
                     $service_details = Service::where('id', $service->service_id)->get();
                     if (isset($service_details[0]))
                     {
-                        $orderDetails[$request->id]["order_details"][$dt->id]['requested_services'][] = $service_details;
+                        $orderDetails[$request->id]["order_details"][$dt->id]['requested_services'][] = $service_details[0];
                     }
                 }
             }
