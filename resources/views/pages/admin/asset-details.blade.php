@@ -514,7 +514,7 @@
                                         }
                                         ?>
                                         <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif>
-                                            @if(isset($rm->jobType->id))
+                                            @if(isset($rm->jobType->title))
                                                 {!!$rm->jobType->title!!}
 
                                             @endif
@@ -610,7 +610,9 @@
                                         <td>
                                             @if (isset($order_detail["requested_services"]))
                                             @foreach($order_detail["requested_services"] as $services)
+                                                @if (isset($services->title))
                                                 {!! $services->title !!} <br>
+                                                    @endif
                                             @endforeach
                                             @endif
                                         </td>
@@ -662,7 +664,9 @@
                                         <td>
                                             @if (isset($order_detail["requested_services"]))
                                                 @foreach($order_detail["requested_services"] as $services)
+                                                    @if (isset($services->title))
                                                     {!! $services->title !!} <br>
+                                                    @endif
                                                 @endforeach
                                             @endif
                                         </td>
