@@ -78,9 +78,18 @@ class PruvanController extends Controller
 
             $file->move($upload_path, $filename);
 
+            $order_details = OrderDetail::where('order_id', $order_id)->get();
+            if (isset($order_details[0]))
+            {
+                $order_details_id = $order_details[0]->id;
+            }
+            else
+            {
+                return json_encode(['error' => 'Could not find Order Details ID', 'validated' => '']);
+            }
             $image_details = [
                 "order_id" => $order_id,
-                "order_details_id" => $order_id,
+                "order_details_id" => $order_details_id,
                 "type" => strtolower($type),
                 "address" => $filename
             ];

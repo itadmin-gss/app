@@ -359,7 +359,7 @@
   cursor:pointer;
   display:flex;
   flex-wrap:wrap;
-  height: 600px;
+  height: 500px;
   overflow: scroll;
 }
 
