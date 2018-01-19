@@ -365,6 +365,7 @@
 
  #view_image_div{
    margin-top:40px;
+   width:100%;
  }
 #view_image .modal-dialog{
   max-width: 1200px;
