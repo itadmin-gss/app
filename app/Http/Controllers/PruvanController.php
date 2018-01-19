@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\OrderImage;
+use App\OrderDetail;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use App\Helpers\Pruvan;
