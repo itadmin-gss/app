@@ -25,6 +25,8 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
+use JeroenDesloovere\Geolocation\Geolocation;
+
 
 class OrderController extends Controller
 {
@@ -73,9 +75,13 @@ class OrderController extends Controller
         //Get all states from city
         $states = State::getAllStates();
 
+        $geolocation_result = (new Geolocation)->getCoordinates($property_details[0]->property_address, '', $city, $property_details[0]->zip, 'USA');
+
+
         return view('common.edit_order')
             ->with('order_details', $order_details)
             ->with('city', $city)
+            ->with('geolocation', $geolocation_result)
             ->with('state', $state)
             ->with('cities', $cities)
             ->with('states', $states)

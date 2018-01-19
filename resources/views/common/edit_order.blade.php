@@ -1416,6 +1416,19 @@
         </div>
     </div>
 
+    <div class="modal fade" id="gmap-modal">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="pull-right" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></span>
+                </div>
+
+                <div class="modal-body">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--/   Modal-Section Show Export Images Start   -->
     <div class="modal fade" id="export_view_images">
         <div class="modal-dialog" role="dialog">
@@ -1513,7 +1526,28 @@
         </div>
     </div>
     <?php }  ?>
+    <script>
 
+        function initMap() {
+            setTimeout(function(){
+                var lat = parseFloat('<?=$geolocation['latitude']?>');
+                var lng = parseFloat('<?=$geolocation['longitude']?>');
+                var uluru = {lat: lat, lng: lng};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 18,
+                    center: uluru
+                });
+                var marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }, 300);
+            ;
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtaE4nNK7Wdb19dUeCMitdhFv4Wy7eb30">
+    </script>
 
 
 
