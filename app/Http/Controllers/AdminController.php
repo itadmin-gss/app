@@ -440,11 +440,11 @@ class AdminController extends Controller
             foreach ($order_details as $order_detail) {
                 if (isset($order_detail->requestedService->due_date) && ($order_detail->requestedService->due_date != "")) {
                     $style = "";
-                    if ((strtotime(date('m/d/Y')) > strtotime(str_replace("-", "/", $order_detail->requestedService->due_date)))) {
+                    if ((strtotime(date('m/d/Y')) > strtotime($order_detail->requestedService->due_date))) {
                         $style = 'style="background-color:yellow;"';
                     }
 
-                    $due_date = "<p " . $style . " >" . date('m/d/Y', strtotime(str_replace("-","/", $order_detail->requestedService->due_date))) . "</p>";
+                    $due_date = "<p " . $style . " >" . date('m/d/Y', $order_detail->requestedService->due_date) . "</p>";
                 } else {
                     $due_date = "Not Set";
                 }
@@ -1423,7 +1423,7 @@ class AdminController extends Controller
 
             foreach ($order_details as $order_detail) {
                 if (isset($order_detail->requestedService->due_date) && ($order_detail->requestedService->due_date != "")) {
-                    $list_orders[$i]['due_date'] .= date('m/d/Y', strtotime(str_replace("-", "/", $order_detail->requestedService->due_date))) . "<br/>";
+                    $list_orders[$i]['due_date'] .= date('m/d/Y', strtotime($order_detail->requestedService->due_date)) . "<br/>";
                 } else {
                     $list_orders[$i]['due_date'] .= "Not Set" . "<br/>";
                 }
@@ -1931,7 +1931,6 @@ class AdminController extends Controller
 
             foreach ($order_details as $order_detail) {
                 if (isset($order_detail->requestedService->due_date) && ($order_detail->requestedService->due_date != "")) {
-                    $due_date = date('m/d/Y', strtotime(str_replace("-", "/", $order_detail->requestedService->due_date)));
                 } else {
                     $due_date = "Not Set";
                 }
@@ -2250,11 +2249,11 @@ class AdminController extends Controller
             foreach ($order_details as $order_detail) {
                 if (isset($order_detail->requestedService->due_date) && ($order_detail->requestedService->due_date != "")) {
                     $style = "";
-                    if ((strtotime(date('m/d/Y')) > strtotime(str_replace("-", "/", $order_detail->requestedService->due_date)))) {
+                    if ((strtotime(date('Y-m-d')) > strtotime($order_detail->requestedService->due_date))) {
                         $style = 'style="background-color:yellow;"';
                     }
 
-                    $due_date = "<p " . $style . " >" . date('m/d/Y', strtotime(str_replace("-", "/", $order_detail->requestedService->due_date))) . "</p>";
+                    $due_date = "<p " . $style . " >" . date('m/d/Y', $order_detail->requestedService->due_date) . "</p>";
                 } else {
                     $due_date = "Not Set";
                 }

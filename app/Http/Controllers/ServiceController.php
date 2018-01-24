@@ -175,57 +175,7 @@ class ServiceController extends Controller
 
             return redirect('vendors');
 
-            /*
 
-            $user = new Users;
-
-            $user->first_name = Request::get('first_name');
-
-            $user->last_name = Request::get('last_name');
-
-            $user->email = Request::get('email');
-
-            $user->company = Request::get('company');
-
-            $user->username = Request::get('username');
-
-            $user->type_id = Request::get('type_id') ? Request::get('type_id') : NULL;
-
-            $user->user_role_id = '0';
-
-            $user->status = '1';
-
-            $user->password = Hash::make(Request::get('password'));
-
-
-
-            if ($user->save()) {
-
-                $id = $user->id;
-
-
-
-                $email_data = array(
-
-                    'first_name' => Request::get('first_name'),
-
-                    'last_name' => Request::get('last_name'),
-
-                    'username' => Request::get('username'),
-
-                    'email' => Request::get('email'),
-
-                    'id' => $id,
-
-                );
-
-
-
-                return redirect('/');
-
-            }
-
-             */
         }
     }
 

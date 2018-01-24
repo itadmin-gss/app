@@ -334,7 +334,7 @@
             <div class="dropdown-divider"></div>
             @endforeach
             <a class="dropdown-item small" href="{!! URL::to('list-work-notification-url') !!}">View all alerts</a>
-            <a class='dropdown-item small' href="{!! URL::to('clear-notifications') !!}">Clear Alerts</a> 
+            <a class='dropdown-item small' href="{!! URL::to('clear-notification') !!}">Clear Alerts</a>
           </div>
         </li>
 
