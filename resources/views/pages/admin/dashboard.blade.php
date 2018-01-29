@@ -134,11 +134,11 @@ $due_date="";
             if(isset($value->due_date))
             {
               $style="";
-              if( (strtotime(date('m/d/Y'))>strtotime($due_date)))
+              if( date("Y-m-d H:i:s") > date("Y-m-d H:i:s", strtotime($due_date)))
                 {
                 $style='style="background-color:yellow;"';
                 }
-                         $due_date .= "<span ".$style."> ". $value->due_date . '</span> <br>';
+                         $due_date .= "<span ".$style."> ". date("m/d/Y", strtotime($value->due_date)) . '</span> <br>';
             }
             else
             {

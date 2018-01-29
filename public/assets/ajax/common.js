@@ -445,27 +445,27 @@ function modalClose(){
        });
                return true;
                   }
-  
-                if(before<10)
-                {
-                 alert("Please upload 10 before images");
-                 $('#overlay').remove();
-                 return false;
-             }
-  
-             if(after<=0)
-             {
-                 alert("Please at least one after images");
-                 $('#overlay').remove();
-                 return false;
-             }
-  
-             if(during<=0)
-             {
-                 alert("Please at least  one during images");
-                 $('#overlay').remove();
-                 return false;
-             }
+
+             // if(before<10)
+             //    {
+             //     alert("Please upload 10 before images");
+             //     $('#overlay').remove();
+             //     return false;
+             // }
+             //
+             // if(after<=0)
+             // {
+             //     alert("Please at least one after images");
+             //     $('#overlay').remove();
+             //     return false;
+             // }
+             //
+             // if(during<=0)
+             // {
+             //     alert("Please at least  one during images");
+             //     $('#overlay').remove();
+             //     return false;
+             // }
   
   
              if(orderstatus=="In-Process")

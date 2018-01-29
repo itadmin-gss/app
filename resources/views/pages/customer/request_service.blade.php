@@ -31,8 +31,6 @@ foreach ($customer_assets as $asset) {
 
 }
 
-var_dump($services);
-
 ?>
 
 @extends($layout)

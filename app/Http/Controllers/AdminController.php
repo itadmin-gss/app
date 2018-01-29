@@ -444,7 +444,7 @@ class AdminController extends Controller
                         $style = 'style="background-color:yellow;"';
                     }
 
-                    $due_date = "<p " . $style . " >" . date('m/d/Y', $order_detail->requestedService->due_date) . "</p>";
+                    $due_date = "<p " . $style . " >" . date('m/d/Y', strtotime($order_detail->requestedService->due_date)) . "</p>";
                 } else {
                     $due_date = "Not Set";
                 }

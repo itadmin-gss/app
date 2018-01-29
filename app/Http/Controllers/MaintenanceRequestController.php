@@ -85,7 +85,7 @@ class MaintenanceRequestController extends Controller
             }
         }
 
-        $dataService['Not Found Service']['otherflag']="Other";
+//        $dataService['Not Found Service']['otherflag']="Other";
         return view('pages.customer.request_service')// return to page
                       ->with('customer_assets', $asset_information)
                       ->with('services', $dataService)
@@ -695,7 +695,7 @@ class MaintenanceRequestController extends Controller
                 }
 
                 if (isset($data['due_date_' . $service_id])) {
-                    $request_detail['due_date'] = $data['due_date_' . $service_id];
+                    $request_detail['due_date'] = date("Y-m-d H:i:s", strtotime(str_replace("-", "/", $data['due_date_' . $service_id])));
                 } else {
                     unset($request_detail['due_date']);
                 }
@@ -1519,7 +1519,7 @@ Status: New Bid Request
                 $bidData['lot_size']=$biddatavalue->lot_size;
                 $bidData['bidding_prince']=$biddatavalue->vendor_bid_price;
                 $bidData['customer_price']=$biddatavalue->customer_bid_price;
-                $bidData['due_date']=$biddatavalue->due_date;
+                $bidData['due_date']=date("Y-m-d H:i:s", strtotime($biddatavalue->due_date));
 
 
 

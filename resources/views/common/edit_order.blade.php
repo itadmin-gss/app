@@ -542,10 +542,24 @@
                                         <?php }?>
                                             <tr>
                                                 <td colspan="9">
-                                                    <label class="table-label">Order Images:</label>
+                                                    <div class="row" style="margin-bottom:30px;">
+                                                        <div class="col-md-12">
+                                                            <div style="display:inline-block;">
+                                                                <label class="table-label" style="display:inline;">Order Images: </label>
+                                                                <span>
+                                                                     <button class="btn btn-primary export-all-photos" type="button">Export All Images</button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="row">
                                                         <div class="col-md-4 col-lg-4 col-sm-12">
-                                                            <div class="order-photo-div">
+
+
+                                                            <div class="center-div">
+                                                                <label class="table-label">Before Images</label>
+                                                            </div>
+                                                            <div class="order-photo-div center-div">
                                                                 <?php
                                                                     $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'before')->get();
                                                                     foreach($images as $image)
@@ -553,17 +567,22 @@
                                                                         $check = config('app.order_images_before').$image->address;
                                                                         if (file_exists($check))
                                                                         {
-                                                                            echo '<div class="order-photo-item"><img data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
+                                                                            echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control"></span><img data-id="'.$image->id.'" data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
                                                                         }
                                                                      }
                                                                 ?>
                                                             </div>
                                                             <div class="center-div">
-                                                                <label class="table-label">Before Images</label>
+                                                                <button type="button" class="btn btn-primary">Export Selected</button>
+                                                                <button type="button" class="btn btn-primary">Export All Before Images</button>
                                                             </div>
+
                                                         </div>
                                                         <div class="col-md-4 col-lg-4 col-sm-12">
-                                                            <div class="order-photo-div">
+                                                            <div class="center-div">
+                                                                <label class="table-label">During Images</label>
+                                                            </div>
+                                                            <div class="order-photo-div center-div">
                                                                 <?php
                                                                 $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'during')->get();
                                                                 foreach($images as $image)
@@ -571,17 +590,23 @@
                                                                     $check = config('app.order_images_during').$image->address;
                                                                     if (file_exists($check))
                                                                     {
-                                                                        echo '<div class="order-photo-item"><img class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
+                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
                                                                     }
                                                                 }
                                                                 ?>
                                                             </div>
                                                             <div class="center-div">
-                                                                <label class="table-label">During Images</label>
+                                                                <button type="button" class="btn btn-primary">Export Selected</button>
+                                                                <button type="button" class="btn btn-primary">Export All During Images</button>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 col-lg-4 col-sm-12">
-                                                            <div class="order-photo-div">
+                                                            <div class="center-div">
+                                                                <label class="table-label">After Images</label>
+                                                            </div>
+                                                            <div class="order-photo-div center-div">
+                                                                <div class="order-photo-item upload-order-photo">
+                                                                </div>
                                                                 <?php
                                                                 $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'after')->get();
                                                                 foreach($images as $image)
@@ -589,31 +614,22 @@
                                                                     $check = config('app.order_images_after').$image->address;
                                                                     if (file_exists($check))
                                                                     {
-                                                                        echo '<div class="order-photo-item"><img class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
+                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
                                                                     }
                                                                 }
                                                                 ?>
                                                             </div>
                                                             <div class="center-div">
-                                                                <label class="table-label">After Images</label>
+                                                                <button type="button" class="btn btn-primary">Export Selected</button>
+                                                                <button type="button" class="btn btn-primary">Export All After Images</button>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
 
-                                        <tr>
-                                            <td class="center" colspan="2">
-                                                      <span class="pull-left">
 
-                                                       <a href="#"  onclick="popModalExport({!!$order->id!!}, {!!$order->id!!}, 'before')" > <button @if(Auth::user()->type_id==3
-                                                        && $order->status==4) disabled="disabled"@endif  data-toggle="modal" data-backdrop="static" data-target="#export_view_images" id="exportImages" class="btn btn-large btn-warning pull-right myBtnImg" style=" margin: 0 15px 0 0; border-radius: 2px; font-size: 18px;"> Export Images
-                                                       </button></a>
-                                                   </span>
-
-
-                                            </td>
-                                        </tr>
 
                                         <!-- <tr>
                                           <td colspan="2" class="center"><label class="control-label" for="typeahead">Vendor Note:</label><textarea style="width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 139px;" rows="6" id="limit"></textarea></td>
@@ -900,7 +916,7 @@
             <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="mystatusclass"  id="btn-group-unique-mobile">
                     <label class="table-label">Current Status: </label>
-                    <div class="form-group">
+                    <div class="form-group orderstatus">
                         @if($order->status==1) In-Process @else {!!$order->status_text!!} @endif</button>
                     </div>
                 </div>

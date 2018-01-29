@@ -86,7 +86,7 @@ class importServices
                     $customer_type = 2;
                 }
 
-                $query = "INSERT INTO services_copy (original_title, title, customer_price, vendor_price, status, req_date, number_of_men, verified_vacancy, 
+                $query = "INSERT INTO services (original_title, title, customer_price, vendor_price, status, req_date, number_of_men, verified_vacancy, 
                             cash_for_keys, cash_for_keys_trash_out, trash_size, storage_shed, lot_size, set_prinkler_system_type, install_temporary_system_type, carpet_service_type, 
                             pool_service_type, boarding_type, spruce_up_type, constable_information_type, remove_carpe_type, remove_blinds_type, remove_appliances_type, due_date, emergency, recurring, `desc`, service_cat_id, 
                             customer_type_id, job_type_id, bid_flag, service_type, vendor_edit) VALUES (:orig_title, :title, :customer_price, :vendor_price, :status, :req_date, :men, :vacant, :cash_4_keys, :cash_4_keys_trash,

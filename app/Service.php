@@ -27,7 +27,7 @@ class Service extends BaseTenantModel
         $service = self::where('service_cat_id', '=', $service_cat_id)
                       ->where('job_type_id', '=', $job_type)
                       ->where('status', '=', 1)
-                      ->where('customer_type_id', '=', $client_type)
+//                      ->where('customer_type_id', '=', $client_type)
 
                       ->orderBy('title', 'ASC')
                       ->get();

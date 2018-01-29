@@ -21,6 +21,10 @@ $(document).ready(function() {
         };
 	}
 
+	$(".photo-export-checkbox > input[type='checkbox']").on("click", function(){
+		$this = $(this);
+		console.log($this.data("id"));
+	});
     $("#add-customer-button").on("click", function(){
     	$this = $(this);
 		$this.attr("disabled", true);

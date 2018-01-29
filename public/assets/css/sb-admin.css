@@ -92,6 +92,7 @@
   width:100% !important;
   height:auto !important;
 }
+
 .static-height{
   height:500px;
 }
@@ -354,13 +355,32 @@
 .center-div{
   text-align:center;
 }
-
+.export-all-photos{
+  margin-bottom: 2px;
+  margin-left: 20px;
+}
 .order-photo-div{
-  cursor:pointer;
+  position:relative;
   display:flex;
   flex-wrap:wrap;
-  height: 500px;
-  overflow: scroll;
+  justify-content: center;
+  min-height: 200px;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+
+.order-photo-div > .order-photo-item > .photo-export-checkbox > input[type="checkbox"]{
+  width: 23px !important;
+  height: 23px !important;
+}
+
+
+.photo-export-checkbox{
+  position: absolute;
+  left: 5px;
+  top: 5px;
 }
 
  #view_image_div{
@@ -374,10 +394,19 @@
   width:100%;
 }
 
+.order-photo-item{
+  position:relative;
+}
+
+.selected-photo{
+  border: 2px solid blue;
+}
 .order-photo-item > img{
-  width:200px;
-  height:auto;
-  padding:1px;
+  width: 200px;
+  margin-right: 7px;
+  height: auto;
+  padding: 0px !important;
+  cursor: pointer;
 }
 
 
