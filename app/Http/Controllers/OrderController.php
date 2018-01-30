@@ -141,6 +141,85 @@ class OrderController extends Controller
         return view('common.'.$view_order)->with('order', $order)->with('order_details', $order_details)
         ->with('message', $view_message);
     }
+
+    public function uploadWorkOrderPhoto()
+    {
+        if (!empty($_FILES))
+        {
+            $data       = Request::all();
+            $cat        = $data["cat"];
+            $order_id   = $data["order_id"];
+            $dest_path  = false;
+
+            switch ($cat)
+            {
+                case "before":
+                    $dest_path = config('app.order_images_before');
+                    break;
+
+                case "during":
+                    $dest_path = config('app.order_images_during');
+                    break;
+
+                case "after":
+                    $dest_path = config('app.order_images_after');
+                    break;
+            }
+
+            if (!$dest_path)
+            {
+                return "failed";
+            }
+
+            $tmp_file   = $_FILES['file']['tmp_name'];
+            $file_name  = $order_id."-".date("YmdHis").rand(1,100).".jpg";
+            $file_path  = $dest_path.$file_name;
+
+            $img_info   = getimagesize($tmp_file);
+            $image      = false;
+            switch($img_info['mime'])
+            {
+                case "image/jpeg":
+                    $image = imagecreatefromjpeg($tmp_file);
+                    break;
+
+                case "image/gif":
+                    $image = imagecreatefromgif($tmp_file);
+                    break;
+
+                case "image/png":
+                    $image = imagecreatefrompng($tmp_file);
+                    break;
+            }
+
+            if (!$image)
+            {
+                return "failed";
+            }
+
+            $newFile = imagejpeg($image, $file_path,80);
+            if (!$newFile)
+            {
+                return "failed";
+            }
+
+            imagedestroy($image);
+
+            $data =
+                [
+                  'order_id' => $order_id,
+                    'address' => $file_name,
+                    'type' => $cat,
+                ];
+
+            $save = OrderImage::createImage($data);
+            if ($save)
+            {
+                return json_encode(["image_id" => $save->id, "address" => $dest_path.$file_name]);
+            }
+
+        }
+    }
     public function addBeforeImages()
     {
 

@@ -363,7 +363,7 @@
   position:relative;
   display:flex;
   flex-wrap:wrap;
-  justify-content: center;
+  margin-left:30px;
   min-height: 200px;
   max-height: 500px;
   overflow-y: auto;
@@ -398,12 +398,25 @@
   position:relative;
 }
 
+.order-photo-div .fa-upload{
+  margin-top:30px;
+}
+.upload-order-photo{
+  border: 4px dashed lightgray;
+  color: lightgray;
+  height: 120px;
+  width: 200px;
+  margin-right: 7px;
+  margin-bottom:10px;
+}
+
 .selected-photo{
   border: 2px solid blue;
 }
 .order-photo-item > img{
   width: 200px;
   margin-right: 7px;
+  margin-bottom:10px;
   height: auto;
   padding: 0px !important;
   cursor: pointer;

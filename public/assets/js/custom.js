@@ -2,6 +2,96 @@
 $(document).ready(function() {
 
     var myDropZone;
+    $(".upload-before").dropzone({
+
+        url: baseurl + "/workorder-photo-upload",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        params: {cat : "before", order_id : $("#order_id").val()},
+        acceptedFiles: ".jpg, .jpeg, .gif, .png",
+        createImageThumbnails: false,
+        autoProcessQueue: true,
+        clickable: true,
+        success: function(cb){
+            var response = cb.xhr.responseText;
+            if (response !== "failed"){
+                var data = JSON.parse(response);
+                var image_id   = data.image_id;
+                var image_url  = data.address;
+                var html = "<div class='order-photo-item'>" +
+                    "<span class='photo-export-checkbox'>" +
+                    "<input data-id='"+image_id+"' type='checkbox' class='form-control'>" +
+                    "</span>" +
+                    "<img data-id='"+image_id+"' class='order-photo-img' data-image-type='before' src='"+baseurl+"/"+image_url+"'>" +
+                    "</div>";
+                $(".upload-before").after(html);
+            }
+
+
+        }
+    });
+    $(".upload-during").dropzone({
+
+        url: baseurl + "/workorder-photo-upload",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        params: {cat : "during", order_id : $("#order_id").val()},
+        acceptedFiles: ".jpg, .jpeg, .gif, .png",
+        createImageThumbnails: false,
+        autoProcessQueue: true,
+        clickable: true,
+        success: function(cb){
+            var response = cb.xhr.responseText;
+            if (response !== "failed"){
+                var data = JSON.parse(response);
+                var image_id   = data.image_id;
+                var image_url  = data.address;
+                var html = "<div class='order-photo-item'>" +
+                    "<span class='photo-export-checkbox'>" +
+                    "<input data-id='"+image_id+"' type='checkbox' class='form-control'>" +
+                    "</span>" +
+                    "<img data-id='"+image_id+"' class='order-photo-img' data-image-type='during' src='"+baseurl+"/"+image_url+"'>" +
+                    "</div>";
+                $(".upload-during").after(html);
+            }
+
+
+        }
+    });
+    $(".upload-after").dropzone({
+
+		url: baseurl + "/workorder-photo-upload",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+		params: {cat : "after", order_id : $("#order_id").val()},
+        acceptedFiles: ".jpg, .jpeg, .gif, .png",
+        createImageThumbnails: false,
+		autoProcessQueue: true,
+		clickable: true,
+		success: function(cb){
+            var response = cb.xhr.responseText;
+            if (response !== "failed"){
+                var data = JSON.parse(response);
+				var image_id   = data.image_id;
+				var image_url  = data.address;
+				var html = "<div class='order-photo-item'>" +
+								"<span class='photo-export-checkbox'>" +
+									"<input data-id='"+image_id+"' type='checkbox' class='form-control'>" +
+								"</span>" +
+								"<img data-id='"+image_id+"' class='order-photo-img' data-image-type='after' src='"+baseurl+"/"+image_url+"'>" +
+							"</div>";
+				$(".upload-after").after(html);
+            }
+
+
+		}
+    });
+
+
+
 
     // Dropzone -> Property Photo Upload Options
     if ($("#dropzone-preview-template").length > 0){
@@ -88,6 +178,7 @@ $(document).ready(function() {
 		$("#vendor-delete-modal").modal("toggle");
 	});
 
+	$(".upload-order-photo")
 	//Event Handler -> Property Photo Upload
 	$(".property-photo-upload").on("click", function(){
 

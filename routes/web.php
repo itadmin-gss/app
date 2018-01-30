@@ -402,7 +402,7 @@ Route::match(['GET', 'POST'], 'change-price', ['uses' => 'InvoiceController@chan
 
 Route::match(['GET', 'POST'], 'completion-date', ['uses' => 'OrderController@completionDate']);
 
-
+Route::post('workorder-photo-upload', 'OrderController@uploadWorkOrderPhoto');
 Route::post('delete-order-before-image', ['uses' => 'OrderController@deleteBeforeImages']);
 
 Route::post('delete-order-during-image', ['uses' => 'OrderController@deleteDuringImages']);

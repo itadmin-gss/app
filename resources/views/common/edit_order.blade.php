@@ -5,6 +5,11 @@
 
     <!-- start: Content -->
     <title>GSS - Edit Work Order</title>
+    <style>
+        .dz-preview{
+            display:none !important;
+        }
+    </style>
     <div class="bg-underlay"></div>
     <div id="content">
 
@@ -323,7 +328,7 @@
 
                                             $vendor_priceFIND = 0;
 
-                                            if (!empty($SpecialPriceVendor[0]))
+                                            if (isset($SpecialPriceVendor[0]) && !empty($SpecialPriceVendor[0]))
                                             {
                                                 if (isset($custom->vendors_price) && isset($custom->quantity))
                                                 {
@@ -546,6 +551,7 @@
                                                         <div class="col-md-12">
                                                             <div style="display:inline-block;">
                                                                 <label class="table-label" style="display:inline;">Order Images: </label>
+                                                                <input type="hidden" id="order_id" value="{!! $order->id !!}">
                                                                 <span>
                                                                      <button class="btn btn-primary export-all-photos" type="button">Export All Images</button>
                                                                 </span>
@@ -559,9 +565,14 @@
                                                             <div class="center-div">
                                                                 <label class="table-label">Before Images</label>
                                                             </div>
+                                                            <hr>
                                                             <div class="order-photo-div center-div">
+                                                                <div class="order-photo-item upload-order-photo upload-before">
+                                                                    <i class="fa fa-2x fa-upload"></i>
+                                                                    <p>Drag Or Click To Upload</p>
+                                                                </div>
                                                                 <?php
-                                                                    $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'before')->get();
+                                                                    $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'before')->orderBy('id', 'desc')->get();
                                                                     foreach($images as $image)
                                                                     {
                                                                         $check = config('app.order_images_before').$image->address;
@@ -582,9 +593,15 @@
                                                             <div class="center-div">
                                                                 <label class="table-label">During Images</label>
                                                             </div>
+                                                            <hr>
                                                             <div class="order-photo-div center-div">
+                                                                <div class="order-photo-item upload-order-photo upload-during">
+                                                                    <i class="fa fa-2x fa-upload"></i>
+                                                                    <p>Drag Or Click To Upload</p>
+                                                                </div>
                                                                 <?php
-                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'during')->get();
+                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'during')->orderBy('id', 'desc')->get();
+
                                                                 foreach($images as $image)
                                                                 {
                                                                     $check = config('app.order_images_during').$image->address;
@@ -604,11 +621,15 @@
                                                             <div class="center-div">
                                                                 <label class="table-label">After Images</label>
                                                             </div>
+                                                            <hr>
                                                             <div class="order-photo-div center-div">
-                                                                <div class="order-photo-item upload-order-photo">
+                                                                <div class="order-photo-item upload-order-photo upload-after">
+                                                                    <i class="fa fa-2x fa-upload"></i>
+                                                                    <p>Drag Or Click To Upload</p>
                                                                 </div>
+
                                                                 <?php
-                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'after')->get();
+                                                                $images = \App\OrderImage::where('order_id', $order->id)->where('type', 'after')->orderBy('id', 'desc')->get();
                                                                 foreach($images as $image)
                                                                 {
                                                                     $check = config('app.order_images_after').$image->address;
