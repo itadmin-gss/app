@@ -555,6 +555,9 @@
                                                                 <span>
                                                                      <button class="btn btn-primary export-all-photos" type="button">Export All Images</button>
                                                                 </span>
+                                                                <span>
+                                                                    <button class="btn btn-primary export-selected-photos" type="button">Export Selected Images</button>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -578,14 +581,14 @@
                                                                         $check = config('app.order_images_before').$image->address;
                                                                         if (file_exists($check))
                                                                         {
-                                                                            echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control"></span><img data-id="'.$image->id.'" data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
+                                                                            echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-before-checkbox"></span><img data-id="'.$image->id.'" data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
                                                                         }
                                                                      }
                                                                 ?>
                                                             </div>
-                                                            <div class="center-div">
-                                                                <button type="button" class="btn btn-primary">Export Selected</button>
-                                                                <button type="button" class="btn btn-primary">Export All Before Images</button>
+                                                            <div class="center-div export-button-group">
+                                                                <button type="button" class="btn btn-danger delete-before-selected" disabled>Delete Selected</button>
+                                                                <button type="button" class="btn btn-primary export-before-all">Export All Before Images</button>
                                                             </div>
 
                                                         </div>
@@ -607,14 +610,14 @@
                                                                     $check = config('app.order_images_during').$image->address;
                                                                     if (file_exists($check))
                                                                     {
-                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
+                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-during-checkbox"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
                                                                     }
                                                                 }
                                                                 ?>
                                                             </div>
-                                                            <div class="center-div">
-                                                                <button type="button" class="btn btn-primary">Export Selected</button>
-                                                                <button type="button" class="btn btn-primary">Export All During Images</button>
+                                                            <div class="center-div export-button-group">
+                                                                <button type="button" class="btn btn-danger delete-during-selected" disabled>Delete Selected</button>
+                                                                <button type="button" class="btn btn-primary export-during-all">Export All During Images</button>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 col-lg-4 col-sm-12">
@@ -635,14 +638,14 @@
                                                                     $check = config('app.order_images_after').$image->address;
                                                                     if (file_exists($check))
                                                                     {
-                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
+                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-after-checkbox"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
                                                                     }
                                                                 }
                                                                 ?>
                                                             </div>
-                                                            <div class="center-div">
-                                                                <button type="button" class="btn btn-primary">Export Selected</button>
-                                                                <button type="button" class="btn btn-primary">Export All After Images</button>
+                                                            <div class="center-div export-button-group">
+                                                                <button type="button" class="btn btn-danger delete-after-selected" disabled>Delete Selected</button>
+                                                                <button type="button" class="btn btn-primary export-after-all">Export All After Images</button>
                                                             </div>
 
                                                         </div>
@@ -1526,7 +1529,18 @@
             </div>
         </div>
     </div>
+    <div id="printdata" class="clearfix"  style="display:none;  @page { size: landscape; }" >
 
+        <div class="leftPnl" >
+            <img class="inLogo" width="250px" src="{!!URL::to('/')!!}/assets/images/GSS-Logo.jpg">
+            <!-- <p><strong>Good Scents Services, LP </strong> 118 National Dr <br>Rockwall TX 75032</p> -->
+        </div>
+
+        <h2>Property Address:  </h2> <span >{!!$order->maintenanceRequest->asset->property_address!!}</span> <br>
+        <div id="printdata1">
+
+        </div>
+    </div>
     <!--/   Modal-Section Show Before Images End   -->
 
 

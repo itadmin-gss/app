@@ -21,7 +21,7 @@ $(document).ready(function() {
                 var image_url  = data.address;
                 var html = "<div class='order-photo-item'>" +
                     "<span class='photo-export-checkbox'>" +
-                    "<input data-id='"+image_id+"' type='checkbox' class='form-control'>" +
+                    "<input data-id='"+image_id+"' type='checkbox' class='form-control export-before-checkbox'>" +
                     "</span>" +
                     "<img data-id='"+image_id+"' class='order-photo-img' data-image-type='before' src='"+baseurl+"/"+image_url+"'>" +
                     "</div>";
@@ -31,6 +31,67 @@ $(document).ready(function() {
 
         }
     });
+
+	$(".export-before-all").on("click", function(){
+		var data = [];
+		$(".export-before-checkbox").each(function(){
+			data.push($(this).data("id"));
+		});
+		selectedImagesAjax(data);
+	});
+
+	$(".export-during-all").on("click", function(){
+        var data = [];
+        $(".export-during-checkbox").each(function(){
+            data.push($(this).data("id"));
+        });
+        selectedImagesAjax(data);
+	});
+
+	$(".export-after-all").on("click", function(){
+        var data = [];
+        $(".export-after-checkbox").each(function(){
+            data.push($(this).data("id"));
+        });
+        selectedImagesAjax(data);
+	});
+
+	$(".export-selected-photos").on("click", function(){
+		var data = [];
+		$(".photo-export-checkbox > input:checked").each(function(){
+			data.push($(this).data("id"));
+		});
+        selectedImagesAjax(data);
+    });
+
+	function selectedImagesAjax(data){
+        $.ajax({
+            type: 'Post',
+            url: baseurl +'/download-seleted-images',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {data},
+            success: function(data) {
+                $("#printdata1").empty()
+                $("#printdata1").append(data);
+
+                printDiv("printdata");
+                window.location.reload();
+            }
+
+        });
+	}
+
+    $(".export-all-photos").on("click", function(){
+    	var data = [];
+        $(".order-photo-img").each(function(){
+			data.push($(this).data("id"));
+        });
+
+        selectedImagesAjax(data);
+	});
+
     $(".upload-during").dropzone({
 
         url: baseurl + "/workorder-photo-upload",
@@ -50,7 +111,7 @@ $(document).ready(function() {
                 var image_url  = data.address;
                 var html = "<div class='order-photo-item'>" +
                     "<span class='photo-export-checkbox'>" +
-                    "<input data-id='"+image_id+"' type='checkbox' class='form-control'>" +
+                    "<input data-id='"+image_id+"' type='checkbox' class='form-control export-during-checkbox'>" +
                     "</span>" +
                     "<img data-id='"+image_id+"' class='order-photo-img' data-image-type='during' src='"+baseurl+"/"+image_url+"'>" +
                     "</div>";
@@ -79,7 +140,7 @@ $(document).ready(function() {
 				var image_url  = data.address;
 				var html = "<div class='order-photo-item'>" +
 								"<span class='photo-export-checkbox'>" +
-									"<input data-id='"+image_id+"' type='checkbox' class='form-control'>" +
+									"<input data-id='"+image_id+"' type='checkbox' class='form-control export-after-checkbox'>" +
 								"</span>" +
 								"<img data-id='"+image_id+"' class='order-photo-img' data-image-type='after' src='"+baseurl+"/"+image_url+"'>" +
 							"</div>";

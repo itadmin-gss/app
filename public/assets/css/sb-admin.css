@@ -364,6 +364,7 @@
   display:flex;
   flex-wrap:wrap;
   margin-left:30px;
+  margin-bottom:58px;
   min-height: 200px;
   max-height: 500px;
   overflow-y: auto;
@@ -396,6 +397,13 @@
 
 .order-photo-item{
   position:relative;
+}
+
+.export-button-group{
+  position: absolute;
+  bottom: 0;
+  left: 16%;
+  margin-top: 30px;
 }
 
 .order-photo-div .fa-upload{
