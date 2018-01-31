@@ -1465,6 +1465,44 @@ $(".example6").fancybox({
         return $popDiv;
     }
 
+    public function deleteImageByImageId()
+    {
+        $data       = Request::all();
+        $image_ids  = $data["image_ids"];
+
+        foreach($image_ids as $image)
+        {
+            $image_data = OrderImage::findOrFail($image);
+            $image_url  = $image_data->address;
+            $image_type = $image_data->type;
+            $file_loc   = false;
+
+            switch($image_type)
+            {
+                case "before":
+                    $file_loc = config('app.order_images_before').$image_url;
+                    break;
+
+                case "during":
+                    $file_loc = config('app.order_images_during').$image_url;
+                    break;
+
+                case "after":
+                    $file_loc = config('app.order_images_after').$image_url;
+                    break;
+
+            }
+
+            if ($file_loc)
+            {
+                unlink($file_loc);
+                OrderImage::destroy($image);
+            }
+        }
+
+
+        return "success";
+    }
     public function deleteImageById()
     {
         $data = Request::all();

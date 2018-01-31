@@ -33,10 +33,10 @@ $(document).ready(function() {
     });
 
 	$(".export-before-all").on("click", function(){
-		var data = [];
-		$(".export-before-checkbox").each(function(){
-			data.push($(this).data("id"));
-		});
+        var data = [];
+        $(".export-before-checkbox").each(function(){
+            data.push($(this).data("id"));
+        });
 		selectedImagesAjax(data);
 	});
 
@@ -63,6 +63,43 @@ $(document).ready(function() {
 		});
         selectedImagesAjax(data);
     });
+
+
+	$(".delete-photos").on("click", function(){
+
+		$(".delete-confirm-header").text("Deleting Photos");
+        var data = [];
+        $(".export-during-checkbox:checked").each(function(){
+            data.push($(this).data("id"));
+        });
+        $(".export-after-checkbox:checked").each(function(){
+            data.push($(this).data("id"));
+        });
+        $(".export-before-checkbox:checked").each(function(){
+            data.push($(this).data("id"));
+        });
+
+
+        $.ajax({
+            url: baseurl + "/delete-selected-images",
+            type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {image_ids: data}
+        }).done(function(cb){
+            for(var i=0; i < data.length; i++){
+                var image_id = data[i];
+                $("#photo-id-"+image_id).remove();
+            }
+            $("#delete-confirmation").modal("toggle");
+            $(".delete-confirm-header").text("Delete selected photos?");
+            return true;
+        });
+
+        $("#delete-confirmation").modal("toggle");
+
+	});
 
 	function selectedImagesAjax(data){
         $.ajax({

@@ -400,10 +400,9 @@
 }
 
 .export-button-group{
+  width:100%;
   position: absolute;
   bottom: 0;
-  left: 16%;
-  margin-top: 30px;
 }
 
 .order-photo-div .fa-upload{

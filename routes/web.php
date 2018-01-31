@@ -449,6 +449,7 @@ Route::post('delete-photo-tagging', ['uses' => 'OrderController@deleteTag']);
 
 Route::post('Export-Images/{images}', ['uses' => 'OrderController@ExportImages']);
 Route::post('download-seleted-images', ['uses' => 'OrderController@downloadSeletedImages']);
+Route::post("delete-selected-images", "OrderController@deleteImageByImageId");
 Route::post('download-seleted-additional-images', ['uses' => 'OrderController@downloadSeletedAdditionalItemImages']);
 
 Route::post('display-export-images', ['uses' => 'OrderController@displayExportImages']);

@@ -558,6 +558,9 @@
                                                                 <span>
                                                                     <button class="btn btn-primary export-selected-photos" type="button">Export Selected Images</button>
                                                                 </span>
+                                                                <span>
+                                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation">Delete Selected</button>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -581,13 +584,12 @@
                                                                         $check = config('app.order_images_before').$image->address;
                                                                         if (file_exists($check))
                                                                         {
-                                                                            echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-before-checkbox"></span><img data-id="'.$image->id.'" data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
+                                                                            echo '<div class="order-photo-item" id="photo-id-'.$image->id.'"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-before-checkbox"></span><img data-id="'.$image->id.'" data-image-type="before" class="order-photo-img" src="'.config('app.url').'/'.config('app.order_images_before').$image->address.'"></div>';
                                                                         }
                                                                      }
                                                                 ?>
                                                             </div>
                                                             <div class="center-div export-button-group">
-                                                                <button type="button" class="btn btn-danger delete-before-selected" disabled>Delete Selected</button>
                                                                 <button type="button" class="btn btn-primary export-before-all">Export All Before Images</button>
                                                             </div>
 
@@ -610,13 +612,12 @@
                                                                     $check = config('app.order_images_during').$image->address;
                                                                     if (file_exists($check))
                                                                     {
-                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-during-checkbox"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
+                                                                        echo '<div class="order-photo-item" id="photo-id-'.$image->id.'"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-during-checkbox"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="during" src="'.config('app.url').'/'.config('app.order_images_during').$image->address.'"></div>';
                                                                     }
                                                                 }
                                                                 ?>
                                                             </div>
                                                             <div class="center-div export-button-group">
-                                                                <button type="button" class="btn btn-danger delete-during-selected" disabled>Delete Selected</button>
                                                                 <button type="button" class="btn btn-primary export-during-all">Export All During Images</button>
                                                             </div>
                                                         </div>
@@ -638,13 +639,12 @@
                                                                     $check = config('app.order_images_after').$image->address;
                                                                     if (file_exists($check))
                                                                     {
-                                                                        echo '<div class="order-photo-item"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-after-checkbox"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
+                                                                        echo '<div class="order-photo-item" id="photo-id-'.$image->id.'"><span class="photo-export-checkbox"><input data-id="'.$image->id.'" type="checkbox" class="form-control export-after-checkbox"></span><img data-id="'.$image->id.'" class="order-photo-img" data-image-type="before" src="'.config('app.url').'/'.config('app.order_images_after').$image->address.'"></div>';
                                                                     }
                                                                 }
                                                                 ?>
                                                             </div>
                                                             <div class="center-div export-button-group">
-                                                                <button type="button" class="btn btn-danger delete-after-selected" disabled>Delete Selected</button>
                                                                 <button type="button" class="btn btn-primary export-after-all">Export All After Images</button>
                                                             </div>
 
@@ -1554,6 +1554,24 @@
                     </div>
                     <div class="row-fluid">
                         <button data-dismiss="modal" style="margin: 40px 0 25px 0;" class="btn btn-large btn-success">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-confirmation">
+        <div class="modal-dialog" role="dialog" style="top:33% !important">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:center;">
+                                <h3 class="delete-confirm-header">Delete selected photos?</h3>
+                                <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary delete-photos">Ok</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
