@@ -379,10 +379,7 @@ function modalClose(){
      });
   
       $('body').on('click', '.completion-status-dropdown', function(e){
-  
 
-  
-  
           var order_id=$("#order_id_custom").val();
           var during =0;
           var after =0;
@@ -443,7 +440,6 @@ function modalClose(){
   
            }
        });
-               return true;
                   }
 
              // if(before<10)
@@ -550,11 +546,11 @@ function modalClose(){
                   orderstatus_class:orderstatus_class,
                   orderstatus_text:orderstatus,
                   totalRequestedServices:totalRequestedServices
-  
-  
-  
+
+
+
               },
-              
+
               success: function(response) {
                $('#overlay').remove();
                $('#errorMessage').focus();
@@ -563,8 +559,8 @@ function modalClose(){
                $('#errorMessage').html(response).hide();
                $('#errorMessage').slideDown('slow');
                $('#edit-qty').show();
-  
-  
+
+
            }
        });
       }
@@ -3267,19 +3263,36 @@ function modalClose(){
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
        data: {under_review_notes:under_review_notes, order_id:order_id,vendorid:vendorid},
-       success: function(response) {
-  
-        $('#overlay').remove();
-        $('#under_review_notes_section').hide();
-  
-        $('.mystatusclass li.underreview > a').trigger("click");
-  
-  
-  
-    }
+
+
+
   });
-  
-  
+
+      var orderstatus="Under Review";
+      var orderstatusid="3";
+      var orderstatus_class="";
+      var totalRequestedServices=$('#totalRequestedServices').val();
+
+
+      $.ajax({
+          type: 'Post',
+          url:  baseurl +'/change-status',
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data: {
+              order_id: order_id,
+              orderstatusid: orderstatusid,
+              orderstatus_class:orderstatus_class,
+              orderstatus_text:orderstatus,
+              totalRequestedServices:totalRequestedServices
+
+
+
+          }
+      }).done(function(){
+          window.location.reload();
+      });
   
   }
   

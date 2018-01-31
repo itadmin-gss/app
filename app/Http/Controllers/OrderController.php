@@ -1719,7 +1719,7 @@ Completion Date: ".$orders[0]->completion_date;
                 {
                     $od = $order_detail[0];
                     $requested_service_id = $od->requested_service_id;
-                    $requested_service = RequestedService::where('id', $requested_service_id);
+                    $requested_service = RequestedService::where('id', $requested_service_id)->get();
                     if (isset($requested_service[0]->recurring) && $requested_service[0]->recurring == 1)
                     {
                         $duration = $requested_service[0]->duration;
@@ -1814,7 +1814,7 @@ Completion Date: ".$orders[0]->completion_date;
         $pruvan_data =
             [
                 "order_id" => Request::get('order_id'),
-                "order_status" => Request::get('orderstatusid')
+                "orderstatusid" => Request::get('orderstatusid')
             ];
 
         Pruvan::updatePruvanStatus($pruvan_data);
