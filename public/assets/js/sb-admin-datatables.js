@@ -126,6 +126,8 @@ $('.datatabledashboard').DataTable( {
   ]
 } );
 
+
+
 $('.datatabledashboard2').DataTable( {
   dom: 'B<"clear">frtip',
   "responsive" : true,
@@ -148,5 +150,17 @@ $('.datatabledashboardapproved').DataTable( {
   buttons: [
   'copy', 'csv', 'excel', 'print'
   ]
+} );
+
+
+$.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+$('.datatabledashboard6').DataTable( {
+    dom: '<"dt-toolbar"><"clear"><fB>rtip',
+    "responsive" : true,
+    "order": [[ 10, "asc" ]],
+    buttons: [
+        'copy', 'csv', 'excel', 'print'
+    ]
 } );
 

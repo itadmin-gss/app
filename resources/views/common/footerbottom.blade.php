@@ -17,7 +17,8 @@
 <script src="{!! URL::asset('assets/js/jszip.min.js') !!}"></script>
 <script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
 <script src="{!! URL::asset('assets/js/chosen.jquery.min.js') !!}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
@@ -30,6 +31,8 @@
 <script src="{!! URL::asset('assets/ajax/common.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/admin/adminCommon.js') !!}"></script>
 <script src="{!! URL::asset('assets/js/custom.js') !!}"></script>
+
+
 
 
 

@@ -18,7 +18,7 @@
         <div class='table-responsive'>
 
 
-      <table class="table table-striped table-sm table-bordered dt-responsive datatabledashboard" style='width:100%;' width='100%' cellspacing='0' id="completion_grid">
+      <table class="table table-striped table-sm table-bordered dt-responsive datatabledashboard6" style='width:100%;' width='100%' cellspacing='0' id="completion_grid">
 
                       <thead>
 
