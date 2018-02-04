@@ -79,7 +79,7 @@ class AssetController extends Controller
         $asset->lock_box            = $asset_data['lockbox'];
         $asset->access_code         = $asset_data['access_code'];
         $asset->loan_number         = $asset_data['loan_number'];
-        $asset->status              = $asset_data['status'];
+        $asset->property_status     = $asset_data['status'];
         $asset->property_type       = $asset_data['type'];
         $asset->save();
 

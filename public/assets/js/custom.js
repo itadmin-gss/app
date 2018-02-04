@@ -340,6 +340,7 @@ $(document).ready(function() {
 		var property_access = $("#access_code").val();
 		var property_loan = $("#loan_number").val();
 		var property_status = $("#property_status").val();
+		var property_status_text = $("#property_status").text();
 		var property_type = $("#property_type").val();
 
 		var customer_fname = $("#first_name").val();
@@ -357,7 +358,7 @@ $(document).ready(function() {
 		$("#property_lock_value").text(property_lockbox);
 		$("#property_access_value").text(property_access);
 		$("#property_loan_value").text(property_loan);
-		$("#property_status_value").text(property_status);
+		$("#property_status_value").text(property_status.charAt(0).toUpperCase() + property_status.slice(1));
 
 		var sendData = {
 			"property_id" : $("#property_id").val(),
