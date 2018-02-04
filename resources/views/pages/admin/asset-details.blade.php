@@ -296,8 +296,8 @@
                 <div id="new-requests-table">
 
                     <?php
-                            $requestsNew = \App\MaintenanceRequest::where('status', '=', 1)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
-        $requests = \App\MaintenanceRequest::orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
+                            $requestsNew = \App\MaintenanceRequest::where('asset_id', $property_details->id)->where('status', '=', 1)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
+        $requests = \App\MaintenanceRequest::where('asset_id', $property_details->id)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
 
         $request_ids = [];
         $request_service_ids = [];
