@@ -1288,7 +1288,7 @@ Status: New Bid Request
                 $data['status'] = 1;
                 $data['status_text'] = "IN-PROCESS";
                 $data['status_class'] = "yellow";
-
+                $data['approved_date'] = date("m/d/Y");
                 $data['request_id'] = $assignment_data['request_id'];
                 $data['vendor_id'] = $assignment_data['vendor'];
                 $data['customer_id'] = MaintenanceRequest::find($assignment_data['request_id'])->asset->customer_id;
