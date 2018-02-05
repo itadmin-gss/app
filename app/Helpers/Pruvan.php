@@ -324,6 +324,7 @@ class Pruvan
                 $order_model->status = 2;
                 $order_model->status_class = "black";
                 $order_model->status_text = "Completed";
+                $order_model->completion_date = date("m/d/Y");
                 $order_model->save();
             }
 
