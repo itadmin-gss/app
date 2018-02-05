@@ -120,7 +120,7 @@ $('.work-order-table').DataTable( {
 $('.datatabledashboard').DataTable( {
   dom: '<"dt-toolbar"><"clear"><fB>rtip',
   "responsive" : true,
-  "order": [[ 0, "desc" ]],
+  "order": [[ 0, "asc" ]],
   buttons: [
   'copy', 'csv', 'excel', 'print'
   ]
@@ -159,6 +159,15 @@ $('.datatabledashboard6').DataTable( {
     dom: '<"dt-toolbar"><"clear"><fB>rtip',
     "responsive" : true,
     "order": [[ 10, "asc" ]],
+    buttons: [
+        'copy', 'csv', 'excel', 'print'
+    ]
+} );
+
+$('.datatabledashboard8').DataTable( {
+    dom: '<"dt-toolbar"><"clear"><fB>rtip',
+    "responsive" : true,
+    "order": [[ 11, "asc" ]],
     buttons: [
         'copy', 'csv', 'excel', 'print'
     ]

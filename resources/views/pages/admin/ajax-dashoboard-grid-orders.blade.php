@@ -43,7 +43,7 @@
       <div class='table-padding table-heading'>
 
       </div>
-        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard" width='100%' style='width:100%;' cellspacing='0' id='dataTable'> 
+        <table class="table table-striped table-bordered table-sm dt-responsive datatabledashboard8" width='100%' style='width:100%;' cellspacing='0' id='dataTable'>
 
                       <thead>
 
