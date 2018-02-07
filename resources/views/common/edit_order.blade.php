@@ -1057,17 +1057,17 @@
                                 <!-- <span><?php echo $totalPriceCustomer; ?></span> -->
                                     {!!Form::label('customer_price', 'Customer Price')!!}
 
-                                    {!!Form::number('customer_price',$custom->customer_price,array('class' => 'form-control', 'id'=>'customer_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
+                                    {!!Form::text('customer_price',$custom->customer_price,array('class' => 'form-control', 'id'=>'customer_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
                                     <?php }else{ ?>
                                     {!!Form::label('customer_price', 'Customer Price')!!}
 
-                                    {!!Form::number('customer_price',$totalPriceCustomer,array('class' => 'form-control', 'id'=>'customer_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
+                                    {!!Form::text('customer_price',$totalPriceCustomer,array('class' => 'form-control', 'id'=>'customer_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
                                     <?php
                                     }
                                     }else{ ?>
                                     {!!Form::label('customer_price', 'Customer Price')!!}
 
-                                    {!!Form::number('customer_price',$totalPriceCustomer,array('class' => 'form-control', 'id'=>'customer_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
+                                    {!!Form::text('customer_price',$totalPriceCustomer,array('class' => 'form-control', 'id'=>'customer_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
                                     <?php
                                     }
                                     ?>
@@ -1109,12 +1109,12 @@
                                     <?php if (isset($custom->vendors_price)  ){ ?>
                                     {!!Form::label('vendor_price', 'Vendor Price')!!}
 
-                                    {!!Form::number('vendor_price',$custom->vendors_price,array('class' => 'form-control', 'id' => 'vendor_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
+                                    {!!Form::text('vendor_price',$custom->vendors_price,array('class' => 'form-control', 'id' => 'vendor_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
 
                                     <?php }else{?>
                                     {!!Form::label('vendor_price', 'Vendor Price')!!}
 
-                                    {!!Form::number('vendor_price',$totalPriceVendor,array('class' => 'form-control', 'id' => 'vendor_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
+                                    {!!Form::text('vendor_price',$totalPriceVendor,array('class' => 'form-control', 'id' => 'vendor_price','onkeypress'=>'return isNumberKey(event)','required'))!!}
                                     <?php } ?>
 
                                     <?php } ?>
