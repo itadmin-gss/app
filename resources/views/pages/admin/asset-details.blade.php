@@ -404,7 +404,7 @@
                                                 {
                                                     $style='style="background-color:yellow;"';
                                                 }
-                                                $due_date .= "<span ".$style."> ". $value->due_date . '</span> <br>';
+                                                $due_date .= "<span ".$style."> ". date("m/d/Y", strtotime($value->due_date)) . '</span> <br>';
                                             }
                                             else
                                             {
@@ -421,8 +421,9 @@
 
                                         <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $servicedate !!} </td>
                                         <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!!date('m/d/Y',strtotime( $rm->created_at )) !!}</td>
-
                                         <td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! $due_date !!} </td>
+
+                                        {{--<td class="center" @if($rm->emergency_request==1) style="background-color:red;" @endif> {!! date("m/d/Y", strtotime(str_replace("00:00:00", "", $due_date))) !!} </td>--}}
 
 
 
