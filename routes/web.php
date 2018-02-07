@@ -338,6 +338,8 @@ Route::post('save-available-photo', 'AssetController@selectAvailablePhoto');
 
 Route::post('update-asset-details', 'AssetController@updateAssetDetails');
 
+Route::post('get-edit-order-details', 'OrderController@editOrderAssetPage');
+
 //Ajax Route end
 
 ################################## Vendor Routes #############################################

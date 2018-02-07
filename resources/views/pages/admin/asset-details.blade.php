@@ -533,6 +533,8 @@
                         </tbody>
                         @endif
                     </table>
+
+
                 </div>
 
                 <div id="property_vendors" class="hide">
@@ -569,6 +571,8 @@
 
                         </tbody>
                     </table>
+
+                    <div class="property-vendors-div"></div>
                 </div>
 
                 <div id="property_invoicing" class="hide">
@@ -628,7 +632,9 @@
                     </table>
                 </div>
                 <div id="property_work_orders" class="hide">
-                    <table class="table table-striped table-small dt-responsive datatabledashboard3" style="width:100%;">
+                    <div id="property-work-orders-table">
+                        <table  class="table table-striped table-small dt-responsive datatabledashboard3" style="width:100%;">
+
                         <thead>
                         <th>ID #</th>
                         <th>Client Type</th>
@@ -642,7 +648,7 @@
                             @if (isset($order_details[$key]["order_details"]))
                                 @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                     <tr>
-                                        <td><a href="{!! URL::to("edit-order/".$id) !!}">{!! $id !!}</a></td>
+                                        <td><a class="view-order-details" href="javascript:void(0)">{!! $id !!}</a></td>
                                         <td>
                                             <?php
                                             $customer_details = CustomerType::find($customer_info->customer_type_id);
@@ -678,6 +684,11 @@
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
+                    <div class="property-work-orders-div hide">
+                        <button type="button" class="btn btn-primary property-work-orders-back"><-- Back</button>
+                        <div class="property-work-orders-results"></div>
+                    </div>
                 </div>
 
             </div>

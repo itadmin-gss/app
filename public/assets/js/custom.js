@@ -1,6 +1,398 @@
 //$.noConflict();
 $(document).ready(function() {
 
+	$(".view-order-details").on("click", function(){
+		var order_id = $(this).text();
+        $.ajax({
+            url: baseurl + "/get-edit-order-details",
+            type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {order_id: order_id},
+        }).done(function(cb) {
+            var data = JSON.parse(cb);
+            var order_details = data.order_details;
+            for(var i = 0; i<order_details.length; i++){
+                console.log(order_details[i]);
+            }
+        });
+
+        return false;
+		var html;
+
+		html = "<div class='row'>"+
+					"<div class='col-md-12'>"+
+						"<div class='card'>"+
+							"<div class='card-header'>"+
+								"<label class='table-label'>TITLEHERE</label>" +
+								"<button data-toggle='modal' class='myBtnImg'  data-target='#edit_request_service' data-backdrop='static' >"+
+									"<i class='halflings-icon edit myBtnImg' ></i>"+
+										"Edit Service" +
+								"</button>"+
+								"<div class='pull-right'> Vendor Price / Customer Price </div>"+
+								"<div class='card-body'>" +
+									"<div id=\"vendor-note-empty-error-{!!$order_detail->id!!}\" class=\"hide\">" +
+										"<div class=\"alert alert-error\">Vendor Note Can not be Empty</div>" +
+									"</div>" +
+									"<div id=\"vendor-note-empty-success-{!!$order_detail->id!!}\" class=\"hide\">" +
+										"<div class=\"alert alert-success\">Saved Successful</div>" +
+									"</div>" +
+									"<div id=\"billing-note-empty-success\" class=\"hide\">" +
+										"<div class=\"alert alert-success\">Saved Successful</div>" +
+									"</div>" +
+									"<div id=\"billing-note-empty-error\" class=\"hide\">" +
+										"<div class=\"alert alert-success\">Billing Note Can not be Empty</div>" +
+									"</div>" +
+									"<table class=\"table table-bordered\">" +
+            							"<tr>";
+            "    @if(isset($custom->customers_notes))" +
+            "        <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Customer Note: </label><p>{!!$custom->customers_notes!!}</p>   </td>" +
+            "    @else" +
+            "        <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Customer Note: </label><p>{!!$order_detail->requestedService->customer_note!!}</p>   </td>" +
+            "    @endif" +
+            "</tr>" +
+            "<tr>" +
+            "    @if(isset($custom->notes_for_vendors))" +
+            "        <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Note for Vendor: </label><p>{!!$custom->notes_for_vendors!!}</p></td>" +
+                        "    @else" +
+            "        <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Note for Vendor: </label><p>{!!$order_detail->requestedService->public_notes!!}</p>" +
+                        "        </td>" +
+            "    @endif" +
+            "</tr>" +
+                        "<tr>" +
+            "    @if(isset($custom->vendors_notes))" +
+            "        <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Vendor Note: </label><p>{!!$custom->vendors_notes!!}</p></td>" +
+            "    @else" +
+            "        <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Vendor Note: </label><p>{!!$order_detail->requestedService->vendor_note!!}</p>" +
+            "        </td>" +
+            "    @endif" +
+            "</tr>" +
+                        "<?php }elseif( Auth::user()->type_id == 3 ) {" +
+            "?>" +
+                                    "<tr>" +
+            "    <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Note for Vendor:</label>" +
+                        "        @if(isset($custom->notes_for_vendors))" +
+            "            <p>{!!$custom->notes_for_vendors!!}</p >" +
+            "        @else" +
+            "            <p>{!!$order_detail->requestedService->public_notes!!}</p >" +
+            "    @endif" +
+            "</tr>" +
+            "<?php" +
+            "}elseif( Auth::user()->type_id == 2 ) {" +
+            "    ?>" +
+                                    "<?php }?>" +
+            "    <tr>" +
+            "        <td colspan=\"9\">" +
+            "            <div class=\"row\" style=\"margin-bottom:30px;\">" +
+            "                <div class=\"col-md-12\">" +
+            "                    <div style=\"display:inline-block;\">" +
+            "                        <label class=\"table-label\" style=\"display:inline;\">Order Images: </label>" +
+            "                        <input type=\"hidden\" id=\"order_id\" value=\"{!! $order->id !!}\">" +
+            "                        <span>" +
+            "                             <button class=\"btn btn-primary export-all-photos\" type=\"button\">Export All Images</button>" +
+            "                        </span>" +
+            "                        <span>" +
+            "                            <button class=\"btn btn-primary export-selected-photos\" type=\"button\">Export Selected Images</button>" +
+            "                        </span>" +
+            "                        <span>" +
+            "                             <button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#delete-confirmation\">Delete Selected</button>" +
+            "                        </span>" +
+            "                    </div>" +
+            "                </div>" +
+            "            </div>" +
+            "            <div class=\"row\">" +
+            "                <div class=\"col-md-4 col-lg-4 col-sm-12\">" +
+                                    "                    <div class=\"center-div\">" +
+            "                        <label class=\"table-label\">Before Images</label>" +
+            "                    </div>" +
+            "                    <hr>" +
+            "                    <div class=\"order-photo-div center-div\">" +
+            "                        <div class=\"order-photo-item upload-order-photo upload-before\">" +
+            "                            <i class=\"fa fa-2x fa-upload\"></i>" +
+            "                            <p>Drag Or Click To Upload</p>" +
+            "                        </div>" +
+            "                        <?php" +
+            "                            $images = \\App\\OrderImage::where('order_id', $order->id)->where('type', 'before')->orderBy('id', 'desc')->get();" +
+            "                            foreach($images as $image)" +
+            "                            {" +
+            "                                $check = config('app.order_images_before').$image->address;" +
+            "                                if (file_exists($check))" +
+            "                                {" +
+            "                                    echo '<div class=\"order-photo-item\" id=\"photo-id-'.$image->id.'\"><span class=\"photo-export-checkbox\"><input data-id=\"'.$image->id.'\" type=\"checkbox\" class=\"form-control export-before-checkbox\"></span><img data-id=\"'.$image->id.'\" data-image-type=\"before\" class=\"order-photo-img\" src=\"'.config('app.url').'/'.config('app.order_images_before').$image->address.'\"></div>';" +
+            "                                }" +
+            "                             }" +
+            "                        ?>" +
+            "                    </div>" +
+            "                    <div class=\"center-div export-button-group\">" +
+            "                        <button type=\"button\" class=\"btn btn-primary export-before-all\">Export All Before Images</button>" +
+            "                    </div>" +
+                        "                </div>" +
+            "                <div class=\"col-md-4 col-lg-4 col-sm-12\">" +
+            "                    <div class=\"center-div\">" +
+            "                        <label class=\"table-label\">During Images</label>" +
+            "                    </div>" +
+            "                    <hr>" +
+            "                    <div class=\"order-photo-div center-div\">" +
+            "                        <div class=\"order-photo-item upload-order-photo upload-during\">" +
+            "                            <i class=\"fa fa-2x fa-upload\"></i>" +
+            "                            <p>Drag Or Click To Upload</p>" +
+            "                        </div>" +
+            "                        <?php" +
+            "                        $images = \\App\\OrderImage::where('order_id', $order->id)->where('type', 'during')->orderBy('id', 'desc')->get();" +
+                        "                        foreach($images as $image)" +
+            "                        {" +
+            "                            $check = config('app.order_images_during').$image->address;" +
+            "                            if (file_exists($check))" +
+            "                            {" +
+            "                                echo '<div class=\"order-photo-item\" id=\"photo-id-'.$image->id.'\"><span class=\"photo-export-checkbox\"><input data-id=\"'.$image->id.'\" type=\"checkbox\" class=\"form-control export-during-checkbox\"></span><img data-id=\"'.$image->id.'\" class=\"order-photo-img\" data-image-type=\"during\" src=\"'.config('app.url').'/'.config('app.order_images_during').$image->address.'\"></div>';" +
+            "                            }" +
+            "                        }" +
+            "                        ?>" +
+            "                    </div>" +
+            "                    <div class=\"center-div export-button-group\">" +
+            "                        <button type=\"button\" class=\"btn btn-primary export-during-all\">Export All During Images</button>" +
+            "                    </div>" +
+            "                </div>" +
+            "                <div class=\"col-md-4 col-lg-4 col-sm-12\">" +
+            "                    <div class=\"center-div\">" +
+            "                        <label class=\"table-label\">After Images</label>" +
+            "                    </div>" +
+            "                    <hr>" +
+            "                    <div class=\"order-photo-div center-div\">" +
+            "                        <div class=\"order-photo-item upload-order-photo upload-after\">" +
+            "                            <i class=\"fa fa-2x fa-upload\"></i>" +
+            "                            <p>Drag Or Click To Upload</p>" +
+            "                        </div>" +
+                        "                        <?php" +
+            "                        $images = \\App\\OrderImage::where('order_id', $order->id)->where('type', 'after')->orderBy('id', 'desc')->get();" +
+            "                        foreach($images as $image)" +
+            "                        {" +
+            "                            $check = config('app.order_images_after').$image->address;" +
+            "                            if (file_exists($check))" +
+            "                            {" +
+            "                                echo '<div class=\"order-photo-item\" id=\"photo-id-'.$image->id.'\"><span class=\"photo-export-checkbox\"><input data-id=\"'.$image->id.'\" type=\"checkbox\" class=\"form-control export-after-checkbox\"></span><img data-id=\"'.$image->id.'\" class=\"order-photo-img\" data-image-type=\"before\" src=\"'.config('app.url').'/'.config('app.order_images_after').$image->address.'\"></div>';" +
+            "                            }" +
+            "                        }" +
+            "                        ?>" +
+            "                    </div>" +
+            "                    <div class=\"center-div export-button-group\">" +
+            "                        <button type=\"button\" class=\"btn btn-primary export-after-all\">Export All After Images</button>" +
+            "                    </div>" +
+                        "                </div>" +
+            "            </div>" +
+            "        </td>" +
+            "    </tr>" +
+        "<!-- <tr>" +
+            "  <td colspan=\"2\" class=\"center\"><label class=\"control-label\" for=\"typeahead\">Vendor Note:</label><textarea style=\"width: 100%; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 139px;\" rows=\"6\" id=\"limit\"></textarea></td>" +
+            "                                      </tr> -->" +
+                        "<?php" +
+            "if( Auth::user()->type_id == 3 ) {" +
+            "?>" +
+            "<tr>" +
+            "    <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Vendor Note:</label>" +
+            "        @if($order_detail->requestedService->vendor_note)" +
+            "            <span id=\"show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!$order_detail->requestedService->vendor_note!!}<br><button class=\"btn btn-primary\" id=\"edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}\" onclick=\"editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})\"> Edit Note </button> </span >" +
+            "            <span class=\"hide\" id=\"textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!Form::textarea('vendor_note', $order_detail->requestedService->vendor_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>" +
+            "    @else" +
+            "        <span id=\"show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\"></span >" +
+            "        <span id=\"textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!Form::textarea('vendor_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>" +
+            "    @endif" +
+            "</tr>" +
+            "<tr>" +
+            "    <td class=\"center\" colspan=\"2\"><button class=\"btn btn-large btn-warning pull-right\"  @if(Auth::user()->type_id==3 && $order->status==4) disabled=\"disabled\"@endif onclick=\"saveVendorNote({!!$order->id!!}, {!!$order_detail->id!!})\">Save {!!$order_detail->requestedService->service->title!!}</button></td>" +
+                        "</tr>" +
+            "<?php } else if( Auth::user()->type_id == 2 ) {" +
+            "?>" +
+                        "<tr>" +
+            "    <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Customers Note:</label>" +
+            "        @if($order_detail->requestedService->customer_note)" +
+            "            <span id=\"show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!$order_detail->requestedService->custumer_note!!}<br><button class=\"btn btn-primary\" id=\"edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}\" onclick=\"editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})\"> Edit Note </button> </span >" +
+            "            <span class=\"hide\" id=\"textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!Form::textarea('custumer_note', $order_detail->requestedService->customer_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>" +
+            "    @else" +
+            "        <span id=\"show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\"></span >" +
+            "        <span id=\"textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!Form::textarea('custumer_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>" +
+            "    @endif" +
+            "</tr>" +
+            "<tr>" +
+            "    <td class=\"center\" colspan=\"2\"><button class=\"btn btn-large btn-warning pull-right\"  onclick=\"saveCustomerNote({!!$order->id!!}, {!!$order_detail->id!!})\">Save {!!$order_detail->requestedService->service->title!!}</button></td>" +
+                        "</tr>" +
+                        "<?php } else if( Auth::user()->user_role_id == 1 || Auth::user()->user_role_id == 4 ||Auth::user()->user_role_id == 5 ||Auth::user()->user_role_id == 6||Auth::user()->user_role_id == 8 ) {" +
+            "?>" +
+                        "<tr>" +
+            "    <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Admin Note:</label>" +
+            "        @if($order_detail->requestedService->admin_note)" +
+                        "            <span id=\"show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\"><p>{!!$order_detail->requestedService->admin_note!!}</p><br><button class=\"btn btn-primary\" id=\"edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}\" onclick=\"editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})\"> Edit Note </button> </span >" +
+            "            <span class=\"hide\" id=\"textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!Form::textarea('admin_note', $order_detail->requestedService->admin_note ,array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>" +
+            "    @else" +
+            "        <span id=\"show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\"></span >" +
+            "        <span id=\"textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!Form::textarea('admin_note','',array('class'=>'span','id'=>'vendor-note-'.$order->id.'-'.$order_detail->id))!!}</span></td>" +
+            "    @endif" +
+            "</tr>" +
+            "<tr>" +
+            "    <td class=\"center\" colspan=\"2\"><button class=\"btn btn-large btn-warning pull-right\" onclick=\"saveAdminNote({!!$order->id!!}, {!!$order_detail->id!!})\">Save Admin Note</button></td>" +
+                        "</tr>" +
+            "<?php } ?>" +
+            "<?php if (Auth::user()->user_role_id == 1 || Auth::user()->user_role_id == 4 ) { ?>" +
+            "<tr>" +
+                                    "    <td colspan=\"2\" class=\"center\"><label class=\"table-label\">Billing Note:</label>" +
+            "        @if($order->billing_note)" +
+            "            <span id=\"show-billing-note-{!!$order->id!!}\">{!!$order->billing_note!!}<br>" +
+            "                <button class=\"btn btn-primary\" id=\"edit-billing-note-button-{!!$order->id!!}\" onclick=\"editBillingNoteButton({!!$order->id!!})\"> Edit Note </button>" +
+            "                    </span >" +
+            "            <span class=\"hide\" id=\"textarea-billing-note-{!!$order->id!!}\">{!!Form::textarea('admin_note', $order->billing_note ,array('class'=>'span','id'=>'billing-note-'.$order->id))!!}" +
+            "                <button class=\"btn btn-large btn-warning pull-right \" id=\"bill-btn\" onclick=\"saveBillingNote({!!$order->id!!})\">Save Billing Note</button></span>" +
+            "    </td>" +
+            "    @else" +
+            "        <span id=\"show-billing-note-{!!$order->id!!}\"></span >" +
+            "        <span id=\"textarea-billing-note-{!!$order->id!!}\">{!!Form::textarea('admin_note','',array('class'=>'span','id'=>'billing-note-'.$order->id))!!}" +
+            "            <button class=\"btn btn-large btn-warning pull-right\" onclick=\"saveBillingNote({!!$order->id!!})\">Save Billing Note</button></span></td>" +
+            "    @endif" +
+            "</tr>" +
+            "<tr>" +
+            "    <td class=\"center\" colspan=\"2\"><!-- <button class=\"btn btn-large btn-warning pull-right\" onclick=\"saveBillingNote({!!$order->id!!})\">Save Billing Note</button> --></td>" +
+                        "</tr>" +
+            "<?php  } ?>" +
+                        "<tr><td><label class=\"table-lable\">Service Details</label></td><td></td></tr>" +
+            "@if($order_detail->requestedService->required_date!=\"\")" +
+            "    <tr><td><span>Required Date</span></td>" +
+            "        <td><span>{!! date('m/d/Y', strtotime($order_detail->requestedService->required_date)) !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if( $order_detail->requestedService->due_date!=\"\")" +
+            "    <tr><td><span>Due Date</span></td>" +
+            "        <td>" +
+            "            <span> {!! date('m/d/Y', strtotime($order_detail->requestedService->due_date)) !!}</span>" +
+            "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if($order_detail->requestedService->quantity!=\"\")" +
+            "    <tr><td><span>Quantity</span></td>" +
+            "        <td>" +
+            "            <span id=\"show-vendor-qty\">{!! $order_detail->requestedService->quantity !!}</span>" +
+            "        </td>" +
+            "    </tr>" +
+            "@endif" +
+        "@if($order_detail->requestedService->service_men!=\"\")" +
+            "    <tr><td><span>Service men</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->service_men !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+            "@if($order_detail->requestedService->service_note!=\"\")" +
+            "    <tr><td><span>Service note</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->service_note !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if($order_detail->requestedService->verified_vacancy!=\"\")" +
+            "    <tr><td><span>Verified vacancy</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->verified_vacancy !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+            "@if($order_detail->requestedService->cash_for_keys!=\"\")" +
+            "    <tr><td><span>Cash for keys</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->cash_for_keys !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if($order_detail->requestedService->cash_for_keys_trash_out!=\"\")" +
+            "    <tr><td><span>Cash for keys Trash Out</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->cash_for_keys_trash_out !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if($order_detail->requestedService->trash_size!=\"\")" +
+            "    <tr><td><span>trash size</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->trash_size !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                                    "@if($order_detail->requestedService->storage_shed!=\"\")" +
+            "    <tr><td><span>storage shed</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->storage_shed !!}</span></td>" +
+            "    </tr>" +
+            "@endif" +
+                                    "@if($order_detail->requestedService->lot_size!=\"\")" +
+            "    <tr><td><span>lot size</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->lot_size !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if($order_detail->requestedService->set_prinkler_system_type!=\"\")" +
+            "    <tr><td><span>set prinkler system type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->set_prinkler_system_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                                    "@if($order_detail->requestedService->install_temporary_system_type!=\"\")" +
+            "    <tr><td><span>install temporary system type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->install_temporary_system_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+        "@if($order_detail->requestedService->pool_service_type!=\"\")" +
+            "    <tr><td><span>pool service type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->pool_service_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                                    "@if($order_detail->requestedService->carpet_service_type!=\"\")" +
+            "    <tr><td><span>carpet service type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->carpet_service_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if($order_detail->requestedService->boarding_type!=\"\")" +
+            "    <tr><td><span>boarding type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->boarding_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+        "@if($order_detail->requestedService->spruce_up_type!=\"\")" +
+            "    <tr><td><span>spruce up type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->spruce_up_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+        "@if($order_detail->requestedService->constable_information_type!=\"\")" +
+            "    <tr><td><span>constable information type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->constable_information_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                                    "@if($order_detail->requestedService->remove_carpe_type!=\"\")" +
+            "    <tr><td><span>remove carpe type<span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->remove_carpe_type!!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                                    "@if($order_detail->requestedService->remove_blinds_type!=\"\")" +
+            "    <tr><td><span>remove blinds type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->remove_blinds_type !!}</span>" +
+            "        </td>" +
+            "    </tr>" +
+            "@endif" +
+                        "@if($order_detail->requestedService->remove_appliances_type!=\"\")" +
+            "    <tr><td><span>remove appliances type</span></td>" +
+            "        <td><span>{!!$order_detail->requestedService->remove_appliances_type !!}</span>" +
+                        "        </td>" +
+            "    </tr>" +
+            "@endif" +
+        "                                    </table>"
+
+
+		$("#property-work-orders-table").hide();
+		$(".property-work-orders-div").fadeIn("fast");
+	});
+
+	$(".property-work-orders-back").on("click", function(){
+        $(".property-work-orders-div").hide();
+        $("#property-work-orders-table").fadeIn("fast");
+
+    });
     var myDropZone;
     $(".upload-before").dropzone({
 
