@@ -253,6 +253,10 @@ class Pruvan
             case 5:
                 $status = "canceled";
                 break;
+
+            case 6:
+                $status = "invoiced";
+                break;
             default:
                 return "no status";
                 break;

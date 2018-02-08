@@ -478,7 +478,7 @@ class OrderController extends Controller
                                             }
                                         }
 
-                                        
+
                                                     @if($order_detail->requestedService->customer_note)
                                                         <span id=\"show-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!$order_detail->requestedService->custumer_note!!}<br><button class=\"btn btn-primary\" id=\"edit-vendor-note-button-{!!$order->id!!}-{!!$order_detail->id!!}\" onclick=\"editVendorNoteButton({!!$order->id!!},{!!$order_detail->id!!})\"> Edit Note </button> </span >
                                                         <span class=\"hide\" id=\"textarea-vendor-note-{!!$order->id!!}-{!!$order_detail->id!!}\">{!!Form::textarea(\'custumer_note\', $order_detail->requestedService->customer_note ,array(\'class\'=>\'span\',\'id\'=>\'vendor-note-\'.$order->id.\'-\'.$order_detail->id))!!}</span></td>
