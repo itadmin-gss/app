@@ -31,6 +31,8 @@ use JeroenDesloovere\Geolocation\Geolocation;
 class OrderController extends Controller
 {
 
+
+    /**
     public function editOrderAssetPage()
     {
         $totalPriceCustomer     = 0;
@@ -752,7 +754,7 @@ class OrderController extends Controller
             "customData"    => $customData
         ]);
     }
-
+    */
 
     public function editOrder($order_id)
     {

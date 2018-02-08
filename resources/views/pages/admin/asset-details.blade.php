@@ -648,7 +648,8 @@
                             @if (isset($order_details[$key]["order_details"]))
                                 @foreach($order_details[$key]["order_details"] as $id => $order_detail)
                                     <tr>
-                                        <td><a class="view-order-details" href="javascript:void(0)">{!! $id !!}</a></td>
+                                        <td><a href="{!! URL::to("edit-order/".$id) !!}">{!! $id !!}</a></td>
+                                        {{--<td><a class="view-order-details" href="javascript:void(0)">{!! $id !!}</a></td>--}}
                                         <td>
                                             <?php
                                             $customer_details = CustomerType::find($customer_info->customer_type_id);
