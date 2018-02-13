@@ -55,7 +55,7 @@ class City extends BaseTenantModel
     public static function getCitiesByStateId($id)
     {
 
-        $cities = self::where('state_id', $id)->orderBy('name', 'asc')->get(['id','name']);
+        $cities = self::where('state_id', $id)->where('status', 1)->orderBy('name', 'asc')->get(['id','name']);
 
         return $cities;
     }
@@ -64,7 +64,7 @@ class City extends BaseTenantModel
     {
 
         $cities = Cache::remember('cities', 24*60, function(){
-            return self::all();
+            return self::where('status', 1)->get();
         });
 
          return $cities;
