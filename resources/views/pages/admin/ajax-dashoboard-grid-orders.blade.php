@@ -115,9 +115,10 @@
 
                           <td class="center">
 
-                              @if ($order['recurring'] == 1)
+                              @if ($order['recurring'] == "true" || $order['recurring'] == 1)
                                   <i class="fa fa-2x fa-recycle" style="color:blue !important; vertical-align:middle;"></i>
-                                  @endif
+                              @endif
+
                           </td>
 
                         <td class="center">{!! $order['service_type'] !!}</td>

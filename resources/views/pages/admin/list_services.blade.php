@@ -24,7 +24,7 @@
                     <div style="display: inline-block; background: none repeat scroll 0% 0% rgb(255, 255, 255); cursor: pointer; padding: 5px 10px; border: 1px solid rgb(204, 204, 204); margin-bottom: 20px;" class="btn" id="reportrange2"> <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>August 3, 2014 - September 1, 2014</span> <b class="caret"></b> </div>-->
                     <thead>
                         <tr>
-                            <th>S.No</th>
+                            <th>Service ID</th>
 
                             <th>Service Code</th>
 
@@ -48,7 +48,7 @@
 
                         @foreach ($services as $service)
                         <tr>
-                            <td><a href="edit-service/{!! $service->id !!}">{{ $loop->iteration }}</a></td>
+                            <td><a href="edit-service/{!! $service->id !!}">{{ $service->id }}</a></td>
                             <td>{!! $service->service_code !!}</td>
                             <td>@if(isset($service->serviceCategory->title)){!! $service->serviceCategory->title  !!}@endif</td>
                             <td class="center">{!! $service->title !!}</td>

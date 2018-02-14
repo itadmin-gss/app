@@ -3,6 +3,8 @@
 
     <?php
         use App\CustomerType;
+        use App\City;
+        use App\State;
         ?>
 
     <title>GSS - Property Details for {!! $property_details->property_address !!}</title>
@@ -556,14 +558,26 @@
                             <?php
                                 foreach($vendors_found as $vendor)
                                     {
+                                        $city = "";
+                                        $state = "";
+                                        if (is_numeric($vendor[0]->city_id) && $vendor[0]->city_id > 0)
+                                        {
+                                            $city = City::where('id', $vendor[0]->city_id)->get()[0]->name;
+                                        }
+
+                                        if (is_numeric($vendor[0]->state_id) && $vendor[0]->state_id > 0)
+                                        {
+                                            $state = State::where('id', $vendor[0]->state_id)->get()[0]->name;
+                                        }
+
                                         echo "<tr>";
                                         echo "<td>".$vendor[0]->id."</td>";
                                         echo "<td>".$vendor[0]->first_name."</td>";
                                         echo "<td>".$vendor[0]->last_name."</td>";
                                         echo "<td>".$vendor[0]->company."</td>";
                                         echo "<td>".$vendor[0]->address_1."<br>".$vendor[0]->address_2."</td>";
-                                        echo "<td>".$vendor[0]->city_id."</td>";
-                                        echo "<td>".$vendor[0]->state_id."</td>";
+                                        echo "<td>".$city."</td>";
+                                        echo "<td>".$state."</td>";
                                         echo "<td>".$vendor[0]->zip."</td>";
                                         echo "</tr>";
                                     }

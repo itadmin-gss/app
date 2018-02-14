@@ -774,6 +774,7 @@ class OrderController extends Controller
         $order_req = Order::where('id', '=', $order_id)->pluck('request_id');
         $services_asset_id= MaintenanceRequest::where('id', '=', $order_req)->pluck('asset_id');
         $property_details =  Asset::where('id', $services_asset_id)->get();
+        $customer_details = User::where('id', $property_details[0]->customer_id)->get();
 
 
         //$job_type =MaintenanceRequest::where('id','=',$order_req)->pluck('job_type');
@@ -803,6 +804,7 @@ class OrderController extends Controller
             ->with('state', $state)
             ->with('cities', $cities)
             ->with('states', $states)
+            ->with('customer_info', $customer_details[0])
             ->with('property_details', $property_details[0])
             ->with('vendorsDATA', $vendorsDATA)
             ->with('order', $data)
