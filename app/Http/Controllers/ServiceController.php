@@ -6,6 +6,7 @@ use App\AdditionalServiceItem;
 use App\CustomerType;
 use App\Helpers\Email;
 use App\Helpers\FlashMessage;
+use App\Helpers\Pruvan;
 use App\JobType;
 use App\OrderCustomData;
 use App\Service;
@@ -60,9 +61,18 @@ class ServiceController extends Controller
                 $record =  OrderCustomData::where("order_id", '=', $id)->update(['customers_notes' => $customers_notes ,'admin_quantity' => $admin_quantity,  'quantity' => $quantity, 'vendors_notes' => $vendors_notes ,'notes_for_vendors'=>$notes_for_vendors, 'customer_price' =>$customer_price,'vendors_price'=>$vendor_price]);
             }
         }
+
+        $data_array = [
+            'workOrderNumber' => $id,
+            'instructions' => $notes_for_vendors,
+            'description' => $vendor_price
+        ];
+
+        Pruvan::updatePriceAndNotesPruvan($data_array);
+
         // echo $record;
         if ($record) {
-                        return $data;
+            return $data;
         } else {
             return false;
         }

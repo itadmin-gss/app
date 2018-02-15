@@ -22,6 +22,22 @@ use Illuminate\Support\Facades\Config;
 
 class Pruvan
 {
+    //Send Data to Pruvan via cURL
+    private static function curlToPruvan($data)
+    {
+        $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
+
+        $data_string = "{\"workOrders\": [".json_encode($data)."]}";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $pushkey_url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        return curl_exec($ch);
+    }
 
     //Validate Application with Pruvan
     public static function validateApp($data)
@@ -197,21 +213,23 @@ class Pruvan
                             ];
 
 
-        //Send Data to Pruvan via cURL
-        $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
+        return self::curlToPruvan($data_array);
 
-        $data_string = "{\"workOrders\": [".json_encode($data_array)."]}";
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $pushkey_url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    }
 
-        $response = curl_exec($ch);
+    public static function updatePriceAndNotesPruvan($data)
+    {
+        $data_array =
 
-        return $response;
+            [
+                'workOrderNumber' => $data['order_id'],
+                'instructions' => $data['instructions'],
+                'clientInstructions' => $data['instructions'],
+                'description' => $data['description']
+            ];
+
+        return self::curlToPruvan($data_array);
 
     }
 
@@ -269,22 +287,8 @@ class Pruvan
                 'status' => $status
             ];
 
+        return self::curlToPruvan($data_array);
 
-        //Send Data to Pruvan via cURL
-        $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
-
-        $data_string = "{\"workOrders\": [".json_encode($data_array)."]}";
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $pushkey_url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-
-        return $response;
     }
 
     public static function updatePruvanVendor($data)
@@ -299,22 +303,8 @@ class Pruvan
                 'assignedTo' => $vendor
             ];
 
+        return self::curlToPruvan($data_array);
 
-        //Send Data to Pruvan via cURL
-        $pushkey_url = PruvanPushKeys::findOrFail(0)->pushkey;
-
-        $data_string = "{\"workOrders\": [".json_encode($data_array)."]}";
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $pushkey_url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array("workOrders" => $data_string));
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-
-        return $response;
     }
     public static function setStatus($data)
     {
