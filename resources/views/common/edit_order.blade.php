@@ -72,9 +72,10 @@
                                     <tr class="asset-details-values">
                                         <td>Property Address:</td>
                                         <td id="property_address_value">
-                                            {!! $property_details->property_address !!}
-                                            <br>{!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}
-
+                                            <a href="{!! URL::to("asset/".$property_details->id) !!}">
+                                                {!! $property_details->property_address !!}
+                                                <br>{!! $city !!}, {!! $state !!}  {!! $property_details->zip !!}
+                                            </a>
                                         </td>
                                     </tr>
 

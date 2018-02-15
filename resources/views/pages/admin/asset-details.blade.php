@@ -280,8 +280,8 @@
             <div class="col-md-12 col-lg-12 col-sm-12">
 
                 <div style="width:100%;margin-top:20px;">
-                    <div class="work-orders-tab work-orders-tab-active" data-id="5">New Requests</div>
-                    <div class="work-orders-tab" data-id="1">Work Orders</div>
+                    <div class="work-orders-tab" data-id="5">New Requests</div>
+                    <div class="work-orders-tab  work-orders-tab-active" data-id="1">Work Orders</div>
                     {{--<div class="work-orders-tab" data-id="2">Map</div>--}}
                     <div class="work-orders-tab" data-id="3">Vendors</div>
                     {{--<div class="work-orders-tab" data-id="4">Invoicing</div>--}}
@@ -295,7 +295,7 @@
                     <p>Map</p>
                 </div>
 
-                <div id="new-requests-table">
+                <div id="new-requests-table" class="hide">
 
                     <?php
                             $requestsNew = \App\MaintenanceRequest::where('asset_id', $property_details->id)->where('status', '=', 1)->orderByRaw("FIELD(emergency_request , '1', '0') ASC")->orderBy('id', 'desc')->get();
@@ -645,7 +645,7 @@
 
                     </table>
                 </div>
-                <div id="property_work_orders" class="hide">
+                <div id="property_work_orders">
                     <div id="property-work-orders-table">
                         <table  class="table table-striped table-small dt-responsive datatabledashboard3" style="width:100%;">
 
