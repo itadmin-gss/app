@@ -1233,17 +1233,17 @@
             @endif 
 
 
-            <div class="row-fluid">
-                <div class="form-group">
-                    <div class="span6">
-                        {!!Form::label('Upload_image'.$service_data->id, 'Upload Image:', array('class'=>'control-label'))!!}
+            {{--<div class="row-fluid">--}}
+                {{--<div class="form-group">--}}
+                    {{--<div class="span6">--}}
+                        {{--{!!Form::label('Upload_image'.$service_data->id, 'Upload Image:', array('class'=>'control-label'))!!}--}}
 
-                        <div class="controls">
-                            {!!Form::file('service_image_'.$service_data->id.'[]', array('multiple'=>true, 'id'=>'service_image_'.$service_data->id))!!}
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        {{--<div class="controls">--}}
+                            {{--{!!Form::file('service_image_'.$service_data->id.'[]', array('multiple'=>true, 'id'=>'service_image_'.$service_data->id))!!}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
 
              @if($service_data->recurring == 1)
