@@ -69,7 +69,6 @@
                         {!!Form::text('number_of_men_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'number_of_men_'.$service_data->id))!!}
                     </div>
                 </div>
-            {!!Form::hidden('number_of_men_'.$service_data->id, '', array('class'=> 'form-control', 'id'=> 'number_of_men_'.$service_data->id))!!}
             @endif
 
             @if($service_data->verified_vacancy == 1)
