@@ -2406,13 +2406,13 @@ Service Type: ".$serviceType;
                     ]);
 
 
-            Invoice::create([
-                                'order_id'=>$order_id,
-                                'total_amount'=>   $customer_price,
-                                'request_id'  =>$orders[0]->request_id,
-                                'user_id'  => $orders[0]->customer->id,
-                                'user_type_id'  => $orders[0]->customer->type_id,
-                                'status'=>1]);
+//            Invoice::create([
+//                                'order_id'=>$order_id,
+//                                'total_amount'=>   $customer_price,
+//                                'request_id'  =>$orders[0]->request_id,
+//                                'user_id'  => $orders[0]->customer->id,
+//                                'user_type_id'  => $orders[0]->customer->type_id,
+//                                'status'=>1]);
             $emailUrl="edit-order/".$order_id;
             $EmailDATA =   $order_id. " has been marked Approved. To view work order details <a href='".URL::to($emailUrl)."'> click here:</a>
 <br/>Order ID: ".$order_id." <br/>

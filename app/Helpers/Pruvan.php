@@ -223,7 +223,7 @@ class Pruvan
         $data_array =
 
             [
-                'workOrderNumber' => $data['order_id'],
+                'workOrderNumber' => $data['workOrderNumber'],
                 'instructions' => $data['instructions'],
                 'clientInstructions' => $data['instructions'],
                 'description' => $data['description']
