@@ -298,7 +298,12 @@
             @foreach($customData as $custom)
                 @if(isset($order_detail->requestedService->service->title))
 
+                    <style>
+                        .fa-2x{
+                            font-size:1.3em !important;
+                        }
 
+                    </style>
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <div class="card">
@@ -311,7 +316,7 @@
                                         <label class="table-label">{!! $order_detail->requestedService->service->title !!}</label>
                                         <div>
                                             <span data-toggle="modal" data-target="#edit_request_service" style="cursor:pointer;">
-                                                <i class="fa fa-edit"></i>
+                                                <i class="fa fa-2x fa-edit"></i>
                                             </span>
                                             <?php
 
@@ -527,7 +532,7 @@
                                                             @endif
 
                                                             <span class="edit-vendor" data-toggle="modal" data-target="#change-vendor-modal">
-                                                                <i class="fa fa-edit"></i>
+                                                                <i class="fa fa-2x fa-edit"></i>
                                                             </span>
                                                         @endif
                                                     @endforeach
