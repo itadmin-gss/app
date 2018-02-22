@@ -303,177 +303,184 @@
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <label class="table-label">{!! $order_detail->requestedService->service->title !!}</label>
-                                    <button data-toggle="modal" class="myBtnImg"  data-target="#edit_request_service" data-backdrop="static" >
-                                        <i class="halflings-icon edit myBtnImg" ></i>
-                                        Edit Service</button>
-                                    <div class="pull-right">
-                                        <?php
+                                    <div style="display:flex;justify-content:space-between;">
+                                        <div>
+                                            <label class="table-label">Work Order::#{!! $order->id!!}</label>
 
-                                        if ($order_detail->requestedService->recurring == 1)
-                                        {
-                                            $RecurringFlag = 1;
-                                        }
+                                        </div>
+                                        <label class="table-label">{!! $order_detail->requestedService->service->title !!}</label>
+                                        <div>
+                                            <span data-toggle="modal" data-target="#edit_request_service" style="cursor:pointer;">
+                                                <i class="fa fa-edit"></i>
+                                            </span>
+                                            <?php
 
-                                        $totalRequestedServices++;
-
-
-
-
-                                        if (Auth::user()->type_id == 3)
-                                        {
-                                            $SpecialPriceVendor = \App\SpecialPrice::where('service_id', $order_detail->requestedService->service->id)
-                                                ->where('customer_id', Auth::user()->id)
-                                                ->where('type_id', 3)
-                                                ->get();
-
-                                            $vendor_priceFIND = 0;
-
-                                            if (isset($SpecialPriceVendor[0]) && !empty($SpecialPriceVendor[0]))
+                                            if ($order_detail->requestedService->recurring == 1)
                                             {
-                                                if (isset($custom->vendors_price) && isset($custom->quantity))
+                                                $RecurringFlag = 1;
+                                            }
+
+                                            $totalRequestedServices++;
+
+
+
+
+                                            if (Auth::user()->type_id == 3)
+                                            {
+                                                $SpecialPriceVendor = \App\SpecialPrice::where('service_id', $order_detail->requestedService->service->id)
+                                                    ->where('customer_id', Auth::user()->id)
+                                                    ->where('type_id', 3)
+                                                    ->get();
+
+                                                $vendor_priceFIND = 0;
+
+                                                if (isset($SpecialPriceVendor[0]) && !empty($SpecialPriceVendor[0]))
                                                 {
-                                                    echo "Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                    if (isset($custom->vendors_price) && isset($custom->quantity))
+                                                    {
+                                                        echo "Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo "Price: $".$SpecialPriceVendor[0]->special_price * $order_detail->requestedService->quantity;
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    echo "Price: $".$SpecialPriceVendor[0]->special_price * $order_detail->requestedService->quantity;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (isset($custom->vendors_price) && isset($custom->quantity))
-                                                {
-                                                    if( $custom->vendors_price !== NULL && $custom->quantity !== NULL)
+                                                    if (isset($custom->vendors_price) && isset($custom->quantity))
                                                     {
-                                                        $vendor_priceFIND += $custom->vendors_price * $custom->quantity;
-                                                        echo "Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                        if( $custom->vendors_price !== NULL && $custom->quantity !== NULL)
+                                                        {
+                                                            $vendor_priceFIND += $custom->vendors_price * $custom->quantity;
+                                                            echo "Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                        }
+                                                    }
+
+                                                    else
+                                                    {
+                                                        $vendor_priceFIND = $order_detail->requestedService->service->vendor_price * $order_detail->requestedService->quantity;
+                                                        echo "Vendor Price: ".$order_detail->requestedService->service->vendor_price * $order_detail->requestedService->quantity;
                                                     }
                                                 }
 
-                                                else
-                                                {
-                                                    $vendor_priceFIND = $order_detail->requestedService->service->vendor_price * $order_detail->requestedService->quantity;
-                                                    echo "Vendor Price: ".$order_detail->requestedService->service->vendor_price * $order_detail->requestedService->quantity;
-                                                }
+                                                $totalPrice += $vendor_priceFIND;
+
                                             }
-
-                                            $totalPrice += $vendor_priceFIND;
-
-                                        }
-                                        else if (Auth::user()->type_id==2)
-                                        {
-
-                                            $SpecialPriceVendor=  \App\SpecialPrice::where('service_id', $order_detail->requestedService->service->id)
-                                                ->where('customer_id', Auth::user()->id)
-                                                ->where('type_id', 2)
-                                                ->get();
-
-                                            $vendor_priceFIND = 0;
-                                            if (!empty($SpecialPriceVendor[0]))
+                                            else if (Auth::user()->type_id==2)
                                             {
-                                                if ($custom->vendors_price !== NULL && $custom->quantity !== NULL)
+
+                                                $SpecialPriceVendor=  \App\SpecialPrice::where('service_id', $order_detail->requestedService->service->id)
+                                                    ->where('customer_id', Auth::user()->id)
+                                                    ->where('type_id', 2)
+                                                    ->get();
+
+                                                $vendor_priceFIND = 0;
+                                                if (!empty($SpecialPriceVendor[0]))
                                                 {
-                                                    $vendor_priceFIND = $custom->vendors_price * $custom->quantity;
-                                                    echo "Price: $".$vendor_priceFIND;
-                                                }
-                                                else
-                                                {
-                                                    $vendor_priceFIND = $SpecialPriceVendor[0]->special_price * $order_detail->requestedService->quantity;
-                                                    echo "Price: $".$vendor_priceFIND;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (isset($custom->vendors_price) && isset($custom->quantity))
-                                                {
-                                                    if( $custom->vendors_price !== NULL && $custom->quantity !== NULL)
+                                                    if ($custom->vendors_price !== NULL && $custom->quantity !== NULL)
                                                     {
-                                                        $vendor_priceFIND += $custom->vendors_price * $custom->quantity;
-                                                        echo "Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                        $vendor_priceFIND = $custom->vendors_price * $custom->quantity;
+                                                        echo "Price: $".$vendor_priceFIND;
+                                                    }
+                                                    else
+                                                    {
+                                                        $vendor_priceFIND = $SpecialPriceVendor[0]->special_price * $order_detail->requestedService->quantity;
+                                                        echo "Price: $".$vendor_priceFIND;
                                                     }
                                                 }
-                                            }
-
-                                            $totalPrice += $vendor_priceFIND;
-
-                                        }
-                                        else
-                                        {
-
-
-
-                                            $SpecialPriceCustomer=  \App\SpecialPrice::where('service_id', $order_detail->requestedService->service->id)
-                                                ->where('customer_id', $order->customer->id)
-                                                ->where('type_id', 2)
-                                                ->get();
-
-                                            $customer_priceFIND = 0;
-
-                                            if (!empty($SpecialPriceCustomer[0]))
-                                            {
-                                                if (!empty($custom->customer_price))
-                                                {
-                                                    $totalPriceCustomer += $custom->customer_price * $custom->admin_quantity;
-                                                    echo "Customer Price: $".$custom->customer_price * $custom->admin_quantity;
-                                                }
                                                 else
                                                 {
-                                                    $totalPriceCustomer += $SpecialPriceCustomer[0]->special_price;
-                                                    echo "Customer Price: $".$SpecialPriceCustomer[0]->special_price;
+                                                    if (isset($custom->vendors_price) && isset($custom->quantity))
+                                                    {
+                                                        if( $custom->vendors_price !== NULL && $custom->quantity !== NULL)
+                                                        {
+                                                            $vendor_priceFIND += $custom->vendors_price * $custom->quantity;
+                                                            echo "Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                        }
+                                                    }
                                                 }
+
+                                                $totalPrice += $vendor_priceFIND;
+
                                             }
                                             else
                                             {
-                                                if (isset($custom->customer_price) && $custom->customer_price !== NULL)
+
+
+
+                                                $SpecialPriceCustomer=  \App\SpecialPrice::where('service_id', $order_detail->requestedService->service->id)
+                                                    ->where('customer_id', $order->customer->id)
+                                                    ->where('type_id', 2)
+                                                    ->get();
+
+                                                $customer_priceFIND = 0;
+
+                                                if (!empty($SpecialPriceCustomer[0]))
                                                 {
-                                                    $totalPriceCustomer += $custom->customer_price * $custom->admin_quantity;
-                                                    echo "Customer Price: $".$custom->customer_price * $custom->admin_quantity;
+                                                    if (!empty($custom->customer_price))
+                                                    {
+                                                        $totalPriceCustomer += $custom->customer_price * $custom->admin_quantity;
+                                                        echo "Customer Price: $".$custom->customer_price * $custom->admin_quantity;
+                                                    }
+                                                    else
+                                                    {
+                                                        $totalPriceCustomer += $SpecialPriceCustomer[0]->special_price;
+                                                        echo "Customer Price: $".$SpecialPriceCustomer[0]->special_price;
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    $totalPriceCustomer = $order_detail->requestedService->service->customer_price;
-                                                    echo "Customer Price: $".$order_detail->requestedService->service->customer_price;
+                                                    if (isset($custom->customer_price) && $custom->customer_price !== NULL)
+                                                    {
+                                                        $totalPriceCustomer += $custom->customer_price * $custom->admin_quantity;
+                                                        echo "Customer Price: $".$custom->customer_price * $custom->admin_quantity;
+                                                    }
+                                                    else
+                                                    {
+                                                        $totalPriceCustomer = $order_detail->requestedService->service->customer_price;
+                                                        echo "Customer Price: $".$order_detail->requestedService->service->customer_price;
+                                                    }
                                                 }
-                                            }
 
-                                            $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
-                                                ->where('customer_id','=',$order->vendor->id)
-                                                ->where('type_id','=',3)
-                                                ->get();
+                                                $SpecialPriceVendor=  \App\SpecialPrice::where('service_id','=',$order_detail->requestedService->service->id)
+                                                    ->where('customer_id','=',$order->vendor->id)
+                                                    ->where('type_id','=',3)
+                                                    ->get();
 
-                                            if (!empty($SpecialPriceVendor[0]))
-                                            {
-                                                if ($custom->vendors_price !== null && $custom->quantity !== null)
+                                                if (!empty($SpecialPriceVendor[0]))
                                                 {
-                                                    $totalPriceVendor += $custom->vendors_price * $custom->quantity;
-                                                    echo " | Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                    if ($custom->vendors_price !== null && $custom->quantity !== null)
+                                                    {
+                                                        $totalPriceVendor += $custom->vendors_price * $custom->quantity;
+                                                        echo " | Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                    }
+                                                    else
+                                                    {
+                                                        $totalPriceVendor += $SpecialPriceVendor[0]->special_price;
+                                                        echo " | Vendor Pri mystatusclassce: $".$SpecialPriceVendor[0]->special_price;
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    $totalPriceVendor += $SpecialPriceVendor[0]->special_price;
-                                                    echo " | Vendor Pri mystatusclassce: $".$SpecialPriceVendor[0]->special_price;
+                                                    if (isset($custom->vendors_price) && $custom->vendors_price !== null && $custom->quantity !== NULL)
+                                                    {
+                                                        $totalPriceVendor += $custom->vendors_price * $custom->quantity;
+                                                        echo " | Vendor Price: $".$custom->vendors_price * $custom->quantity;
+                                                    }
+                                                    else
+                                                    {
+                                                        $totalPriceVendor += $order_detail->requestedService->service->vendor_price;
+                                                        echo " | Vendor Price: $".$order_detail->requestedService->service->vendor_price;
+                                                    }
                                                 }
-                                            }
-                                            else
-                                            {
-                                                if (isset($custom->vendors_price) && $custom->vendors_price !== null && $custom->quantity !== NULL)
-                                                {
-                                                    $totalPriceVendor += $custom->vendors_price * $custom->quantity;
-                                                    echo " | Vendor Price: $".$custom->vendors_price * $custom->quantity;
-                                                }
-                                                else
-                                                {
-                                                    $totalPriceVendor += $order_detail->requestedService->service->vendor_price;
-                                                    echo " | Vendor Price: $".$order_detail->requestedService->service->vendor_price;
-                                                }
+
                                             }
 
-                                        }
 
-
-                                        ?>
+                                            ?>
+                                        </div>
                                     </div>
+
                                 </div>
 
                                 <div class="card-body">
@@ -501,29 +508,61 @@
                                         if( Auth::user()->type_id == 1 || Auth::user()->type_id == 4) {
                                         ?>
                                         <tr>
+                                            <td style="width:200px; background-color:#f7f7f7;">
+                                                <label class="table-label">Vendor:</label>
+                                            </td>
+                                            <td>
+                                                <span style="font-weight:bold;">
+                                                    @foreach($vendorsDATA as $vendor)
+                                                        @if ($vendor->id == $order->vendor_id)
+                                                            @if (isset($vendor['first_name']))
+                                                                {!! $vendor['first_name']." " !!}
+                                                            @endif
+                                                            @if (isset($vendor['last_name']))
+                                                                {!! $vendor['last_name']." " !!}
+                                                            @endif
+
+                                                            @if (isset($vendor['company']))
+                                                                @ {!! $vendor['company'] !!}
+                                                            @endif
+
+                                                            <span class="edit-vendor" data-toggle="modal" data-target="#change-vendor-modal">
+                                                                <i class="fa fa-edit"></i>
+                                                            </span>
+                                                        @endif
+                                                    @endforeach
+
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
                                             @if(isset($custom->customers_notes))
-                                                <td colspan="2" class="center"><label class="table-label">Customer Note: </label><p>{!!$custom->customers_notes!!}</p>   </td>
+                                                <td style="width:200px; background-color:#f7f7f7;"><label class="table-label">Customer Note: </label></td>
+                                                <td>{!!$custom->customers_notes!!}</td>
                                             @else
-                                                <td colspan="2" class="center"><label class="table-label">Customer Note: </label><p>{!!$order_detail->requestedService->customer_note!!}</p>   </td>
+                                                <td style="width:200px; background-color:#f7f7f7;"><label class="table-label">Customer Note: </label>
+                                                <td>{!!$order_detail->requestedService->customer_note!!}</td>
                                             @endif
                                         </tr>
                                         <tr>
                                             @if(isset($custom->notes_for_vendors))
-                                                <td colspan="2" class="center"><label class="table-label">Note for Vendor: </label><p>{!!$custom->notes_for_vendors!!}</p></td>
+                                                <td style="width:200px; background-color:#f7f7f7;"><label class="table-label">Note for Vendor: </label></td>
+                                                <td>{!!$custom->notes_for_vendors!!}</td>
 
                                             @else
-                                                <td colspan="2" class="center"><label class="table-label">Note for Vendor: </label><p>{!!$order_detail->requestedService->public_notes!!}</p>
-
-                                                </td>
+                                                <td style="width:200px; background-color:#f7f7f7;"><label class="table-label">Note for Vendor: </label></td>
+                                                <td>{!!$order_detail->requestedService->public_notes!!}</td>
                                             @endif
                                         </tr>
 
                                         <tr>
                                             @if(isset($custom->vendors_notes))
-                                                <td colspan="2" class="center"><label class="table-label">Vendor Note: </label><p>{!!$custom->vendors_notes!!}</p></td>
+                                                <td style="width:200px; background-color:#f7f7f7;"><label class="table-label">Vendor Note: </label></td>
+                                                <td>{!!$custom->vendors_notes!!}</td>
                                             @else
-                                                <td colspan="2" class="center"><label class="table-label">Vendor Note: </label><p>{!!$order_detail->requestedService->vendor_note!!}</p>
-                                                </td>
+                                                <td style="width:200px; background-color:#f7f7f7;"><label class="table-label">Vendor Note: </label></td>
+                                                <td>{!!$order_detail->requestedService->vendor_note!!}</td>
                                             @endif
                                         </tr>
 
@@ -1456,7 +1495,34 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="change-vendor-modal">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="pull-right" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></span>
+                    <label class="table-label">Change Assigned Vendor</label>
+                </div>
+                <div class="modal-body">
 
+                    <div class="row">
+                        <div class="col-md-3">New Vendor: </div>
+                        <div class="col-md-6">
+                            <select id="change-vendor-select" class="form-control" onchange="changeVendor()">
+                                <?php
+                                    $vendors = \App\User::getVendors();
+                                    foreach($vendors as $vendor)
+                                        {
+                                            echo "<option value='".$vendor->id."'>".$vendor->first_name." ".$vendor->last_name."</option>";
+                                        }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="gmap-modal">
         <div class="modal-dialog" role="dialog">
             <div class="modal-content">
@@ -1614,6 +1680,8 @@
             }, 300);
             ;
         }
+
+
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtaE4nNK7Wdb19dUeCMitdhFv4Wy7eb30">

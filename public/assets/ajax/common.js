@@ -3217,7 +3217,23 @@ function modalClose(){
     }
   });
   }
-  
+
+  function changeVendor(){
+      var vendorId = $("#change-vendor-select option:selected").val();
+      var orderId  = $("#order_id").val();
+      $.ajax({
+          type: 'Post',
+          url: baseurl + '/change-vendor-order',
+          data: {order_id: orderId, vendorid: vendorId},
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          success: function () {
+              window.location.reload();
+          }
+      });
+
+  }
   function changeVendorOrder()
   {
   
@@ -3239,7 +3255,6 @@ function modalClose(){
         $('#overlay').remove();
         $('#vendorChangeMsg').show();
         $('#vendorChangeMsg').html(response);
-  
   
     }
   });

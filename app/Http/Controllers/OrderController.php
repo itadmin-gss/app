@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AdditionalServiceItem;
 use App\AdditionalServiceItemImage;
+use App\AssignRequest;
 use App\Asset;
 use App\City;
 use App\Helpers\Email;
@@ -2588,13 +2589,13 @@ Completion Date: ".$orders[0]->completion_date;
     {
         $order_id=Request::get('order_id');
         $vendorid=Request::get('vendorid');
-            $data['status'] = 0;
-            $data['status_text'] = "New Work Order";
-            $data['status_class'] = "green";
-            $data['vendor_id'] =$vendorid;
 
-        $vname=Order::where("id", $order_id)
-        ->update($data);
+            $data['vendor_id'] =$vendorid;
+        $order_data = Order::where("id", $order_id)->get();
+        $request_id = $order_data[0]->request_id;
+
+        Order::where("id", $order_id)->update($data);
+        AssignRequest::where("request_id", $request_id)->update(["vendor_id" => $vendorid]);
 
         $check_vendor = PruvanVendors::where('vendor_id', $data['vendor_id'])->get();
         if (count($check_vendor) > 0)
